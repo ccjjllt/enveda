@@ -108,6 +108,27 @@ R0 notebook 默认只做 single 权重前向，merged 只核对 CPU 加载和 me
 - `c1cccccO`→None 经排查是测试用例笔误（环数字 `1` 只出现一次，环未闭合，本来非法）；同分子的 `Oc1ccccc1` 一次通过。解析器无问题，v32 的异常→None 语义保留。
 - 发现 `coconut-casmi26-candidates` v2 自带预计算池：`coco_fp.npy` 378,349,391 B、`coco_mass.npy` 3,491,240 B、`coco_meta.pkl` 41,450,156 B（2026-09-15，MCP 实查）。R1 可直接用该池，不必本地重算 27 万结构指纹；shape 待 Colab 侧验证。
 
+## R1 mass 阶段试点（2026-10-01，Colab T4，16 谱）
+
+- Q 为 `np_forward_sample.json` 16 谱（`Q["spectra"]`，此前 `len(Q)=5` 只是外层 dict 键数）；C 为 coco 池 436,389（packed 867B）。
+- 加合表与 `neutral_mass` 逐字采用 v32。20ppm 窗口：5–215 候选，中位约 33；最大两例 2538448（215）、2538450（156）；最小 2538446（5）。43.6 万→数十，质量过滤有效。
+- 真值是否在窗内尚未核对（需 `coco_meta.pkl` 身份映射）；FPNet 打分尚未跑。这只是 mass 阶段观察，不作排序结论。
+
+## R1 mass→FPNet 试点：coco 池真值召回为 0（2026-10-01/02，Colab T4）
+
+- 同一 Q（16 NP 谱）/C（coco 436,389）/20ppm 窗：16 个真值结构**全不在池**（`truth_in_pool=False`），`truth_rank` 无从谈起。key 格式已排除（两边同为 14 位大写），是该快照真实缺失。
+- 本地已导出 `artifacts/004-research/train_structures.jsonl`（2,539,608 行→275,810 去重结构，23MB，已忽略）：下一步 C 换训练结构池，真值必在池内，R1 才可测量排序增量。
+
+## R1 训练结构池建成（2026-10-01/02，Colab T4）
+
+- `train_fp.npy (275810, 867)` packed、`train_mass.npy`、`train_keys.npy`，分块 25k×4 worker，`fail=0`。C 换训练池后 16 试点真值必在池内，R1 可测排序增量。
+
+## R1 训练池 FPNet 排序试点（2026-10-01/02，Colab T4，16 NP 谱）
+
+- 同 Q（16 谱）同 C（训练结构池 275,810）同 20ppm 窗：16/16 真值在窗（mass 阶段召回 1.0）；FPNet single 点积排序 ranks：1×8、2×4、5、7、8、13。MRR≈0.659、Top1=0.50、Top25=1.0（本轮手工计算，仅试点口径）。
+- 窗口大小 2–136（中位约 20），质量过滤后 FPNet 在几十候选内排序，链路真实跑通。
+- 边界：16 分子试点；这些结构是训练集内结构（checkpoint 训练见过，属已见结构排序能力，非未见泛化）；cosine 中间档未跑（需谱库 L 接入，待补）；coco 池真值缺失结论保留（C 不同， recalls 不可比）。
+
 ## 接手顺序
 
 1. 阅读 004 计划与本进展；先用能够实际发现 Colab notebook 工具的客户端连接明确的私有 notebook，按用户要求不继续低效 GUI 自动化。
