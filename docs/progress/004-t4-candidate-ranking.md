@@ -100,6 +100,14 @@ R0 notebook 默认只做 single 权重前向，merged 只核对 CPU 加载和 me
 - 结论：single 权重与输入 contract 一致，T4 单步前向可行；后 3 跑 0.041s/16谱是小 batch 诊断速度，不估计完整训练吞吐。下一步 R1 需 `fp_bits.npy`（候选侧 10,407→6,930 映射）与固定 Q/L/C。
 - `fp_bits.npy`（2026-10-01，用户在 Colab 取 `prvsiyan/coconut-casmi26-candidates/versions/2`）：`sha256=a61e372fc41091bf5c7467e08134081266262665077cb9e2c56d73e4887f3013`。Colab 侧已在 R1 前置位；本地 `artifacts/004-research/fp_bits.npy` 副本待补（55KB）。维度校验（6930/int64/上界10407）以用户 Colab 输出为准，shape 回执待补。
 
+## 候选侧指纹链验证（2026-10-01，Colab T4 手动执行）
+
+- rdkit 2026.03.6（Colab 实测值；官方 scorer 2026.03.3，版本差已记录）。
+- `fp_bits.npy`（v2，sha 见上条）：shape (6930,)/int64/min 2/max 10405，合法。
+- 按 v32 `fp_and_mass` 原样（Morgan r2/r3 4096、RDKitFP 2048 maxPath 6、MACCS 167，concat 后 `[BITS]` 选位）：CCO→27 bits/mass 46.0419、醋酸 35/60.0211、咖啡因 548/194.0804、甘油 57/92.0473，质量与理论值一致。
+- `c1cccccO`→None 经排查是测试用例笔误（环数字 `1` 只出现一次，环未闭合，本来非法）；同分子的 `Oc1ccccc1` 一次通过。解析器无问题，v32 的异常→None 语义保留。
+- 发现 `coconut-casmi26-candidates` v2 自带预计算池：`coco_fp.npy` 378,349,391 B、`coco_mass.npy` 3,491,240 B、`coco_meta.pkl` 41,450,156 B（2026-09-15，MCP 实查）。R1 可直接用该池，不必本地重算 27 万结构指纹；shape 待 Colab 侧验证。
+
 ## 接手顺序
 
 1. 阅读 004 计划与本进展；先用能够实际发现 Colab notebook 工具的客户端连接明确的私有 notebook，按用户要求不继续低效 GUI 自动化。
