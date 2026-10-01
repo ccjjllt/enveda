@@ -1,0 +1,405 @@
+{
+  "checked_date": "2026-10-01",
+  "completed_at_utc": "2026-10-01T13:59:36Z",
+  "note": "证据整理完成时间为工具UTC实测；排行榜为分页采样，非原子快照。只读远端，无训练、提交、发言或凭据记录。",
+  "methods": [
+    "Kaggle MCP get_competition",
+    "Kaggle MCP get_competition_leaderboard (overridePublic=true; 11 pages)",
+    "Kaggle MCP list_competition_pages",
+    "Kaggle MCP list_competition_topics (New and Recent)",
+    "Kaggle MCP get_forum_topic",
+    "Kaggle MCP get_notebook_info (latest metadata version 13)",
+    "Official Kaggle website via web search/open; indexed-page freshness recorded below"
+  ],
+  "metadata": {
+    "competition_id": 143318,
+    "slug": "enveda-CASMI26-molecule-id-mass-spectra",
+    "category": "Featured",
+    "team_count_at_initial_query": 2000,
+    "awards_points": true,
+    "deadline": "2026-12-14T23:59:00Z",
+    "code_competition": true,
+    "max_daily_submissions": 5,
+    "max_team_size": 5
+  },
+  "leaderboard": {
+    "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard",
+    "kind": "Public (explicit overridePublic=true)",
+    "metric": "MRR@25; metadata legacy Mean Average Precision label is not the metric definition",
+    "top10": [
+      {
+        "ordered_position": 1,
+        "team_name": "pikachu",
+        "display_score": "0.471",
+        "submission_date": "2026-10-01T05:51:53.546666700Z"
+      },
+      {
+        "ordered_position": 2,
+        "team_name": "Randy",
+        "display_score": "0.435",
+        "submission_date": "2026-10-01T05:22:23.230Z"
+      },
+      {
+        "ordered_position": 3,
+        "team_name": "Ozymandias31415",
+        "display_score": "0.425",
+        "submission_date": "2026-09-25T00:00:57.303333300Z"
+      },
+      {
+        "ordered_position": 4,
+        "team_name": "chopper",
+        "display_score": "0.424",
+        "submission_date": "2026-10-01T11:15:05.670Z"
+      },
+      {
+        "ordered_position": 5,
+        "team_name": "Shehab Alshehabi",
+        "display_score": "0.423",
+        "submission_date": "2026-10-01T10:57:46.430Z"
+      },
+      {
+        "ordered_position": 6,
+        "team_name": "Faraz92",
+        "display_score": "0.423",
+        "submission_date": "2026-10-01T04:20:01.286666700Z"
+      },
+      {
+        "ordered_position": 7,
+        "team_name": "Savko",
+        "display_score": "0.416",
+        "submission_date": "2026-10-01T06:27:10.200Z"
+      },
+      {
+        "ordered_position": 8,
+        "team_name": "wang penghua",
+        "display_score": "0.415",
+        "submission_date": "2026-10-01T07:52:05.916666700Z"
+      },
+      {
+        "ordered_position": 9,
+        "team_name": "Santiago Maniches",
+        "display_score": "0.414",
+        "submission_date": "2026-10-01T06:09:05.450Z"
+      },
+      {
+        "ordered_position": 10,
+        "team_name": "CoderX_Revenge",
+        "display_score": "0.414",
+        "submission_date": "2026-10-01T04:35:18.976666700Z"
+      }
+    ],
+    "distribution": {
+      "n": 2001,
+      "n_unique_teams": 2001,
+      "min": 0,
+      "max": 0.471,
+      "mean": 0.258623,
+      "percentiles": {
+        "p10": 0.091,
+        "p25": 0.151,
+        "median": 0.316,
+        "p75": 0.343,
+        "p90": 0.391,
+        "p95": 0.4,
+        "p99": 0.405
+      },
+      "bins": [
+        {
+          "min": 0,
+          "max": 0,
+          "expression": "=0",
+          "count": 89
+        },
+        {
+          "min": 0,
+          "max": 0.1,
+          "expression": "(0,0.1)",
+          "count": 130
+        },
+        {
+          "min": 0.1,
+          "max": 0.2,
+          "expression": "[0.1,0.2)",
+          "count": 448
+        },
+        {
+          "min": 0.2,
+          "max": 0.3,
+          "expression": "[0.2,0.3)",
+          "count": 263
+        },
+        {
+          "min": 0.3,
+          "max": 0.35,
+          "expression": "[0.3,0.35)",
+          "count": 629
+        },
+        {
+          "min": 0.35,
+          "max": 0.4,
+          "expression": "[0.35,0.4)",
+          "count": 325
+        },
+        {
+          "min": 0.4,
+          "max": 0.45,
+          "expression": "[0.4,0.45)",
+          "count": 116
+        },
+        {
+          "min": 0.45,
+          "max": 1,
+          "expression": "[0.45,1)",
+          "count": 1
+        }
+      ],
+      "most_common_scores": [
+        [
+          "0.328",
+          120
+        ],
+        [
+          "0.000",
+          89
+        ],
+        [
+          "0.399",
+          64
+        ],
+        [
+          "0.341",
+          63
+        ],
+        [
+          "0.401",
+          51
+        ],
+        [
+          "0.339",
+          38
+        ],
+        [
+          "0.400",
+          30
+        ],
+        [
+          "0.342",
+          30
+        ],
+        [
+          "0.330",
+          26
+        ],
+        [
+          "0.332",
+          23
+        ]
+      ],
+      "ordered_position_scores": [
+        {
+          "position": 1,
+          "score": "0.471"
+        },
+        {
+          "position": 5,
+          "score": "0.423"
+        },
+        {
+          "position": 10,
+          "score": "0.414"
+        },
+        {
+          "position": 14,
+          "score": "0.409"
+        },
+        {
+          "position": 20,
+          "score": "0.406"
+        },
+        {
+          "position": 50,
+          "score": "0.401"
+        },
+        {
+          "position": 100,
+          "score": "0.400"
+        },
+        {
+          "position": 200,
+          "score": "0.391"
+        },
+        {
+          "position": 500,
+          "score": "0.343"
+        },
+        {
+          "position": 1000,
+          "score": "0.316"
+        },
+        {
+          "position": 1500,
+          "score": "0.151"
+        },
+        {
+          "position": 2000,
+          "score": "0.000"
+        }
+      ]
+    },
+    "caveats": [
+      "初始get_competition报告2000队；分页遍历得到2001条、2001个唯一team_id，最后next_page_token为空。榜单在读取期间可能变化，2001为本次返回条目数，不强行与先前meta合并成同一时点。",
+      "接口仅返回3位小数展示分数。统计基于展示分数，不能据相同数字断言真实完全并列，也不能推断团队采用相同方案。",
+      "ordered_position是接口顺序（本次单调不增），接口未返回官方rank字段。第14条.409、第5条.423只是此时公开榜参考，不是奖金/金牌分数线。",
+      "没有读取用户私有提交或推断本项目已具备上述排行榜能力。"
+    ]
+  },
+  "scoring_public_private": {
+    "official_competition_data_source": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/data",
+    "official_general_source": "https://www.kaggle.com/docs/competitions",
+    "conclusion": "可见test.parquet为训练抽样占位，代码提交重跑会替换为隐藏test。公开排行榜分数来自隐藏评测中的公开计分部分；public指分数可见，不是指开发时可见占位test被用于排名。最终排名以private部分为准，故公开榜有价值但不是最终奖项保证。",
+    "split_ratio_evidence": {
+      "source": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard",
+      "public_percent": 33,
+      "private_percent": 67,
+      "provenance": "web搜索抓到官方排行榜页面的索引文本，注明约33%/67%；搜索结果抓取时间为约2周前。直接web open没有正文，IAB浏览器不可用，未完成当前页面UI复核。",
+      "status": "仅作带来源日期的比例线索，不宣称实时重新确认；该索引中的旧分数和队伍数未用于本次排行。"
+    },
+    "research_implication": "预先固定本地分子分组、候选池与独立查询谱；将提交视作外部分布检查，不反复按一两个公开分数差调整模型。"
+  },
+  "prizes_and_medals": {
+    "competition_awards_source": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/",
+    "awards_verification": "当前MCP metadata awards_points=true且Featured；官方overview索引页明确Awards Points & Medals。索引旧队伍数不采用。",
+    "prize_source": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/overview/prizes",
+    "prize_usd": [
+      16000,
+      12000,
+      9000,
+      7000,
+      6000
+    ],
+    "total_prize_usd": 50000,
+    "prize_basis": "前5名奖金与比赛资格、规则及获奖方案审查相关，最终使用private leaderboard；当前public前5不代表已获奖金。",
+    "progression_source": "https://www.kaggle.com/progression/competitions",
+    "progression_official_summary": "官方竞赛奖牌规则：1000+队时铜牌前10%、银牌前5%；金牌前10名再加队伍数的0.2%，百分比向下取整。官方举例500队前11名、5000队前20名。",
+    "current_scale_illustration": {
+      "teams": 2001,
+      "illustrative_gold_places": 14,
+      "calculation": "10 + floor(2001 * 0.002) = 14",
+      "status": "解释当前规模，不是比赛结束的名額承诺，更不是公开0.409即金牌。最终队伍规模、资格与排名可能改变。"
+    },
+    "rules_source": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/rules",
+    "winner_obligations_current_mcp": "获奖需提供可复现最终方案的训练与推理代码、环境资源说明，并按比赛要求许可；本比赛Winner License Type为MIT，领取流程还包括资格及税务文件。最多选择2个Final Submissions。",
+    "eligibility_clarification_source": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/744470#3530300",
+    "eligibility_clarification": "HOST David Healey明确任何使用或训练于NIST的方案会被取消资格。该回复针对只争奖牌不争奖金的问题，不能把放弃奖金解释为允许违规数据。未发现新host给予奖牌豁免。",
+    "caution": "本次MCP rules仅返回competition-specific条款，未含完整Foundational Rules；最终私榜规则另由官方competitions文档与本赛leaderboard页支持。没有声称已审查用户个人奖金资格。"
+  },
+  "official_metric_update": {
+    "url": "https://www.kaggle.com/code/metric/casmi-mean-reciprocal-rank",
+    "access": "get_notebook_info without versionLabel succeeded; metadata.current_version_number=13",
+    "version": 13,
+    "rdkit_version": "2026.03.3",
+    "helper_logic": [
+      "不是字符串则返回None；Chem.MolFromSmiles失败返回None。",
+      "将分子直接传给TautomerEnumerator().Canonicalize，再Chem.MolToInchiKey(canonical_mol)[:14]。",
+      "捕获ValueError、RuntimeError、TypeError并返回None。"
+    ],
+    "has_explicit_RemoveStereochemistry_call": false,
+    "candidate_list_logic": [
+      "分号split，对每项strip，再删除空字符串。",
+      "去空后无候选或超过25个则拒绝；不会自动去除重复候选。",
+      "按剩余列表1-based顺序enumerate；无效非空SMILES、错误候选、重复候选均占排名位置。",
+      "先用重原子元素组成跳过不可能匹配者；首个规范化IK14命中计1/rank并停止；按分子平均。"
+    ],
+    "host_new_clarification": {
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/744556#3530612",
+      "host": "David Healey",
+      "date": "2026-09-30T14:59:32.040Z",
+      "summary": "隐藏solution答案在canonicalization之前已去除立体信息。"
+    },
+    "distinction": "这是答案上游预处理的说明，不能声称v13 scorer自动对任意提交SMILES去立体。参与者给出的同连通结构示例在带/不带立体时经过tautomer canonicalization可产生不同IK14。",
+    "implementation_inference": "建议在候选导出与本地groundtruth构造时明确采用去立体预处理，并用官方v13实际逻辑做人工小样本核对；不要私自改变scorer后仍称完全相同。候选去重依官方规范化键，数据分组也应考虑该等价关系。"
+  },
+  "new_or_relevant_discussions": [
+    {
+      "id": 744556,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/744556",
+      "title": "Are solution SMILES stereo-stripped like train normalized_smiles?",
+      "evidence_type": "HOST answer plus participant counterexample",
+      "summary": "新增与实际匹配直接相关的答案预处理细节，见official_metric_update。"
+    },
+    {
+      "id": 744470,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/744470",
+      "title": "Chasing medals with price ineligible sources",
+      "evidence_type": "HOST answer; later replies are participant speculation",
+      "summary": "NIST禁令适用任何方案；其他评论讨论执行难度，不能当规则例外。"
+    },
+    {
+      "id": 744893,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/744893",
+      "title": "DreaMS : structure from spectrum retrival demo",
+      "published": "2026-10-01T09:41:35.290Z",
+      "evidence_type": "participant method demonstration, not host or reproduced result",
+      "notebook": "https://www.kaggle.com/code/hengck23/dreams-structure-from-spectrum-retrival-demo",
+      "summary": "新demo用DreaMS谱embedding加cosine KNN检索MassSpecGym embedding库，作者明确定位Class1。没有证明该方法能独立解决无参考谱Class2或库外Class3。"
+    },
+    {
+      "id": 744343,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/744343",
+      "title": "trick: train a smiles to MS/MS predictor too!",
+      "evidence_type": "participant research suggestion",
+      "summary": "提出正向SMILES/adduct→MS/MS模型可辅助逆向结构生成。可转化为公开、许可清晰的forward prediction重排或合成数据消融；帖子未提供可验证提分证据。"
+    },
+    {
+      "id": 743974,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/743974",
+      "title": "All you need is a good ranker",
+      "evidence_type": "participant report only",
+      "summary": "强调候选排序对Class1/2的重要性。作者CV和页面展示不当作本项目基准；沿用分离候选覆盖率与MRR的设计。"
+    },
+    {
+      "id": 744446,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/744446",
+      "title": "Exact duplicate MS/MS spectra with conflicting structure labels in train.parquet",
+      "evidence_type": "participant report, latest topic listings still show no replies",
+      "summary": "未发现主办方对冲突谱标签报告的新修正。仍需自己核查跨行谱重复，不能把官方描述去重等同实际完全无重复。"
+    }
+  ],
+  "route_implications": [
+    {
+      "priority": 1,
+      "action": "先修正研究口径再解释训练收益",
+      "reason": "官方去立体答复+v13源代码给出具体匹配顺序；现有字符串匹配、原始inchikey14分组和未去重query/library不能支撑奖金/金牌级性能判断。"
+    },
+    {
+      "priority": 2,
+      "action": "T4首个真实模型实验应同时具备合法候选池与固定评估",
+      "reason": "只训练FPNet但候选池无真值无法提升结构识别。分别报告候选覆盖、候选内排序和整体MRR，保留structure-disjoint与独立谱两类场景。"
+    },
+    {
+      "priority": 3,
+      "action": "把DreaMS当Class1的检索/表征增量对照",
+      "reason": "最新demo是参考谱库KNN，不能替代Class2数据库候选评分，也不能解决Class3。用户已有FPNet应先真实加载建立T0，再按互补误差决定引入DreaMS。"
+    },
+    {
+      "priority": 4,
+      "action": "Class2优先比较指纹排序与公开forward-spectrum证据的组合",
+      "reason": "前者谱→指纹、后者结构→预测谱有不同误差，可做独立消融。必须使用被允许的数据/权重；MassSpecGym版GLACIER及CFM-ID4已有前序host准许，不能换成NIST版本。"
+    },
+    {
+      "priority": 5,
+      "action": "为Class3另留小预算de novo路线，不承诺其收益",
+      "reason": "纯候选检索无法覆盖库外真值；类别比例不公开，不能从公开榜分数反推类别数量或盲目投入最大模型。"
+    },
+    {
+      "priority": 6,
+      "action": "榜单用作动态竞争参考，最终交接保存可复现实验链",
+      "reason": "本次.399–.401区间出现大量相同展示分数，但金牌/奖金取决于最终私榜。保存数据快照、候选库来源、checkpoint、训练配置和最终离线推理入口，便于评估和获奖方案复现。"
+    }
+  ],
+  "unresolved": [
+    "约33%/67%的split比例仅取到官方索引文本，未做当前UI复核。",
+    "无本项目hidden提交结果，本次没有训练或leaderboard提交。",
+    "真实类别比例、最高分团队方法、checkpoint训练暴露和最终金牌/奖金分数不可由公开榜断言。"
+  ]
+}

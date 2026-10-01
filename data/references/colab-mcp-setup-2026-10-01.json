@@ -1,0 +1,39 @@
+{
+  "checked_at": "2026-10-01",
+  "repository": "https://github.com/googlecolab/colab-mcp",
+  "commit": "b9ab3899e0f1fa493390b1fd6d54aa2e464ecdf1",
+  "source_archive_sha256": "b7ab4d3a0322ce5b1313072312b937783ad19b24bbe2ed1500da6e60b417ba05",
+  "versions": {
+    "python": "3.13.14",
+    "colab-mcp": "1.0.1",
+    "fastmcp": "2.14.5",
+    "mcp": "1.30.0"
+  },
+  "executable": "/Users/zhaohuaxiang/.local/bin/colab-mcp",
+  "global_configs": [
+    "~/.codex/config.toml",
+    "~/.config/opencode/opencode.jsonc",
+    "~/.grok/config.toml"
+  ],
+  "backup_suffix": ".bak.colab-20261001-d45176a4",
+  "verification": {
+    "stdio_initialize": "success",
+    "protocol_version": "2025-11-25",
+    "initial_tools": [
+      "open_colab_browser_connection"
+    ],
+    "codex_config_read": "success",
+    "grok_doctor": "healthy; initial handshake only",
+    "opencode_config": "parsed and merged; client event handler inspected",
+    "browser_connection": "success via current Codex MCP; structuredContent.result=true",
+    "dynamic_tools_after_browser_connection": "not exposed in current tool catalog or callable bindings; only open_colab_browser_connection visible",
+    "cloud_accelerator_allocation": "not attempted",
+    "training": "not started",
+    "notebook_cell_execution": "not performed; execution tool unavailable"
+  },
+  "kaggle_colab_integration": {
+    "link_to_colab": "Subscription promotion adds Kaggle GPU time, not Colab hosted runtime access",
+    "open_in_colab": "Colab editor connected to Kaggle Jupyter backend",
+    "source": "https://www.kaggle.com/docs/notebooks"
+  }
+}

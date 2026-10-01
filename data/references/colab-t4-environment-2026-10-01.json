@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-01",
+  "experiment": "004 environment only",
+  "method": "Manual Colab browser UI cell execution; not Colab MCP execution",
+  "notebook_url": "https://colab.research.google.com/drive/1gxH98kv2Bs0ysUezAMOYWRKGZmo_hSJ3",
+  "environment": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu128",
+    "cuda_available": true,
+    "cuda_version": "12.8",
+    "gpu": "Tesla T4",
+    "torch_total_memory_gib": 14.563,
+    "ui_host_ram_total_gb": 12.67
+  },
+  "execution_scope": "Import torch, read device properties, print JSON only. No model forward, optimizer, loss, or training.",
+  "colab_mcp": "Only open_colab_browser_connection exposed in current Codex tool catalog",
+  "ui_automation": "Stopped after explicit user feedback; no further GUI execution or disconnect performed",
+  "initial_issue": "First cell had UI auto-indentation error; fixed one-line cell executed successfully."
+}

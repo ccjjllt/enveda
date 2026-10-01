@@ -1,0 +1,356 @@
+{
+  "retrieved_date": "2026-10-01",
+  "scope": "只读公开代码、官方仓库/论文/资源元数据；未下载新权重、未训练、未提交。原始FPNet定义按root请求摘录至artifacts/004-research/reference-fpnet-v32.py。",
+  "evidence_levels": {
+    "official": "模型作者官方仓库/论文中的事实或作者报告",
+    "kaggle_source": "Kaggle MCP实际读取的公开版本源码/文件元信息",
+    "inference": "本项目研究建议，未以运行结果证实",
+    "unverified": "权重可下载性、训练暴露/许可细节或T4预算尚待人工确认"
+  },
+  "key_corrections": [
+    "GLACIER、ICEBERG是结构到谱的forward模型；作为重排器不创造库外结构。FoAM或de novo解码器可创造结构后交给forward模型评分。",
+    "纯检索在固定候选池上的MRR@25不超过真值结构候选召回率。不要从公开榜拟合Class3比例或声称固定排名天花板。",
+    "FRIGID、MS-GPT论文结果基于known-formula协议；CASMI隐藏输入不可假定提供真实分子式。必须单独测top-k公式召回与生成候选召回。",
+    "公开checkpoint已对本项目holdout的预训练暴露未知；代码检查/加载前向不等于泛化证据。重新训练时整组留出并保留已见结构独立谱轨道。"
+  ],
+  "fpnet_reference": {
+    "code_path": "artifacts/004-research/reference-fpnet-v32.py",
+    "source": "https://www.kaggle.com/code/prvsiyan/analog-propagation-casmi-2026-baseline/version/32",
+    "source_cells_zero_based": [
+      17,
+      18
+    ],
+    "weights": "https://www.kaggle.com/datasets/prvsiyan/casmi26-fp-models-v2",
+    "weight_version": 1,
+    "weight_page_license": "CC0: Public Domain；训练数据源许可仍需继承，不能由此推定全部衍生物无条件公开",
+    "architecture": {
+      "d": 512,
+      "layers": 6,
+      "heads": 8,
+      "max_peaks": 128,
+      "output_bits": 6930
+    },
+    "forward_without_bit_mapping": "可以。沿用原prep_peaks和metadata词表后，加载state_dict即可对真实谱输出6930 logits；该结果不能直接解释为4096 Morgan或候选得分。",
+    "feature_schema": {
+      "peak_preprocessing": "保留mz<=precursor+1.5；强度阈值1e-3*最大强度；超长时50Da窗口先每窗8峰、再全局补足/截到128；按mz排序；强度sqrt(it/max)。",
+      "fingerprint_concat": [
+        {
+          "kind": "Morgan",
+          "radius": 2,
+          "bits": 4096
+        },
+        {
+          "kind": "Morgan",
+          "radius": 3,
+          "bits": 4096
+        },
+        {
+          "kind": "RDKit",
+          "maxPath": 6,
+          "bits": 2048
+        },
+        {
+          "kind": "MACCS",
+          "bits": 167
+        }
+      ],
+      "full_bits": 10407,
+      "selected_bits": 6930,
+      "selection": "np.concatenate([...])[BITS]，BITS来自fp_bits.npy；不能取前6930，也不能重新筛位后加载旧head。",
+      "mapping_dataset": "prvsiyan/coconut-casmi26-candidates",
+      "mapping_version": 2,
+      "mapping_file": "fp_bits.npy",
+      "mapping_bytes": 55568,
+      "metadata": "完整ADDUCT_LIST与INSTR_LIST顺序保留在原始定义；positive=+1，其他=-1；单谱CE取数组均值缺省25；instr_family按原函数。",
+      "merged_caveat": "v32将所有峰合并，近于0.005Da合并保留强峰；推理用median precursor、第一张adduct/instrument、固定CE25和均值mode。跨adduct/正负谱的这种伪谱元数据不物理一致，适合作对照而非默认最优。",
+      "training_inputs": "作者训练脚本另需spec.npz(off,mz,it,prec,ad,ins,ce,mode,six,is_val)、fp_meta.pkl(keys,nbits)、pool_meta.pkl/pool_mass.npy/pool_fp.npy。必须实现本项目版本与结构split，不能只下载pt开始监督训练。"
+    },
+    "training_code_observations": {
+      "objective": "BCEWithLogits+同质量窗63个decoys的softmax交叉熵；raw=fingerprint·logits，以fp32并按样本中心化/sqrt(nbits)计算。",
+      "defaults": "steps=80000,bs=256,lr=3e-4,warm=2000,val_every=2000,merge_p=0.6；这些是作者默认，不是我们的T4预算承诺。",
+      "author_report": "v32 markdown称单T4约2h训练；非本项目实测，具体数据预处理/步数/吞吐未独立验证。",
+      "memory_issue": "原Data默认将全部pool unpack成uint8并放GPU。若711705×6930，仅该数组约4.59GiB；这是尺寸计算非实测。建议packed CPU/memmap，按batch搬运candidate fingerprints。",
+      "resume": "公开推理checkpoint可能无优化器状态；当作finetune初始化，不能标称精确断点续训。"
+    }
+  },
+  "public_notebooks": [
+    {
+      "ref": "prvsiyan/analog-propagation-casmi-2026-baseline",
+      "url": "https://www.kaggle.com/code/prvsiyan/analog-propagation-casmi-2026-baseline",
+      "version": 32,
+      "last_run_time": "2026-09-28T13:53:45.507433400Z",
+      "machine_shape": "None",
+      "source_read": true,
+      "our_run": false,
+      "dataset_sources": [
+        "prvsiyan/casmi26-fp-models-v2",
+        "prvsiyan/casmi26-ranker-features",
+        "prvsiyan/chebi-lipidmaps-casmi26",
+        "prvsiyan/coconut-casmi26-candidates",
+        "prvsiyan/pubchem-npformula-massindex",
+        "prvsiyan/rdkit-wheel-offline"
+      ]
+    },
+    {
+      "ref": "inversion/casmi-denovo-tutorial-notebook",
+      "url": "https://www.kaggle.com/code/inversion/casmi-denovo-tutorial-notebook",
+      "version": 9,
+      "last_run_time": "2026-09-28T13:53:51.604674Z",
+      "machine_shape": "NvidiaTeslaT4",
+      "source_read": true,
+      "our_run": false,
+      "dataset_sources": []
+    },
+    {
+      "ref": "kozykappa/enveda-0-37-lb-score",
+      "url": "https://www.kaggle.com/code/kozykappa/enveda-0-37-lb-score",
+      "version": 1,
+      "last_run_time": "2026-09-28T13:53:39.819548100Z",
+      "machine_shape": "NvidiaTeslaT4",
+      "source_read": true,
+      "our_run": false,
+      "dataset_sources": [
+        "ahmedberatozer/casmi26-iceberg",
+        "ahmedberatozer/casmi26-pubchem-tier",
+        "ahmedberatozer/casmi26-v2-pool",
+        "ahmedberatozer/casmi26-v3-models",
+        "ahmedberatozer/casmi26-v4b-models",
+        "metric/rdkit-2026-3-3-wheel"
+      ]
+    },
+    {
+      "ref": "evgendvorkin/enveda-casmi-2026",
+      "url": "https://www.kaggle.com/code/evgendvorkin/enveda-casmi-2026",
+      "version": 20,
+      "last_run_time": "2026-09-28T13:53:55.936168300Z",
+      "machine_shape": "NvidiaTeslaT4",
+      "source_read": true,
+      "our_run": false,
+      "dataset_sources": [
+        "prvsiyan/casmi26-fp-models-v2",
+        "dmitriigluzdov/casmi26-pubchem-popularity-prior",
+        "prvsiyan/casmi26-ranker-features",
+        "megayak/casmi26-simulated-ranker-rows",
+        "ahmedberatozer/casmi26-fpnet-full1",
+        "ahmedberatozer/casmi26-glacier",
+        "ahmedberatozer/casmi26-iceberg",
+        "ahmedberatozer/casmi26-pubchem-tier",
+        "ahmedberatozer/casmi26-v2-pool",
+        "ahmedberatozer/casmi26-v3-models",
+        "ahmedberatozer/casmi26-v4b-models",
+        "prvsiyan/chebi-lipidmaps-casmi26",
+        "prvsiyan/coconut-casmi26-candidates",
+        "metric/rdkit-2026-3-3-wheel"
+      ]
+    }
+  ],
+  "kaggle_forward_assets": [
+    {
+      "ref": "ahmedberatozer/casmi26-iceberg",
+      "version": 1,
+      "bytes": 66922972,
+      "license": "Other (specified in description)",
+      "checkpoint_files": {
+        "ckpt/gen.pt": 14561244,
+        "ckpt/inten.pt": 13793037
+      },
+      "claimed_provenance": "MassSpecGym msg_all ICEBERG2.1；ms-pred MIT子集；纯torch DGL/torch_scatter shim；README/LICENSE-NOTICE未逐个下载读取。"
+    },
+    {
+      "ref": "ahmedberatozer/casmi26-glacier",
+      "version": 1,
+      "bytes": 61108325,
+      "license": "Other (specified in description)",
+      "checkpoint_files": {
+        "ckpt/glacier.pt": 60531887
+      },
+      "claimed_provenance": "MassSpecGym GLACIER；ms-pred MIT；带DGL/torch_scatter/LinSATNet替代实现。需人工与官方前向一致性比较，不把shim文件名当正确性证明。"
+    },
+    {
+      "ref": "ahmedberatozer/casmi26-v4b-models",
+      "version": 4,
+      "bytes": 1682593139,
+      "license": "Other (specified in description)",
+      "metadata_note": "页面声明含比赛训练数据衍生模型、CC BY-NC来源和COCONUT CC BY4.0；不贸然重新公开发布。含FPNet A/B、DreamsFP D、cross-encoder源码和LightGBM ranker，尚未逐项下载核对。"
+    }
+  ],
+  "sources": [
+    {
+      "id": "glacier",
+      "url": "https://github.com/coleygroup/ms-pred",
+      "paper": "https://arxiv.org/abs/2606.29161",
+      "code_license": "MIT",
+      "facts": [
+        "GLACIER为单阶段结构→MS/MS模拟器；官方提供MassSpecGym checkpoint链接。",
+        "标准GLACIER训练官方要求2个至少24GB GPU；ICEBERG同样建议2×24GB，缩batch/跳过contrastive是作者给的小卡替代建议。",
+        "ICEBERG官方示例曾在8GB RTX4070M以batch8推理；这不是GLACIER或T4实测。",
+        "NIST训练权重需对应NIST许可；优先核对公开MassSpecGym权重。"
+      ],
+      "weight_availability": "官方README给Dropbox链接；本轮未下载",
+      "t4_budget": "未证实，先小批候选推理；不以论文8倍速度或别卡demo速度推算全赛。"
+    },
+    {
+      "id": "frigid",
+      "url": "https://github.com/coleygroup/FRIGID",
+      "paper": "https://arxiv.org/abs/2604.16648",
+      "weights": "https://zenodo.org/records/19685145",
+      "code_license": "Apache-2.0",
+      "facts": [
+        "182.2M参数SAFE masked diffusion解码器，12层/768维；MIST4096-bit r2 fingerprint+formula条件。",
+        "可选ICEBERG迭代重生成；依赖token长度模型、tokenizer、MIST和可选forward checkpoint。",
+        "官方报告6.58秒/谱来自NVIDIA6000Ada，不能当T4速度。",
+        "官方默认预训练500000步/global batch2048，不适合作首轮单T4从头训练。"
+      ],
+      "weight_availability": "官方链接已确认；Zenodo本轮web读取受限，未确认文件清单/二进制/权重许可全文",
+      "t4_budget": "未证实；先base、batch1/小候选数，再增加采样量和迭代轮数。"
+    },
+    {
+      "id": "msgpt",
+      "url": "https://github.com/VIKI623/MS-GPT",
+      "paper": "https://arxiv.org/abs/2607.23607",
+      "code_license": "Apache-2.0",
+      "facts": [
+        "150.1M条件分子语言模型；MIST4096bit posterior与分子式条件。",
+        "默认100候选=20阈值query×5 SAFE样本；模型按known-formula评估。",
+        "释放共享backbone、MIST、适配器的SJTU Cloud bundle；推荐RTX6000Ada复现。",
+        "源码描述100007359分子记录预训练2epoch；不建议本项目重做该预训练。"
+      ],
+      "weight_availability": "README提供SJTU Cloud链接；本轮未下载、未核实权重附带条款",
+      "t4_budget": "无官方T4证据，按batch与decode候选数手动量测；FPNet6930不兼容其4096条件。"
+    },
+    {
+      "id": "foam",
+      "url": "https://github.com/coleygroup/foam",
+      "code_license": "MIT",
+      "facts": [
+        "分子式约束图遗传算法，使用ICEBERG给新结构打分；可从检索或生成器候选初始化。",
+        "要求formula，建议系统RAM至少20GB；CPU或CUDA可运行。",
+        "README时长表源码有TODO verify标记，且GPU例子为H100，不作为可靠T4预算。",
+        "可用MassSpecGym版ICEBERG；NIST版权重受许可限制。"
+      ],
+      "t4_budget": "先单分子小oracle-call预算与时间上限，计算每新增有效候选/命中所需成本。"
+    },
+    {
+      "id": "dreams",
+      "url": "https://github.com/pluskal-lab/DreaMS",
+      "api": "https://github.com/pluskal-lab/DreaMS/blob/main/dreams/api.py",
+      "formats": "https://github.com/pluskal-lab/DreaMS/blob/main/dreams/utils/dformats.py",
+      "code_license": "MIT",
+      "facts": [
+        "提供预训练表征及finetune接口；官方API默认100个最高峰与DataFormatA。",
+        "DataFormatA配置charge=+1，precursor/fragment m/z<=1000，须检查负模式/高质量样本域外问题；不能据此声称所有API都拒绝负谱。",
+        "优先冻结encoder训练指纹头，再少量解冻；直接替换质量差analog匹配不天然保留质量平移不变性。"
+      ],
+      "t4_budget": "未证实；先batch1/8/32表征吞吐、峰截断比例、host/GPU内存，再比较同split指标。"
+    },
+    {
+      "id": "mist",
+      "url": "https://github.com/samgoldman97/mist",
+      "download_script": "https://github.com/samgoldman97/mist/blob/main_v2/quickstart/00_download_models.sh",
+      "quickstart": "https://github.com/samgoldman97/mist/blob/main_v2/quickstart/01_run_models.sh",
+      "code_license": "MIT",
+      "facts": [
+        "官方quickstart从Zenodo8316682取CANOPUS指纹与contrastive checkpoint。",
+        "需先assign_subformulae，官方quickstart先建分子式子集再做Morgan4096检索。",
+        "用于生成器接口更直接；需要额外公式/子公式处理及adduct域适配，非原FPNet替换一行。"
+      ],
+      "t4_budget": "未核实；旧环境CUDA11依赖需在独立环境做手动前向，不据README可安装即声称可训练。"
+    },
+    {
+      "id": "massspecgym",
+      "url": "https://github.com/pluskal-lab/MassSpecGym",
+      "paper": "https://arxiv.org/abs/2410.23326",
+      "dataset": "https://huggingface.co/datasets/roman-bushuiev/MassSpecGym",
+      "license": "仓库和数据卡标MIT；其他外部来源独立确认",
+      "facts": [
+        "基准同时包含de novo、retrieval和simulation，任务间不可混称。",
+        "提供generalization-demanding splits与基线代码，适合方法参照；并非一个现成CASMI强生成checkpoint。",
+        "known-formula版本与unknown-formula版本需分开解释，榜单指标不能当本赛MRR。"
+      ]
+    },
+    {
+      "id": "official_casmi_denovo",
+      "url": "https://www.kaggle.com/code/inversion/casmi-denovo-tutorial-notebook/version/9",
+      "facts": [
+        "6层encoder+6层decoder、d768、12头、SMILES BPE，随机初始化；本身不是预训练权重微调。",
+        "作者代码注释：T4/batch128/peak128约6.4GB，peak256约9.8GB；20万谱训练约22分钟，不含全部验证/生成。",
+        "代码验证监控Tanimoto，不能代替本赛精确结构MRR；生成无KV cache成本要另量。"
+      ],
+      "t4_budget": "只引用作者注释，未用本项目T4复测；正式推理precision硬编码bf16片段应按T4能力核对。"
+    }
+  ],
+  "routes": [
+    {
+      "priority": 1,
+      "name": "FPNet+候选覆盖+多谱学习排序",
+      "solves": "Class1谱库匹配和Class2已召回候选排序；最短形成可计分基线",
+      "implementation": [
+        "精确adduct/中性质量，未知adduct显式未知；质量窗先测真值recall，不按质量误差硬截同式异构体。",
+        "读取fp_bits并固定规范化/指纹生成器，构建训练结构+COCONUT的候选索引；BCE和候选排序标签分离。",
+        "先保留single、作者merged、logit平均三种复现；再按ion mode/adduct分层、CE条件set pooling或候选级aggregation训练。",
+        "重训或finetune单谱trunk与多谱聚合头；候选/GBDT训练使用query-group-held-out或OOF，避免把trunk训练内预测直接教给重排器。"
+      ],
+      "limit": "候选池之外严格零召回；指纹相同或相近的同式异构体仍难区分。",
+      "manual_first": "实际checkpoint和单分子多谱forward；10/100结构的全质量窗候选评分；strict未知结构数据训练100-500步观测吞吐/显存/损失。"
+    },
+    {
+      "priority": 2,
+      "name": "ICEBERG/GLACIER正向模拟重排",
+      "solves": "候选中同分子式异构体，仅靠指纹难分时增加独立碎裂证据",
+      "implementation": [
+        "先下载官方或来源可核实的MassSpecGym inference checkpoint。",
+        "以FPNet top25/50/100候选做逐阶预算，不先对巨大库逐个模拟。",
+        "按真实adduct、CE、instrument模拟并聚合多谱误差；unsupported条件单独统计。",
+        "先测ranking delta、覆盖不变条件下的correct-to-wrong迁移；之后再考虑少量层微调或蒸馏forward信号。"
+      ],
+      "limit": "重排不增加结构候选覆盖；模型误差和instrument域差可将正确候选降排。",
+      "manual_first": "5-20分子、每分子10/25/50候选，测候选/秒、总时间、peak GPU RAM、失败率；不要直接启动官方2×24GB训练流程。"
+    },
+    {
+      "priority": 3,
+      "name": "Class3公式候选+预训练生成器",
+      "solves": "候选库无真值的结构，产生新增候选而非仅改变旧排名",
+      "implementation": [
+        "分子式可用训练label构造监督；推理用precursor/adduct/可用同位素与碎片支持生成top-k公式，先验证formula recall。",
+        "优先MS-GPT或FRIGID-base已释权重，按其MIST/4096bit/tokenizer条件接入；先oracle-formula诊断、再predicted-formula端到端。",
+        "每分子固定采样预算25/100/400候选，规范化去重、公式/质量检查，再用指纹+forward排序。",
+        "单列库外轨道：候选池剔除真值且训练按结构留出；同时报告预训练分子暴露未知，不能把已知公开数据库分子声称为真正新化合物。"
+      ],
+      "limit": "生成候选覆盖由公式recall、分子表示/元素范围与采样能力共同约束；exact结构难度远高于Tanimoto接近。",
+      "manual_first": "10-20结构oracle formula与top-k predicted formula双条件，统计validity/uniqueness/novelty-to-pool/Recall@100/MRR@25、seconds/molecule；先不做大预训练。"
+    },
+    {
+      "priority": 4,
+      "name": "DreaMS或MIST专用编码器迁移",
+      "solves": "以更好预训练表征提高指纹预测与域泛化；为生成器准备兼容posterior",
+      "implementation": [
+        "DreaMS冻结特征+训练指纹head与FPNet作同split比较，记录预训练数据重叠风险。",
+        "MIST route明确formula/subformula预处理，供MS-GPT/FRIGID接口；不要拼接/截断6930logits冒充4096Morgan。",
+        "按positive/negative、adduct与m/z范围分层；真正有效再解冻少量层或全模型。"
+      ],
+      "limit": "单独encoder仍不生成新结构；预训练目标不匹配可能无增益。",
+      "manual_first": "固定100-500结构、同候选池和分组split的embedding/head对比，记录CPU预处理瓶颈。"
+    }
+  ],
+  "proposed_manual_measurements": {
+    "infrastructure": "记录实际T4型号/可用内存、torch/CUDA/RDKit、checkpoint/data/split版本、seed；前向和训练分别记录。",
+    "initial_training_trial": "100-500步为预算估测，先小batch再增加；报告warmup后median step秒、spectra/s、peak CUDA memory、data-loader等待。这个步数是研究建议，不是最低门控或自动化测试。",
+    "evaluation": [
+      "分子级MRR@25、Top1、Recall@25",
+      "候选池true-structure recall与same-formula hard-negative排序",
+      "按seen/unseen/library-excluded、ion mode、adduct、instrument、谱数分层",
+      "公式Top1/Top3/Top10 recall",
+      "生成validity、unique structures、new-to-pool、生成池oracle recall",
+      "总体wall-clock、每分子p50/p95和失败类别"
+    ],
+    "design_note": "不创建测试文件，不写CI；实验由人手动发起。没有本项目结果就不声称提分。"
+  },
+  "unverified_items": [
+    "官方checkpoint二进制下载完整性与哈希",
+    "各权重训练谱/结构暴露与权重本身许可",
+    "MIST/MS-GPT/FRIGID对CASMI负模式和稀有adduct兼容性",
+    "T4长训练、全赛推理与9小时总预算",
+    "公开notebook标题/LB宣称并未与官方leaderboard独立核对",
+    "GLACIER/ICEBERG Kaggle shim与官方实现数值一致性"
+  ]
+}

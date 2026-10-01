@@ -2,7 +2,7 @@
 
 对应计划：[001-baseline](../plan/001-baseline.md)。最后更新：2026-09-30。
 
-**状态：研究准备与工具核实完成；B0 最小骨架已建并本地跑通，真实检索信号尚未实现。001-2 最小闭环完成：train 完整下载实测 + 两类留出清单已建，未跑 B0、未算 MRR。**
+**当前状态（2026-10-01 复核）：train、初步 split、B0/B2 本地运行和权重下载检查已完成；评分仍为旧口径，B2 存在 query/library 重叠，不能据旧数值判断融合收益。完整更正与下一轮见文末及 004 配对文档。以下保留各阶段历史记录。**
 
 ## 2026-09-30 补充：001-2 最小闭环（train 实测与 split 清单，已人工验证）
 
@@ -66,7 +66,7 @@
 - 外部云端私有训练获主办方允许；最终仍为 Kaggle 离线代码提交。
 - 跨库同结构重复需要显式处理；已见结构与未见结构分别评估。
 
-**本项目实验结果：尚无。** 没有候选召回指标、MRR、模型耗时、checkpoint、有效 submission 或排行榜分数。公开 notebook 的执行日志仅用于验证工具读取能力，不作为本项目实验。
+以上为最初准备阶段的状态，当时尚无实验结果。后续 B0/B2 数值记录如下；本项目仍没有正式规范化评分或排行榜分数。公开 notebook 的执行日志仅用于验证工具读取能力，不作为本项目实验。
 
 ## 2026-09-30 补充：001-3 B0 真实检索（已本地手动执行，仅流程自检）
 
@@ -84,14 +84,14 @@
 - B1 下载：`kaggle datasets download prvsiyan/casmi26-fp-models-v2 -p artifacts/001-baseline/weights --unzip`，v1（2026-09-16，CC0），两文件各 144110255 B（与数据页一致），`artifacts/`、`*.pt` 均在 `.gitignore`，未入 Git、未提交。
   - `fp_single_s2.pt` sha256 `c19aa290…b2e52b614a`；`fp_merged_m1.pt` sha256 `261529c8…c507cce829`（两权重不同，data.pkl sha 各异）。
   - 本地无 torch（`.venv` 仅 PyArrow 21.0.0），按任务不强装 CUDA/XLA：文件头 `PK\x03\x04`（torch.save zip），`torch.load` 记录 `ModuleNotFoundError` 失败。标准库 zip/data.pkl 字节扫描实测：顶层容器 `{model: OrderedDict, step, nbits, d, layers}`（无 `opt`/优化器状态，纯推理权重）；single `step=20000`、merged `step=24000`，同 `nbits=6930/d=512/layers=6`；state dict 含 6 层 Transformer blocks（0–5）+ head，与 002 计划 FPNet 描述（d=512/6层）一致。
-  - 训练来源：权重数据页无描述、无训练划分说明；作者 baseline notebook v32（已读 source，156332 字符）同时挂载比赛 `train.parquet` 与 `fp_*.pt`，故判为 train.parquet 派生、实际训练子集未知。
-  - 暴露重叠（shipped inchikey14 交集，实测扫描 train 全集 275810 去重结构）：unseen 留出 500/500 在训练池内，seen 留出 500/500 在训练池内，两轨道互不相交。结论口径：“预训练暴露未知→已核定重叠数”，最坏情况 1000/1000 暴露，引用该权重的结果不得称为严格未见泛化。
+  - 训练来源：权重数据页无描述、无训练划分说明；作者 baseline v32 同时挂载比赛 train 与权重。**10-01 复核更正：共同挂载不足以证明权重用该 train 训练；训练来源与具体子集仍待证实。**
+  - 留出与比赛训练池的交集（shipped inchikey14）：unseen 500/500、seen 500/500，两轨道互不相交。这是留出从 train 构造的事实，**不是 checkpoint 实际训练暴露的测量**；暴露状态仍 unknown，不能称严格未见泛化。
 - B2 融合对照：一次性手动脚本 `artifacts/001-baseline/b1b2_run.py`（同 b0 前例放 artifacts，非测试文件），库为 3712 全池化（同 B0 seen，跨结构干扰保留），seen 500 结构 4212 谱 leave-one-out，无新权重，占位口径。本地手动执行约 103s（fetch 96.5s、LOO 检索 5.0s）。`single` 复现 B0 seen 精确一致（MRR 0.992，`b0_reproduction_match=true`）。
   - 总体（分子级占位口径）：single 0.992 / scorefusion 0.996 / merged占位 0.995 / best_oracle 上限 0.998；平均候选数 single 1.24、scorefusion 1.25（20ppm 在 3712 池内选择性极强，同结构谱占命中多数）。
   - `[M+H]+`（n=313）：single 已 0.9968，融合无增益（scorefusion/merged 0.9952，天花板效应；1 例无候选融合也修不好）。
-  - `[M-H]-`（n=75）：single 0.9867/Top1 0.9733 → scorefusion 与 merged 占位均 1.0/1.0，两种融合在负模式都有效。
+  - `[M-H]-`（n=75）：single 0.9867/Top1 0.9733 → scorefusion 与 merged 占位均 1.0/1.0。**10-01 撤回“两种融合在负模式都有效”的解释**：融合读入的谱与参考库重叠，且可能包含其他模式/adduct，无法据此归因。
   - 其他 adduct（n=112）：single 0.9821 → scorefusion 0.9955（修好无候选例+排名）、merged 占位 0.9911（只修排名）。
-  - merged 占位口径说明：组内全谱峰池化取 top128，库与 single 同口径（仅剔除指定 query 自身；与组内成员共享峰形，分数偏乐观，只看相对趋势）。中途曾误用“剔除全组”库导致 MRR=0，已修正并记录。
+  - merged 占位口径说明：组内全谱峰池化取 top128，库只剔除指定 query，自合并输入包含仍在库中的其他谱。**10-01 更正：存在直接输入重叠，连相对趋势也不能用来选融合方法。** scorefusion 同样把原 library 谱重新作 query。早期“剔除全组”版本的 MRR=0 另保留为调试历史。
 - 产物：`artifacts/001-baseline/b1b2_report.json`（权重版本/加载性/重叠数/B2 对照表/耗时/seed）。未 push、未提交、未训练。
 - Blocker/局限：无 torch 本地无法真正前向验证权重（需 T4/TPU 远端）；merged 占位≠真 FPNet-merged 推理；分数均为占位口径（RDKit 未接入）；unseen 轨道未做融合（真值不在库，融合无意义）。
 
@@ -106,4 +106,12 @@
 
 ## 下一步交接
 
-执行计划 001：读取训练 schema 与结构/来源分布，建立两类留出，复现 B0/B1。公开参考 checkpoint 的预训练数据是否污染留出集是解释指标的前提，尚待核实。002 可先完善 TPU 环境适配方案，完整微调效果比较依赖本轮基线。
+转到 [004 计划](../plan/004-t4-candidate-ranking.md)：分离结构候选库与参考谱库，建立固定独立 Q/L 与 NP/timsTOF 主观察集，接入官方 scorer 和真实 FPNet，再研究训练/融合。保留旧结果，不覆盖旧 JSON 成新口径。
+
+## 2026-10-01：研究方法复核补充
+
+- `coverage=0.988` 实际为“有至少一个非空候选”的比例；当前 unseen 候选只来自已剔除真值的参考谱库。它不表示 98.8% 真值召回，零 MRR 也不能证明神经排序无效。
+- seen 使用的背景库仅为评估 500 结构的其余 3,712 谱，平均输出候选约 1.24；尚未建立独立测量或跨行去重，0.992 不与排行榜分数比较。
+- `src/evaluation.py` 排名前去重会压缩错误重复的名次，与官方 v13 不同；规范化与预测去重需要实现，评分本身保留真实提交顺序。当前 source 尚未修正，见 004 交接。
+- 本轮标量扫描 NP 来源为 1,184 谱/250 shipped 结构、全部 timsTOF，且与两类原留出结构交集均 0。原 unseen 中 2,054/4,463 谱为 timsTOF（322/500 结构），seen query 中 372/500 为 timsTOF。新划分需覆盖该目标域。
+- 原始 `b1b2_report.json` 个别说明称 merged 剔除全组，与实际代码冲突；保留历史文件并以本更正解释，不据该字段构造下一实验。
