@@ -91,6 +91,14 @@ R0 notebook 默认只做 single 权重前向，merged 只核对 CPU 加载和 me
 
 待办（未执行）：fp_bits.npy 下载联调、固定 Q 单谱规则、R1–R4 真实前向/训练、RDKit 规范化重算，均需远端手动执行。
 
+## R0 真实前向结果（2026-10-01，用户手动执行，产物已落盘）
+
+- 产物 `artifacts/004-research/r0_feasibility.json`（6.5KB，已忽略不入 Git），`completed_utc=2026-10-01T16:54:57Z`。
+- 环境：Tesla T4（15,637,086,208 B ≈ 14.56 GiB），torch 2.11.0+cu128 / CUDA build 12.8，Python 3.13.15，numpy 2.1.3。
+- 权重：kagglehub 下 `prvsiyan/casmi26-fp-models-v2/versions/1`，11.3s；`fp_single_s2.pt` 144,110,255 B，sha 与本地一致（`c19aa290…`），`weights_only=True`，CPU 加载 0.12s，`{model,step,nbits,d,layers}`，step=20000，参数 36,019,474。
+- 前向：`state_dict strict` 0 缺失/0 多余；16 真实谱 → `[16,6930]`，shape 相符，110,880 值全 finite；首跑 0.56s（含建模搬运），后 3 跑各 0.041s；`research_effect: not evaluated`（未算 MRR，无提分声称）。
+- 结论：single 权重与输入 contract 一致，T4 单步前向可行；后 3 跑 0.041s/16谱是小 batch 诊断速度，不估计完整训练吞吐。下一步 R1 需 `fp_bits.npy`（候选侧 10,407→6,930 映射）与固定 Q/L/C。
+
 ## 接手顺序
 
 1. 阅读 004 计划与本进展；先用能够实际发现 Colab notebook 工具的客户端连接明确的私有 notebook，按用户要求不继续低效 GUI 自动化。
