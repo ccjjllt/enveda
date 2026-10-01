@@ -1,0 +1,353 @@
+{
+  "checked_at": "2026-09-30",
+  "competition_slug": "enveda-CASMI26-molecule-id-mass-spectra",
+  "access_method": "Authenticated Kaggle MCP (read-only): get_competition, list_competition_pages, get_competition_data_files_summary, list_competition_topics, get_forum_topic, search_notebooks, get_notebook_info.",
+  "metadata": {
+    "id": 143318,
+    "title": "Enveda CASMI 2026 - Molecule ID From Mass Spectra",
+    "description": "Predict 2D chemical structures of small molecules detected in complex biological extracts",
+    "organization_name": "Enveda",
+    "category": "Featured",
+    "reward": "50,000 Usd",
+    "deadline": "2026-12-14T23:59:00Z",
+    "new_entrant_deadline": "2026-12-07T23:59:00Z",
+    "enabled_date": "2026-09-14T22:57:37.417Z",
+    "max_daily_submissions": 5,
+    "max_team_size": 5,
+    "evaluation_metric": "CASMI: Mean Average Precision",
+    "is_kernels_submissions_only": true,
+    "license_name": "Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)"
+  },
+  "official_pages": [
+    {
+      "page": "Description",
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/overview",
+      "summary": "从 LC-MS/MS 谱预测小分子二维结构，包含已知结构和新颖结构；每个 molecule_id 汇总多个谱。"
+    },
+    {
+      "page": "Evaluation",
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/overview/evaluation",
+      "summary": "MRR@25：每分子首个正确候选的倒数排名，未命中为0，然后对分子平均。SMILES经RDKit 2026.03.3的TautomerEnumerator.Canonicalize，再取InChIKey前14位比较；忽略立体与等价互变异构差异。每行 molecule_id,smiles；smiles用分号拼接最多25候选，最好在前；每个测试molecule_id出现一次。metadata的Mean Average Precision名称不应覆盖本页与实际metric。",
+      "metric_notebook": "https://www.kaggle.com/code/metric/casmi-mean-reciprocal-rank"
+    },
+    {
+      "page": "Code Requirements",
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/overview/code-requirements",
+      "summary": "最终提交必须是Notebook，CPU/GPU运行都不超过9小时；互联网禁用；允许免费公开外部数据和预训练模型；产出名为submission.csv。页面未列TPU作为最终提交加速器。"
+    },
+    {
+      "page": "Timeline",
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/overview/timeline",
+      "start_date": "2026-09-14",
+      "entry_and_team_merger_deadline_utc": "2026-12-07T23:59:00Z",
+      "final_deadline_utc": "2026-12-14T23:59:00Z",
+      "final_deadline_asia_shanghai": "2026-12-15T07:59:00+08:00"
+    },
+    {
+      "page": "Prizes",
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/overview/prizes",
+      "usd": [
+        16000,
+        12000,
+        9000,
+        7000,
+        6000
+      ],
+      "total_usd": 50000
+    },
+    {
+      "page": "rules",
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/rules",
+      "summary": "最多5人组队，每天最多5次提交，最多选2次最终提交；获奖方案MIT开源。外部数据需公开且公平可用/符合合理性标准；允许合规外部模型。比赛数据不可分享给未接受规则者。有关训练数据/预训练模型许可的细化，以已读取的HOST讨论回复为补充。"
+    }
+  ],
+  "data": {
+    "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/data",
+    "file_summary": {
+      "file_count": 3,
+      "parquet_count": 2,
+      "parquet_total_bytes": 3038135225,
+      "csv_total_bytes": 43619
+    },
+    "training": {
+      "description": "约250万谱、约27.5万结构；官方表按来源的谱数总和为2,539,575，结构数正文为275,810。尚未读取完整文件footer或全量去重验证。",
+      "spectra_count_summed_from_official_source_table": 2539575,
+      "unique_structures_reported_by_official_page": 275810,
+      "columns_reported": 18,
+      "has_molecule_id_or_spectrum_id": "官方Data页描述有误差；讨论742042多名参与者报告实际train没有这两列，未在本研究下载train确认。",
+      "columns_reported_by_participants": [
+        "ingest_lib",
+        "normalized_smiles",
+        "inchikey",
+        "inchikey14",
+        "molecular_formula",
+        "ionization_mode",
+        "instrument_type",
+        "adduct",
+        "adduct_orig",
+        "precursor_mz",
+        "precursor_error_ppm",
+        "ms2_mzs",
+        "ms2_normalized_intensities",
+        "num_peaks",
+        "base_peak_intensity",
+        "collision_energy_ev",
+        "collision_energy_orig",
+        "collision_energy_orig_units"
+      ]
+    },
+    "libraries": [
+      [
+        "enveda-180",
+        1153785,
+        182941
+      ],
+      [
+        "pluskal_ms2",
+        527581,
+        46821
+      ],
+      [
+        "riken",
+        347171,
+        15892
+      ],
+      [
+        "gnps",
+        220849,
+        45750
+      ],
+      [
+        "massbank",
+        101727,
+        9180
+      ],
+      [
+        "mona",
+        92416,
+        11681
+      ],
+      [
+        "spectraverse",
+        50933,
+        9631
+      ],
+      [
+        "msdial",
+        40765,
+        9127
+      ],
+      [
+        "drug_plus",
+        2545,
+        2539
+      ],
+      [
+        "enveda-np-examples",
+        1151,
+        250
+      ],
+      [
+        "masaryk",
+        652,
+        416
+      ]
+    ],
+    "library_columns": [
+      "ingest_lib",
+      "spectra",
+      "unique_structures_within_library"
+    ],
+    "training_caveats": [
+      "不同库的同一分子仍会重叠，库结构数不可直接求和。",
+      "enveda-180同仪器但主要为合成drug-like化学空间；enveda-np-examples的250种常见天然产物与hidden领域更接近，但这些分子也在其他库出现。",
+      "collision_energy_ev是官方建议模型使用的能量列；NCE转换只是近似；部分记录缺失。",
+      "precursor_error_ppm未经清洗，可作标签质量信号。"
+    ],
+    "visible_test": "训练数据抽样构成的占位样例；提交重跑会替换为hidden test。其统计与可恢复训练标签不能用于证明泛化。",
+    "hidden_test": {
+      "approx_spectra": 1500,
+      "approx_molecules": 400,
+      "spectra_per_molecule": "1–16 (median 3)",
+      "instrument": "Bruker timsTOF",
+      "neutral_monoisotopic_mass_da": "157–1159 (median 348)",
+      "adducts": [
+        "[M+H]+",
+        "[M+NH4]+",
+        "[M-H2O+H]+",
+        "[M-2H2O+H]+",
+        "[M+Na]+",
+        "[M+K]+",
+        "[M-H]-",
+        "[M-H2O-H]-",
+        "[M+CH2O2-H]-",
+        "[M+Cl]-"
+      ],
+      "novelty_classes": [
+        "Class 1: 公开谱库已有参考谱，允许通过训练/参考谱检索命中。",
+        "Class 2: 没有公开谱，但结构存在于PubChem或COCONUT。",
+        "Class 3: 结构不在PubChem或COCONUT（HOST讨论进一步确认）。"
+      ],
+      "class_distribution": "不公开；不可假定hidden与train全部结构互斥。"
+    },
+    "validation_inference": "建议至少分别人工运行已知结构检索场景（剔除完全相同query谱）及canonical structure整组holdout场景；天然产物/timsTOF分层观察。按谱随机拆分不能证明未见结构能力。候选去重与分组宜使用官方tautomer-canonical InChIKey14。"
+  },
+  "host_clarifications": [
+    {
+      "topic_id": 741876,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/741876#3525815",
+      "title": "Clarification on private external compute",
+      "host": "David Healey",
+      "dates": [
+        "2026-09-18",
+        "2026-09-19"
+      ],
+      "summary": "明确允许在私有第三方云环境处理/训练比赛训练数据，并确认私有HF存储+云训练+权重回Kaggle的流程。",
+      "implication": "将该一般许可用于私有Colab TPU训练是合理推论；帖子没有点名Colab。最终hidden推理仍遵守Kaggle Notebook限制。"
+    },
+    {
+      "topic_id": 742274,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/742274#3527095",
+      "host": "David Healey",
+      "date": "2026-09-23",
+      "summary": "空分号项在分配排名前删除；结尾分号无影响。Class 3同时不在PubChem和COCONUT。链接官方metric notebook。"
+    },
+    {
+      "topic_id": 742265,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/742265#3529574",
+      "host": "Marie Killian",
+      "date": "2026-09-28",
+      "summary": "线上评测等同公开casmi-mean-reciprocal-rank v13，没有改变。P100已退役。"
+    },
+    {
+      "topic_id": 742265,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/742265#3527952",
+      "host": "David Healey",
+      "date": "2026-09-25",
+      "summary": "允许使用train.parquet训练后开源的模型，包括第三方公开模型。"
+    },
+    {
+      "topic_id": 741359,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/741359",
+      "host": "David Healey",
+      "date": "2026-09-14",
+      "summary": "获奖方案所依赖数据/工具/模型需满足商业使用和再分发许可；不得把免费可下载简单等同合规。"
+    },
+    {
+      "topic_id": 742193,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/742193",
+      "host": "David Healey",
+      "dates": [
+        "2026-09-20",
+        "2026-09-25"
+      ],
+      "summary": "开源权重需符合训练数据许可；NIST/限制性商业谱库及其违规分发衍生权重应避免。train.parquet及enveda-np-examples可视为公开数据用于方案。"
+    },
+    {
+      "topic_id": 742991,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/742991#3527946",
+      "host": "David Healey",
+      "date": "2026-09-25",
+      "summary": "明确允许MassSpecGym及其许可宽松的公开模型。"
+    },
+    {
+      "topic_id": 744338,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/744338#3530189",
+      "host": "David Healey",
+      "date": "2026-09-29",
+      "summary": "明确允许MassSpecGym训练的GLACIER权重；该问题特指与NIST训练版本分开的公开权重。"
+    },
+    {
+      "topic_id": 743774,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/743774#3529238",
+      "host": "David Healey",
+      "date": "2026-09-27",
+      "summary": "明确允许CFM-ID 4发行模型，这是具体案例确认；不能外推成所有METLIN衍生模型均可用。"
+    },
+    {
+      "topic_id": 743569,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/743569",
+      "hosts": [
+        "David Healey",
+        "Marie Killian"
+      ],
+      "dates": [
+        "2026-09-27",
+        "2026-09-28"
+      ],
+      "summary": "允许Enveda-180 Zenodo发行版。Hidden test不含1/K0或CCS，列与可见test一致。"
+    },
+    {
+      "topic_id": 743236,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/743236#3528347",
+      "host": "David Healey",
+      "date": "2026-09-25",
+      "summary": "train.parquet为公开数据库聚合，训练模型可开源；将来发布的test限非商业。"
+    },
+    {
+      "topic_id": 743234,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/743234#3528238",
+      "host": "David Healey",
+      "date": "2026-09-25",
+      "summary": "COCONUT自身许可足以作为候选数据库许可依据。"
+    }
+  ],
+  "participant_reports_not_verified": [
+    {
+      "topic_id": 744446,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/744446",
+      "date": "2026-09-29",
+      "summary": "参与者报告22对完全相同谱有不同inchikey14标签，涉及msdial/riken的44行；查询时无host回复。应人工复核后再决定剔除。"
+    },
+    {
+      "topic_id": 742042,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/742042",
+      "summary": "多名参与者报告train为18列、无molecule_id/spectrum_id；另报告原始inchikey14并不完全等同官方tautomer-canonical键。"
+    },
+    {
+      "topic_id": 742278,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/742278",
+      "summary": "参与者报告可见test 1213谱全部在train，覆盖400分子；与官方占位test说明一致，并非hidden标签泄漏证据。"
+    },
+    {
+      "topic_id": 744417,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/744417",
+      "summary": "参与者报告纯结构holdout使直接library matching失效，PubChem候选集很大、碎裂排序信号有限。这是该参与者特定设置结果，不能当hidden效果。"
+    },
+    {
+      "topic_id": 743974,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/743974",
+      "summary": "参与者强调候选排序而非纯检索的重要性，报告自设A/B验证MRR。未经本项目复现，不作预期分数承诺。"
+    }
+  ],
+  "code_and_models": {
+    "metric": {
+      "url": "https://www.kaggle.com/code/metric/casmi-mean-reciprocal-rank",
+      "version": 13,
+      "rdkit_version": "2026.03.3",
+      "source_read_via_mcp": true,
+      "notes": "Invalid non-empty SMILES consumes rank but is a non-match. Empty entries are removed. Tautomer canonicalization is explicit. Metric has heavy-atom-composition optimization, not a neutral molecular-formula equality requirement."
+    },
+    "tutorial": {
+      "url": "https://www.kaggle.com/code/inversion/casmi-denovo-tutorial-notebook",
+      "version": 9,
+      "source_read_via_mcp": true,
+      "summary": "公开PyTorch/Lightning谱到SMILES encoder-decoder教学notebook；T4 GPU；按inchikey14分结构；排除enveda-180并限制训练200k谱；不是经本项目验证的高分方案。"
+    },
+    "public_baselines": [
+      "https://www.kaggle.com/code/haideptry/enveda-casmi-2026-fast-spectral-cosine-baseline",
+      "https://www.kaggle.com/code/prvsiyan/analog-propagation-casmi-2026-baseline",
+      "https://www.kaggle.com/code/evgendvorkin/enveda-casmi-2026"
+    ],
+    "baseline_source_caveat": "haideptry/enveda-casmi-2026-fast-spectral-cosine-baseline当前版本17虽仍沿用cosine baseline标题，实际包含谱库检索、analog传播、轻量碎裂模拟、神经指纹及ranker；已通过get_notebook_info读源，未复现。作者表中分数/奖牌/SOTA自述未验证，不采作本项目效果证据。",
+    "models_page": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/models",
+    "models_listing_status": "MCP已发现get_model等读工具；本次未获得按competition筛选的model列表，不声称models页为空。GLACIER等模型使用资格由host回复确认。"
+  },
+  "unresolved": [
+    "完整train.parquet实际footer行数及unique canonical structure数，尚未本地读取。",
+    "需要通过实际runtime可见设备核实用户可用Colab v5e-1的内存/软件版本及Kaggle提交GPU。",
+    "尚无本项目CV/leaderboard实验；不能断言TPU微调会提升分数。",
+    "真实类别比例、hidden分子是否及多少出现在train不公开。",
+    "官方Data页train列的plus措辞与18列不一致，hidden adduct列说明仍写seven但正文实际列10种。"
+  ]
+}
