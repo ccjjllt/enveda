@@ -58,6 +58,39 @@ R0 notebook 默认只做 single 权重前向，merged 只核对 CPU 加载和 me
 
 不能确认：现有权重对隐藏数据的效果、任何训练/微调增益、完整 T4 吞吐或 9 小时推理预算、公开榜排名。当前没有这些结果。公开榜和作者报告仅提供研究背景。
 
+## 004-1b 交付（2026-10-01）：splits/candidates 实现与本地实测
+
+对应计划“目标域与数据划分”节。本轮只做代码与本地手动验证；不训练、不 push、无新增 MRR/排行榜分数。
+
+实际新增代码（手动研究模块，非测试文件，无 pytest/unittest 依赖）：
+
+- `src/splits.py`：仪器族归一化（5 类 timsTOF/Orbitrap/QTOF/IT/other，逐字复刻 v32 `instr_family`；qTof/qTOF 等同义因含 `tof` 归入 QTOF，timsTOF 优先不被截胡）、重复谱组检测（ms2 两列分块 sha256，不全量加载 ms2；精确重复才成组）、`build_np_manifest()`（NP250 跨全来源按 shipped inchikey14 整组留出，行号清单落盘；canonical key 占位复制 shipped key，`caliber="shipped_placeholder"`，待 RDKit 官方规范化重算）。
+- `src/candidates.py`：`StructureLibrary`（C）与 `ReferenceSpectrumLibrary`（L）分离对象；float64 质量索引（bisect，不转 float32）；`mass_recall_stats()` 按 5/10/20ppm 统计真值召回与窗口内候选数；`pack_bits/unpack_bits/PackedFingerprintStore` packed 占位（6930 位→867B，不提供整池 unpack 到 GPU）。
+
+本地手动验证（`.venv` Python 3.9.6 + pyarrow 21.0.0，`PYTHONPATH=src`，命令均为手动发起）：
+
+- AST 语法解析通过；仪器同义逐项核对（qTof/qTOF/qtof/Qtof/QTOF/LC-ESI-QTOF→QTOF；Orbitrap/Q-Exactive/ESI-QFT/LC-ESI-ITFT→Orbitrap；Ion Trap/Linear Ion Trap/iontrap/LC-ESI-QQ/QQQ→IT；None/nan/N/A/空→other）。记录到的 v32 口径边缘：`LIT`（11 行）与 `QIT`（1261 行）因不含 `trap`/`qq` 子串归入 other，已在 manifest 规则字符串中注明 verbatim，未私自改成 IT；是否增补独立缩写映射待定（改动将偏离 checkpoint 的 instrument embedding，必须另行记录）。
+- `build_np_manifest()` 实测 109s：NP keys 250；np-lib 行 1184（全 timsTOF，与计划一致）；跨全来源 holdout 行 **56783**（训练保留 2482825）；每结构行数 min 5 / median 174.5 / max 1468；holdout 来源 drug_plus 145 / enveda-np-examples 1184 / gnps 10263 / masaryk 83 / massbank 6505 / mona 5276 / msdial 2393 / pluskal_ms2 4470 / riken 26464（无 enveda-180/spectraverse）；仪器族 IT 3637 / Orbitrap 29638 / QTOF 20445 / other 1879 / timsTOF 1184；重复谱组 2088 组 / 4303 行。产物 `artifacts/004-research/np_manifest.json`（2,368,804B，已忽略）。NP250 与旧 seen/unseen 各 500 key 交集均为 0（按 shipped key 复核）。
+- 结构候选库实测约 3.3s：275,810 去重结构；公式质量 mass_ok 275,810（`stripped_charge_suffix` 509 含 `+2/+3` 多电荷 12 个已处理）、unknown 0；此前 `C12H30N2+2` 类 12 个在修复前记 unknown，修复后全部入库。
+- 质量窗口真值召回（候选质量=分子式单同位素理论质量 float64，query 质量=前体+adduct float64）：
+  - NP1184 目标域（timsTOF）：5ppm 1154/1184=0.9747；10ppm 1181/1184=0.9975；20ppm 1182/1184=0.9983；窗口内候选数 median 8/13/16，p90 45/74/105，max 224/227/384；真值 ppm 误差 median 1.68 / p90 3.26。20ppm 仅 2 谱 miss：row 2538939（`[M-H2O-H]-` 未知加合回退，误差 126744ppm）与 row 2538518（`[M-H]-` 误差 21.01ppm，恰为 NP 前体误差 max 21.06ppm 的同一谱）。产物 `artifacts/004-research/mass_recall_np1184.json`。
+  - 全 holdout 56783（跨来源对照）：5/10/20ppm 召回 0.7267/0.8255/0.9078；unknown adduct 204；真值误差 median 0.90 / p90 18.95。目标域外的稀有加合与大误差是主要缺口，不把全 holdout 召回当目标域结论。产物 `artifacts/004-research/mass_recall_holdout56783.json`。
+- `git status` 仅新增 `src/splits.py`、`src/candidates.py`（另有本轮既有未提交 `src/chemistry.py`，保留未动）；未创建测试文件/框架；未 push；凭据未入仓。
+
+待办（未执行，不虚构结果）：canonical key 的 RDKit 去立体+互变异构重算与等价结构复核；固定 Q 单谱规则（single 不依赖真值选一张 Q，融合只读 Q；同极性/同 adduct 先融合）尚未实现，当前召回为 per-spectrum 统计；R1 的 mass-only→cosine→FPNet 同一 Q/L/C 对照、packed 指纹与真实前向、R2–R4 均未开始。
+
+## 004-1a/1c 交付（2026-10-01）：chemistry/评分修正与 FPNet 入库（review 通过）
+
+- `src/chemistry.py`（新建，主 agent 实现）：`prepare_prediction_smiles`（去立体预处理，保留同位素/电荷）、`official_match_key`（v13 复现，无 RDKit 抛异常）、`canonical_group_key`（split 用，顺序已记录）、`load_fp_bits_mapping`/`apply_fp_bits`（标准库解析 npy，不依赖 numpy；长度/上界校验）。AST 通过。
+- `src/evaluation.py`（重写，主 agent 实现）：RR 按最终位置计分（`CC;CC;CCO`→1/3 已手工验证），`nonempty_rate` 与 `recall@k` 分开，逐分子表明细，`rejected`（零候选/超25）口径，caliber 标注（本地无 RDKit，走 `placeholder_exact_string`）；001 旧函数保留作 deprecated 历史对照。
+- `src/models/fingerprint.py`（subagent，经 review）：FPNet 定义与 feature contract，许可头明确 unknown（权重 CC0 不套代码）；`prep_peaks`/adduct26/instrument5 与 v32 摘录逐项相等已复核；本地无 torch/numpy 时导入期明确失败（符合要求，Colab 有这两者）。
+- `src/ranking.py`（subagent，经 review）：`dot_score`、`score_single_spectrum`、`aggregate_mean_scores`、真正的 `round_robin_fuse`（已验证 `['a','x','b','c']+['x','y']→['a','x','b','y','c']`，旧 retrieval 是顺序拼接）、超 25 截断计数；`SimpleLinearRanker` 占位。
+- `src/train_fingerprint.py`（subagent，AST 通过，未执行 torch 路径）：head_only/unfreeze_last2/from_scratch 三模式，200–500 步预算入口，FP16 注释，BCE+窗口排序损失，保存 optimizer/config/split。
+- `notebooks/colab/004-t4-candidate-ranking.ipynb`（12 cells）与 `notebooks/inference/004-offline-inference-skeleton.ipynb`（4 cells）：JSON 合法、代码 AST 通过，无硬编码路径/ID，无嵌入谱/权重。均未远端执行。
+- review 发现并确认：ranking 报告中的 `dot` 实为 `dot_score`（命名出入，功能正常）；`round_robin_fuse` 入参为 dict（初次误传 list 系调用错误，非代码问题）。
+
+待办（未执行）：fp_bits.npy 下载联调、固定 Q 单谱规则、R1–R4 真实前向/训练、RDKit 规范化重算，均需远端手动执行。
+
 ## 接手顺序
 
 1. 阅读 004 计划与本进展；先用能够实际发现 Colab notebook 工具的客户端连接明确的私有 notebook，按用户要求不继续低效 GUI 自动化。

@@ -1,150 +1,158 @@
-"""001 分子级评估骨架(MRR@25 / Top-1 / Top-25 / 覆盖率 / 异常比例).
+"""004 分子级评估：按最终候选位置计 RR，非空率与真值召回分开，逐分子表.
 
-本文件是手动研究用评估代码,不是测试文件:
-- 不依赖 pytest/unittest,不做自动化断言门控;
-- 由研究人员在 notebook/命令行手动调用,把指标与观察记录进 progress 文档.
+相对 001 版的修正（见 docs/plan/004-tpu-finetuning.md“评分和化学结构语义”）：
+- RR 按最终输出顺序计算，不在排名前去重。例：`CC;CC;CCO` 对真值 `CCO`
+  的 RR 为 1/3（重复错误候选占位），不得压缩为 1/2。
+- 空分号项删除（不占排名）；非空无效/重复项保留排名占位。
+- `nonempty_rate`（有>=1 非空候选的分子占比）与 `recall@k`（真值在候选内，
+  无论排名）分开统计；旧 `coverage` 更名为非空预测率，不得混用。
+- 匹配键默认走 src.chemistry.official_match_key（RDKit v13 语义）；
+  无 RDKit 时回退精确字符串，结果标注 caliber="placeholder_exact_string"。
+- 去空后零候选或超 25 个候选的分子记 rejected（官方拒绝口径），RR=0。
 
-官方语义注释(以官方评分代码为准,本实现为无 RDKit 环境的占位):
-1. 空分号项删除:提交行按 ';' 切分后,strip 为空的项在分配排名前删掉,
-   不占排名.如 "CCO;;CC" -> ["CCO", "CC"].
-2. 非空但无效的 SMILES 占排名且不命中:如 "not_a_smiles" 保留在原排名位置,
-   浪费候选位,永远判 miss.本占位实现无 RDKit,无法判定化学有效性,仅把
-   空白项按规则 1 删除,其余非空项一律视为“占位候选”(见 invalid_ratio 说明).
-3. 去重:官方按 RDKit 2026.03.3 规范化(含互变异构体)后取 InChIKey 前 14 字符
-   去重,保留最佳顺序,重复等价结构浪费候选位.本占位用精确字符串去重并报告
-   duplicate_ratio;真实去重需 RDKit 到位后替换 placeholder_match/dedup.
-4. 分子级聚合:MRR@25 = 每分子(首个正确候选排名 r -> 1/r,前 25 未命中 -> 0)
-   后对分子平均.Top-1/Top-25 同理按分子平均.覆盖率与异常比例亦按分子统计.
+旧占位函数（placeholder_match/dedup_keep_order/旧 evaluate_molecules）保留作
+历史对照，标注 deprecated，不得用于新结论。
 
-匹配占位:placeholder_match 用精确字符串相等;官方用 InChIKey14 等价.
-在 RDKit 未接入前,本模块分数只用于流程自检,不作为研究结论引用.
-
-仅依赖标准库,Kaggle 离线可用.不读凭据,不联网.
+手动研究用模块，不是测试文件。不读凭据，不联网。
 """
 
 from __future__ import annotations
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 K = 25
 
 
 def split_candidates(cell: str) -> List[str]:
-    """切分一行提交候选:按 ';' 切分、strip、删除空项(官方语义规则 1).
-
-    非空但化学无效的项保留(占排名,规则 2).本函数不做化学有效性判断.
-    """
+    """按 ';' 切分、strip、删除空项（官方规则：空项不占排名）."""
     if cell is None:
         return []
-    parts = str(cell).split(";")
-    return [p.strip() for p in parts if p.strip() != ""]
+    return [p.strip() for p in str(cell).split(";") if p.strip() != ""]
+# NOTE: 001 旧版同名函数语义相同，保留行为。
 
 
-def placeholder_normalize(smiles: str) -> str:
-    """占位规范化:仅 strip.
+def _match_keys(preds: List[str], truth: str) -> List[str]:
+    """返回候选与真值的匹配键列表；(caliber, pred_keys, truth_key)."""
+    try:
+        from src import chemistry as C  # noqa
+        tk = C.official_match_key(truth)
+        pk = []
+        for p in preds:
+            try:
+                pk.append(C.official_match_key(p))
+            except ValueError:
+                pk.append(None)  # 非空无效：占位，永不命中
+        return ("official_v13", pk, tk)
+    except Exception:
+        # 无 RDKit（本地 .venv）：精确字符串占位，调用方必须看 caliber
+        return ("placeholder_exact_string", list(preds), truth)
 
-    TODO(RDKit 到位后):替换为 RDKit 2026.03.3 规范化 + 互变异构体处理,
-    匹配键取 InChIKey 前 14 字符;无效 SMILES 单独计数,不静默丢弃.
+
+def reciprocal_rank_by_position(
+    ranked: List[str], truth: str, k: int = K
+) -> Dict:
+    """单分子 RR（按最终位置，不去重）.
+
+    返回 {rank（1-based，无命中为 None）, rr, caliber, n_candidates,
+    rejected（零候选或超 k）}。
     """
+    cleaned = [s for s in (str(s).strip() for s in ranked) if s != ""]
+    if len(cleaned) == 0 or len(cleaned) > k:
+        return {"rank": None, "rr": 0.0, "caliber": "rejected",
+                "n_candidates": len(cleaned), "rejected": True}
+    caliber, pkeys, tkey = _match_keys(cleaned, truth)
+    for i, pk in enumerate(pkeys):
+        if pk is not None and pk == tkey:
+            return {"rank": i + 1, "rr": 1.0 / (i + 1), "caliber": caliber,
+                    "n_candidates": len(cleaned), "rejected": False}
+    return {"rank": None, "rr": 0.0, "caliber": caliber,
+            "n_candidates": len(cleaned), "rejected": False}
+
+
+def evaluate_molecules(
+    truth: Dict[str, str],
+    preds: Dict[str, List[str]],
+    truth_in_pool: Optional[Dict[str, bool]] = None,
+    k: int = K,
+) -> Dict:
+    """分子级评估（004 口径）.
+
+    truth: molecule_id -> 真值 SMILES。preds: molecule_id -> 最终有序候选
+    （调用方已完成候选生成阶段去重；本函数不去重，直接按位置评分）。
+    truth_in_pool: molecule_id -> 真值是否在候选池（用于 recall 分母；
+    不传则 recall 缺失并标注）。
+
+    返回聚合 {n, mrr@k, top1, top25, nonempty_rate, recall@k(或 None),
+    rejected_ratio, caliber} + per_molecule 明细表。
+    """
+    rows: List[Dict] = []
+    rr_sum = 0.0
+    top1 = topk = nonempty = recalled = 0
+    pool_n = 0
+    rejected = 0
+    calibers = set()
+    for mol, t in truth.items():
+        raw = preds.get(mol, [])
+        r = reciprocal_rank_by_position(raw, t, k=k)
+        calibers.add(r["caliber"])
+        in_pool = None if truth_in_pool is None else bool(truth_in_pool.get(mol, False))
+        rows.append({"molecule_id": mol, "rank": r["rank"], "rr": r["rr"],
+                     "n_candidates": r["n_candidates"],
+                     "rejected": r["rejected"],
+                     "truth_in_pool": in_pool})
+        rr_sum += r["rr"]
+        if r["rr"] == 1.0:
+            top1 += 1
+        if r["rr"] > 0.0:
+            topk += 1
+        if not r["rejected"]:
+            nonempty += 1
+        else:
+            rejected += 1
+        if in_pool is True:
+            pool_n += 1
+            if r["rank"] is not None:
+                recalled += 1
+    n = len(truth)
+    if n == 0:
+        return {"n_molecules": 0, "mrr@%d" % k: 0.0, "top1": 0.0,
+                "top25": 0.0, "nonempty_rate": 0.0, "recall@%d" % k: None,
+                "rejected_ratio": 0.0, "caliber": "empty",
+                "per_molecule": []}
+    return {
+        "n_molecules": float(n),
+        "mrr@%d" % k: rr_sum / n,
+        "top1": top1 / n,
+        "top25": topk / n,
+        "nonempty_rate": nonempty / n,
+        "recall@%d" % k: (recalled / pool_n if pool_n else None),
+        "rejected_ratio": rejected / n,
+        "caliber": "|".join(sorted(calibers)),
+        "per_molecule": rows,
+    }
+
+
+# ---- 001 旧占位（deprecated，仅历史对照） ----
+
+def placeholder_normalize(smiles: str) -> str:  # deprecated
     return str(smiles).strip()
 
 
-def placeholder_match(pred: str, truth: str) -> bool:
-    """占位命中判定:精确字符串相等.官方语义为 InChIKey14 等价(见模块注释)."""
+def placeholder_match(pred: str, truth: str) -> bool:  # deprecated
     return placeholder_normalize(pred) == placeholder_normalize(truth)
 
 
-def reciprocal_rank(ranked: List[str], truth: str, k: int = K) -> float:
-    """单分子倒数排名:前 k 中首个命中排名 r -> 1/r,否则 0.
-
-    ranked 应为已按 split_candidates 清洗 + 去重后的有序列表(至多 k 个).
-    无效 SMILES 已在 ranked 中占位(判 miss),空项不应传入.
-    """
+def reciprocal_rank(ranked: List[str], truth: str, k: int = K) -> float:  # deprecated
     for i, pred in enumerate(ranked[:k]):
         if placeholder_match(pred, truth):
             return 1.0 / (i + 1)
     return 0.0
 
 
-def dedup_keep_order(ranked: List[str]) -> List[str]:
-    """占位去重:精确字符串保序去重.官方为 InChIKey14 去重(见模块注释)."""
-    seen = set()
-    out: List[str] = []
+def dedup_keep_order(ranked: List[str]) -> List[str]:  # deprecated
+    seen, out = set(), []
     for smi in ranked:
         if smi not in seen:
             seen.add(smi)
             out.append(smi)
     return out
-
-
-def evaluate_molecules(
-    truth: Dict[str, str],
-    preds: Dict[str, List[str]],
-    k: int = K,
-) -> Dict[str, float]:
-    """分子级评估(占位实现,官方语义注释见模块头).
-
-    参数:
-        truth: molecule_id -> 真值 SMILES(研究留出集的真值;隐藏集不可用).
-        preds: molecule_id -> 有序候选 SMILES 列表(原始顺序,本函数内清洗).
-        k: 候选截断(默认 25).
-
-    返回按分子平均的:
-        n_molecules / mrr@k / top1 / top25 / coverage(有>=1 非空候选的分子占比)
-        / no_candidate_ratio(无候选或全空项的分子占比)
-        / duplicate_ratio(有精确字符串重复浪费槽位的分子占比)
-        / invalid_or_empty_slot_ratio(占位口径:空项槽位占比,因无 RDKit,
-          非空项暂无法判化学有效,此值只反映“空分号项”浪费,不代表真实无效
-          SMILES 率;RDKit 到位后替换).
-    """
-    n = len(truth)
-    if n == 0:
-        return {
-            "n_molecules": 0,
-            "mrr@%d" % k: 0.0,
-            "top1": 0.0,
-            "top25": 0.0,
-            "coverage": 0.0,
-            "no_candidate_ratio": 0.0,
-            "duplicate_ratio": 0.0,
-            "invalid_or_empty_slot_ratio": 0.0,
-        }
-    rr_sum = 0.0
-    top1_hit = 0
-    topk_hit = 0
-    with_cand = 0
-    no_cand = 0
-    with_dup = 0
-    empty_slots = 0
-    total_slots = 0
-    for mol, t in truth.items():
-        raw = preds.get(mol, [])
-        # 空项统计:按原始 ';' 语义,这里 raw 为列表,空字符串元素视为空项.
-        total_slots += max(len(raw), 1)
-        empty_slots += sum(1 for s in raw if str(s).strip() == "")
-        cleaned = [s for s in (str(s).strip() for s in raw) if s != ""]
-        if len(cleaned) != len(set(cleaned)):
-            with_dup += 1
-        ranked = dedup_keep_order(cleaned)[:k]
-        if ranked:
-            with_cand += 1
-        else:
-            no_cand += 1
-        rr = reciprocal_rank(ranked, t, k=k)
-        rr_sum += rr
-        if rr == 1.0:
-            top1_hit += 1
-        if rr > 0.0:
-            topk_hit += 1
-    return {
-        "n_molecules": float(n),
-        "mrr@%d" % k: rr_sum / n,
-        "top1": top1_hit / n,
-        "top25": topk_hit / n,
-        "coverage": with_cand / n,
-        "no_candidate_ratio": no_cand / n,
-        "duplicate_ratio": with_dup / n,
-        "invalid_or_empty_slot_ratio": empty_slots / total_slots
-        if total_slots
-        else 0.0,
-    }
