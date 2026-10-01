@@ -98,6 +98,7 @@ R0 notebook 默认只做 single 权重前向，merged 只核对 CPU 加载和 me
 - 权重：kagglehub 下 `prvsiyan/casmi26-fp-models-v2/versions/1`，11.3s；`fp_single_s2.pt` 144,110,255 B，sha 与本地一致（`c19aa290…`），`weights_only=True`，CPU 加载 0.12s，`{model,step,nbits,d,layers}`，step=20000，参数 36,019,474。
 - 前向：`state_dict strict` 0 缺失/0 多余；16 真实谱 → `[16,6930]`，shape 相符，110,880 值全 finite；首跑 0.56s（含建模搬运），后 3 跑各 0.041s；`research_effect: not evaluated`（未算 MRR，无提分声称）。
 - 结论：single 权重与输入 contract 一致，T4 单步前向可行；后 3 跑 0.041s/16谱是小 batch 诊断速度，不估计完整训练吞吐。下一步 R1 需 `fp_bits.npy`（候选侧 10,407→6,930 映射）与固定 Q/L/C。
+- `fp_bits.npy`（2026-10-01，用户在 Colab 取 `prvsiyan/coconut-casmi26-candidates/versions/2`）：`sha256=a61e372fc41091bf5c7467e08134081266262665077cb9e2c56d73e4887f3013`。Colab 侧已在 R1 前置位；本地 `artifacts/004-research/fp_bits.npy` 副本待补（55KB）。维度校验（6930/int64/上界10407）以用户 Colab 输出为准，shape 回执待补。
 
 ## 接手顺序
 
