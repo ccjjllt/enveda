@@ -178,6 +178,13 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 - 四产物已回本地：`r1_np1184.json`（69KB）、`r2_np250.json`（29KB，逐分子表 250 行×4 方法齐）、`head_5000.pt`（62MB）、`r3_log.json`。数值与上一轮**完全一致**（seed 7 确定性）：R1 MRR=0.6001，R2 single 0.6754/mean_all 0.6490/mean_ad 0.6370/rrfuse 0.6300，R3 step0 0.6001→5000 步 0.4919、loss→0.1440。
 - R3 结论不变：head-only 通用训练伤 NP 目标域，该 head 不采用。下一步按计划做通用留出对照确证域偏移，或混合域采样重训。
 
+## C 配对分析（本地，r2 逐分子表 × manifest 元信息）
+
+- single 赢 39、mean_all 赢 28、平 183（多数两边都是第 1）；两组在谱数（5.54 vs 5.14）、adduct 数（6.05 vs 6.36）上基本无分层——融合没有可识别的 systematically 有效子群。
+- single 排名 >10 的硬例 11 个（key 已列表中），是 forward 重排（ICEBERG/GLACIER）的候选对象，不是融合能修的。
+- 通用 Q 已导出 `artifacts/004-research/generic_queries.json`（500 结构/1411 谱，10MB，seed 2027，NP 整组排除）：A 诊断用。
+- A+B 已追加进合订本（`0ff93b5`，共 20 格）：A 用 `head_5000.pt`（需传 Drive，62MB）对比公开/已训 head 在通用 Q 与 NP Q 上的表现；B 从公开 head 重起 timsTOF 50% 混合训练 5000 步（seed 11），NP 同口径评估，产物 `head_mixed_5000.pt` + `r3_mixed_log.json`。一次新实例跑完。
+
 ## 接手顺序
 
 1. 阅读 004 计划与本进展；先用能够实际发现 Colab notebook 工具的客户端连接明确的私有 notebook，按用户要求不继续低效 GUI 自动化。
