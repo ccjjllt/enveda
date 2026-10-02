@@ -185,6 +185,13 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 - 通用 Q 已导出 `artifacts/004-research/generic_queries.json`（500 结构/1411 谱，10MB，seed 2027，NP 整组排除）：A 诊断用。
 - A+B 已追加进合订本（`0ff93b5`，共 20 格）：A 用 `head_5000.pt`（需传 Drive，62MB）对比公开/已训 head 在通用 Q 与 NP Q 上的表现；B 从公开 head 重起 timsTOF 50% 混合训练 5000 步（seed 11），NP 同口径评估，产物 `head_mixed_5000.pt` + `r3_mixed_log.json`。一次新实例跑完。
 
+## A 诊断 + B 混合重训（2026-10-03，新实例一次跑完）
+
+- A（同 session 四测，1184 NP 谱 + 1411 通用谱）：NP_pub 0.6001/0.4392，NP_tr 0.4919/0.3277；**GEN_pub 0.7846/0.6967，GEN_tr 0.4765/0.3388**（1402/1411 有排名）。
+- 结论修正：训练连通用域一起打掉（0.78→0.48），**不是单纯 NP 遗忘**。首要嫌疑是本轮实现漏了计划规定的第二项损失——v32 用 `BCE + 同质量窗口 hard-negative 排序损失`，R3 格只跑了 BCE。loss 降而 ranking 崩与此一致。
+- B（timsTOF 50% 混合，seed 11，产物 `head_mixed_5000.pt` 62MB 已回本地）：NP 0.6001→0.4685/0.4967/0.4837/0.4899/0.4815，同样没起来。混合采样救不了缺失的排序损失。
+- 下一步：补排序损失（同质量窗口 hard-negative，负例排除真值等价结构）后重训 head-only 对照；再定是否解冻末两层。
+
 ## 接手顺序
 
 1. 阅读 004 计划与本进展；先用能够实际发现 Colab notebook 工具的客户端连接明确的私有 notebook，按用户要求不继续低效 GUI 自动化。
