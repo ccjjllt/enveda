@@ -155,7 +155,16 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 - bs=32：step 均值/中位 0.029s，峰值显存 **0.40 GiB**，25 步 loss 0.2967→0.2468（下降，头在学）。
 - 推算：8 万步约 39 分钟，显存远非瓶颈；Colab 时间内可跑完整 head-only。权重未保存，此 25 步不定为训练完成。
 
-## 接手顺序权重未保存，此 25 步不定为训练完成。
+## R3 20 万谱分片就绪（2026-10-01/02，本地导出）
+
+- `artifacts/004-research/train_shard_200k_p{0..3}.parquet`（142/141/71/22MB，已忽略）：seed 2026，从训练保留抽 200,000 行（4×50k），行号清单 `train_shard_200k_rows.json`；NP 整组零交集。用户定：5000 步 × 20 万谱，head-only，NP250 同口径验证。
+
+## 合订本（2026-10-02）：R1→R3 单 notebook
+
+- 昨日实例误删后，按用户要求把 R0 验证过的全部 cell 合订为 `notebooks/colab/004-r1-r3-consolidated.ipynb`（15 cells / 9 代码，AST 已验）：Drive 挂载 → 依赖/环境 → kagglehub 下权重与候选集 → fp 链自检 → 模型加载 → 训练池重建 → R1 全量 → R2 融合 → R3 5000 步训练 + 每 1000 步 NP 评估 + 落盘。训练输入改为 Drive 版 4 分片（q0–q7 八小块作废，不再使用）。
+- 产物统一落 `/content/004-output/`（`r1_np1184.json`、`r2_np250.json`、`head_5000.pt`、`r3_log.json`），带回本地 `artifacts/004-research/` 后 review。
+
+## 接手顺序
 
 1. 阅读 004 计划与本进展；先用能够实际发现 Colab notebook 工具的客户端连接明确的私有 notebook，按用户要求不继续低效 GUI 自动化。
 2. 在该 runtime 写入/上传 R0 notebook 和两份本地输入，运行真实前向并取回 JSON。参考代码来源固定 v32；重建环境时不能遗漏该文件。
