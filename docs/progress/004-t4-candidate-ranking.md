@@ -257,3 +257,9 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 - 根因（cell 3）：`[k for k in ckeys if k not in set(t_keys)]` ——条件里的 `set(t_keys)` 每次迭代重建一次，43.6 万 × 27.6 万次哈希 ≈ 单行 30 分钟起，三行（allk/alls/allm）叠加 + 共享 CPU → v5 的 3 小时黑盒。本地实测同语义：20K×25K 规模重建版 7.66s vs 预建版 0.0005s，结果完全一致。
 - 修复（v7，`2d3f5b5`，本地已提交未 push）：`tset = set(t_keys)` 预建一次，三行改 `k not in tset`。pool 格回到秒级。
 - 教训：之前的“worker 慢 / 日志缓冲”猜测全错，根因是代码级复杂度 bug；以后先读格再猜。
+
+## v7 COMPLETE（2026-10-03，GPU，约 130 秒）
+
+- `ccjjllt/enveda-submission` version 7 `COMPLETE`：combined 712,199（3.4s，修复生效）、test 400 分子/1213 谱、400 前向 ~43s、5 格 70+6.6+3.5+3.1+2.4s。
+- 产物 `artifacts/submission-v7/submission.csv`：400 行×25 候选，首候选裸 CCO 共 0 行（之前 `cco_rows 13` 是 `CCO…` 乙氧基前缀 SMILES 误报），empty/mass_fallback/exception 全 0。相对 v1（399/400 CCO，public 0.000）覆盖率修好。
+- 待定：是否用此版占一次排行榜提交（今日剩约 4 次），等用户确认。
