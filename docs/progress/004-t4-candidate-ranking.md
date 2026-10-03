@@ -1,8 +1,20 @@
 # 004 — Colab T4 与下一阶段研究：实际进展
 
-对应计划：[004-t4-candidate-ranking](../plan/004-t4-candidate-ranking.md)。更新：2026-10-01。
+对应计划：[004-t4-candidate-ranking](../plan/004-t4-candidate-ranking.md)。状态复核：2026-10-04。
 
-**状态：深入研究、历史结果复核、T4 实际设备核对及实现交接已完成；R0 前向 notebook 已编写但未远端执行。未训练模型，没有新增有效 MRR 或排行榜分数。**
+**当前状态：004已完成真实T4前向、短程训练及v7 submission（public 0.206）。后文保留各阶段历史记录；其中“未运行/待提交”只指当时状态。005复核发现旧R4名次错误、留出与谱库背景问题，以下更正优先。下一轮从[005计划](../plan/005-multi-evidence-ranking.md)和[005进展](005-multi-evidence-ranking.md)接手。**
+
+## 005 复核更正（2026-10-04）
+
+- v7只部署原始public single权重，没有rank-head、cosine、R4；离线275,810结构与线上712,199并集候选池不同。
+- **旧R4 0.6257及增益结论撤回**：part2 cell11将候选原下标当排序名次，保存的1184个rank全部与未排序窗口位置一致。本轮修正为`enumerate(order, start=1)`，尚未重跑。
+- 文档记录的cosine .7076/local OOF .9796对应完整产物未找到；当前同名JSON分别还是旧全None及旧5维R4。L2453只有NP250真值结构，缺完整背景，不支持直接线上硬分流。
+- GEN500有215结构进入实际train200k；NP canonical映射尚未扩展全训练别名，不能沿用严格未见的称呼。
+- 手动重算MRR@25：R2 single .675203、mean_all .648276、merged .664566；仍是原键匹配/训练结构池，不是官方规范化复评或隐藏成绩。
+- 0.206不能证明主要缺口在Class2/3，API不提供隐藏逐分子错误。原“看public行级表现”改为有标签留出分析；“覆盖率修好”只表示开发输出不再全为空，不能当隐藏真值召回。
+- 旧10ppm+WMAX200、候选库扩充顺序、>500MB一律需授权等说法不作为005既定结论或额外审批要求。005按实际候选召回、资产适用性和用户已有授权推进。
+
+证据：[v7审计](../../data/references/submission-v7-audit-2026-10-03.json)、[严格截断复算](../../data/references/004-metric-reanalysis-2026-10-04.json)。
 
 ## 实际完成的研究
 
@@ -236,7 +248,7 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 - v3（GPU，T4）：训练池预计算 + coco，无 RDKit，可运行；逐成员 unpack 慢，RUNNING 约 48 分钟未完（9h 内，继续等）。
 - v4（已提交仓库未 push）：逐分子批量 unpack（2 次调用代替 ≤2000 次），同逻辑加速；v3 占 session（batch 上限 2），v3 完才推。
 
-## 接手顺序
+## 原接手顺序（10-01阶段历史，当前改从005接手）
 
 1. 阅读 004 计划与本进展；先用能够实际发现 Colab notebook 工具的客户端连接明确的私有 notebook，按用户要求不继续低效 GUI 自动化。
 2. 在该 runtime 写入/上传 R0 notebook 和两份本地输入，运行真实前向并取回 JSON。参考代码来源固定 v32；重建环境时不能遗漏该文件。

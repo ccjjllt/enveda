@@ -1,0 +1,110 @@
+{
+  "created_utc": "2026-10-03T16:23:25.650241+00:00",
+  "method": "Kaggle API via installed CLI Python package (read-only)",
+  "datasets": [
+    {
+      "ref": "ahmedberatozer/casmi26-v4b-models",
+      "current_version_number": 4,
+      "metadata": {
+        "info": {
+          "datasetId": 12183464,
+          "datasetSlug": "casmi26-v4b-models",
+          "ownerUser": "ahmedberatozer",
+          "usabilityRating": 0.625,
+          "totalViews": 967,
+          "totalVotes": 21,
+          "totalDownloads": 7216,
+          "title": "casmi26-v4b-models",
+          "subtitle": "",
+          "description": "CASMI 2026 v4b assets: v1 engine code + fe_v4 families/tables, FPNet A/B, DreamsFP D (see LICENSE-NOTICE.txt), LightGBM ranker, MANIFEST.json.\n\nSource note: contains data and/or models derived from the Enveda CASMI26 competition training data (which includes CC BY-NC licensed components) and COCONUT (CC BY 4.0). Use under the respective source licenses (non-commercial, with attribution).",
+          "keywords": [
+            "pre-trained model"
+          ],
+          "licenses": [
+            {
+              "name": "other"
+            }
+          ],
+          "expectedUpdateFrequency": "not specified"
+        }
+      }
+    },
+    {
+      "ref": "ahmedberatozer/casmi26-fpnet-full1",
+      "current_version_number": 1,
+      "metadata": {
+        "info": {
+          "datasetId": 12268894,
+          "datasetSlug": "casmi26-fpnet-full1",
+          "ownerUser": "ahmedberatozer",
+          "usabilityRating": 0.625,
+          "totalViews": 104,
+          "totalVotes": 4,
+          "totalDownloads": 233,
+          "title": "casmi26-fpnet-full1",
+          "subtitle": "",
+          "description": "FPNet (spectrum -> fingerprint) trained on ALL train folds incl. np-examples, same architecture as the casmi26-v4b-models engine FPNet A (drop-in). Source note: trained on the Enveda CASMI26 competition training data (which includes CC BY-NC licensed components). Use under the source licenses (non-commercial, with attribution).",
+          "keywords": [
+            "pre-trained model"
+          ],
+          "licenses": [
+            {
+              "name": "other"
+            }
+          ],
+          "expectedUpdateFrequency": "not specified"
+        }
+      }
+    },
+    {
+      "ref": "ahmedberatozer/casmi26-v2-pool",
+      "current_version_number": 1,
+      "metadata": {
+        "info": {
+          "datasetId": 12114353,
+          "datasetSlug": "casmi26-v2-pool",
+          "ownerUser": "ahmedberatozer",
+          "usabilityRating": 0.47058823529411764,
+          "totalViews": 94,
+          "totalDownloads": 728,
+          "title": "casmi26-v2-pool",
+          "subtitle": "",
+          "description": "Source note: contains data and/or models derived from the Enveda CASMI26 competition training data (which includes CC BY-NC licensed components) and COCONUT (CC BY 4.0). Use under the respective source licenses (non-commercial, with attribution).",
+          "licenses": [
+            {
+              "name": "other"
+            }
+          ],
+          "expectedUpdateFrequency": "not specified"
+        }
+      }
+    },
+    {
+      "ref": "ahmedberatozer/casmi26-glacier",
+      "current_version_number": 1,
+      "metadata": {
+        "info": {
+          "datasetId": 12248560,
+          "datasetSlug": "casmi26-glacier",
+          "ownerUser": "ahmedberatozer",
+          "usabilityRating": 0.625,
+          "totalViews": 986,
+          "totalVotes": 21,
+          "totalDownloads": 2710,
+          "title": "casmi26-glacier",
+          "subtitle": "",
+          "description": "GLACIER (ms-pred, MassSpecGym checkpoint, MIT) as an offline isomer re-scorer for the CASMI26 notebook: subprocess runner gl_runner.py (fork of casmi26-iceberg ice_runner.py), notebook glue gl_fuse.py (run_gl, rerank_multi), ms_pred inference subset (MIT), pure-torch DGL / torch_scatter / LinSATNet stand-ins, stripped checkpoint. Reuses the casmi26-iceberg wheels. See README.md and LICENSE-NOTICE.txt.",
+          "keywords": [
+            "pre-trained model"
+          ],
+          "licenses": [
+            {
+              "name": "other"
+            }
+          ],
+          "expectedUpdateFrequency": "not specified"
+        }
+      }
+    }
+  ]
+}

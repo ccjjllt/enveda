@@ -1,0 +1,668 @@
+{
+  "r4_index_bug": {
+    "saved_count": 1184,
+    "equal_raw_unsorted_position": 1184,
+    "mismatches_first10": []
+  },
+  "metrics_recomputed": {
+    "r1_np1184.json": {
+      "n": 1184,
+      "ranked": 1183,
+      "above_25": 52,
+      "unbounded_mrr": 0.6000851262775551,
+      "mrr25": 0.5991144685116158,
+      "top1": 0.4391891891891892,
+      "top25": 0.9552364864864865
+    },
+    "r1_cosine_np1184.json": {
+      "n": 1184,
+      "ranked": 0,
+      "above_25": 0,
+      "unbounded_mrr": 0.0,
+      "mrr25": 0.0,
+      "top1": 0.0,
+      "top25": 0.0
+    },
+    "r2_single_rank": {
+      "n": 250,
+      "ranked": 250,
+      "above_25": 2,
+      "unbounded_mrr": 0.6754499312077562,
+      "mrr25": 0.6752032518908682,
+      "top1": 0.528,
+      "top25": 0.992
+    },
+    "r2_mean_all_rank": {
+      "n": 250,
+      "ranked": 250,
+      "above_25": 6,
+      "unbounded_mrr": 0.6490159905529441,
+      "mrr25": 0.648275844155844,
+      "top1": 0.488,
+      "top25": 0.976
+    },
+    "r2_mean_ad_rank": {
+      "n": 250,
+      "ranked": 250,
+      "above_25": 6,
+      "unbounded_mrr": 0.6369755675840181,
+      "mrr25": 0.6363128282828283,
+      "top1": 0.476,
+      "top25": 0.976
+    },
+    "r2_rrfuse_rank": {
+      "n": 250,
+      "ranked": 245,
+      "above_25": 0,
+      "unbounded_mrr": 0.6300028138528136,
+      "mrr25": 0.6300028138528136,
+      "top1": 0.472,
+      "top25": 0.98
+    },
+    "merged": {
+      "n": 250,
+      "ranked": 250,
+      "above_25": 3,
+      "unbounded_mrr": 0.6649551276453051,
+      "mrr25": 0.6645655911855598,
+      "top1": 0.504,
+      "top25": 0.988
+    },
+    "r4_saved": {
+      "n": 1184,
+      "ranked": 1183,
+      "above_25": 143,
+      "unbounded_mrr": 0.6256977647572863,
+      "mrr25": 0.6234576303118936,
+      "top1": 0.5025337837837838,
+      "top25": 0.8783783783783784
+    },
+    "raw_unsorted_candidate_position": {
+      "n": 1184,
+      "ranked": 1183,
+      "above_25": 143,
+      "unbounded_mrr": 0.6256977647572863,
+      "mrr25": 0.6234576303118936,
+      "top1": 0.5025337837837838,
+      "top25": 0.8783783783783784
+    }
+  },
+  "development_submission_format": {
+    "rows": 400,
+    "unique_ids": 400,
+    "widths": {
+      "25": 400
+    },
+    "rows_first_exact_CCO": 0,
+    "rows_any_exact_CCO": 18,
+    "total_exact_CCO_slots": 154,
+    "rows_with_exact_duplicates": 17,
+    "stereo_at_sign_slots": 515
+  },
+  "reference_library": {
+    "q_spectra": 1184,
+    "q_keys": 250,
+    "L_spectra": 2453,
+    "L_keys": 250,
+    "L_keys_outside_q": 0,
+    "Q_keys_without_L": 0,
+    "Q_exact_peak_hash_present_in_L": 0,
+    "Q_row_index_missing": 1184,
+    "L_instrument_counts": {
+      "None": 176,
+      "Orbitrap": 1144,
+      "QQQ": 14,
+      "qTof": 376,
+      "qToF": 10,
+      "LC-ESI-ITFT": 50,
+      "LC-Q-TOF/MS": 43,
+      "Flow-injection QqQ/MS": 55,
+      "ESI-QFT": 244,
+      "ToF": 29,
+      "Ion Trap": 52,
+      "Hybrid FT": 101,
+      "ESI-QTOF": 28,
+      "impact HD": 3,
+      "LC-ESI-QFT": 15,
+      "N/A": 1,
+      "LC-ESI-QQ": 2,
+      "LC-ESI-QTOF": 72,
+      "Qtof": 1,
+      "Quattro_QQQ:40eV": 1,
+      "Quattro_QQQ:10eV": 1,
+      "Q-Exactive Plus": 1,
+      "LC-ESI-IT": 3,
+      "LC-ESI-QIT": 3,
+      "LC-ESI-QQQ": 1,
+      "Maxis II HD Q-TOF Bruker": 21,
+      "LC-ESI-TOF": 2,
+      "QIT": 1,
+      "Linear Ion Trap": 1,
+      "QTOF": 2
+    }
+  },
+  "canonical_manifest": {
+    "changed_np_keys": 16,
+    "canonical_np_unique": 250,
+    "canonical_target_key_present_as_nonholdout_shipped_key": 14,
+    "examples": [
+      {
+        "holdout_shipped": "ALEXXDVDDISNDU",
+        "canonical_key": "XNMUPDICNYMLBM"
+      },
+      {
+        "holdout_shipped": "BBNQQADTFFCFGB",
+        "canonical_key": "CHERCCPWQNZOOH"
+      },
+      {
+        "holdout_shipped": "FSASIHFSFGAIJM",
+        "canonical_key": "ZPBYVFQJHWLTFB"
+      },
+      {
+        "holdout_shipped": "LUZSWWYKKLTDHU",
+        "canonical_key": "VGLABFRUPBCSOM"
+      },
+      {
+        "holdout_shipped": "MPDGHEJMBKOTSU",
+        "canonical_key": "YLHIVIHHVKLKEI"
+      },
+      {
+        "holdout_shipped": "NGOLMNWQNHWEKU",
+        "canonical_key": "RYHLQSVMWLBCJO"
+      },
+      {
+        "holdout_shipped": "PMTMAFAPLCGXGK",
+        "canonical_key": "RHVWQVSLVMXMBR"
+      },
+      {
+        "holdout_shipped": "PSGAAPLEWMOORI",
+        "canonical_key": "WYYCRMBIYYRAEW"
+      },
+      {
+        "holdout_shipped": "QFJCIRLUMZQUOT",
+        "canonical_key": "DVSZTYJRXBBIFA"
+      },
+      {
+        "holdout_shipped": "RCINICONZNJXQF",
+        "canonical_key": "NDUAXKHGCJIYEQ"
+      }
+    ],
+    "interpretation": "Potential normalization aliases outside shipped-key holdout; requires full pool canonicalization to confirm equivalence."
+  },
+  "fp_mapping": {
+    "stdlib_reader": "ValueError: expect int64 .npy, header: \"{'descr': '<i8', 'fortran_order': False, 'shape': (6930,), }                    \"",
+    "numpy_shape": [
+      6930
+    ],
+    "numpy_dtype": "int64",
+    "unique_indices": 6930,
+    "min": 2,
+    "max": 10405
+  },
+  "pool": {
+    "n_train_keys": 275810,
+    "n_unique_train_keys": 275810,
+    "finite_mass": 275810,
+    "meta": {
+      "n": 275810,
+      "fail": 0,
+      "fp_bits_sha256": "a61e372fc41091bf5c7467e08134081266262665077cb9e2c56d73e4887f3013",
+      "rdkit": "2026.03.6",
+      "fp_code": "v32 fp_and_mass verbatim"
+    }
+  },
+  "training_validation_overlap": {
+    "train_shard_rows": 200000,
+    "train_shard_unique_shipped_structures": 113955,
+    "generic_q_rows": 1411,
+    "generic_q_structures": 500,
+    "generic_q_structures_in_actual_train_shard": 215,
+    "generic_q_spectra_whose_structure_in_actual_train_shard": 630,
+    "NP_shipped_keys_in_train_shard": 0,
+    "NP_canonical_target_alias_shipped_keys_in_train_shard": [
+      "DVSZTYJRXBBIFA",
+      "KLWSYWJRTXQLGN",
+      "NDUAXKHGCJIYEQ",
+      "RYHLQSVMWLBCJO",
+      "WYYCRMBIYYRAEW",
+      "XNMUPDICNYMLBM",
+      "YLHIVIHHVKLKEI",
+      "ZABDAGALHQDSEU"
+    ],
+    "interpretation": "GEN is not a structure-held-out validation set. NP canonical aliases are evidence to verify with canonicalization, not proof from string lookup alone."
+  },
+  "visible_placeholder_input_diagnostics": {
+    "scope": "input contract only; no accuracy or hidden-set claims",
+    "rows": 1213,
+    "molecules": 400,
+    "chosen_empty_after_prep": 0,
+    "chosen_invalid_or_empty_CE": 0,
+    "chosen_unknown_adduct": 0,
+    "selected_adduct_counts": {
+      "[M+H]+": 349,
+      "[M-H]-": 40,
+      "[M+Na]+": 5,
+      "[M+CH2O2-H]-": 3,
+      "[M+K]+": 1,
+      "[M+NH4]+": 2
+    },
+    "train_only_window": {
+      "min": 2,
+      "median": 124.0,
+      "max": 546,
+      "over_2000": 0
+    }
+  },
+  "source_fingerprints": {
+    "notebooks/submission/enveda-submission.ipynb": {
+      "bytes": 18213,
+      "sha256": "cc10f9fe6e3c2632ff7fc64595b1f188915b01b19491748f2191907ce5002b6c"
+    },
+    "notebooks/colab/004-part2-consolidated.ipynb": {
+      "bytes": 26853,
+      "sha256": "c5b42efb03d4816e328969c3b1e3b95f28caa7703c203fdb6d65dd7ccef20b33"
+    },
+    "src/chemistry.py": {
+      "bytes": 4958,
+      "sha256": "dccf8fecb682eaed0aedee98943d8d09cfe08d0fe410bd965f80382d00daef42"
+    },
+    "src/ranking.py": {
+      "bytes": 28260,
+      "sha256": "b71efcb37435021f7f4bc5e8b2b0f24cca2e571c1b23e7f8e28ba0e2e2496bbd"
+    },
+    "artifacts/004-research/r4_np1184.json": {
+      "bytes": 4183,
+      "sha256": "2d23b020fc08717c59efe8642acdf9eb591ff216e950b75cad0de40955948bcc"
+    },
+    "artifacts/004-research/r1_cosine_np1184.json": {
+      "bytes": 74435,
+      "sha256": "1e43d89b512fc61410da3d7e5131f945a91032619fa1dc4993130a1f184f2e20"
+    }
+  },
+  "audit": {
+    "created_utc": "2026-10-03T16:27:00.609874+00:00",
+    "subject": "本地 enveda-submission.ipynb v7 与 004 R1/R2/R3/R4 研究结果的一致性审计",
+    "cell_indexing": "0-based cell index; cell lines are 1-based within concatenated source",
+    "public_score": 0.206,
+    "public_score_source": "用户与 docs/progress/004-t4-candidate-ranking.md:269（submission ref 56799854）；本轮未查询远端评分",
+    "scope": "只读源代码/已有数据，手动 CPU 诊断；未执行 torch/model/GPU、未 push/submit、未改生产代码或研究文档。仅本审计 JSON 为新增产物。",
+    "method": "标准库读取 notebook/JSON/CSV，NumPy 读取已有 pool 和计算窗口/指标，PyArrow 读取现有训练分片的 inchikey14 及可见占位 test。未安装依赖。",
+    "interpretation_boundary": "一次 public 分数无法识别 Class 1/2/3 比例或各类失败原因；本地 submission.csv 是开发占位 test 输出，不是隐藏重跑逐分子评分。"
+  },
+  "findings": [
+    {
+      "id": "F01",
+      "priority": "highest",
+      "title": "旧 R4 真值 rank 返回候选窗原下标，完全没有体现重排顺序",
+      "evidence": [
+        {
+          "file": "notebooks/colab/004-part2-consolidated.ipynb",
+          "cell": 11,
+          "lines": [
+            70,
+            74
+          ],
+          "detail": "order 是排序后的候选下标，但 rk 取 int(i)+1，缺少 enumerate(order) 的 rank position。"
+        },
+        {
+          "file": "artifacts/004-research/r4_np1184.json",
+          "detail": "1184/1184 保存 ranks 与本地 train pool 20ppm 窗中真值原位置+1 完全一致，无不一致。"
+        }
+      ],
+      "effect": "0.6256977647572863 / Top1 0.5025337837837838 不能作为 R4 效果；+0.004 结论应撤回。重新计算正确 R4 名次需要原候选 scores 或重跑实际推理，现有 ranks 无法还原排序。",
+      "minimal_fix": "用 enumerate(order,1) 的名次；同时保存每 query 的 ordered candidate keys/SMILES、scores、真值原位置和正确排名，手动抽查。"
+    },
+    {
+      "id": "F02",
+      "priority": "highest",
+      "title": "提交管线没有部署训练/谱库/重排增量，且离线与在线候选池不同",
+      "evidence": [
+        {
+          "file": "notebooks/submission/enveda-submission.ipynb",
+          "cell": 4,
+          "lines": [
+            110,
+            114
+          ],
+          "detail": "只加载 fp_single_s2.pt 的公开原始 model；没有 head_rank_5000、cosine 或 ranker。"
+        },
+        {
+          "file": "notebooks/submission/enveda-submission.ipynb",
+          "cell": 6,
+          "lines": [
+            5,
+            9
+          ],
+          "detail": "每分子只取原始峰数最多的一张谱。"
+        },
+        {
+          "file": "notebooks/submission/enveda-submission.ipynb",
+          "cell": 3,
+          "lines": [
+            16,
+            21
+          ],
+          "detail": "训练池和 COCONUT 按原 key 拼接；004 记录 combined 712199。"
+        },
+        {
+          "file": "notebooks/colab/004-r1-r3-consolidated.ipynb",
+          "cell": 7,
+          "lines": [
+            4,
+            6
+          ],
+          "detail": "离线 R1/R2/R3 构建的是 275810 训练结构池。"
+        }
+      ],
+      "effect": "NP per-spectrum .6217、R4 数字和 public .206 不是同一模型/候选池/统计单位的对照。增加候选可能增加真值召回，也可能增加异构体干扰，不能只凭池大小称覆盖已修好。",
+      "minimal_fix": "先在相同 molecular Q、同官方评价上复现 public head 的 train-only vs train+COCONUT；再单独比较 rank-head 与加入谱库通道。"
+    },
+    {
+      "id": "F03",
+      "priority": "high",
+      "title": "本地缺失新 cosine 与 local R4 CV 回执，现有可用产物仍是旧结果",
+      "evidence": [
+        {
+          "file": "artifacts/004-research/r1_cosine_np1184.json",
+          "detail": "1184 行 rank 全 None，仍是 part2 使用排除 NP 的训练分片作 L 的旧全零结果。"
+        },
+        {
+          "file": "artifacts/004-research/r4_np1184.json",
+          "detail": "当前 schema 是五维 ranker + 1184 ranks；并不是新增 run_r4_local_cv 的 overall_oof/per_fold 报告。"
+        },
+        {
+          "file": "artifacts/004-research/r4_ranker.json",
+          "detail": "仍为旧的五维 w/mu/sd；没有 local CV 的四维模型/OOF 分数。"
+        },
+        {
+          "file": "docs/progress/004-t4-candidate-ranking.md",
+          "lines": [
+            219,
+            221,
+            275
+          ],
+          "detail": "文档记录 cosine .7076 和 local OOF .9796，但同名当前文件不能支持逐分子复核。"
+        }
+      ],
+      "effect": "可以保留为终端回执报告值，不能把旧同名 JSON 当对应证据，也不能做可靠逐分子融合分析。",
+      "minimal_fix": "以唯一 run id 分目录保存，取回 part3 实际结果及 local CV 完整报告；现有旧文件保留原身份，不覆盖说明。"
+    },
+    {
+      "id": "F04",
+      "priority": "high",
+      "title": "谱库只包含评估真值集合，不能支持开放候选池的强分流结论",
+      "evidence": [
+        {
+          "file": "notebooks/colab/004-part3-cosine.ipynb",
+          "cell": 3,
+          "lines": [
+            7,
+            10
+          ],
+          "detail": "显式要求 Q/L 结构集合完全相等。"
+        },
+        {
+          "file": "notebooks/colab/004-part3-cosine.ipynb",
+          "cell": 4,
+          "lines": [
+            13,
+            17
+          ],
+          "detail": "先截前25条参考谱，未按结构聚合后取25个候选；重复结构占了算法候选位置。"
+        },
+        {
+          "file": "src/ranking.py",
+          "lines": [
+            447,
+            453,
+            487,
+            512
+          ],
+          "detail": "local CV 的 C 为大结构池，但仅 NP250 真值结构有非零谱库特征，其余候选常为 cosine=0。"
+        }
+      ],
+      "effect": "L2453 的250结构恰为Q真值集合，L背景结构0；exact peak hash Q/L overlap=0 只排除完全相同峰数组，不能消除参考库结构选择偏差。local .9774/.9796 与 part3 .7076 是不同候选和质量过滤口径，不能直接对比。",
+      "minimal_fix": "固定包含完整背景的L、去掉Q/重复谱；每候选结构聚合谱证据并共享C。以最大cosine、匹配峰数、margin等经独立分组校准决定权重，不以“窗口非空”硬分流。"
+    },
+    {
+      "id": "F05",
+      "priority": "high",
+      "title": "多数离线指标并非严格分子级官方 MRR@25",
+      "evidence": [
+        {
+          "file": "notebooks/colab/004-r1-r3-consolidated.ipynb",
+          "cell": 9,
+          "lines": [
+            45,
+            62
+          ],
+          "detail": "按 shipped key 取全窗名次并用所有1/r，不截rank>25；Q是1184谱。"
+        },
+        {
+          "file": "notebooks/colab/004-r1-r3-consolidated.ipynb",
+          "cell": 11,
+          "lines": [
+            30,
+            47,
+            50,
+            52
+          ],
+          "detail": "分子级R2的single用单谱窗，mean variants用所有谱窗并集，C不相同；也未截rank>25。"
+        },
+        {
+          "file": "notebooks/colab/004-part2-consolidated.ipynb",
+          "cell": 15,
+          "lines": [
+            41,
+            49
+          ],
+          "detail": "merged用第一张谱的质量窗，single用峰最多谱的质量窗；比较还混入C差异。"
+        }
+      ],
+      "effect": "已重算R1严格MRR@25=.5991144685（原.6000851263，52谱rank>25）；R2 single=.6752032519（原.6754499312）；影响不大但口径必须清楚。无完整候选预测时不能恢复官方规范化匹配结果。",
+      "minimal_fix": "保存最终 top25 SMILES，使用官方语义、按分子汇总；融合只改变排序证据，共享预先定义的分子候选窗。保留per-spectrum诊断但明确其非竞赛总指标。"
+    },
+    {
+      "id": "F06",
+      "priority": "high",
+      "title": "训练验证的结构留出边界仍不完整，GEN 与实际训练有交集",
+      "evidence": [
+        {
+          "file": "artifacts/004-research/train_shard_200k.parquet",
+          "detail": "手动标量读取200000行，113955个shipped结构。"
+        },
+        {
+          "file": "artifacts/004-research/generic_queries.json",
+          "detail": "500结构中215出现在实际train200k，涉及630/1411条GEN query。"
+        },
+        {
+          "file": "src/splits.py",
+          "lines": [
+            465,
+            473,
+            483,
+            493
+          ],
+          "detail": "canonical重算只遍历旧NP250 manifest的结构和旧rows，未重算完整train来纳入外部canonical别名。"
+        },
+        {
+          "file": "artifacts/004-research/np_canonical_5fold.json",
+          "detail": "16个NP shipped key在canonical后改变，其中14个目标key在全pool另作为非holdout shipped key存在，8个在train200k。这里只是需核实的别名风险，不单凭字符串lookup断言化学等价。"
+        }
+      ],
+      "effect": "GEN不是严格结构未见验证；NP仍需全库canonical反查才能排除结构别名跨train。公开checkpoint预训练暴露未知。rank损失优于BCE的观察值得保留，但seed7/11/12与采样方案变化，不能归因全部因果增益。",
+      "minimal_fix": "全结构池一次canonical映射后扩展排除同组、保留独立GEN结构；同seed/同batch顺序/BCE vs BCE+rank仅改一个因素做短程对照，固定开发集与保留集。"
+    },
+    {
+      "id": "F07",
+      "priority": "high",
+      "title": "v7直接导出原始SMILES与原key，未执行计划中的官方语义候选导出",
+      "evidence": [
+        {
+          "file": "notebooks/submission/enveda-submission.ipynb",
+          "cell": 3,
+          "lines": [
+            7,
+            11,
+            18,
+            19
+          ],
+          "detail": "直接读取smiles.txt/coco_meta smiles与原keys。"
+        },
+        {
+          "file": "notebooks/submission/enveda-submission.ipynb",
+          "cell": 6,
+          "lines": [
+            79,
+            99
+          ],
+          "detail": "去重只按原k，直接拼接SMILES；没有prepare_prediction_smiles/official_match_key。"
+        },
+        {
+          "file": "artifacts/submission-v7/submission.csv",
+          "detail": "开发占位输出400x25，515个候选槽位含@；18行含裸CCO，共154个CCO槽位，17行有精确重复。首候选裸CCO=0。"
+        }
+      ],
+      "effect": "@本身不一定错误，但说明去立体导出策略没有部署；tautomer/立体对官方key的影响需同版本实测。重复CCO主要来自补足25的策略，无需填满25。以上开发格式诊断不说明隐藏预测质量。",
+      "minimal_fix": "CPU离线按官方RDKit语义预计算导出SMILES/canonical key并保留原fingerprint contract，按最终key去重。输出1–25个真实候选即可；记录无候选而不是把padding当覆盖率。"
+    },
+    {
+      "id": "F08",
+      "priority": "medium",
+      "title": "源模块有未使用但会阻碍接手的输入contract问题",
+      "evidence": [
+        {
+          "file": "src/chemistry.py",
+          "lines": [
+            105,
+            109
+          ],
+          "detail": "load_fp_bits_mapping查header包含int64，但实际合法npy descr为<i8，手动调用现有55568B文件确实抛ValueError；np.load正常得到6930个唯一int64位。"
+        },
+        {
+          "file": "src/chemistry.py",
+          "lines": [
+            34,
+            45
+          ],
+          "detail": "_require_rdkit导入rdkit但没有检查版本，不能凭返回成功声明2026.03.3。"
+        },
+        {
+          "file": "src/models/fingerprint.py",
+          "lines": [
+            132,
+            147
+          ],
+          "detail": "ce_mean用arr==arr只排NaN，没有排正负inf；注释称等价isfinite不正确。"
+        },
+        {
+          "file": "src/train_fingerprint.py",
+          "lines": [
+            231,
+            272
+          ],
+          "detail": "train_step_torch实际仅计算BCE，忽略文档所列ranking负例；不能用它复现r3_rank训练。"
+        }
+      ],
+      "effect": "v7不用这些模块，因此不能把它们当已知0.206原因；但下一轮直接复用会产生不同于已记录实验的行为。",
+      "minimal_fix": "只修实际接手需要的路径：npy dtype正确解析、记录实际RDKit版本、isfinite和真实rank loss；不增加测试体系。"
+    },
+    {
+      "id": "F09",
+      "priority": "medium",
+      "title": "v7存在隐藏输入规模与故障追踪风险，但开发运行未触发",
+      "evidence": [
+        {
+          "file": "notebooks/submission/enveda-submission.ipynb",
+          "cell": 6,
+          "lines": [
+            40,
+            41
+          ],
+          "detail": "计算NG但后续固定只调用0..100共100个组，G=4。"
+        },
+        {
+          "file": "notebooks/submission/enveda-submission.ipynb",
+          "cell": 11,
+          "lines": [
+            1,
+            1
+          ],
+          "detail": "最后固定run_groups(80,100)，超过400分子的输入会漏行，最终assert失败。"
+        },
+        {
+          "file": "notebooks/submission/enveda-submission.ipynb",
+          "cell": 6,
+          "lines": [
+            102,
+            106
+          ],
+          "detail": "任意组错误以4行CCO替代且不记录错误类型/内容。"
+        }
+      ],
+      "effect": "这些不是本次0.206的已证原因；开发小诊断选出的400谱均有可用峰、有限非空CE和已知adduct，train-only窗口最大546未触发2000截断。隐藏分布仍未知。",
+      "minimal_fix": "按NG动态分块；逐分子记录reason、窗口数、valid peaks、selected adduct与异常，不用CCO计数冒充真值覆盖。"
+    }
+  ],
+  "priority_experiments": [
+    {
+      "id": "A0",
+      "priority": 1,
+      "hypothesis": "离线/线上候选池、单位和评分错位掩盖实际排序能力",
+      "change": "固定NP250/GQ结构分组和max-raw-peaks单谱，public head下仅切换train-only与v7 train+COCONUT；使用同一官方分子级MRR@25",
+      "cost": "使用一次缓存logits+CPU窗内点积即可多次重排，无需训练；先修R4名次错误",
+      "record": [
+        "candidate pool source/hash/keys",
+        "truth_in_full_pool/after_mass/after_cap",
+        "full candidate scores or top25 SMILES",
+        "per-molecule RR and matched semantics"
+      ]
+    },
+    {
+      "id": "A1",
+      "priority": 2,
+      "hypothesis": "独立参考谱能提供互补信息，但真值集合限定的L夸大可部署收益",
+      "change": "加入完整背景L后与FPNet共享C；结构级max-cosine、cosine-confidence soft fusion、FPNet三个条件对照；阈值用开发折固定",
+      "cost": "缓存谱预处理与按mass筛选；无需神经训练",
+      "record": [
+        "matched peaks",
+        "cosine/top2 margin",
+        "true candidates before/after fusion",
+        "paired improvements and regressions"
+      ]
+    },
+    {
+      "id": "A2",
+      "priority": 3,
+      "hypothesis": "rank-head per-spectrum小提升能否保持在实际molecular submission路径",
+      "change": "同一v7 C/Q/导出策略，仅public head vs rank-head；不同时改ppm或融合",
+      "cost": "短推理，保存所有logits以便复用",
+      "record": [
+        "molecule-level held-out RR",
+        "GEN unseen vs train-overlap slices",
+        "calibration with same candidate background"
+      ]
+    },
+    {
+      "id": "A3",
+      "priority": 4,
+      "hypothesis": "减少错误同质量候选或统一候选导出可低成本改善rank",
+      "change": "缓存同一logits后分别比较5/10/20ppm、200/2000/no-cap；另做canonical导出/去重单变量对照",
+      "cost": "CPU重排；保留小样本对照即可，不额外训练",
+      "record": [
+        "true recall before and after cap",
+        "unique canonical candidates",
+        "paired MRR and regression cases"
+      ],
+      "caution": "现有mass召回较高不等于10ppm/WMAX200一定更优，不能直接采用文档推荐值。"
+    }
+  ],
+  "conclusions_not_supported": [
+    "不能由public0.206归因Class2/3比例或失败；Class2是库内无参考谱，不等于库外。",
+    "本地开发submission无CCO首候选只证明非空输出，不证明隐藏真值被召回。",
+    "旧R4 .6257不是ranker效果；新localOOF .9796缺对应回执且L背景偏差未消除。",
+    "FPNet与cosine的目前数字不同C/不同排名单位，不足以支持有谱必走cosine的硬路由。",
+    "现有公开checkpoint预训练暴露未知，从train抽holdout或pool交集都不能证明严格泛化。"
+  ],
+  "remote_read_note": "补充读取原作者v32的MCP请求发生transport error，未据此新增上游实现或COCONUT构建过程事实。"
+}

@@ -1,0 +1,560 @@
+{
+  "research_date": "2026-10-04",
+  "timezone": "Asia/Shanghai",
+  "competition": "enveda-CASMI26-molecule-id-mass-spectra",
+  "purpose": "005 研究交接证据：相对于 v7 public 0.206，查明公开强方案的实际组成，选择可在 T4 上测出增量的方向。",
+  "scope": {
+    "performed": [
+      "阅读 004 完整进展及 v7 源码",
+      "通过 Kaggle CLI 只读获取分数排序前列公开 notebook 的实际源码",
+      "只读获取少量 engine/manifest/runner 源码与官方论文/仓库",
+      "记录建议和事实的边界"
+    ],
+    "not_performed": [
+      "下载大权重",
+      "执行模型或训练",
+      "启动 Kaggle/Colab 作业",
+      "提交比赛",
+      "创建测试文件"
+    ],
+    "tool_note": "本子任务工具目录未暴露 Kaggle MCP，使用现有 Kaggle CLI 只读 pull/list/download 小文件。准确 dataset 版本/许可由主任务 API 查询补充，见 candidate-assets-2026-10-04.json。"
+  },
+  "headline": [
+    "目前最有证据的差距是缺少候选级多通道证据，而非已证实必须继续微调或必须 de novo。公开强源码使用直接谱库、shifted analog、多个指纹视角、碎裂特征和联合排序；v7 只有公开 FPNet 单谱点积。",
+    "先在相同候选池重建完整检索/排序证据，再用冻结 GLACIER 权重解决 shortlist 内的同分子式异构体排序；DreamsFP 可作为独立指纹视角，不能把通用 embedding 等同于公开强方案。",
+    "Class-3 需要池外生成；Class-2 的无参考谱不等于候选结构不在池。0.206 单一 public 分数不能确定各类错误占比，也没有可用的隐藏逐行真值。",
+    "以奖金为目标，应把来源条款待澄清资产与已明确不可无许可证使用的 NIST 资产分别记录。公开可下载、代码 MIT 和可用于本次奖金方案是不同事实。"
+  ],
+  "local_evidence": {
+    "sources": [
+      "docs/progress/004-t4-candidate-ranking.md",
+      "data/references/submission-v7-audit-2026-10-03.json",
+      "notebooks/submission/enveda-submission.ipynb"
+    ],
+    "source_notebook_sha256": "cc10f9fe6e3c2632ff7fc64595b1f188915b01b19491748f2191907ce5002b6c",
+    "v7": {
+      "public_score": 0.206,
+      "submission_ref": "56799854",
+      "candidate_pool": 712199,
+      "development_molecules": 400,
+      "development_spectra": 1213,
+      "development_seconds_approx": 130,
+      "checkpoint": "fp_single_s2.pt（公开 checkpoint，未加载 head_rank_5000.pt 或 R4）",
+      "spectrum_selection": "每 molecule_id 选择原始峰数最多的一张谱",
+      "ranking": "20 ppm；WMAX=2000 时按质量误差截断；6930-bit 指纹点积",
+      "missing": [
+        "完整谱库直接匹配",
+        "跨质量 shifted analog 传播",
+        "候选级多谱/极性证据",
+        "碎裂解释特征",
+        "联合学习排序",
+        "GLACIER/ICEBERG forward 分数",
+        "结构衍生或 de novo 候选"
+      ]
+    },
+    "actual_results_to_inherit": [
+      {
+        "result": "NP1184 公共 FPNet",
+        "mrr25": 0.5991144685116158,
+        "unbounded_mrr": 0.6000851262775551,
+        "top1": 0.4391891891891892,
+        "interpretation": "谱级结果，候选训练池 275810；不是 v7 合并池，更不是未见结构已认证评估。"
+      },
+      {
+        "result": "NP250 分子级",
+        "single_mrr25": 0.6752032518908682,
+        "mean_all_mrr25": 0.648275844155844,
+        "mean_ad_mrr25": 0.6363128282828283,
+        "rrf_mrr25": 0.6300028138528136,
+        "merged_mrr25": 0.6645655911855598,
+        "interpretation": "朴素均值/该 RRF/该 merged 未超过 single；没有排除质量加权或候选级互补证据融合。"
+      },
+      {
+        "result": "BCE-only 微调",
+        "np_step0_unbounded_mrr": 0.6001,
+        "np_5000_unbounded_mrr": 0.4919,
+        "gen_step0_unbounded_mrr": 0.7846,
+        "gen_5000_unbounded_mrr": 0.4765,
+        "interpretation": "双域排序下降；timsTOF 50% 混合仍下降。不要继续重复该目标。"
+      },
+      {
+        "result": "BCE+rank head 5000 步",
+        "np_unbounded_mrr": [
+          0.6001,
+          0.6217
+        ],
+        "gen_unbounded_mrr": [
+          0.7844,
+          0.7611
+        ],
+        "seconds_approx": 667,
+        "interpretation": "NP/GEN 有取舍；纯 BCE 与本跑种子等不同，不能把差异当严格单变量因果。GEN 500 结构中 215 出现在微调分片，不能称结构留出泛化。"
+      },
+      {
+        "result": "解冻末两层 2000 步",
+        "np_unbounded_mrr": [
+          0.6217,
+          0.6147
+        ],
+        "gen_unbounded_mrr": [
+          0.7611,
+          0.7737
+        ],
+        "interpretation": "没有继续堆同类训练的正面证据。"
+      },
+      {
+        "result": "独立谱库 cosine 0.7076",
+        "status": "004 进展记录；尚需完整背景及同口径重跑",
+        "interpretation": "L 只有查询 250 结构的 2453 张非 timsTOF 谱，无其他背景结构；不能据此承诺完整库增益，也不能按是否有任何质量窗参考谱硬分流。"
+      },
+      {
+        "result": "R4 0.6257",
+        "status": "无效排名指标",
+        "evidence": "审计显示 1184/1184 保存值等于未排序候选窗中的位置+1，不是按 ranker 分数排序后的名次。撤回此前 +0.004 增量结论。"
+      },
+      {
+        "result": "R4 OOF 0.9796 / cosine 0.9774",
+        "status": "另一路口径待主审核查",
+        "interpretation": "不作为005选路线依据；不可与上面有效跨库 cosine 0.7076 混用。"
+      }
+    ],
+    "evaluation_repairs_before_comparison": [
+      "统一为分子级 MRR@25；谱级只作诊断，排名>25按0计。",
+      "每次固定 Q、L、C、质量窗/截断、规范化结构键、公开权重/自训权重，报告真值入池→入质量窗→入 shortlist→排位。",
+      "NP 和 GEN 需要完整规范化结构别名检查；当前 shipped-key 分组不足以证明规范化结构不泄漏。",
+      "参考谱已见结构臂：独立采集/来源参考，去除重复谱；无参考臂：从全 L 删去查询规范化结构全部参考谱，同时保留 C 中真值；池外臂另行删除 C 真值。",
+      "公开 checkpoint 的外部训练曝光未知时明确写未知；fpnet-full1 明确包含 NP，不能用于声称 NP 未见泛化。",
+      "10ppm+WMAX200 只在旧训练结构池有统计，必须在 v7 的 712199 合并池测截断召回；同式异构体近乎同质量，按质量误差裁剪不等于合理排序。"
+    ]
+  },
+  "inspected_public_notebooks": [
+    {
+      "ref": "wangpenghua/casmi26-v29-fusion-pop-glmh",
+      "url": "https://www.kaggle.com/code/wangpenghua/casmi26-v29-fusion-pop-glmh",
+      "id_no": 136597487,
+      "sha256": "092249f5be321e64c418332accc0c2ace6e7721d7e9c566ef47072375ef0237f",
+      "version_number": null,
+      "version_note": "CLI pull 元数据未返回版本号，v29 是 notebook 方案名；以内容 SHA 固定本次证据。",
+      "score_status": "分数降序列表前列；markdown 自述 0.415，未独立读取该版本提交结果。",
+      "cells_one_based": {
+        "3": "TOPN60，ICE预算5400秒，popularity先验。",
+        "5": "普通 commit 只跑可见数据12分子；隐藏重跑才全部。",
+        "16": "ICE+GL；GL实际只取[M+H]+；GL预算4000秒；同式组重排。",
+        "12-14": "v4b/full1 模型库、所有查询谱、联合特征与候选生成。"
+      },
+      "facts": [
+        "使用完整检索 engine 与 V1FE ranker，不是只有指纹模型。",
+        "候选含 COCONUT、训练结构、ChEBI/LIPIDMAPS、PubChem 通道和 analog 衍生。",
+        "谱库强匹配保护、候选流融合、popularity、forward 为分别叠加的阶段。"
+      ],
+      "budget_boundary": "5400+4000秒是配置上限，不能当已测总耗时；12分子的开发执行也不能证明全隐藏集9小时可行。"
+    },
+    {
+      "ref": "huseyinemreaksoy/casmi26-sub-v4b-0-409-on-the-public",
+      "url": "https://www.kaggle.com/code/huseyinemreaksoy/casmi26-sub-v4b-0-409-on-the-public",
+      "id_no": 136654213,
+      "sha256": "d5a004a64d3360568cea53dcb4c34dbd03da4f5e02d602498104cdddcd29afd8",
+      "version_number": null,
+      "score_status": "markdown称version1 public0.409；本研究未独立核验提交分。",
+      "cells_one_based": {
+        "5": "POP_MU=.25，FRAG_LAM=.5，FRAG_MODE=gap，ICE_LAM_LIB=GL_LAM_LIB=0；VAL_PURGE可all/lib。",
+        "17": "联合ranker筛出top60。",
+        "19": "ICE/GL前向查询与重排。"
+      },
+      "facts": [
+        "对于强谱库命中可关闭 forward，说明 forward 未必对所有分子正向。",
+        "增加近似碎裂 parsimony 分数；源码注释的毫秒预算不是我们测得的成本。",
+        "提供清除全部真值参考或保留其他库参考的验证开关；仍不能消除 pretrained full1 的结构曝光。"
+      ]
+    },
+    {
+      "ref": "flexonafft/casmi26-multi-engine-fusion-spectral-reranking",
+      "url": "https://www.kaggle.com/code/flexonafft/casmi26-multi-engine-fusion-spectral-reranking",
+      "id_no": 134738357,
+      "sha256": "9d8a528e10603be287916f2abd2e87c01b2d7e1e9d9381243ace91f94a73bb64",
+      "version_number": null,
+      "score_status": "源码直接声明0.411未独立复现。",
+      "facts": [
+        "实际ICE_CHUNKS=0，GL_CHUNKS=9，ICE作业为空；标题含多个engine不代表均执行。",
+        "GL以有界块处理[M+H]+，条件依赖复杂：某些base重排由ICE有效分数控制，但final fusion中GL仍可能生效。",
+        "建议借鉴算法组成，不复制所有静默占位/空分数控制逻辑。"
+      ]
+    },
+    {
+      "ref": "ahmedberatozer/casmi26-v4q-inference",
+      "url": "https://www.kaggle.com/code/ahmedberatozer/casmi26-v4q-inference",
+      "id_no": 136511567,
+      "sha256": "477a5dab7954b700c1efb26810e6506075bc8d9ae96727981a6bcf3debc57d8f",
+      "version_number": null,
+      "score_status": "未核验分数",
+      "facts": [
+        "同一v4b/v3/pool/forward资产家族；作为公共栈来源补充，而非独立算法证据。"
+      ]
+    }
+  ],
+  "reusable_stack": {
+    "exact_dataset_metadata_source": "data/references/candidate-assets-2026-10-04.json",
+    "assets": [
+      {
+        "ref": "ahmedberatozer/casmi26-v4b-models",
+        "version": 4,
+        "dataset_id": 12183464,
+        "license": "Other；描述注明竞争训练数据 CC BY-NC 派生与 COCONUT attribution；DreamsFP另见LICENSE-NOTICE.txt",
+        "prize_status": "具体本赛使用条件待主办方澄清；不能直接推导禁止参赛，也不能由公开性推导已获奖金用途许可。"
+      },
+      {
+        "ref": "ahmedberatozer/casmi26-fpnet-full1",
+        "version": 1,
+        "dataset_id": 12268894,
+        "license": "Other；source licenses，non-commercial/attribution",
+        "exposure": "资产描述明确 ALL train folds including np-examples；NP仅能诊断条件排序/复现，不能当未见结构评估。"
+      },
+      {
+        "ref": "ahmedberatozer/casmi26-v2-pool",
+        "version": 1,
+        "dataset_id": 12114353,
+        "license": "Other；competition-data/COCONUT source terms"
+      },
+      {
+        "ref": "ahmedberatozer/casmi26-glacier",
+        "version": 1,
+        "dataset_id": 12248560,
+        "license": "Other；描述指定 MassSpecGym checkpoint、MIT inference subset；仍需保留原来源与NOTICE",
+        "caution": "第三方stripped checkpoint和pure-torch DGL/torch_scatter/LinSATNet替代实现，不等于已验证官方数值等价。"
+      }
+    ],
+    "other_dataset_refs": [
+      "prvsiyan/casmi26-fp-models-v2",
+      "prvsiyan/casmi26-ranker-features",
+      "megayak/casmi26-simulated-ranker-rows",
+      "ahmedberatozer/casmi26-v3-models",
+      "ahmedberatozer/casmi26-iceberg",
+      "ahmedberatozer/casmi26-pubchem-tier",
+      "prvsiyan/chebi-lipidmaps-casmi26",
+      "prvsiyan/coconut-casmi26-candidates",
+      "dmitriigluzdov/casmi26-pubchem-popularity-prior",
+      "metric/rdkit-2026-3-3-wheel"
+    ],
+    "other_versions": "以上其余资产当前版本及具体使用条件本子任务未核实；不得补写猜测版本。",
+    "manifest_facts": {
+      "created": "2026-09-26 15:20:10",
+      "engine": "v1 (v3.6 backbone)",
+      "families": [
+        "derivation",
+        "frag2",
+        "analog_struct",
+        "model_views",
+        "fragnet"
+      ],
+      "ranker": {
+        "n_features": 160,
+        "n_boosters": 4,
+        "rounds": 500,
+        "file": "ranker_v4b.pkl",
+        "sha256": "6172e926fb2de244f0b9189ed54e1ed8a15e76d166592b724129a4d6a34931da"
+      },
+      "weights": [
+        {
+          "file": "fe_A.pt",
+          "source": "work/fpnet_a.pt",
+          "sha256": "edccf479a2a2e53461a06bc5e1aee4341b22abb32302c4f6d2c45281000d742a"
+        },
+        {
+          "file": "fe_B.pt",
+          "source": "work/fpnet_b.pt",
+          "sha256": "6f60a22b3c3b21aa48d47328bb9523bdf07cc004bfb72966e0f9713507c24f2e"
+        },
+        {
+          "file": "fe_D.pt",
+          "source": "work/analysis/dreams_ft/s2/pilot_d1_step20k_ema.pt",
+          "sha256": "8ae5bee2c978f4f01ea7cfe29b514cd3e9112006ab51aa8b13f20e26e9365362",
+          "meaning": "DreaMS微调得到的DreamsFP；非裸embedding"
+        }
+      ],
+      "checksums_note": "权重哈希来自作者MANIFEST，未下载权重自行验证。"
+    },
+    "implementation_findings": [
+      {
+        "component": "library",
+        "fact": "对全部查询谱，取候选结构的直接/shifted entropy相似度，聚合max/mean、参考谱数量、query覆盖等；谱库通道和指纹是同一候选特征。",
+        "inference": "用可靠性特征校准比'任何参考谱存在就走cosine'更值得优先测。"
+      },
+      {
+        "component": "analog",
+        "fact": "在更宽质量域找相似参考，以质量差shift匹配，再通过候选与analog结构Tanimoto传播相似度；可排除全部真值参考。",
+        "inference": "这是已有结构池内、无真值参考谱时的独立证据，可先于新神经微调验证。"
+      },
+      {
+        "component": "multi-spectrum",
+        "fact": "model_views.py计算A/B/D分数、rank spread/worst、多谱排名统计、正负极性视角、各fingerprint block得分；MANIFEST实际选入只是其中子集。",
+        "inference": "R2朴素均值失败不足以排除这些候选级一致性/互补特征。"
+      },
+      {
+        "component": "fingerprint_contract",
+        "fact": "公共v4栈原始7block为ECFP4 4096+ECFP6 4096+FCFP4 2048+RDK6 2048+atom-pair2048+torsion2048+MACCS167=16551，再由该pool.bits选取。",
+        "inference": "不能使用本项目原4block选出6930bit的candidate cache或head；checkpoint、bits、pool、metadata编码必须配套。"
+      },
+      {
+        "component": "fragmentation",
+        "fact": "engine包含fragment explained intensity/subformula、结构碎裂、fragnet等；frag_max_cand=600时先按模型选候选。",
+        "inference": "记录候选截断前后召回，防止把丢真值误解成forward模型差。"
+      },
+      {
+        "component": "bounded_generation",
+        "fact": "engine.generate取最强6个analog父结构、minsim .3、每parent最多60、total150，derive最多2步并要求目标质量一致。",
+        "inference": "这是有限图变换生成，不是大模型de novo；值得与扩大数据库分别消融。"
+      },
+      {
+        "component": "ranker_reuse",
+        "fact": "160特征及顺序/缺失值含义与公开ranker绑定。",
+        "inference": "完整复現参考栈可作上界标杆；删除通道再填0给原ranker不是有效的通道消融。受控自研路线应重拟合轻量融合器或用预先固定权重。"
+      }
+    ],
+    "read_small_files": [
+      {
+        "file": "code/casmi/engine.py",
+        "sha256": "d914bf9d5eb56cfff434b5d53a4d55881b97697aa834a627d9932a4f8c650d27"
+      },
+      {
+        "file": "code/fe_v4/fams/model_views.py",
+        "sha256": "aa964b12265bb70144d2d653b600a7f1a4972829032274bab76ea9e39afd7e79"
+      },
+      {
+        "file": "casmi26-glacier/README.md",
+        "sha256": "430b17c774e84f76204aa83b2672d39d31de9f1479eff8a2a3663bcc8ce000ac"
+      },
+      {
+        "file": "casmi26-glacier/gl_runner.py",
+        "sha256": "5c4f74313ac54263d05d987c39d012d81ec57c5f35e1095ecd49a5bcb6440fca"
+      }
+    ]
+  },
+  "primary_model_evidence": [
+    {
+      "model": "GLACIER / ICEBERG 2.1",
+      "urls": [
+        "https://github.com/coleygroup/ms-pred"
+      ],
+      "verified": "官方提供MassSpecGym权重，代码MIT。NIST权重要求相应许可证。官方训练参考均为2×24GB；小显存示例为ICEBERG batch8在8GB RTX4070M，并非T4本赛基准。",
+      "use": "优先冻结权重、有限候选前向；不在单T4从头复刻官方训练。",
+      "t4_budget_status": "本项目未实测forward；不能把别的GPU示例当T4耗时。"
+    },
+    {
+      "model": "DreaMS",
+      "urls": [
+        "https://github.com/pluskal-lab/DreaMS",
+        "https://zenodo.org/records/10997887",
+        "https://raw.githubusercontent.com/pluskal-lab/DreaMS/main/dreams/utils/dformats.py"
+      ],
+      "verified": "官方API输出1024维表征；MIT代码；Zenodo记录v1列embedding checkpoint1.2GB、ssl1.4GB。DataFormatA规定charge+1和m/z<=1000，但也定义A3/C等；不能推导所有API统一只收正离子。",
+      "use": "优先确认已训练DreamsFP的许可证与输入映射，再测独立指纹视角；自训时先冻结表征/小头而非盲目全模型。",
+      "license_boundary": "Zenodo网页读取未显示可识别权重License值；不可把代码MIT自动扩展为所有权重条款。",
+      "exposure": "GeMS/NPLIB/训练谱与本地查询可能交叠；当前CASMI结构曝光未确认。"
+    },
+    {
+      "model": "MIST-CF",
+      "urls": [
+        "https://github.com/samgoldman97/mist-cf"
+      ],
+      "verified": "从MS/MS排名formula/adduct，仍只支持正模式；官方公开NPLIB1/CANOPUS checkpoint，NIST模型另需许可证；使用SIRIUS decomp枚举质量对应分子式。代码MIT。",
+      "use": "先做oracle formula vs predicted top-k formula双臂，分开测公式召回与结构排序；它本身不能区分同式异构体。",
+      "t4_budget_status": "无本项目T4时长；优先10–20正离子分子推理而非训练。"
+    },
+    {
+      "model": "MS-GPT",
+      "urls": [
+        "https://github.com/VIKI623/MS-GPT"
+      ],
+      "verified": "150.1M；已知formula+MIST4096 posterior；默认100候选为20查询×5采样；官方资产bundle可下载，源码Apache2；原复现建议RTX6000Ada。",
+      "use": "若要神经生成，小量预训练推理备选；不是直接把现有6930bit FPNet拼进去。",
+      "exposure": "作者称100m预训练排除所用NPLIB/MSG基准连接等价结构，不等于排除了本赛所有结构。",
+      "t4_budget_status": "无T4实测，不承诺完整400/隐藏集的生成耗时。"
+    },
+    {
+      "model": "FRIGID",
+      "urls": [
+        "https://github.com/coleygroup/FRIGID"
+      ],
+      "verified": "GenMol衍生的谱到结构方案，条件为MIST4096+formula；可选ICEBERG循环修正；提供decoder/encoder/forward权重，代码Apache2。官方报告6000Ada6.58秒/谱，对照DiffMS131.2秒/谱。",
+      "use": "相对从GenMol自建适配更接近可复用方案；先round0，别立即多轮forward迭代。",
+      "exposure": "NPLIB1/MSG领域与本赛可能有重叠，checkpoint曝光需单独核实。",
+      "t4_budget_status": "上述不是T4预算；多候选/多轮需实测。"
+    },
+    {
+      "model": "DiffMS",
+      "urls": [
+        "https://github.com/coleygroup/DiffMS",
+        "https://arxiv.org/abs/2502.09571",
+        "https://zenodo.org/records/15122968"
+      ],
+      "verified": "已知formula限定重原子组成的图扩散；官方提供端到端与encoder/decoder checkpoint。Zenodo v2 bundle939.6MB，代码MIT；原依赖Py3.9/torch2.3.1/CUDA11.8。",
+      "use": "可复现但当前单T4优先级低于现成FRIGID/MS-GPT小试；不能解决formula缺失。",
+      "t4_budget_status": "未发现T4可靠基准；正负离子实际支持和CASMI曝光未逐配置证实，不写成全域可用。"
+    },
+    {
+      "model": "GenMol V2",
+      "urls": [
+        "https://github.com/NVIDIA-BioNeMo/genmol",
+        "https://raw.githubusercontent.com/NVIDIA-BioNeMo/genmol/main/MODEL_CARD.md"
+      ],
+      "verified": "官方可下载预训练模型；模型NVIDIA Open Model License，代码Apache2，模型卡称可商业使用。输入SAFE模板/片段与采样控制，没有现成MS/MS encoder或本赛formula条件；训练8×A100，官方测试硬件未列T4。",
+      "use": "不作为直接替换MS-GPT的短期提分方案。可作未来analog结构编辑prior，但需额外谱/质量约束与ranker。",
+      "exposure": "分子语言预训练含大规模SAFE语料；结构曝光未知。"
+    },
+    {
+      "model": "MARLIN（2026-07前沿）",
+      "urls": [
+        "https://arxiv.org/abs/2607.04774",
+        "https://arxiv.org/html/2607.04774v1"
+      ],
+      "verified": "公式未知路线：DreaMS预测4096Morgan+实测中性质量，block diffusion；论文配置12层/896宽、384候选，FRIGID warm-start。Code Availability仅承诺发表后发布代码和权重；本次定向检索未找到官方发布。",
+      "use": "推翻'所有de novo必需formula'的绝对说法；目前列研究观察，不写成005已可执行权重路线。",
+      "t4_budget_status": "论文未给可核实T4预算，原正负离子覆盖也未证实。"
+    },
+    {
+      "model": "DiffNovo（小分子版本）",
+      "urls": [
+        "https://github.com/GaoHoufu/DiffNovo"
+      ],
+      "verified": "官方README说明使用商业NIST、未能提供完整代码且后续补样例；本次未发现可直接用的开放checkpoint。",
+      "use": "不列005优先。另有同名肽测序项目，不能混淆。"
+    }
+  ],
+  "proposed_experiments": [
+    {
+      "id": "005-E0",
+      "priority": 0,
+      "name": "重建可信基线和三种研究情景",
+      "hypothesis": "当前最先需要解释真实错误来源，避免在错误rank/泄漏分裂上优化。",
+      "design": [
+        "固定public head与rank-head两条，先重算分子MRR@25和canonical结构交集。",
+        "固定C为v7合并池；分别参考谱保留、真值全参考清除、真值候选删除。",
+        "NP250作开发诊断；新增一次性保留的结构/来源切片作模型选择验证，报告公开checkpoint曝光未知。"
+      ],
+      "outputs": [
+        "每分子truth_in_pool/window/topK/rank记录",
+        "结构级paired RR差与bootstrap区间",
+        "来源/极性/质量/候选窗大小分层"
+      ],
+      "budget": "人工本地数据核对+已跑通T4推理；不新增训练预算。"
+    },
+    {
+      "id": "005-E1",
+      "priority": 1,
+      "name": "同池全背景谱库+analog+多谱证据",
+      "hypothesis": "在v7固定候选中，独立谱匹配和analog证据比继续同类head微调有更大可测增量。",
+      "design": [
+        "建立含负例背景的L；直接cosine/entropy、shifted analog、FPdot全部落同一候选表。",
+        "对所有query spectra保留clean峰数、entropy、CE/adduct、匹配覆盖，聚合max/top-k/支持张数和极性一致性。",
+        "依次比较FP、FP+direct、FP+analog、FP+direct+analog、再加多谱一致性；不以任意一张谱有窗就硬分流。",
+        "轻量ranker按规范化结构分组；旧R4结果不复用；按计划固定超参，避免不断复用NP挑冠军。"
+      ],
+      "budget": "先50–100分子测完整库CPU索引/搜索p50/p95和RAM，再扩大250；现有11分钟的小L余弦不可直接外推全L。FP/logits/库索引缓存复用。",
+      "stop": "如果正确候选没有新增支持、或同池paired RR持续非正且无明确受益子群，暂停该特征；不是增大trunk训练步数。"
+    },
+    {
+      "id": "005-E2",
+      "priority": 1,
+      "name": "公开全栈参考复现与许可可用的主线分离",
+      "hypothesis": "用完整公共engine作对照可定位v7缺口，但不能将带NP曝光的全量权重当未见泛化。",
+      "design": [
+        "固定v4b v4、full1 v1、pool v1、来源NOTICE与文件SHA；完整保留bit映射/模型输入/160特征顺序。",
+        "先可见少量分子重建每阶段候选与分数，明确其只是实现/预算核对。",
+        "公共完整栈与自研同池通道分别记录；模型条款待澄清的资产暂列研究参考，不默认进入奖金发布承诺。",
+        "许可明确并且来源清楚的模型作为主线；没有确认的NIST训练权重不纳入。"
+      ],
+      "budget": "先10–20分子、forward关闭测基础栈；再固定候选分批forward。不得拿12分子的commit耗时承诺隐藏9小时。",
+      "stop": "若无法完整重建输入/特征语义，只复用算法设计，不用缺失特征填零伪复现。"
+    },
+    {
+      "id": "005-E3",
+      "priority": 2,
+      "name": "GLACIER冻结forward同式重排",
+      "hypothesis": "在true_in_shortlist条件下，结构→谱证据能修复FP/检索排错的同式异构体。",
+      "design": [
+        "先10–20分子top10/25，包含高排名硬例及预先抽样的普通对照，避免只挑已知会改善的例子。",
+        "public wrapper先只[M+H]+；再单独评估其[M+Na]+路径；negative及其他adduct记录unsupported。",
+        "同formula候选组内重排，逐次比较ranker、ranker+GL；候选缺失不归咎forward。",
+        "实际作业按去重(smiles,adduct,instrument,CEbucket)计数，记录score coverage/failure/unsupported。",
+        "强库命中与无参考臂分别衡量损益；新score不能默认覆盖已可靠的库证据。"
+      ],
+      "budget": "建议人工首轮15–30分钟wall预算，batch1/8/16按实测显存选；扩top50前重算召回与作业数；此数字为研究预算非性能预测。",
+      "technical_boundary": "公共gl_runner要求RDKit2025.03并借用ICE cp312轮子，现Colab Python3.13.15需独立兼容环境/子进程；替代依赖须核对输出。runner失败可写全null并exit0，须读meta而非仅退出码。timsTOF映射QTOF是一种近似。",
+      "stop": "条件shortlist的oracle headroom很小、可覆盖分子太少、或可覆盖样本paired RR不增，则不扩大topK或加ICE第二引擎；先修契约/候选。"
+    },
+    {
+      "id": "005-E4",
+      "priority": 3,
+      "name": "DreamsFP互补视角",
+      "hypothesis": "不同表征的候选错例互补比在FPNet同一head上延长训练更有价值。",
+      "design": [
+        "先确认公开fe_D权重条款、来源、selected bits及预处理；与FPNet在同C比较topK重合和oracle union RR。",
+        "若公开fe_D未确认可用，以官方embedding+自己训练的小头作独立研究分支，不能声称复现fe_D。",
+        "在正负模式/高m/z分组报告；先冻结encoder再评估增量，不直接全量微调。"
+      ],
+      "budget": "首先50–100分子推理测显存/每谱耗时；无T4真实测量前不写训练小时。",
+      "stop": "若D与A/B几乎同错或无union headroom，不用更多训练赌互补；若有互补才拟合联合ranker。"
+    },
+    {
+      "id": "005-E5",
+      "priority": 3,
+      "name": "analog衍生候选和候选库扩展",
+      "hypothesis": "强analog邻域的小范围编辑能恢复部分池外真值，成本可能小于全神经生成。",
+      "design": [
+        "池外臂按canonical删除真值，保持相似结构真实存在；衍生最多2步，记录父结构和转换。",
+        "把新增候选单独并入固定C；比较truth recovered与原池排名稀释，不将新增数量当进步。",
+        "LMSD/ChEBI/PubChem子集按相同口径做覆盖增量，不把全PubChem永不做当科学结论。"
+      ],
+      "budget": "20–50池外开发结构；先约150新增候选/分子上限参考公开engine，实际CPU时间/产出率手测。",
+      "stop": "新候选只增加假阳性而没有恢复真值，或强analog前提覆盖极少，则不扩大枚举；数据库优先看净覆盖不是总规模。"
+    },
+    {
+      "id": "005-E6",
+      "priority": 4,
+      "name": "formula与预训练de novo小试",
+      "hypothesis": "仅在候选缺口被证明后，神经生成可能补纯检索上限；正确formula是多数现成方法的关键瓶颈。",
+      "design": [
+        "20个canonical池外结构，分oracle formula与MIST-CF top-k formula两臂；预测臂先正模式，保留formula错误记录。",
+        "生成先FRIGID round0或MS-GPT已训练decoder，每分子100候选，记录有效/质量正确/唯一/真值恢复/并池后MRR。",
+        "DiffMS仅作为有权重的慢参考；GenMol无谱条件不直接替代；MARLIN暂无已证实可用公开模型。",
+        "生成结构进同一ranker/forward候选表，避免候选频率与检索分数未经校准直接混排。"
+      ],
+      "budget": "先1分子测显存/seconds，再5和20；人工45–60分钟研究预算为上限计划，不是性能承诺；完整9h成本用实测速率和实际job数估算。",
+      "stop": "oracle formula下也几乎不恢复池外真值则暂停decoder；oracle有效而预测formula失败则优先公式/多候选覆盖；在此之前不从头预训练、不因模型较新就大规模LoRA。"
+    }
+  ],
+  "nine_hour_inference_plan": {
+    "limit_seconds": 32400,
+    "status": "项目规则背景；本轮未跑完整隐藏推理，不声称预算已验证。",
+    "accounting": "T_total = 环境/读取/索引 + 所有分子检索/特征/排序 + 去重forward作业数×实测每job成本 + 可选生成 + 写出。p95慢分子、CPU图构建和失败重试单列。",
+    "proposed_allocation_seconds": {
+      "environment_io_library_base": 10800,
+      "forward_all_engines_combined": 10800,
+      "optional_generation": 5400,
+      "reserve": 5400
+    },
+    "allocation_note": "仅初始可调整研究预算；须由T4实测替换。总预算不得把每组件独立9h相加。",
+    "budget_actions": [
+      "先完成每行都有合理候选的基础结果并分块保留，再按剩余时间加独立证据；这不是默许静默CCO填充。",
+      "按候选rank、模型分歧、参考谱可靠性分配forward，避免仅按molecule_id前若干个耗尽预算。",
+      "预处理/候选fingerprint/参考库索引在受许可的私有输入资产预计算；最终offline。",
+      "Kaggle T4×2不是单卡32GB，显存不能直接相加。公共代码多数device=cuda，不代表自动用两卡；如拆分独立分子作业需实测吞吐和CPU竞争。",
+      "Colab T4只有一张，测得速率不能直接乘2当Kaggle加速；当前Py3.13与public wrapperPy3.12差异要先解决。"
+    ]
+  },
+  "pause_low_value_training": [
+    "已有BCE-only两种采样都使排名下降；损失下降不是本赛成功指标。",
+    "BCE+rank只显示NP/GEN取舍，GEN还有结构曝光；还没有支持大规模head微调的独立证据。",
+    "解冻最后两层短跑未提高NP；重复增加同设置步数优先级低。",
+    "先修复R4真实rank，并获得新通道的候选级互补证据；不要基于被撤回的0.6257或口径未明的0.9796训练更大ranker。",
+    "停止条件是已预设手动实验中净RR、真值召回和受益子群不足，不引入自动化测试或工程门控。"
+  ],
+  "unresolved": [
+    "当前高分提交的真实逐版本public成绩未独立核验；源码声明只作作者报告。",
+    "v4b/full1等source-license与本赛奖金条件需主办方明确；NC资产不等同已经禁止，公开不等同已确认可用。",
+    "DreaMS官方权重与竞赛fe_D具体授权需分别核实。",
+    "公开checkpoint训练曝光范围普遍不完整；full1包含NP已明确。",
+    "真正隐藏测试规模/分布与各Class误差比例不能由可见400分子和0.206推出。",
+    "所有新forward/DreaMS/de novo T4预算与分数均未实测。"
+  ]
+}

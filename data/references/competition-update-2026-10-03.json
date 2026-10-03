@@ -1,0 +1,331 @@
+{
+  "task": "005 competition update after first nonzero submission",
+  "file_date_basis": "2026-10-03 UTC research update; Asia/Shanghai date is 2026-10-04 at final verification",
+  "checked_at_utc": "2026-10-03 16:25:59 UTC",
+  "access": {
+    "intended": "Kaggle MCP read-only",
+    "actual": "Kaggle CLI 2.2.4 and its installed official kagglesdk, using existing authentication; official Kaggle web documentation for scoring visibility.",
+    "limitation": "After environment refresh, ALL_TOOLS no longer exposed Kaggle MCP methods; attempted methods returned not a function. CLI sandbox DNS failed once, approved read-only network execution then succeeded. No credentials inspected or copied.",
+    "operations": "Only remote reads. No notebook execution, training, push, competition submission, comments, or downloads of data/model artifacts."
+  },
+  "submission": {
+    "source": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/submissions",
+    "verified_by": [
+      "kaggle competitions submissions ... --format json",
+      "official SDK CompetitionApiService.get_submission(ref=56799854)"
+    ],
+    "ref": 56799854,
+    "filename": "submission.csv",
+    "submitted_at_utc": "2026-10-03T14:14:30.190Z",
+    "status": "COMPLETE",
+    "public_score_display": "0.206",
+    "private_score": "not returned (empty string)",
+    "previous_submission": {
+      "ref": 56791264,
+      "public_score_display": "0.000",
+      "status": "COMPLETE"
+    },
+    "notebook": {
+      "ref": "ccjjllt/enveda-submission",
+      "url": "https://www.kaggle.com/code/ccjjllt/enveda-submission",
+      "current_version_verified": 7,
+      "is_private": true,
+      "enable_gpu": true,
+      "enable_internet": false,
+      "machine_shape": "NvidiaTeslaT4"
+    },
+    "linkage_caveat": "User and repository progress identify ref56799854 as notebook v7. SDK confirms submission status/score and separately confirms current notebook version7; ApiSubmission response did not expose a notebook-version association field.",
+    "no_row_level_truth": "Submission metadata returns aggregate score and status only, with no per-molecule truth, rank, or error breakdown. Developer notebook output from visible placeholder input is not hidden scoring output."
+  },
+  "frontier": {
+    "source": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard",
+    "queried_by": "kaggle competitions leaderboard ... --show --format json --page-size 20",
+    "team_count": 2306,
+    "team_count_source": "kaggle competitions list -s enveda-CASMI26-molecule-id-mass-spectra --format json",
+    "current_user_rank_from_metadata": 1566,
+    "top20": [
+      {
+        "ordered_position": 1,
+        "team_name": "pikachu",
+        "display_score": "0.471"
+      },
+      {
+        "ordered_position": 2,
+        "team_name": "Shehab Alshehabi",
+        "display_score": "0.441"
+      },
+      {
+        "ordered_position": 3,
+        "team_name": "chopper",
+        "display_score": "0.440"
+      },
+      {
+        "ordered_position": 4,
+        "team_name": "Randy",
+        "display_score": "0.435"
+      },
+      {
+        "ordered_position": 5,
+        "team_name": "Xolotl",
+        "display_score": "0.433"
+      },
+      {
+        "ordered_position": 6,
+        "team_name": "Arun Kumar Pucha",
+        "display_score": "0.432"
+      },
+      {
+        "ordered_position": 7,
+        "team_name": "Arsokan",
+        "display_score": "0.431"
+      },
+      {
+        "ordered_position": 8,
+        "team_name": "Alex #2",
+        "display_score": "0.429"
+      },
+      {
+        "ordered_position": 9,
+        "team_name": "RUBlevka",
+        "display_score": "0.429"
+      },
+      {
+        "ordered_position": 10,
+        "team_name": "Naoism",
+        "display_score": "0.428"
+      },
+      {
+        "ordered_position": 11,
+        "team_name": "Faraz92",
+        "display_score": "0.428"
+      },
+      {
+        "ordered_position": 12,
+        "team_name": "Tra Crew",
+        "display_score": "0.426"
+      },
+      {
+        "ordered_position": 13,
+        "team_name": "Oliver Ford",
+        "display_score": "0.426"
+      },
+      {
+        "ordered_position": 14,
+        "team_name": "Ozymandias31415",
+        "display_score": "0.425"
+      },
+      {
+        "ordered_position": 15,
+        "team_name": "Santiago Maniches",
+        "display_score": "0.425"
+      },
+      {
+        "ordered_position": 16,
+        "team_name": "HMC_Stevelee",
+        "display_score": "0.424"
+      },
+      {
+        "ordered_position": 17,
+        "team_name": "Savko",
+        "display_score": "0.423"
+      },
+      {
+        "ordered_position": 18,
+        "team_name": "Satoshi Nguyen",
+        "display_score": "0.421"
+      },
+      {
+        "ordered_position": 19,
+        "team_name": "Sls2",
+        "display_score": "0.419"
+      },
+      {
+        "ordered_position": 20,
+        "team_name": "kavaua",
+        "display_score": "0.418"
+      }
+    ],
+    "caution": "Current public snapshot, not final private standings or medal/prize cutlines. CLI provides rounded 3-decimal scores and ordered rows, not enough to establish exact ties or equal methods. Current team count/rank may change.",
+    "changes_from_2026_10_01": "Top remains0.471; displayed fifth position moved from0.423 to0.433 and fourteenth from0.409 to0.425. These dynamic references cannot quantify the project's remaining attainable improvement."
+  },
+  "visibility_and_error_attribution": {
+    "official_debugging_source": "https://www.kaggle.com/code-competition-debugging",
+    "official_data_source": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/data",
+    "verified_current_data_description": "Visible test is replaced by hidden data on rerun; official page still says approximately1500 spectra/400 molecules and novelty class distribution/assignments stay hidden.",
+    "interpretation": "Public score is calculated on the public-scoring part of the hidden rerun. A score of0.206 cannot identify which molecules were wrong, how many errors are Class1/2/3, or whether the cause was missing candidates versus bad ranking.",
+    "correction_to_existing_progress": "The instruction to inspect public0.206 row-level errors cannot be executed from leaderboard feedback. Use labelled holdout diagnostics and controlled method comparisons; do not label placeholder outputs as hidden errors.",
+    "experiment_boundary": "No hidden labels or hidden per-row outputs were obtained or requested. Avoid trying to recover them through score probing or auxiliary artifacts."
+  },
+  "data_update": {
+    "queried_by": "kaggle competitions files -c ... --format json and official SDK list_competition_pages",
+    "files": [
+      {
+        "name": "sample_submission.csv",
+        "bytes": 43619,
+        "created_at_utc": "2026-09-15T14:32:27.860Z"
+      },
+      {
+        "name": "test.parquet",
+        "bytes": 4848729,
+        "created_at_utc": "2026-09-15T14:32:31.106Z"
+      },
+      {
+        "name": "train.parquet",
+        "bytes": 3033286496,
+        "created_at_utc": "2026-09-15T14:33:35.886Z"
+      }
+    ],
+    "conclusion": "Same three filenames/sizes as prior records; no new published file detected. Size/time comparison is not a new content-hash verification.",
+    "host_update_scope": "Read recent first20 topic listing, then selected licensing/data topics and welcome/NIST replies. No new host ruling was found in this inspected subset after10-01. This is not a claim that every discussion was exhaustively checked."
+  },
+  "licensing": {
+    "companion_asset_audit": {
+      "path": "data/references/candidate-assets-2026-10-04.json",
+      "reviewed": true,
+      "additional_findings": "Companion official-metadata audit confirms fpnet-full1 v1 explicitly trained on ALL train folds including np-examples; NP250 is therefore not unseen validation for that checkpoint. Its Other/non-commercial wording remains a pending eligibility interpretation, not a new blanket ban. The GLACIER package v1 has Other metadata but describes MassSpecGym/MIT components; inspect its actual LICENSE-NOTICE and upstream weights rather than treating every Other label identically."
+    },
+    "confirmed_current_dataset_metadata": [
+      {
+        "ref": "prvsiyan/casmi26-fp-models-v2",
+        "url": "https://www.kaggle.com/datasets/prvsiyan/casmi26-fp-models-v2",
+        "version": 1,
+        "license_name": "CC0: Public Domain",
+        "last_updated": "2026-09-16T22:50:48.873Z",
+        "interpretation": "Existing project checkpoint dataset is still labelledCC0. Underlying training provenance remains a separate research question."
+      },
+      {
+        "ref": "ahmedberatozer/casmi26-v4b-models",
+        "url": "https://www.kaggle.com/datasets/ahmedberatozer/casmi26-v4b-models",
+        "version": 4,
+        "license_name": "Other (specified in description)",
+        "last_updated": "2026-09-26T12:21:47.617Z",
+        "description_summary": "Description expressly says non-commercial with attribution under respective source licenses; includes engine code, FPNet A/B, DreamsFP D, LightGBM ranker and manifest.",
+        "interpretation": "Public downloadability is not a blanket prize-eligibility approval. Host clarification on these packages is pending."
+      },
+      {
+        "ref": "prvsiyan/chebi-lipidmaps-casmi26",
+        "url": "https://www.kaggle.com/datasets/prvsiyan/chebi-lipidmaps-casmi26",
+        "version": 1,
+        "license_name": "CC BY-NC-SA 4.0",
+        "last_updated": "2026-09-16T16:35:44.453Z",
+        "interpretation": "This mirror has an explicit non-commercial license; do not silently treat it as unrestricted raw ChEBI/LIPID MAPS. Review original sources separately if rebuilding a candidate resource."
+      }
+    ],
+    "standing_nist_rule": {
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/744470#3530300",
+      "status": "Re-read comment; previous HOST ruling remains present.",
+      "summary": "Any solution using or trained on NIST is disqualified. Newly added comment10-02 is a participant suggestion, not a host relaxation."
+    },
+    "pending_questions": [
+      {
+        "id": 745072,
+        "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745072",
+        "date": "2026-10-02",
+        "subject": "Public Kaggle datasets with Other/non-commercial code and weights; names ahmedberatozer v4b, fpnet-full1, v2-pool, v3-models, ICEBERG and GLACIER packages",
+        "comments_seen": 2,
+        "host_answer_seen": false,
+        "note": "Replies extend the question; neither is a host ruling."
+      },
+      {
+        "id": 745615,
+        "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745615",
+        "date": "2026-10-03",
+        "subject": "Whether non-commercial inputs affect prizes only or final leaderboard/medals; conflict with incompatible-license clause",
+        "comments_seen": 0,
+        "host_answer_seen": false
+      },
+      {
+        "id": 745604,
+        "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745604",
+        "date": "2026-10-03",
+        "subject": "DreaMS weights trained on public spectra but evaluated on NIST20; MoNA fine-tuning provenance",
+        "comments_seen": 0,
+        "host_answer_seen": false,
+        "note": "Question is not evidence that DreaMS trained on NIST, and not a new ban or approval."
+      },
+      {
+        "id": 745134,
+        "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745134",
+        "date": "2026-10-02",
+        "subject": "ICEBERG PubChem atlas predictions reportedly generated by NIST23-trained model",
+        "comments_seen": 0,
+        "host_answer_seen": false,
+        "note": "Do not substitute this atlas for explicitly allowed MassSpecGym-trained model outputs based on a presumed analogy."
+      },
+      {
+        "id": 745228,
+        "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745228",
+        "date": "2026-10-02",
+        "subject": "New GNPS/MassBank/MoNA snapshots filtered by per-record CC0/CC BY and excluding restricted derivatives",
+        "comments_seen": 0,
+        "host_answer_seen": false
+      }
+    ],
+    "practical_implication": "For a prize-seeking project, learn the modelling ideas from high-score notebooks but do not import disputed packaged assets without resolving their exact license/provenance. Reuse already-cleared original weights where possible. No new categorical host restriction was found in queried posts."
+  },
+  "public_solution_leads": [
+    {
+      "ref": "wangpenghua/casmi26-v29-fusion-pop-glmh",
+      "url": "https://www.kaggle.com/code/wangpenghua/casmi26-v29-fusion-pop-glmh",
+      "version_read": 4,
+      "discovery": "First result of live scoreDescending notebook search",
+      "author_reported_public_score": "0.415",
+      "independently_reproduced": false,
+      "source_read": true,
+      "method": "Two candidate engines; FPNet/LightGBM and analog/spectral features; a large PubChem-only candidate channel; molecule-popularity priors; ICEBERG/GLACIER same-formula reranking; reciprocal-rank fusion. GLACIER restricted to[M+H]+.",
+      "useful_author_observations": [
+        "Author reports wider generation hurt public score by0.024; a learned PubChem-first router hurt0.069.",
+        "Author reports NP250 local validation repeatedly disagreed with leaderboard, attributing it to common/well-referenced NP examples.",
+        "Notebook says scored version used private popularity arrays; public copy substitutes publicly shared arrays with locally checked rankings. Therefore copying this exact current version is not independent proof of the claimed score."
+      ],
+      "costs_claimed_by_author": "Hidden rerun4–5h on Kaggle; not measured by this project.",
+      "caveats": [
+        "Attaches ahmedberatozer model packages and prvsiyan chebi-lipidmaps mirror now under explicit licensing questions.",
+        "Displayed score history and ablation deltas are author reports, not this project's measurements.",
+        "This is a research direction source, not an instruction to download105M PubChem structures or copy the entire stack."
+      ]
+    },
+    {
+      "ref": "flexonafft/casmi26-multi-engine-fusion-spectral-reranking",
+      "url": "https://www.kaggle.com/code/flexonafft/casmi26-multi-engine-fusion-spectral-reranking",
+      "version_read": 59,
+      "discovery": "Third result of live scoreDescending notebook search",
+      "author_reported_public_score": "Source mentions0.411 from adapted work and explicitly says not independently reproduced there.",
+      "source_read": true,
+      "independently_reproduced": false,
+      "method": "Closely related popularity-union/two-engine fusion and GLACIER/ICEBERG reranking, using the same packaged inputs.",
+      "caveat": "Not a second independent validation of the same recipe; shares upstream engines/data and license questions."
+    }
+  ],
+  "other_selected_discussions": [
+    {
+      "id": 745468,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745468",
+      "title": "Problem is in Isomer identification + Off-the-shelf LLM's are really bad at this task",
+      "evidence": "Participant observation",
+      "summary": "Author reports formula is often right while isomer rank is wrong; proposes fragment formulas, energy, and fragment priors. The >95% figure is their validation result, not evidence about hidden molecules. Supports small bounded isomer-reranking experiments over generic LLM guesses."
+    },
+    {
+      "id": 745103,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745103",
+      "title": "Question on leaderboard hidden data",
+      "evidence": "Unanswered participant question",
+      "summary": "Asks whether public/private class mixture is balanced and actual hidden spectra count. No answer; do not assume balanced classes or reverse-engineer mixture from score."
+    },
+    {
+      "id": 745148,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745148",
+      "title": "Enveda-180 Zenodo release — structures absent from train.parquet",
+      "evidence": "Unanswered participant report",
+      "summary": "Reports extra structures and asks whether they overlap hidden data. No host reply. Not evidence of hidden labels or a reason to target missing structure IDs; any use remains ordinary permitted external-data use with source provenance."
+    }
+  ],
+  "research_handoff": [
+    "Treat0.206 as a successful hidden-scoring baseline, not a diagnosed Class2/3 failure decomposition. Different candidates and rank errors can produce the same aggregate score.",
+    "Compare v7 against a full-background independent-spectrum library channel, then fuse its evidence with FPNet under fixed Q/L/C; validate uncertainty around the previous small reference library.",
+    "Prioritize same-formula candidate reranking/forward prediction as a measured addition, using known-permitted original weights. Restrict model use to supported adduct/domain conditions and measure compute cost.",
+    "Add popularity or structure-database signals as separate ablations after candidate recall measurement. Do not mix extra candidates, new weights, priors, and fusion then attribute the gain to one component.",
+    "Do not increase de novo breadth just because public0.206 is low. Missing pool truth, within-pool ranking, and exact chemistry normalization must first be separated on labelled holdouts.",
+    "Local NP250 remains useful for controlled comparisons but has small/common-structure and potential pretrained-exposure limits. Maintain broader structure-grouped and independent-spectrum diagnostics."
+  ]
+}
