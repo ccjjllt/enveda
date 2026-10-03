@@ -89,3 +89,17 @@ GLACIER有可用MassSpecGym路线，但当前公开wrapper与Colab Python3.13的
 4. 按候选真值缺失/shortlist损失决定扩池或生成；把方法、代码完成、离线效果与排行榜分数分别写回本文件。
 
 本轮没有等待Colab MCP执行能力，也未用GUI绕行。大规模实现与实验的函数职责、文件、依赖、条件和计算预算已写到[005计划](../plan/005-multi-evidence-ranking.md)，可直接作为下一位执行者的交接。
+
+## E0–E4 执行与主审验证（2026-10-04，四子任务并行 + E2 跟进，主审逐项验货）
+
+**E0（同池复现与身份修正）**：`artifacts/005/` 下身份映射（train/coco parquet + summary）、36 组召回（`e0_cq_recall.json`）、双模型 logits（1184×6930 finite 且互异）、canon 重算全明细。主审验证：summary 数字与文件一致（train unique canon 274,186/变更 4,370；coco 432,610/45,540；并集 canonical 706,242，554 组横跨双池；NP16 单列）；canon 重算 train orig 0.688468 / union orig 0.504854 与报告一致且带逐分子明细；train shipped orig 0.675203 逐位复现历史 R2。结论：扩池代价 orig head 下 train→union −0.183（23 分子掉出 top25）；rank-head union −0.045（53 改善/84 恶化），train 上基本持平。`src/train_fingerprint.py` 只有 BCE、与 notebook 的 BCE+CE 不是同一公式——决定不动，需训练时再统一口径。遗留：`e0_head_compare.json` 的 summary/detail 为空（数字以 canon 明细 + logits 为准）。
+
+**E1（完整背景谱库 + analog）**：`src/retrieval.py` +697 行（主审 import + 直接/偏移 disjoint smoke 通过；早前一次报错是主审误传参数格式，代码无问题）。完整背景 seen 谱 MRR 0.9263/分子 0.9228（相对旧 L2453 −0.049/−0.056，Top25 同为 1179/1184——召回同、排序变差）；unseen 真值证据 MRR 0.0（tie-break 0.136 已明确剔除，不冒充）。互补：谱库修 94 个 FPNet Top1 错误，反向 8 个；高相似误命中 121 例（含同 adduct 多源仍错），证阈值不可硬接管。局限如实声明：偏移全背景穷举本地未跑。
+
+**E2（分子级多证据 ranker）**：同一 C(q)（union|single|10ppm nocap）四种对照——single 0.5149、等权 0.4956、选谱权重 0.5112、ranker **0.9211**；lib_only 0.8933；unseen 真值去库模拟 0.1000。主审独立重算：1000 个 rank 声明（250 分子×4 法）与 top25 实际位置 0 错位，ranker MRR 重算 0.921143 分毫不差。代码初轮未落盘，已补派落盘 `src/molecule_ranker.py` 并重跑确认 ranker MRR 差 0（single 对照差 −0.000333 系并列决胜口径不同，真值 rank 仅 1 分子差一位，不影响 verdict）。**verdict：不进提交管线**——+0.406 几乎全来自谱库（ranker 仅再 +0.028），无库真值下系统性降权（215 loss），不满足缺失处理要求。
+
+**E3（GLACIER 试点准备）**：`artifacts/005/glacier.pt` sha256 `9192e4c2…b397a12` 主审实测一致（60,531,887B；任务写的 61,108,325B 在任何来源都对不上，已弃用）；`src/forward_rerank.py` 新建（import 通过，条件映射/五元组缓存键/四类计数/三种预算入口齐备）；28 分子试点集规则落盘；CPU prep 136 谱 0.006s。数字 pending（无 shortlist + 无 GPU 环境），未编造。卡点明确：缺 ms-pred 推理子集 + RDKit 版本须子进程隔离 + cp312/3.13 绕行方案已备。
+
+**E4（公式路径 + 缺失分析）**：MIST-CF 两 ckpt URL 主审对官方 `download_model.sh` 逐字验证通过（zenodo 8151490）；SIRIUS/decomp 版本约束、正模式限制（`still only positive mode`，6 加合；`[M+K]+` 与全部负谱 unsupported）已核实；缺失表：NP 池 100%/窗 99.7% vs holdout 窗 82.5%——NP 不适合衡量外部召回。生成小试只设计未执行（待权重/环境）。
+
+本轮仍无 GPU 训练、无 submission、无提分；成绩保持 0.206。E2 verdict 指向：下一步不是把当前 ranker 部署，而是解决无库真值的排序（E4 生成召回 / E3 forward 重排补同式证据），或把 ranker 的缺失处理做对后再谈上线。
