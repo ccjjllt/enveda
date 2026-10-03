@@ -200,6 +200,11 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 - 结论：排序损失是起效成分——纯 BCE 双域全崩，加上 rank 后 NP 转正（+0.022）、通用小幅回落（-0.023）。增益小但方向对；此 head 可作为当前最优 head 保留，不称最终方案。
 - 下一步候选：R4 简单重排器（便宜）、解冻末两层短跑、forward 重排硬例。由失败分析定。
 
+## part2 合订本（2026-10-03，一次跑完剩余项）
+
+- `notebooks/colab/004-part2-consolidated.ipynb`（19 格，已提交）：R1-cosine 档（20 万分片谱库）、R4（GEN 拟合→NP 评估 logistic 重排）、解冻末两层 2000 步（lr 1e-4，BCE+rank，NP/GEN 双验证）、merged 对照（合并峰表 mirror `_merge_peaks`）、forward 有界试点（无已核实权重 URL 则跳过并记录，不碰 NIST）。
+- de novo 生成与 Kaggle 提交不在本子（权重决策未定 / 不同平台）。产物 `/content/004-output2/` 共 7 个文件。
+
 ## 接手顺序
 
 1. 阅读 004 计划与本进展；先用能够实际发现 Colab notebook 工具的客户端连接明确的私有 notebook，按用户要求不继续低效 GUI 自动化。
