@@ -243,3 +243,10 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 3. 先实现 chemistry/评分、固定 Q/L/C、`fp_bits.npy` 和候选库，再做 FPNet 排名；R0 只是前向研究产物，不能代替训练脚本。
 4. 用实际数据开展短程训练，依据测得的成本决定完整训练；按计划分别解释公开 checkpoint 微调与严格整组留出的从头训练对照。
 5. 整理一个真正离线 Kaggle 推理 notebook，取得本项目第一份隐藏重跑结果，再以失败分析决定追加哪条增量路线。
+
+## v5 三小时 RUNNING → 用户停掉 + v6 切块（2026-10-03）
+
+- v5（GPU minibatch，G=8，`02d5cac`）：RUNNING 约 3 小时，日志停在 18.6s（pool 加载完），之后无任何输出；用户网页停掉，状态 `CANCEL_ACKNOWLEDGED`，无产物。
+- 复盘两条：① Kaggle 只在 cell 结束才吐输出——v5 主循环（400 前向 + 50 组）全在一个 cell，进度 print 被缓冲到 cell 结束，3 小时黑盒无法区分“慢”与“死”；② 日志 20 遍重复是去重叠加的同一批事件（时间戳相同），不是重跑。
+- v6（本地已备，未 push）：主循环包成 `run_groups(g0,g1)`，拆 5 格 ×20 组（`run_groups(0,20)`…`(80,100)`），一格跑完输出立即可见；G 8→4（Fmat 443MB→222MB/次）；每格计时 + `partial_{g0}.pkl` 落盘。逻辑与 v5 同（逐窗 20ppm + batched bmm + dedup + mass 回退 + CCO 兜底）。
+- 下一步（待用户点头才 push）：推 v6 GPU；若首格（forward + 20 组）10 分钟内无输出，立即停，不再盲等。
