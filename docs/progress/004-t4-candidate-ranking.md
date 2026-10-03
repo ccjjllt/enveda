@@ -227,6 +227,15 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 - 提交 ref `56791264`，`SubmissionStatus.PENDING`，public/private 待出。今日还剩 4 次提交。
 - 边界：coco 池 43.6 万（训练结构因无 RDKit 未入池）；隐藏 Class-2/3 覆盖未知，分数出来前不声称效果。
 
+## v1 零分复盘 + v2/v3/v4（2026-10-03）
+
+- v1（`ccjjllt/enveda-submission` v1，GPU）：34s 跑完但 public 0.000，榜单他人正常（0.471）。复盘：dev 输出 399/400 行首候选 CCO——coco 池缺真值，窗口全空。教训：静默 CCO。
+- 根因链：GPU 镜像 Python 3.13 装不上 cp312 轮子 → 无 RDKit → 训练 27.6 万结构进不了池。
+- 修复：本地（RDKit 2026.03.6，同 Colab 版本）算好 275,810 指纹，传私有数据集 `ccjjllt/casmi26-train-fp-pool`（fp 239MB + mass + keys + smiles + meta；fp_bits 同哈希 `a61e37…`）。
+- v2（CPU）：fail-fast 生效——CPU 镜像同样 Python 3.13，轮子装不上，ERROR  loud（无静默零分）。
+- v3（GPU，T4）：训练池预计算 + coco，无 RDKit，可运行；逐成员 unpack 慢，RUNNING 约 48 分钟未完（9h 内，继续等）。
+- v4（已提交仓库未 push）：逐分子批量 unpack（2 次调用代替 ≤2000 次），同逻辑加速；v3 占 session（batch 上限 2），v3 完才推。
+
 ## 接手顺序
 
 1. 阅读 004 计划与本进展；先用能够实际发现 Colab notebook 工具的客户端连接明确的私有 notebook，按用户要求不继续低效 GUI 自动化。
