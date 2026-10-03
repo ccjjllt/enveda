@@ -1,5 +1,6 @@
 .DS_Store
 .venv/
+.venv-fp/
 .cache/
 __pycache__/
 *.py[cod]
@@ -19,3 +20,8 @@ lightning_logs/
 *.pt
 *.pth
 *.safetensors
+# Kaggle dataset payloads (uploaded to Kaggle, not versioned here)
+datasets/train-fp-pool/fp.npy
+datasets/train-fp-pool/mass.npy
+datasets/train-fp-pool/keys.npy
+datasets/train-fp-pool/smiles.txt
