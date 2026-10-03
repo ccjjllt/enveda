@@ -71,6 +71,18 @@
 - 失败要响亮：缺依赖（RDKit 轮子）必须 `assert` 直接 ERROR，不许静默回退跑出 0 分 submission（v1：399/400 行 CCO）。
 - 覆盖率随行打印（空窗/回退/CCO 计数），开发运行先看覆盖再提交。
 
+### 提交 notebook 保命清单（v5/v6/v7 血泪，2026-10-03）
+
+v5 RUNNING 3 小时、v6 RUNNING 20 分钟，两次都是用户网页手动停掉（`CANCEL_ACKNOWLEDGED`），根因不是 worker 慢，而是一个 O(N×M) 代码 bug；v7 修好后 130 秒跑完。以后 push 前逐条过：
+
+1. **可观测性：长循环必须拆多格。** Kaggle 只在 cell 结束才吐该 cell 的输出——400 前向 + 50 组全塞一个 cell，`print` 再多也看不见，RUNNING 黑盒无法区分“慢”与“死”（v5 教训）。v6 起主循环包成函数、拆 5 格 ×20 组（`run_groups(0,20)`…），一格跑完输出立即可见 + `partial_{g0}.pkl` 落盘。单格超过 10 分钟没输出就停，不盲等。
+2. **复杂度红线：推导式里不许重建集合。** `[k for k in ckeys if k not in set(t_keys)]`——条件里的 `set(t_keys)` 每次迭代重建一次 27.6 万元素，43.6 万 × 重建 ≈ 单行 30 分钟起，三行（allk/alls/allm）就是 v5 的 3 小时。修法：`tset = set(t_keys)` 预建一次。所有纯 CPU 预处理 push 前必须在本地按真实规模实测耗时（本轮实测：20K×25K 规模重建版 7.66s vs 预建版 0.0005s，结果一致）。
+3. **止损时间盒（写死）。** 关键里程碑必须限时出现：`combined:`（pool 秒级）、`forward+prep done`（400 前向分钟级）、`block done 0 20`（首格约 10 分钟内）。超时没出现直接停，不加“再等等”。
+4. **卡点定位法：先读格，不猜 worker。** v3/v5/v6 三次卡在同一个日志点（`coco pool` 之后、`combined:` 之前）→ 问题一定在主循环之前，不在主循环。`torch cuda devices: 2` 这类环境行正常不代表后边正常；三次复现的卡点就是凶手的位置。
+5. **日志解读：重复 = 去重叠加，不是重跑。** 日志里同一批事件（相同时间戳 6.7s→18.6s）出现 ~20 遍，是日志聚合重复投递；真实进度以最后一条新时间戳为准。
+6. **CLI 坑。** `kaggle kernels push --gpu` 偶发 `unrecognized arguments`（本机 2.2.4），metadata 里已有 `"enable_gpu": true` 时直接 `push` 即走 GPU；`kernels delete -y` 报 `too many values to unpack`（删不掉旧版本）；**没有 cancel 命令**——停作业只能网页点，或等 9 小时上限。`kernels status` 的 `RUNNING` + 日志无新增 = 正在烧配额，不是“排队中”。
+7. **提交与查分。** 本赛是纯 code 赛（`is_kernels_submissions_only=true`）：**直接传本地 CSV 必 400 拒绝**。必须提交已 COMPLETE 的 notebook 版本——CLI 用 `-k owner/slug -v 版本号 -f submission.csv`（见下节），或网页打开该版本点 Submit。查分：`kaggle competitions submissions -c <slug>` 看 `publicScore`（v1 0.000，v7 0.206）。
+
 已有公开代码主要使用 PyTorch。优先考虑 **PyTorch/XLA 保留模型与权重格式**；只有收益明确时才迁移到 JAX/Flax。RDKit、SMILES 处理、动态候选搜索保留在 CPU；TPU 负责批量张量训练。采用分桶/填充、固定 batch、BF16、必要的梯度累积，并单独记录编译时间和稳定训练吞吐。先做手动短程实验，再决定完整训练预算。
 
 Kaggle TPU 候补方案可复用现有远程工作流，减少跨平台数据和权重搬运。8 芯片不保证 8 倍速度；普通数据并行会复制模型，要让模型状态跨芯片共享容量，需采用参数/优化器分片等策略。[PyTorch/XLA 分片说明](https://docs.pytorch.org/xla/master/perf/spmd_basic.html)
