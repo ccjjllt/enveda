@@ -220,6 +220,15 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 - **cosine：MRR=0.7076、Top1=0.6622，1016/1184 有排名**。超过同 Q 的 FPNet single（0.6217）与 R4（0.6257）。
 - 结论：已见结构 + 有独立参考谱时，经典谱库余弦是最强单通道；神经指纹的价值在无参考谱（Class-2）场景。最终管线应分流：谱库命中走 cosine，无命中走 FPNet。中间曾误贴量化项目输出，已定位为贴串，作废。
 
+## 首次提交（2026-10-03，Kaggle GPU，本项目第一个隐藏重跑分等待中）
+
+- 提交 notebook `ccjjllt/enveda-submission` v1（FPNet single + 20ppm，coco-only 回退路径，因 GPU 镜像 Python 3.13 装不上 cp312 轮子）。
+- 开发运行 34s 完成，400 行×25 候选，44KB diverse SMILES，非 CCO。产物 `artifacts/submission-v1/submission.csv`（已忽略）。
+- 提交 ref `56791264`，`SubmissionStatus.PENDING`，public/private 待出。今日还剩 4 次提交。
+- 边界：coco 池 43.6 万（训练结构因无 RDKit 未入池）；隐藏 Class-2/3 覆盖未知，分数出来前不声称效果。
+
+## 接手顺序
+
 1. 阅读 004 计划与本进展；先用能够实际发现 Colab notebook 工具的客户端连接明确的私有 notebook，按用户要求不继续低效 GUI 自动化。
 2. 在该 runtime 写入/上传 R0 notebook 和两份本地输入，运行真实前向并取回 JSON。参考代码来源固定 v32；重建环境时不能遗漏该文件。
 3. 先实现 chemistry/评分、固定 Q/L/C、`fp_bits.npy` 和候选库，再做 FPNet 排名；R0 只是前向研究产物，不能代替训练脚本。
