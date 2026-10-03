@@ -62,6 +62,15 @@
 
 硬件资料：[Google v5e](https://docs.cloud.google.com/tpu/docs/v5e)、[NVIDIA T4](https://www.nvidia.com/en-us/data-center/tesla-t4/)。不能把 Google Cloud 整台主机的内存规格当作 Colab 分配值，也不能把 Kaggle 的 `TpuV5E8` 当成用户的 Colab v5e-1。
 
+### GPU 使用铁律：配额按 session 存活扣，必须把利用率拉满
+
+2026-10-03 教训：`enveda-submission` v3 在 GPU session 里逐成员 Python 循环 `unpackbits`（每分子 ≤2000 次调用 × 400 分子），GPU 前向只占零头，CPU 空转烧掉约 2 小时配额后由用户手动停掉；CLI/MCP 均无 cancel 接口，停不掉，只能等跑完或到 9 小时上限。
+
+- 配额扣的是 session 存活时长，不是 GPU 繁忙度。CPU 部分慢 = 花 GPU 的钱等 CPU。
+- GPU session 里的 CPU 代码必须向量化/批量化（v4：每分子 2 次批量 `unpackbits` 代替 ≤2000 次逐个调用），先在小样本上实测吞吐再 push 全量。
+- 失败要响亮：缺依赖（RDKit 轮子）必须 `assert` 直接 ERROR，不许静默回退跑出 0 分 submission（v1：399/400 行 CCO）。
+- 覆盖率随行打印（空窗/回退/CCO 计数），开发运行先看覆盖再提交。
+
 已有公开代码主要使用 PyTorch。优先考虑 **PyTorch/XLA 保留模型与权重格式**；只有收益明确时才迁移到 JAX/Flax。RDKit、SMILES 处理、动态候选搜索保留在 CPU；TPU 负责批量张量训练。采用分桶/填充、固定 batch、BF16、必要的梯度累积，并单独记录编译时间和稳定训练吞吐。先做手动短程实验，再决定完整训练预算。
 
 Kaggle TPU 候补方案可复用现有远程工作流，减少跨平台数据和权重搬运。8 芯片不保证 8 倍速度；普通数据并行会复制模型，要让模型状态跨芯片共享容量，需采用参数/优化器分片等策略。[PyTorch/XLA 分片说明](https://docs.pytorch.org/xla/master/perf/spmd_basic.html)
