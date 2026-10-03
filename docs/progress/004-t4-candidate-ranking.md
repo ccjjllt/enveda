@@ -250,3 +250,10 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 - 复盘两条：① Kaggle 只在 cell 结束才吐输出——v5 主循环（400 前向 + 50 组）全在一个 cell，进度 print 被缓冲到 cell 结束，3 小时黑盒无法区分“慢”与“死”；② 日志 20 遍重复是去重叠加的同一批事件（时间戳相同），不是重跑。
 - v6（本地已备，未 push）：主循环包成 `run_groups(g0,g1)`，拆 5 格 ×20 组（`run_groups(0,20)`…`(80,100)`），一格跑完输出立即可见；G 8→4（Fmat 443MB→222MB/次）；每格计时 + `partial_{g0}.pkl` 落盘。逻辑与 v5 同（逐窗 20ppm + batched bmm + dedup + mass 回退 + CCO 兜底）。
 - 下一步（待用户点头才 push）：推 v6 GPU；若首格（forward + 20 组）10 分钟内无输出，立即停，不再盲等。
+
+## v6 同点卡死 → 根因：推导式里每次重建 set（2026-10-03）
+
+- v6 RUNNING 20 分钟，日志仍停在 `coco pool`（33.6s），`combined:` 从未出现；v3/v5/v6 三次卡在同一点 → 问题不在主循环，在 pool 格。
+- 根因（cell 3）：`[k for k in ckeys if k not in set(t_keys)]` ——条件里的 `set(t_keys)` 每次迭代重建一次，43.6 万 × 27.6 万次哈希 ≈ 单行 30 分钟起，三行（allk/alls/allm）叠加 + 共享 CPU → v5 的 3 小时黑盒。本地实测同语义：20K×25K 规模重建版 7.66s vs 预建版 0.0005s，结果完全一致。
+- 修复（v7，`2d3f5b5`，本地已提交未 push）：`tset = set(t_keys)` 预建一次，三行改 `k not in tset`。pool 格回到秒级。
+- 教训：之前的“worker 慢 / 日志缓冲”猜测全错，根因是代码级复杂度 bug；以后先读格再猜。
