@@ -263,3 +263,9 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 - `ccjjllt/enveda-submission` version 7 `COMPLETE`：combined 712,199（3.4s，修复生效）、test 400 分子/1213 谱、400 前向 ~43s、5 格 70+6.6+3.5+3.1+2.4s。
 - 产物 `artifacts/submission-v7/submission.csv`：400 行×25 候选，首候选裸 CCO 共 0 行（之前 `cco_rows 13` 是 `CCO…` 乙氧基前缀 SMILES 误报），empty/mass_fallback/exception 全 0。相对 v1（399/400 CCO，public 0.000）覆盖率修好。
 - 待定：是否用此版占一次排行榜提交（今日剩约 4 次），等用户确认。
+
+## v7 public 0.206（2026-10-03，code 提交）
+
+- CSV 直传被拒（400，本赛 `is_kernels_submissions_only=true` 纯 code 赛）；用户从 notebook version 7 运行页 Submit，ref `56799854` COMPLETE，public **0.206**（v1 ref `56791264` 为 0.000）。
+- 解读：712K 池 + FPNet single 把覆盖率修好后拿到 0.206；当时榜单他人约 0.471，还有一倍以上差距。缺口大概率在 Class-2/3（池外结构，纯检索够不着）+ 已见结构谱库通道（R1-cosine NP 0.7076 提示该分流）。
+- 后续增量（待排）：① 谱库命中走 cosine / 无命中走 FPNet 的分流管线；② de novo 生成补 Class-2/3；③ 先看 public 0.206 的行级表现再定。
