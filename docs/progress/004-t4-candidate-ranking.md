@@ -269,3 +269,12 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 - CSV 直传被拒（400，本赛 `is_kernels_submissions_only=true` 纯 code 赛）；用户从 notebook version 7 运行页 Submit，ref `56799854` COMPLETE，public **0.206**（v1 ref `56791264` 为 0.000）。
 - 解读：712K 池 + FPNet single 把覆盖率修好后拿到 0.206；当时榜单他人约 0.471，还有一倍以上差距。缺口大概率在 Class-2/3（池外结构，纯检索够不着）+ 已见结构谱库通道（R1-cosine NP 0.7076 提示该分流）。
 - 后续增量（待排）：① 谱库命中走 cosine / 无命中走 FPNet 的分流管线；② de novo 生成补 Class-2/3；③ 先看 public 0.206 的行级表现再定。
+
+## 004 剩余任务清账：五路并行 + 主审验证（2026-10-03）
+
+- A（R4 ranker）：`src/ranking.py` 新增 `LogisticRanker` + `structure_grouped_fold_of_key` + `run_r4_local_cv`（numpy 手写，无 sklearn 依赖）；产物 `artifacts/004-research/r4_ranker.json`、`r4_np1184.json`。主审实测（brew python3.11，补 numpy/pyarrow 后）：OOF 1184 查询 ranker MRR 0.9796 vs 同集 cosine-only 0.9774（d=+0.0022），mass-only 0.4084。结论：本地集 cosine 已饱和，缺 fp_dot（无 GPU 权重）时 ranker 无实质增量；R4 真验证需 GPU 上带 fp_dot 重做。子 agent 未返回文字报告，verdict 由主审跑代码得出。
+- B（ppm + 5 折）：`src/splits.py`、`src/candidates.py` 扩函数；`mass_recall_np1184.json` 与报告表逐项核对一致（5ppm 1154/1184；10ppm 1181；20ppm 1182；窗中位 8/13/16）；`np_canonical_5fold.json` 主审验证：78/45/41/44/42=250，折间交集 0，Q 56783 行/timsTOF 1184。推荐 10ppm + WMAX 200（目标域），20ppm 仅多 0.08% 召回但窗大 55%。小出入：报告称 5ppm 1155，文件为 1154（1 行差，不影响推荐）。
+- C（forward 重排）：权重 URL 与许可逐条对官方 README 活页验证通过（ICEBERG msg_all/msg_simulation、GLACIER checkpoint 三个 Dropbox 文件夹；代码 MIT；NIST 权重一律排除，官方要求持证发邮件索取）；训练门槛 2×24GB、RTX 4070M batch8/workers6 均与原文一致。verdict：GLACIER-first、10–20 分子 top-10/25/50 T4 试点值得做，不扩 top-100、不训。代码片段未落盘（按约束内联返回），执行前需先在 Colab 核 Dropbox 可达 + sha。
+- D（生成/DreaMS）：`enveda/DreaMS-Enveda` 主审活页验证：已归档只读、0 star/fork、364 commits，纯镜像无私有权重；`dreams_embeddings` → 1024 维、权重 zenodo 10997887 均与报告一致。排序接受：DreaMS > MS-GPT > FRIGID > FoAM；生成三家全被“已知分子式”卡住（oracle vs 预测 formula 必须分跑，MIST-CF 是 B 路径底座）；前置阻塞：四个大权重都超 500MB，本轮后需授权下载。
+- E（候选增补）：方案接受（LMSD > ChEBI-3星 > PubChemLite；PubChem 全量永不做）；数字为快照预估（LMSD 50,586 去重脂质约 40–48k 新增；Lite 约 120–220k 新增），执行时以 canonical 键实测为准；实施复用 `src/candidates.py` + `src/chemistry.py`，分键重叠→质量索引→指纹分片→R1 同池验证→私有集五步，每步以 `true_in_pool` 与 MRR 差值放行。
+- 环境：brew python3.11 补装 numpy 2.4.6 + pyarrow 25.0.1（`--user`，仅本地），`.venv` 无 pip 未动。

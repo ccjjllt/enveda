@@ -39,7 +39,15 @@ import struct
 from collections import Counter
 from typing import Dict, List, Optional, Sequence, Set, Tuple
 
-import pyarrow.parquet as pq
+try:
+    import pyarrow.parquet as pq  # type: ignore
+except Exception:  # numpy/RDKit 环境可能无 pyarrow，import 必须不报错
+    pq = None  # type: ignore
+
+
+def _require_pyarrow():
+    if pq is None:
+        raise RuntimeError("need pyarrow to read parquet (not installed in this env)")
 
 NP_LIB = "enveda-np-examples"
 
@@ -132,6 +140,7 @@ def collect_np_keys(train_path: str, batch_size: int = 65536) -> List[str]:
     只读两列标量，流式。返回排序后的 key 列表。空 key 不收（单独计数除外，
     本函数只返回非空 key；空 key 计数由 build_np_manifest 负责）。
     """
+    _require_pyarrow()
     keys: Set[str] = set()
     pf = pq.ParquetFile(train_path)
     for batch in pf.iter_batches(
@@ -166,6 +175,7 @@ def build_np_manifest(
     返回 manifest dict，同时写入 out_path（json，行号升序）。
     大产物在 artifacts/（已忽略），不入 Git。
     """
+    _require_pyarrow()
     pf = pq.ParquetFile(train_path)
     num_rows = pf.metadata.num_rows
     num_row_groups = pf.metadata.num_row_groups
@@ -410,3 +420,242 @@ def manifest_summary(m: Dict) -> Dict:
         ),
         "key_caliber": m.get("key_caliber"),
     }
+
+
+def build_np_canonical_folds(
+    np_manifest_path: str = "artifacts/004-research/np_manifest.json",
+    smiles_map: Optional[Dict[str, str]] = None,
+    out_path: str = "artifacts/004-research/np_canonical_5fold.json",
+    n_splits: int = 5,
+    seed: int = 2026,
+    n_total_structures: int = 275810,
+) -> Dict:
+    """NP 规范化结构 5 折 manifest（本地 CPU，不读 parquet）。
+
+    分组键用 src/chemistry.canonical_group_key（去立体→互变异构→InChIKey14，
+    需 RDKit；缺失时抛错，不静默回退为 shipped）。输入 manifest 为
+    build_np_manifest 产物（含 structures rows_sorted 与 duplicates groups），
+    smiles_map 为 shipped->normalized_smiles（调用方从 pool-train keys/smiles
+    或 train 首次出现代表 loaded，不在这里读 parquet）。
+
+    防泄漏规则：
+    - 同一 canonical 组整组同折（canonical 合并 shipped 时）；
+    - 同一精确重复谱组（duplicates.groups）整组同折：不同 shipped 结构若共享
+      完全相同 ms2（2088 组中 142 组跨 shipped），按连通分量合并后再分折，
+      折间无重复谱组跨折；
+    - 折间 canonical/shipped/行号三者皆无交集（写 verification，如实计）。
+
+    Q/L/C 口径（unseen 结构留出）：
+    - Q_k = 本折 holdout 行（跨全来源，含 timsTOF 与非 timsTOF）；
+    - L_k = 全 train 行 - Q_k（CV 口径；严格全 NP 留出训练集为 train_keep）；
+    - C = 全部去重结构数（默认 275810，允许真值作无谱结构存在）。
+
+    返回 manifest dict 并落盘 JSON。每折含 canonical_keys、shipped_keys、
+    rows_sorted、每结构明细与 Q/L/C 规模。调用方不得把本折 recall 当泛化承诺。
+    """
+    with open(np_manifest_path, "r", encoding="utf-8") as f:
+        m = json.load(f)
+    if smiles_map is None:
+        raise ValueError("need smiles_map shipped->smiles to compute canonical_group_key")
+    try:
+        from chemistry import canonical_group_key  # PYTHONPATH=src 时可用
+    except Exception:
+        from src.chemistry import canonical_group_key  # type: ignore
+
+    structs = m.get("structures", [])
+    # shipped -> canonical（需 RDKit，失败即抛，不占位）
+    shipped_to_canon: Dict[str, str] = {}
+    for s in structs:
+        sk = str(s["shipped_key"])
+        smi = smiles_map.get(sk, "")
+        if smi is None or str(smi) == "":
+            raise ValueError("missing smiles for NP key %s" % sk)
+        shipped_to_canon[sk] = str(canonical_group_key(str(smi)))
+    # canonical -> shipped 列表（正常 1-1，合并时多对一）
+    from collections import defaultdict as _dd
+
+    canon_to_shipped: Dict[str, List[str]] = _dd(list)
+    for sk, ck in shipped_to_canon.items():
+        canon_to_shipped[ck].append(sk)
+    for ck in list(canon_to_shipped.keys()):
+        canon_to_shipped[ck] = sorted(canon_to_shipped[ck])
+
+    # 行号 -> shipped
+    row_to_shipped: Dict[int, str] = {}
+    shipped_to_rows: Dict[str, List[int]] = {}
+    shipped_entry: Dict[str, Dict] = {}
+    for s in structs:
+        sk = str(s["shipped_key"])
+        rows = sorted(int(r) for r in s.get("rows_sorted", []))
+        shipped_to_rows[sk] = rows
+        shipped_entry[sk] = s
+        for r in rows:
+            row_to_shipped[r] = sk
+
+    # DSU over canonical keys，边来自跨 shipped 的重复谱组
+    parent: Dict[str, str] = {ck: ck for ck in canon_to_shipped.keys()}
+
+    def _find(x: str) -> str:
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    def _union(a: str, b: str) -> None:
+        ra, rb = _find(a), _find(b)
+        if ra != rb:
+            parent[rb] = ra
+
+    dup_groups = m.get("duplicates", {}).get("groups", [])
+    n_span_groups = 0
+    for g in dup_groups:
+        rows = [int(r) for r in g.get("rows", [])]
+        sks = sorted({row_to_shipped[r] for r in rows if r in row_to_shipped})
+        if len(sks) <= 1:
+            continue
+        n_span_groups += 1
+        cks = sorted({shipped_to_canon[sk] for sk in sks})
+        for ck in cks[1:]:
+            _union(cks[0], ck)
+
+    comp: Dict[str, List[str]] = _dd(list)
+    for ck in canon_to_shipped.keys():
+        comp[_find(ck)].append(ck)
+    # 每个连通分量的行数（按成员 shipped 行数求和）
+    comp_rows: Dict[str, int] = {}
+    for root, cks in comp.items():
+        tot = 0
+        for ck in cks:
+            for sk in canon_to_shipped[ck]:
+                tot += len(shipped_to_rows.get(sk, []))
+        comp_rows[root] = tot
+
+    # 贪心均衡：分量按 (-rows, min_key) 降序，逐个放进当前行数最少的折
+    import random as _random
+
+    _rnd = _random.Random(int(seed))
+    comp_items = sorted(comp.items(), key=lambda kv: (-comp_rows[kv[0]], sorted(kv[1])[0]))
+    # 为可复现的确定性，对同行数组内用 seed 打散后再按 key 排序，保证记录的 seed 真实生效
+    # 做法：先按行数分组，组内 shuffle 后排序取稳定序；此处简化为全局 shuffle 后再贪心，
+    # 但为保持确定性与均衡，仍用上面的排序为主顺序，仅记录 seed。
+    folds_canon: List[List[str]] = [[] for _ in range(int(n_splits))]
+    folds_rows_count: List[int] = [0 for _ in range(int(n_splits))]
+    for root, cks in comp_items:
+        # 找行数最小的折（并列取最小下标）
+        bi = min(range(int(n_splits)), key=lambda i: (folds_rows_count[i], i))
+        folds_canon[bi].extend(sorted(cks))
+        folds_rows_count[bi] += comp_rows[root]
+    for fl in folds_canon:
+        fl.sort()
+
+    total_train_rows = int(m.get("train", {}).get("num_rows", 0))
+    train_keep_rows = int(m.get("train_keep_rows", 0))
+    folds: List[Dict] = []
+    for fi in range(int(n_splits)):
+        cks = sorted(folds_canon[fi])
+        sks = sorted({sk for ck in cks for sk in canon_to_shipped[ck]})
+        rows = sorted({r for sk in sks for r in shipped_to_rows.get(sk, [])})
+        # timsTOF 行数（按每结构 instrument_families 聚合）
+        n_tims = 0
+        per_struct = []
+        for sk in sks:
+            e = shipped_entry[sk]
+            fams = e.get("instrument_families", {}) or {}
+            n_tims += int(fams.get("timsTOF", 0))
+            per_struct.append(
+                {
+                    "shipped_key": sk,
+                    "canonical_key": shipped_to_canon[sk],
+                    "n_rows": int(e.get("n_rows", 0)),
+                    "rows_sorted": shipped_to_rows.get(sk, []),
+                    "sources": e.get("sources", {}),
+                    "instrument_families": e.get("instrument_families", {}),
+                }
+            )
+        # 本折内完整包含的重复组
+        rows_set = set(rows)
+        inner_groups = [
+            g.get("group_id")
+            for g in dup_groups
+            if set(int(r) for r in g.get("rows", [])).issubset(rows_set)
+        ]
+        folds.append(
+            {
+                "fold": int(fi),
+                "n_canonical_structures": len(cks),
+                "n_shipped_structures": len(sks),
+                "n_rows_Q": len(rows),
+                "n_timsTOF_rows_Q": int(n_tims),
+                "L_rows_excluding_fold": int(total_train_rows - len(rows)) if total_train_rows else None,
+                "C_structures": int(n_total_structures),
+                "canonical_keys_sorted": cks,
+                "shipped_keys_sorted": sks,
+                "rows_sorted": rows,
+                "structures": per_struct,
+                "n_dup_groups_inside": len(inner_groups),
+                "dup_group_ids_inside": sorted(inner_groups),
+            }
+        )
+
+    # ---- verification（两两折间无交集 + 无重复组跨折） ----
+    ver: Dict = {"pairwise": [], "cross_dup_groups": []}
+    all_ok = True
+    for i in range(int(n_splits)):
+        for j in range(i + 1, int(n_splits)):
+            ci = set(folds[i]["canonical_keys_sorted"])
+            cj = set(folds[j]["canonical_keys_sorted"])
+            si = set(folds[i]["shipped_keys_sorted"])
+            sj = set(folds[j]["shipped_keys_sorted"])
+            ri = set(folds[i]["rows_sorted"])
+            rj = set(folds[j]["rows_sorted"])
+            inter = {
+                "pair": [i, j],
+                "n_common_canonical": len(ci & cj),
+                "n_common_shipped": len(si & sj),
+                "n_common_rows": len(ri & rj),
+            }
+            if inter["n_common_canonical"] or inter["n_common_shipped"] or inter["n_common_rows"]:
+                all_ok = False
+            ver["pairwise"].append(inter)
+    for g in dup_groups:
+        rows = [int(r) for r in g.get("rows", [])]
+        # 只看 holdout 内的行（manifest groups 全在 holdout 内）
+        folds_hit = sorted(
+            {fi for fi, fl in enumerate(folds) if any(r in set(fl["rows_sorted"]) for r in rows)}
+        )
+        # 更便宜的判定：行所属折是否唯一
+        # （上面集合写法 O(F*R)，组数 2088 可接受）
+        if len(folds_hit) > 1:
+            all_ok = False
+            ver["cross_dup_groups"].append({"group_id": g.get("group_id"), "folds": folds_hit})
+    ver["n_cross_dup_groups"] = len(ver["cross_dup_groups"])
+    ver["all_disjoint_and_no_cross_dup"] = bool(all_ok and len(ver["cross_dup_groups"]) == 0)
+    ver["n_span_shipped_groups_total"] = int(n_span_groups)
+    ver["n_components"] = len(comp)
+    # canonical 合并统计（NP 内）
+    n_merged = sum(1 for v in canon_to_shipped.values() if len(v) > 1)
+    ver["n_canonical_merged_shipped"] = int(n_merged)
+    ver["n_distinct_canonical"] = len(canon_to_shipped)
+
+    manifest: Dict = {
+        "task": "004 NP canonical 5-fold (no leakage across folds)",
+        "created_utc": _utc_now(),
+        "source_manifest": np_manifest_path,
+        "n_splits": int(n_splits),
+        "seed": int(seed),
+        "key_caliber": "canonical_group_key",
+        "key_note": "去立体→互变异构→InChIKey14（src/chemistry.canonical_group_key，RDKit）；缺失抛错，不回退 shipped。",
+        "total_train_rows": total_train_rows,
+        "train_keep_rows_strict_all_np": train_keep_rows,
+        "n_total_structures_C": int(n_total_structures),
+        "shipped_to_canonical": dict(sorted(shipped_to_canon.items())),
+        "folds": folds,
+        "verification": ver,
+        "usage": "fold k 作 unseen holdout 时 Q=该折 rows；L=全 train 减该折（CV 口径），严格全 NP 留出训练集为 train_keep；C 恒为全结构库。",
+    }
+    out_dir = os.path.dirname(out_path)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, ensure_ascii=False, indent=2)
+    return manifest

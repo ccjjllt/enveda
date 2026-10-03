@@ -33,7 +33,15 @@ from collections import Counter
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Sequence, Tuple
 
-import pyarrow.parquet as pq
+try:
+    import pyarrow.parquet as pq  # type: ignore
+except Exception:  # 本地 numpy/RDKit 环境可能无 pyarrow，import 必须不报错
+    pq = None  # type: ignore
+
+
+def _require_pyarrow():
+    if pq is None:
+        raise RuntimeError("need pyarrow to read parquet (not installed in this env)")
 
 # 单同位素质量（float64）。H/C/N/O/Na/K/Cl35 取 IUPAC/CODATA；
 # 稀有元素取最轻同位素近似（B10/Si28/Se74/Sn112 等），仅用于候选质量索引，
@@ -278,6 +286,7 @@ def build_structure_library_from_train(
     理论质量由 formula_mass() 计算；同一 key 多行只计 n_source_rows。
     空 key 不入库（行数在 notes 中单独记，不静默丢弃）。
     """
+    _require_pyarrow()
     pf = pq.ParquetFile(train_path)
     first: Dict[str, Dict] = {}
     order: List[str] = []
@@ -352,6 +361,7 @@ def load_np_queries(
     queries: List[Dict] = []
     n_unknown_adduct = 0
     n_missing_prec = 0
+    _require_pyarrow()
     pf = pq.ParquetFile(train_path)
     offset = 0
     for batch in pf.iter_batches(
@@ -504,6 +514,201 @@ def mass_recall_stats(
         res["true_ppm_error_p90"] = None
         res["true_ppm_error_max"] = None
     return res
+
+
+def ppm_scan_numpy(
+    pool_masses: Sequence[float],
+    pool_keys: Sequence[str],
+    query_masses: Sequence[Optional[float]],
+    query_keys: Sequence[str],
+    windows: Sequence[float] = (5.0, 10.0, 20.0),
+) -> Dict:
+    """纯 numpy 的质量窗召回扫描（本地 CPU，不读 parquet）。
+
+    输入一律 float64；pool_masses 与 pool_keys 等长，query_masses 与
+    query_keys 等长，query_masses 允许 None（缺失前体，按 miss 计）。
+    逻辑与 mass_recall_stats 一致，但窗口计数用 numpy searchsorted，
+    真值误差用 |m_lib-m_q|/m_q*1e6。返回 per-window 召回与窗大小分布
+    （mean/median/p90/max）及真值误差分布。不做任何候选打分截断，
+    同分子式异构体拥挤度由窗口大小分布体现。
+    """
+    try:
+        import numpy as np  # type: ignore
+    except Exception as e:
+        raise RuntimeError("need numpy for ppm_scan_numpy: %s" % e)
+    pm = np.asarray(list(pool_masses), dtype=np.float64)
+    pk = list(pool_keys)
+    order = np.argsort(pm, kind="mergesort")
+    sorted_masses = pm[order]
+    key_to_mass: Dict[str, float] = {}
+    for k, mm in zip(pk, pm):
+        ks = str(k)
+        if ks not in key_to_mass and np.isfinite(mm):
+            key_to_mass[ks] = float(mm)
+    qm_list: List[Optional[float]] = list(query_masses)
+    qk_list: List[str] = [str(k) for k in query_keys]
+    n = len(qm_list)
+    hits: Dict[float, int] = {float(w): 0 for w in windows}
+    sizes: Dict[float, List[int]] = {float(w): [] for w in windows}
+    errs: List[float] = []
+    miss_reasons: Dict[str, int] = {}
+    n_true_in_pool = 0
+    for qm, tk in zip(qm_list, qk_list):
+        if qm is None or not math.isfinite(float(qm)):
+            miss_reasons["missing_precursor"] = miss_reasons.get("missing_precursor", 0) + 1
+            for w in windows:
+                sizes[float(w)].append(0)
+            continue
+        qf = float(qm)
+        tm = key_to_mass.get(tk)
+        # 窗口大小（与真值是否在池无关，照计）
+        for w in windows:
+            wf = float(w)
+            tol = abs(qf) * wf / 1e6
+            import bisect as _bis
+
+            a = _bis.bisect_left(sorted_masses.tolist(), qf - tol)
+            b = _bis.bisect_right(sorted_masses.tolist(), qf + tol)
+            sizes[wf].append(max(0, b - a))
+        if tm is None or not math.isfinite(tm):
+            miss_reasons["true_not_in_pool"] = miss_reasons.get("true_not_in_pool", 0) + 1
+            continue
+        n_true_in_pool += 1
+        err = abs(float(tm) - qf) / abs(qf) * 1e6 if qf != 0.0 else math.inf
+        errs.append(err)
+        for w in windows:
+            if err <= float(w):
+                hits[float(w)] += 1
+    res: Dict = {
+        "n_queries": n,
+        "n_true_in_pool": n_true_in_pool,
+        "miss_reasons": dict(miss_reasons),
+        "per_window": {},
+    }
+    for w in windows:
+        wf = float(w)
+        sz = sorted(sizes[wf])
+        nn = len(sz)
+        if nn:
+            mid = nn // 2
+            med = sz[mid] if nn % 2 == 1 else (sz[mid - 1] + sz[mid]) / 2.0
+            mean = sum(sz) / nn
+            p90 = sz[min(nn - 1, int(nn * 0.9))]
+            mx = sz[-1]
+        else:
+            med, mean, p90, mx = 0, 0.0, 0, 0
+        res["per_window"][str(float(wf))] = {
+            "n_hit": hits[wf],
+            "recall_over_queries": hits[wf] / n if n else 0.0,
+            "recall_over_in_pool": hits[wf] / n_true_in_pool if n_true_in_pool else 0.0,
+            "window_size_mean": float(mean),
+            "window_size_median": med,
+            "window_size_p90": p90,
+            "window_size_max": mx,
+        }
+    if errs:
+        es = sorted(errs)
+        mid = len(es) // 2
+        med_e = es[mid] if len(es) % 2 == 1 else (es[mid - 1] + es[mid]) / 2.0
+        res["true_ppm_error_median"] = med_e
+        res["true_ppm_error_p90"] = es[min(len(es) - 1, int(len(es) * 0.9))]
+        res["true_ppm_error_max"] = es[-1]
+        res["true_ppm_error_mean"] = sum(es) / len(es)
+    else:
+        res["true_ppm_error_median"] = None
+        res["true_ppm_error_p90"] = None
+        res["true_ppm_error_max"] = None
+        res["true_ppm_error_mean"] = None
+    return res
+
+
+def wmax_truncation_stats(
+    pool_masses: Sequence[float],
+    pool_keys: Sequence[str],
+    query_masses: Sequence[Optional[float]],
+    query_keys: Sequence[str],
+    windows: Sequence[float] = (5.0, 10.0, 20.0),
+    wmax_list: Sequence[int] = (50, 100, 200, 500, 2000),
+) -> Dict:
+    """WMAX 截断影响：窗内按 |m_lib-m_q| 升序取前 WMAX，测真值保留率。
+
+    提交 v7 口径：w = where(|allm-QM|<=QM*ppm*1e-6)；若 len(w)>WMAX 则按
+    质量误差取前 WMAX（同分子式异构体同为 ~0 误差， trunc 顺序不定但
+    只要总数<WMAX 就全保留）。本函数对每个 (ppm,WMAX) 计算：
+    true_after_mass（窗内命中）与 true_after_truncation（截断后保留），
+    以及被截断的 query 比例与平均截断后窗大小。纯 numpy + bisect，
+    不做模型打分。
+    """
+    try:
+        import numpy as np  # type: ignore
+    except Exception as e:
+        raise RuntimeError("need numpy for wmax_truncation_stats: %s" % e)
+    pm = np.asarray(list(pool_masses), dtype=np.float64)
+    pk = [str(k) for k in pool_keys]
+    order = np.argsort(pm, kind="mergesort")
+    sorted_masses = pm[order]
+    sorted_keys = [pk[i] for i in order]
+    key_to_mass: Dict[str, float] = {}
+    for k, mm in zip(pk, pm):
+        if k not in key_to_mass and np.isfinite(mm):
+            key_to_mass[k] = float(mm)
+    out: Dict = {"n_queries": len(list(query_masses)), "per_ppm": {}}
+    for w in windows:
+        wf = float(w)
+        ppm_entry: Dict = {"wmax": {}}
+        # 先算每 query 的窗内候选（质量，key，误差）
+        per_q_windows: List[Dict] = []
+        for qm, tk in zip(query_masses, query_keys):
+            tks = str(tk)
+            if qm is None or not math.isfinite(float(qm)):
+                per_q_windows.append({"qm": None, "true_key": tks, "win": [], "err_true": None})
+                continue
+            qf = float(qm)
+            tol = abs(qf) * wf / 1e6
+            import bisect as _bis
+
+            sm_list = sorted_masses.tolist()
+            a = _bis.bisect_left(sm_list, qf - tol)
+            b = _bis.bisect_right(sm_list, qf + tol)
+            win_idx = list(range(a, b))
+            win = [
+                (sorted_keys[i], float(sorted_masses[i]), abs(float(sorted_masses[i]) - qf) / abs(qf) * 1e6 if qf != 0 else math.inf)
+                for i in win_idx
+            ]
+            win.sort(key=lambda t: t[2])
+            tm = key_to_mass.get(tks)
+            if tm is None:
+                err_true = None
+            else:
+                err_true = abs(float(tm) - qf) / abs(qf) * 1e6 if qf != 0 else math.inf
+            per_q_windows.append({"qm": qf, "true_key": tks, "win": win, "err_true": err_true})
+        n_hit_mass = sum(1 for q in per_q_windows if q["err_true"] is not None and q["err_true"] <= wf)
+        ppm_entry["n_hit_mass"] = n_hit_mass
+        ppm_entry["recall_mass"] = n_hit_mass / len(per_q_windows) if per_q_windows else 0.0
+        for wmax in wmax_list:
+            wm = int(wmax)
+            n_keep = 0
+            n_truncated_q = 0
+            trunc_sizes: List[int] = []
+            for q in per_q_windows:
+                win = q["win"]
+                trunc_sizes.append(min(len(win), wm))
+                if len(win) > wm:
+                    n_truncated_q += 1
+                kept_keys = {k for k, _, _ in win[:wm]}
+                if q["err_true"] is not None and q["err_true"] <= wf and q["true_key"] in kept_keys:
+                    # 同分子式异构体同为小误差：只要真值在窗内且窗<=WMAX 必保留；
+                    # 窗>WMAX 时按误差排序，真值误差小则保留，大则丢（此处如实计）。
+                    n_keep += 1
+            ppm_entry["wmax"][str(wm)] = {
+                "n_hit_after_trunc": n_keep,
+                "recall_after_trunc": n_keep / len(per_q_windows) if per_q_windows else 0.0,
+                "n_truncated_queries": n_truncated_q,
+                "frac_truncated": n_truncated_q / len(per_q_windows) if per_q_windows else 0.0,
+                "mean_trunc_size": sum(trunc_sizes) / len(trunc_sizes) if trunc_sizes else 0.0,
+            }
+        out["per_ppm"][str(wf)] = ppm_entry
+    return out
 
 
 # ---- packed 指纹位存储占位 ----
