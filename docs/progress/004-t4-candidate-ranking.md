@@ -205,6 +205,15 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 - `notebooks/colab/004-part2-consolidated.ipynb`（19 格，已提交）：R1-cosine 档（20 万分片谱库）、R4（GEN 拟合→NP 评估 logistic 重排）、解冻末两层 2000 步（lr 1e-4，BCE+rank，NP/GEN 双验证）、merged 对照（合并峰表 mirror `_merge_peaks`）、forward 有界试点（无已核实权重 URL 则跳过并记录，不碰 NIST）。
 - de novo 生成与 Kaggle 提交不在本子（权重决策未定 / 不同平台）。产物 `/content/004-output2/` 共 7 个文件。
 
+## part2 回执（2026-10-03，一次跑完，产物已回本地）
+
+- R1-cosine 档：1184 查询中 1097 有窗（中位 26 候选），但真值 top25 命中 0。根因是设计错误：L 用 20 万分片（采样已排除 NP 整组），库内无真值结构参考谱，真值在构造上不可检索。此 0 为无效实验，不作模型结论；重做需 NP 非 timsTOF 谱作 L。
+- R4（GEN 拟合→NP）：MRR=0.6257/Top1=0.5025。注意口径修正：R4 用的是 rank-head 的 fp_dot，同 head single 为 0.6217，**R4 真实增量仅 +0.004**；之前记的 +0.026 是相对公开 head 的混杂比较，特此更正。
+- merged 对照（merged 模型 + 合并峰表）：MRR=0.6650/Top1=0.5040，低于同 Q 的 public-single 0.6754/0.5280。merged 视角在 NP250 上无增益（与作者 Class-2 上 merged 不如 single 的方向一致）。
+- 解冻末两层 2000 步（lr 1e-4，BCE+rank）：NP 0.6217→0.6147，GEN 0.7611→0.7737。基本持平，无增益；不继续加码。
+- forward：按许可规则跳过（无已核实权重 URL），已记录。
+- 当前最优仍是 rank-head single（NP 0.6217）+ R4（0.6257），增益都在小数点后两位。
+
 ## 接手顺序
 
 1. 阅读 004 计划与本进展；先用能够实际发现 Colab notebook 工具的客户端连接明确的私有 notebook，按用户要求不继续低效 GUI 自动化。
