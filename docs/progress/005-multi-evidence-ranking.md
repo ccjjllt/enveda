@@ -103,3 +103,18 @@ GLACIER有可用MassSpecGym路线，但当前公开wrapper与Colab Python3.13的
 **E4（公式路径 + 缺失分析）**：MIST-CF 两 ckpt URL 主审对官方 `download_model.sh` 逐字验证通过（zenodo 8151490）；SIRIUS/decomp 版本约束、正模式限制（`still only positive mode`，6 加合；`[M+K]+` 与全部负谱 unsupported）已核实；缺失表：NP 池 100%/窗 99.7% vs holdout 窗 82.5%——NP 不适合衡量外部召回。生成小试只设计未执行（待权重/环境）。
 
 本轮仍无 GPU 训练、无 submission、无提分；成绩保持 0.206。E2 verdict 指向：下一步不是把当前 ranker 部署，而是解决无库真值的排序（E4 生成召回 / E3 forward 重排补同式证据），或把 ranker 的缺失处理做对后再谈上线。
+
+## E3/E4 执行与主审验证（2026-10-04）
+
+**E3 GLACIER 试点（28 分子，Kaggle GPU 实跑，主审复算）**：
+- 配额：GPU 剩约 17.1h（此前“47 分钟”为过期快照），本次只 push 两次开发运行（v1 挂载失败 ERROR 约 24s、v2 修好挂载后 pip 失败 ERROR、v3 成功），配额消耗可忽略。
+- 两次修 bug 都是主审亲手修的：① 数据集挂载在 `/kaggle/input/datasets/{owner}/{slug}` 而非 `/kaggle/input/{slug}`——v1 全 0 挂载的原因，改全树按文件名搜索后解决；② cp312 轮子在 python3.13 worker 上装不上（意料之中），改 PyPI 直装（rdkit/einops/lightning/torchmetrics）+ `site='none'` + `--any-rdkit`。rdkit 实际为 2026.03.6（非 panel-exact 2025.03，已记偏差）。
+- 实测（v3 COMPLETE，T4，41.5s，68.46 pred/s，峰值 0.42GB，632 候选 506 scored）：base MRR 0.5162 → GLACIER 重排 **0.5791（+0.0629）**，改善 8 / 恶化 6 / 持平 14。逐分子由主审从 `glacier_scores.json` 独立重算。大胜：WJXS 24→1、CKEX 13→1、IKMD 3→1、FXNF 3→1；大亏：VNON 1→5、XRWQ 1→3。结论：同式重排有净增益但硬覆盖会亏 rank-1，必须做融合而非替换；28 例太少，扩到全观察集前不报成绩。产物：`notebooks/glacier-pilot/`（开发运行，非提交）、`artifacts/005/e3_pilot_rerank_eval.json`（逐分子 base/glacier rank，主审生成）。
+
+**E4 公式路径（20 分子，本地 CPU 实跑，主审验权重 + 落盘复跑）**：
+- 双 ckpt md5 主审实测与 zenodo API 一致（mist bff0db38…/fast 505eced4…）；`download_model.sh` 主审对官方逐字验证通过。
+- MIST-CF 真实前向：质量基线 Top1 9/20 → MIST 重排 **Top1 15/20**（+6，恶化 3）。SIRIUS 缺席（本机无 Java），用 E0 窗内公式枚举代替 decomp——候选偏乐观，已在 `scripts/mist_cf_formula.py` docstring 与结果 meta 双记；timsTOF→Unknown override 已记。
+- 落盘补派：`scripts/mist_cf_formula.py` + `artifacts/005/mist_cf_formula_topk_20.json`，重跑 Top1 15/20 零差异，主审验 JSON 得同数。
+- FRIGID 2.8GB @~90KB/s 下不动（8–9h ETA）；MS-GPT 无直接权重 URL。只有 MIST-CF 这条公式路跑通，生成器本身仍 pending。
+
+本轮仍无 submission、无提分；成绩保持 0.206。下一步：E3 扩全观察集 + 只做融合（不硬覆盖）；E4 等 FRIGID 可下时再开生成小试。
