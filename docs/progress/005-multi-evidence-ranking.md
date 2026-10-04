@@ -132,3 +132,13 @@ GLACIER有可用MassSpecGym路线，但当前公开wrapper与Colab Python3.13的
 ## v8 public 0.307（2026-10-04）
 
 - ref `56821309` COMPLETE，public **0.307**（v7 0.206 → +0.101）。GLACIER z-融合在隐藏集兑现了增益，方向与 NP250 开发数（+0.124）一致。
+
+## G1–G4 收尾 + ICEBERG 全量 + FRIGID 进行中（2026-10-04/05，四子任务，主审验货）
+
+**G1（manifest + 005 总入口）**：`artifacts/005/candidate_manifest.json`（并集 712,199、canon 706,242/official 706,289、跨池 554、NP16、fp_bits sha 与 pool-train/meta 一致，数字实测断言）+ `notebooks/colab/005-multi-evidence-ranking.ipynb`（6 格，AST 通过，互引一致）。验过。
+
+**G2（扩池）**：缺口实测——NP/GEN 真值 train 覆盖 100%，coco raw 0，union 相对 train 零真值增量只有拥挤（窗 median 13→59）。LMSD 50,586→新增 canonical 22,765，指纹 25 秒建完，R1 同池验证 delta MRR **−0.00567**、Top25 −1、真值召回增量 0。决定：**LMSD 不进池**，ChEBI/Lite 不继续。停下比扩池诚实。
+
+**G3（FRIGID）**：配额足（剩 ~13.8h），槽位曾满（他人 s2-branch QUEUED）后解除；第 1 次 push 撞 409（title slug 不对）停下报告；补 harness（FRIGID dlm.sampler + MIST 加载范式，出处逐条核对 worker clone 树）后连推 13 版排雷（hydra/bionemo/jaxtyping/weights_only/transformers 漂移），v12 真实生成跑通但 valid 0/10 被门控拦截；v13 加诊断后 RUNNING（78 分钟+，日志要 COMPLETE 才可见）。worker 带宽 3–6MB/s（本地 90KB/s 不作数）。待 COMPLETE 后收双路径表。
+
+**G4（ICEBERG 对照）**：30 分子表初版融合口径与主审已验证口径不一致（数字对不上），主审用同一份 `iceberg_scores.json` 独立重算，映射覆盖 629/629，NP250 全量口径复现分毫不差——推翻初版 verdict。**正确结论待全量**，遂跑全 NP250（`ccjjllt/iceberg-np250` v1 COMPLETE，423s，33 pred/s，4.3GB，216/250 scored）：同窗 top25 下 **ICEBERG-fused 0.6382（+87/−10）vs GLACIER-fused 0.6198（+86/−23）**，Top1 0.528 vs 0.500，head-to-head 38:31。verdict 修正为 **ICEBERG 优先进管线**（二选一；双 forward 互补仅个位数，列可选）。初版“不接入”作废。
