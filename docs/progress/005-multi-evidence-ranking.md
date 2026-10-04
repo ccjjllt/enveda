@@ -124,3 +124,7 @@ GLACIER有可用MassSpecGym路线，但当前公开wrapper与Colab Python3.13的
 - 派工中的子任务被取消前已 push `ccjjllt/glacier-np250`（COMPLETE，305.9s，81.58 pred/s，峰值 0.45GB）：250 分子全覆盖（216 scored/34-shape? 实为 216 分子 scored），9505 候选 8348 scored。输入为本地 top-50 shortlist（union|single|10ppm，`np250_shortlists_top50.json`）。
 - 主审独立融合评估（`e3_np250_fusion_eval.json`，逐分子 base/hard/fused RR）：base **0.5146** | 硬替换 0.6141（+88/−49）| z-融合 **0.6391（+91/−25）**。融合 > 硬替换 > base：保住了 24 个硬替换会亏掉的分子，符合 005“只融合不硬覆盖”。
 - 边界：NP250 开发集反复使用、union 池、canonical 键非官方 2026.03.3 复评、公开权重暴露未知——0.6391 是开发数，不是成绩承诺。下一步：把“z-融合 top25”做到 v8 提交入口，在隐藏重跑上见真章。
+
+## v8 提交（2026-10-04，待分数）
+
+- `ccjjllt/enveda-submission-v8` v1（FPNet single top50 + GLACIER z-融合 top25，712K 池，离线）COMPLETE 后，主审独立验证（400×25、ID 顺序对 sample_submission、首候选裸 CCO=0）通过，已提交排行榜，ref `56821309`，PENDING。今日还剩 4 次。
