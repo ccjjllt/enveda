@@ -128,3 +128,7 @@ GLACIER有可用MassSpecGym路线，但当前公开wrapper与Colab Python3.13的
 ## v8 提交（2026-10-04，待分数）
 
 - `ccjjllt/enveda-submission-v8` v1（FPNet single top50 + GLACIER z-融合 top25，712K 池，离线）COMPLETE 后，主审独立验证（400×25、ID 顺序对 sample_submission、首候选裸 CCO=0）通过，已提交排行榜，ref `56821309`，PENDING。今日还剩 4 次。
+
+## v8 public 0.307（2026-10-04）
+
+- ref `56821309` COMPLETE，public **0.307**（v7 0.206 → +0.101）。GLACIER z-融合在隐藏集兑现了增益，方向与 NP250 开发数（+0.124）一致。
