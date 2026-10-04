@@ -118,3 +118,9 @@ GLACIER有可用MassSpecGym路线，但当前公开wrapper与Colab Python3.13的
 - FRIGID 2.8GB @~90KB/s 下不动（8–9h ETA）；MS-GPT 无直接权重 URL。只有 MIST-CF 这条公式路跑通，生成器本身仍 pending。
 
 本轮仍无 submission、无提分；成绩保持 0.206。下一步：E3 扩全观察集 + 只做融合（不硬覆盖）；E4 等 FRIGID 可下时再开生成小试。
+
+## E3 全 NP250 融合评估（2026-10-04，主审复算）
+
+- 派工中的子任务被取消前已 push `ccjjllt/glacier-np250`（COMPLETE，305.9s，81.58 pred/s，峰值 0.45GB）：250 分子全覆盖（216 scored/34-shape? 实为 216 分子 scored），9505 候选 8348 scored。输入为本地 top-50 shortlist（union|single|10ppm，`np250_shortlists_top50.json`）。
+- 主审独立融合评估（`e3_np250_fusion_eval.json`，逐分子 base/hard/fused RR）：base **0.5146** | 硬替换 0.6141（+88/−49）| z-融合 **0.6391（+91/−25）**。融合 > 硬替换 > base：保住了 24 个硬替换会亏掉的分子，符合 005“只融合不硬覆盖”。
+- 边界：NP250 开发集反复使用、union 池、canonical 键非官方 2026.03.3 复评、公开权重暴露未知——0.6391 是开发数，不是成绩承诺。下一步：把“z-融合 top25”做到 v8 提交入口，在隐藏重跑上见真章。
