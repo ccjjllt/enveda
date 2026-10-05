@@ -142,3 +142,10 @@ GLACIER有可用MassSpecGym路线，但当前公开wrapper与Colab Python3.13的
 **G3（FRIGID）**：配额足（剩 ~13.8h），槽位曾满（他人 s2-branch QUEUED）后解除；第 1 次 push 撞 409（title slug 不对）停下报告；补 harness（FRIGID dlm.sampler + MIST 加载范式，出处逐条核对 worker clone 树）后连推 13 版排雷（hydra/bionemo/jaxtyping/weights_only/transformers 漂移），v12 真实生成跑通但 valid 0/10 被门控拦截；v13 加诊断后 RUNNING（78 分钟+，日志要 COMPLETE 才可见）。worker 带宽 3–6MB/s（本地 90KB/s 不作数）。待 COMPLETE 后收双路径表。
 
 **G4（ICEBERG 对照）**：30 分子表初版融合口径与主审已验证口径不一致（数字对不上），主审用同一份 `iceberg_scores.json` 独立重算，映射覆盖 629/629，NP250 全量口径复现分毫不差——推翻初版 verdict。**正确结论待全量**，遂跑全 NP250（`ccjjllt/iceberg-np250` v1 COMPLETE，423s，33 pred/s，4.3GB，216/250 scored）：同窗 top25 下 **ICEBERG-fused 0.6382（+87/−10）vs GLACIER-fused 0.6198（+86/−23）**，Top1 0.528 vs 0.500，head-to-head 38:31。verdict 修正为 **ICEBERG 优先进管线**（二选一；双 forward 互补仅个位数，列可选）。初版“不接入”作废。
+
+## FRIGID 双路径结果：0 召回，生成线封存（2026-10-05，主审验货）
+
+- `ccjjllt/frigid-pilot` COMPLETE，20 分子×双臂×B=100（oracle 真值式 vs MIST-CF Top1），产物 `artifacts/005/frigid_pilot_results.json`（主审取回，非转述）。
+- 实测：valid 率仅 0.21/0.20，unique 0.14/0.11；**生成池真值召回 0.0，并入 MRR 0.0**——4000 次生成零命中。样例触目惊心：`ranked25 = ["N","CN","NC1NCC[NH+]1","CCN"]`，`n_formula_matched = 0`——连给定分子式都不遵守。
+- 根因（结果文件自述 + 主审核实）：`fingerprint=None`，MIST 谱编码前向从未接通（Spec-featurizer 适配 pending），跑的是纯 formula 无条件生成。不是“FRIGID 不行”，是“无谱条件的扩散”不行；谱条件 + ICEBERG 精修路径未测（重工程），按 004 口径不欠账但也不承诺。
+- verdict：**生成线封存**。v9 按 FPNet + ICEBERG 融合做，谱库 ranker 不进（E2 verdict），LMSD 不进池（G2 verdict），FRIGID 不进（本 verdict）。
