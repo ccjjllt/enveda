@@ -106,3 +106,9 @@ FIORA论文已有多能量分别预测再合并的实例，支持F1作为有根�
 **F3（FIORA-OS 负离子）**：权重主审实测验证（53,845,076B + sha `27380712…`，与报告一致）；卡点有日志原文证据（CLI 索要不存在的 `_state.pt`），22 分子零有效预测。verdict 接受：**无法判定，不进管线**——否定的是本次 loader 卡点，不是负离子物理路线。`src/fiora_adapter.py` + notebook 已落盘，解开加载契约后重跑。
 
 配额现状：GPU 剩 2.7h（10-10 刷新），TPU 剩 19.7h。F1/F4 训练类工作全部等刷新；F2 分析类已闭环。
+
+## F3 续：加载契约解开，22 分子实测信号弱，不进管线（2026-10-06，主审验货）
+
+- 卡点根因（源码为准）：`FioraModel.load_from_state_dict(.pt)` 只拿 `.pt` 做前缀派生 `_params.json` + `_state.pt`，本体字节不读；v2 只下了两件，补官方同 commit `_state.pt`（53,814,639B）即解。`ccjjllt/fiora-os-pilot-neg` v4 COMPLETE（156.5s，配额消耗约 5 分钟）。
+- 实测（`artifacts/006-fiora/fiora_scores_22.json`，主审独立重算）：746 候选 591 scored（0.792），均值多 <0.06；仅 CZMR 0.211/RNKM 0.250/QIVC 0.128/FBPF 0.114 中等；JDUW/QFJC/UEDU 全零；零峰 155 条集中在 SEEG/QQTZ/RTIX/APAJ。与报告分毫不差。
+- verdict 接受：**不进管线**。仅可作带缺失路径的残差特征，须本地先验 `base+residual` RR 增量（未做）。离线捆绑（53MB×2 + 源码）暂缓。
