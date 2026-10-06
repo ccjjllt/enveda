@@ -981,3 +981,439 @@ def run_e2_verification(
         "per_method_diff": oof_rep["per_method_diff"],
         "ok": bool(ok),
     }
+
+
+# ---------------------------------------------------------------------------
+# F2：统一历史对齐的 FP 聚合 + 参考缺失残差 ranker（006 计划 F2，手动研究用）。
+#
+# caliber 标注：F2_CALIBER = "f2_canonical_history_aligned_v1"。
+# 本节只增补新函数，不改动上方任何 E2 旧函数/常量/行为。旧
+# build_candidate_feature_row / train_logistic_oof / verify_saved_oof 保持原样，
+# 以保证 e2_metrics.json 回放口径不变。
+#
+# 1) 特征对齐结论（以 artifacts/005/e2_feature_schema.json 的 24 个名字为起点，
+#    对照 data/references/submission-v8-audit-2026-10-05.json 中历史临时脚本
+#    /tmp/e2_run2.py 的自有代码片段）：
+#    - f_top2_max：历史 = 各条件 top2 均分的最大值（cond_top2.max）；
+#      后补 = 全局谱 top2 均值。F2 采用历史定义（条件结构保留）。
+#    - f_var：历史 = 条件均分向量的方差（cond_mean.var）；
+#      后补 = 全部谱分数方差。F2 采用历史定义。
+#    - f_support：历史 = 该候选进入“条件 top25”的条件数（按 cond_mean 逐条件
+#      取前 25 累加）；后补 = 该候选谱分数高于自身谱均值的谱数。F2 采用历史定义。
+#    - f_contra：历史 = 最大谱分数 − 最小条件均分（cross_max − cross_min）；
+#      后补 = 谱均值 − 最小谱分数。F2 采用历史定义。
+#    - f_var_max：两者一致（条件最大值向量的方差），直接沿用。
+#    - f_top2_mean / f_max / f_mean_spec / f_mean_cond / f_mean_max_cond /
+#      f_std：两者一致（命名相同、口径相同），直接沿用。
+#    - 样本权重：历史 = 每分子总权重 1，正负各 0.5（正例有多 shipped 别名时
+#      均分 0.5，负例均分 0.5）；后补 = 全部候选行未加权平均 BCE。
+#      F2 训练一律每分子等权（pairwise 下每分子全部正负对总权重为 1；
+#      pointwise 权重函数保留历史 0.5/0.5 口径供对照）。
+#    选择历史定义的理由：它是实际产生 e2_metrics.json（ranker 0.9211）的训练
+#    分布；后补定义丢失了条件分组结构，与保存权重不兼容。本节新函数实现历史
+#    定义并显式标注 caliber，不把旧 fold 权重接到新特征上。
+#
+# 2) 参考库移除一律在 canonical 结构组层（含别名）执行：移除某 canonical 组 =
+#    该组全部 shipped 别名的全部库谱同时排除，计数（n_spectra/n_sources）与检索
+#    聚合在排除后重算。旧 raw key/谱 hash 路径不再用于 F2 训练与评估。
+#
+# 3) 残差模型：score(q,c) = base_z(q,c) + residual(x(q,c))，其中 base_z 为同
+#    分子窗内标准化的 FP single 点积（与原始 base 单调一致、只为量级对齐），
+#    residual 为带显式交互的正则线性函数（numpy 实现，不依赖 LightGBM /
+#    sklearn）。mol_context 等同 query 常量只以交互列进入模型，点式线性不再
+#    直接使用它们；pairwise 差分中纯常量列自动为 0，交互列保留。
+#    缺失走明确缺失路径：库特征缺失时置 0 并立起 has_* 指示列，不用阈值覆盖。
+# ---------------------------------------------------------------------------
+
+#: F2 统一口径标识（写入产物，供核对）。
+F2_CALIBER = "f2_canonical_history_aligned_v1"
+
+#: F2 训练 OOF 折（与 E2 同 seed/同 K，保证分子分组可比）。
+F2_SEED = 20261004
+F2_K = 5
+
+#: F2 残差特征顺序（固定，权重与此对齐）。缺失一律 0 + has_* 指示列。
+F2_RESIDUAL_FEATURES: List[str] = [
+    "has_lib",            # 0/1：掩码后该候选是否还有库谱
+    "has_fwd",            # 0/1：该分子是否有 forward 支持（GLACIER 覆盖）
+    "lib_max",            # 直接余弦结构 max（缺失 0）
+    "lib_gap",            # max - second（缺失 0）
+    "lib_n_spectra",      # 排除后重算的库谱数（缺失 0）
+    "lib_n_sources",      # 排除后重算的来源数（缺失 0）
+    "best_n_matched",     # 最佳库谱匹配峰数（缺失 0）
+    "best_explained",     # 最佳库谱解释强度 explained_query（缺失 0）
+    "best_ent_sim",       # 最佳库谱熵相似度（缺失 0）
+    "best_same_adduct",   # 最佳库谱是否同 adduct（缺失 0）
+    "ce_missing",         # 0/1：最佳库谱 CE 差缺失
+    "neg_ce_diff",        # -|CE 差|（越接近 0 越好；缺失 0）
+    "ana_max",            # 同结构 shifted disjoint 最大分（缺失 0）
+    "ana_explained",      # 直接+偏移不重叠解释强度（缺失 0）
+    "base_gap_to_top",    # base_z 分子内最大值 − 该候选 base_z（leader 为 0）
+    "lib_leader_gap",     # 分子内最大 lib_max − 该候选 lib_max（leader 为 0）
+    "mol_n_spec",         # 分子谱数（常量，只经交互列起作用）
+    "mol_pos_frac",       # 分子正模式占比（常量，只经交互列起作用）
+    "mol_margin",         # 分子 base 首二分差（常量，只经交互列起作用）
+    "base_z",             # 分子内标准化 base（允许模型学习 base 缩放）
+    "has_lib_x_base",     # has_lib * base_z（按可用性调整 FP 权重）
+    "has_lib_x_libmax",   # has_lib * lib_max（缺失时库证据归零）
+    "has_fwd_x_base",     # has_fwd * base_z（按 forward 可用性调整 FP 权重）
+    "mol_nspec_x_libmax",  # mol_n_spec * lib_max（谱数×库证据交互）
+]
+
+__all__ = __all__ + [
+    "F2_CALIBER",
+    "F2_SEED",
+    "F2_K",
+    "F2_RESIDUAL_FEATURES",
+    "F2_ALIGNMENT_NOTES",
+    "f2_molecule_equal_weights",
+    "f2_fp_aggregates_for_molecule",
+    "build_f2_residual_row",
+    "apply_canonical_library_dropout",
+    "train_pairwise_residual",
+    "pairwise_residual_score",
+]
+
+#: 对齐说明表（历史定义 vs 后补定义 vs F2 选择）。
+F2_ALIGNMENT_NOTES: Dict[str, Dict[str, str]] = {
+    "f_top2_max": {
+        "historical": "max over conds of cond_top2 mean (/tmp/e2_run2.py:454-482)",
+        "src_backfill": "global top2 mean over spectra (molecule_ranker 581-585)",
+        "f2": "historical",
+    },
+    "f_var": {
+        "historical": "var of cond_mean vector",
+        "src_backfill": "var over all spectra",
+        "f2": "historical",
+    },
+    "f_support": {
+        "historical": "n_conds where candidate in cond top25 by cond_mean",
+        "src_backfill": "n_specs where score above own global mean",
+        "f2": "historical",
+    },
+    "f_contra": {
+        "historical": "cross_max - min(cond_mean)",
+        "src_backfill": "global mean - min(spectra scores)",
+        "f2": "historical",
+    },
+    "f_var_max": {
+        "historical": "var of cond_max vector",
+        "src_backfill": "var of cond_max vector",
+        "f2": "same",
+    },
+    "sample_weights": {
+        "historical": "per molecule total 1.0, 0.5 pos / 0.5 neg; aliases split 0.5",
+        "src_backfill": "unweighted mean BCE over rows",
+        "f2": "molecule-equal (pairwise pairs total 1.0 per molecule)",
+    },
+}
+
+
+def f2_molecule_equal_weights(
+    n_pos: int, n_neg: int, pos_total: float = 0.5, neg_total: float = 0.5
+) -> Tuple[float, float]:
+    """历史 0.5/0.5 分子等权（pointwise 对照用）。
+
+    输入：
+        n_pos: 该分子正例行数（canon 合并后一般为 1；合并前多 shipped 别名
+          按实际行数均分 pos_total）。
+        n_neg: 该分子负例行数。
+    输出：
+        (w_pos_each, w_neg_each)。每分子总权重恒为 pos_total + neg_total。
+    """
+    if n_pos <= 0 or n_neg <= 0:
+        raise ValueError("need both positive and negative rows")
+    return float(pos_total) / int(n_pos), float(neg_total) / int(n_neg)
+
+
+def f2_fp_aggregates_for_molecule(
+    S, cond_ids: Sequence,
+) -> Dict[int, Dict[str, float]]:
+    """历史对齐的 FP 聚合（逐分子矩阵版，caliber 见 F2_CALIBER）。
+
+    输入：
+        S: n_spec × n_win 矩阵（行=该分子各谱，列=窗内 shipped 候选，值为 FP
+          点积；复用 E0 logits，不做神经前向）。
+        cond_ids: 长度 n_spec 的条件 id 列表（cond_key 口径，同一条件多谱
+          归为一组）。
+    输出：
+        {j: {f_max, f_mean_spec, f_mean_cond, f_mean_max_cond, f_top2_max,
+        f_top2_mean, f_var, f_var_max, f_support, f_contra, f_std}}，
+        定义与 /tmp/e2_run2.py:454-482 一致（跨条件聚合，见本节表头注释）。
+        单谱/单条件时方差类为 0；support 为进入条件 top25 的条件数。
+    """
+    if _np is None:
+        raise RuntimeError("need numpy for F2 FP aggregates")
+    import numpy as np  # type: ignore
+    S = np.asarray(S, dtype=float)
+    if S.ndim != 2 or S.shape[0] == 0 or S.shape[1] == 0:
+        raise ValueError("need non-empty 2D S")
+    n_spec, n_win = int(S.shape[0]), int(S.shape[1])
+    cond_ids = [str(c) for c in cond_ids]
+    if len(cond_ids) != n_spec:
+        raise ValueError("cond_ids length must match n_spec")
+    uniq_conds = sorted(set(cond_ids))
+    cond_index = {c: [i for i, v in enumerate(cond_ids) if v == c]
+                  for c in uniq_conds}
+    n_cond = len(uniq_conds)
+    # 每条件子矩阵：n_rep × n_win。
+    cond_mean = np.stack(
+        [S[ix, :].mean(axis=0) for ix in
+         [cond_index[c] for c in uniq_conds]], axis=0)
+    cond_max = np.stack(
+        [S[ix, :].max(axis=0) for ix in
+         [cond_index[c] for c in uniq_conds]], axis=0)
+    cond_top2 = np.stack(
+        [np.sort(S[ix, :], axis=0)[-2:, :].mean(axis=0)
+         if len(ix) >= 2 else S[ix, :].mean(axis=0)
+         for ix in [cond_index[c] for c in uniq_conds]], axis=0)
+    cross_max = cond_max.max(axis=0)
+    cross_mean = cond_mean.mean(axis=0)
+    cross_mean_max = cond_max.mean(axis=0)
+    cross_top2_max = cond_top2.max(axis=0)
+    cross_top2_mean = cond_top2.mean(axis=0)
+    cross_var = (cond_mean.var(axis=0) if n_cond > 1
+                 else np.zeros(n_win))
+    cross_var_max = (cond_max.var(axis=0) if n_cond > 1
+                     else np.zeros(n_win))
+    cross_min = cond_mean.min(axis=0)
+    contra = cross_max - cross_min
+    std_spec = S.std(axis=0) if n_spec > 1 else np.zeros(n_win)
+    f_mean_spec = S.mean(axis=0)
+    support = np.zeros(n_win, dtype=float)
+    for ci in range(n_cond):
+        order = np.argsort(-cond_mean[ci], kind="stable")[:25]
+        support[order] += 1.0
+    out: Dict[int, Dict[str, float]] = {}
+    for j in range(n_win):
+        out[int(j)] = {
+            "f_max": float(cross_max[j]),
+            "f_mean_spec": float(f_mean_spec[j]),
+            "f_mean_cond": float(cross_mean[j]),
+            "f_mean_max_cond": float(cross_mean_max[j]),
+            "f_top2_max": float(cross_top2_max[j]),
+            "f_top2_mean": float(cross_top2_mean[j]),
+            "f_var": float(cross_var[j]),
+            "f_var_max": float(cross_var_max[j]),
+            "f_support": float(support[j]),
+            "f_contra": float(contra[j]),
+            "f_std": float(std_spec[j]),
+        }
+    return out
+
+
+def build_f2_residual_row(
+    base_z: float,
+    base_gap_to_top: float,
+    lib_leader_gap: float,
+    lib_max: float,
+    lib_second: float,
+    lib_n_spectra: int,
+    lib_n_sources: int,
+    best_n_matched: int,
+    best_explained: float,
+    best_ent_sim: float,
+    best_same_adduct: bool,
+    best_ce_diff,
+    ana_max: float,
+    ana_explained: float,
+    has_fwd: bool,
+    mol_n_spec: int,
+    mol_pos_frac: float,
+    mol_margin: float,
+    has_lib_override=None,
+) -> List[float]:
+    """组装单候选 F2 残差特征行（顺序见 F2_RESIDUAL_FEATURES）。
+
+    缺失路径（明确，不阈值覆盖）：当候选的 canonical 组被移除（或本来就没有
+    库谱）时，lib_*/best_*/ana_* 一律取 0，has_lib=0；ce 缺失时
+    ce_missing=1 且 neg_ce_diff=0。调用方负责在 canonical 组层掩码后传入
+    已重算的计数与聚合值，本函数只做行组装与交互列展开。
+    """
+    n_spec = int(lib_n_spectra)
+    if has_lib_override is None:
+        has_lib = 1.0 if n_spec > 0 else 0.0
+    else:
+        has_lib = 1.0 if has_lib_override else 0.0
+    if has_lib <= 0.0:
+        lib_max_f = 0.0
+        lib_gap_f = 0.0
+        n_sources_f = 0.0
+        n_matched_f = 0.0
+        expl_f = 0.0
+        ent_f = 0.0
+        same_ad_f = 0.0
+        ana_max_f = 0.0
+        ana_expl_f = 0.0
+    else:
+        lib_max_f = float(lib_max)
+        lib_gap_f = float(lib_max) - float(lib_second)
+        n_sources_f = float(lib_n_sources)
+        n_matched_f = float(best_n_matched)
+        expl_f = float(best_explained)
+        ent_f = float(best_ent_sim)
+        same_ad_f = 1.0 if best_same_adduct else 0.0
+        ana_max_f = float(ana_max)
+        ana_expl_f = float(ana_explained)
+    if best_ce_diff is None:
+        try:
+            if best_ce_diff is None:
+                raise TypeError
+        except TypeError:
+            pass
+        ce_missing = 1.0
+        neg_ce = 0.0
+    else:
+        try:
+            ce_f = float(best_ce_diff)
+            if ce_f != ce_f:  # NaN
+                ce_missing = 1.0
+                neg_ce = 0.0
+            else:
+                ce_missing = 0.0 if has_lib > 0.0 else 1.0
+                neg_ce = -abs(ce_f) if has_lib > 0.0 else 0.0
+        except Exception:
+            ce_missing = 1.0
+            neg_ce = 0.0
+    if has_lib <= 0.0:
+        ce_missing = 1.0
+        neg_ce = 0.0
+    has_fwd_f = 1.0 if has_fwd else 0.0
+    bz = float(base_z)
+    row = [
+        float(has_lib),
+        float(has_fwd_f),
+        float(lib_max_f),
+        float(lib_gap_f),
+        float(n_spec),
+        float(n_sources_f),
+        float(n_matched_f),
+        float(expl_f),
+        float(ent_f),
+        float(same_ad_f),
+        float(ce_missing),
+        float(neg_ce),
+        float(ana_max_f),
+        float(ana_expl_f),
+        float(base_gap_to_top),
+        float(lib_leader_gap),
+        float(mol_n_spec),
+        float(mol_pos_frac),
+        float(mol_margin),
+        float(bz),
+        float(has_lib * bz),
+        float(has_lib * lib_max_f),
+        float(has_fwd_f * bz),
+        float(float(mol_n_spec) * lib_max_f),
+    ]
+    if len(row) != len(F2_RESIDUAL_FEATURES):
+        raise ValueError("F2 residual width must be %d" % len(F2_RESIDUAL_FEATURES))
+    return [float(v) for v in row]
+
+
+def apply_canonical_library_dropout(
+    cand_canons: Sequence[str],
+    removed_canons: Sequence[str],
+) -> List[bool]:
+    """canonical 组掩码：candidate 的 canon 在移除集合中即无库证据。
+
+    输入：
+        cand_canons: 窗内候选 canon 列表（已去重顺序）。
+        removed_canons: 被移除的 canonical 组集合（含别名归一后的键）。
+    输出：
+        与候选等长的 keep 列表（True=保留库证据，False=走缺失路径）。
+    """
+    removed = set(str(v) for v in removed_canons)
+    return [str(c) not in removed for c in cand_canons]
+
+
+def train_pairwise_residual(
+    X: Sequence[Sequence[float]],
+    pair_index: Sequence[Tuple[int, int]],
+    pair_weight: Sequence[float],
+    base_diff: Sequence[float],
+    l2: float = 1.0,
+    lr: float = 0.5,
+    iters: int = 500,
+) -> Dict:
+    """带交互的正则线性 pairwise 训练（Bradley-Terry，numpy 全批量）。
+
+    模型：P(pos 胜) = sigmoid(base_diff + w.(x_pos - x_neg))，其中 base_diff
+    为固定底座差（z 单位，不学习），w 为待学习残差权重，L2 系数为 l2。
+    输入：
+        X: 全部候选残差特征行（n×d，需与 F2_RESIDUAL_FEATURES 同顺序，
+          未标准化；本函数内按训练行计算 mu/sd 并标准化）。
+        pair_index: [(i_pos, i_neg)]，同分子内正对负下标（canon 合并后每分子
+          一般为 1 个正例对全部负例）。
+        pair_weight: 每对权重（调用方按每分子等权：该分子对数分之一，使每
+          分子总权重为 1）。
+        base_diff: 每对的底座差（base_z_pos − base_z_neg，固定偏移）。
+        l2/lr/iters: 正则/学习率/步数（F2 固定 l2=1.0、lr=0.5、iters=500，
+          不按验证标签调参）。
+    输出：
+        {w, mu, sd, n_pairs, n_molecules}（无 bias 项，pairwise 差分中偏置
+        抵消；预测残差 = w.x_std）。
+    """
+    if _np is None:
+        raise RuntimeError("need numpy for pairwise residual training")
+    import numpy as np  # type: ignore
+    Xa = np.asarray([[float(v) for v in r] for r in X], dtype=float)
+    if Xa.ndim != 2 or Xa.shape[0] == 0:
+        raise ValueError("need non-empty 2D X")
+    pairs = [(int(a), int(b)) for a, b in pair_index]
+    if not pairs:
+        raise ValueError("need non-empty pairs")
+    pw = np.asarray([float(v) for v in pair_weight], dtype=float)
+    bd = np.asarray([float(v) for v in base_diff], dtype=float)
+    if not (len(pairs) == pw.shape[0] == bd.shape[0]):
+        raise ValueError("pairs/weights/base_diff length mismatch")
+    mu = Xa.mean(axis=0)
+    sd = Xa.std(axis=0)
+    Xs = np.zeros_like(Xa)
+    for j in range(Xa.shape[1]):
+        if sd[j] < 1e-12:
+            Xs[:, j] = 0.0
+        else:
+            Xs[:, j] = (Xa[:, j] - mu[j]) / sd[j]
+    d = Xa.shape[1]
+    w = np.zeros(d, dtype=float)
+    s = float(pw.sum())
+    if s <= 0.0:
+        raise ValueError("pair weights must sum positive")
+    for _ in range(int(iters)):
+        D = np.asarray([Xs[a] - Xs[b] for a, b in pairs])
+        z = D.dot(w) + bd
+        p = np.where(z >= 0.0, 1.0 / (1.0 + np.exp(-z)),
+                     np.exp(z) / (1.0 + np.exp(z)))
+        e = (p - 1.0) * (pw / s)  # dL/dz，加权平均
+        gw = D.T.dot(e) + float(l2) * w
+        w = w - float(lr) * gw
+    return {"w": [float(v) for v in w],
+            "mu": [float(v) for v in mu],
+            "sd": [float(v) for v in sd],
+            "n_pairs": int(len(pairs)),
+            "l2": float(l2), "lr": float(lr), "iters": int(iters),
+            "caliber": F2_CALIBER}
+
+
+def pairwise_residual_score(
+    features: Sequence[float], model: Dict
+) -> float:
+    """pairwise 残差打分（标准化后 w.x，无偏置）。
+
+    输入：
+        features: 与 F2_RESIDUAL_FEATURES 同顺序的特征行。
+        model: train_pairwise_residual 产物（含 w/mu/sd）。
+    输出：
+        残差值（z 单位，与 base_z 直接相加）。
+    """
+    w = [float(v) for v in model["w"]]
+    mu = [float(v) for v in model["mu"]]
+    sd = [float(v) for v in model["sd"]]
+    if len(features) != len(w):
+        raise ValueError("feature width must be %d" % len(w))
+    s = 0.0
+    for x, m, dd, ww in zip(features, mu, sd, w):
+        xs = 0.0 if dd < 1e-12 else (float(x) - m) / dd
+        s += ww * xs
+    return float(s)

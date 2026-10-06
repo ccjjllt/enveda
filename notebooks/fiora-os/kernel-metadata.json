@@ -1,0 +1,1 @@
+{"code_file": "fiora-os-pilot.ipynb", "competition_sources": [], "dataset_sources": ["ccjjllt/casmi26-glacier-np250"], "enable_gpu": true, "enable_internet": true, "enable_tpu": false, "id": "ccjjllt/fiora-os-pilot-neg", "is_private": true, "kernel_type": "notebook", "language": "python", "machine_shape": "NvidiaTeslaT4", "title": "FIORA-OS Pilot Neg"}
