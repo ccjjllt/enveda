@@ -1,0 +1,463 @@
+{
+  "task": "006 update after v8 public 0.307",
+  "checked_at_utc": "2026-10-05 05:34:14 UTC",
+  "checked_at_asia_shanghai": "2026-10-05T13:34:14+08:00",
+  "checked_date_asia_shanghai": "2026-10-05",
+  "timezone": "Asia/Shanghai (UTC+08:00)",
+  "methods": "Read current005 progress, then Kaggle MCP get_competition_submission, search_competition_submissions, get_competition, get_competition_leaderboard, list_competition_topics, get_forum_topic, list_competition_data_files, list_competition_pages, search_notebooks, get_notebook_info, get_dataset_info. MCP worked this round; no CLI fallback needed.",
+  "scope": "Read-only. No GPU/runtime start, training, push, submission, comments, model/data downloads, hidden-label access or identifier lookup. Only this evidence JSON written.",
+  "project_submissions": {
+    "source": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/submissions",
+    "submissions": [
+      {
+        "ref": 56821309,
+        "submitted_at_utc": "2026-10-04T10:24:10.447Z",
+        "description": "v8 FPNet single + GLACIER z-fusion top25 over 712K pool",
+        "file_name": "submission.csv",
+        "status": "COMPLETE",
+        "public_score": "0.307",
+        "source_url": "https://www.kaggle.com/code/ccjjllt/enveda-submission-v8?scriptVersionId=355132734"
+      },
+      {
+        "ref": 56799854,
+        "submitted_at_utc": "2026-10-03T14:14:30.190Z",
+        "description": "",
+        "file_name": "submission.csv",
+        "status": "COMPLETE",
+        "public_score": "0.206",
+        "source_url": "https://www.kaggle.com/code/ccjjllt/enveda-submission?scriptVersionId=354910791"
+      },
+      {
+        "ref": 56791264,
+        "submitted_at_utc": "2026-10-03T06:27:08.417Z",
+        "description": "v1 FPNet single + 20ppm coco pool",
+        "file_name": "submission.csv",
+        "status": "COMPLETE",
+        "public_score": "0.000",
+        "source_url": "https://www.kaggle.com/code/ccjjllt/enveda-submission?scriptVersionId=354829299"
+      }
+    ],
+    "newest_ref": 56821309,
+    "newer_submission_found": false,
+    "pagination_note": "Requested latest10 by Date; returned only3 with no next-page token.",
+    "v8_notebook": {
+      "ref": "ccjjllt/enveda-submission-v8",
+      "version_number": 1,
+      "script_version_id": 355132734,
+      "private": true,
+      "gpu": true,
+      "internet": false,
+      "machine_shape": "NvidiaTeslaT4",
+      "verified_from": "Submission list URL explicitly associates56821309 with this notebook/scriptVersionId; get_notebook_info separately reportscurrent_version_number1."
+    },
+    "verified_public_improvement": {
+      "v7": 0.206,
+      "v8": 0.307,
+      "absolute_delta": 0.101,
+      "interpretation": "Observed total pipeline-version improvement. This alone cannot decompose the gain among GLACIER fusion, shortlist choice, canonical export or other simultaneous changes."
+    },
+    "private_score": "Not returned",
+    "row_level_hidden_results": "Not returned. Aggregate score cannot reveal per-molecule truth, error types or novelty-class proportions."
+  },
+  "leaderboard": {
+    "source": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard",
+    "requested_public": true,
+    "team_count": 2479,
+    "top30": [
+      {
+        "ordered_position": 1,
+        "team_name": "pikachu",
+        "display_score": "0.471",
+        "submitted_at_utc": "2026-10-04T16:39:21.903333300Z"
+      },
+      {
+        "ordered_position": 2,
+        "team_name": "MarvinTMB",
+        "display_score": "0.466",
+        "submitted_at_utc": "2026-10-04T16:05:42.890Z"
+      },
+      {
+        "ordered_position": 3,
+        "team_name": "Shehab Alshehabi",
+        "display_score": "0.441",
+        "submitted_at_utc": "2026-10-04T21:23:53.716666700Z"
+      },
+      {
+        "ordered_position": 4,
+        "team_name": "chopper",
+        "display_score": "0.440",
+        "submitted_at_utc": "2026-10-04T16:57:20.196666700Z"
+      },
+      {
+        "ordered_position": 5,
+        "team_name": "Randy",
+        "display_score": "0.435",
+        "submitted_at_utc": "2026-10-05T03:32:59.340Z"
+      },
+      {
+        "ordered_position": 6,
+        "team_name": "Xolotl",
+        "display_score": "0.435",
+        "submitted_at_utc": "2026-10-05T00:00:58.593333300Z"
+      },
+      {
+        "ordered_position": 7,
+        "team_name": "Netram Faran",
+        "display_score": "0.432",
+        "submitted_at_utc": "2026-10-05T01:29:15.876666700Z"
+      },
+      {
+        "ordered_position": 8,
+        "team_name": "Arun Kumar Pucha",
+        "display_score": "0.432",
+        "submitted_at_utc": "2026-10-04T07:39:39.720Z"
+      },
+      {
+        "ordered_position": 9,
+        "team_name": "RUBlevka",
+        "display_score": "0.432",
+        "submitted_at_utc": "2026-10-04T10:34:19.880Z"
+      },
+      {
+        "ordered_position": 10,
+        "team_name": "Arsokan",
+        "display_score": "0.431",
+        "submitted_at_utc": "2026-10-04T21:24:19.023333300Z"
+      },
+      {
+        "ordered_position": 11,
+        "team_name": "Faraz92",
+        "display_score": "0.430",
+        "submitted_at_utc": "2026-10-04T10:58:20.880Z"
+      },
+      {
+        "ordered_position": 12,
+        "team_name": "Alex #2",
+        "display_score": "0.429",
+        "submitted_at_utc": "2026-10-05T00:13:36.723333300Z"
+      },
+      {
+        "ordered_position": 13,
+        "team_name": "yogesh",
+        "display_score": "0.428",
+        "submitted_at_utc": "2026-10-04T21:55:02.530Z"
+      },
+      {
+        "ordered_position": 14,
+        "team_name": "Naoism",
+        "display_score": "0.428",
+        "submitted_at_utc": "2026-10-04T16:44:55.440Z"
+      },
+      {
+        "ordered_position": 15,
+        "team_name": "MukDam",
+        "display_score": "0.426",
+        "submitted_at_utc": "2026-10-04T20:28:54.723333300Z"
+      },
+      {
+        "ordered_position": 16,
+        "team_name": "Tra Crew",
+        "display_score": "0.426",
+        "submitted_at_utc": "2026-10-05T00:00:22.826666700Z"
+      },
+      {
+        "ordered_position": 17,
+        "team_name": "Savko",
+        "display_score": "0.426",
+        "submitted_at_utc": "2026-10-05T00:07:09.673333300Z"
+      },
+      {
+        "ordered_position": 18,
+        "team_name": "Oliver Ford",
+        "display_score": "0.426",
+        "submitted_at_utc": "2026-10-04T19:40:06.616666700Z"
+      },
+      {
+        "ordered_position": 19,
+        "team_name": "Ozymandias31415",
+        "display_score": "0.425",
+        "submitted_at_utc": "2026-09-25T00:00:57.303333300Z"
+      },
+      {
+        "ordered_position": 20,
+        "team_name": "Santiago Maniches",
+        "display_score": "0.425",
+        "submitted_at_utc": "2026-10-04T14:20:31.196666700Z"
+      },
+      {
+        "ordered_position": 21,
+        "team_name": "Musa Tur Farazi",
+        "display_score": "0.425",
+        "submitted_at_utc": "2026-10-05T00:01:30.640Z"
+      },
+      {
+        "ordered_position": 22,
+        "team_name": "HMC_Stevelee",
+        "display_score": "0.424",
+        "submitted_at_utc": "2026-10-04T00:34:57.906666700Z"
+      },
+      {
+        "ordered_position": 23,
+        "team_name": "RFeng12",
+        "display_score": "0.424",
+        "submitted_at_utc": "2026-10-05T01:54:11.796666700Z"
+      },
+      {
+        "ordered_position": 24,
+        "team_name": "Satoshi Nguyen",
+        "display_score": "0.424",
+        "submitted_at_utc": "2026-10-05T00:02:12.843333300Z"
+      },
+      {
+        "ordered_position": 25,
+        "team_name": "PennMeTeller",
+        "display_score": "0.423",
+        "submitted_at_utc": "2026-10-04T14:52:06.293333300Z"
+      },
+      {
+        "ordered_position": 26,
+        "team_name": "wang penghua",
+        "display_score": "0.423",
+        "submitted_at_utc": "2026-10-05T00:06:13.666666700Z"
+      },
+      {
+        "ordered_position": 27,
+        "team_name": "tomtom2026",
+        "display_score": "0.422",
+        "submitted_at_utc": "2026-10-05T00:08:52.056666700Z"
+      },
+      {
+        "ordered_position": 28,
+        "team_name": "Yuuki Aikawa",
+        "display_score": "0.422",
+        "submitted_at_utc": "2026-10-04T22:08:48.786666700Z"
+      },
+      {
+        "ordered_position": 29,
+        "team_name": "DECEM",
+        "display_score": "0.422",
+        "submitted_at_utc": "2026-10-05T00:27:43.566666700Z"
+      },
+      {
+        "ordered_position": 30,
+        "team_name": "vukpetar",
+        "display_score": "0.422",
+        "submitted_at_utc": "2026-10-03T20:15:06.960Z"
+      }
+    ],
+    "comparison_to_10_03_snapshot": "Team count2306→2479. First remains0.471; new second0.466; fifth0.433→0.435; fourteenth0.425→0.428.",
+    "caution": "Rounded3-decimal public snapshot and API order, not guaranteed exact tie ranks. Neither these positions nor their scores are final medal/prize thresholds. No inference about methods of private leading teams."
+  },
+  "official_pages": {
+    "source": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/overview",
+    "current_page_names_and_lengths": [
+      {
+        "name": "data-description",
+        "characters": 11953
+      },
+      {
+        "name": "Description",
+        "characters": 782
+      },
+      {
+        "name": "rules",
+        "characters": 11802
+      },
+      {
+        "name": "abstract",
+        "characters": 216
+      },
+      {
+        "name": "foundational-rules",
+        "characters": 23654
+      },
+      {
+        "name": "Background",
+        "characters": 2273
+      },
+      {
+        "name": "Evaluation",
+        "characters": 2062
+      },
+      {
+        "name": "Timeline",
+        "characters": 495
+      },
+      {
+        "name": "Prizes",
+        "characters": 125
+      },
+      {
+        "name": "Code Requirements",
+        "characters": 833
+      },
+      {
+        "name": "Acknowledgements",
+        "characters": 317
+      }
+    ],
+    "checked_core_semantics": {
+      "metric": "MRR@25",
+      "rdkit_matching_version": "2026.03.3",
+      "submission": "molecule_id,smiles; at most25 semicolon-separated nonempty guesses; one row per runtime molecule",
+      "runtime": "CPU/GPU<=9h, internet disabled, submission.csv",
+      "final_deadline_utc": "2026-12-14T23:59:00Z",
+      "data": "Visible test remains placeholder; hidden approximately1500 spectra/~400 molecules; novelty-class mixture and identities undisclosed."
+    },
+    "file_list": [
+      {
+        "name": "sample_submission.csv",
+        "bytes": 43619,
+        "created_at_utc": "2026-09-15T14:32:27.860Z"
+      },
+      {
+        "name": "test.parquet",
+        "bytes": 4848729,
+        "created_at_utc": "2026-09-15T14:32:31.106Z"
+      },
+      {
+        "name": "train.parquet",
+        "bytes": 3033286496,
+        "created_at_utc": "2026-09-15T14:33:35.886Z"
+      }
+    ],
+    "data_update_conclusion": "No filename/size/creation-time change from prior evidence. No new content hashes calculated. Official page still lists enveda-np-examples1151 despite local actual1184; retain actual file count instead of silently replacing it.",
+    "rules_interpretation": "MCP now returned foundational-rules as a separate page. It states foundational rules control inconsistent competition-specific rules. This retrieval layout is not evidence that rules changed today. External-data accessibility/reasonableness, MIT winner license, limits and offline submission terms remain present.",
+    "comparison_limit": "No complete previous raw-page snapshot available in this worker; checked substantive terms against saved summaries, not a byte-for-byte text diff."
+  },
+  "collision_energy": {
+    "source": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/data",
+    "field": "collision_energy_ev",
+    "official_meaning": "A list of electron-volt collision energies. One value denotes one acquisition; several values denote a spectrum merged from acquisitions at different energies. collision_energy_orig also describes multi-value entries as merged single-energy acquisitions.",
+    "applies_to_20_50": "By the published column convention,[20,50] describes multiple recorded acquisition energies that were merged, not evidence of a continuous20–50eV interval or ramp.",
+    "unknown": "No merge weighting, raw-count weighting, per-acquisition normalization sequence, or detailed instrument acquisition schedule is specified by this page.",
+    "modeling_implication": "Comparing forward predictions at each recorded CE and fusing them against the current midpoint35eV approximation is a justified experiment. Equal-weight/max/intensity-normalized fusion is a modelling choice and must not be described as reproducing the instrument's actual merge.",
+    "conversion_caveat": "For training sources, collision_energy_ev is best-effort; NCE-to-eV is approximate and can be null when unresolved. Do not treat all source CE metadata as equally accurate."
+  },
+  "licensing_discussions": {
+    "inspected_topics": [
+      {
+        "id": 745072,
+        "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745072",
+        "state": "3 comments, no HOST reply",
+        "new_since_last_check": "10-04 participant asks whether public relicensing resolves eligibility and whether NC affects medals; unanswered."
+      },
+      {
+        "id": 745604,
+        "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745604",
+        "state": "No comments/HOST reply",
+        "subject": "DreaMS: public GNPS/MoNA training and NIST evaluation distinction remains unanswered."
+      },
+      {
+        "id": 745615,
+        "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745615",
+        "state": "No comments/HOST reply",
+        "subject": "NC inputs: prizes versus final leaderboard/medals remains unanswered."
+      },
+      {
+        "id": 745841,
+        "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745841",
+        "state": "New10-04 question, no comments/HOST reply",
+        "subject": "Reasks NC publicly available model/candidate inputs."
+      },
+      {
+        "id": 745832,
+        "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745832",
+        "state": "New10-04 question, no comments/HOST reply",
+        "subject": "Public community spectra annotated using NIST matching; asks whether derived pretrained weights are eligible."
+      },
+      {
+        "id": 742265,
+        "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/742265",
+        "state": "HOST replies remain09-25 and09-28",
+        "subject": "Original open-source train.parquet-derived models allowed; live scorer v13 confirmation. Recent thread activity did not add a new HOST ruling."
+      },
+      {
+        "id": 741359,
+        "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/741359",
+        "state": "Welcome HOST notice unchanged in substance; newer comments contain no HOST reply",
+        "subject": "Existing prize-compatible licensing guidance remains."
+      }
+    ],
+    "live_dataset_metadata": [
+      {
+        "ref": "ahmedberatozer/casmi26-v4b-models",
+        "version": 4,
+        "license": "Other (specified in description)",
+        "description_summary": "Still expressly non-commercial/attribution under respective source licenses."
+      },
+      {
+        "ref": "ahmedberatozer/casmi26-glacier",
+        "version": 1,
+        "license": "Other (specified in description)",
+        "description_summary": "Still identifies MassSpecGym/MIT GLACIER components, inference subset and wrapper; README/LICENSE-NOTICE determines components, not the generic Other label alone."
+      },
+      {
+        "ref": "prvsiyan/chebi-lipidmaps-casmi26",
+        "version": 1,
+        "license": "CC BY-NC-SA4.0",
+        "description_summary": "Explicit NC mirror label remains."
+      }
+    ],
+    "conclusion": "No new host blanket permission or prohibition found for the disputed NC packages. Keep status pending and distinguish it from the earlier explicit NIST prohibition. The GLACIER package description identifies permitted-origin components, but do not extrapolate that every Other-labelled package is equivalent.",
+    "no_contact": "No host message or forum post sent."
+  },
+  "selected_new_discussions": [
+    {
+      "id": 745715,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745715",
+      "title": "Visible test.parquet molecule_ids appear to leak class-1 answers",
+      "host_reply_seen": false,
+      "handling": "Read only for HOST-response status; performed no ID-to-structure lookup and retained no mapping. An allegation about visible placeholder IDs does not establish hidden truth access or valid generalization."
+    },
+    {
+      "id": 745866,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745866",
+      "title": "Request for hidden rerun traceback (Version12)",
+      "host_reply_seen": false,
+      "handling": "Participant reports visible run succeeding while hidden rerun fails; question about sample_submission replacement remains unanswered. Use actual runtime test IDs; do not rely on visible-run output as hidden diagnosis."
+    },
+    {
+      "id": 745758,
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745758",
+      "title": "A question about the test set's composition rather than the metric",
+      "handling": "Listed but not used to infer class proportions. Official mixture remains undisclosed."
+    }
+  ],
+  "public_frontier": {
+    "search_order": "Live search_notebooks ScoreDescending top5; results contain no numeric score field, so discovery order is not independent numeric score verification.",
+    "notebooks": [
+      {
+        "ref": "imranarif536/casmi26-v44-pairtail-locked-top1",
+        "url": "https://www.kaggle.com/code/imranarif536/casmi26-v44-pairtail-locked-top1",
+        "version_read": 3,
+        "independently_run": false,
+        "source_observation": "Based on the familiar multiple-engine/forward/policy-prior stack and pairwise LambdaRank tail routing. Crucially, cell31 contains a hard-coded400-ID→top1 dictionary and unconditionally overrides each output's first candidate from that dictionary.",
+        "rejected_inference": "Title LockedTop1 does not demonstrate a general evidence-based top1-preserving method. The provenance or applicability of that ID table to hidden IDs was not established; no mappings retained, copied or used.",
+        "author_claim_caveat": "Markdown makes unsubstantiated fixed class-percentage assertions and projects future gains. These are not official class proportions or measured project results.",
+        "implication": "Do not copy this current source wholesale or use its position in sorted search as proof of robust unseen-input inference. If top1 protection is studied, derive it from runtime evidence on labelled heldouts."
+      },
+      {
+        "ref": "lszlst/casmi26-b416",
+        "url": "https://www.kaggle.com/code/lszlst/casmi26-b416",
+        "version_read": 2,
+        "independently_run": false,
+        "source_observation": "Fork of v29 two-engine/popularity/ICEBERG+GLACIER recipe. Adds a cp313 RDKit2025.3.6 wheel substitution and isolated dependency site for forward runners, plus conditional promotion of a PubChem-only proposal to rank1.",
+        "promotion_logic": "Only without a strong library match; uses the worker's standardized combined score S, requiring S>6 and popularity>=5. It explicitly distinguishes this score from raw fp_dot. Existing interleaving otherwise keeps the main rank1.",
+        "author_report": "Inherited markdown says0.415 and prior ablation deltas; the title b416 and source prose are not verified current submission scores.",
+        "implication": "Useful separate hypotheses: environment parity for forward scoring; calibrated candidate-source confidence. Those constants and105M PubChem scale do not transfer automatically to our v8.",
+        "licensing": "Shares unresolved v4b/NC candidate-package dependencies; cannot assume full recipe prize eligibility."
+      }
+    ],
+    "common_difference_from_our_v8": "Their larger stack combines independent spectral/analog/ranker channels, popularity signals, external structure proposals and two forward scorers. Our verified v8 is original FPNet single over existing712K pool plus GLACIER fusion. This architectural gap is evidence of omitted channels, not evidence that each omitted channel improves our pipeline.",
+    "operational_note": "get_notebook_info.last_run_time differed from search_notebooks.last_run_time for several sources; source version and lookup time are recorded, and those run-time fields are not used as reliable publication chronology."
+  },
+  "research_implications": [
+    "v8 provides real hidden-scoring evidence for the combined pipeline change(+0.101); no newer score exists in the returned submission history.",
+    "005's ICEBERG-vs-GLACIER full-NP result supports a controlled forward-scorer comparison using the same candidate windows and fusion normalization. It does not already guarantee another hidden improvement.",
+    "Collision-energy lists represent merged acquisitions. Compare multi-CE predicted-spectrum fusion against midpoint approximation while keeping candidate pool, adduct and downstream ranking fixed.",
+    "Do not let popularity priors, additional PubChem proposals, changed fingerprints, new rankers and new forward models enter one experiment together; source-confidence calibration can be studied on labelled candidates separately.",
+    "Keep the005 conclusions: LMSD did not improve labelled recall, ranker lost badly when the true structure lacked reference spectra, and FRIGID was not actually spectrum-conditioned. Latest public-source anecdotes do not overturn those findings.",
+    "No fixed class proportions can be inferred from0.307, current top scores, the ID-leak thread or unsubstantiated notebook prose."
+  ]
+}

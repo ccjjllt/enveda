@@ -1,0 +1,327 @@
+{
+  "date": "2026-10-05",
+  "timezone": "Asia/Shanghai",
+  "round": "006",
+  "competition": "enveda-CASMI26-molecule-id-mass-spectra",
+  "scope": {
+    "read": [
+      "docs/progress/005-multi-evidence-ranking.md 完整最新内容",
+      "005实际JSON、FRIGID pilot源码与官方sampler/benchmark",
+      "当前Kaggle分数排序公开notebooks实际代码",
+      "FIORA官方论文、源码、参数、GitHub文件树及MSnLib元数据"
+    ],
+    "not_done": [
+      "运行GPU/训练/提交",
+      "下载FIORA或其他大权重",
+      "修改生产代码或研究文档",
+      "创建测试文件"
+    ],
+    "tool_status": "本轮Kaggle MCP search_notebooks/get_notebook_info成功；其他官方小文件通过web和只读HTTP获取。"
+  },
+  "conclusions": [
+    "v8 public 0.307证明已实现的FPNet+GLACIER整条提交管线相对v7有实际增益；不等于独立隔离GLACIER算法贡献。",
+    "ICEBERG目前只在NP250的同top25比较中点估计领先GLACIER；ICE25与已部署GL50基本持平，不能直接宣布ICE取代GL。",
+    "FRIGID pilot未提供谱指纹，且生成长度/计数/排序路径未按官方端到端benchmark复现；零召回不能用来否定谱条件生成，也不宜继续扩大这份不完整harness。",
+    "当前新证据最支持多CE预测合成和更深shortlist，其次是能处理假参考谱与无参考的残差排序；公式预测在当前NP残差中的优先级下降。",
+    "FIORA-OS提供已定位的MSnLib-only负离子权重，是对未被正离子forward覆盖样本的明确新小试；仍须承认HCD到timsTOF域差。",
+    "扩池在全部真值原本在train池的NP/GEN上只测到干扰代价；LMSD不进入当前提交可保留，但不能据此永久否决外部候选覆盖或所有生成。"
+  ],
+  "local_evidence": {
+    "sources": [
+      "docs/progress/005-multi-evidence-ranking.md",
+      "data/references/forward-reanalysis-2026-10-05.json",
+      "artifacts/005/frigid_pilot_results.json",
+      "artifacts/005/iceberg_np250_fusion_eval.json",
+      "notebooks/frigid-pilot/frigid-pilot.ipynb"
+    ],
+    "actual_submission": {
+      "v7": 0.206,
+      "v8": 0.307,
+      "v8_submission": "56821309",
+      "note": "实际public；此研究未新增提交。"
+    },
+    "forward_reanalysis": {
+      "np250_base_mrr25": 0.5145934285521241,
+      "gl25": 0.6198284545228481,
+      "gl50": 0.6390605932544295,
+      "ice25": 0.6381723571114876,
+      "dual25": 0.6333524921192386,
+      "ice25_minus_gl25_ci95": [
+        -0.007821987354750511,
+        0.04424670941631467
+      ],
+      "ice25_minus_gl50_ci95": [
+        -0.03042410998641881,
+        0.027907700195229576
+      ],
+      "gl50_minus_gl25_ci95": [
+        0.006348388780552094,
+        0.03447218100526924
+      ],
+      "interpretation": "同top25的ICE点估计优势也未在该成对bootstrap中排除0；GL50相对GL25在此开发样本有更清楚的shortlist增量。",
+      "oracle_choose_gl50_or_ice25_mrr25": 0.69,
+      "oracle_note": "逐分子真值选择，仅估计可学习的互补空间；固定双引擎平均没有兑现。",
+      "gl50_wrong_top1": {
+        "n": 121,
+        "same_formula_as_truth": 115,
+        "different_formula": 6
+      },
+      "oracle_formula_fp_mrr25": 0.53218,
+      "unsupported": {
+        "forward_unscored_molecules": 34,
+        "base_mrr25_approx": 0.32037,
+        "negative_only_molecules": 18,
+        "negative_only_mrr25_approx": 0.49047
+      },
+      "scope": "NP250反复开发、公开权重暴露未知；不能用开发上界替代隐藏泛化。"
+    },
+    "root_manual_job_count_report": {
+      "received_from": "root on 2026-10-05；任务数估计，不是新增GPU时延",
+      "supported_positive_query_spectra": 649,
+      "multi_ce_list_spectra": 220,
+      "top50_mean_ce_unique_jobs": 23021,
+      "top50_each_recorded_ce_unique_jobs": 28274,
+      "each_ce_increase_fraction": 0.228,
+      "top100_each_recorded_ce_unique_jobs": 44724,
+      "fp_truth_in_topk_counts": {
+        "10": 205,
+        "25": 230,
+        "50": 240,
+        "100": 248,
+        "200": 250
+      },
+      "fiora_mhminus_in_forward_unscored": 19,
+      "remaining_not_supported_by_this_adduct": 15,
+      "caveat": "candidate×condition去重任务数不是GPU耗时；图大小、条件缓存、分块和CPU预处理改变实际速度。"
+    },
+    "e2_negative_result_boundary": "旧ranker在无真值参考模拟中系统性降权，否定该训练分布/特征融合，不否定谱库物理证据。整分子常量加到线性candidate score对组内排序无影响，条件路由需乘性交互、门函数或非线性模型。"
+  },
+  "public_code_update": {
+    "method": "Kaggle MCP按ScoreDescending列12条；读取2份新源码。没有仅凭标题/markdown认定算法或分数。",
+    "notebooks": [
+      {
+        "ref": "imranarif536/casmi26-v44-pairtail-locked-top1",
+        "url": "https://www.kaggle.com/code/imranarif536/casmi26-v44-pairtail-locked-top1",
+        "version": 3,
+        "id": 136848584,
+        "extracted_notebook_sha256": "2ab04d5b6a58cf625ec0d6f793953622affbb1ffd79c79c124272c7705dc662e",
+        "reusable_method": "cell8内嵌engine对sim_rank_rows_fppair.npz拟合2个LGBMRanker：lambdarank、truncation25、350棵、31leaves；按分子组，弱权重0.15融合pair rank，并保护动态base第一名。",
+        "crucial_boundary": "cell32另外硬编码_champion_top1的molecule_id→SMILES字典，逐行按ID无fallback改写第一名。这段不是可泛化的动态top1保护；本研究未认定字典是标签或预测，仅确认其为固定ID输出。不可复制该字典，亦不可据当前score排序证明PairTail有效。",
+        "additional_caution": "按np.unique(G,return_counts=True)构造group要求候选行已按G连续排列；若借鉴训练方法必须核对自身数据排列。MAP/lambdarank目标与最终MRR@25并不自动等价。FIORA在介绍里的增益是作者推测，不是当前源码真实实验。"
+      },
+      {
+        "ref": "lszlst/casmi26-b416",
+        "url": "https://www.kaggle.com/code/lszlst/casmi26-b416",
+        "version": 2,
+        "id": 136949396,
+        "extracted_notebook_sha256": "3a6e0cd2bdada1981f3fe859d2699e8f40c95f28a1d83c89bfe61a2ca1044100",
+        "observed": "基本延续v29公开完整栈与同一批资产，TOPN60、ICE5400秒/GL4000秒、popularity和阈值路由；没有发现新谱条件生成或新负离子checkpoint。",
+        "interpretation": "可作管线比较背景，不能当独立新模型证据。"
+      }
+    ],
+    "provenance_note": "哈希对应从MCP blob解析后保存的notebook JSON；已记录真实version，非原始HTTP字节哈希。",
+    "asset_license_note": "这些公开栈仍引用005中Other/NC适用性待澄清的资产；沿用005的来源边界，不从公开性推导奖金资格。"
+  },
+  "fiora_os": {
+    "priority": "F3：负离子固定shortlist小试；F1多CE和F2鲁棒融合之后，资源足时可独立并行。",
+    "official_repo": "https://github.com/BAMeScience/fiora",
+    "official_paper": "https://doi.org/10.1038/s41467-025-57422-4",
+    "author_institution_paper_pdf": "https://refubium.fu-berlin.de/bitstream/handle/fub188/47306/s41467-025-57422-4.pdf?isAllowed=y&save=y&sequence=1",
+    "inspected_commit": "e19ef82c9a6cb9dbac92bce23e914008f1aeb44e",
+    "commit_timestamp": "2026-04-28T08:44:55Z",
+    "selected_asset": {
+      "relative_path": "fiora/resources/models/fiora_OS_v1.0.0.pt",
+      "url": "https://raw.githubusercontent.com/BAMeScience/fiora/e19ef82c9a6cb9dbac92bce23e914008f1aeb44e/fiora/resources/models/fiora_OS_v1.0.0.pt",
+      "bytes": 53845076,
+      "git_blob_sha": "bfee0855fab976e6eb14a8acac530d394e128f8c",
+      "params_url": "https://raw.githubusercontent.com/BAMeScience/fiora/e19ef82c9a6cb9dbac92bce23e914008f1aeb44e/fiora/resources/models/fiora_OS_v1.0.0_params.json",
+      "params_git_blob_sha": "6be9d23e0c0ec16a4fce70d8ab7cf6669996889d",
+      "params_fields": {
+        "version_number": "1.0.0",
+        "training_library": "MSnLib v7",
+        "gnn_type": "RGCNConv",
+        "depth": 10,
+        "hidden_dimension": 300,
+        "rt_supported": false,
+        "ccs_supported": false,
+        "setup_features": [
+          "collision_energy",
+          "molecular_weight",
+          "precursor_mode",
+          "instrument",
+          "element_composition"
+        ],
+        "instrument": [
+          "HCD"
+        ],
+        "precursor_mode": [
+          "[M+H]+",
+          "[M-H]-",
+          "[M]+",
+          "[M]-"
+        ]
+      },
+      "status": "只读取文件树和参数，未下载/加载权重；Git blob SHA不是SHA256，实际下载后另记SHA256。"
+    },
+    "alternative_asset": {
+      "relative_path": "fiora/resources/models/fiora_OS_v0.1.0.pt",
+      "bytes": 39533372,
+      "git_blob_sha": "e53b4478f067ddc82771be5a8a7fc454f168f127",
+      "training_library": "MSnLib v1.0",
+      "params_url": "https://raw.githubusercontent.com/BAMeScience/fiora/e19ef82c9a6cb9dbac92bce23e914008f1aeb44e/fiora/resources/models/fiora_OS_v0.1.0_params.json",
+      "role": "若需要与2025论文原OS模型匹配，可作为单独版本；不可混淆v1.0.0新架构与旧论文数值。"
+    },
+    "licensing": {
+      "repo_license": "MIT",
+      "license_url": "https://github.com/BAMeScience/fiora/blob/e19ef82c9a6cb9dbac92bce23e914008f1aeb44e/LICENSE",
+      "weights_status": "权重位于该MIT仓库；本次未发现单独的权重限制文件。保留仓库许可和来源，不将论文图的CC-BY许可当作模型许可。",
+      "training_data": "MSnLib v7；Zenodo API license.id=cc-by-4.0，access_right=open",
+      "training_data_url": "https://zenodo.org/records/16984129",
+      "not_selected": "论文中的普通FIORA训练于NIST17+MS-DIAL，不能与MSnLib-only FIORA-OS混用；本赛NIST禁用边界沿用主办方答复。"
+    },
+    "source_evidence": [
+      "2025论文Training and testing明确另训MSnLib-only模型FIORA-OS；普通FIORA含NIST。最新v1.0.0参数进一步精确注明MSnLib v7。",
+      "固定commit的fiora/cli/predict.py L317–320把default指向fiora_OS_v1.0.0.pt。仍建议小试显式模型路径，避免未来default漂移。",
+      "CSV列为Name,SMILES,Precursor_type,CE,Instrument_type；examples/example_input.csv明确包含[M-H]-示例。",
+      "论文方法定义CE为0–100 eV，NCE需按仪器转换。当前CLI把collision_energy除以100归一化，不意味着可输入未经换算NCE。",
+      "论文CASMI16评估对3个碰撞能分别预测后合成stepped spectrum。这为006多CE前向提供直接先例。",
+      "当前MSnLib预处理源码又把CE_steps取均值；对新版本仍应实测meanCE与逐CE合成，不把任一方式当已验证最优。"
+    ],
+    "inference_entry": "fiora-predict -i pilot.csv -o pilot.mgf --model /explicit/path/fiora_OS_v1.0.0.pt --dev cuda:0 --annotation --no-rt --no-ccs",
+    "contract_and_risks": [
+      "只对上述4个adduct直接使用；[M+Na]+、[M+NH4]+、[M+Cl]-等不能强行映射为受支持adduct。",
+      "唯一instrument类别为HCD，MSnLib来源为Orbitrap ID-X；CASMI timsTOF映射HCD属于域迁移假设，需正负两组对照，不等于ICE的QTOF映射。",
+      "真实CE列表保持eV语义；未知CE不能伪造为正确值。超过训练质量/CE范围单列。",
+      "模型以单键碎裂为核心，复杂环断裂/重排可漏；不能期望替换GL/ICE的全部片段能力。",
+      "保留预测fragment annotation，并同时评估去前体后的相似度，避免大前体峰把错误异构体得分抬高。",
+      "MSnLib与CASMI查询的结构/来源重叠未知；不能以NP结果证明该checkpoint未见泛化。"
+    ],
+    "pilot": {
+      "cohort": "先覆盖34个当前未forward scored分子中有[M-H]-的19个，外加预先抽样正离子对照；另外15个仍无该adduct支持。",
+      "fixed": "固定v8相同candidate shortlist与FP分数；先top25，再按召回/耗时扩top50；记录每query支持条件。",
+      "comparisons": [
+        "v8 base",
+        "base+FIORA-OS",
+        "meanCE vs逐CE预测合成",
+        "全谱相似度 vs去前体/解释强度特征"
+      ],
+      "outcomes": [
+        "MRR@25/Top1/Top25分子级差",
+        "新增forward覆盖分子数",
+        "错误→正确/正确→错误",
+        "有效候选/conditions数、GPU秒、CPU图构建秒、显存"
+      ],
+      "budget": "建议人工15–30分钟第一轮，先1/8分子实际计时再扩；只是预算，不是T4速度承诺。54MB权重体积不能证明运行时或显存。",
+      "stop": "若新覆盖子集的候选排序无互补，或HCD域差使解释强度持续低，则暂停部署；不据此否定负离子forward物理路线。"
+    }
+  },
+  "frigid_contract_audit": {
+    "local_source": "notebooks/frigid-pilot/frigid-pilot.ipynb",
+    "result_file": "artifacts/005/frigid_pilot_results.json",
+    "official_sources": [
+      "https://github.com/coleygroup/FRIGID",
+      "https://raw.githubusercontent.com/coleygroup/FRIGID/main/src/dlm/sampler.py",
+      "https://raw.githubusercontent.com/coleygroup/FRIGID/main/scripts/benchmark_spec2mol.py",
+      "https://raw.githubusercontent.com/coleygroup/FRIGID/main/configs/spec2mol_benchmark_canopus.yaml"
+    ],
+    "code_facts": [
+      "本地run_arm显式fingerprint=None；MIST只加载权重、未前向，排序是formula匹配优先+生成顺序；不能称谱条件结构识别。",
+      "官方benchmark构造peakformula featurizer和morgan4096目标，MIST预测后按对应域阈值构造条件并用指纹相似度排序。CANOPUS配置threshold .187，MSG默认 .172；不是任意4096向量。",
+      "本地min_add_len=2，官方unified默认40；官方benchmark还支持token-length模型。长度模型未显式接入需单独核对，不能把小分子输出单因归于缺谱。",
+      "官方Sampler.generate先删除None再返回；本地以返回len累加n_gen。总真实decoder请求数未记录，4000不是已证实的真实采样次数，valid率分母也非严格requested samples。",
+      "本地rr_truth_excluded从生成结果主动删真值，因此零RR是构造结果，不是合理库外实验；库外指从检索池C删除真值，而非从生成结果删除。",
+      "本地novelty只以candidate!=truth计数，不是相对候选库/训练库的新颖性；并未实际与v8候选做共同重排。"
+    ],
+    "conclusion": "保留这份运行作为不完整formula-only sampler调试记录；暂停该harness扩大，不能写生成路线科学失败。",
+    "minimal_next_manual_diagnostic": [
+      "固定官方代码版本、checkpoint/encoder配置、tokenizer与长度模型；先跑官方demo的一条样本并记录条件向量非空和活跃bits。",
+      "单分子oracle结构4096 Morgan+oracle formula仅用于decoder工程诊断，不计真实识别；同时记录严格公式匹配率和实际requested/returned。",
+      "同一分子接真实MIST预测指纹+oracle formula，再接预测formula；三个条件分开，明确bit/概率阈值。",
+      "首先round0，少量B=10/25；正确条件和计数清楚后才研究B=100及ICEBERG循环修正。",
+      "只有真实谱条件结果显示池外新增真值且并池后有收益，才扩大生成；失败时先定位encoder/decoder/公式哪一层，不做未经证实的全模型微调。"
+    ],
+    "policy_scope": "上述是后续已授权手动研究建议；本次只读，没有再次运行生成或索取新审批。",
+    "alternative_formula_free": "MARLIN截至005未核实公开checkpoint，仍是方向资料；不把其论文路线当现成可执行资产。"
+  },
+  "ranked_research_plan": [
+    {
+      "id": "F0",
+      "priority": 0,
+      "title": "固定v8部署路径与新观察集",
+      "new_vs_005": "005有真实线上增益，006必须以已部署GL top50为control；旧NP仅开发，不再只比GL top25。",
+      "actions": [
+        "固定官方匹配/结构分组和v8候选输出",
+        "新增规范化结构、来源/采集留出；训练时包含无参考和假高相似参考情景",
+        "真值pool/window/shortlist/final分开"
+      ],
+      "stop_rule": "这里是建立可解释实验对象，不引入CI或工程门控。"
+    },
+    {
+      "id": "F1",
+      "priority": 1,
+      "title": "多CE物理合成＋同预算shortlist",
+      "new_vs_005": "用真实多CE元信息修正meanCE近似，并量化top50→100召回，而不是仅换ICE与GL。",
+      "actions": [
+        "相同候选/相同adduct下比较meanCE预测、逐记录CE归一化合成；可预设sum和max聚合两种，不能按真值选聚合。",
+        "不要把max over CE相似度当物理合成；若比较它，应单独命名为条件择优对照。",
+        "GL/ICE均比较相同K；先top50与top100，保留多CE去重job缓存。",
+        "新增碎片证据包括去前体相似度、匹配片段解释强度、候选独有片段、跨谱支持与冲突，而非只增加一个整体cosine。"
+      ],
+      "observed_budget": "根任务估计top100逐CE44724 jobs，低于top50均CE23021的2倍；已有GL/ICET4几十pred/s只是旧条件实测，不能线性承诺新总耗时。",
+      "stop_rule": "同新观察集MRR无改善、仅增加不具区分力峰或top100真值仍难重排时，不盲目扩top200；保持可用v8。"
+    },
+    {
+      "id": "F2",
+      "priority": 2,
+      "title": "参考可用性随机化的残差排序",
+      "new_vs_005": "修复已失败E2对无真值参考候选的系统性惩罚，不把一份seen库训练的ranker直接部署。",
+      "actions": [
+        "先按规范化结构划训练/验证，再生成参考库保留、整结构参考删除、参考错误/弱匹配等训练情景。",
+        "目标为在v8分数上学candidate-specific残差或受条件控制的乘法融合；只加分子常量的线性项不会改变组内名次。",
+        "用missing mask、完整背景负例、同式hard negatives；训练标签只用于训练情景构造，不在推理识别真值是否有参考。",
+        "按group做pairwise/listwise或小GBDT；dropout同一分子的多个变体必须同fold。",
+        "比较不锁top1、动态可靠top1保护和只重排tail；动态保护来自当次模型，不抄公开ID→SMILES字典。"
+      ],
+      "training_budget": "CPU缓存特征可先拟合小模型；神经门函数也很小，T4不是瓶颈。没有证据需要迁到TPU。",
+      "stop_rule": "无参考/假参考两臂持续受损，即使整体seen MRR高也不接入；根据具体损益保留通道，不封存所有谱库。"
+    },
+    {
+      "id": "F3",
+      "priority": 3,
+      "title": "FIORA-OS补负离子",
+      "new_vs_005": "已有权重和负模式精确契约，直接针对19个未覆盖分子，而非泛泛添加第三forward。",
+      "details_ref": "fiora_os",
+      "stop_rule": "固定shortlist的新覆盖收益不足或域差过大时不部署；保留[非支持adduct]原因，不把缺失分置为低相似度。"
+    },
+    {
+      "id": "F4",
+      "priority": 4,
+      "title": "外部候选观察轨道＋正确谱条件生成",
+      "new_vs_005": "NP/GEN中train100%覆盖无法评价新库召回；先构造真实来源外部结构或明确标记移除真值模拟，再研究新增候选。",
+      "actions": [
+        "外部库必须有来源/日期/许可/规范化交集；构建只用于研究的external-only观察集。",
+        "LMSD当前不入提交的决定只适用于已测分布；ChEBI/Lite是否有净增量需在覆盖缺口上研究。",
+        "优先受谱库analog/解释片段约束的小编辑；FRIGID正确谱条件仅做单分子/小样本诊断后再决定。",
+        "公式预测主要针对新观察集确有formula不确定性，NP同式残差不靠formula解决。"
+      ],
+      "stop_rule": "没有真实新增正确候选或并池稀释超过收益，就暂停该来源/生成设置；不是宣告所有生成无效。"
+    }
+  ],
+  "training_and_compute": {
+    "immediate": "F1主要复用已训练forward推理；F2先用cached candidate特征在CPU拟合，F3用冻结FIORA-OS。上述比再跑相同FPNet BCE/head更有直接证据。",
+    "justified_future_training": [
+      "若F1确认CE/adduct域差具有稳定模式，可训练很小的条件校准/残差模型；先让同式hard negatives与真实MRR目标对齐。",
+      "若新未见结构集证明指纹错误成为主瓶颈，才考虑同式对比目标和跨条件一致性微调；与原BCE-only失败分开设计，不声称只增加步数可赢。",
+      "FIORA领域微调需要其片段标签构造与可解释目标，不能直接把原始MS2塞进普通BCE；PyG动态分子图更适合当前T4工作流。"
+    ],
+    "t4_vs_tpu": "TPU v5e-1可考虑固定长度峰表encoder/候选小头的批量训练；RDKit图生成、GBDT、动态forward依赖和SAFE采样不会因换TPU自动加速。先测端到端数据供给、编译和稳态吞吐，收益未定前不移植。",
+    "freeze_point": "当前没有新训练效果证据；以结构级holdout RR、参考缺失损益、negative支持覆盖及每GPU秒新增正确分子决定是否投入。"
+  },
+  "unresolved": [
+    "FIORA-OS本赛timsTOF域适配、T4时延和checkpoint exposure尚未实测；未下载模型。",
+    "新公开notebook真实提交分未独立核验，source/版本已核实；score排序与硬编码输出不能当可复现增益。",
+    "正确谱条件FRIGID尚未执行，现结果不能确定模型质量；其全部依赖/采样配置需逐项与官方契约对齐。",
+    "多CE合成权重、峰合并规则仍是待比较假设；多能量列表确认存在，不等于sum或max必然正确。",
+    "006所有路线均是实验建议，只有005v8有已确认public提升。"
+  ]
+}

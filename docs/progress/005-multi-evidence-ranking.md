@@ -1,8 +1,18 @@
 # 005 — 从 0.206 到多证据候选排序：实际进展
 
-更新：2026-10-04（北京时间）。对应[研究与实现交接计划](../plan/005-multi-evidence-ranking.md)。
+状态复核：2026-10-05（北京时间）。对应[研究与实现交接计划](../plan/005-multi-evidence-ranking.md)。
 
-**本轮完成了比赛与前沿资料研究、004/v7 实现审计、旧指标手动复算、R4 名次错误修正和下一阶段交接。没有运行新的 GPU 训练、推送 notebook 或提交；排行榜成绩仍为 v7 的 0.206。005 的完整证据融合管线尚未实现。**
+**005已完成E0–E4/G1–G4记录的实际工作和v8 submission，public 0.307。本文保留各阶段历史，“未执行/仍0.206”仅指当时。当前从[006计划](../plan/006-isomer-and-domain-evidence.md)与[006进展](006-isomer-and-domain-evidence.md)接手；以下复核修正优先于旧verdict。**
+
+## 006 复核与接手更正（2026-10-05）
+
+- ICE25的0.638172高于GL25的0.619828，但没有高于GL50的0.639061；配对区间跨零，尚无ICE50实验，不将“ICE优先进管线”当作已证升级。目前没有v9提交。
+- v8实际使用20ppm/raw-key top50，开发E3/ICE则是10ppm/canonical候选；后续先明确对照配置。官方说明多CE是合并谱，平均CE只是目前的近似。
+- E2保存OOF数值可复算，但后补src与历史临时脚本在特征定义和加权训练上不同；回放logit不等于重训复现。分子常量在线性排序中会抵消，006研究条件交互及缺参考谱的残差学习。
+- NP/GEN真值均来自train，无法证明LMSD/其他外库对隐藏Class2没有召回价值；保留“本次不加入LMSD”的部署选择，撤回据此永久停止全部扩池研究的外推。
+- FRIGID真实formula条件已编码，谱指纹未接入，采样/长度和统计还有差异；0召回只能说明当前不完整实现失败，不能单因归于无谱，更不能否定完整谱条件生成。暂停该版本，不把生成方向永久封存。
+
+证据：[forward复算](../../data/references/forward-reanalysis-2026-10-05.json)、[v8与E2审计](../../data/references/submission-v8-audit-2026-10-05.json)。以下历史记录保留。
 
 ## 本轮确定的研究方向
 
@@ -77,7 +87,7 @@ Kaggle MCP 在根会话仍列有工具，但读取 submission/asset 时发生 HT
 
 GLACIER有可用MassSpecGym路线，但当前公开wrapper与Colab Python3.13的依赖版本、支持adduct和条件映射需实际适配。前沿MARLIN无需真值formula但未找到已发布官方权重；DiffMS/FRIGID等仍受formula/指纹条件约束；GenMol不是现成谱条件模型。这些研究支持先做证据融合和小型正向重排，而不是马上重训一个大型生成器。
 
-## 未完成与接手顺序
+## 初始研究阶段的未完成项（历史，后续执行见下文）
 
 **005 E0–E4 均未完成模型实验。** 未新增GPU日志、训练权重、完整背景ranker、GLACIER预测或submission，不存在新的提分结果。
 

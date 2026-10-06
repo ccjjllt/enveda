@@ -1,18 +1,18 @@
 # Enveda CASMI 2026 研究项目
 
-从串联质谱（MS/MS）预测分子结构，围绕候选检索、排序、多谱融合和模型微调开展研究。比赛与项目状态更新：**2026-10-04**。
+从串联质谱（MS/MS）预测分子结构，围绕候选检索、排序、多谱融合和模型微调开展研究。比赛与项目状态更新：**2026-10-05**。
 
 比赛：[`enveda-CASMI26-molecule-id-mass-spectra`](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra)。最初提供的第一个链接显示文字为 ARC Prize，但实际链接属于 Enveda；本项目只研究 Enveda。
 
-## 当前研究入口：005（2026-10-04）
+## 当前研究入口：006（2026-10-05）
 
-目标为最终奖金与金牌。v7 已提交，ref `56799854`，public **0.206**。下一轮优先在相同完整候选池上结合 **独立谱库、shifted analog、FPNet 和分子级多谱排序**，再做 GLACIER 同式重排。具体实验、代码职责与预算见 [005 研究交接计划](docs/plan/005-multi-evidence-ranking.md)，实际发现见 [005 进展](docs/progress/005-multi-evidence-ranking.md)。
+目标为最终奖金与金牌。005已完成实际实验及v8提交，ref `56821309`，public **0.307**（v7为0.206）。006优先研究 **逐能量forward、同式候选top100、缺参考谱时仍可靠的排序和负离子证据**。具体实验、代码职责与预算见[006研究计划](docs/plan/006-isomer-and-domain-evidence.md)，本轮实际发现见[006进展](docs/progress/006-isomer-and-domain-evidence.md)。
 
-- 004 已完成 T4 前向与短程训练；v7 实际只使用原始公开 single 权重、单谱和指纹排序，尚未部署 rank-head/谱库/R4。Colab 历史环境为 T4 14.563GiB、Python3.13.15、torch2.11.0+cu128；不代表当前仍分配同一会话。
-- 手动复算旧 NP250：分子 MRR@25 single **0.67520**、全谱平均 **0.64828**、merged **0.66457**；候选池仅275,810，与v7的712,199并集不同。不能直接将这些分数与public相减归因。
-- 旧 R4 **0.6257 是名次计算错误，已撤回效果结论并修代码，未重跑**。旧 GEN500 中215结构出现在实际训练分片；cosine参考库只含NP250真值结构，缺完整背景。005据此重建可用研究对照。
-- 当前公开榜第1/5/20条为0.471/0.433/0.418，仅是当前竞争参照，不是最终奖线。尚无证据把0.206的主要损失归于Class3。
-- 005 本轮完成研究、手动复算与交接，未新增GPU实验或submission。Colab MCP在Codex仍只暴露连接工具；不默认用GUI替代，保持研究推进与远端执行状态分开记录。
+- v8实际为FPNet single + GLACIER、20ppm、原key/top50。NP开发对照用10ppm/canonical合并，两者不能当同配置结果。当前没有v9提交。
+- 本轮手动复算NP250：GL50 **0.639061**，ICE25 **0.638172**；现有结果不足以证明直接替换更好。GL50的121个错误首位中115个与真值同分子式，优先改进异构体辨别。
+- 官方多值CE表示多能量采集后的合并谱；现有路径取平均值。006比较逐记录CE预测后融合，同时将候选真值覆盖从top50的240/250扩展到top100的248/250；这些只是开发数据诊断。
+- 新前沿FIORA-OS有MSnLib来源参数及负离子支持，尚未运行本赛小试。旧FRIGID没有接MIST谱条件，零召回不证明完整生成方法无效；E2重建需统一真实训练/特征并处理参考谱缺失。
+- 当前公开榜第1/2/5/14条为0.471/0.466/0.435/0.428，仅是竞争参照，不是最终奖线。006本轮完成研究、缓存复算与交接，未新增GPU或submission；Kaggle MCP只读恢复可用，Colab执行能力另行记录，不用GUI替代。
 
 ## 比赛要点
 
@@ -40,7 +40,7 @@
 | `test.parquet` | 4,848,729 B | 1,213 张谱、400 个分子、12 列、7 类 adduct，全部 timsTOF |
 | `sample_submission.csv` | 43,619 B | 400 行，每行 25 个占位候选；ID 与可见 test 一致 |
 
-三个文件均已下载到 `data/raw/`。两个小文件的字段、哈希和人工读取结果保存在 [本地数据核对记录](data/references/local-data-inspection-2026-09-30.json)；训练文件的下载修复、哈希和实测 schema 保存在 `artifacts/001-baseline/train_fetch.json` 与 `split_manifest.json`，详见 [001 进展](docs/progress/001-baseline.md)。训练集的分子会跨来源重复，未见结构实验需按规范化结构整组留出，不能随机切分谱行。当前清单仍使用原始 `inchikey14`，尚未重算官方互变异构规范化键。
+三个文件均已下载到 `data/raw/`。两个小文件的字段、哈希和人工读取结果保存在 [本地数据核对记录](data/references/local-data-inspection-2026-09-30.json)；训练文件的下载修复、哈希和实测 schema 保存在 `artifacts/001-baseline/train_fetch.json` 与 `split_manifest.json`，详见 [001 进展](docs/progress/001-baseline.md)。训练集的分子会跨来源重复，未见结构实验需按规范化结构整组留出，不能随机切分谱行。005已生成全池身份映射：train canonical 274,186、并集canonical 706,242；具体RDKit版本与键定义见 `artifacts/005/candidate_manifest.json`。旧split清单不因身份表生成就自动完成别名整组排除，006按实际Q/L/train重新固定。
 
 官方训练来源表合计 2,539,575 张谱，实际文件为 2,539,608 行，相差 33 行；此处保留差异，不把表格合计覆盖到实测值。原始 `inchikey14` 实测去重数为 275,810，与官方正文结构数一致，但不等于已重算规范化结构数。官方页面与讨论的精简证据见 [比赛来源记录](data/references/competition-evidence-2026-09-30.json)。
 
@@ -48,14 +48,14 @@
 
 ## 算力选择：Colab T4 先核对兼容性，随后适配 TPU
 
-**当前优先 Colab T4：完成证据融合与候选排序研究，再根据实际训练收益决定 v5e-1 适配。Kaggle 算力保留为候补及最终离线推理平台。** 此前 Kaggle TPU 短运行 v1 最后记录为 `QUEUED`、日志为空，因此调整顺序；该快照不是实时状态，本轮未取消该作业。用户已授权 T4 训练与手动研究，历史运行见004，下一轮实现见005；003的初始配置阶段并未训练。
+**当前优先 T4 上的证据融合与候选排序研究，再根据实际训练收益决定 v5e-1 适配。** 保留Colab偏好；005已在Kaggle T4完成GL/ICE实验和v8推理，按实际可用工具继续。此前Kaggle TPU v1最后记录QUEUED是历史快照，本轮未取消该作业。用户已授权T4研究，运行历史见004/005，下一轮实现见006。
 
 主办方已在[云端处理与训练讨论](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/741876#3525815)确认可以私有存储比赛训练数据、在云端训练并把产物带回 Kaggle。将此许可应用到私有 Colab 训练是本项目的判断；帖子并未专门点名 Colab。最终仍要把权重、候选库、代码和依赖准备为 Kaggle 的离线输入。
 
 | 环境 | 项目中的用途 | 实际限制 |
 | --- | --- | --- |
 | 本地 M5 / 32 GB | 编写代码、读取小文件、分批预处理、CPU 化学结构处理、人工检查 | 足够承担这些工作；大规模训练和完整模型评估放远端。3 GB Parquet 解压并展开成 Python 对象后可能占用更多内存 |
-| Colab T4 | 当前主研究平台：权重前向、候选排序与训练 | 004已实际完成前向与短程训练；005仍待运行新模型实验。已有设备记录不保证当前会话仍在线 |
+| Colab T4 | 权重前向、候选排序与训练 | 004已实际完成前向与短程训练；005的GL/ICE实验在Kaggle完成。已有设备记录不保证当前Colab会话在线 |
 | Colab v5e-1 | 保留 TPU 训练偏好，完成 GPU 兼容性核对后优先适配 | 一个 v5e 芯片、16 GB HBM；需适配 XLA/JAX、固定形状和数据管线。CPU 内存、时限、配额以实际 Colab runtime 为准 |
 | Kaggle T4 ×2 | Colab 不可用时的候补算力、最终离线推理 | 每张 T4 16 GB；两张不会自动成为一张 32 GB 卡。普通单卡代码只用一张，DDP 需要显式实现 |
 | Kaggle TPU v5e-8 | 已有短运行入口；作为候补保留，不再等待其排队才推进 Colab | 8 芯片、每芯片 16 GB，合计 128 GB 分布式 HBM；需配置多设备数据并行或分片。已 push v1，实际设备分配与运行尚无日志确认 |

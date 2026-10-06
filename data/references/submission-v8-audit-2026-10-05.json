@@ -1,0 +1,609 @@
+{
+  "audit_date": "2026-10-05",
+  "repository": "/Users/zhaohuaxiang/ccjjllt/enveda",
+  "git_head": "fbc41285a92ee08a32f6ec8944bbf848170b5c58",
+  "scope": "006研究只读审计；只写本JSON；未改生产/docs，未执行模型/训练/远端/提交，未创建测试文件。CPU手动读取和计数。",
+  "deployment": {
+    "actual_notebook": "notebooks/submission-v8/enveda-submission-v8.ipynb",
+    "v8_public_score": 0.307,
+    "submission_ref": 56821309,
+    "receipt_scope": "沿用005进展与父任务确认，本子审计未重新读取远端receipt",
+    "v9_status": "未发现v9 notebook/metadata；005仅提出FPNet+ICEBERG方向",
+    "deployed_channels": [
+      "public FPNet single checkpoint / max-raw-peak one spectrum",
+      "train+coco candidate fingerprint matching",
+      "GLACIER all supported query spectra global top50 fusion"
+    ],
+    "not_deployed": [
+      "rank-head",
+      "E2 library ranker",
+      "shifted analog",
+      "ICEBERG",
+      "MIST-CF",
+      "LMSD",
+      "FRIGID"
+    ],
+    "local_output_warning": "artifacts/submission-v8 为可见开发占位输入产物，不代表隐藏提交逐行结果。"
+  },
+  "e2_manual_counts": {
+    "molecules": 250,
+    "candidate_rows": 22197,
+    "canonical_candidate_rows": 21923,
+    "extra_alias_rows": 274,
+    "raw_window_min_q25_median_q75_max": [
+      2.0,
+      24.0,
+      59.0,
+      134.0,
+      404.0
+    ],
+    "canonical_window_min_q25_median_q75_max": [
+      2.0,
+      24.0,
+      57.5,
+      133.25,
+      394.0
+    ],
+    "positive_alias_rows": 275,
+    "molecules_with_multiple_positive_aliases": 21,
+    "max_positive_aliases": 5,
+    "one_fold_per_molecule": true,
+    "zero_library_standardized_contribution_by_fold": {
+      "0": -0.5399609554945174,
+      "1": -0.5209953103690215,
+      "2": -0.5292202207041461,
+      "3": -0.4672406799661613,
+      "4": -0.5171070327610194
+    },
+    "interpretation": "zero-lib contribution是绝对logit项；不能把常数本身当缺失惩罚的因果证据，应比较候选支持证据差。历史fit有分子等权/正负平衡，不受原始候选行数直接权重失衡。"
+  },
+  "frigid_manual_totals": {
+    "oracle": {
+      "reported_generated": 2000,
+      "returned_valid": 429,
+      "unique_sum_per_molecule": 273,
+      "formula_matched": 0,
+      "gen_seconds_sum": 4101.5
+    },
+    "mistcf-top1": {
+      "reported_generated": 2000,
+      "returned_valid": 404,
+      "unique_sum_per_molecule": 211,
+      "formula_matched": 0,
+      "gen_seconds_sum": 4942.3
+    }
+  },
+  "findings": [
+    {
+      "id": "E2-constant-context",
+      "priority": 1,
+      "title": "线性 ranker 中分子上下文不参与同分子候选的相对排序",
+      "evidence": [
+        {
+          "path": "src/molecule_ranker.py",
+          "lines": [
+            477,
+            506
+          ]
+        },
+        {
+          "path": "src/molecule_ranker.py",
+          "lines": [
+            601,
+            603
+          ]
+        },
+        {
+          "path": "src/molecule_ranker.py",
+          "lines": [
+            696,
+            715
+          ]
+        },
+        {
+          "path": "/tmp/e2_run2.py",
+          "lines": [
+            485,
+            505
+          ]
+        },
+        {
+          "path": "/tmp/e2_run2.py",
+          "lines": [
+            566,
+            589
+          ]
+        }
+      ],
+      "facts": [
+        "8 个 mol_context 维度对同一分子的所有候选相同。打分为 standardized linear w.x+b，无交互项。",
+        "s(q,c1)-s(q,c2) 中这 8 维完全抵消；对给定已训练权重，删除其打分贡献不改变任何候选次序。重新训练删除特征仍可能改变其它权重，因此不能等同于重训消融。"
+      ],
+      "implication": "现在的谱质量/谱数/mode 上下文不能使一个查询更依赖 FP、另一个更依赖谱库；只可改变查询层面的 pointwise 概率偏置。",
+      "minimal_next_step": "将少量预先指定的 query-quality×channel-score、has_reference×evidence 交互与 FP+forward 基线比较；先保持独立谱与未见结构的分层评价，不扩成复杂大模型。"
+    },
+    {
+      "id": "E2-implementation-drift",
+      "priority": 1,
+      "title": "后补 src 与历史 E2 训练的特征和 loss 不一致",
+      "evidence": [
+        {
+          "path": "/tmp/e2_run2.py",
+          "lines": [
+            454,
+            482
+          ]
+        },
+        {
+          "path": "/tmp/e2_run2.py",
+          "lines": [
+            533,
+            565
+          ]
+        },
+        {
+          "path": "src/molecule_ranker.py",
+          "lines": [
+            581,
+            603
+          ]
+        },
+        {
+          "path": "src/molecule_ranker.py",
+          "lines": [
+            643,
+            689
+          ]
+        },
+        {
+          "path": "src/molecule_ranker.py",
+          "lines": [
+            913,
+            925
+          ]
+        }
+      ],
+      "facts": {
+        "historical_vs_src": {
+          "f_top2_max": [
+            "各条件 top2 均分的最大值",
+            "所有谱的 top2 均分"
+          ],
+          "f_var": [
+            "条件均分向量方差",
+            "所有谱的分数方差"
+          ],
+          "f_support": [
+            "候选进入条件 top25 的条件数",
+            "该候选谱分数高于自身谱均值的谱数"
+          ],
+          "f_contra": [
+            "最大谱分数−最小条件均分",
+            "所有谱均分−最小谱分数"
+          ],
+          "training": [
+            "每分子总权重1，正负各0.5，阳性别名均分权重",
+            "所有候选行未加权平均 BCE"
+          ]
+        },
+        "historical_code_location": "/tmp/e2_run2.py; 未入仓库，关联历史产物但本次未重跑全量特征/拟合",
+        "verification_scope": "run_e2_verification 的 ranker 分支回放已存 OOF logit，不重建特征/重新训练"
+      },
+      "implication": "不能用现有 build_candidate_feature_row + 历史 fold_models 声称重现 E2；也不能根据 src 未加权 loss 推断历史 .9211 由大窗行数权重导致。",
+      "minimal_next_step": "接手时选定唯一特征定义与分子权重，保存真实 X、feature names/hash、fold 与 sample weights，再手动复算 OOF；旧权重不要无声明移植到当前 src 特征。"
+    },
+    {
+      "id": "E2-nolib-counterfactual",
+      "priority": 1,
+      "title": "真值去库干预本身合理，但它是固定 seen 模型的压力实验",
+      "evidence": [
+        {
+          "path": "/tmp/e2_run2.py",
+          "lines": [
+            601,
+            628
+          ]
+        },
+        {
+          "path": "artifacts/005/e2_metrics.json"
+        },
+        {
+          "path": "artifacts/005/e2_oof_predictions.json"
+        },
+        {
+          "path": "artifacts/005/e2_per_molecule_top25.json"
+        }
+      ],
+      "facts": [
+        "原始临时脚本对 y==1 的全部 canonical 阳性别名，将原始 lib features 11:16 置0，然后仍使用原训练折 mu/sd/w/b；背景候选不变。没有把标准化后特征置0。",
+        "此干预模拟查询真值缺失直接参考库，但不等于重新训练未见结构模型，也不改变 FPNet checkpoint 的既有暴露。",
+        "MRR .10002982507180376、Top1 .028、Top25 .444 只有聚合记录；没有保存 counterfactual 逐分子排名或原 X，本次不能从仓库产物独立复算该数值。"
+      ],
+      "implication": "支持“该已训练 ranker 对真值参考缺失脆弱”的诊断；不支持“谱库无效”或“所有缺失感知融合必然失败”的结论。",
+      "minimal_next_step": "同一固定 C(q) 下补齐 all-library-off / truth-library-off / 随机 canonical reference-dropout 三种对照。训练 dropout 应覆盖正负候选、按结构整组，并保存干预前后行特征与逐分子排名；比较有界谱库增益的 FP+forward 残差融合。"
+    },
+    {
+      "id": "E2-reference-independence",
+      "priority": 1,
+      "title": "历史 E2 的直接库证据仍使用 raw identity 和局部重复排除",
+      "evidence": [
+        {
+          "path": "/tmp/e2_run2.py",
+          "lines": [
+            289,
+            307
+          ]
+        },
+        {
+          "path": "/tmp/e2_run2.py",
+          "lines": [
+            339,
+            393
+          ]
+        }
+      ],
+      "facts": [
+        "库谱按 shipped/raw key 聚集；仅当 ks==query molecule raw key 时计算/比较 exact spectrum hash，canonical 别名不会走该排除。",
+        "n_spectra / n_sources 在该 query-spectrum pair 的 exact-hash 排除之前累加。对同分子其它 query 谱，该库行仍会参与打分。",
+        "lib_second 为所有 query-spectrum×library-spectrum pair 的第二大相似度，未保证来自第二条独立参考谱；不能把它直接解释为两条独立支持证据。"
+      ],
+      "implication": "这是需要修正并量化的评估独立性风险；本次没有据代码 alone 断言污染条数或 .9211 的具体虚高幅度。",
+      "minimal_next_step": "按 canonical 结构与原始谱 hash 构建参考 manifest；对一个 query molecule 的所有谱统一排除其 query hash 集合，排除后再累计 library counts。将 distinct-library-spectrum 与 distinct-source 支持分开，完整背景保持不变。"
+    },
+    {
+      "id": "V8-identity-window",
+      "priority": 1,
+      "title": "005 canonical 修正尚未同步到实际 v8 候选与最终输出",
+      "evidence": [
+        {
+          "path": "notebooks/submission-v8/enveda-submission-v8.ipynb",
+          "lines": [
+            7,
+            20
+          ],
+          "cell_0based": 3,
+          "line_numbers": "cell-local, 1-based"
+        },
+        {
+          "path": "notebooks/submission-v8/enveda-submission-v8.ipynb",
+          "lines": [
+            54,
+            56
+          ],
+          "cell_0based": 6,
+          "line_numbers": "cell-local, 1-based"
+        },
+        {
+          "path": "notebooks/submission-v8/enveda-submission-v8.ipynb",
+          "lines": [
+            86,
+            98
+          ],
+          "cell_0based": 6,
+          "line_numbers": "cell-local, 1-based"
+        },
+        {
+          "path": "notebooks/submission-v8/enveda-submission-v8.ipynb",
+          "lines": [
+            71,
+            81
+          ],
+          "cell_0based": 13,
+          "line_numbers": "cell-local, 1-based"
+        },
+        {
+          "path": "artifacts/005/np250_shortlists_top50.json"
+        }
+      ],
+      "facts": [
+        "v8: train+coco raw union 712199，20ppm，最多2000窗候选，按原 shipped key 去重后 top50。",
+        "NP E3/ICE: union|single|10ppm nocap，canonical 合并并取最高 FP 分，再 top50/top25。",
+        "v8 最终仅 MolFromSmiles→MolToSmiles，没有显式去立体/官方 tautomer key，且没有在最终输出阶段按官方等价去重。"
+      ],
+      "implication": "NP 离线对照不是逐步完全一致的 v8 replay；raw 别名可占 shortlist/25 个位置。是否以及多少影响隐藏分数未知。",
+      "minimal_next_step": "先把 canonical/official identity、masswindow、候选 order 与 tie break 明确成一个运行契约；保留 v8 候选窗作为对照，逐项改变，避免一次部署多项后归因一个模型。"
+    },
+    {
+      "id": "V8-global-fusion",
+      "priority": 1,
+      "title": "v8 的实际 forward 融合与本地 same-formula adapter 不同",
+      "evidence": [
+        {
+          "path": "notebooks/submission-v8/enveda-submission-v8.ipynb",
+          "lines": [
+            48,
+            57
+          ],
+          "cell_0based": 13,
+          "line_numbers": "cell-local, 1-based"
+        },
+        {
+          "path": "src/forward_rerank.py",
+          "lines": [
+            604,
+            638
+          ]
+        }
+      ],
+      "facts": [
+        "v8 global top50 上 fused=z(base)+z(GL)，lambda=1，所有有 GL 分数的候选排在所有无 GL 分数候选前，再取25。",
+        "本地 rerank_same_formula 默认lambda=.5、同式保留槽位且至少2个 covered；v8 未调用此函数。",
+        "一个 molecule 无任何 forward 时退回 FP；部分 candidate prediction 缺失时，scored-first 会直接压低所有缺失候选，与中性补0不同。"
+      ],
+      "implication": "不要把本地 same-formula 算法描述成已部署行为；candidate-level missing 与 query-level unsupported 需分开解释。",
+      "minimal_next_step": "用已存 score 表先做 global vs formula-local、scored-first vs baseline-preserving missing 的固定参数对照；报告部分缺失/全缺失覆盖率，避免按 truth 为每个 molecule 择优模型。"
+    },
+    {
+      "id": "V8-CE-mixture",
+      "priority": 1,
+      "title": "多能量采集合并谱的 CE 列表被压成平均标量",
+      "evidence": [
+        {
+          "path": "notebooks/submission-v8/enveda-submission-v8.ipynb",
+          "lines": [
+            26,
+            30
+          ],
+          "cell_0based": 6,
+          "line_numbers": "cell-local, 1-based"
+        },
+        {
+          "path": "notebooks/submission-v8/enveda-submission-v8.ipynb",
+          "lines": [
+            42,
+            54
+          ],
+          "cell_0based": 12,
+          "line_numbers": "cell-local, 1-based"
+        },
+        {
+          "path": "/tmp/glacier_probe/gl_runner.py",
+          "lines": [
+            404,
+            424
+          ]
+        },
+        {
+          "path": "/tmp/glacier_probe/gl_runner.py",
+          "lines": [
+            727,
+            748
+          ]
+        }
+      ],
+      "facts": [
+        "FPNet 输入 CE=np.mean(collision_energy_ev)，缺失时25。",
+        "GL 输入保存 ce_ev 列表与 ce_orig/units，但包中 spectrum_ce 对 eV 列表取平均；NCE 原文提取的数值同样取平均，然后5单位bucket。",
+        "NP250离线 gl input 的 ce_orig/ce_units 为空，与实际 v8 保留原始元数据不同。",
+        "GL 最后对支持条件的多条查询谱取简单 mean，未保存 per-spectrum score 明细，无法仅凭已存 molecule-mean 分数复算能量条件聚合。"
+      ],
+      "implication": "平均能量上的预测谱一般不等价于多个能量谱的混合；这是输入条件与前向物理意义的可检验差异，不是已证明提分点。",
+      "minimal_next_step": "仅对多CE列表子集，固定 shortlist，比较 meanCE 与逐CE预测谱按统一规则混合后打分；保留单CE对照，缓存 query-spectrum/CE/candidate 分数和预测谱，避免真值择最佳CE。"
+    },
+    {
+      "id": "FRIGID-condition-path",
+      "priority": 2,
+      "title": "公式确实进入官方条件编码；该小试不能归因成“无谱条件必然失败”",
+      "evidence": [
+        {
+          "path": "notebooks/frigid-pilot/frigid-pilot.ipynb",
+          "lines": [
+            165,
+            168
+          ],
+          "cell_0based": 5,
+          "line_numbers": "cell-local, 1-based"
+        },
+        {
+          "path": "notebooks/frigid-pilot/frigid-pilot.ipynb",
+          "lines": [
+            224,
+            224
+          ],
+          "cell_0based": 5,
+          "line_numbers": "cell-local, 1-based"
+        },
+        {
+          "path": "/tmp/frigid-v12/frigid_smoke.json"
+        },
+        {
+          "path": "/tmp/frigid-out/FRIGID/src/dlm/sampler.py",
+          "lines": [
+            311,
+            315
+          ]
+        },
+        {
+          "path": "/tmp/frigid-out/FRIGID/src/dlm/sampler.py",
+          "lines": [
+            541,
+            565
+          ]
+        },
+        {
+          "path": "/tmp/frigid-out/FRIGID/src/dlm/model.py",
+          "lines": [
+            551,
+            567
+          ]
+        }
+      ],
+      "facts": [
+        "官方 sampler 将 formula 传至 model；formula encoder 产生向量，经 conditioner 构成 cross-attention/global embedding。不是 prompt 文本或被忽略 kwargs。",
+        "本地保存的 v12 smoke/日志确认 formula_cond=true、fp_cond=true，但最终20×2结果未保存完整 sampler config/条件张量 trace。",
+        "真实谱 MIST 前向未适配；fingerprint=None。sampler 长度分布 data/len.pk 缺失，v12日志回退20..99；脚本没有显式加载官方 token model/target_lengths。",
+        "零 formula match 可由多个适配/条件/采样因素导致。min_add_len=2 本身也在官方 benchmark 使用，不能单独归罪。"
+      ],
+      "implication": "已证实本次小试没有可用候选，尚未完成官方谱到分子模型复现；没有证据把所有失败直接归因于 fingerprint=None。",
+      "minimal_next_step": "若后续恢复，仅先做1–2个官方示例的正向核对：固定checkpoint/source，打印 formula tensor、长度预测与 tokenizer roundtrip，记录 missing/unexpected keys；分别 formula-only、oracle Morgan4096（仅诊断）、真实 MIST4096。保持固定采样预算，观察formula match和valid，无需立即扩到20×100。"
+    },
+    {
+      "id": "FRIGID-budget-metrics",
+      "priority": 2,
+      "title": "FRIGID 样本预算与库外评价没有实现所声明语义",
+      "evidence": [
+        {
+          "path": "notebooks/frigid-pilot/frigid-pilot.ipynb",
+          "lines": [
+            221,
+            228
+          ],
+          "cell_0based": 5,
+          "line_numbers": "cell-local, 1-based"
+        },
+        {
+          "path": "/tmp/frigid-out/FRIGID/src/dlm/sampler.py",
+          "lines": [
+            341,
+            350
+          ]
+        },
+        {
+          "path": "notebooks/frigid-pilot/frigid-pilot.ipynb",
+          "lines": [
+            249,
+            258
+          ],
+          "cell_0based": 5,
+          "line_numbers": "cell-local, 1-based"
+        },
+        {
+          "path": "notebooks/frigid-pilot/frigid-pilot.ipynb",
+          "lines": [
+            21,
+            41
+          ],
+          "cell_0based": 6,
+          "line_numbers": "cell-local, 1-based"
+        },
+        {
+          "path": "notebooks/frigid-pilot/frigid-pilot.ipynb",
+          "lines": [
+            63,
+            70
+          ],
+          "cell_0based": 6,
+          "line_numbers": "cell-local, 1-based"
+        }
+      ],
+      "facts": [
+        "官方 sampler 返回前已丢弃失败输出；脚本累计 len(samples)，仅全空时补 cur 个None。故 B=100 是返回/填充计数，并非实际请求采样槽100；部分成功批次会导致额外采样。",
+        "novelty定义为生成候选不等于truth canonical，而不是相对现有候选库的新结构，不能解释为库外新颖度。",
+        "rr_truth_excluded 从生成ranked25中主动删truth后评分，逻辑上应为0；没有将生成结构并入完整数据库再计算MRR。",
+        "评分只用RDKit canonical SMILES（保留立体），未使用官方无立体/互变异构规范化。"
+      ],
+      "implication": "两臂零召回是保存产物的事实；valid/novelty/B/MRR并入等术语不能按原文广义解释，也不能用此结果封死完整条件生成路线。",
+      "minimal_next_step": "按 num_samples 请求数累计预算并保存失败计数；novelty按官方identity对union池查差集；仅在确有可用生成候选后做pool补回及MRR，不报告人为删truth后的RR为独立效果。"
+    }
+  ],
+  "forward_reanalysis": "不重复父任务计算；参见 data/references/forward-reanalysis-2026-10-05.json。ICE top25 vs GL top50近似持平且CI跨0；同式错排为NP250主要瓶颈，但该集合训练覆盖和结构域边界限制外推。",
+  "priority_hypotheses": [
+    {
+      "priority": 1,
+      "hypothesis": "条件与身份一致时，现有forward分数的missing融合和同式排序比直接换ICE更值得先验",
+      "cheapest_experiment": "缓存分数CPU固定规则回放；限定少数预定方法，按结构组OOF/独立确认集评估；不要以每分子truth择模型。"
+    },
+    {
+      "priority": 2,
+      "hypothesis": "多CE混合谱、重复条件加权与单谱选择是可解释的forward/FP输入损失",
+      "cheapest_experiment": "缓存可用谱元数据后仅重算多CE小子集；比较单CE控制和混合CE预测，不重训大模型。"
+    },
+    {
+      "priority": 3,
+      "hypothesis": "缺失结构对谱库融合的灾难性失效可通过参考dropout/显式交互/有界残差缓解",
+      "cheapest_experiment": "先统一历史E2特征与训练函数并保存X，再CPU OOF比较全库/真值去库/全部去库，不直接部署.9211ranker。"
+    },
+    {
+      "priority": 4,
+      "hypothesis": "候选扩池或生成价值只能在真值原本池外的匹配域上衡量",
+      "cheapest_experiment": "NP250保持同式排序诊断；另建canonical整组留出、明确checkpoint/library暴露的天然产物近域集合及外部only真值集合，不把训练集合覆盖当checkpoint暴露证明。"
+    }
+  ],
+  "external_source_notes": {
+    "frigid_official_sampler": "https://github.com/coleygroup/FRIGID/blob/main/src/dlm/sampler.py",
+    "frigid_official_model": "https://github.com/coleygroup/FRIGID/blob/main/src/dlm/model.py",
+    "version_limit": "本次官方main已浏览；v12日志source commit为d242a2c06d671e0fb6fbc1a5b31f0e19e24b456d。固定commit网页抓取未成功；本地/tmp源码快照与该worker commit未进行逐字哈希比对，避免把main更新当最终workertrace。",
+    "v12_evidence_only": "/tmp/frigid-v12 为前一版smoke；最终20×2结果JSON不含完整smoke trace。"
+  },
+  "temporary_script_evidence": {
+    "warning": "历史实现只存在/tmp，可能被系统清理；以下保留决定性自有代码片段，后续主任务可决定将完整研究入口落盘。",
+    "source": {
+      "path": "/tmp/e2_run2.py",
+      "sha256": "31483572bccb170c67697bde058d0007e4434556739add991042866f44602ca3",
+      "bytes": 38349
+    },
+    "excerpts": {
+      "historical_weights": {
+        "source": "/tmp/e2_run2.py",
+        "start": 533,
+        "end": 564,
+        "text": "            y = 1.0 if mol_canon_win[m][j] == tc else 0.0\n            # molecule-equal balanced weight: each mol total 1, split 0.5 pos /0.5 neg\n            if y == 1.0:\n                sw = 0.5 / n_pos\n            else:\n                sw = 0.5 / n_neg\n            # same-formula proxy: exact mass match (within 1e-6 relative? use abs diff <0.001? masses ~100-1000, exact formula => exact float equality from same computation? Use abs diff <1e-6)\n            cand_mass = float(u_mass[int(w[j])])\n            hard = 1 if (abs(cand_mass - tm) < 1e-6 and y == 0.0) else 0\n            rows.append((m, j, x, y, sw, hard))\n    print(\"rows=%d pos=%d hard_same_mass_neg=%d\" % (len(rows), sum(1 for r in rows if r[3]==1), sum(1 for r in rows if r[5]==1)), flush=True)\n    # ---- generic numpy logistic with sample weights ----\n    def fit_logistic(X, y, sw, lr=0.1, iters=300):\n        Xa = np.asarray(X, dtype=float); ya = np.asarray(y, dtype=float); wa = np.asarray(sw, dtype=float)\n        mu = Xa.mean(axis=0); sd = Xa.std(axis=0)\n        Xs = np.zeros_like(Xa)\n        for j in range(Xa.shape[1]):\n            if sd[j] < 1e-12:\n                Xs[:, j] = 0.0\n            else:\n                Xs[:, j] = (Xa[:, j]-mu[j])/sd[j]\n        d = Xa.shape[1]\n        w = np.zeros(d); b = 0.0\n        for _ in range(int(iters)):\n            z = Xs.dot(w)+b\n            p = np.where(z>=0, 1/(1+np.exp(-z)), np.exp(z)/(1+np.exp(z)))\n            e = (p-ya)*wa\n            # weighted mean gradient (sum wa = n_mols_train? normalize by sum wa)\n            s = wa.sum()\n            gw = (Xs*e[:,None]).sum(axis=0)/s\n            gb = float(e.sum()/s)\n            w = w - float(lr)*gw; b = b - float(lr)*gb"
+      },
+      "historical_nolib": {
+        "source": "/tmp/e2_run2.py",
+        "start": 601,
+        "end": 627,
+        "text": "    # ---- unseen diagnostic: zero truth library features, re-score with same OOF models ----\n    # simulates unseen structures (truth has no train library spectra, background keeps library)\n    # lib feature indices in S4_FEATURES: lib_max=11, lib_second=12, lib_gap=13, lib_n_spectra=14, lib_n_sources=15\n    s4_unseen_ranks = {}; s4_unseen_top25 = {}\n    # map (mol,j) -> row index for fast lookup of x,y\n    row_lookup = {(r[0], r[1]): (r[2], r[3]) for r in rows}\n    for m in mols:\n        f = fold_of_mol[m]\n        wm = fold_models[f]\n        wv = np.asarray(wm[\"w\"]); bv = wm[\"b\"]; muv = np.asarray(wm[\"mu\"]); sdv = np.asarray(wm[\"sd\"])\n        n_win = len(mol_W[m])\n        vec = []\n        for j in range(n_win):\n            x, y = row_lookup[(m, j)]\n            xu = list(x)\n            if y == 1.0:\n                for li in (11,12,13,14,15):\n                    xu[li] = 0.0\n            # standardize with train-fold mu/sd then dot\n            xs = []\n            for vv, mm, ss in zip(xu, muv, sdv):\n                xs.append(0.0 if ss < 1e-12 else (float(vv)-float(mm))/float(ss))\n            s = float(np.dot(wv, np.asarray(xs)) + float(bv))\n            vec.append(s)\n        vec = np.array(vec, dtype=float)\n        cands, r = rank_shipped_to_canon_top25(vec, mol_keys[m], mol_canon_win[m], truth_canon[m])\n        s4_unseen_ranks[m] = r; s4_unseen_top25[m] = cands"
+      },
+      "historical_library_exclusion": {
+        "source": "/tmp/e2_run2.py",
+        "start": 339,
+        "end": 373,
+        "text": "            # lib hash once if needed (only if ks is truth for some mol)\n            need_hash = any(truth_canon.get(m, \"\") == \"\" or ks == m or raw2can_train.get(m, \"\") == \"\" for m in mlist)\n            # simpler: compute hash only if ks equals any mol truth shipped\n            lh = None\n            # check truth shipped equality\n            is_truth_for = [m for m in mlist if m == ks]\n            if is_truth_for:\n                # need hashes\n                try:\n                    import hashlib as _hl; import struct as _st\n                    pairs = sorted(((float(a), float(b)) for a, b in zip(l_m, l_i)), key=lambda p: p[0]) if nn else []\n                    if pairs:\n                        h = _hl.sha256(); h.update(_st.pack(\"<q\", len(pairs)))\n                        for a, b in pairs:\n                            h.update(_st.pack(\"<2d\", a, b))\n                        lh = h.hexdigest()\n                    else:\n                        lh = None\n                except Exception:\n                    lh = None\n            for m in mlist:\n                # count lib row once per mol (even if multiple query spectra)\n                acc_nlib[(m, ks)] += 1\n                try:\n                    acc_sources[(m, ks)].add(str(li))\n                except Exception:\n                    pass\n                # compare to each query spectrum in mol\n                for qi in mol2q[m]:\n                    # seen exclusion: same shipped truth + exact hash\n                    if ks == m and lh is not None and q_hash.get(qi) is not None and lh == q_hash[qi]:\n                        continue\n                    det = cosine_detailed(q_peaks[qi], l_peaks, 20.0, 128, \"global_topn\")\n                    sc = float(det.get(\"score\", 0.0))\n                    acc_scores[(m, ks)].append(sc)"
+      },
+      "historical_feature_aggregates": {
+        "source": "/tmp/e2_run2.py",
+        "start": 454,
+        "end": 482,
+        "text": "        cross_max = cond_max.max(axis=0)\n        cross_mean = cond_mean.mean(axis=0)\n        cross_mean_max = cond_max.mean(axis=0)\n        cross_top2_max = cond_top2.max(axis=0)\n        cross_top2_mean = cond_top2.mean(axis=0)\n        cross_var = cond_mean.var(axis=0) if n_cond > 1 else np.zeros(n_win)\n        cross_var_max = cond_max.var(axis=0) if n_cond > 1 else np.zeros(n_win)\n        cross_min = cond_mean.min(axis=0)\n        contra = cross_max - cross_min\n        std_spec = S.std(axis=0) if n_spec > 1 else np.zeros(n_win)\n        f_mean_spec = S.mean(axis=0)\n        # support: per cond ranking by cond_mean, count conds where candidate top25\n        support = np.zeros(n_win, dtype=float)\n        for ci in range(n_cond):\n            order = np.argsort(-cond_mean[ci], kind=\"stable\")[:25]\n            support[order] += 1.0\n        # molecule margin (same for all cands): best cross_max top1-top2\n        if n_win >= 2:\n            o = np.argsort(-cross_max, kind=\"stable\")\n            mol_margin = float(cross_max[o[0]] - cross_max[o[1]])\n        else:\n            mol_margin = 0.0\n        for j in range(n_win):\n            cand_agg[(m, j)] = {\n                \"f_max\": float(cross_max[j]), \"f_mean_spec\": float(f_mean_spec[j]),\n                \"f_mean_cond\": float(cross_mean[j]), \"f_mean_max_cond\": float(cross_mean_max[j]),\n                \"f_top2_max\": float(cross_top2_max[j]), \"f_top2_mean\": float(cross_top2_mean[j]),\n                \"f_var\": float(cross_var[j]), \"f_var_max\": float(cross_var_max[j]),\n                \"f_support\": float(support[j]), \"f_contra\": float(contra[j]),"
+      }
+    }
+  },
+  "source_fingerprints": [
+    {
+      "path": "/Users/zhaohuaxiang/ccjjllt/enveda/notebooks/submission-v8/enveda-submission-v8.ipynb",
+      "sha256": "1ae4eb07d555199ebfd9f650f4348429bee3627fed9070f4d04ca2bf9a62b507",
+      "bytes": 29445
+    },
+    {
+      "path": "/Users/zhaohuaxiang/ccjjllt/enveda/notebooks/frigid-pilot/frigid-pilot.ipynb",
+      "sha256": "835ac4fae3e944c15885bfea79f5ee02f4c4615ccaab56d459805f210fa2ff78",
+      "bytes": 37719
+    },
+    {
+      "path": "/Users/zhaohuaxiang/ccjjllt/enveda/src/molecule_ranker.py",
+      "sha256": "bcd4abd78c8a7a051a7f8481e6fdae162907c6fb8bd9a7aad612a1efa484509e",
+      "bytes": 41116
+    },
+    {
+      "path": "/Users/zhaohuaxiang/ccjjllt/enveda/artifacts/005/e2_oof_predictions.json",
+      "sha256": "07ffeeb1ea5a4d0f2666459434c1556e733589708a1b47cdafcca8698f24735c",
+      "bytes": 3474305
+    },
+    {
+      "path": "/Users/zhaohuaxiang/ccjjllt/enveda/artifacts/005/e2_metrics.json",
+      "sha256": "59dd0bbe1cf778c4b0625e2bc0813e994ee47034fc145013986929b913cb3842",
+      "bytes": 11039
+    },
+    {
+      "path": "/Users/zhaohuaxiang/ccjjllt/enveda/artifacts/005/frigid_pilot_results.json",
+      "sha256": "2f94e077844ae265d12b1a40884b6340f18739af022446e54a477cf11e671aab",
+      "bytes": 41937
+    },
+    {
+      "path": "/tmp/glacier_probe/gl_runner.py",
+      "sha256": "5c4f74313ac54263d05d987c39d012d81ec57c5f35e1095ecd49a5bcb6440fca",
+      "bytes": 39880
+    },
+    {
+      "path": "/tmp/frigid-out/FRIGID/src/dlm/sampler.py",
+      "sha256": "91d544682bbd320a44ee5acc81461a9a36a9cca89db81b406367897693b0da66",
+      "bytes": 30398
+    },
+    {
+      "path": "/tmp/frigid-out/FRIGID/src/dlm/model.py",
+      "sha256": "43c809768cb97bbfb436e02429ca1749eb16175c5444ffb94c5d62ba23471e7f",
+      "bytes": 46453
+    }
+  ]
+}

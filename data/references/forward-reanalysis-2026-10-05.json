@@ -1,0 +1,352 @@
+{
+  "created_utc": "2026-10-05T05:34:44.262921+00:00",
+  "local_research_date": "2026-10-05 Asia/Shanghai",
+  "caliber": "NP250 saved canonical keys, RDKit2026.03.6 artifacts; development analysis, not new GPU inference or leaderboard",
+  "seed": 20261005,
+  "source_files": {
+    "np250_shortlists_top50.json": {
+      "bytes": 15816285,
+      "sha256": "f6a49de39e8b8b53e26f95b254eb0fb9387a273ad580e7dd9d5c6e16a9f92dec"
+    },
+    "glacier_scores_np250.json": {
+      "bytes": 756214,
+      "sha256": "a84f18d2116143467e387253118b1a3cdd95dda073ef5683d414a10e99ba5758"
+    },
+    "iceberg_scores_np250.json": {
+      "bytes": 446337,
+      "sha256": "5e1f2a5fd368b7f91a4970d83ac78772e0047daae790861fcfff203aa023928f"
+    },
+    "iceberg_np250_fusion_eval.json": {
+      "bytes": 65741,
+      "sha256": "8048d0f0f849d298b90aa27aca5c59f231ee1732d4547f0b165574438028e984"
+    }
+  },
+  "reconstruction_mismatches_vs_filed": {},
+  "methods": {
+    "base": {
+      "n": 250,
+      "mrr_at_25": 0.5145934285521241,
+      "top1": 0.372,
+      "top25": 0.92
+    },
+    "gl25": {
+      "n": 250,
+      "mrr_at_25": 0.6198284545228481,
+      "top1": 0.5,
+      "top25": 0.92
+    },
+    "gl50": {
+      "n": 250,
+      "mrr_at_25": 0.6390605932544295,
+      "top1": 0.516,
+      "top25": 0.94
+    },
+    "ice25": {
+      "n": 250,
+      "mrr_at_25": 0.6381723571114876,
+      "top1": 0.528,
+      "top25": 0.92
+    },
+    "dual25": {
+      "n": 250,
+      "mrr_at_25": 0.6333524921192386,
+      "top1": 0.512,
+      "top25": 0.92
+    },
+    "gl50_neutral_missing": {
+      "n": 250,
+      "mrr_at_25": 0.6390605932544295,
+      "top1": 0.516,
+      "top25": 0.94
+    }
+  },
+  "paired": {
+    "ice25_minus_gl25": {
+      "delta_mrr_at_25": 0.01834390258863943,
+      "molecule_bootstrap_95pct": [
+        -0.007821987354750511,
+        0.04424670941631467
+      ],
+      "improved": 38,
+      "worsened": 31,
+      "tied": 181
+    },
+    "ice25_minus_gl50": {
+      "delta_mrr_at_25": -0.0008882361429420245,
+      "molecule_bootstrap_95pct": [
+        -0.03042410998641881,
+        0.027907700195229576
+      ],
+      "improved": 33,
+      "worsened": 43,
+      "tied": 174
+    },
+    "dual25_minus_ice25": {
+      "delta_mrr_at_25": -0.004819864992248892,
+      "molecule_bootstrap_95pct": [
+        -0.021952779812722537,
+        0.012113078920563432
+      ],
+      "improved": 27,
+      "worsened": 25,
+      "tied": 198
+    },
+    "gl50_minus_gl25": {
+      "delta_mrr_at_25": 0.019232138731581458,
+      "molecule_bootstrap_95pct": [
+        0.006348388780552094,
+        0.03447218100526924
+      ],
+      "improved": 26,
+      "worsened": 14,
+      "tied": 210
+    },
+    "neutral_missing_minus_append": {
+      "delta_mrr_at_25": 0.0,
+      "molecule_bootstrap_95pct": [
+        0.0,
+        0.0
+      ],
+      "improved": 0,
+      "worsened": 0,
+      "tied": 250
+    }
+  },
+  "strata": {
+    "forward_scored": {
+      "base": {
+        "n": 216,
+        "mrr_at_25": 0.5451656153271491,
+        "top1": 0.4027777777777778,
+        "top25": 0.9120370370370371
+      },
+      "gl25": {
+        "n": 216,
+        "mrr_at_25": 0.6669654139043759,
+        "top1": 0.5509259259259259,
+        "top25": 0.9120370370370371
+      },
+      "gl50": {
+        "n": 216,
+        "mrr_at_25": 0.6892248337325952,
+        "top1": 0.5694444444444444,
+        "top25": 0.9351851851851852
+      },
+      "ice25": {
+        "n": 216,
+        "mrr_at_25": 0.6881967826412271,
+        "top1": 0.5833333333333334,
+        "top25": 0.9120370370370371
+      },
+      "dual25": {
+        "n": 216,
+        "mrr_at_25": 0.6826182351964946,
+        "top1": 0.5648148148148148,
+        "top25": 0.9120370370370371
+      },
+      "gl50_neutral_missing": {
+        "n": 216,
+        "mrr_at_25": 0.6892248337325952,
+        "top1": 0.5694444444444444,
+        "top25": 0.9351851851851852
+      }
+    },
+    "forward_unscored": {
+      "base": {
+        "n": 34,
+        "mrr_at_25": 0.32037012433431866,
+        "top1": 0.17647058823529413,
+        "top25": 0.9705882352941176
+      },
+      "gl25": {
+        "n": 34,
+        "mrr_at_25": 0.32037012433431866,
+        "top1": 0.17647058823529413,
+        "top25": 0.9705882352941176
+      },
+      "gl50": {
+        "n": 34,
+        "mrr_at_25": 0.32037012433431866,
+        "top1": 0.17647058823529413,
+        "top25": 0.9705882352941176
+      },
+      "ice25": {
+        "n": 34,
+        "mrr_at_25": 0.32037012433431866,
+        "top1": 0.17647058823529413,
+        "top25": 0.9705882352941176
+      },
+      "dual25": {
+        "n": 34,
+        "mrr_at_25": 0.32037012433431866,
+        "top1": 0.17647058823529413,
+        "top25": 0.9705882352941176
+      },
+      "gl50_neutral_missing": {
+        "n": 34,
+        "mrr_at_25": 0.32037012433431866,
+        "top1": 0.17647058823529413,
+        "top25": 0.9705882352941176
+      }
+    },
+    "has_positive_and_negative": {
+      "base": {
+        "n": 130,
+        "mrr_at_25": 0.5318682172528326,
+        "top1": 0.3923076923076923,
+        "top25": 0.9153846153846154
+      },
+      "gl25": {
+        "n": 130,
+        "mrr_at_25": 0.6095380328173851,
+        "top1": 0.49230769230769234,
+        "top25": 0.9153846153846154
+      },
+      "gl50": {
+        "n": 130,
+        "mrr_at_25": 0.6141372761225703,
+        "top1": 0.49230769230769234,
+        "top25": 0.9230769230769231
+      },
+      "ice25": {
+        "n": 130,
+        "mrr_at_25": 0.6266963591963592,
+        "top1": 0.5153846153846153,
+        "top25": 0.9153846153846154
+      },
+      "dual25": {
+        "n": 130,
+        "mrr_at_25": 0.6152849372849372,
+        "top1": 0.4846153846153846,
+        "top25": 0.9153846153846154
+      },
+      "gl50_neutral_missing": {
+        "n": 130,
+        "mrr_at_25": 0.6141372761225703,
+        "top1": 0.49230769230769234,
+        "top25": 0.9230769230769231
+      }
+    },
+    "negative_only": {
+      "base": {
+        "n": 18,
+        "mrr_at_25": 0.49046660532167774,
+        "top1": 0.3333333333333333,
+        "top25": 1.0
+      },
+      "gl25": {
+        "n": 18,
+        "mrr_at_25": 0.49046660532167774,
+        "top1": 0.3333333333333333,
+        "top25": 1.0
+      },
+      "gl50": {
+        "n": 18,
+        "mrr_at_25": 0.49046660532167774,
+        "top1": 0.3333333333333333,
+        "top25": 1.0
+      },
+      "ice25": {
+        "n": 18,
+        "mrr_at_25": 0.49046660532167774,
+        "top1": 0.3333333333333333,
+        "top25": 1.0
+      },
+      "dual25": {
+        "n": 18,
+        "mrr_at_25": 0.49046660532167774,
+        "top1": 0.3333333333333333,
+        "top25": 1.0
+      },
+      "gl50_neutral_missing": {
+        "n": 18,
+        "mrr_at_25": 0.49046660532167774,
+        "top1": 0.3333333333333333,
+        "top25": 1.0
+      }
+    }
+  },
+  "candidate_recall_counts": {
+    "base_top10": 205,
+    "base_top25": 230,
+    "base_top50": 240,
+    "mass_window": 250,
+    "base_top100": 248,
+    "base_top200": 250
+  },
+  "gl50_error_breakdown": {
+    "truth_in_top50_wrong_top1": 111,
+    "wrong_top1_same_formula": 115,
+    "wrong_top1_different_formula": 6,
+    "truth_in_window_outside_top50": 10
+  },
+  "oracle_formula_fp": {
+    "n": 250,
+    "mrr_at_25": 0.532182454146413,
+    "top1": 0.392,
+    "top25": 0.92
+  },
+  "oracle_choose_gl50_or_ice25": {
+    "n": 250,
+    "mrr_at_25": 0.6900262659477494,
+    "top1": 0.584,
+    "top25": 0.948
+  },
+  "condition_metadata_diagnostic": {
+    "np_spectrum_adduct_counts": {
+      "[M-H]-": 276,
+      "[M+Cl]-": 7,
+      "[M+H]+": 569,
+      "[M+K]+": 16,
+      "[M+Na]+": 80,
+      "[M-H2O+H]+": 24,
+      "[M+CH2O2-H]-": 105,
+      "[M+NH4]+": 98,
+      "[M-2H2O+H]+": 8,
+      "[M-H2O-H]-": 1
+    },
+    "positive_supported_spectrum_count": 649,
+    "positive_supported_CE_list_counts": {
+      "[0.0, 20.0, 40.0, 60.0, 80.0]": 11,
+      "[20.0]": 61,
+      "[40.0]": 117,
+      "[60.0]": 111,
+      "[80.0]": 65,
+      "[20.0, 50.0]": 105,
+      "[20.0, 40.0, 60.0]": 47,
+      "[35.0]": 75,
+      "[20.0, 40.0, 60.0, 80.0]": 55,
+      "[20.0, 40.0]": 2
+    },
+    "unscored_molecule_adduct_set_counts": {
+      "[M-H]-": 13,
+      "[M+NH4]+ / [M-H]-": 3,
+      "[M+CH2O2-H]-": 4,
+      "[M+NH4]+": 7,
+      "[M+CH2O2-H]- / [M+NH4]+": 4,
+      "[M+CH2O2-H]- / [M-H]-": 1,
+      "[M+CH2O2-H]- / [M+NH4]+ / [M-H]-": 2
+    },
+    "forward_unscored_fiora_MH_negative_adduct_eligibility": {
+      "has_MH_negative": 19,
+      "no_MH_negative": 15
+    },
+    "planned_unique_condition_candidate_jobs": {
+      "mean_ce_top25": 13152,
+      "each_ce_top25": 16246,
+      "mean_ce_top50": 23021,
+      "each_ce_top50": 28274,
+      "mean_ce_top100": 36768,
+      "each_ce_top100": 44724
+    },
+    "job_count_note": "按分子内(adduct,5eV bucket)去重，timsTOF映射统一；不含候选解析失败/跨分子缓存/推理成本，非实际运行时长。"
+  },
+  "limitations": [
+    "同一个反复使用的NP开发集；bootstrap不消除checkpoint暴露或选择偏差。",
+    "GLACIER已算top50而ICEBERG只算top25，不能重构ICEBERG-top50。",
+    "dual25固定权重 .5/.5 只是一次缓存分数的探索，不是独立验证的新模型。",
+    "oracle公式及oracle择模型用真值，仅诊断，不能部署。",
+    "保存分数已经聚合谱，无法从中恢复不同CE/adduct的逐谱效果。",
+    "合法候选身份按已有canonical key，不等同官方2026.03.3 SMILES复评。"
+  ]
+}
