@@ -129,3 +129,9 @@ FIORA论文已有多能量分别预测再合并的实例，支持F1作为有根�
 - 8 格全 ok（GL 423–799s，ICE 851–1664s；权重 sha 全验；`n_scored=0` 系 `np.unicode_` 缓存落盘 bug，不影响文件内 fused/sims 有效——F1a 重算 0.63906059 与 filed 差 4.7e-7）。主审从逐分子 rr 独立重算 12 格，与汇总 6 位一致。
 - 对照：F1a 0.6391 / F1b(top100) 0.6541（+0.0151，CI 不含 0，Top1 净 +6）/ F1c split +0.005（GL，CI 含 0，噪声地板）/ F1d 最佳 0.6583 / **F1e ICE top100+merge 0.6690** 全局最佳 / ICE-merge 显著优于 sims-mean（+0.011~0.015），sims-mean 对 ICE 是错误融合 / ICE−GL 的 CI 均含 0（方向 5/6 向 ICE）。
 - verdict：**top100 进管线；CE 策略选 fused_merge；管线选 ICE top100+merge（0.6690），GL 留回退**。v9 笔记本（ICE top25 口径）需更新到 top100+merge 后再推——待配额刷新 + 用户批准。
+
+## v9 更新到 top100 + fused_merge（2026-10-09，未推，主审验货）
+
+- 改动（仅 v9 notebook，+366/−52）：shortlist top25→top100（validated 口径不动）；forward 改逐记录 CE 展开（单 CE 原路径，多 CE 逐 CE 预测 + 等权合并，缓存键与 f1 同格式，BUDGET 3600）；融合以 fused_merge 为主、sims-mean 为辅；顺带修掉一个必炸的 `gl_out` NameError。
+- 主审验：15 格 AST 全过；glacier/20ppm 零残留；引用的 9 个 ice_runner 原语（merge/prep_query/entropy_sim/is_covered/spectrum_ce/ce_bucket/instr_token/prep_spectrum/Predictor）逐个核对真实存在；sims-mean 复算一行精确成立。
+- 诚实边界：merge 路只审未算（本地无预测峰），第一次执行就是配额刷新后的 v9 提交运行本身，fail-loud 断言兜底。预计 forward 40–50 分钟（隐藏 400 分子），总量 <9h。
