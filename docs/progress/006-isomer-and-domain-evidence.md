@@ -117,3 +117,9 @@ FIORA论文已有多能量分别预测再合并的实例，支持F1作为有根�
 
 - `notebooks/submission-v9/` 新建（15 格，13 code 全 AST 通过；无 glacier/20ppm 残留；融合 `_z` 与 v8 逐字一致；复算 AQCH 行与 filed 一致）。kernel id `ccjjllt/enveda-submission-v9`，GPU，离线，挂载比赛 + fp-models-v2 + coconut + train-fp-pool + casmi26-iceberg + cp313-wheelhouse。口径为已验证配置（union/10ppm/canonical/top25 + ICEBERG 融合），未混 v8 的 20ppm/raw-key。
 - push 被拒：`Maximum weekly GPU quota of 30.00 hours reached`（远端无版本）。GPU 周 30h 用完，10-10 刷新后再推。CPU 干跑只验链路不作提交，未执行。
+
+## F1 可移植包（2026-10-06，用户自备 Colab 跑，主审验货）
+
+- Kaggle GPU 周配额见顶，F1（纯前向）改走用户 Colab。包 `artifacts/f1-bundle/` 131MB/80 文件 + `f1-bundle.tar.gz`：250 分子 top100 shortlist（与 filed top50 同序已逐分子断言）+ E0 logits + 三权重（大小/sha 全验，零下载运行）+ gl/ice runner 与 shim（cp312 轮子已剔）+ install.sh/run_f1a_e.py + README（Colab 逐条命令、truth 声明）。
+- 主审验：目录结构/权重齐备、inputs 250 分子、README 起跑三步清晰；任务量本地实算 top50 split +22.2%/top100 1.92×，与计划一致。包内无凭据（grep 确认）。
+- 待用户 Colab 回传 scores/ 后做融合评估（F1a–e 对照 + verdict）。
