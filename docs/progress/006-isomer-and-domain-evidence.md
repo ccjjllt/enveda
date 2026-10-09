@@ -112,3 +112,8 @@ FIORA论文已有多能量分别预测再合并的实例，支持F1作为有根�
 - 卡点根因（源码为准）：`FioraModel.load_from_state_dict(.pt)` 只拿 `.pt` 做前缀派生 `_params.json` + `_state.pt`，本体字节不读；v2 只下了两件，补官方同 commit `_state.pt`（53,814,639B）即解。`ccjjllt/fiora-os-pilot-neg` v4 COMPLETE（156.5s，配额消耗约 5 分钟）。
 - 实测（`artifacts/006-fiora/fiora_scores_22.json`，主审独立重算）：746 候选 591 scored（0.792），均值多 <0.06；仅 CZMR 0.211/RNKM 0.250/QIVC 0.128/FBPF 0.114 中等；JDUW/QFJC/UEDU 全零；零峰 155 条集中在 SEEG/QQTZ/RTIX/APAJ。与报告分毫不差。
 - verdict 接受：**不进管线**。仅可作带缺失路径的残差特征，须本地先验 `base+residual` RR 增量（未做）。离线捆绑（53MB×2 + 源码）暂缓。
+
+## v9 已构建，未能推送：GPU 周配额见顶（2026-10-06，主审验货）
+
+- `notebooks/submission-v9/` 新建（15 格，13 code 全 AST 通过；无 glacier/20ppm 残留；融合 `_z` 与 v8 逐字一致；复算 AQCH 行与 filed 一致）。kernel id `ccjjllt/enveda-submission-v9`，GPU，离线，挂载比赛 + fp-models-v2 + coconut + train-fp-pool + casmi26-iceberg + cp313-wheelhouse。口径为已验证配置（union/10ppm/canonical/top25 + ICEBERG 融合），未混 v8 的 20ppm/raw-key。
+- push 被拒：`Maximum weekly GPU quota of 30.00 hours reached`（远端无版本）。GPU 周 30h 用完，10-10 刷新后再推。CPU 干跑只验链路不作提交，未执行。
