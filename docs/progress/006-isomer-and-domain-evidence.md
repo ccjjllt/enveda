@@ -123,3 +123,9 @@ FIORA论文已有多能量分别预测再合并的实例，支持F1作为有根�
 - Kaggle GPU 周配额见顶，F1（纯前向）改走用户 Colab。包 `artifacts/f1-bundle/` 131MB/80 文件 + `f1-bundle.tar.gz`：250 分子 top100 shortlist（与 filed top50 同序已逐分子断言）+ E0 logits + 三权重（大小/sha 全验，零下载运行）+ gl/ice runner 与 shim（cp312 轮子已剔）+ install.sh/run_f1a_e.py + README（Colab 逐条命令、truth 声明）。
 - 主审验：目录结构/权重齐备、inputs 250 分子、README 起跑三步清晰；任务量本地实算 top50 split +22.2%/top100 1.92×，与计划一致。包内无凭据（grep 确认）。
 - 待用户 Colab 回传 scores/ 后做融合评估（F1a–e 对照 + verdict）。
+
+## F1 矩阵评估（2026-10-09，用户 Colab 跑回，主审验货）
+
+- 8 格全 ok（GL 423–799s，ICE 851–1664s；权重 sha 全验；`n_scored=0` 系 `np.unicode_` 缓存落盘 bug，不影响文件内 fused/sims 有效——F1a 重算 0.63906059 与 filed 差 4.7e-7）。主审从逐分子 rr 独立重算 12 格，与汇总 6 位一致。
+- 对照：F1a 0.6391 / F1b(top100) 0.6541（+0.0151，CI 不含 0，Top1 净 +6）/ F1c split +0.005（GL，CI 含 0，噪声地板）/ F1d 最佳 0.6583 / **F1e ICE top100+merge 0.6690** 全局最佳 / ICE-merge 显著优于 sims-mean（+0.011~0.015），sims-mean 对 ICE 是错误融合 / ICE−GL 的 CI 均含 0（方向 5/6 向 ICE）。
+- verdict：**top100 进管线；CE 策略选 fused_merge；管线选 ICE top100+merge（0.6690），GL 留回退**。v9 笔记本（ICE top25 口径）需更新到 top100+merge 后再推——待配额刷新 + 用户批准。
