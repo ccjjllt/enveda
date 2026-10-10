@@ -150,3 +150,9 @@ FIORA论文已有多能量分别预测再合并的实例，支持F1作为有根�
 
 - ref `57028399` COMPLETE，public **0.323**（v8 0.307 → +0.016）。方向与 NP250 开发数一致（ICE > GLACIER），但幅度远小于开发集的 +0.124——NP 重复使用乐观 + 公私切分差异。r1（57027339）保持空白（隐藏重跑 error，已修）。
 - 距公开榜第五（~0.435）还差 0.11。下一步按 006：F1 的逐 CE/残差/FIORA 里找下一增量，或等隐藏反馈。
+
+## F4a 可移植训练包（2026-10-10，用户 Colab 跑，主审验货）
+
+- 包 `artifacts/f4a-bundle/` + tar.gz（8.3MB）：train_f4a.py/f4a_prep.py/f4a_model.py + fp_bits + np250 评测包 + 双臂口径（Arm A 原 head 纯 BCE / Arm B BCE+CE-K63 同式优先，seed 2026，分子等权）；大文件（分片/池/encoder ~1.1GB）走 Colab 内用户自认证下。
+- 主审验：tar 内容 12 项齐、目录合规（ccjjllt 下无新建、git 干净）、fp_bits sha `a61e372f…` 一致、README 起跑链完整、凭据 grep 干净。11/11 本地口袋验证通过（含 BCE/CE 手算对照）。
+- 待用户 Colab 回传 head.pt + metrics.json 后做对照 verdict（原 head vs BCE+rank，同 seed/同样本）。
