@@ -140,3 +140,8 @@ FIORA论文已有多能量分别预测再合并的实例，支持F1作为有根�
 
 - 配额刷新后 push，`ccjjllt/enveda-submission-v9` v1 COMPLETE。主审独立验证：400×25、400 唯一、顺序对 sample、首候选裸 CCO=0（35 行尾部 CCO 补位有计数）；5 blocks 全零异常；merge 路实跑（371 分子、29014 候选 scored）；rdkit 2026.03.6。
 - 已提交排行榜，ref `57027339`，PENDING。今日还剩 4 次。
+
+## v9r2 修好重交（2026-10-10，PENDING）
+
+- v9r1（ref 57027339）在隐藏重跑报 unhandled error：5 个 block 格只覆盖 400 分子 + `assert len(out_rows)==len(mids)`，隐藏集分子数不同即炸。修法：25 格覆盖到 2000 分子（空转零开销，日志证实 20 个空 block 均为 rows 0 瞬时过）+ forward 预算 3600→7200。
+- v2 COMPLETE，主审验证：400×25、顺序对 sample、首候选裸 CCO=0；merge 实跑 371 分子/29014 候选。已重交，ref `57028399`，PENDING。今日还剩 3 次。
