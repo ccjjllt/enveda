@@ -156,3 +156,9 @@ FIORA论文已有多能量分别预测再合并的实例，支持F1作为有根�
 - 包 `artifacts/f4a-bundle/` + tar.gz（8.3MB）：train_f4a.py/f4a_prep.py/f4a_model.py + fp_bits + np250 评测包 + 双臂口径（Arm A 原 head 纯 BCE / Arm B BCE+CE-K63 同式优先，seed 2026，分子等权）；大文件（分片/池/encoder ~1.1GB）走 Colab 内用户自认证下。
 - 主审验：tar 内容 12 项齐、目录合规（ccjjllt 下无新建、git 干净）、fp_bits sha `a61e372f…` 一致、README 起跑链完整、凭据 grep 干净。11/11 本地口袋验证通过（含 BCE/CE 手算对照）。
 - 待用户 Colab 回传 head.pt + metrics.json 后做对照 verdict（原 head vs BCE+rank，同 seed/同样本）。
+
+## F4a 对照结果：双臂全败，head 重训方向放弃（2026-10-10，用户 Colab 实跑，主审验货）
+
+- 20 分子…不，250 分子对照（同 seed/同样本，500 步）：Arm A 纯 BCE MRR **0.2551**（filed 0.5146 直接腰斩），Arm B BCE+rank **0.4790**（仍低于 filed）。产物 `artifacts/f4a-results/`（双 head 65MB + curves + metrics，主审取回）。
+- 根因：A 的 BCE 从 0.31 收敛到 0.19，MRR 却崩了——教科书式过拟合到分片分布；B 的 rank 项全程 flat（0.8–1.1 不下降），grad_norm ~1e5，K63/CE 公式的梯度尺度失控，500 步根本没学到东西。
+- verdict：**两个头都不部署**。这是 head 重训的第三次独立负结果（004-R3 混合、005-union −0.045、本次双败），该方向在当前数据/超参下封存，不再烧 units。
