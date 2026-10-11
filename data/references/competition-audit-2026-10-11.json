@@ -1,0 +1,228 @@
+{
+  "checked_at_utc": "2026-10-10T17:50:41.286762+00:00",
+  "access": "Kaggle official SDK read-only; MCP transport failed, CLI/SDK fallback succeeded",
+  "competition": "enveda-CASMI26-molecule-id-mass-spectra",
+  "metadata": {
+    "teamCount": 2998,
+    "userRank": 1687,
+    "reward": "50,000 Usd",
+    "deadline": "2026-12-14T23:59:00.000Z",
+    "newEntrantDeadline": "2026-12-07T23:59:00.000Z",
+    "maxTeamSize": 5
+  },
+  "latest_submission": {
+    "ref": 57028399,
+    "public_score": 0.323,
+    "status": "COMPLETE",
+    "version": 356902571,
+    "checked_via": "Kaggle CLI competitions submissions"
+  },
+  "leaderboard_top30": [
+    {
+      "teamName": "MarvinTMB",
+      "submissionDate": "2026-10-08T20:48:40.643Z",
+      "score": "0.484",
+      "snapshot_position": 1
+    },
+    {
+      "teamName": "pikachu",
+      "submissionDate": "2026-10-10T04:38:54.436Z",
+      "score": "0.481",
+      "snapshot_position": 2
+    },
+    {
+      "teamName": "Kucing Garong",
+      "submissionDate": "2026-10-10T11:06:03.633Z",
+      "score": "0.465",
+      "snapshot_position": 3
+    },
+    {
+      "teamName": "CHU1PC",
+      "submissionDate": "2026-10-10T05:45:20.683Z",
+      "score": "0.461",
+      "snapshot_position": 4
+    },
+    {
+      "teamName": "Oliver Ford",
+      "submissionDate": "2026-10-10T00:03:57.566Z",
+      "score": "0.460",
+      "snapshot_position": 5
+    },
+    {
+      "teamName": "David Zapata",
+      "submissionDate": "2026-10-10T02:05:27.593Z",
+      "score": "0.457",
+      "snapshot_position": 6
+    },
+    {
+      "teamName": "Sho Saga",
+      "submissionDate": "2026-10-10T00:19:44.216Z",
+      "score": "0.457",
+      "snapshot_position": 7
+    },
+    {
+      "teamName": "vukpetar",
+      "submissionDate": "2026-10-09T13:37:39.090Z",
+      "score": "0.456",
+      "snapshot_position": 8
+    },
+    {
+      "teamName": "Yuuki Aikawa",
+      "submissionDate": "2026-10-09T07:30:09.506Z",
+      "score": "0.455",
+      "snapshot_position": 9
+    },
+    {
+      "teamName": "Randy",
+      "submissionDate": "2026-10-10T00:01:47.993Z",
+      "score": "0.452",
+      "snapshot_position": 10
+    },
+    {
+      "teamName": "Sls2",
+      "submissionDate": "2026-10-10T08:31:56.446Z",
+      "score": "0.449",
+      "snapshot_position": 11
+    },
+    {
+      "teamName": "Savko",
+      "submissionDate": "2026-10-10T10:11:05.860Z",
+      "score": "0.448",
+      "snapshot_position": 12
+    },
+    {
+      "teamName": "toolazyhhh123",
+      "submissionDate": "2026-10-10T14:43:35.640Z",
+      "score": "0.448",
+      "snapshot_position": 13
+    },
+    {
+      "teamName": "Timo Diehm",
+      "submissionDate": "2026-10-10T06:44:50.383Z",
+      "score": "0.446",
+      "snapshot_position": 14
+    },
+    {
+      "teamName": "Shehab Alshehabi",
+      "submissionDate": "2026-10-10T08:53:29.553Z",
+      "score": "0.446",
+      "snapshot_position": 15
+    },
+    {
+      "teamName": "Parth Talsania",
+      "submissionDate": "2026-10-10T13:52:56.626Z",
+      "score": "0.445",
+      "snapshot_position": 16
+    },
+    {
+      "teamName": "PL",
+      "submissionDate": "2026-10-10T12:37:57.823Z",
+      "score": "0.444",
+      "snapshot_position": 17
+    },
+    {
+      "teamName": "ACoder",
+      "submissionDate": "2026-10-10T13:11:53.020Z",
+      "score": "0.444",
+      "snapshot_position": 18
+    },
+    {
+      "teamName": "MachineLearner",
+      "submissionDate": "2026-10-10T10:11:10.996Z",
+      "score": "0.444",
+      "snapshot_position": 19
+    },
+    {
+      "teamName": "DECEM",
+      "submissionDate": "2026-10-10T08:48:55.586Z",
+      "score": "0.444",
+      "snapshot_position": 20
+    },
+    {
+      "teamName": "Nicolas Krusche",
+      "submissionDate": "2026-10-10T02:30:05.986Z",
+      "score": "0.443",
+      "snapshot_position": 21
+    },
+    {
+      "teamName": "NicholasOOO",
+      "submissionDate": "2026-10-10T02:57:51.790Z",
+      "score": "0.443",
+      "snapshot_position": 22
+    },
+    {
+      "teamName": "KhatMal Gang",
+      "submissionDate": "2026-10-10T06:36:52.176Z",
+      "score": "0.443",
+      "snapshot_position": 23
+    },
+    {
+      "teamName": "Dmitrii Khizbullin",
+      "submissionDate": "2026-10-10T13:24:52.383Z",
+      "score": "0.443",
+      "snapshot_position": 24
+    },
+    {
+      "teamName": "0STG0T",
+      "submissionDate": "2026-10-10T12:07:43.676Z",
+      "score": "0.443",
+      "snapshot_position": 25
+    },
+    {
+      "teamName": "siero",
+      "submissionDate": "2026-10-10T06:58:45.936Z",
+      "score": "0.443",
+      "snapshot_position": 26
+    },
+    {
+      "teamName": "Emre Cirak",
+      "submissionDate": "2026-10-10T09:24:51.376Z",
+      "score": "0.443",
+      "snapshot_position": 27
+    },
+    {
+      "teamName": "Sirui Zeng",
+      "submissionDate": "2026-10-10T09:52:53.313Z",
+      "score": "0.442",
+      "snapshot_position": 28
+    },
+    {
+      "teamName": "1m0ke",
+      "submissionDate": "2026-10-10T11:30:08.586Z",
+      "score": "0.442",
+      "snapshot_position": 29
+    },
+    {
+      "teamName": "Arsokan",
+      "submissionDate": "2026-10-10T09:24:12.080Z",
+      "score": "0.442",
+      "snapshot_position": 30
+    }
+  ],
+  "prizes_usd": [
+    16000,
+    12000,
+    9000,
+    7000,
+    6000
+  ],
+  "rules": {
+    "max_daily_submissions": 5,
+    "final_submission_selection": 2,
+    "winner_license": "MIT",
+    "final_cpu_gpu_hours": 9,
+    "internet": false
+  },
+  "gold_rule": {
+    "source": "https://www.kaggle.com/progression/competitions",
+    "formula": "top 10 + floor(0.002 * team count) for the current size bracket",
+    "illustration_using_snapshot_team_count": 15,
+    "caveat": "Illustrative cutoff only; final eligible team count, ties and official medal allocation control."
+  },
+  "sources": [
+    "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard",
+    "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/overview/prizes",
+    "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/rules",
+    "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/overview/timeline"
+  ]
+}

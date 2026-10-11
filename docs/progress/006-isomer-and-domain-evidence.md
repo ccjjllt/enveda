@@ -1,8 +1,8 @@
 # 006 — 同分子式辨别、能量条件与参考谱缺失：实际进展
 
-更新：2026-10-10（北京时间）。对应[006研究计划](../plan/006-isomer-and-domain-evidence.md)。
+更新：2026-10-11（北京时间）。对应[006研究计划](../plan/006-isomer-and-domain-evidence.md)。新增G1已由[007审查](007-robust-evidence-and-coverage.md)复核，下一轮从[007计划](../plan/007-robust-evidence-and-coverage.md)接手。
 
-**当前最佳有效提交为v9r2，ref `57028399`，public 0.323，已重新查询Kaggle确认COMPLETE。F1已完成并用于提交；F2/F3尚未证明适合部署，F4a两套新head均不采用。非NP timsTOF500已固定manifest，尚无新方案在该集合上的评估结果。**
+**当前最佳有效提交为v9r2，ref `57028399`，public 0.323。F1已完成并用于提交；F2/F3尚未证明适合部署，F4a两套新head均不采用。G1研究250已完成评估：base0.884250→ICE merge0.907022，增量区间含0；保留250未用于评估。007已更正对照口径，并补做FIORA固定融合负结果。**
 
 以下按日期保留研究历史。10月5日仅完成复盘和缓存分析，此后Colab实验、Kaggle提交与F4a训练结果见后续各节，不能将早期“未执行”当作当前状态。
 
@@ -173,3 +173,17 @@ FIORA论文已有多能量分别预测再合并的实例，支持F1作为有根�
 - 当前研究空缺：非NP timsTOF500已有研究250/保留250 manifest，尚未见新方案评测；F2在干扰有库、真值缺库时仍退化；FIORA尚无融合后的MRR增量；完整MIST谱条件生成仍未复现。不能从public总分反推隐藏类别比例。
 - 后续优先固定v9配置在非NP研究250上做独立于NP调参过程的验证，保留250供最终比较；再研究参考谱不对称缺失与残差校准。预训练权重暴露仍为unknown，不将新集合自动称为严格未见结构验证。
 - 检查均为本地人工读取、标量复算与 `git diff --check`，未新增测试文件、测试框架或CI。未查询当前GPU配额、Colab会话或公开榜位置，旧快照不作为当前状态。
+
+## G1 非NP研究250验证包已建成，待Colab T4运行（2026-10-10，主审验货）
+
+- 包 `artifacts/g1-validation/` + `g1-validation.tar.gz`（118M，63文件）：`inputs.json`（18M，250分子top100 shortlist + 全窗base分数 + 代表SMILES/分子式 + 1377张query谱 + truth明文）、`inputs_e0_logits.npy`（1377×6930 float32）、`weights/{glacier,gen,inten}.pt`（大小/sha与F1 MANIFEST一致，零下载运行）、`code/ice` + `g1_worker.py`/`run_g1.py`/`install.sh` + README（Colab三步：解压→install→分两段run）。`scores/cache/work`发出时为空。未push、未提交、不碰Kaggle配额。
+- 口径与v9r2一致：union 712199（train在前coco在后）、10ppm nocap全窗、shipped→canon max collapse、`order(-score,canon)`、top100、单分子max-peak谱做QM但forward用全谱、逐记录CE展开、fused_merge为主sims-mean为辅双存、`z(base)+z(sim)`等权（ddof=1，<2/零方差→0，missing=None，unscored按base续后）、truth为RDKit 2026.03.6 canonical_group_key、MRR@25与F1 caliber一致。矩阵固定G1e-2（ICE top100 mean）/G1e-4（ICE top100 split，v9主方案），truth从不进worker，不调参。NCE路径在本包为ACTIVE（ZNNDCTWCOYGODJ的10张pluskal Orbitrap谱，eV 1367 + NCE 10），NP为dormant，属已知域差如实记录。
+- 主审独立重算：250 keys与manifest research 250逐个一致、heldout零混入；`order_top100`为全窗序截断100，前缀mismatch 0/250；`rep/form/base`长度与`n_win`一致0 mismatch；谱总数1377，ce_orig/units缺失0；logits shape 1377×6930、finite 100%；`g1_worker --dry-run --mol-limit 2`得ok-dry-run（2分子282 jobs，prep_tag一致）；worker源码零引用truth_canon；`git diff --check`通过；凭据grep零命中。窗shipped min6/max627/mean154.9/median129，canon mean154.3，真值在窗250/250；dry-run mean unique 49248、split 55962、union 56062，`n_mols_covered` 229/250，`n_spectra_unsupported` 550/1377（负/不支持adduct计unsupported不打0）。NP参照union 53200/ICE约45min/4.3GB，新集+5%任务量，T4 16G可胜任（估算`unique/26/s`：mean约32min、split约36min纯预测，两段合计约45–55min，meta以实际为准）。
+- 基线警示：本地CPU离线base（FP点积，top25截断）MRR **0.88425**、Top1 204/250、Top25 246/250，重算与存储一致，但显著高于NP250的0.51459。抽样池质量范围236–499，实际research250的mass_median为243.14–429.15；以enveda-180/timsTOF为主。域差/预训练暴露等原因尚未区分，不能直接归因或宣称未见泛化。新集headroom仅剩约0.116，当时待GPU回传后看增量；后续结果见下文。
+- 待用户Colab回传 `scores/g1e-2_ice_top100_mean.json` + `g1e-4_ice_top100_split.json`（含双存）+ meta + `run_index.json` 后做CPU融合评估（`_z`等权 + 续后口径），保留250继续锁定，不评估heldout，不拼500均值。
+
+## G1 回传评估：ICE点估计为正，未观察到逐CE额外增益（2026-10-11，007复核更正）
+
+- 回传 `artifacts/g1-scores/scores/`（g1e-2 17M + g1e-4 35M + 双meta + run_index）+ `g1_summary.json`：两格均为status ok，250分子，covered 229/250，n_cands 20809，unique jobs 49248/55962；meta耗时1578.05s/1964.89s、峰值显存4.5/4.4GB，权重sha三项OK，rdkit 2026.09.1（与v9的2026.03.6不同）。每格实际229条`np.unicode_` errors，计数在缓存写盘之后故`n_scored=0`；逐候选复核支持已存`fused/sims`用于此次评估，但峰缓存未落盘、跨格复用失败，不能说错误完全无害。`run_index`也被第二次运行覆盖。详见007。
+- 离线融合（与F1逐字一致口径）结果：BASE_top100 **0.884250**（Top1 0.816、Top25 0.984）→ G1e-2 mean **0.907784** → G1e-4 merge **0.907022**（Top1 0.856、Top25 0.984）；sims-mean 0.905917。merge−base **+0.022771**（22改善/10恶化，Top1净+10：19 wrong→right、9 right→wrong），paired bootstrap 95%区间约[−0.00090,+0.04740]，含0；merge−mean **−0.000762**（2改善/4恶化），区间约[−0.00876,+0.00733]，基本为零。Top25均为246/250，4个miss未动。
+- 结论：ICE相对base点估计为正，但CI含0；本集合未观察到逐CE合并相对mean-CE的额外收益。NP ICE100的merge−mean-CE仅+0.005296，区间也含0；原+0.014834是merge对逐CE sims-mean，两者不可混用。因此NP和G1都尚未确证逐CE的增益，亦未证明其无效。保留v9提交与保留250；下一步研究真正的v9＋库融合及条件覆盖。检查均为人工读取与标量复算，未新增测试文件或CI。
