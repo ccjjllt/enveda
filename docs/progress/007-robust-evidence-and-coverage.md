@@ -1,6 +1,6 @@
 # 007 — 新研究结论审查与下一步选择：实际进展
 
-日期：2026-10-11（北京时间）。对应[研究计划](../plan/007-robust-evidence-and-coverage.md)。最初审查完成G1/F1/F2复算；随后用户完成R0两分子Colab验证与R1本地CPU训练。本文件末尾记录对新增R0–R3结果的复核：数字可重建，当前C不部署；先修库身份/排谱与验证构造，再做固定的D对照。审查本身未启动新训练、GPU或submission。
+更新：2026-10-12（北京时间）。对应[007研究计划](../plan/007-robust-evidence-and-coverage.md)。D、R3-50和MIST单分子结果已由[008审查](008-submission-readiness-and-recall.md)复核；当前不新增submission，下一步按[008计划](../plan/008-submission-readiness-and-recall.md)执行。下文保留各阶段实际历史，原oracle扩池CONTINUE和“换大分子解决SAFE”解释已更正。
 
 ## 审查结论
 
@@ -176,6 +176,46 @@ Kaggle MCP本次transport失败；网络权限下官方CLI/SDK只读成功。10�
 发现MIST清单重新引入“从生成输出删真值作库外诊断”的错误，已保留原模板并修正：只从检索库C移除真值及别名，允许生成器找回真值，记录生成召回与联合排序。外部观察模板补齐可加载的峰文件引用/SHA与原始CE/单位。尚无新数据或生成结果。
 
 下一步先取得10个符合既定来源/许可约束的真实外部分子，完成C/质量窗/shortlist覆盖统计，再决定扩至50–100；不再用丰富空模板代替这个信息增量。
+
+## R1-D固定对照（2026-10-11，CPU，主审验货，判STOP）
+
+- 产物 `artifacts/007-r1d/`（修正版特征构建+训练评价、双表、fold、掩码执行记录、逐候选OOF写盘）：先前指定的5项修正已落实，16组结果可复现；α=0与全无库的全序均双集250/250一致。NP seen +0.060/+0.087，pressure −0.027/−0.057，11/23个Top1被改错；G1来源移除后增量归零。当前配置STOP、不提交成立。但008发现训练未使用推理的缺库清零规则，且无forward候选的库分完全不起作用；不能据此否定一致门控的残差路线。下一步只允许有明确评分定义修正的一次固定对照，不扫α、不动保留250。本轮原D为CPU训练。
+- 冻结的 `007-r1` 原产物未动。
+
+## R3首批10分子（2026-10-11，MassBank，主审验货）
+
+- 10分子5A5B，许可CC BY-SA/CC BY逐条记录，日期齐备，exposure/temporal未知项如实标注；峰数据11个npz（SHA核对）+259个只读抓取缓存。覆盖：A类C/窗/top100全5/5，B类全0（结构不在库）。248条丢弃全记录（许可禁再分发86、750名单命中7、有train参考119、延期36）。产物 `artifacts/007-r3/observations_10.json` 及峰目录。零GPU，未动保留250谱。
+
+## R3-10检索打分（2026-10-11，CPU，主审验货）
+
+- 11谱orig-head CPU前向+点积排序+库直接/analog评分，产物 `artifacts/007-r3/retrieval_scoring_10.json`（逐分子+汇总+建议）与shortlist、手动脚本。A类base MRR 0.900（Top1 4/5，Top25 5/5），真值库证据全0符合无参考预期；B类base全miss（0/5），同式拥挤重，B03还有库假阳性0.57。建议小预算约束扩池试点，保守新增1–2个，≤1则转生成。未执行扩池、未跑生成器、零GPU、未动保留250。
+
+## R3 oracle真值插入诊断（2026-10-11，原CONTINUE解释于10月12日撤回）
+
+- 仅加回5个已知B真值（712199→712204），得到rank5/2/2/1/1和MRR0.64，数字可复算；这是条件排序诊断，没有实现无标签候选发现器。4个B插入后窗口≤25，Top25必然命中，原“新增至少2个就CONTINUE”无区分力。新增候选各自只进入本人B窗，因此A不变和零新增干扰也是此次构造的结果。撤回据此扩大“只加真值”实验或提交的建议；下一步须固定外部结构来源、召回真实干扰，评价完整推理流程。原JSON作为历史产物保留，零GPU。
+
+## FIORA根因与MIST准备（2026-10-11，只读+CPU）
+
+- FIORA名称映射vs零峰：存量notebook把两类失败合并为`pred_missing`，本地无MGF/TITLE日志，结论 `unknown_无法判定`。不扩原配置；仅当H1/H0明确假设时才做SEEGHK/CZMR小对照。产物 `artifacts/007-r2/fiora_name_vs_zeropeak.json`。
+- MIST单分子计划：选B04（`C3H8FO3P`，最简），输入谱/公式两臂/指纹/长度/采样B=10配齐占位；本地缺FRIGID tar与MIST ckpt，判需GPU且Colab T4可胜任。只备未跑；跑之前再写notebook。产物 `artifacts/007-r3/single_molecule_plan.json`。
+
+## R3扩到50分子（2026-10-11，CPU，主审验货）
+
+- 新增40（A20/B20），产物`observations_50.json`共50分子/59谱，来源许可字符串逐条记录。A类C/窗/质量误差top100为25/25/25，B类全0；所有窗≤84，所以质量top100等于全窗，尚未计算FPNet shortlist或完整v9结果。A/B的C覆盖由选样定义决定。272是累计历史筛选记录，其中35条后来已选入；5张adduct未知/不支持谱的QM回退另需处理。零GPU，保留250未评估。
+
+## MIST单分子包（2026-10-11，主审验货，未跑）
+
+- 包 `artifacts/mist-single/`（56K小文件）+ `mist-single.tar.gz`（16K，顶层唯一）+ `notebooks/colab/mist-single-colab.ipynb`（8格，EXPECT行）：B04单分子，公式两臂oracle/预测、指纹None、B=10；大文件一律Colab侧远端下载验size/md5，本地未下载；超时60min停，不点提交。凭据grep干净。待用户T4运行回传37列JSON。
+
+## MIST单分子实跑：SAFE调用参数错误（2026-10-11实跑，10月12日更正解释）
+
+- 前5格全对：挂载、解压、安装（T4，cuda True）、env探针、2.8GB下载md5一致、FRIGID定到pin。第6格 `smoke=SAFE_BLOCKED`：B04（`CCCOP(=O)(O)F`）SAFE切不出可断键，脚本在生成前按设计停下并落盘traceback；pip的diffusers/gradio冲突为Colab旧环境噪音。回传包1.7K（result+commit/ckpt清单）。
+- 更正：当前调用为`SAFEConverter(slicer=None).encoder(truth_smiles)`，禁切分却默认拒绝空切分；换更大分子不能解决同一错误。应修正附加诊断的`allow_empty`契约，不把真值roundtrip作为条件生成前提。实跑仅确认权重加载，MIST没有前向，生成也未执行，脚本仍写`fingerprint=None`。完整谱条件、长度配置和真实请求计数须分别接通。官方源码依据与细节见008；没有新生成成绩或提交。
+
+## R3-10检索打分（2026-10-11，CPU，主审验货）
+
+- 11谱orig-head CPU前向+点积排序+库直接/analog评分，产物 `artifacts/007-r3/retrieval_scoring_10.json`（逐分子+汇总+建议）与shortlist、手动脚本。A类base MRR 0.900（Top1 4/5，Top25 5/5），真值库证据全0符合无参考预期；B类base全miss（0/5），top100即全窗干扰，同式拥挤严重（B03 20/21同式）且有库假阳性（B03 lib 0.570但base排第2，融合会放大干扰）。
+- 建议：小预算按分子式/质量约束扩池试点（B窗<30、代价可控；上界5个、保守1–2个），若新增≤1则判检索无解转完整谱条件生成。未执行扩池、未跑生成器、零GPU、未动保留250。
 
 ### 本次产物与手动核对
 

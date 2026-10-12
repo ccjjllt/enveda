@@ -1,0 +1,43 @@
+{
+  "checked_at_utc": "2026-10-12 01:07:22 UTC",
+  "competition": "enveda-CASMI26-molecule-id-mass-spectra",
+  "access": "Kaggle MCP search_competition_submissions (read-only)",
+  "submissions": [
+    {
+      "ref": 57028399,
+      "version_url": "https://www.kaggle.com/code/ccjjllt/enveda-submission-v9?scriptVersionId=356902571",
+      "status": "COMPLETE",
+      "public_score": "0.323",
+      "error_description": null
+    },
+    {
+      "ref": 57027339,
+      "version_url": "https://www.kaggle.com/code/ccjjllt/enveda-submission-v9?scriptVersionId=356895605",
+      "status": "COMPLETE",
+      "public_score": null,
+      "error_description": "Your notebook hit an unhandled error while rerunning your code. Note that the hidden dataset can be larger/smaller/different than the public dataset"
+    },
+    {
+      "ref": 56821309,
+      "version_url": "https://www.kaggle.com/code/ccjjllt/enveda-submission-v8?scriptVersionId=355132734",
+      "status": "COMPLETE",
+      "public_score": "0.307",
+      "error_description": null
+    },
+    {
+      "ref": 56799854,
+      "version_url": "https://www.kaggle.com/code/ccjjllt/enveda-submission?scriptVersionId=354910791",
+      "status": "COMPLETE",
+      "public_score": "0.206",
+      "error_description": null
+    },
+    {
+      "ref": 56791264,
+      "version_url": "https://www.kaggle.com/code/ccjjllt/enveda-submission?scriptVersionId=354829299",
+      "status": "COMPLETE",
+      "public_score": "0.000",
+      "error_description": null
+    }
+  ],
+  "decision": "No new submission now; current best remains v9r2 0.323. Reassess after a deployable label-free change is evaluated."
+}

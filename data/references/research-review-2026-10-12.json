@@ -1,0 +1,876 @@
+{
+  "date_local": "2026-10-12",
+  "decision": "Do not submit current D/oracle-pool/MIST artifacts; keep v9r2. One fixed scoring-consistent D2 and label-free candidate recall are next.",
+  "scope": "Manual cached-result and source/log review; no fitting, GPU execution or submission.",
+  "r1d": {
+    "scope": "Saved NP/G1 research query feature tables, models, OOF results only. No fitting.",
+    "datasets": {
+      "np": {
+        "metrics": {
+          "a0.25_seen": {
+            "A_mrr": 0.6689968009682843,
+            "C_mrr": 0.7294080155990641,
+            "delta": 0.06041121463077985,
+            "C_top1": 0.636,
+            "C_top25": 0.956,
+            "improved": 50,
+            "worsened": 0,
+            "w2r": 21,
+            "r2w": 0,
+            "ci95": [
+              0.04054556850012733,
+              0.08224820943087886
+            ]
+          },
+          "a0.25_nolib_all": {
+            "A_mrr": 0.6689968009682843,
+            "C_mrr": 0.6689968009682843,
+            "delta": 0.0,
+            "C_top1": 0.552,
+            "C_top25": 0.948,
+            "improved": 0,
+            "worsened": 0,
+            "w2r": 0,
+            "r2w": 0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "a0.25_pressure_truth_off": {
+            "A_mrr": 0.6689968009682843,
+            "C_mrr": 0.6419150549365383,
+            "delta": -0.027081746031746033,
+            "C_top1": 0.508,
+            "C_top25": 0.948,
+            "improved": 0,
+            "worsened": 23,
+            "w2r": 0,
+            "r2w": 11,
+            "ci95": [
+              -0.04182075396825397,
+              -0.014015734126984139
+            ]
+          },
+          "a0.25_source_transfer": {
+            "A_mrr": 0.6689968009682843,
+            "C_mrr": 0.7260746822657309,
+            "delta": 0.05707788129744651,
+            "C_top1": 0.628,
+            "C_top25": 0.956,
+            "improved": 46,
+            "worsened": 0,
+            "w2r": 19,
+            "r2w": 0,
+            "ci95": [
+              0.037202198190414294,
+              0.07884388450566199
+            ]
+          },
+          "a0.50_seen": {
+            "A_mrr": 0.6689968009682843,
+            "C_mrr": 0.7559697760608246,
+            "delta": 0.0869729750925403,
+            "C_top1": 0.668,
+            "C_top25": 0.96,
+            "improved": 59,
+            "worsened": 1,
+            "w2r": 30,
+            "r2w": 1,
+            "ci95": [
+              0.062323053751803754,
+              0.11322596403596398
+            ]
+          },
+          "a0.50_nolib_all": {
+            "A_mrr": 0.6689968009682843,
+            "C_mrr": 0.6689968009682843,
+            "delta": 0.0,
+            "C_top1": 0.552,
+            "C_top25": 0.948,
+            "improved": 0,
+            "worsened": 0,
+            "w2r": 0,
+            "r2w": 0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "a0.50_pressure_truth_off": {
+            "A_mrr": 0.6689968009682843,
+            "C_mrr": 0.6117369036760341,
+            "delta": -0.057259897292250235,
+            "C_top1": 0.46,
+            "C_top25": 0.948,
+            "improved": 0,
+            "worsened": 44,
+            "w2r": 0,
+            "r2w": 23,
+            "ci95": [
+              -0.0782256349206349,
+              -0.038250214752567714
+            ]
+          },
+          "a0.50_source_transfer": {
+            "A_mrr": 0.6689968009682843,
+            "C_mrr": 0.7536530058744892,
+            "delta": 0.08465620490620492,
+            "C_top1": 0.664,
+            "C_top25": 0.96,
+            "improved": 59,
+            "worsened": 1,
+            "w2r": 29,
+            "r2w": 1,
+            "ci95": [
+              0.06036152570468747,
+              0.11080502244487539
+            ]
+          }
+        },
+        "training_standardization": {
+          "0": {
+            "n_train_molecules": 199,
+            "n_rows": 46584,
+            "mu_max_abs_error": 0.0,
+            "sd_max_abs_error": 0.0,
+            "n_train_validation_overlap": 0
+          },
+          "1": {
+            "n_train_molecules": 198,
+            "n_rows": 45992,
+            "mu_max_abs_error": 0.0,
+            "sd_max_abs_error": 0.0,
+            "n_train_validation_overlap": 0
+          },
+          "2": {
+            "n_train_molecules": 199,
+            "n_rows": 46584,
+            "mu_max_abs_error": 0.0,
+            "sd_max_abs_error": 0.0,
+            "n_train_validation_overlap": 0
+          },
+          "3": {
+            "n_train_molecules": 198,
+            "n_rows": 46920,
+            "mu_max_abs_error": 0.0,
+            "sd_max_abs_error": 0.0,
+            "n_train_validation_overlap": 0
+          },
+          "4": {
+            "n_train_molecules": 198,
+            "n_rows": 48704,
+            "mu_max_abs_error": 0.0,
+            "sd_max_abs_error": 0.0,
+            "n_train_validation_overlap": 0
+          }
+        },
+        "source_table_check": {
+          "removed_source_present_rows": 0,
+          "truth_with_lib_seen": 248,
+          "truth_with_lib_source": 248,
+          "all_candidates_with_lib_seen": 4569,
+          "all_candidates_with_lib_source": 4549
+        },
+        "gate_train_eval_mismatch": {
+          "raw_ungated_residual_of_seen_nolib_candidates_count": 10305,
+          "nonzero_count": 10305,
+          "max_abs": 0.21652946745154913,
+          "truth_nolib_raw_residual_min": null,
+          "truth_nolib_raw_residual_max": null,
+          "code_finding": "Training optimizes w.x_std for every candidate; inference sets it to zero when has_lib=0. Training and inference functions differ."
+        },
+        "forward_uncovered": {
+          "n_molecules": 34,
+          "n_with_any_library": 34,
+          "n_with_truth_library": 33,
+          "all_scenarios_ranking_unchanged": true,
+          "note": "D ignores residuals of forward-unscored candidates, even when they have library evidence."
+        },
+        "checks": {
+          "alpha0_order_mismatch": 0,
+          "fold_mismatch": 0,
+          "OOF_full_order_mismatch": 0,
+          "OOF_rank_mismatch": 0,
+          "OOF_rr_mismatch": 0,
+          "filed_metric_mismatch": 0,
+          "nolib_A_order_mismatch": 0
+        },
+        "maximum_residual_difference": 8.881784197001252e-16,
+        "maximum_final_score_difference": 1.7763568394002505e-15
+      },
+      "g1": {
+        "metrics": {
+          "a0.25_seen": {
+            "A_mrr": 0.9070216450216451,
+            "C_mrr": 0.9121168831168832,
+            "delta": 0.0050952380952380945,
+            "C_top1": 0.864,
+            "C_top25": 0.984,
+            "improved": 4,
+            "worsened": 0,
+            "w2r": 2,
+            "r2w": 0,
+            "ci95": [
+              0.0004285714285714286,
+              0.011523809523809525
+            ]
+          },
+          "a0.25_nolib_all": {
+            "A_mrr": 0.9070216450216451,
+            "C_mrr": 0.9070216450216451,
+            "delta": 0.0,
+            "C_top1": 0.856,
+            "C_top25": 0.984,
+            "improved": 0,
+            "worsened": 0,
+            "w2r": 0,
+            "r2w": 0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "a0.25_pressure_truth_off": {
+            "A_mrr": 0.9070216450216451,
+            "C_mrr": 0.9121168831168832,
+            "delta": 0.0050952380952380945,
+            "C_top1": 0.864,
+            "C_top25": 0.984,
+            "improved": 4,
+            "worsened": 0,
+            "w2r": 2,
+            "r2w": 0,
+            "ci95": [
+              0.0004285714285714286,
+              0.011523809523809525
+            ]
+          },
+          "a0.25_source_transfer": {
+            "A_mrr": 0.9070216450216451,
+            "C_mrr": 0.9070216450216451,
+            "delta": 0.0,
+            "C_top1": 0.856,
+            "C_top25": 0.984,
+            "improved": 0,
+            "worsened": 0,
+            "w2r": 0,
+            "r2w": 0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "a0.50_seen": {
+            "A_mrr": 0.9070216450216451,
+            "C_mrr": 0.9157835497835498,
+            "delta": 0.008761904761904762,
+            "C_top1": 0.868,
+            "C_top25": 0.984,
+            "improved": 6,
+            "worsened": 0,
+            "w2r": 3,
+            "r2w": 0,
+            "ci95": [
+              0.002,
+              0.01685714285714286
+            ]
+          },
+          "a0.50_nolib_all": {
+            "A_mrr": 0.9070216450216451,
+            "C_mrr": 0.9070216450216451,
+            "delta": 0.0,
+            "C_top1": 0.856,
+            "C_top25": 0.984,
+            "improved": 0,
+            "worsened": 0,
+            "w2r": 0,
+            "r2w": 0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "a0.50_pressure_truth_off": {
+            "A_mrr": 0.9070216450216451,
+            "C_mrr": 0.9157835497835498,
+            "delta": 0.008761904761904762,
+            "C_top1": 0.868,
+            "C_top25": 0.984,
+            "improved": 6,
+            "worsened": 0,
+            "w2r": 3,
+            "r2w": 0,
+            "ci95": [
+              0.002,
+              0.01685714285714286
+            ]
+          },
+          "a0.50_source_transfer": {
+            "A_mrr": 0.9070216450216451,
+            "C_mrr": 0.9070216450216451,
+            "delta": 0.0,
+            "C_top1": 0.856,
+            "C_top25": 0.984,
+            "improved": 0,
+            "worsened": 0,
+            "w2r": 0,
+            "r2w": 0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "training_standardization": {
+          "0": {
+            "n_train_molecules": 199,
+            "n_rows": 65324,
+            "mu_max_abs_error": 0.0,
+            "sd_max_abs_error": 0.0,
+            "n_train_validation_overlap": 0
+          },
+          "1": {
+            "n_train_molecules": 199,
+            "n_rows": 65512,
+            "mu_max_abs_error": 0.0,
+            "sd_max_abs_error": 0.0,
+            "n_train_validation_overlap": 0
+          },
+          "2": {
+            "n_train_molecules": 199,
+            "n_rows": 66208,
+            "mu_max_abs_error": 0.0,
+            "sd_max_abs_error": 0.0,
+            "n_train_validation_overlap": 0
+          },
+          "3": {
+            "n_train_molecules": 200,
+            "n_rows": 67364,
+            "mu_max_abs_error": 0.0,
+            "sd_max_abs_error": 0.0,
+            "n_train_validation_overlap": 0
+          },
+          "4": {
+            "n_train_molecules": 199,
+            "n_rows": 66936,
+            "mu_max_abs_error": 0.0,
+            "sd_max_abs_error": 0.0,
+            "n_train_validation_overlap": 0
+          }
+        },
+        "source_table_check": {
+          "removed_source_present_rows": 0,
+          "truth_with_lib_seen": 0,
+          "truth_with_lib_source": 0,
+          "all_candidates_with_lib_seen": 16557,
+          "all_candidates_with_lib_source": 2474
+        },
+        "gate_train_eval_mismatch": {
+          "raw_ungated_residual_of_seen_nolib_candidates_count": 4252,
+          "nonzero_count": 4252,
+          "max_abs": 0.21539452645339519,
+          "truth_nolib_raw_residual_min": 0.09773551373561665,
+          "truth_nolib_raw_residual_max": 0.21539452645339519,
+          "code_finding": "Training optimizes w.x_std for every candidate; inference sets it to zero when has_lib=0. Training and inference functions differ."
+        },
+        "forward_uncovered": {
+          "n_molecules": 21,
+          "n_with_any_library": 21,
+          "n_with_truth_library": 0,
+          "all_scenarios_ranking_unchanged": true,
+          "note": "D ignores residuals of forward-unscored candidates, even when they have library evidence."
+        },
+        "checks": {
+          "alpha0_order_mismatch": 0,
+          "fold_mismatch": 0,
+          "OOF_full_order_mismatch": 0,
+          "OOF_rank_mismatch": 0,
+          "OOF_rr_mismatch": 0,
+          "filed_metric_mismatch": 0,
+          "nolib_A_order_mismatch": 0
+        },
+        "maximum_residual_difference": 1.1102230246251565e-16,
+        "maximum_final_score_difference": 8.881784197001252e-16
+      }
+    },
+    "sources": {
+      "artifacts/007-r1d/config_d.json": {
+        "bytes": 2216,
+        "sha256": "ade94f76b2ed7a21d87f76e1eff1fe0123a9e292a911b193a376aaa0b93ca50e"
+      },
+      "artifacts/007-r1d/feature_table_np_d.json": {
+        "bytes": 7878597,
+        "sha256": "48b442db3d1b16e6fd1b84be9dc76c132acd747efc941fafc6cef5a391048d2a"
+      },
+      "artifacts/007-r1d/feature_table_np_d_source.json": {
+        "bytes": 7867213,
+        "sha256": "de93130c2ef195327a44b9f2c335014dd32958494d45d97fbb60fccab51525da"
+      },
+      "artifacts/007-r1d/models_D_np.json": {
+        "bytes": 8315,
+        "sha256": "29091f873e372efefbe93dd77995e612807b82be832bd75a8676594c5892649b"
+      },
+      "artifacts/007-r1d/folds_np_d.json": {
+        "bytes": 10810,
+        "sha256": "ab8f12adf64c25fe21af7a32d23b5ae10d327a4aac289803230159c528b380b4"
+      },
+      "artifacts/007-r1d/oof_scores_D_np.json": {
+        "bytes": 10934094,
+        "sha256": "7c3ae28b94c5d4530f6f403f8418b96a25611d4d6272db91449c2d8ff36d033f"
+      },
+      "artifacts/007-r1/A_full_np.json": {
+        "bytes": 2258334,
+        "sha256": "b92c9f39d94f86a898df606b58e862f5fdea7dfba0264a89ddba5a7c7bd3a4f7"
+      },
+      "artifacts/007-r1d/metrics_tmp_np.json": {
+        "bytes": 3959,
+        "sha256": "44e8dcb6783cd8d3082bcacb522fc83ebd17506d45024ab60809936821543055"
+      },
+      "artifacts/007-r1d/feature_table_g1_d.json": {
+        "bytes": 12349681,
+        "sha256": "d360395e3b5cfd4a74a949497d8f72e2845372d5ed6ed221a4ed642545c43407"
+      },
+      "artifacts/007-r1d/feature_table_g1_d_source.json": {
+        "bytes": 10426804,
+        "sha256": "d8311ee7896e99cdffb8c0288c0242964857cde1f54a4c2a5c916bcfc7dc62cc"
+      },
+      "artifacts/007-r1d/models_D_g1.json": {
+        "bytes": 8339,
+        "sha256": "f97440738fcbec508720491f3012384e74e6d58c0e1250945fc37c25d22ff627"
+      },
+      "artifacts/007-r1d/folds_g1_d.json": {
+        "bytes": 10810,
+        "sha256": "01b6b91be1f9fd096cbe059546a95478bc2052eb67910888818a67193706a4b0"
+      },
+      "artifacts/007-r1d/oof_scores_D_g1.json": {
+        "bytes": 15830285,
+        "sha256": "0cd9776efdbc7d5fa691553abca4bad27fe572ed3f46c8e21b4eef15ad15a20d"
+      },
+      "artifacts/007-r1/A_full_g1.json": {
+        "bytes": 3158507,
+        "sha256": "01a7079fa3fbcb419d743b24e8593abf5743a93c878ec07f049fbf3472750831"
+      },
+      "artifacts/007-r1d/metrics_tmp_g1.json": {
+        "bytes": 3822,
+        "sha256": "53fb61942681db80fa1268d07d3d20394b10dd0f8f0c4ec846fcac0468061b46"
+      }
+    }
+  },
+  "r3": {
+    "scope": "JSON-only manual verification. Pilot inserts known truth structures; no unlabeled candidate discovery is evaluated. License values below are source strings, not legal conclusions.",
+    "input_files": [
+      "artifacts/007-r3/pool_pilot.json",
+      "artifacts/007-r3/observations_10.json",
+      "artifacts/007-r3/observations_50.json",
+      "artifacts/007-r3/coverage_50.json"
+    ],
+    "pilot": {
+      "n_inserted": 5,
+      "inserted_identities_equal_five_B_truths": true,
+      "B_ranks_after": [
+        5,
+        2,
+        2,
+        1,
+        1
+      ],
+      "B_mrr_at_25_recomputed": 0.64,
+      "B_top1_n": 2,
+      "B_top25_n": 5,
+      "B_canonical_window_sizes_after": [
+        22,
+        3,
+        14,
+        29,
+        12
+      ],
+      "guaranteed_B_top25_from_window_size_alone": 4,
+      "stop_threshold_top25_le": 1,
+      "candidate_window_matches": [
+        {
+          "query_key": "CLSDHBVHQKWEJR",
+          "mol_temp": "R3-A05",
+          "class_AB": "A",
+          "inserted_candidates_in_window": [],
+          "only_own_truth_or_none": true
+        },
+        {
+          "query_key": "CWNLLWATKFUNON",
+          "mol_temp": "R3-B03",
+          "class_AB": "B",
+          "inserted_candidates_in_window": [
+            "CWNLLWATKFUNON"
+          ],
+          "only_own_truth_or_none": true
+        },
+        {
+          "query_key": "JGUVFRFGUIUVGQ",
+          "mol_temp": "R3-B05",
+          "class_AB": "B",
+          "inserted_candidates_in_window": [
+            "JGUVFRFGUIUVGQ"
+          ],
+          "only_own_truth_or_none": true
+        },
+        {
+          "query_key": "NYXUAFLMUQAJPS",
+          "mol_temp": "R3-A01",
+          "class_AB": "A",
+          "inserted_candidates_in_window": [],
+          "only_own_truth_or_none": true
+        },
+        {
+          "query_key": "OYUDTSOHULXQEL",
+          "mol_temp": "R3-B02",
+          "class_AB": "B",
+          "inserted_candidates_in_window": [
+            "OYUDTSOHULXQEL"
+          ],
+          "only_own_truth_or_none": true
+        },
+        {
+          "query_key": "PSIRYXWQEOZQRA",
+          "mol_temp": "R3-B01",
+          "class_AB": "B",
+          "inserted_candidates_in_window": [
+            "PSIRYXWQEOZQRA"
+          ],
+          "only_own_truth_or_none": true
+        },
+        {
+          "query_key": "PZJSVHARXVPCTD",
+          "mol_temp": "R3-B04",
+          "class_AB": "B",
+          "inserted_candidates_in_window": [
+            "PZJSVHARXVPCTD"
+          ],
+          "only_own_truth_or_none": true
+        },
+        {
+          "query_key": "RAUPUVQHUFXDQT",
+          "mol_temp": "R3-A04",
+          "class_AB": "A",
+          "inserted_candidates_in_window": [],
+          "only_own_truth_or_none": true
+        },
+        {
+          "query_key": "UVYPXLQJIYVPPA",
+          "mol_temp": "R3-A02",
+          "class_AB": "A",
+          "inserted_candidates_in_window": [],
+          "only_own_truth_or_none": true
+        },
+        {
+          "query_key": "XTDLZZLFKOTTLJ",
+          "mol_temp": "R3-A03",
+          "class_AB": "A",
+          "inserted_candidates_in_window": [],
+          "only_own_truth_or_none": true
+        }
+      ],
+      "all_insertions_only_enter_own_query_window": true,
+      "source_code_evidence": {
+        "oracle_smiles_read": "r3_pool_pilot.py:143-169",
+        "only_five_added": "r3_pool_pilot.py:170-184",
+        "stop_decision": "r3_pool_pilot.py:466-474"
+      }
+    },
+    "observations_10": {
+      "n_molecules": 10,
+      "n_spectra": 11,
+      "by_class": {
+        "A": {
+          "n_molecules": 5,
+          "n_spectra": 6,
+          "mass_median_min": 760.4119235331201,
+          "mass_median_max": 1020.52807646688,
+          "instrument_families": {
+            "Orbitrap": 6
+          },
+          "ionization_modes": {
+            "positive": 3,
+            "negative": 3
+          },
+          "source_accession_prefixes": {
+            "MSBNK-EAWAG": 5
+          },
+          "license_strings_as_recorded": {
+            "CC BY-SA": 5
+          },
+          "exposure_as_recorded": {
+            "unknown": 5
+          }
+        },
+        "B": {
+          "n_molecules": 5,
+          "n_spectra": 5,
+          "mass_median_min": 142.01927646688,
+          "mass_median_max": 238.13267646688,
+          "instrument_families": {
+            "Orbitrap": 5
+          },
+          "ionization_modes": {
+            "negative": 5
+          },
+          "source_accession_prefixes": {
+            "MSBNK-Qingdao_University": 5
+          },
+          "license_strings_as_recorded": {
+            "CC BY": 5
+          },
+          "exposure_as_recorded": {
+            "unknown": 5
+          }
+        }
+      }
+    },
+    "observations_50": {
+      "n_molecules": 50,
+      "n_spectra": 59,
+      "by_class": {
+        "A": {
+          "n_molecules": 25,
+          "n_spectra": 34,
+          "mass_median_min": 364.29777646688,
+          "mass_median_max": 1092.4434,
+          "instrument_families": {
+            "Orbitrap": 34
+          },
+          "ionization_modes": {
+            "positive": 19,
+            "negative": 15
+          },
+          "source_accession_prefixes": {
+            "MSBNK-EAWAG": 25
+          },
+          "license_strings_as_recorded": {
+            "CC BY-SA": 25
+          },
+          "exposure_as_recorded": {
+            "unknown": 25
+          }
+        },
+        "B": {
+          "n_molecules": 25,
+          "n_spectra": 25,
+          "mass_median_min": 142.01927646688,
+          "mass_median_max": 586.32629,
+          "instrument_families": {
+            "Orbitrap": 13,
+            "QTOF": 12
+          },
+          "ionization_modes": {
+            "negative": 16,
+            "positive": 9
+          },
+          "source_accession_prefixes": {
+            "MSBNK-Qingdao_University": 13,
+            "MSBNK-mFam": 8,
+            "MSBNK-NILU": 4
+          },
+          "license_strings_as_recorded": {
+            "CC BY": 25
+          },
+          "exposure_as_recorded": {
+            "unknown": 25
+          }
+        }
+      }
+    },
+    "coverage_50": {
+      "ranking_method_as_recorded": "WMAX=100 mass-error asc then pool_index asc (window<=100 implies =window; same-formula ties noted, not claimed as model rank)",
+      "maximum_shipped_window_size": 84,
+      "n_windows_above100": 0,
+      "summary_as_recorded": {
+        "n_molecules": 50,
+        "n_A": 25,
+        "n_B": 25,
+        "C_covered": 25,
+        "window_covered_10ppm": 25,
+        "top100_covered_massrank": 25,
+        "by_class": {
+          "A": {
+            "n": 25,
+            "C": 25,
+            "window": 25,
+            "top100": 25
+          },
+          "B": {
+            "n": 25,
+            "C": 0,
+            "window": 0,
+            "top100": 0
+          }
+        }
+      }
+    },
+    "unknown_adduct_spectra": [
+      {
+        "query_key": "NMVVBVMYPLMIOU",
+        "spectrum_id": "MSBNK-NILU-NL0227",
+        "adduct": null,
+        "precursor_mz": 353.2486,
+        "query_neutral_mass": 353.2486,
+        "qc_pass": true,
+        "qc_notes": ""
+      },
+      {
+        "query_key": "UTDAGHZGKXPRQI",
+        "spectrum_id": "MSBNK-NILU-NL0322",
+        "adduct": null,
+        "precursor_mz": 433.1217,
+        "query_neutral_mass": 433.1217,
+        "qc_pass": true,
+        "qc_notes": ""
+      },
+      {
+        "query_key": "JOECRAPIMXFQDL",
+        "spectrum_id": "MSBNK-NILU-NL0370",
+        "adduct": null,
+        "precursor_mz": 586.32629,
+        "query_neutral_mass": 586.32629,
+        "qc_pass": true,
+        "qc_notes": ""
+      },
+      {
+        "query_key": "ZTILAOCGFRDHBH",
+        "spectrum_id": "MSBNK-NILU-NL0230",
+        "adduct": null,
+        "precursor_mz": 291.06964,
+        "query_neutral_mass": 291.06964,
+        "qc_pass": true,
+        "qc_notes": ""
+      },
+      {
+        "query_key": "OFUMQWOJBVNKLR",
+        "spectrum_id": "MSBNK-mFam-MC21_000277",
+        "adduct": "[M-H2O-H]-",
+        "precursor_mz": 289.0718,
+        "query_neutral_mass": 289.0718,
+        "qc_pass": true,
+        "qc_notes": ""
+      }
+    ],
+    "unknown_adduct_spectrum_count": 5,
+    "selected_accessions_also_in_historical_discards": 35,
+    "interpretation": "Conditional ranking is observed after oracle insertion; four Top25 hits and the CONTINUE criterion are already guaranteed by small windows. A stability and no added decoys do not measure realistic expansion interference, since inserted structures enter only their own B query windows. Coverage50 uses mass ranking, not FP or full v9 ranking."
+  },
+  "mist": {
+    "date": "2026-10-12",
+    "scope": "Read-only code/log audit; no model run, training, asset downloads, or repository edits. Official code read through web.",
+    "inputs": [
+      {
+        "path": "artifacts/mist-single/run_mist_single.py",
+        "sha256": "6efe25750baf3fb3f3a802cc1de7aee3a03acde87a44be60b250d42e7435f7fe"
+      },
+      {
+        "path": "artifacts/mist-single/single_molecule_input.json",
+        "sha256": "c920804f2884e90910cfdb41996f94228ccc4db543521ef79adfac7c625262f1"
+      },
+      {
+        "path": "notebooks/colab/mist-single-colab.ipynb",
+        "sha256": "caa45dac655ebd502c1241594652e10b64493878c5941df31e5fb23a18e43ee5"
+      },
+      {
+        "path": "user-exported-notebook/mist-single-colab.ipynb",
+        "sha256": "af62b5127beaf964455a24044564ce744e15d3d99eb3d75a677f51f127041f64"
+      }
+    ],
+    "observed_stages": {
+      "download_md5_matched": "reported by executed notebook cell5",
+      "DLM_sampler_initialized": true,
+      "MIST_weights_loaded": true,
+      "MIST_missing_unexpected": [
+        0,
+        0
+      ],
+      "MIST_forward_executed": false,
+      "denovo_executed": false,
+      "formula_generation_executed": false,
+      "fingerprint_planned": null,
+      "elapsed_script_seconds": 38.2,
+      "stop": "SAFE_BLOCKED"
+    },
+    "findings": [
+      {
+        "id": "M1",
+        "claim": "slicer=None sets matching_bonds=[]; encoder defaults allow_empty=False. The roundtrip fails by invocation contract; molecular size does not explain it.",
+        "local_lines": [
+          440,
+          458
+        ],
+        "source": "https://raw.githubusercontent.com/datamol-io/safe/0.2.1/safe/converter.py"
+      },
+      {
+        "id": "M2",
+        "claim": "Formula/fingerprint-conditioned generation constructs masked BOS/EOS inputs and does not encode ground-truth SMILES. The local truth roundtrip is an optional diagnostic incorrectly used to abort all generation.",
+        "source": "https://raw.githubusercontent.com/coleygroup/FRIGID/d242a2c06d671e0fb6fbc1a5b31f0e19e24b456d/src/dlm/sampler.py"
+      },
+      {
+        "id": "M3",
+        "claim": "Peak data are only integrity-checked. The MIST encoder is loaded but not called; run_arm hardcodes fingerprint=None. This is not full spectrum-conditioned MIST/FRIGID validation.",
+        "local_lines": [
+          180,
+          226,
+          255,
+          257,
+          352,
+          368,
+          426,
+          427
+        ]
+      },
+      {
+        "id": "M4",
+        "claim": "Environment and checkpoint loading succeeded to this stage; full runtime compatibility and valid generated molecules remain untested. The current exception is in the local SAFE diagnostic, not evidence of a checkpoint defect."
+      },
+      {
+        "id": "M5",
+        "claim": "data/len.pk missing in execution logs; sampler defaults to random target length range20-99. min_add_len2 does not restore trained length distribution."
+      },
+      {
+        "id": "M6",
+        "claim": "run_arm increments n_gen by filtered returned samples, retries until survivors reach B, and inserts None placeholders on empty return. Requested slots, raw returned, and validity denominators are not independently counted.",
+        "local_lines": [
+          249,
+          265
+        ]
+      },
+      {
+        "id": "M7",
+        "claim": "Base misses do not imply union rank equals generator rank. No union candidate scoring occurs in this script; union MRR assignment must not be presented as measured union performance.",
+        "local_lines": [
+          489,
+          515
+        ]
+      }
+    ],
+    "next_minimal_step": [
+      "Fix local optional SAFE diagnostic with allow_empty=True for no-slicing, or use a fixed known molecule unrelated to query; do not change bracket-safe checkpoint representation.",
+      "Keep diagnostic failure separate from spectral featurizer compatibility. Run one supported positive-mode spectrum through official subformula featurizer and MIST4096 encoder and save shape/range/SHA of the actual predicted vector.",
+      "Only after actual spectrum-derived FP exists, call decoder once at fixed B10, record requested/returned/parsed/formula-matched/unique separately; oracle formula arm clearly diagnostic, predicted formula arm separate.",
+      "Keep sampler/checkpoint/tokenizer/length assets explicit; no repeated formula-only generation to infer spectrum-conditioned effectiveness.",
+      "No submission change justified by current SAFE_BLOCKED run."
+    ],
+    "extra_reference": "https://raw.githubusercontent.com/coleygroup/FRIGID/d242a2c06d671e0fb6fbc1a5b31f0e19e24b456d/scripts/benchmark_spec2mol.py"
+  },
+  "source_hashes": {
+    "artifacts/007-r3/pool_pilot.json": {
+      "bytes": 41929,
+      "sha256": "991712232e582eac4d1ae136796d8d324c61fd317b87b5087fc17587333690c4"
+    },
+    "artifacts/007-r3/observations_10.json": {
+      "bytes": 80126,
+      "sha256": "e52aa0e8bcc8680aaa0d6f55e8c6aea654b103929b51ee8748ca65130de40c39"
+    },
+    "artifacts/007-r3/observations_50.json": {
+      "bytes": 153129,
+      "sha256": "16f5902cb2db9e9c71726cc7e17834d0168b31e0628b1ef3f18fb2d9519b6ded"
+    },
+    "artifacts/007-r3/coverage_50.json": {
+      "bytes": 21467,
+      "sha256": "df84f6f83cda9b8686e47ad380039b13bb3ddfa48db23df1f5ace99b9267f4aa"
+    }
+  }
+}
