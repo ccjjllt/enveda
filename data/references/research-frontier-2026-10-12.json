@@ -1,0 +1,200 @@
+{
+  "checked_at_utc": "2026-10-12T03:25:21.824388+00:00",
+  "access": "Kaggle MCP transport failed; official Python SDK read-only succeeded; no remote job or submission",
+  "competition": {
+    "id": 143318,
+    "title": "Enveda CASMI 2026 - Molecule ID From Mass Spectra",
+    "teamCount": 3099,
+    "userRank": 1787,
+    "deadline": "2026-12-14T23:59:00.000Z",
+    "newEntrantDeadline": "2026-12-07T23:59:00.000Z",
+    "maxDailySubmissions": 5,
+    "maxTeamSize": 5
+  },
+  "latest_submission": {
+    "ref": 57028399,
+    "publicScore": "0.323",
+    "status": "COMPLETE",
+    "date": "2026-10-10T02:29:10.667Z",
+    "url": "/code/ccjjllt/enveda-submission-v9?scriptVersionId=356902571"
+  },
+  "public_leaderboard_top20": [
+    {
+      "teamId": 17010563,
+      "teamName": "CHU1PC",
+      "submissionDate": "2026-10-11T19:16:27.566Z",
+      "score": "0.491"
+    },
+    {
+      "teamId": 17016393,
+      "teamName": "MarvinTMB",
+      "submissionDate": "2026-10-08T20:48:40.643Z",
+      "score": "0.484"
+    },
+    {
+      "teamId": 16893685,
+      "teamName": "pikachu",
+      "submissionDate": "2026-10-10T22:06:57.353Z",
+      "score": "0.481"
+    },
+    {
+      "teamId": 16931672,
+      "teamName": "Kucing Garong",
+      "submissionDate": "2026-10-11T15:03:30.236Z",
+      "score": "0.465"
+    },
+    {
+      "teamId": 16951697,
+      "teamName": "Oliver Ford",
+      "submissionDate": "2026-10-12T00:03:53.710Z",
+      "score": "0.461"
+    },
+    {
+      "teamId": 17027289,
+      "teamName": "David Zapata",
+      "submissionDate": "2026-10-12T00:00:05.650Z",
+      "score": "0.459"
+    },
+    {
+      "teamId": 16983523,
+      "teamName": "vukpetar",
+      "submissionDate": "2026-10-11T09:26:28.933Z",
+      "score": "0.458"
+    },
+    {
+      "teamId": 16944450,
+      "teamName": "Yuuki Aikawa",
+      "submissionDate": "2026-10-11T03:25:32.726Z",
+      "score": "0.457"
+    },
+    {
+      "teamId": 16947860,
+      "teamName": "Sho Saga",
+      "submissionDate": "2026-10-11T06:37:55.286Z",
+      "score": "0.457"
+    },
+    {
+      "teamId": 16897131,
+      "teamName": "Randy",
+      "submissionDate": "2026-10-12T00:01:32.296Z",
+      "score": "0.455"
+    },
+    {
+      "teamId": 17063194,
+      "teamName": "Oleksandr Parfionov",
+      "submissionDate": "2026-10-12T00:07:43.620Z",
+      "score": "0.452"
+    },
+    {
+      "teamId": 16914499,
+      "teamName": "Baligh",
+      "submissionDate": "2026-10-11T13:26:07.666Z",
+      "score": "0.451"
+    },
+    {
+      "teamId": 16980103,
+      "teamName": "KhatMal Gang",
+      "submissionDate": "2026-10-11T13:00:30.963Z",
+      "score": "0.450"
+    },
+    {
+      "teamId": 16917683,
+      "teamName": "Sls2",
+      "submissionDate": "2026-10-11T19:02:15.200Z",
+      "score": "0.449"
+    },
+    {
+      "teamId": 17010829,
+      "teamName": "Hoàng Hà Huy",
+      "submissionDate": "2026-10-12T01:13:16.353Z",
+      "score": "0.448"
+    },
+    {
+      "teamId": 16937168,
+      "teamName": "Savko",
+      "submissionDate": "2026-10-11T10:04:11.270Z",
+      "score": "0.448"
+    },
+    {
+      "teamId": 16915030,
+      "teamName": "DDM",
+      "submissionDate": "2026-10-12T00:10:48.903Z",
+      "score": "0.448"
+    },
+    {
+      "teamId": 16926646,
+      "teamName": "Shehab Alshehabi",
+      "submissionDate": "2026-10-11T19:42:06.206Z",
+      "score": "0.448"
+    },
+    {
+      "teamId": 16894941,
+      "teamName": "PL",
+      "submissionDate": "2026-10-11T12:32:52.456Z",
+      "score": "0.448"
+    },
+    {
+      "teamId": 16894892,
+      "teamName": "toolazyhhh123",
+      "submissionDate": "2026-10-11T13:29:55.156Z",
+      "score": "0.448"
+    }
+  ],
+  "sources": {
+    "rules": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/rules",
+    "overview": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/overview",
+    "leaderboard": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard"
+  },
+  "official_clarifications": {
+    "train_derived_assets": {
+      "topic": 745072,
+      "comment": 3536169,
+      "author": "David Healey",
+      "date": "2026-10-09",
+      "finding": "Only inherited train.parquet noncommercial restriction does not disqualify derived assets; PubChem/COCONUT are fine; scope of compliance review still unresolved."
+    },
+    "named_allowed": {
+      "topic": 745841,
+      "comment": 3533343,
+      "author": "David Healey",
+      "date": "2026-10-05",
+      "finding": "GLACIER/ICEBERG, DreaMS, ChEBI/LIPID MAPS and train.parquet-trained redistributed artifacts confirmed."
+    },
+    "nist_specific_exception": {
+      "topic": 745832,
+      "comment": 3536140,
+      "author": "David Healey",
+      "date": "2026-10-09",
+      "finding": "GNPS-NIST14-MATCHES specifically allowed for library matching and training; this does not allow new NIST-derived datasets."
+    }
+  },
+  "unanswered_specific_topics": [
+    748065,
+    748357,
+    748363,
+    746430
+  ],
+  "participant_claims_not_official": [
+    "748068 public notebook CV concern; estimated130public molecules is participant estimate, not official count",
+    "748029 tail guesses reducing score has no official reply; no metric change inferred"
+  ],
+  "quota_raw": {
+    "quotaRefreshTime": "2026-10-17T00:00:00.000Z",
+    "gpuQuota": {
+      "timeUsed": "76915.244.0s",
+      "timeReserved": "0s",
+      "totalTimeAllowed": "21600s",
+      "minimumTimeAllowed": "21600s",
+      "hasEverRun": true
+    },
+    "tpuQuota": {
+      "timeUsed": "0s",
+      "timeReserved": "0s",
+      "totalTimeAllowed": "72000s",
+      "minimumTimeAllowed": "72000s",
+      "hasEverRun": true
+    }
+  },
+  "quota_interpretation": "gpu timeUsed string malformed 76915.244.0s and greater than returned21600s total; do not infer availableGPUhours or launch job based on it",
+  "raw_artifacts": "artifacts/009-official/"
+}

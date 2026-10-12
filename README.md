@@ -4,17 +4,18 @@
 
 比赛：[`enveda-CASMI26-molecule-id-mass-spectra`](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra)。最初提供的第一个链接显示文字为 ARC Prize，但实际链接属于 Enveda；本项目只研究 Enveda。
 
-## 当前研究入口：008（2026-10-12）
+## 当前研究入口：009（2026-10-12）
 
-目标为最终奖金与金牌。最新有效提交为 **v9r2，public 0.323**（ref `57028399`，2026-10-12 Kaggle MCP重新核实COMPLETE）；v7为0.206，v8为0.307。当前方案为 **FPNet single + 10ppm/canonical/top100 + ICEBERG逐CE预测合并谱后z融合**。最新审查与提交判断见[008进展](docs/progress/008-submission-readiness-and-recall.md)，下一步见[008计划](docs/plan/008-submission-readiness-and-recall.md)。目前保留v9，待可部署新变更完成同口径比较后再做验证性提交。
+目标为最终奖金与金牌。最新有效提交为 **v9r2，public 0.323**（ref `57028399`，2026-10-12官方SDK重新核实COMPLETE）；当前公开rank1787/3099，第一0.491、第五0.461，均为当日快照而非最终获奖线。当前方案为 **FPNet single + 10ppm/canonical/top100 + ICEBERG逐CE预测合并谱后z融合**。最新实际研究见[009进展](docs/progress/009-frontier-and-transfer.md)，设计见[009计划](docs/plan/009-frontier-and-transfer.md)。保留v9，本轮无远端作业或submission。
 
 - F1已由用户在Colab完成：NP250上GL50 mean-CE **0.639061** → GL100 mean-CE **0.654133**；ICE100逐CE合并谱 **0.668997**。后者已进v9；public相对v8提高0.016，但多个配置同时改变，不能把增益全归于ICEBERG。
-- 007-R1D修正了库身份/来源移除等问题：NP有参考 **0.6690→0.7560**，真值参考移除降至 **0.6117**（α=0.5），不进提交。008发现缺库清零只在推理启用、训练未启用，且无forward分子无法用库证据；下一步仅做评分函数一致的固定D2对照，不扫α。
+- 008-D2实际完成：NP seen **0.6690→0.7223**，压力 **0.6563**、改错5个Top1，不部署。009发现训练α=1/推理α=.25仍错配，且两域未共享模型；“完全一致对照完成”的说法已更正。无ICE覆盖条件的库补充有事后线索，不继续全域扫α。
 - FIORA-OS的22分子固定融合：同池base **0.4373**，失败续后 **0.2606**，本次改为缺失证据中性且统一排序后 **0.3035**；仍不进提交、不扩大原配置。缺预测条目与零峰原因尚未区分。FRIGID仍缺完整MIST谱条件，不能否定整个生成方向。
 - F4a head训练500步后，固定shortlist内重排MRR：纯BCE **0.2551**，BCE+rank **0.4790**；历史原模型基线0.5146未在同一评测器重算，比较有口径限制。两套新head均不部署，当前训练配置封存；日志梯度范数在AMP反缩放前记录，不能据此认定梯度爆炸。
 - G1研究250已评估：base **0.884250**、ICE mean **0.907784**、ICE merge **0.907022**；merge增量区间含0，逐CE相对mean的额外收益尚未确证。35/36个Top1错例真值在top100，其中12个无forward覆盖。来源窄、公开权重暴露unknown，保留250继续不用于调参。
-- R3已有50分子/59谱，质量覆盖尚非FP/ICE效果。五个B的 **0→0.64** 只来自把已知真值放入池的oracle诊断，不能证明真实扩池有效；下一步需要固定外部结构库的无标签召回，包含真实干扰。
-- MIST单分子仅完成权重加载，未前向/生成。SAFE失败源于`slicer=None`且默认`allow_empty=False`，不能靠换大分子解决；完整4096谱指纹仍未接通。R0缓存修复不重复跑全量，当前无新增submission。
+- 008已实现MassBank完整固定索引的真实无标签扩库（新增539结构），B_known20/21进FP top25；009复算并查明移除query贡献者后覆盖0/21，不能外推独立发现率。539结构实际进入NP/G1研究窗后FP MRR不变；完整ICE尚缺12个有支持条件的新增候选对补分。
+- 009多谱固定对照：全部谱均值＋ICE使NP **0.6690→0.6431**、G1 **0.9070→0.9197**，全局均值不采用；仅无ICE条件使用多谱均值的事后规则有小幅正向线索，仍需独立验证。公开高分族的主差异是多引擎/更广候选/同式重排，不是单一ICE替换；11份源码审查见009。
+- MIST已修正SAFE与指纹接口的CPU路径，完整4096谱指纹前向仍未接通；不把formula-only当完整生成。FRIGID checkpoint具体资格问题本轮未见官方答复，当前不是最接近提交的路线。
 
 ## 比赛要点
 
@@ -32,7 +33,7 @@
 
 来源：[概览与评测](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/overview)、[官方评分代码](https://www.kaggle.com/code/metric/casmi-mean-reciprocal-rank)、[规则](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/rules)、[数据](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/data)。API 元信息里可能仍显示旧的指标名称，采用评测说明中的 MRR@25。
 
-主办方最新答复明确：使用或训练于 NIST 的方案会被取消资格，包括只争奖牌的情形。优先采用已明确准许的 MassSpecGym 及相应 GLACIER 权重；CFM-ID 4 是另一个已确认具体案例，不外推到其他模型。[NIST 最新说明](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/744470#3530300)、[GLACIER 确认](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/744338)、[CFM-ID 4 确认](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/743774)
+主办方禁止NIST及其训练模型，一般违规可取消排名与奖牌；10月9日另明确长期公开的 **GNPS-NIST14-MATCHES** 可用于库匹配和训练，不可外推到其他NIST衍生资产。本项目本轮未使用该例外。MassSpecGym来源GLACIER/ICEBERG、DreaMS、ChEBI/LIPID MAPS已获具体确认；仅继承train.parquet非商用标记的资产可用，不因包级`Other`一刀切否定。[NIST说明](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/744470#3530300)、[具体例外](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745832#3536140)、[模型及结构库确认](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745841#3533343)、[训练资产说明](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/745072#3536169)
 
 当前可见 `test.parquet` 是从训练集抽取的**占位数据**，最终会替换成隐藏测试集。不能把可见 test 上的记忆、精确检索或高命中率作为研究效果。官方描述隐藏数据约 400 个分子、1,500 张谱，全部来自 timsTOF，覆盖 10 类 adduct；这些描述不等于当前占位文件的实际统计。
 

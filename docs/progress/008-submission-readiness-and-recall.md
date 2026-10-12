@@ -138,6 +138,8 @@ UTDAG（positive prec 433.1217≈M+1.007）与 JOECR（prec- mass 18.04）等无
 
 ## 008-A D2固定对照：实际结果（2026-10-12，主审复核，判STOP）
 
+**009后续更正：** 下文`max_abs_diff=0`只验证raw门控残差的逐行/批量一致；训练pair logit仍隐含α=1、推理α=.25，且仍分NP/G1独立模型，未完成计划要求的最终评分一致及共享模型对照。压力退化数值和当前配置STOP仍成立，不据此否定整条一致残差方法。详见[009复核](009-frontier-and-transfer.md)。
+
 单配置 α=0.25、τ=1.0，不扫描。新增 `src/evidence_residual.py`（门控残差+标准化+分组排序同一函数）
 与 `scripts/run_008_d2.py`（只读冻结 `artifacts/007-r1d/` 特征/A_full/folds，复用 forward 缓存，
 不重建库、不覆盖D、不重训FPNet）。NP/G1分域独立5折，4副本同折，μ/sd只用训练折。
