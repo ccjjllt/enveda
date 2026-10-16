@@ -1,5 +1,7 @@
 # 009 — 高分方案与可迁移性：实际研究结果
 
+**2026-10-14复核更新：** 新结果与提交判断见[010进展](010-submission-review-and-frontier.md)。G1原保留250已于10月13日用过；条件多谱未确认收益，539扩库则应按正确base/expanded对照单独决定。官方FRIGID与训练交付问题已有新答复。以下按日期保留历史。
+
 日期：2026-10-12，北京时间。对应[009计划](../plan/009-frontier-and-transfer.md)。继承008新增结果，本轮读取官方当前信息、11份公开notebook源码，并执行CPU研究；不创建测试文件/框架/CI，不读G1保留250，无远端作业或submission。
 
 ## 官方现状与目标差距
@@ -148,6 +150,8 @@ R3-50共50分子/59谱：A25（库内、无参考谱，inC真、nref全0）/B25�
 
 ### 下一来源判断（每来源新增/命中/干扰成本）
 
+**010更正：** 非脂质R3上LMSD零命中不能推出停止ChEBI/PubChem；下述资源暂缓决定不等于科学否定或官方禁止。PubChem公开结构及合规元数据已获官方允许。
+
 LMSD：新增22765 canonical / 全库·窗·top100·top25新增命中0 / 干扰成本+15窗对、top100内14对top25、7个旧top25尾部移位、MRR与Top1/Top25零变化、A零挤下损失。本批B为非脂质小分子化学，LMSD脂质库不覆盖其真值，符合预期 chemotype 失配；该零命中是本固定样本的观测，不得外推为隐藏（timsTOF、化学未知）无价值。判断：**不扩展下一来源**（ChEBI小子集/PubChem均不启动），不搬入大库，不用public调阈值；LMSD索引离线保留但不部署。下一来源仅当出现化学匹配的许可清晰小快照并配固定观察集时再议。
 
 MIST状态一句话：008-C仅完成CPU接口修正与校验脚本跑通，完整谱条件前向与生成评价尚未执行，本轮继续deferred。
@@ -159,8 +163,8 @@ MIST状态一句话：008-C仅完成CPU接口修正与校验脚本跑通，完�
 冻结规则（单一label-blind管线，`artifacts/009-conditional/frozen_config.json`）：
 - 有ICE支持条件（`metadata_has_supported_record=True`：存在正模式`[M+H]+/[M+Na]+`记录）→v9代表谱+ICE融合（`z(base)+z(sims)`，scored优先，冻结top100，Top25输出）。
 - 无ICE支持条件（否则）→全部谱logits均值FP（`all_mean`）在全原质量窗、原代表SMILES上排序`(-score, canon)`，取Top25；无ICE、无新候选、不重建shortlist。
-- `all_mean` vs `adduct平衡均值`二选一按先验简约固定为`all_mean`（等权每谱、无额外adduct分组超参；单谱时两者一致；与全窗诊断定义连续），未用开发MRR挑选。`observed-ICE`仅审计mismatch，不翻转路由；未来须区分不支持条件与解析/预测/预算失败。
-- 原`conditional_diagnostic.json`（含`[M+H]+/[M+Na]+`路由）明确标为`POST_HOC_DIAGNOSTIC_NOT_DEPLOYABLE`，不得直接转正；本次冻结为独立先验冻结，开发数字仅诊断。
+- `all_mean` vs `adduct平衡均值`二选一按先验简约固定为`all_mean`（等权每谱、无额外adduct分组超参；单谱时两者一致；与全窗诊断定义连续），该规则是在看过开发结果后选定，之后没有用新250结果重选。`observed-ICE`仅审计mismatch，不翻转路由；未来须区分不支持条件与解析/预测/预算失败。
+- 原`conditional_diagnostic.json`（含`[M+H]+/[M+Na]+`路由）明确标为`POST_HOC_DIAGNOSTIC_NOT_DEPLOYABLE`，不得直接转正；本次为开发选型后、使用新250前冻结，不能称独立先验规则；开发数字仅诊断（010复核更正）。
 
 实现：新增`scripts/run_009_conditional.py`，输入只用谱metadata（模式/adduct/仪器/CE）与ICE支持判定，输出逐分子路由决策、两分支Top25及分数、最终排序。产物新目录`artifacts/009-conditional/`，记录seed 20261012、输入SHA、墙钟。
 
@@ -211,17 +215,19 @@ R3完整v9基线缺口（`r3_baseline_gaps.json`，只排清单不跑新分）�
 
 逐例（split，基→扩，RR同）：BHQC 40→42（RR 0→0，仍25外）、BMLI 8→8、DFMA 2→2、HSMP 1→1、HYFH 1→1、ILED 1→1、LOIY 1→1、WJXS 1→1、GKB/PZQD/SFHL均1→1；12新候选融合rank为23/26/26/41/47/14/20/3/46/24/77/19（仅LOIY新ZCIF rank3进Top25，真值仍rank1）。mean逐例同样零RR增损（BHQC 36→36等）。全250外推Δ均为0（NP分母250、G1分母250，其余分子无新增视作不变）。审计：FP重叠base差0；ICE新旧重叠623对split最大差5.25e-04（PZQD/SFHL各1对，其余<1e-6，系any-rdkit数值微差，已记录）。
 
-Verdict：**NOT_SUBMIT，不构成单一提交候选**。四条：①单主要变化通过（固定539扩库）；②同口径可解释正向不通过（split+mean双零增益，无Top1/Top25得失）；③已知退化已处理通过（BHQC 40→42仍25外、G1尾部挤出未伤真值、BJRN 3/RUDA 21不变，R3缺口另列）；④离线可跑通过（T4全量约1.3min pure/5-10min含overhead，CPU融合0.92s）。缺口：真值已在库子集上新增全为干扰；R3 B_known 20/21的FP召回尚未做完整v9融合，YTCZZ盐等缺口未闭环；不得外推隐藏收益。下一步按009计划先冻R3完整v9基线或找库外真值融合正向证据。
+**010更正：本表零增损应视为原真值已在库条件下的干扰回归，不是扩库失败；结合R3真正base/expanded对照，固定539扩库已值得制作验证提交。** 以下为当时尚未补齐正确比较的判断：NOT_SUBMIT。四条：①单主要变化通过（固定539扩库）；②同口径可解释正向不通过（split+mean双零增益，无Top1/Top25得失）；③已知退化已处理通过（BHQC 40→42仍25外、G1尾部挤出未伤真值、BJRN 3/RUDA 21不变，R3缺口另列）；④离线可跑通过（T4全量约1.3min pure/5-10min含overhead，CPU融合0.92s）。缺口：真值已在库子集上新增全为干扰；R3 B_known 20/21的FP召回尚未做完整v9融合，YTCZZ盐等缺口未闭环；不得外推隐藏收益。下一步按009计划先冻R3完整v9基线或找库外真值融合正向证据。
 
 手动命令：`mkdir -p artifacts/009-v9recall/scores && cp /Users/zhaohuaxiang/Downloads/v9recall-scores.tar.gz artifacts/009-v9recall/scores/v9recall-scores.tar.gz && tar xzf artifacts/009-v9recall/scores/v9recall-scores.tar.gz -C artifacts/009-v9recall/scores/`；`/opt/homebrew/bin/python3.11 scripts/evaluate_009_v9recall_fusion.py`（0.92s CPU）。
 
 ## 009-R3-50 完整v9基线融合评估（2026-10-12，CPU-only）
 
+**010更正：** 本节表格的基线为已扩库FP，处理为已扩库FP＋ICE；不是不扩库v9→扩库v9。B层ICE退化不能归因于扩库。原代表谱/原评分逻辑的正确扩库比较已在010重算。
+
 对应009计划下一步第1项（R3完整v9基线）与本进展“下一步”第1条后半段。CPU-only，零GPU，不push/submit，不读G1保留250，不扫权重/阈值，不写测试文件/CI，手动运行+人工核对。脚本`scripts/evaluate_009_r3baseline_fusion.py`（新），产物`artifacts/009-r3baseline/fusion_eval.json`（seed 20261012，墙钟2026-10-12T20:48:29+08:00，Python3.11.16、NumPy2.4.6，输入SHA见产物内）。
 
 入库：原包`/Users/zhaohuaxiang/Downloads/v9r3baseline-scores.tar.gz`不动，复制到`artifacts/009-r3baseline/scores/v9r3baseline-scores.tar.gz`，SHA256 `d65e2cc18f1d8ed995a1a0dfb810a873446dace5b334aff9f9a2f5d2ffa97990`两端一致；解包得`scores/`下split/mean两JSON+两meta四件齐备（split 260651字节`f7b751a1…`、mean 240254字节`a851cea0…`，meta `89a33695…/cfab0998…`，tar内顶层`scores/`）。meta核对：split/mean均为`n_mols 23/n_cands 523/unique_jobs 523/status ok/n_mols_covered 23/n_spectra_unsupported 4`，`prep_tag panel-A1:v1`、`ckpt gen deef0451…/inten c49e330e…`与`weights_reference.json`一致、`ms_pred_commit 708148c2…`、`n_pred 1569/n_pred_fail 0/n_bad_smiles 0`（零失败）、`device cuda/rdkit 2026.09.1/torch 2.11.0+cu130`；`n_scored=0`是已知`np.unicode_`计数器bug（007已记录，23条同错），分数有效。断言通过（不一致即停，未触发）：split `fused 523/523`非空有限、`fused_merge 0/523`全空；mean `fused 523/523`真实有效；`sims`全为`(ce=null,ce_bucket=null,how=merged-sum)`，即R3谱CE全未知→null→sum桶，无逐CE预测可合并；split/mean `fused`最大差0、`base`与bundle最大差0。YTCZZ真值核对一致：`fused(mean)=0.12734447`，`base=-732.16483289`，FP rank40。
 
-融合口径（数据强制，不是开发挑选）：“R3因CE未知无split-merge可用，改用mean路；与NP/G1的fused_merge主方案不同口径，不混为一谈”。如实改用ICE-mean路`fused`做`z(base)+z(ice_fused)`等权融合（ddof1，<2/零方差→0，missing不参与均值贡献0；scored按`(-fused,canon)`、unscored按`(-base,canon)`续后；支持23全scored，无续后分支触发；truth仅排序后计RR）。4 NILU与27不支持分子不参与ICE融合（维持原规则：不支持走CPU all-mean FP即`r3_50_full_candidate_scores.json expanded`已有分数；4不确定`NMVVBVMYPLMIOU/UTDAGHZGKXPRQI/JOECRAPIMXFQDL/ZTILAOCGFRDHBH`0候选单列排除，不入分母）。
+融合口径（010更正）：“R3因CE未知无split-merge分数，本实验另外选择mean路作诊断；这是未知CE回退这一独立方法变化，并非数据强制，也不是原v9。不与NP/G1的fused_merge主方案混为一谈”。如实改用ICE-mean路`fused`做`z(base)+z(ice_fused)`等权融合（ddof1，<2/零方差→0，missing不参与均值贡献0；scored按`(-fused,canon)`、unscored按`(-base,canon)`续后；支持23全scored，无续后分支触发；truth仅排序后计RR）。4 NILU与27不支持分子不参与ICE融合（维持原规则：不支持走CPU all-mean FP即`r3_50_full_candidate_scores.json expanded`已有分数；4不确定`NMVVBVMYPLMIOU/UTDAGHZGKXPRQI/JOECRAPIMXFQDL/ZTILAOCGFRDHBH`0候选单列排除，不入分母）。
 
 23支持逐例基线（FP top100内rank/RR）vs融合后rank/RR（mean路，RR@25）：
 
@@ -281,6 +287,6 @@ Verdict：**NOT_SUBMIT**。四条：①单主要变化通过（支持分支FP→
 
 Top25得失键：得0、失0。不支持层4例RR变化：改对1（GLPAKWAJVAXLMJ rank2→1）、改错3（NJNOQHUTUOJWII rank1→2、NQCKXVOUOLCXPN rank1→2、YZSPJKXBERQUHI rank2→3）；Top1改对1（GLPA）、改错2（NJNO/NQCK）。支持层final与v9逐分子全同（符合构造：支持分支final即v9）。独立numpy重算AAIPSAYOWGJQIZ v9 Top25与fused_zsum零差异。
 
-Verdict：**NOT_SUBMIT，不构成单一提交候选**。四条：①单主要变化通过（冻结单规则一次性执行，无扫描、无阈值、无重选，mismatch 0）；②同口径可解释正向不通过（全体Δ −0.002667为负、Top1净−1、Top25零得失；支持层恒等无增益、不支持层18例Δ −0.037小样本不能外推）；③已知退化未处理不通过（不支持层3例RR恶化+2例Top1改错机制未查；v9诊断基线在不支持层本就无ICE，不是对 deployable 分支的比较，不得据此改all_mean）；④离线可跑部分通过（CPU评分0.58s；但提交端新query仍需ICE forward，其GPU/Colab成本与CPU最终notebook可行性未在本轮验证）。缺口：G1保留集已耗用、无第二轮确认可用；不支持层样本小、恶化机制未解释；不得合成隐藏比例总分、不得据public总分推断隐藏类别。下一步：冻结规则保持部署候选状态，缺口需新数据一次比较或跨域同口径正向证据。
+Verdict：**NOT_SUBMIT，不构成单一提交候选**。四条：①单主要变化通过（冻结单规则一次性执行，无扫描、无阈值、无重选，mismatch 0）；②同口径可解释正向不通过（全体Δ −0.002667为负、Top1净−1、Top25零得失；支持层恒等无增益、不支持层18例Δ −0.037小样本不能外推）；③已知退化未处理不通过（不支持层3例RR恶化+2例Top1改错机制未查；v9在不支持层的代表谱FP就是可部署回退，因此比较有效；暂不采用的依据是此次确认未支持替换，不要求每个退化都先被因果解释（010更正））；④离线可跑部分通过（CPU评分0.58s；但提交端新query仍需ICE forward，其GPU/Colab成本与CPU最终notebook可行性未在本轮验证）。缺口：G1保留集已耗用、无第二轮确认可用；不支持层样本小、恶化机制未解释；不得合成隐藏比例总分、不得据public总分推断隐藏类别。010复核决定：该条件规则暂不进入默认部署，不按本次错例加阈值，也不循环追加数据直到转正；539扩库独立判断。
 
 手动命令：`cp /Users/zhaohuaxiang/Downloads/v9heldout-scores.tar.gz artifacts/009-heldout/scores/v9heldout-scores.tar.gz && tar xzf artifacts/009-heldout/scores/v9heldout-scores.tar.gz -C artifacts/009-heldout/scores/`；`/opt/homebrew/bin/python3.11 scripts/score_009_heldout.py`（0.58s CPU）；独立numpy重算AAIPSAYOWGJQIZ Top25零差异、tar SHA两端一致已核。

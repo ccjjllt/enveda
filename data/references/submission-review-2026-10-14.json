@@ -1,0 +1,263 @@
+{
+  "checked_at_utc": "2026-10-14 13:32:45 UTC",
+  "access": "Kaggle MCP read-only; current data not historical snapshot",
+  "competition": {
+    "team_count": 3277,
+    "user_rank": 1932,
+    "deadline": "2026-12-14T23:59:00Z",
+    "new_entrant_deadline": "2026-12-07T23:59:00Z",
+    "max_daily_submissions": 5,
+    "max_team_size": 5
+  },
+  "latest_submission": {
+    "ref": 57028399,
+    "public_score": "0.323",
+    "status": "COMPLETE",
+    "url": "/code/ccjjllt/enveda-submission-v9?scriptVersionId=356902571",
+    "date": "2026-10-10T02:29:10.667Z"
+  },
+  "public_top25": [
+    {
+      "team_id": 17010563,
+      "team_name": "CHU1PC",
+      "submission_date": "2026-10-14T02:04:40.176666700Z",
+      "score": "0.491"
+    },
+    {
+      "team_id": 16893685,
+      "team_name": "pikachu",
+      "submission_date": "2026-10-14T03:26:00.840Z",
+      "score": "0.485"
+    },
+    {
+      "team_id": 17016393,
+      "team_name": "MarvinTMB",
+      "submission_date": "2026-10-08T20:48:40.643333300Z",
+      "score": "0.484"
+    },
+    {
+      "team_id": 17063194,
+      "team_name": "Oleksandr Parfionov",
+      "submission_date": "2026-10-14T00:07:39.266666700Z",
+      "score": "0.482"
+    },
+    {
+      "team_id": 16911977,
+      "team_name": "Dmitrii Khizbullin",
+      "submission_date": "2026-10-13T23:13:46.770Z",
+      "score": "0.467"
+    },
+    {
+      "team_id": 16931672,
+      "team_name": "Kucing Garong",
+      "submission_date": "2026-10-11T15:03:30.236666700Z",
+      "score": "0.465"
+    },
+    {
+      "team_id": 16961619,
+      "team_name": "JJ",
+      "submission_date": "2026-10-14T05:42:34.900Z",
+      "score": "0.461"
+    },
+    {
+      "team_id": 16944450,
+      "team_name": "Yuuki Aikawa",
+      "submission_date": "2026-10-14T02:41:26.660Z",
+      "score": "0.461"
+    },
+    {
+      "team_id": 16951697,
+      "team_name": "Oliver Ford",
+      "submission_date": "2026-10-14T00:04:00.876666700Z",
+      "score": "0.461"
+    },
+    {
+      "team_id": 16983523,
+      "team_name": "vukpetar",
+      "submission_date": "2026-10-14T06:41:21.310Z",
+      "score": "0.460"
+    },
+    {
+      "team_id": 17027289,
+      "team_name": "David Zapata",
+      "submission_date": "2026-10-14T00:07:56.120Z",
+      "score": "0.459"
+    },
+    {
+      "team_id": 16947860,
+      "team_name": "Sho Saga",
+      "submission_date": "2026-10-13T12:00:29.536666700Z",
+      "score": "0.458"
+    },
+    {
+      "team_id": 16897131,
+      "team_name": "Randy",
+      "submission_date": "2026-10-13T23:38:54.226666700Z",
+      "score": "0.455"
+    },
+    {
+      "team_id": 16926646,
+      "team_name": "Shehab Alshehabi",
+      "submission_date": "2026-10-13T20:52:45.943333300Z",
+      "score": "0.454"
+    },
+    {
+      "team_id": 17012152,
+      "team_name": "Kilupy",
+      "submission_date": "2026-10-13T20:02:21.140Z",
+      "score": "0.453"
+    },
+    {
+      "team_id": 16912774,
+      "team_name": "kakuteki",
+      "submission_date": "2026-10-14T01:42:59.433333300Z",
+      "score": "0.453"
+    },
+    {
+      "team_id": 16914499,
+      "team_name": "Baligh",
+      "submission_date": "2026-10-12T13:51:18.683333300Z",
+      "score": "0.451"
+    },
+    {
+      "team_id": 16941201,
+      "team_name": "1m0ke",
+      "submission_date": "2026-10-14T04:21:49.396666700Z",
+      "score": "0.450"
+    },
+    {
+      "team_id": 16980103,
+      "team_name": "KhatMal Gang",
+      "submission_date": "2026-10-14T04:46:17.286666700Z",
+      "score": "0.450"
+    },
+    {
+      "team_id": 17017573,
+      "team_name": "Parth Talsania",
+      "submission_date": "2026-10-14T02:46:07.200Z",
+      "score": "0.450"
+    },
+    {
+      "team_id": 16980151,
+      "team_name": "Team Rocket",
+      "submission_date": "2026-10-13T00:10:54.583333300Z",
+      "score": "0.450"
+    },
+    {
+      "team_id": 16894576,
+      "team_name": "Xolotl",
+      "submission_date": "2026-10-13T00:00:53.786666700Z",
+      "score": "0.449"
+    },
+    {
+      "team_id": 16924961,
+      "team_name": "Bertan Sezgin",
+      "submission_date": "2026-10-14T11:51:16.433333300Z",
+      "score": "0.449"
+    },
+    {
+      "team_id": 16925918,
+      "team_name": "Timo Diehm",
+      "submission_date": "2026-10-14T00:08:43.810Z",
+      "score": "0.449"
+    },
+    {
+      "team_id": 16917683,
+      "team_name": "Sls2",
+      "submission_date": "2026-10-14T08:43:26.400Z",
+      "score": "0.449"
+    }
+  ],
+  "official_host_replies": {
+    "748552": {
+      "title": "Are the four approved sources meant to extend coverage beyond PubChem?",
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/748552",
+      "host_answers": [
+        {
+          "id": 3538183,
+          "author": "Marie Killian",
+          "date": "2026-10-13T19:56:49.717Z",
+          "text": "Competitors are not limited to the external datasets that have been explicitly approved by name. Other publicly available datasets may be used, provided they comply with the competition’s external-data rules and applicable licensing requirements.\n\nBy definition, class 3 structures are not in PubChem at all and must be predicted de novo."
+        }
+      ]
+    },
+    "748882": {
+      "title": "Consolidated open questions before final selection: reproducibility of official checkpoints, TabPFN / FRIGID, PubChem counts, scorer behaviour (yes/no is enough)",
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/748882",
+      "host_answers": [
+        {
+          "id": 3538202,
+          "author": "Marie Killian",
+          "date": "2026-10-13T20:48:38.123Z",
+          "text": "Thank you for asking for clarification! Here are answers to your questions:\n\nA. Reproducibility and compliance\n1. For the approved MassSpecGym, GLACIER/ICEBERG, and DreaMS checkpoints, it is sufficient to deliver the released checkpoint, a reference to the authors’ original training code and permitted training data, and your own complete fine-tuning and inference code because this provides the full resources to reproduce the weights if necessary. You do not need to re-run the pretraining. \nFor DreaMS, the approval includes the self-supervised backbone provided the weights are not derived from NIST or other prohibited data.\n2. Yes, retraining a participant-shared model architecture on permitted data and providing the training code is sufficient. Alternatively, existing third-party weights may be used if the original training code and permitted training data needed to reproduce them are provided.\nPlease note that we reserve the right to check any and all submissions.\n\nB. Specific models and data\n1. Yes, weights from TabPFN v2 and TabPFN 2.5 and later are eligible under their non-commercial licenses provided you include a reference to the authors’ original training code and permitted training data.\n2. Yes, the official FRIGID checkpoints are allowed with a reference to the authors’ public training code and data.\n3. Yes, the PubChem approval extends to publicly available CID-PMID, CID-Patent, and CID-SID counts used as ranking features, subject to any applicable source  licensing requirements. LOTUS and NPAtlas are also acceptable as structure sources under their respective open licenses.\n\nC. Data and scoring\n1. The live scorer uses first-match MRR and is identical to the published scorer (casmi-mean-reciprocal-rank v13). Adding valid, distinct guesses after an unchanged rank-1 guess will not lower that row’s MRR score, provided the submission passes validation and is scored successfully.\n2. The electron-mass correction was applied only to the hidden test set (not the Enveda-180 data in train.parquet or the Enveda-180 Zenodo release). To apply the same correction to those datasets, subtract 0.000548 Da from positive-mode m/z values. \n3. We are not revealing details of the public/private split, but participants should expect members of all three classes in both sets."
+        }
+      ]
+    },
+    "748363": {
+      "title": "Licence clarification for CC-BY-NC-SA external datasets",
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/748363",
+      "host_answers": [
+        {
+          "id": 3537873,
+          "author": "David Healey",
+          "date": "2026-10-13T07:46:35.620Z",
+          "text": "Those should be fine but feel free to ask about specific instances.  For external data we're mostly worried about datasets with very restrictive redistribution licenses, like NIST"
+        }
+      ]
+    },
+    "749217": {
+      "title": "Compliance: is the approved-dataset list exhaustive, and does \"trained on NIST\" reach models whose training corpus CONTAINS NIST-derived data?",
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/749217",
+      "host_answers": []
+    },
+    "748799": {
+      "title": "Is a model pretrained only on public MassIVE/GNPS data allowed if its authors monitored a NIST20 probe during pretraining?",
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/748799",
+      "host_answers": [
+        {
+          "id": 3537871,
+          "author": "David Healey",
+          "date": "2026-10-13T07:43:33.057Z",
+          "text": "If the model weights aren't a derivative of NIST then they are not in violation of the nist license so should be fine.  "
+        }
+      ]
+    },
+    "748065": {
+      "title": "Prize eligibility: shared model datasets without published training code (yes/no needed)",
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/748065",
+      "host_answers": [
+        {
+          "id": 3537876,
+          "author": "David Healey",
+          "date": "2026-10-13T07:53:52.230Z",
+          "text": "1.  No, for now any winning solution needs to be able to be reproducible. If there's no way to retrain the weights can be retrained on allowed datasets, or to that would be a problem. \n\n2. No, solutions derived from open source datasets even with NC, are fine to use. \n\n3. I believe the compliance check only applies to the selected submissions, but will clarify if otherwise"
+        }
+      ]
+    },
+    "746430": {
+      "title": "FRIGID checkpoints are CC BY-NC: OK to use, or do we need to retrain?",
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/746430",
+      "host_answers": [
+        {
+          "id": 3538189,
+          "author": "Marie Killian",
+          "date": "2026-10-13T20:02:48.417Z",
+          "text": "Yes, the official FRIGID checkpoints are allowed for prize-eligible solutions. Teams do not need to retrain the models themselves, but must provide the original training code and access to the permitted training data needed to reproduce the weights."
+        }
+      ]
+    },
+    "748357": {
+      "title": "Rule 2.4.b: does a model trained on MassSpecGym (MIT) count as redistribution of competition data?",
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/748357",
+      "host_answers": [
+        {
+          "id": 3537875,
+          "author": "David Healey",
+          "date": "2026-10-13T07:47:53.747Z",
+          "text": "Yes those are all fine.  "
+        }
+      ]
+    }
+  },
+  "scope": "No competition submission, notebook push, remote execution, or data publication in this review."
+}

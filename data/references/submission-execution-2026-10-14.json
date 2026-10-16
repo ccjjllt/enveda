@@ -1,0 +1,84 @@
+{
+  "date_beijing": "2026-10-14",
+  "status": "READY_LOCALLY_GPU_QUOTA_BLOCKED",
+  "candidate_change": {
+    "original_source_entries": 539,
+    "usable_entries": 538,
+    "excluded_invalid_identity": 1,
+    "original_pool": 712199,
+    "expanded_pool": 712737,
+    "asset": "https://www.kaggle.com/datasets/ccjjllt/casmi26-massbank539-expansion",
+    "asset_version": 1,
+    "asset_private": true,
+    "manifest_sha256": "cf95c455dbc1ebe1ab91b3a9e6050f7279ec9de2333498532cb7db92a205d3b4"
+  },
+  "gpu_attempt": {
+    "ref": "ccjjllt/enveda-submission-v10",
+    "result": "REJECTED_BEFORE_RUN",
+    "message": "Maximum weekly GPU quota of 30.00 hours reached.",
+    "used_seconds": 108618.608,
+    "allowed_seconds": 108000,
+    "refresh_utc": "2026-10-17T00:00:00Z"
+  },
+  "cpu_probes": [
+    {
+      "ref": "ccjjllt/enveda-v10-cpu-probe",
+      "version": 1,
+      "status": "COMPLETE",
+      "molecules": 2,
+      "max_runtime_seconds": 900,
+      "output": "cpu_probe.csv",
+      "submission_forbidden": true,
+      "kernel_id": 138687215,
+      "metadata_verified": {
+        "current_version_number": 1,
+        "is_private": true,
+        "enable_gpu": false,
+        "enable_internet": false,
+        "machine_shape": "None",
+        "same_docker_image_as_v9": true
+      },
+      "metrics": {
+        "status": "ok",
+        "n_mols": 2,
+        "n_cands": 149,
+        "rdkit": "2026.03.6",
+        "device": "cpu",
+        "unique_jobs": 447,
+        "seconds": 253.6,
+        "n_pred": 447,
+        "n_pred_fail": 0,
+        "t_pred": 243.34,
+        "pred_per_s": 1.84
+      },
+      "estimated_same_72333_jobs_hours": 10.919836956521738
+    },
+    {
+      "ref": "ccjjllt/enveda-v10-cpu-probe",
+      "version": 2,
+      "status": "COMPLETE",
+      "cpu_threads": 1,
+      "max_runtime_seconds": 900,
+      "submission_forbidden": true,
+      "metrics": {
+        "status": "ok",
+        "n_mols": 2,
+        "n_cands": 149,
+        "unique_jobs": 447,
+        "seconds": 496.4,
+        "n_pred": 447,
+        "t_pred": 487.09,
+        "pred_per_s": 0.92,
+        "device": "cpu",
+        "rdkit": "2026.03.6",
+        "n_pred_fail": 0
+      },
+      "estimated_same_72333_jobs_hours": 21.839673913043477,
+      "output_identical_to_v1": true
+    }
+  ],
+  "competition_submission": null,
+  "resume_after_beijing": "2026-10-17 08:00",
+  "limitations": "Kaggle rejected T4 weekly quota; CPU 4-thread/1-thread probes predict roughly10.92h/21.84h for prior72333-job workload, excluding setup, beyond9h. This is an estimate from two molecules, not a timed full CPU run.",
+  "notebook_sha256": "6d51201d564c91d41897c096990931d62ceb570261d34bb4921dae103d7c915a"
+}
