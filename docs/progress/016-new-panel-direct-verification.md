@@ -27,10 +27,32 @@
 - 核对：400 query 峰 hash 与旧集合零碰撞；19 个新面板 canonical 出现在旧 015 top50 候选键（20545）中——候选出现过不等于作为 query 用过，报告备查，不否决。
 - 全量 8.1 秒。产物 `artifacts/016-panel/{exclusion_list,panel_manifest,pool_stats}.json`（ignored）。新面板只称“本项目此前未用”。
 
-## GPU 安排的澄清
+## 冻结模型预测（CPU，已完成，决定：不部署、不提交）
 
-- 本地只有 ccjjllt 的两个 token，无 jiyujia 凭据；用户已定改用 ccjjllt GPU（剩约 27h），无私有输入可见性问题。
-- GPU 阶段待办：新面板 FP/ICE 候选生成单 session 打包（ccjjllt push），冻结四模型预测与分组 MRR，再定提交。
+代码 `scripts/run_016_panel_predict.py`（`.venv-015` 冻结全量模型，原 v9/基线/direct-only/组合四对照，同式 top50 槽位，20000 次分子 bootstrap）：
+
+```bash
+.venv-015/bin/python scripts/run_016_panel_predict.py
+```
+
+第一轮（全部来源参考）MRR@25：
+
+| 组 × 场景 | v9 | LR组合 | 组合−v9 [95%CI] | Top1 |
+|---|---|---|---|---|
+| 跨来源 × B | 0.9548 | 0.9673 | +0.0125 [+0.0025,+0.025] | 185→190 |
+| 跨来源 × A | 0.9548 | 0.9237 | −0.031 [−0.048,−0.016] | 185→174 |
+| 自然缺库 × B | 0.7434 | 0.7466 | +0.003 [−0.009,+0.016] | 135→136 |
+| 自然缺库 × A | 0.7434 | 0.7043 | −0.039 [−0.058,−0.022] | 135→122 |
+
+第二轮（跨来源组仅外部参考，`--cross-external-only`，产物 `artifacts/016-panel-features-ext/`）：跨来源 B 组合 +0.0084 [+0.0008,+0.0175]（Top1 185→188），analog 相对 direct 增量恰为 0；跨来源 A −0.0017（中性）。证实第一轮 +0.0125 中一部分来自同来源参考，但跨来源直接证据仍有小而真的增量；analog 全程无确认增量。
+
+结论：学到的 direct 权重只在同结构参考存在时有效，缺参考时显著降级（decoy 偶发直接匹配被信任）；自然缺库 B 无增益。未达到“可解释、可部署增量且主要域无退化”的提交门槛，**本轮不集成、不提交**。备选的“仅高 direct_quality 候选启用排序”条件路由器是新决策规则，需另行验证，不在本轮部署。
+
+## Colab 回包审计与环境教训
+
+- `panel016-ice-scores.tar.gz`（21MB scores + meta）：status ok，400 分子、280 覆盖、30980 候选、21869 fused；T4 约 34 分钟。
+- 280 条 `np.unicode_` 报错源于 worker 第 189 行峰缓存写盘（numpy 1.x 别名，Colab numpy 2.x 已移除）；预测值本身有效（报错在写缓存之后，计数器未累加），可用于评分，无需重跑。后补决定：**不改冻结 bundle**，今后 Colab 格前加 `pip install "numpy<2"` 固定。
+- 产物 `artifacts/016-panel-scores/`（ignored）。public 仍 0.323。
 
 ## 可追溯参考索引 + 40 例计时（CPU，已完成）
 
@@ -62,6 +84,6 @@
 - Colab notebook `notebooks/colab/016-panel-ice-colab.ipynb`（10 格，AST 通过）：Drive 取包 + gen/inten → T4 断言 → 安装 → 干跑 2 分子 → iceberg split/k=100 全量（cache 断点续跑，约 60–90 分钟）→ 打包 scores 取回。T4 只跑 ICE，前向已在本地完成。
 - 排障记录：首版 inputs 缺 `scores_top100`（worker 336 行 fusion 用），Colab 干跑 `KeyError`；已补对齐分数并本地干跑验证。另确认 iceberg 仅覆盖正模式（`is_covered` 要求 positive），面板前 2 分子（负离子）0 jobs 属预期行为；全量干跑 400 分子 280 覆盖、56699 jobs、30980 候选（top100/分子），预计 T4 约 20–30 分钟。notebook 本体无需修改，只换 bundle 包。
 
-## Kaggle 只读
+## Kaggle 只读与 GPU 决策
 
-本轮未做新查询；有效提交仍 v9r2/v10 public 0.323。下一步先完成参考索引与计时，再议 GPU 任务。
+有效提交仍 v9r2/v10 public 0.323。无 jiyujia 凭据，用户决定 Colab T4 跑验证（ccjjllt 配额保留）；本次 Colab 只做验证、未产生提交。按 016 门槛（可部署增量 + 主要域无退化），本轮不集成、不提交。

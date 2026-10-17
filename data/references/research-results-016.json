@@ -1,1 +1,49 @@
-{"account":"ccjjllt","date_beijing":"2026-10-17","direct_full_fit":{"model":"artifacts/015-analog/direct-only-ablation/models/lr_direct_only_experimental_full.joblib","model_sha256":"e564918e4e0f87b16bce1d433f8908162bd113aaa96a4edd00d06903d3d7afc0","rows":42580,"warnings":[]},"gpu":{"decision":"use ccjjllt (remaining ~27h); no jiyujia credential locally","pending":["new-panel FP/ICE single-session GPU job","frozen-model prediction + grouped MRR"]},"index":{"build_seconds":78.7,"kept":2511008,"kept_rate":0.989,"peak_shards_mb":558,"rss_gib":4.483,"scanned":2539608},"new_submission":false,"panel":{"cross_source":200,"hash_collisions_with_old":0,"natural_missing":200,"overlap_old_candidate_keys":19,"seconds_wall":8.1},"public_score":"0.323","round":"016","timing40":{"missing_query_rows":0,"p50_s":0.452,"p95_s":0.483,"quality_pos_rate":0.389,"rss_gib":3.879}}
+{
+  "account": "colab-T4-user-run",
+  "date_beijing": "2026-10-18",
+  "decision": "NO_DEPLOY_NO_SUBMISSION",
+  "direct_full_fit": {
+    "model": "artifacts/015-analog/direct-only-ablation/models/lr_direct_only_experimental_full.joblib",
+    "model_sha256": "e564918e4e0f87b16bce1d433f8908162bd113aaa96a4edd00d06903d3d7afc0",
+    "rows": 42580,
+    "warnings": []
+  },
+  "ice_colab": {
+    "covered_mols": 280,
+    "fused": 21869,
+    "note": "280 np.unicode_ cache-write errors (numpy2); predictions valid, counters artifact",
+    "seconds": 2017.43,
+    "status": "ok"
+  },
+  "panel": {
+    "cross_source": 200,
+    "hash_collisions_with_old": 0,
+    "natural_missing": 200,
+    "overlap_old_candidate_keys": 19,
+    "seconds_wall": 8.1
+  },
+  "panel_mrr": {
+    "cross_B_comb_minus_v9": 0.0125,
+    "cross_B_ext_only_comb_minus_v9": 0.0084,
+    "cross_B_ext_only_comb_minus_direct": 0.0,
+    "natural_A_comb_minus_v9": -0.0392,
+    "natural_B_comb_minus_v9": 0.0031
+  },
+  "public_score": "0.323",
+  "round": "016",
+  "index": {
+    "build_seconds": 78.7,
+    "kept": 2511008,
+    "kept_rate": 0.989,
+    "peak_shards_mb": 558,
+    "rss_gib": 4.483,
+    "scanned": 2539608
+  },
+  "timing40": {
+    "missing_query_rows": 0,
+    "p50_s": 0.452,
+    "p95_s": 0.483,
+    "quality_pos_rate": 0.389,
+    "rss_gib": 3.879
+  }
+}

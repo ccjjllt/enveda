@@ -151,6 +151,7 @@ def load_index():
     idx = {c: np.asarray(t.column(c).to_pylist()) for c in
            ["canon", "row", "adduct", "mode", "instrument", "lib", "phash"]}
     idx["nm"] = np.asarray(t.column("nm").to_pylist(), dtype=np.float64)
+    idx["prec"] = np.asarray(t.column("prec").to_pylist(), dtype=np.float64)
     idx["shard"] = np.asarray(t.column("shard").to_pylist(), dtype=np.int64)
     idx["off"] = np.asarray(t.column("off").to_pylist(), dtype=np.int64)
     idx["n_clean"] = np.asarray(t.column("n_clean").to_pylist(), dtype=np.int64)
