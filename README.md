@@ -4,7 +4,13 @@
 
 比赛：[`enveda-CASMI26-molecule-id-mass-spectra`](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra)。最初提供的第一个链接显示文字为 ARC Prize，但实际链接属于 Enveda；本项目只研究 Enveda。
 
-## 当前研究入口：014（2026-10-17）
+## 当前研究入口：015（2026-10-17）
+
+**已实际跑完候选级排序研究，下一步优先确认直接谱检索的来源迁移；尚未提交新版本。** 500个开发分子、42580行特征、固定五折OOF及事后direct-only消融已完成。NP允许同结构参考时，原v9 MRR0.668997→LR组合0.725342，Top1从138到151；只加直接参考质量也达到0.723109，追加analog增量尚未确认。移除目标结构参考后与G1均没有确认收益，不能外推隐藏集提分。保存模型人工重放误差0，主实验与消融结果分别保留。v9r2/v10仍public0.323。
+
+**接手先读[015完整交接](docs/handoff/015-candidate-analog-ranker.md)**，含下一轮具体步骤、输入/模型/命令/算力与奖金复现缺口。实际指标与边界见[015进展](docs/progress/015-candidate-analog-ranker-and-handoff.md)，冻结契约见[015计划](docs/plan/015-candidate-analog-ranker-and-handoff.md)，精简机器记录见[015结果](data/references/research-results-015.json)。
+
+## 014复核记录（2026-10-17）
 
 **013新工作已复核，本轮不新增submission。** 现有结果仍是query级支撑率，没有候选级analog排序器、OOF MRR或新离线入口。014固定36例诊断发现29例最佳匹配≥80%由单峰对贡献，原direct还包含12个查询首谱的精确重复；但不能据此否定全部analog信号。另按012原参数补做R3纯负22例：MRR0.720671→0.716883、Top1/Top25不变，未确认碎片跨域增益。下一项核心工作是候选—参考结构一致性特征及canonical分组排序对照。见[014计划](docs/plan/014-submission-readiness-and-support-audit.md)、[014进展](docs/progress/014-submission-readiness-and-support-audit.md)、[014精简记录](data/references/research-review-014.json)。v9r2/v10仍为0.323。
 
