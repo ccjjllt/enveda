@@ -4,11 +4,15 @@
 
 比赛：[`enveda-CASMI26-molecule-id-mass-spectra`](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra)。最初提供的第一个链接显示文字为 ARC Prize，但实际链接属于 Enveda；本项目只研究 Enveda。
 
-## 当前执行入口：011（2026-10-17）
+## 当前研究入口：013（2026-10-17）
 
-用户已授权实际运行和提交。**v10版本1已COMPLETE并通过输出核查，已提交比赛（ref57293821），等待隐藏重跑及评分。** T4完整日志约41.45分钟，400×25输出、72336次ICE预测全部成功。私有离线资产v1已上传，原539来源条目剔除1个无有效身份的Markush组，实际新增538、候选总数712737，原研究指标不变。550例实际候选/规范化流程核查通过。
+**012 已关闭：v10 public 0.323 与 v9r2 同分已复核；碎片/ChEBI/PubChemLite 三项 CPU 研究完成，未再提交。** 013 主线为可追溯参考谱/analog 第二证据：已用 ccjjllt 账号核实提交与榜单（榜首 0.495/第五 0.468，GPU 剩 27.39h），拉取 prvsiyan analog、Berat 0.336、Seyit 0.446 三份源码（只读未执行），完成首个 CPU 支撑审计（550 query、train 抽样约 5 万、34.5 秒）：NP direct≥0.3 156/250、shift≥0.3 242/250；G1 direct 19/250、shift 246/250；R3 direct 0/46、shift 32/46。支撑率非排序增益，排序试点（HGB/GroupKFold）下一步。最新[013计划](docs/plan/013-analog-second-evidence.md)与[013进展](docs/progress/013-analog-second-evidence.md)，精简[013记录](data/references/research-results-013.json)。012 结论见[012进展](docs/progress/012-score-plateau-and-complementary-evidence.md)。
 
-两次Kaggle CPU小样本完整运行成功，但估算全量超9小时，因此没有提交CPU版本。10月17日配额恢复后复用GPU主版本，已在北京时间11:43提交明确完成的版本1（scriptVersionId359192425）。当前尚无v10 public分数；见[011进展](docs/progress/011-massbank-expansion-submission.md)、[011计划](docs/plan/011-massbank-expansion-submission.md)和[10月17日执行记录](data/references/submission-execution-2026-10-17.json)。成品入口[submission-v10](notebooks/submission-v10/enveda-submission-v10.ipynb)。v9r2及其0.323分保留。
+## 已完成提交：011（2026-10-17）
+
+用户已授权实际运行和提交。**v10版本1已COMPLETE并通过输出核查，比赛提交ref57293821也已COMPLETE/public0.323。** T4完整日志约41.45分钟，400×25输出、72336次ICE预测全部成功。私有离线资产v1已上传，原539来源条目剔除1个无有效身份的Markush组，实际新增538、候选总数712737，原研究指标不变。550例实际候选/规范化流程核查通过。
+
+两次Kaggle CPU小样本完整运行成功，但估算全量超9小时，因此没有提交CPU版本。10月17日配额恢复后复用GPU主版本，已在北京时间11:43提交明确完成的版本1（scriptVersionId359192425）；12:51复查确认public0.323。见[011进展](docs/progress/011-massbank-expansion-submission.md)、[011计划](docs/plan/011-massbank-expansion-submission.md)和[10月17日执行记录](data/references/submission-execution-2026-10-17.json)。成品入口[submission-v10](notebooks/submission-v10/enveda-submission-v10.ipynb)。v9r2及其0.323分保留。
 
 ## 研究决策入口：010（2026-10-14）
 

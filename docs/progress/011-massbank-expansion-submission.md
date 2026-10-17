@@ -6,7 +6,7 @@
 
 - 固定来源离线资产已生成并上传到私有Kaggle Dataset：`ccjjllt/casmi26-massbank539-expansion`，v1，状态READY。
 - 10月17日用户提示配额恢复后实查GPU used0/reserved0/allowed108000秒，下一次刷新10月24日00:00 UTC；私有资产v1仍READY。v9r2/public0.323仍为当前最好已评分结果。
-- 主GPU入口代码SHA与10月14日已核查版本一致；**v10版本1已COMPLETE，完整输出核查通过，并于北京时间10月17日11:43提交比赛，ref57293821，scriptVersionId359192425。** T4、private、internet关闭、原镜像未变。当前状态`SUBMITTED_AWAITING_RESULT`，尚未观察到隐藏重跑终态或新public分数。精简证据见[10月17日执行记录](../../data/references/submission-execution-2026-10-17.json)。
+- 主GPU入口代码SHA与10月14日已核查版本一致；**v10版本1已COMPLETE，完整输出核查通过，并于北京时间10月17日11:43提交比赛，ref57293821，scriptVersionId359192425。12:51复查提交已COMPLETE/public0.323，与v9r2显示同分。** T4、private、internet关闭、原镜像未变。当前状态`SUBMISSION_COMPLETE_PUBLIC_0_323`。精简证据见[10月17日执行记录](../../data/references/submission-execution-2026-10-17.json)。
 - 10月14日的GPU拒绝及CPU两次小样本结果保留为历史记录。CPU均完整成功，但预计全量超时；恢复后直接复用已核对的GPU主版本，没有重复创建数据集。
 
 ## 固定539中剔除1个无有效身份的条目
@@ -109,3 +109,7 @@ kaggle kernels output ccjjllt/enveda-submission-v10/1 -p artifacts/011-v10-outpu
 - 与本地保存的v9可见输出相比，2行候选序列改变、首选改变0；该比较只核查输出差异，不能预测隐藏收益。CSV为391970字节，SHA256 `fe459dfd89192870339255793f551d793e1e53780faeb1c199dc84484c775833`。
 
 核查通过后按既有授权调用`create_code_competition_submission`，指定owner=ccjjllt、slug=enveda-submission-v10、kernelVersion=1、fileName=submission.csv；服务返回**ref57293821**，提交时间2026-10-17T03:43:22.103Z（北京时间11:43:22）。随后提交列表确认指向**scriptVersionId359192425**。当前API省略status与public_score、total_bytes为0，仅能确认已接收，不能据此称隐藏重跑成功或得到0分；等待终态和分数。保留v9r2/ref57028399/public0.323与原最终选择，不重复提交同版。
+
+## 10月17日评分终态
+
+北京时间约12:51再次读取ref57293821，已为**COMPLETE/public0.323**，total_bytes508585；v9r2仍COMPLETE/public0.323，508590字节。上节“等待”是11:43的历史状态。538结构扩库本次未观察到显示public提升，不能据此倒推隐藏类别比例或逐行变化；同分原因、官方更新与后续实际实验转入[012进展](012-score-plateau-and-complementary-evidence.md)。没有重复提交。

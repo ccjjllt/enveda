@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-17T03:43:35Z",
+  "checked_at_utc": "2026-10-17T04:51:00Z",
   "competition": "enveda-CASMI26-molecule-id-mass-spectra",
   "prior_best": {
     "ref": 57028399,
@@ -42,11 +42,12 @@
     "kernel_version": 1,
     "script_version_id": 359192425,
     "file_name": "submission.csv",
-    "stage": "SUBMITTED_AWAITING_RESULT",
-    "api_status": null,
-    "public_score": null,
-    "observed_at_utc": "2026-10-17T03:43:35Z",
-    "note": "Submission creation and list both confirm ref. Status and public_score omitted by API; hidden rerun completion not yet observed."
+    "stage": "COMPLETE",
+    "api_status": "COMPLETE",
+    "public_score": "0.323",
+    "observed_at_utc": "2026-10-17T04:51:00Z",
+    "note": "Official API confirms COMPLETE and displayed public 0.323; v9r2 also 0.323. Hidden output download denied by Kaggle.",
+    "total_bytes": 508585
   },
   "local_and_remote_source_audit": {
     "source_unchanged_since_2026_10_14": true,
