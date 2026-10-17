@@ -1,0 +1,211 @@
+{
+  "checked_at_utc": "2026-10-17T03:43:35Z",
+  "competition": "enveda-CASMI26-molecule-id-mass-spectra",
+  "prior_best": {
+    "ref": 57028399,
+    "public_score": "0.323"
+  },
+  "asset": {
+    "ref": "ccjjllt/casmi26-massbank539-expansion",
+    "version": 1,
+    "private": true,
+    "status": "READY",
+    "valid_structures": 538,
+    "original_count": 539,
+    "manifest_sha256": "cf95c455dbc1ebe1ab91b3a9e6050f7279ec9de2333498532cb7db92a205d3b4"
+  },
+  "gpu_run": {
+    "quota": {
+      "used_seconds": 0,
+      "reserved_seconds": 0,
+      "allowed_seconds": 108000,
+      "next_refresh_utc": "2026-10-24T00:00:00Z"
+    },
+    "ref": "ccjjllt/enveda-submission-v10",
+    "version": 1,
+    "status": "COMPLETE",
+    "observed_at_utc": "2026-10-17T03:43:35Z",
+    "kernel_id": 139133853,
+    "source_sha256": "6d51201d564c91d41897c096990931d62ceb570261d34bb4921dae103d7c915a",
+    "private": true,
+    "internet": false,
+    "machine_shape": "NvidiaTeslaT4",
+    "docker_image_same_as_v9": true,
+    "notes": "push confirmed version 1; latest metadata confirms current_version_number=1. versionLabel=\"1\" returned not found; use current latest while no further push. API last_run_time is stale and is not used for elapsed runtime.",
+    "script_version_id": 359192425,
+    "runtime_log_seconds": 2487.030194751
+  },
+  "competition_submission": {
+    "ref": 57293821,
+    "submitted_at_utc": "2026-10-17T03:43:22.103Z",
+    "kernel_ref": "ccjjllt/enveda-submission-v10",
+    "kernel_version": 1,
+    "script_version_id": 359192425,
+    "file_name": "submission.csv",
+    "stage": "SUBMITTED_AWAITING_RESULT",
+    "api_status": null,
+    "public_score": null,
+    "observed_at_utc": "2026-10-17T03:43:35Z",
+    "note": "Submission creation and list both confirm ref. Status and public_score omitted by API; hidden rerun completion not yet observed."
+  },
+  "local_and_remote_source_audit": {
+    "source_unchanged_since_2026_10_14": true,
+    "remote_cells": 35,
+    "remote_cell_types_and_joined_sources_match": true,
+    "asset_files_hash_and_size_matched": 8,
+    "asset_structures": 538,
+    "core_v9_cells_unchanged": [
+      4,
+      5,
+      32
+    ],
+    "repeat_550_check_run": false
+  },
+  "official_refresh": {
+    "checked_at_utc": "2026-10-17T01:49:00Z",
+    "team_count": 3451,
+    "user_rank": 2096,
+    "max_daily_submissions": 5,
+    "visible_files": [
+      {
+        "name": "sample_submission.csv",
+        "bytes": 43619
+      },
+      {
+        "name": "test.parquet",
+        "bytes": 4848729
+      },
+      {
+        "name": "train.parquet",
+        "bytes": 3033286496
+      }
+    ],
+    "visible_file_size_and_creation_dates_match_prior_record": true,
+    "rescore_announcement": {
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/749430",
+      "published_utc": "2026-10-14T21:30:00Z",
+      "finding": "Earlier submissions were rescored following metric/hidden-test updates. v9r2 remains 0.323 when reread this turn."
+    },
+    "third_party_weights": {
+      "url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/749217#3539870",
+      "author": "Marie Killian",
+      "posted_utc": "2026-10-16T17:11:00Z",
+      "finding": "Specific untraceable third-party DreaMS derivative is disallowed; original training code and permitted training data required. Does not specifically prohibit prvsiyan fp_single_s2. Original author training code and competition-train provenance are available; exact s2 input/split/CLI linkage remains incomplete."
+    },
+    "public_v11": {
+      "url": "https://www.kaggle.com/code/ahmedberatozer/casmi26-v11-e2rank2-rel150",
+      "discussion": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/749412",
+      "finding": "Second-engine rank1 inserted at rank2 after identity dedup, retaining first guess; author gains unverified locally and partly leaderboard-directed. Not incorporated into fixed v10."
+    }
+  },
+  "fp_weight_lineage_followup": {
+    "checked_at": "2026-10-17",
+    "checkpoint": {
+      "source": "prvsiyan/casmi26-fp-models-v2/1",
+      "file": "fp_single_s2.pt",
+      "bytes": 144110255,
+      "keys": [
+        "model",
+        "step",
+        "nbits",
+        "d",
+        "layers"
+      ],
+      "step": 20000,
+      "nbits": 6930,
+      "d": 512,
+      "layers": 6,
+      "parameters": 36020242
+    },
+    "original_training_code_sha256": "e2eaef630c5f09f157eea3652095b8b9780cbe7fdffa6f0652ae5845d7b18c8a",
+    "single_view_evidence": "Original baseline v34 cell41 explicitly describes s2 as single-spectrum, versus m1 merge_p=.6. Does not establish s2 seed or exact CLI.",
+    "publication_gap": "Published checkpoint omits opt, which original training script save() writes; packaging linkage not found. This does not prove different learned weights.",
+    "other_run_not_to_conflate": {
+      "url": "https://raw.githubusercontent.com/cubres/enveda-casmi-2026/main/datasets/casmi-2026-fingerprint-model-eval/README.md",
+      "model": "clean_s2",
+      "step": 24000,
+      "note": "Different run; do not assign its lr or split to current step20000 checkpoint."
+    },
+    "remaining": [
+      "spec.npz construction/input version/six mapping/is_val grouping",
+      "fp_meta and candidate FP preprocessing lineage",
+      "exact s2 CLI,seed,merge_p,optimizer settings,resume",
+      "source/input/run to released checkpoint mapping"
+    ]
+  },
+  "completed_output_audit": {
+    "notebook_ref": "ccjjllt/enveda-submission-v10",
+    "version": 1,
+    "script_version_id": 359192425,
+    "rows": 400,
+    "ids_unique_and_match_visible_test": true,
+    "candidates_per_row": 25,
+    "invalid_smiles": 0,
+    "unique_smiles_parsed": 9357,
+    "local_rdkit": "2026.03.6",
+    "bare_CCO_first": 0,
+    "CCO_padding_rows": 35,
+    "CCO_padding_slots": 408,
+    "candidate_count_range": [
+      2,
+      100
+    ],
+    "reconstructed_csv_rank_mismatches": 0,
+    "ice": {
+      "model": "iceberg",
+      "cemode": "split",
+      "k": 100,
+      "status": "ok",
+      "n_mols": 400,
+      "n_mols_covered": 371,
+      "n_mols_scored": 371,
+      "n_cands": 31044,
+      "n_scored_merge": 29017,
+      "n_scored_mean": 29017,
+      "rdkit": "2026.03.6",
+      "device": "cuda",
+      "ckpt_short": "deef0451c49e330e",
+      "prep_tag": "panel-A1:v1(clean0.001/512/prec+2>x2->prep0.002/256/p1/entw;sim0.01Da/20ppm)",
+      "nce_records": 0,
+      "single_records": 725,
+      "split_records": 256,
+      "uncovered_records": 232,
+      "unique_jobs": 72336,
+      "budget_s": 7200.0,
+      "errors": [],
+      "seconds": 1990.9,
+      "n_pred": 72336,
+      "n_pred_fail": 0,
+      "t_pred": 1854.98,
+      "pred_per_s": 39.0,
+      "max_mem_gb": 4.6
+    },
+    "visible_output_comparison_v9": {
+      "same_visible_ids": true,
+      "changed_rows": 2,
+      "changed_first": 0,
+      "old_cco_rows": 35,
+      "new_cco_rows": 35
+    },
+    "runtime_log_seconds": 2487.030194751,
+    "files": {
+      "submission.csv": {
+        "bytes": 391970,
+        "sha256": "fe459dfd89192870339255793f551d793e1e53780faeb1c199dc84484c775833"
+      },
+      "ice_meta_f1.json": {
+        "bytes": 615,
+        "sha256": "68ba4c2a36eb323400a7aa3e4b1c80dbbce97a8e61d842d0821299eb752d278e"
+      },
+      "canon100.json": {
+        "bytes": 2541584,
+        "sha256": "ade10674da848b7ec23c5028d31a70b096178eecad8d71e38ddfaea1918a824b"
+      },
+      "iceberg_scores_f1.json": {
+        "bytes": 42844550,
+        "sha256": "0999fbbf73afc94006b2cd44f22a836c3b5c168b0d20e12da231bfd2dd7d23f3"
+      }
+    },
+    "research_effect": "Not evaluated on placeholder test; no leaderboard claim before submission result."
+  }
+}

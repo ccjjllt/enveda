@@ -1,20 +1,20 @@
 # Enveda CASMI 2026 研究项目
 
-从串联质谱（MS/MS）预测分子结构，围绕候选检索、排序、多谱融合和模型微调开展研究。研究状态更新：**2026-10-14**；下文规则及硬件资料保留各自核实日期。
+从串联质谱（MS/MS）预测分子结构，围绕候选检索、排序、多谱融合和模型微调开展研究。研究状态更新：**2026-10-17**；下文规则及硬件资料保留各自核实日期。
 
 比赛：[`enveda-CASMI26-molecule-id-mass-spectra`](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra)。最初提供的第一个链接显示文字为 ARC Prize，但实际链接属于 Enveda；本项目只研究 Enveda。
 
-## 当前执行入口：011（2026-10-14）
+## 当前执行入口：011（2026-10-17）
 
-用户已授权实际运行和提交。**v10已集成、私有离线资产v1已上传，尚未提交比赛：Kaggle GPU周配额已耗尽。** 原539来源条目剔除1个无有效身份的Markush组，实际新增538、候选总数712737，原研究指标不变。550例实际候选/规范化流程核查通过。
+用户已授权实际运行和提交。**v10版本1已COMPLETE并通过输出核查，已提交比赛（ref57293821），等待隐藏重跑及评分。** T4完整日志约41.45分钟，400×25输出、72336次ICE预测全部成功。私有离线资产v1已上传，原539来源条目剔除1个无有效身份的Markush组，实际新增538、候选总数712737，原研究指标不变。550例实际候选/规范化流程核查通过。
 
-两次Kaggle CPU小样本完整运行成功；4线程/1线程分别约1.84/0.92任务每秒，按v9任务量估算约11/22小时，超过9小时，未启动超限全量或提交部分结果。GPU配额预计北京时间**10月17日08:00**刷新；当前未安排自动任务。续接命令及实际版本状态见[011进展](docs/progress/011-massbank-expansion-submission.md)、[011计划](docs/plan/011-massbank-expansion-submission.md)，成品入口[submission-v10](notebooks/submission-v10/enveda-submission-v10.ipynb)。v9r2及其0.323分保留。
+两次Kaggle CPU小样本完整运行成功，但估算全量超9小时，因此没有提交CPU版本。10月17日配额恢复后复用GPU主版本，已在北京时间11:43提交明确完成的版本1（scriptVersionId359192425）。当前尚无v10 public分数；见[011进展](docs/progress/011-massbank-expansion-submission.md)、[011计划](docs/plan/011-massbank-expansion-submission.md)和[10月17日执行记录](data/references/submission-execution-2026-10-17.json)。成品入口[submission-v10](notebooks/submission-v10/enveda-submission-v10.ipynb)。v9r2及其0.323分保留。
 
 ## 研究决策入口：010（2026-10-14）
 
 目标为最终奖金与金牌。最新有效提交 **v9r2，public0.323**（ref57028399，10月14日Kaggle MCP核实）；当前rank1932/3277，榜首0.491、第五0.467，均为公开快照。最新[010复核与决策](docs/progress/010-submission-review-and-frontier.md)、[010计划](docs/plan/010-submission-review-and-frontier.md)。
 
-**建议下一次只验证固定539结构扩库；条件多谱暂不采用。** 正确的R3原v9逻辑base→expanded对照在46个质量可用分子上MRR0.408903→0.762629，新增20个Top25、无损失；NP/G1已有500真值的完整ICE指标不变，属于干扰回归通过。R3与MassBank同源且经人工分层，不可预测隐藏涨幅。最终离线扩库notebook尚未集成/运行，本轮未提交；不要直接把009研究Colab入口当比赛成品。
+**010决策为只验证固定539结构扩库；条件多谱暂不采用。** 正确的R3原v9逻辑base→expanded对照在46个质量可用分子上MRR0.408903→0.762629，新增20个Top25、无损失；NP/G1已有500真值的完整ICE指标不变，属于干扰回归通过。R3与MassBank同源且经人工分层，不可预测隐藏涨幅。010结束时最终离线扩库notebook尚未集成/运行；011已完成集成，剔除1个无有效身份条目后于10月17日启动538结构扩库版，当前执行状态见上节。009研究Colab入口不作为比赛成品。
 
 - 条件多谱在原保留250上的确认：0.907838→0.905171，Δ−0.002667，95%CI[−0.010,+0.004]，Top1净−1。CPU独立重做1400谱前向与完整评分均复现；尚未确认收益，不按错例扫阈值。该250已用，不再称保留集。
 - 009-R3的0.740890→0.794979是已扩库FP→已扩库ICE未知CE回退；原v9只用fused_merge，在这些CE未知谱上回退FP。不能把ICE退化当扩库退化，也不把未知CE回退混入首次扩库提交。
