@@ -48,6 +48,20 @@
 - 负结果：分片 LRU-32 缓存反而颠簸（141 秒/10.5GB），改回无界缓存（156 分片共 558MB）；LRU 不作为生产配置。
 - 产物 `artifacts/016-index/{index.parquet,shards/,index_build.json,timing40.json}`（ignored）。下一步 GPU 任务可直接挂载该索引，T4 只跑神经计算。
 
+## Colab 验证输入打包（本地 CPU，已完成）
+
+代码 `scripts/build_016_colab_inputs.py`，v10 冻结口径（cells 4/5/fwd_batch 从提交 notebook JSON 原样 exec，SHA 记录；两处一词设备补丁 `.cuda→cpu` 已声明；chunk G=20 不影响逐分子分数）：
+
+```bash
+/opt/homebrew/bin/python3.11 scripts/build_016_colab_inputs.py --probe
+/opt/homebrew/bin/python3.11 scripts/build_016_colab_inputs.py
+```
+
+- 400 面板谱本地 CPU s2 前向 → 10ppm 全窗 FP 打分（torch CPU bmm）→ 005 union 图谱 canonical-max → top100 → worker 版 `inputs.json`。400/400 ok，empty/mass_fallback/exception 均为 0。
+- 面板 FP 基线（MRR@25，top100 内）：跨来源组 0.9548（198/200 命中 25 内）、自然缺库组 0.7434（185/200）。跨来源组 FP 已近天花板，后续看 ICE/direct 有无增量；自然缺库组才是主战场。产物 `artifacts/016-colab/panel-016-ice-bundle.tar.gz`（3.5MB，inputs.json 9.4MB + code/ice + install.sh + worker）。
+- Colab notebook `notebooks/colab/016-panel-ice-colab.ipynb`（10 格，AST 通过）：Drive 取包 + gen/inten → T4 断言 → 安装 → 干跑 2 分子 → iceberg split/k=100 全量（cache 断点续跑，约 60–90 分钟）→ 打包 scores 取回。T4 只跑 ICE，前向已在本地完成。
+- 排障记录：首版 inputs 缺 `scores_top100`（worker 336 行 fusion 用），Colab 干跑 `KeyError`；已补对齐分数并本地干跑验证。另确认 iceberg 仅覆盖正模式（`is_covered` 要求 positive），面板前 2 分子（负离子）0 jobs 属预期行为；全量干跑 400 分子 280 覆盖、56699 jobs、30980 候选（top100/分子），预计 T4 约 20–30 分钟。notebook 本体无需修改，只换 bundle 包。
+
 ## Kaggle 只读
 
 本轮未做新查询；有效提交仍 v9r2/v10 public 0.323。下一步先完成参考索引与计时，再议 GPU 任务。
