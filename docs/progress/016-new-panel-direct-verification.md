@@ -30,7 +30,23 @@
 ## GPU 安排的澄清
 
 - 本地只有 ccjjllt 的两个 token，无 jiyujia 凭据；用户已定改用 ccjjllt GPU（剩约 27h），无私有输入可见性问题。
-- GPU 阶段待办（未启动）：可追溯参考索引 + 40 例计时（CPU），新面板 FP/ICE 候选生成单 session 打包（ccjjllt push），冻结四模型预测与分组 MRR，再定提交。
+- GPU 阶段待办：新面板 FP/ICE 候选生成单 session 打包（ccjjllt push），冻结四模型预测与分组 MRR，再定提交。
+
+## 可追溯参考索引 + 40 例计时（CPU，已完成）
+
+代码 `scripts/build_016_reference_index.py`，手动命令：
+
+```bash
+/opt/homebrew/bin/python3.11 scripts/build_016_reference_index.py --phase index --probe
+/opt/homebrew/bin/python3.11 scripts/build_016_reference_index.py --phase index
+/opt/homebrew/bin/python3.11 scripts/build_016_reference_index.py --phase timing
+```
+
+- 索引：train 2539608 行分批读（batch 16384），005 组键 + 015 冻结清洗/中性质量口径；保留 **2511008** 谱（98.9%），跳过 26386 清洗空谱与未知/稀有加合物（`[M+Br]-`、`[M+Li]+`、Ca 系列等，从不猜值）。`index.parquet` 219MB（一行一谱：组键、train 行号、中性质量、前体、adduct/mode/instrument/来源、峰 hash、清洗峰数、信号保留、分片/偏移）+ 156 个 npz 清洗峰分片 558MB（延迟 mmap）。全量 78.7 秒。
+- 构建内存峰值 RSS 4.48GiB（<8GiB 硬限，高于 2GiB 目标；主因逐批 parquet 物化，未把 253 万谱展开为常驻 Python 对象）。
+- 计时 40 例（跨来源 20 + 自然缺库 20，`SHA256("20261017|016-timing40|…")` 冻结，含负/多聚体）：±200Da 同极性最近 2000 检索 + direct-only 联合打分，p50 0.452s、p95 0.483s、max 1.624s（<2s ✓），40 query 行全部在索引中（缺失 0）；平均 quality>0 率 0.389；每 query eligible 约 220 万（质量窗本身极宽，最近 2000 截断率 ~99.9%，按质量距离截断，记录备查）；RSS 3.88GiB（索引常驻 + 全分片缓存，主因是全量 train 峰表一次误读已修复为分片读取）。
+- 负结果：分片 LRU-32 缓存反而颠簸（141 秒/10.5GB），改回无界缓存（156 分片共 558MB）；LRU 不作为生产配置。
+- 产物 `artifacts/016-index/{index.parquet,shards/,index_build.json,timing40.json}`（ignored）。下一步 GPU 任务可直接挂载该索引，T4 只跑神经计算。
 
 ## Kaggle 只读
 
