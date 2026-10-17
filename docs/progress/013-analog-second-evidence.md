@@ -2,6 +2,10 @@
 
 日期：2026-10-17（北京时间）。对应[013计划](../plan/013-analog-second-evidence.md)。本轮完成 Kaggle 只读核实、三份公开 notebook 拉取与第一个 CPU 支撑审计；排序器尚未训练，无新提交。
 
+## 014后续核查（优先于下方v1解释）
+
+用户询问新submission后，014独立复算支撑率并补做固定36例诊断及R3碎片迁移：原direct未排query本谱，确认NP6＋G1 6个首谱与抽样参考原始峰数组完全相同，B域独立谱尚未建立。原shift为整谱平移后二选一，36例中29例最佳匹配≥80%由单峰对贡献；前体/二聚体完整单体峰会产生高相似。统一canonical和精确hash排除未改变该36例analog赢家，不据此称全部analog受重复污染。全部50个R3在全量train raw/canonical无参考已补足核实。R3固定纯负22例碎片MRR0.720671→0.716883、Top1/Top25不变，未确认迁移收益。当前无新的候选排序器/提交入口，014未新增submission。完整命令与结果见[014进展](014-submission-readiness-and-support-audit.md)。
+
 ## Kaggle 只读核实（ccjjllt 账号）
 
 ```bash
@@ -32,8 +36,8 @@ kaggle quota
 - 查询谱：`artifacts/f1-bundle/inputs.json` NP250 + `artifacts/g1-validation/inputs.json` G1250（首谱，mz/it/prec/adduct 口径）+ `artifacts/007-r3/observations_50.json` R3-50（`peaks/*.npz`）。共 550，4 个 R3 未知 adduct 无中性质量而跳过，有效 546。
 - 参考：`data/raw/train.parquet` 2539608 行，按 stride 50 抽样约 5 万（实际 50681），adduct→中性质量用 Berat NZD 表同口径（n,z,d），未知载荷不猜。分组为 `inchikey14` 代理，不等价完整 canonical 别名排除（已披露）。
 - 清洗：floor 0.002、top256、归一、0.01Da 余弦；analog 取 ±200Da 内非同组 max，shift 取 best-of（direct, shift=query_neutral − ref_neutral）。
-- 每 query 限最近 2000 参考（按质量距离），全量墙钟 34.5 秒，内存 <8GB；无神经前向、无训练、无 push。
-- 环境：Python 3.11.16，pyarrow 25.0.1，numpy，RDKit 未参与本脚本（仅质量换算常数），seed 20261017，本地 CPU。
+- 每 query 限最近 2000 参考（按质量距离），全量墙钟 34.5 秒；旧脚本未测RSS，<8GB仅为计划目标，不能作为本次实测。无神经前向、无训练、无 push。
+- 环境：Python 3.11.16，pyarrow 25.0.1，numpy，RDKit 未参与本脚本（仅质量换算常数），本地 CPU。配置seed为20261017，但rng未使用，实际采样是确定性stride50。
 
 ## 结果（支撑率，非排序增益）
 
@@ -49,7 +53,7 @@ kaggle quota
 
 ## 判断与下一步
 
-1. 支撑审计支持继续做 analog 通道：R3 真值在 train 全量 0 参考下仍有 32/46 shift≥0.3；G1 direct 极低但 analog-shift 246/250。但 max-over-2000 背景偏高（G1 mean shift 0.821），不能把支撑率当判别力或 MRR 增益。
+1. 支撑审计说明analog相似度可计算，下一步需要候选判别实验：R3有32/46 shift≥0.3，G1为246/250。但max-over-2000背景偏高（G1 mean shift0.821）；014还发现前体/完整单体峰主导现象，不能把支撑率当结构analog成功或MRR增益。R3全50个真值在train全量0参考的结论已由014补足验证。
 2. 下一步才是排序试点：固定 FP+ICE 对照，同式 top50 槽位内加 direct/adduct-shift/analog-shift + 碎片 + 质量误差，GroupKFold（canonical 组）学 HGB，logistic 消融；A 域（移出同组）与 B 域（留出本谱）分开报告，阈值不沿 public sweep。
 3. 碎片独立组（R3 纯 `[M-H]-` 22，`SHA256("20261017|013|key")` 排序冻结）与最小生成链（非 oracle 公式→真实 MIST→B=10）按子任务设计排队，参数/预算沿用 012 冻结值，不重调 λ。
 4. 本轮无新排行榜提升、无 push、无 submission。完整 PubChem 7.2GB 与 MS2DeepScore2 权重均未下载。

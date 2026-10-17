@@ -1,0 +1,291 @@
+{
+  "date_beijing": "2026-10-17",
+  "baseline_commit": "3ea995e",
+  "decision": "NO_NEW_SUBMISSION_THIS_REVIEW",
+  "reasons": [
+    "013 only query-level support, no candidate ranker/OOF score/new inference notebook",
+    "direct includes exact query spectra; canonical identity and physical shift interpretation need alignment",
+    "frozen pure-negative R3 fragment transfer did not confirm improvement"
+  ],
+  "current_scored_submissions": [
+    {
+      "ref": 57293821,
+      "public_score": "0.323",
+      "status": "COMPLETE"
+    },
+    {
+      "ref": 57028399,
+      "public_score": "0.323",
+      "status": "COMPLETE"
+    }
+  ],
+  "support_audit": {
+    "summary": {
+      "NP": {
+        "n": 12,
+        "empty_after_precursor_removal": 0,
+        "original_winner_precursor_fraction_ge_0_8": 5,
+        "original_winner_oligomer_intact_monomer_fraction_ge_0_8": 2,
+        "original_winner_largest_pair_fraction_ge_0_8": 8,
+        "original_winner_cross_polarity": 3,
+        "original_analog": {
+          "mean": 0.7712307065152985,
+          "ge_0_3": 11,
+          "ge_0_99": 0
+        },
+        "original_winner_stripped": {
+          "mean": 0.4143356661933009,
+          "ge_0_3": 6,
+          "ge_0_99": 0
+        },
+        "original_pool_stripped_remax": {
+          "mean": 0.7210966462456891,
+          "ge_0_3": 11,
+          "ge_0_99": 0
+        },
+        "canonical_unseen": {
+          "mean": 0.7712307065152985,
+          "ge_0_3": 11,
+          "ge_0_99": 0
+        },
+        "canonical_unseen_stripped_remax": {
+          "mean": 0.7210966462456891,
+          "ge_0_3": 11,
+          "ge_0_99": 0
+        }
+      },
+      "G1": {
+        "n": 12,
+        "empty_after_precursor_removal": 0,
+        "original_winner_precursor_fraction_ge_0_8": 1,
+        "original_winner_oligomer_intact_monomer_fraction_ge_0_8": 5,
+        "original_winner_largest_pair_fraction_ge_0_8": 10,
+        "original_winner_cross_polarity": 1,
+        "original_analog": {
+          "mean": 0.8766594382146042,
+          "ge_0_3": 12,
+          "ge_0_99": 4
+        },
+        "original_winner_stripped": {
+          "mean": 0.8327702012741671,
+          "ge_0_3": 11,
+          "ge_0_99": 4
+        },
+        "original_pool_stripped_remax": {
+          "mean": 0.8714701157369605,
+          "ge_0_3": 12,
+          "ge_0_99": 4
+        },
+        "canonical_unseen": {
+          "mean": 0.8766594382146042,
+          "ge_0_3": 12,
+          "ge_0_99": 4
+        },
+        "canonical_unseen_stripped_remax": {
+          "mean": 0.8714701157369605,
+          "ge_0_3": 12,
+          "ge_0_99": 4
+        }
+      },
+      "R3": {
+        "n": 12,
+        "empty_after_precursor_removal": 0,
+        "original_winner_precursor_fraction_ge_0_8": 3,
+        "original_winner_oligomer_intact_monomer_fraction_ge_0_8": 1,
+        "original_winner_largest_pair_fraction_ge_0_8": 11,
+        "original_winner_cross_polarity": 2,
+        "original_analog": {
+          "mean": 0.4260925364894878,
+          "ge_0_3": 8,
+          "ge_0_99": 0
+        },
+        "original_winner_stripped": {
+          "mean": 0.2575408159688117,
+          "ge_0_3": 6,
+          "ge_0_99": 0
+        },
+        "original_pool_stripped_remax": {
+          "mean": 0.39945644525814156,
+          "ge_0_3": 8,
+          "ge_0_99": 0
+        },
+        "canonical_unseen": {
+          "mean": 0.4260925364894878,
+          "ge_0_3": 8,
+          "ge_0_99": 0
+        },
+        "canonical_unseen_stripped_remax": {
+          "mean": 0.39945644525814156,
+          "ge_0_3": 8,
+          "ge_0_99": 0
+        }
+      },
+      "all": {
+        "n": 36,
+        "empty_after_precursor_removal": 0,
+        "original_winner_precursor_fraction_ge_0_8": 9,
+        "original_winner_oligomer_intact_monomer_fraction_ge_0_8": 8,
+        "original_winner_largest_pair_fraction_ge_0_8": 29,
+        "original_winner_cross_polarity": 6,
+        "original_analog": {
+          "mean": 0.6913275604064635,
+          "ge_0_3": 31,
+          "ge_0_99": 4
+        },
+        "original_winner_stripped": {
+          "mean": 0.5015488944787599,
+          "ge_0_3": 23,
+          "ge_0_99": 4
+        },
+        "original_pool_stripped_remax": {
+          "mean": 0.6640077357469303,
+          "ge_0_3": 31,
+          "ge_0_99": 4
+        },
+        "canonical_unseen": {
+          "mean": 0.6913275604064635,
+          "ge_0_3": 31,
+          "ge_0_99": 4
+        },
+        "canonical_unseen_stripped_remax": {
+          "mean": 0.6640077357469303,
+          "ge_0_3": 31,
+          "ge_0_99": 4
+        }
+      }
+    },
+    "exact_first_query_duplicate_cases": 12,
+    "sampled_refs_matching_any_query_hash": 55,
+    "r3_full_train_all50_zero": true,
+    "max_original_recompute_abs_difference": 0.0,
+    "wall_seconds": 10.545135974884033,
+    "peak_rss_gib": 3.524688720703125,
+    "reference_exclusion_did_not_change_36_analog_maxima": true
+  },
+  "r3_fragment": {
+    "summary": {
+      "selected_pure_negative22": {
+        "n": 22,
+        "base_mrr25": 0.7206709956709957,
+        "fragment_mrr25": 0.7168831168831169,
+        "delta_mrr25": -0.0037878787878787897,
+        "paired_bootstrap_ci95": [
+          -0.022727272727272728,
+          0.01136363636363636
+        ],
+        "base_top1": 12,
+        "fragment_top1": 12,
+        "base_top25": 22,
+        "fragment_top25": 22,
+        "improved": 1,
+        "worsened": 1,
+        "top1_gained": 0,
+        "top1_lost": 0,
+        "top25_gained": 0,
+        "top25_lost": 0,
+        "with_explicit_carrier": 22,
+        "with_group_ge3": 17,
+        "order_changed": 14,
+        "truth_top50": 22,
+        "n_candidates_top50": 314,
+        "n_candidates_finite_fragment": 314
+      },
+      "all_R3_50_with_nonselected_unchanged": {
+        "n": 50,
+        "base_mrr25": 0.7016190476190477,
+        "fragment_mrr25": 0.6999523809523811,
+        "delta_mrr25": -0.0016666666666666674,
+        "paired_bootstrap_ci95": [
+          -0.01,
+          0.004999999999999999
+        ],
+        "base_top1": 29,
+        "fragment_top1": 29,
+        "base_top25": 45,
+        "fragment_top25": 45,
+        "improved": 1,
+        "worsened": 1,
+        "top1_gained": 0,
+        "top1_lost": 0,
+        "top25_gained": 0,
+        "top25_lost": 0,
+        "with_explicit_carrier": 22,
+        "with_group_ge3": 17,
+        "order_changed": 14,
+        "truth_top50": 46,
+        "n_candidates_top50": 314,
+        "n_candidates_finite_fragment": 314
+      },
+      "known_mass46_with_nonselected_unchanged": {
+        "n": 46,
+        "base_mrr25": 0.7626293995859214,
+        "fragment_mrr25": 0.7608178053830228,
+        "delta_mrr25": -0.0018115942028985516,
+        "paired_bootstrap_ci95": [
+          -0.010869565217391304,
+          0.005434782608695651
+        ],
+        "base_top1": 29,
+        "fragment_top1": 29,
+        "base_top25": 45,
+        "fragment_top25": 45,
+        "improved": 1,
+        "worsened": 1,
+        "top1_gained": 0,
+        "top1_lost": 0,
+        "top25_gained": 0,
+        "top25_lost": 0,
+        "with_explicit_carrier": 22,
+        "with_group_ge3": 17,
+        "order_changed": 14,
+        "truth_top50": 46,
+        "n_candidates_top50": 314,
+        "n_candidates_finite_fragment": 314
+      }
+    },
+    "baseline": {
+      "all50_matches_010_top25_and_012_full_order": true,
+      "R3_fused_merge_finite": 0,
+      "total_logit_rows": 59,
+      "protocol": "Original maximum-raw-peak representative FP, original v9 neutral_mass, 10ppm, canonical max, fixed 538 asset; all merge ICE missing => unchanged representative FP fallback.",
+      "prior_forward_verification_file": "artifacts/010-recall-audit/verification.json"
+    },
+    "coverage": {
+      "selected_n": 22,
+      "selected_known_mass": 22,
+      "selected_truth_full_window": 22,
+      "all50_known_mass": 46,
+      "all50_unknown_mass_keys": [
+        "NMVVBVMYPLMIOU",
+        "UTDAGHZGKXPRQI",
+        "JOECRAPIMXFQDL",
+        "ZTILAOCGFRDHBH"
+      ],
+      "selected_vs_NP_G1_canonical_overlap": []
+    },
+    "wall_seconds": 9.645081207971089,
+    "cpu_seconds": 9.590997,
+    "environment": {
+      "python": "3.11.16",
+      "numpy": "2.4.6",
+      "rdkit": "2026.03.6",
+      "numba": false
+    },
+    "limits": [
+      "R3 has already been repeatedly evaluated, is source-selected, and shares MassBank with the fixed expansion; NOT a fresh independent blind set.",
+      "Canonical groups do not overlap the 012 NP/G1 development sample, but model-training exposure remains unknown.",
+      "This evaluates a pre-frozen pure-negative subgroup, not all 012 unsupported-adduct routing conditions.",
+      "Unselected R3 molecules are unchanged only for this transfer check; full-policy aggregate is not claimed.",
+      "CPU float64 cached FP and current RDKit may differ from deployed GPU float32; no new forward or remote run.",
+      "Candidate membership came only from base pool plus fixed 538 index, never truth insertion.",
+      "Four unknown-adduct/unknown-mass cases retain empty candidate fallback and are reported separately."
+    ]
+  },
+  "manual_environment": {
+    "python": "3.11.16",
+    "numpy": "2.4.6",
+    "pyarrow": "25.0.1"
+  },
+  "new_gpu_jobs": 0,
+  "new_submissions": 0
+}

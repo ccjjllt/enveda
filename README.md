@@ -4,7 +4,11 @@
 
 比赛：[`enveda-CASMI26-molecule-id-mass-spectra`](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra)。最初提供的第一个链接显示文字为 ARC Prize，但实际链接属于 Enveda；本项目只研究 Enveda。
 
-## 当前研究入口：013（2026-10-17）
+## 当前研究入口：014（2026-10-17）
+
+**013新工作已复核，本轮不新增submission。** 现有结果仍是query级支撑率，没有候选级analog排序器、OOF MRR或新离线入口。014固定36例诊断发现29例最佳匹配≥80%由单峰对贡献，原direct还包含12个查询首谱的精确重复；但不能据此否定全部analog信号。另按012原参数补做R3纯负22例：MRR0.720671→0.716883、Top1/Top25不变，未确认碎片跨域增益。下一项核心工作是候选—参考结构一致性特征及canonical分组排序对照。见[014计划](docs/plan/014-submission-readiness-and-support-audit.md)、[014进展](docs/progress/014-submission-readiness-and-support-audit.md)、[014精简记录](data/references/research-review-014.json)。v9r2/v10仍为0.323。
+
+## 013前置工作（2026-10-17历史记录）
 
 **012 已关闭：v10 public 0.323 与 v9r2 同分已复核；碎片/ChEBI/PubChemLite 三项 CPU 研究完成，未再提交。** 013 主线为可追溯参考谱/analog 第二证据：已用 ccjjllt 账号核实提交与榜单（榜首 0.495/第五 0.468，GPU 剩 27.39h），拉取 prvsiyan analog、Berat 0.336、Seyit 0.446 三份源码（只读未执行），完成首个 CPU 支撑审计（550 query、train 抽样约 5 万、34.5 秒）：NP direct≥0.3 156/250、shift≥0.3 242/250；G1 direct 19/250、shift 246/250；R3 direct 0/46、shift 32/46。支撑率非排序增益，排序试点（HGB/GroupKFold）下一步。最新[013计划](docs/plan/013-analog-second-evidence.md)与[013进展](docs/progress/013-analog-second-evidence.md)，精简[013记录](data/references/research-results-013.json)。012 结论见[012进展](docs/progress/012-score-plateau-and-complementary-evidence.md)。
 
