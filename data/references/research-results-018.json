@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-18",
+  "question": "Same 500 molecules and frozen LR direct model; change only the reference library from the 015 stride-50 sample to the 016 full index.",
+  "submission": "none; v9r2 ref57028399 and v10 ref57293821 remain public 0.323",
+  "gpu": "not used; neural scores already cached",
+  "competition_cli": {
+    "account": "ccjjllt",
+    "teams": 3509,
+    "user_rank": 2150,
+    "public_top5": [0.495, 0.495, 0.493, 0.484, 0.474],
+    "near_rank_15": 0.461
+  },
+  "reconstruction": {
+    "index_rows": 2511008,
+    "stride50_with_smiles": 50219,
+    "max_abs_direct_quality": 0.00025301,
+    "median_query_max_abs_direct_quality": 2.2205587114085615e-11,
+    "queries_abs_gt_0.001": 0,
+    "canonical_overlap_with_400_panel": 0
+  },
+  "old_model_mrr": {
+    "NP_B": {"v9": 0.668997, "sparse": 0.723776, "full": 0.786438, "top1_full": 161},
+    "NP_A": {"v9": 0.668997, "sparse": 0.669599, "full": 0.645858, "top1_full": 130},
+    "G1_B_equals_A": {"v9": 0.907022, "sparse": 0.906010, "full": 0.865982, "top1_full": 197}
+  },
+  "wrong_positive_fraction": {
+    "NP_B": [0.0326, 0.21097],
+    "NP_A": [0.03137, 0.2095],
+    "G1": [0.04849, 0.65191]
+  },
+  "mean_sparse_rows_displaced_fraction": 0.979,
+  "oof_retrained_direct_mrr": {"NP_B": 0.709423, "NP_A": 0.666102, "G1": 0.903750},
+  "panel_transfer_mrr": {
+    "external_cross_B": {"v9": 0.936458, "old_direct": 0.951625, "retrained": 0.937458, "relative": 0.939125},
+    "natural_A": {"v9": 0.765440, "old_direct": 0.734150, "retrained": 0.760317, "relative": 0.755113}
+  },
+  "relative_oof_mrr": {"NP_B": 0.728758, "NP_A": 0.665630, "G1": 0.899780},
+  "next": "isomer-specific fragment evidence on the existing high-cosine same-adduct crossings; not multi-CE first and not a quality-threshold scan"
+}

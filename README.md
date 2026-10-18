@@ -4,7 +4,13 @@
 
 比赛：[`enveda-CASMI26-molecule-id-mass-spectra`](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra)。最初提供的第一个链接显示文字为 ARC Prize，但实际链接属于 Enveda；本项目只研究 Enveda。
 
-## 当前研究入口：017（2026-10-18）
+## 当前研究入口：018（2026-10-18）
+
+**同一批500分子上，只把参考库从约5万换成251万，就复现了缺参考退化；线性重训保不住跨来源增益。暂不提交。** 索引上的 stride-50 子集把015已存 `direct_quality` 复现到最大误差 0.00025。旧 direct 模型在全库上：NP有参考 MRR 0.724→0.786，NP去掉目标参考 0.670→0.646，G1 0.907→0.866。最近2000条里约98%被换成新谱，但真值谱几乎没被挤出；变的是错误候选的谱证据。用全库特征重训后，400面板外部跨来源增益从 +0.015 缩到 +0.001，自然缺库损失从 −0.031 缩到 −0.005，区间仍不含0。同式 quality 差只在真值本身领先时加分。下一步看特异碎片，不先加多CE，也不扫 quality 阈值。v9r2/v10 仍 public 0.323。本轮无 GPU、push 或提交。
+
+接手先读[018进展](docs/progress/018-same-molecule-reference.md)和[018计划](docs/plan/018-same-molecule-reference.md)，精简记录见[018结果](data/references/research-results-018.json)。
+
+## 017复核记录（2026-10-18）
 
 **016已复核并完成纠错重算，当前暂不新增submission。** 原016将SMILES键的ICE回包按canonical读取，全部ICE特征误丢失，并把FP-only排序标成v9。现已保留旧产物、复用21869个有效ICE分数，修正真实v9前50并CPU重算两套400分子特征。跨来源外部B，direct MRR0.936458→0.951625，Top1 180→184；自然缺库A却0.765440→0.734150，不能全域部署。主要问题是全库下同式错误候选也获得高谱质量，下一步优先对齐训练/实际参考分布并校准证据可靠性，而非直接扫阈值。v9r2/v10仍public0.323；本轮无新GPU、训练、push或提交。
 
