@@ -1,10 +1,16 @@
 # Enveda CASMI 2026 研究项目
 
-从串联质谱（MS/MS）预测分子结构，围绕候选检索、排序、多谱融合和模型微调开展研究。研究状态更新：**2026-10-17**；下文规则及硬件资料保留各自核实日期。
+从串联质谱（MS/MS）预测分子结构，围绕候选检索、排序、多谱融合和模型微调开展研究。研究状态更新：**2026-10-18**；下文规则及硬件资料保留各自核实日期。
 
 比赛：[`enveda-CASMI26-molecule-id-mass-spectra`](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra)。最初提供的第一个链接显示文字为 ARC Prize，但实际链接属于 Enveda；本项目只研究 Enveda。
 
-## 当前研究入口：015（2026-10-17）
+## 当前研究入口：017（2026-10-18）
+
+**016已复核并完成纠错重算，当前暂不新增submission。** 原016将SMILES键的ICE回包按canonical读取，全部ICE特征误丢失，并把FP-only排序标成v9。现已保留旧产物、复用21869个有效ICE分数，修正真实v9前50并CPU重算两套400分子特征。跨来源外部B，direct MRR0.936458→0.951625，Top1 180→184；自然缺库A却0.765440→0.734150，不能全域部署。主要问题是全库下同式错误候选也获得高谱质量，下一步优先对齐训练/实际参考分布并校准证据可靠性，而非直接扫阈值。v9r2/v10仍public0.323；本轮无新GPU、训练、push或提交。
+
+接手先读[017交接与下一步](docs/handoff/017-corrected-panel-and-next-step.md)，实际结果见[017进展](docs/progress/017-review-and-corrected-panel.md)、[017计划](docs/plan/017-review-and-corrected-panel.md)、[017精简记录](data/references/research-results-017.json)。016原始工作见[016进展](docs/progress/016-new-panel-direct-verification.md)，其中旧排序结论已显著标注失效范围。
+
+## 015研究记录（2026-10-17）
 
 **已实际跑完候选级排序研究，下一步优先确认直接谱检索的来源迁移；尚未提交新版本。** 500个开发分子、42580行特征、固定五折OOF及事后direct-only消融已完成。NP允许同结构参考时，原v9 MRR0.668997→LR组合0.725342，Top1从138到151；只加直接参考质量也达到0.723109，追加analog增量尚未确认。移除目标结构参考后与G1均没有确认收益，不能外推隐藏集提分。保存模型人工重放误差0，主实验与消融结果分别保留。v9r2/v10仍public0.323。
 

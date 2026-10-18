@@ -9,12 +9,13 @@ Builds the Ice-only Colab bundle for the frozen 400-molecule panel:
 
 Frozen parity: model/prep/neutral_mass/fwd_batch sources are exec'd byte-
 identical from notebooks/submission-v10/enveda-submission-v10.ipynb
-(cells 4/5/6-fwd; SHA-recorded). One disclosed patch: cell-4 `.cuda()` ->
-`.cpu()` for local forward (eval mode, math identical). Scoring chunk G=20
-(per-molecule independent; chunking cannot change scores).
+(cells 4/5/6-fwd; SHA-recorded). Two disclosed device substitutions move
+the model and tensors to CPU (eval mode; CPU/GPU bitwise parity unverified).
+Scoring chunk G=20 leaves the per-molecule scoring rule unchanged.
 
 Manual run: /opt/homebrew/bin/python3.11 scripts/build_016_colab_inputs.py [--probe]
-Probe: 5 queries, no tar. Full writes artifacts/016-colab/{inputs.json,manifest.json}
+Probe: 5 queries, no tar. Corrected builds default to artifacts/017-colab;
+the historical 016 bundle is preserved. Use --output-dir for another location.
 and panel-016-ice-bundle.tar.gz (inputs.json + code/ice + install.sh + f1_worker.py).
 """
 import argparse
@@ -29,7 +30,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "artifacts/016-colab"
+OUT = ROOT / "artifacts/017-colab"
 NB = ROOT / "notebooks/submission-v10/enveda-submission-v10.ipynb"
 W_SINGLE = ROOT / "artifacts/001-baseline/weights/fp_single_s2.pt"
 PPM = 10.0
@@ -44,6 +45,35 @@ def sha_file(p):
         for b in iter(lambda: f.read(4 * 1024 * 1024), b""):
             h.update(b)
     return h.hexdigest()
+
+
+def canonical_key(smiles, fallback, enumerator=None):
+    """The v10 cell-32 identity rule, also applied to expansion candidates."""
+    from rdkit import Chem
+    from rdkit.Chem.MolStandardize import rdMolStandardize
+    try:
+        mol = Chem.MolFromSmiles(str(smiles))
+        if mol is None:
+            return str(fallback)
+        Chem.RemoveStereochemistry(mol)
+        te = enumerator if enumerator is not None else rdMolStandardize.TautomerEnumerator()
+        return str(Chem.MolToInchiKey(te.Canonicalize(mol)).split("-")[0])
+    except Exception:
+        return str(fallback)
+
+
+def patched_worker_source(source):
+    """Patch newly copied workers; historical bundles remain untouched."""
+    patches = {
+        "dtype=np.unicode_": "dtype=np.str_",
+        "tmp = '%s.tmp%d' % (path, os.getpid())\n    np.savez_compressed(tmp, **payload)":
+            "tmp = '%s.tmp%d.npz' % (path, os.getpid())\n    np.savez_compressed(tmp, **payload)",
+    }
+    for old, new in patches.items():
+        if source.count(old) != 1:
+            raise ValueError(f"worker cache patch anchor count: {old!r}")
+        source = source.replace(old, new)
+    return source
 
 
 def exec_frozen():
@@ -107,7 +137,9 @@ def read_panel_spectra(panel):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--probe", action="store_true")
+    ap.add_argument("--output-dir", type=Path, default=OUT)
     args = ap.parse_args()
+    out_dir = args.output_dir
     t0 = time.time()
     import torch
     from rdkit.Chem.rdMolDescriptors import CalcMolFormula
@@ -161,6 +193,12 @@ def main():
                  "artifacts/005/structure_identity_coco.parquet"]:
         tt = pq.read_table(ROOT / path, columns=["raw_key", "canonical_group_key"])
         umap.update(dict(zip(tt.column("raw_key").to_pylist(), tt.column("canonical_group_key").to_pylist())))
+    # 017 repair: v10 canonicalizes every shipped candidate, including MB539.
+    # The two frozen 005 tables cover train/coco, not this expansion asset.
+    from rdkit.Chem.MolStandardize import rdMolStandardize
+    expansion_te = rdMolStandardize.TautomerEnumerator()
+    for key, smiles in zip(x_keys, x_smi):
+        umap[str(key)] = canonical_key(smiles, key, expansion_te)
     allk = list(t_keys) + c_keys + list(x_keys)
     alls = t_smi + c_smi + x_smi
     NALL = len(allk)
@@ -258,8 +296,8 @@ def main():
                           "top100_lens": sorted([len(m["order_top100"]) for m in molecules])[:5]},
                          indent=2))
         return
-    OUT.mkdir(parents=True, exist_ok=True)
-    bundle_src = OUT / "panel-016"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    bundle_src = out_dir / "panel-016"
     import shutil
     if bundle_src.exists():
         shutil.rmtree(bundle_src)
@@ -274,15 +312,23 @@ def main():
     for f in ["f1_worker.py", "install.sh"]:
         import shutil
         shutil.copy(ROOT / "artifacts/f1-bundle" / f, bundle_src / f)
+    worker_path = bundle_src / "f1_worker.py"
+    worker_original = worker_path.read_text()
+    worker_path.write_text(patched_worker_source(worker_original))
     import shutil
     shutil.copytree(ROOT / "artifacts/f1-bundle/code", bundle_src / "code")
     manifest = {"cells": shas, "weights": {"fp_single_s2.pt": sha_file(W_SINGLE)},
                 "pool": {"n": NALL}, "stat": stat,
                 "torch": torch.__version__, "device": "cpu",
-                "rdkit": "2026.03.6(local merge uses 005 map; formulas via local RDKit)"}
+                "rdkit": "2026.03.6(local merge uses 005 map plus v10-normalized expansion; formulas via local RDKit)",
+                "worker_cache_patch": {
+                    "source_sha256": hashlib.sha256(worker_original.encode()).hexdigest(),
+                    "patched_sha256": sha_file(worker_path),
+                    "changes": ["np.unicode_ -> np.str_", "temporary npz suffix matches atomic rename"],
+                }}
     json.dump(manifest, open(bundle_src / "MANIFEST.json", "w"), indent=2)
-    tar = OUT / "panel-016-ice-bundle.tar.gz"
-    subprocess.run(["tar", "czf", str(tar), "-C", str(OUT), "panel-016"], check=True)
+    tar = out_dir / "panel-016-ice-bundle.tar.gz"
+    subprocess.run(["tar", "czf", str(tar), "-C", str(out_dir), "panel-016"], check=True)
     print("bundle", tar, tar.stat().st_size, "sha", sha_file(tar)[:16])
     print("DRIVE UPLOADS:")
     print(" ", tar.name, tar.stat().st_size, "(bundle: inputs.json + code/ice + install.sh + f1_worker.py)")

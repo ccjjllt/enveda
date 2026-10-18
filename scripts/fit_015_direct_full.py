@@ -3,7 +3,7 @@
 Complements the post-hoc direct-only ablation (5 fold models) with one
 full-data LR fit on identical frozen inputs/params/weights, per handoff
 step 1. Does not modify any 015/ablation originals; writes only
-artifacts/015-analog/direct-only-ablation/lr_direct_only_experimental_full.joblib
+artifacts/015-analog/direct-only-ablation/models/lr_direct_only_experimental_full.joblib
 + full_fit.json. Not deployed, no OOF claim for this model.
 
 Manual run: .venv-015/bin/python scripts/fit_015_direct_full.py
@@ -35,7 +35,8 @@ def main():
             "feature_names": feat_names,
             "feature_indices": [names.index(x) for x in feat_names],
             "array": "X"}
-    assert CONFIG["logistic"] == {"C": 1, "max_iter": 1000, "solver": "lbfgs"} or True
+    if CONFIG["logistic"] != {"C": 1, "max_iter": 1000, "solver": "lbfgs"}:
+        raise ValueError("015 fixed logistic parameters changed")
     rows = np.arange(len(arrays["X"]), dtype=np.int64)
     t0 = time.perf_counter()
     bundle, info = fit_model(spec, arrays, rows, weights)

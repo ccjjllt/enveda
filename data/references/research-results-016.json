@@ -45,5 +45,17 @@
     "p95_s": 0.483,
     "quality_pos_rate": 0.389,
     "rss_gib": 3.879
+  },
+  "review_017": {
+    "date_beijing": "2026-10-18",
+    "record": "data/references/research-results-017.json",
+    "original_metrics_valid_as_v9_comparison": false,
+    "issues": [
+      "ICE inner keys are SMILES; canonical lookup erased all ICE features",
+      "FP-only baseline was mislabeled v9; true v9 top50 candidate sets differ in 220 of 400 queries",
+      "NumPy unicode alias and independent npz temporary filename bugs affect cache persistence, not already assigned raw scores"
+    ],
+    "raw_ice_finite_fused_reusable": 21869,
+    "original_artifacts_preserved": true
   }
 }
