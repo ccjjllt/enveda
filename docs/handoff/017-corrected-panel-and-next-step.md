@@ -1,5 +1,7 @@
 # 017研究交接：直接谱检索的跨来源收益与同式误匹配
 
+> **接手更新（2026-10-18）：本文实验一至三已由018完成，不再重复全库重训或quality margin实验。** 最新下一步是[019特异碎片研究](../plan/019-specific-fragment-evidence.md)，已做8个错误对及3个完整同式候选组的小样本解释，实际观察见[019进展](../progress/019-specific-fragment-evidence.md)。
+
 日期：2026-10-18。目标是提高隐藏集结构识别能力，竞争奖金与奖牌。当前public为0.323；本轮已经恢复正确的FP＋ICE基线，得到下面的离线研究结果。详细数值和运行记录见[017进展](../progress/017-review-and-corrected-panel.md)。
 
 ## 研究到了哪里

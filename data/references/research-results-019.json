@@ -1,0 +1,100 @@
+{
+  "round": "019",
+  "date_beijing": "2026-10-18",
+  "base_commit": "59d8cf8",
+  "question": "Which observed peaks add information for discriminating same-formula candidates after the 018 reference adaptation and quality-margin experiments?",
+  "conclusion": "Prioritize full candidate-group fragment support and combination evidence with correct-uplift controls; pair-exclusive peaks can be common within the full group. No new ranking or submission gain measured.",
+  "018_interpretation_corrections": {
+    "quality_raw_logit_slope_old": 8.697605,
+    "quality_raw_logit_slope_retrained": 3.336954,
+    "reduction_fraction": 0.6163364512414624,
+    "count": "Constant within a formula group, so no direct linear ranking effect, but can alter other coefficients during fitting.",
+    "margin": "Deterministic quality re-expression plus an extra quality-winner bonus; no new fragment measurement."
+  },
+  "fixed_pair_exploration": {
+    "unique_error_pairs_available": 38,
+    "pairs": 8,
+    "selection": "First eight unique query/candidate pairs sorted by sha256(019|fragment|query|candidate), from already-selected 017 causal crossings; exploratory only",
+    "method": "Original 012 <=2 heavy atom bond cuts, H shift -2..3, explicit precursor carriers, .005 Da mass explanation; per-observed-peak truth-exclusive vs wrong-exclusive; original vs weak-restored spectral matching uses .01 Da and fixed precursor removal",
+    "all_adducts": "[M+H]+",
+    "wall_seconds": 1.851064920425415,
+    "weak_restoration_median_cosine_delta": -0.00238,
+    "truth_exclusive_retained_raw_intensity_fraction_in_pair_examples": [
+      0.09631,
+      0.03861
+    ],
+    "interpretation": "Those fractions are two-candidate rule-dependent explanations, not full-group specificity or identified diagnostic ions."
+  },
+  "full_group_exploration": {
+    "queries": 3,
+    "candidates": 84,
+    "wall_seconds_approx": 0.5,
+    "selection": "Post-hoc representatives from fixed8; not independent confirmation",
+    "examples": [
+      {
+        "query": "VZLCYTHOFMBCOV",
+        "candidates": 28,
+        "peak_support": [
+          {
+            "mz": 103.0549,
+            "candidate_support": 5
+          },
+          {
+            "mz": 104.0583,
+            "candidate_support": 5
+          },
+          {
+            "mz": 102.047,
+            "candidate_support": 3
+          }
+        ]
+      },
+      {
+        "query": "KUJPBAAEUZXUIJ",
+        "candidates": 50,
+        "peak_support": [
+          {
+            "mz": 84.0809,
+            "candidate_support": 28
+          },
+          {
+            "mz": 246.1488,
+            "candidate_support": 22
+          },
+          {
+            "mz": 247.153,
+            "candidate_support": 22
+          }
+        ]
+      },
+      {
+        "query": "UVMJRKUPBRAHRO",
+        "candidates": 6,
+        "truth_wrong_exclusive_observed_peaks": 0
+      }
+    ],
+    "queries_with_truth_only_retained_peak": 0
+  },
+  "next_experiment": "Observed peak by candidate support matrices across all 38 unique error pairs, plus matched correct-uplift controls; examine candidate-rarity and nonredundant peak combinations before fitting one new feature.",
+  "constraints_on_interpretation": [
+    "Exploratory error-selected positive-ion pairs; not a generalization score",
+    "Simple <=2 bond-cut rules include uncertain fragment generation and H-shift/isotope ambiguities",
+    "No excluded truth reference spectrum used; truth used only for retrospective interpretation",
+    "Existing ICE peaks fields are hashes, not predicted mz/intensity arrays; small new predictions are needed for neural peak-level explanation",
+    "Merged CE labels do not represent multiple independently observed CE spectra"
+  ],
+  "new_model_training": false,
+  "new_gpu_run": false,
+  "new_reranking_score": false,
+  "new_submission": false,
+  "artifacts": [
+    "artifacts/019-research/mechanism-notes.md",
+    "artifacts/019-research/fixed8-fragment-diagnostic.json",
+    "artifacts/019-research/full-group-specificity.json",
+    "artifacts/019-research/fragment-next-notes.md"
+  ],
+  "documents": {
+    "plan": "docs/plan/019-specific-fragment-evidence.md",
+    "progress": "docs/progress/019-specific-fragment-evidence.md"
+  }
+}
