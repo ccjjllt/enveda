@@ -18,12 +18,20 @@ torch 只在实际训练函数内延迟导入；本文件顶层导入不要求 t
 - 以结构均匀抽样并限制每结构谱数，比较 timsTOF 混合比例，避免
   enveda-180 大量谱单纯凭数量主导训练（采样由调用方实现，此处只记口径）。
 
-精度与损失：
-- T4 首轮可用 FP16 AMP + GradScaler；m/z、正弦嵌入相关计算与质量过滤
-  保持所需精度（float32/float64），不得照搬 TPU BF16 方案。
-  AMP 只包前向/反向，质量窗口与评估 stays float64。
-- 损失 = BCE（指纹多标签）+ 同质量窗口候选排序损失（margin ranking）：
-  在训练结构内构造负例并排除真值等价结构，不从验证标签调负例。
+精度与损失（020 修复：此前 train_step_torch 只算 BCE，排序项未接入）：
+- CUDA 上前向用 torch.autocast('cuda', dtype=float16) + torch.amp.GradScaler；
+  CPU 默认不开 autocast（cpu_bf16=True 时用 bfloat16，无 scaler）。
+  损失一律在 float32 里计算；质量窗口过滤在 collate 外层 float64 完成。
+- 损失 = BCE(logits, bits_pos) + ranking_weight * rank：
+  s = logits · bits（与推理 Fmat @ Z 同口径的 f·z 分数），
+  rank = CE([s_pos, s_neg_1..K] / ranking_temperature, target=0)，
+  neg_mask=False 的填充负例置 -inf；没有有效负例的行不计入 rank，
+  整批都没有负例时 total == BCE（向后兼容旧 batch['target']）。
+  负例是同质量窗口候选，已排除真值等价结构（src/fp_train_data 负责）。
+  旧的 hinge margin（ranking_margin）已删除：f·z 是几百位 logits 之和，
+  固定 0.1 margin 没有尺度意义；改由 ranking_temperature 控制。
+- 反向：scaler.scale(loss).backward() -> scaler.unscale_ -> 对可训参数
+  clip_grad_norm_(grad_clip=1.0) -> scaler.step/update。
   推理 checkpoint 没有已确认的完整优化器状态，加载只作微调初始化，
   不称精确续训；保存必须含 optimizer/config/split（见 save_train_state）。
 
@@ -77,8 +85,11 @@ class TrainConfig:
     nbits: int = DEFAULT_NBITS
     seed: int = 2026
     amp_fp16: bool = True
+    cpu_bf16: bool = False
     ranking_weight: float = 1.0
-    ranking_margin: float = 0.1
+    # CE 温度：s/tau。f·z 尺度随模型而变，需按实测 loss 曲线调。
+    ranking_temperature: float = 1.0
+    grad_clip: float = 1.0
     # split 口径：训练排除的结构 key 集合名称与 manifest 路径（不内嵌 key）。
     split_manifest: str = "artifacts/004-research/np_manifest.json"
     split_note: str = ("exclude NP250 shipped keys train-side; "
@@ -181,95 +192,160 @@ def apply_freeze(model, mode: str) -> List[str]:
 
 
 def bce_with_ranking_loss_numpy(pos_logits: Sequence[float],
-                                neg_logits_matrix: Sequence[Sequence[float]],
-                                pos_bits: Sequence[int],
                                 neg_bits_matrix: Sequence[Sequence[int]],
+                                pos_bits: Sequence[int],
+                                neg_mask: Optional[Sequence[bool]] = None,
                                 ranking_weight: float = 1.0,
-                                ranking_margin: float = 0.1) -> Dict[str, float]:
-    """BCE + 同质量窗口排序损失的 numpy 参考实现（本地可核对公式）。
+                                ranking_temperature: float = 1.0
+                                ) -> Dict[str, float]:
+    """单样本 BCE + 同窗口 CE 排序损失的 numpy 参考实现（与 torch 版同式）。
 
-    - BCE：对正例候选用 BCEWithLogits（按位平均），负例同样；返回 bce_pos/bce_neg。
-    - ranking：每个正例分数 s+ = dot(sig? 此处用 logits 点积，与 ranking.py
-      single 一致）应高于同窗口各负例 s-：loss_rank = mean(max(0, margin-(s+-s-)))。
-    - total = bce + ranking_weight * loss_rank。负例必须已排除真值等价结构
-      （调用方保证，此处只算数）。
-    分数与 ranking.py dot_score 同口径，便于对照。
+    - bce：BCEWithLogits(pos_logits, pos_bits) 按位平均（只对真值指纹）。
+    - s_pos = logits·pos_bits，s_neg_k = logits·neg_bits_k（同 ranking.py dot_score）。
+    - rank = -log softmax([s_pos, s_neg...]/tau)[0]，neg_mask=False 的负例忽略；
+      无有效负例时 rank=0。
+    - total = bce + ranking_weight * rank。
     """
-    def sigmoid(x: float) -> float:
-        return 1.0 / (1.0 + math.exp(-x))
+    import numpy as np
+    lg = np.asarray(pos_logits, dtype=np.float64)
+    pb = np.asarray(pos_bits, dtype=np.float64)
+    if lg.shape != pb.shape:
+        raise ValueError("logits/bits length mismatch")
+    bce = float(np.mean(np.maximum(lg, 0) - lg * pb + np.log1p(np.exp(-np.abs(lg)))))
+    nb = np.asarray(neg_bits_matrix, dtype=np.float64).reshape(-1, lg.shape[0])
+    m = (np.ones(len(nb), bool) if neg_mask is None
+         else np.asarray(neg_mask, dtype=bool).reshape(-1))
+    nb = nb[m]
+    if len(nb):
+        sc = np.concatenate([[lg @ pb], nb @ lg]) / float(ranking_temperature)
+        mx = sc.max()
+        rank = float(mx + np.log(np.exp(sc - mx).sum()) - sc[0])
+    else:
+        rank = 0.0
+    return {"bce": bce, "rank": rank,
+            "total": bce + float(ranking_weight) * rank,
+            "n_neg": int(len(nb))}
 
-    def bce_bits(logits: Sequence[float], bits: Sequence[int]) -> float:
-        if len(logits) != len(bits):
-            raise ValueError("logits/bits length mismatch")
-        tot = 0.0
-        for l, b in zip(logits, bits):
-            p = sigmoid(float(l))
-            p = min(max(p, 1e-7), 1.0 - 1e-7)
-            t = 1.0 if b else 0.0
-            tot += -(t * math.log(p) + (1.0 - t) * math.log(1.0 - p))
-        return tot / max(1, len(bits))
 
-    def dot(lg: Sequence[float], bt: Sequence[int]) -> float:
-        return float(sum(float(l) for l, b in zip(lg, bt) if b))
+def unpack_bits_torch(packed, nbits: int):
+    """uint8 packed（高位先行，同 np.unpackbits / candidates.pack_bits）在当前设备上解包。
 
-    bce_p = bce_bits(list(pos_logits), list(pos_bits))
-    bce_n_list = [bce_bits(list(nl), list(nb))
-                  for nl, nb in zip(neg_logits_matrix, neg_bits_matrix)]
-    bce_n = (sum(bce_n_list) / len(bce_n_list)) if bce_n_list else 0.0
-    s_pos = dot(list(pos_logits), list(pos_bits))
-    rank_terms = []
-    for nl, nb in zip(neg_logits_matrix, neg_bits_matrix):
-        s_neg = dot(list(nl), list(nb))
-        rank_terms.append(max(0.0, float(ranking_margin) - (s_pos - s_neg)))
-    rank = (sum(rank_terms) / len(rank_terms)) if rank_terms else 0.0
-    total = (bce_p + bce_n) / (2.0 if neg_logits_matrix else 1.0) \
-        + float(ranking_weight) * rank
-    return {"bce_pos": float(bce_p), "bce_neg": float(bce_n),
-            "rank": float(rank), "total": float(total)}
+    输入 (..., ceil(nbits/8)) uint8 -> (..., nbits) float32。用于把负例指纹以
+    packed 形式搬到 GPU 后再展开，H2D 传输量是 float 的 1/32。
+    """
+    torch = _require_torch()
+    shifts = torch.arange(7, -1, -1, device=packed.device, dtype=torch.uint8)
+    bits = (packed.unsqueeze(-1) >> shifts) & 1
+    return bits.reshape(*packed.shape[:-1], -1)[..., : int(nbits)].float()
+
+
+def _batch_bits(batch: Dict, name: str, nbits: int, device: str):
+    """取 bits_pos / bits_neg：float/bool 张量或 *_packed uint8 均可。"""
+    if name in batch and batch[name] is not None:
+        return batch[name].to(device, non_blocking=True).float()
+    pk = batch.get(name + "_packed")
+    if pk is not None:
+        return unpack_bits_torch(pk.to(device, non_blocking=True), nbits)
+    return None
+
+
+def fingerprint_ranking_loss_torch(logits, bits_pos, bits_neg=None, neg_mask=None,
+                                   ranking_weight: float = 1.0,
+                                   ranking_temperature: float = 1.0) -> Dict:
+    """float32 下的 BCE + CE 排序损失（返回张量 dict：total/bce/rank/n_neg）。
+
+    logits/bits_pos: (B,D)；bits_neg: (B,K,D) 或 None；neg_mask: (B,K) bool，
+    True = 有效负例。全部无效或无负例时 rank=0、total=bce。
+    """
+    torch = _require_torch()
+    F = torch.nn.functional
+    logits = logits.float()
+    bits_pos = bits_pos.float()
+    bce = F.binary_cross_entropy_with_logits(logits, bits_pos)
+    zero = logits.new_zeros(())
+    if bits_neg is None or bits_neg.numel() == 0 or float(ranking_weight) == 0.0:
+        return {"total": bce, "bce": bce, "rank": zero, "n_neg": 0}
+    bits_neg = bits_neg.float()
+    B, K = bits_neg.shape[:2]
+    if neg_mask is None:
+        neg_mask = torch.ones(B, K, dtype=torch.bool, device=logits.device)
+    neg_mask = neg_mask.to(logits.device).bool()
+    s_pos = (logits * bits_pos).sum(-1, keepdim=True)
+    s_neg = torch.einsum("bd,bkd->bk", logits, bits_neg)
+    s_neg = s_neg.masked_fill(~neg_mask, float("-inf"))
+    sc = torch.cat([s_pos, s_neg], 1) / float(ranking_temperature)
+    valid = neg_mask.any(1)
+    n_neg = int(neg_mask.sum().item())
+    if not bool(valid.any()):
+        return {"total": bce, "bce": bce, "rank": zero, "n_neg": 0}
+    tgt = torch.zeros(int(valid.sum().item()), dtype=torch.long, device=logits.device)
+    rank = F.cross_entropy(sc[valid], tgt)
+    return {"total": bce + float(ranking_weight) * rank, "bce": bce,
+            "rank": rank, "n_neg": n_neg}
 
 
 def train_step_torch(model, optimizer, scaler, batch: Dict, config: TrainConfig,
                      device: str = "cuda") -> Dict[str, float]:
-    """单步 torch 训练（T4 上调用；本地不执行）。
+    """单步训练：前向（CUDA fp16 autocast）+ float32 BCE/CE 排序损失 + 裁剪.
 
-    batch 键：mz/it/pad/prec/ad/ins/ce/mode/logits_pos/bits_pos/
-    logits_neg/bits_neg（后两者为同窗口负例，已排除真值等价）。
-    AMP：scaler 为 GradScaler 或 None；m/z 与正弦嵌入保持 float32，
-    质量过滤在外层 float64，本函数内不降精度比较质量。
-    返回当步 loss 字典（float）。
+    batch 键：mz/it/pad/prec/ad/ins/ce/mode（FPNet 输入），
+    bits_pos (B,D) 真值指纹（旧键 target 作别名），
+    bits_neg (B,K,D) 同窗口负例指纹（或 bits_neg_packed uint8 (B,K,ceil(D/8))，
+    在设备上解包），neg_mask (B,K) bool。没有负例键时只算 BCE。
+    scaler：CUDA + amp_fp16 时必须是 torch.amp.GradScaler；其余情况可为 None。
+    返回 {"loss","bce","rank","n_neg","grad_norm"}（python float）。
     """
     torch = _require_torch()
     model.train()
-    ce = config
-    mz = batch["mz"].to(device)
-    it = batch["it"].to(device)
-    pad = batch["pad"].to(device)
-    prec = batch["prec"].to(device)
-    ad = batch["ad"].to(device)
-    ins = batch["ins"].to(device)
-    ce_t = batch["ce"].to(device)
-    mode = batch["mode"].to(device)
-    use_amp = bool(ce.amp_fp16) and str(device).startswith("cuda")
+    cfg = config
+    dev = str(device)
+    on_cuda = dev.startswith("cuda")
+    keys = ("mz", "it", "pad", "prec", "ad", "ins", "ce", "mode")
+    args = [batch[k].to(dev, non_blocking=True) for k in keys]
+    bits_pos = _batch_bits(batch, "bits_pos", cfg.nbits, dev)
+    if bits_pos is None:
+        bits_pos = _batch_bits(batch, "target", cfg.nbits, dev)
+    if bits_pos is None:
+        raise KeyError("batch needs bits_pos (or legacy target / bits_pos_packed)")
+    bits_neg = _batch_bits(batch, "bits_neg", cfg.nbits, dev)
+    neg_mask = batch.get("neg_mask")
+    if neg_mask is not None:
+        neg_mask = neg_mask.to(dev, non_blocking=True)
+
+    use_fp16 = bool(cfg.amp_fp16) and on_cuda
+    use_bf16 = (not on_cuda) and bool(getattr(cfg, "cpu_bf16", False))
+    if use_fp16 and scaler is None:
+        raise ValueError("amp_fp16=True 需要传入 torch.amp.GradScaler('cuda')")
     optimizer.zero_grad(set_to_none=True)
-    if use_amp:
-        # FP16 AMP（T4）；不用 TPU BF16 方案。scaler 由调用方创建。
-        from torch.cuda.amp import autocast
-        with autocast(dtype=torch.float16):
-            logits = model(mz, it, pad, prec, ad, ins, ce_t, mode)
-            loss = torch.nn.functional.binary_cross_entropy_with_logits(
-                logits, batch["target"].to(device))
-        if scaler is None:
-            raise ValueError("amp_fp16=True 需要传入 GradScaler")
+    if use_fp16 or use_bf16:
+        ctx = torch.autocast("cuda" if on_cuda else "cpu",
+                             dtype=torch.float16 if use_fp16 else torch.bfloat16)
+    else:
+        import contextlib
+        ctx = contextlib.nullcontext()
+    with ctx:
+        logits = model(*args)
+    out = fingerprint_ranking_loss_torch(
+        logits.float(), bits_pos, bits_neg, neg_mask,
+        ranking_weight=cfg.ranking_weight,
+        ranking_temperature=cfg.ranking_temperature)
+    loss = out["total"]
+    params = [p for p in model.parameters() if p.requires_grad]
+    if use_fp16:
         scaler.scale(loss).backward()
+        scaler.unscale_(optimizer)
+        gn = torch.nn.utils.clip_grad_norm_(params, float(cfg.grad_clip))
         scaler.step(optimizer)
         scaler.update()
     else:
-        logits = model(mz, it, pad, prec, ad, ins, ce_t, mode)
-        loss = torch.nn.functional.binary_cross_entropy_with_logits(
-            logits, batch["target"].to(device))
         loss.backward()
+        gn = torch.nn.utils.clip_grad_norm_(params, float(cfg.grad_clip))
         optimizer.step()
-    return {"loss": float(loss.detach().cpu().item())}
+    return {"loss": float(loss.detach().item()),
+            "bce": float(out["bce"].detach().item()),
+            "rank": float(out["rank"].detach().item()),
+            "n_neg": int(out["n_neg"]),
+            "grad_norm": float(gn.detach().item()) if hasattr(gn, "detach") else float(gn)}
 
 
 def save_train_state(path: str, model_state: Dict, optimizer_state: Dict,
