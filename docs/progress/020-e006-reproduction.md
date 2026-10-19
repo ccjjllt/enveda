@@ -21,9 +21,9 @@
 
 ## 提交
 
-**本轮没有提交。** v2 未 COMPLETE，没有可提交的 notebook 版本。提交列表最新仍为 v10（ref 57293821，public 0.323）。
+- v2 运行 COMPLETE 后，提交一次：ref 57405363，2026-10-20 02:15（北京时间），描述 `v11 020 E006 repro (rel>150)`。
+- **public 0.446**，与作者页面一致，比此前最佳 0.323（v9r2 / v10）高 0.123。复现成功。
 
 ## 下一步
 
-- v2 若 COMPLETE 且有 `submission.csv`：执行一次 `kaggle competitions submit enveda-CASMI26-molecule-id-mass-spectra -k ccjjllt/enveda-020-e006-repro -v 2 -f submission.csv -m "v11 020 E006 repro (rel>150)"`，提交前再查一次 submissions 防止重复。
-- 若 v2 ERROR 且仍是 nvidia-smi 失败：在网页 Settings 确认 GPU 配额和手机验证状态，或等 10-24 配额刷新后再推；不改代码。
+- 以 0.446 为新基线；后续改动在这个 fork 之上做，且只做原样复现以外的方法改动时再单独评估。
