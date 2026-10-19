@@ -1,0 +1,29 @@
+# 020 — 公开 E006＋PubChem Promo（rel>150，public 0.446）原样复现
+
+日期：2026-10-19（北京时间）。接手 `e2c298e`。用户已批准：原样 fork 为私有 kernel 并提交一次。本轮不改方法。
+
+## Fork 内容
+
+- 来源：[seyitkaangunes/casmi26-e006-pubchem-promo-rel-150-lb-0-446](https://www.kaggle.com/code/seyitkaangunes/casmi26-e006-pubchem-promo-rel-150-lb-0-446) V1（作者页面显示 public 0.446，Apache-2.0）。上游为 antriksharya E006（0.442），唯一改动是 promotion 阈值 `rel > 250` → `rel > 150`。
+- 私有 kernel：[ccjjllt/enveda-020-e006-repro](https://www.kaggle.com/code/ccjjllt/enveda-020-e006-repro)。notebook 与源逐字节一致，sha256 `ecc8f7aff23497db9819087c3d4177b23667cdea912487aff702aaa85b66419a`。
+- metadata：`is_private=true`、`enable_gpu=true`、`enable_internet=false`、`machine_shape=NvidiaTeslaT4`（T4×2），docker image 沿用源 `gcr.io/kaggle-images/python@sha256:dafd4ce5…40b9`。competition source 为本赛；无 kernel/model source；16 个 dataset source 与源相同：
+  prvsiyan/casmi26-ranker-features、prvsiyan/casmi26-fp-models-v2、dmitriigluzdov/casmi26-pubchem-popularity-prior、megayak/casmi26-simulated-ranker-rows、ahmedberatozer/casmi26-{fpnet-full1,glacier,iceberg,pubchem-tier,v2-pool,v3-models,v4b-models}、prvsiyan/chebi-lipidmaps-casmi26、prvsiyan/coconut-casmi26-candidates、hengck23/hengck23-dreams-enveda-casmi26、metric/rdkit-2026-3-3-wheel、eveliaveldrine/rdkit-wheels。
+- 交互运行是 notebook 自带 smoke 模式（12 个分子，ICE_BUDGET=300）；只有比赛 rerun 才跑全部隐藏分子。
+
+## 实际运行
+
+| 版本 | push（北京时间） | 结果 |
+|---|---|---|
+| v1 | 15:15，`--accelerator NvidiaTeslaT4` | QUEUED 约 6 分钟，RUNNING 约 1 分钟，然后 ERROR。日志 32 s 处 E004 preflight 的 `nvidia-smi` 返回 exit 12，`assert 'T4'` 前已失败，即 session 里看不到 GPU。此前 RDKit 2026.03.3 安装、64 个 MANIFEST 文件校验均通过 |
+| v2 | 15:23，原样重推（只依赖 metadata 的 GPU 设置） | 截至 16:17 仍为 QUEUED（约 54 分钟），没有开始运行 |
+
+配额（SDK `quota_view`，16:05 查询）：GPU `totalTimeAllowed=21600s`，`timeUsed` 返回值格式异常 `36160.679641.0s`（若按 36160 s 读，已超过 21600 s），下次刷新 2026-10-24 08:00（北京时间）。v1 无 GPU 和 v2 长时间排队都可能与配额用尽有关，但返回值格式异常，未确认。TPU 0/72000 s。
+
+## 提交
+
+**本轮没有提交。** v2 未 COMPLETE，没有可提交的 notebook 版本。提交列表最新仍为 v10（ref 57293821，public 0.323）。
+
+## 下一步
+
+- v2 若 COMPLETE 且有 `submission.csv`：执行一次 `kaggle competitions submit enveda-CASMI26-molecule-id-mass-spectra -k ccjjllt/enveda-020-e006-repro -v 2 -f submission.csv -m "v11 020 E006 repro (rel>150)"`，提交前再查一次 submissions 防止重复。
+- 若 v2 ERROR 且仍是 nvidia-smi 失败：在网页 Settings 确认 GPU 配额和手机验证状态，或等 10-24 配额刷新后再推；不改代码。
