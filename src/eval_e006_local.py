@@ -263,8 +263,9 @@ def build_cells(nb, inroot, work, sets, skip_sim=True):
                  "PC = json.load(open(os.environ['E021_REUSE_PC'])); print('E021 reuse pc', len(PC), flush=True)\n")
         if "open(" in c and "probe_core2.py', 'w').write(CORE + V17_PATCH)" in c:
             c = re.sub(r"(open\('[^']*probe_core2\.py', 'w'\)\.write\(CORE \+ V17_PATCH\))", r"_e21._patch_strings(globals())\n\1", c, count=1)
-        if os.environ.get('E024_FP0') and "_FULL = glob.glob('/kaggle/input/**/casmi26-fpnet-full1/**/fpnet_full1.pt', recursive=True)" in c:
-            c = _rep(c, "_FULL = glob.glob('/kaggle/input/**/casmi26-fpnet-full1/**/fpnet_full1.pt', recursive=True)".replace('/kaggle/input', str(inroot)), "_FULL = []  # E024: NP-held-out fpnet_0")
+        _a24 = "_FULL = glob.glob('%s/**/casmi26-fpnet-full1/**/fpnet_full1.pt', recursive=True)" % inroot
+        if os.environ.get('E024_FP0') and _a24 in c:
+            c = _rep(c, _a24, "_FULL = []  # E024: NP-held-out fpnet_0")
         if "L = Library('work'); P = Pool('work')" in c:
             c = _rep(c, "L = Library('work'); P = Pool('work')", "L = Library('work'); P = Pool('work'); _e21._patch_pool(globals())")
         if "(rel > 150.0)" in c:
