@@ -67,6 +67,7 @@ def main():
                                             ce=float(ca.mean()) if len(ca) else np.nan, ce_n=int(len(ca)) if len(ca) else 1))
                     try:
                         C, X, F, names, info = V.run(spectra, target)
+                        rec['lib_max'] = float(info.get('lib_max', 0.0))
                         if len(C.pid):
                             sc = rank_score(np.concatenate([X, F], 1), list(FEATURES) + list(names))
                             order = np.argsort(-sc, kind='stable')
