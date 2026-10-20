@@ -23,3 +23,19 @@ C_fp0 promo_off MRR 0.1569 top1 11
 ```
 
 换成留出模型后，C 基线 0.1281（与 full1 的 0.1168 相近），保护规则仍全部为正且 0 loss，关闭 PubChem 提升 +0.0288（20/0）。R、B 运行中。
+
+## R 遮蔽（fpnet_0）
+
+```
+R_fp0 base MRR 0.4425 top1 26
+  protect tau 0.3: applied 0 MRR 0.4425 d +0.0000 W/L 0/0 CI [+0.0000,+0.0000]
+  protect tau 0.5: applied 1 MRR 0.4405 d -0.0020 W/L 0/1 CI [-0.0060,+0.0000]
+  protect tau 9: applied 1 MRR 0.4405 d -0.0020 W/L 0/1 CI [-0.0060,+0.0000]
+R_fp0 promo_off MRR 0.4974 top1 37
+  protect tau 0.3: applied 0 MRR 0.4974 d +0.0000 W/L 0/0 CI [+0.0000,+0.0000]
+  protect tau 0.5: applied 1 MRR 0.4954 d -0.0020 W/L 0/1 CI [-0.0060,+0.0000]
+  protect tau 9: applied 1 MRR 0.4954 d -0.0020 W/L 0/1 CI [-0.0060,+0.0000]
+  promo_off vs base: d +0.0548 W/L 45/0 CI [+0.0382,+0.0736]
+```
+
+R 基线 0.4425（full1 为 0.4547）。保护规则 τ=0.3 在 R 上 0 生效；τ≥0.5 有 1 例 −0.0020。关闭 PubChem 提升在 R 上 +0.055（45/0），但 v13 在隐藏集为 −0.014，说明本地遮蔽对 PubChem 通道系统性误判。
