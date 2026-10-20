@@ -43,10 +43,21 @@ B→C 配对：Δ −0.840，wins 2 / losses 244 / ties 4。说明本面板上�
 
 hook：`/workspace/e021/hook_mb538.py`（Engine2 COCONUT 支路追加 mb539_*）。
 
-**B_mb538 失败，无分数**（15:01–15:17）。日志 `/workspace/e021/B_mb538.log`：
-- 追加成功（`+ E021 MassBank538 500 new structures`），随后 `build_pool` 里给 275,808 个训练结构算指纹时 **全部返回 None** → `ValueError: need at least one array to stack` → Engine2 失败、回退 v4g 列表 → cell 26 `AssertionError: Engine 2 did not cover all active molecules`。
-- 根因是 hook 自身的 bug：hook 在主进程调用 `canon_key()`，它往全局 `_g` 写入 `"te"`；之后 fork 出的 `fp_and_mass` worker 看到 `_g` 非空就跳过 `_fp_init()`，访问 `_g["m2"]` 抛 KeyError 被吞成 None。与 MassBank 数据本身无关。
-- 已修 hook（追加后补一行 `if "m2" not in _g: _fp_init()`；原文件备份 `hook_mb538.py.bak`），**尚未重跑**。重跑 B_mb538 约 20 分钟（CPU）。
+**首跑失败**（15:01–15:17，`B_mb538.log`）：追加成功（`+ E021 MassBank538 500 new structures`），但 hook 在主进程调用 `canon_key()` 把 `"te"` 写入全局 `_g`，fork 出的指纹 worker 跳过 `_fp_init()`，275,808 个训练指纹全 None → Engine2 失败。已修（`if "m2" not in _g: _fp_init()`）。
+
+**重跑成功**（16:47–17:27，`B_mb538r`，总 2367s）。相对 `B_base`：
+
+| 指标 | 值 |
+|------|-----|
+| MRR | 0.9571（base 0.9569） |
+| Δ | **+0.0001** |
+| wins / losses / ties | **1 / 0 / 249** |
+| 变化分子 | `np_LLQCRTZROWMVOL` RR 1/6 → 1/5 |
+| bootstrap 95% CI | [0.000, +0.0004] |
+
+Engine 列表里 MassBank 结构出现情况：top25 含 MB 的分子 8 个（相对 base 多出 6 个槽位），top1 **0**；中位最佳名次约 16。submission 有 53 行与 base 字符串不同，但几乎不影响 RR。
+
+**结论**：扩池生效但对本面板几乎零收益；不并入 v12。
 
 ### 3) 门参数扫描
 
@@ -88,17 +99,17 @@ C 的 89 个 top25 命中（4 个 top1）：
 
 未找到可复用的 NP250 模拟分缓存；CPU 跳过。完整 v12 仍须在 Kaggle T4 上挂模拟器。
 
-## 对 v12 的建议（按当前证据，2026-10-20 16:00 更新）
+## 对 v12 的建议（按当前证据，2026-10-20 17:30 更新）
 
 1. **主改动**：严格跨库直接参考规则（`q≥0.8, margin≥0.2`，提到第 1）。B +0.0140（7/0），C −0.0046（0/5）。净效果取决于隐藏集中有跨源参考的比例；上线前在 Kaggle 小样本或独立留出上核对，防 018 类假强匹配。
 2. **可选次改动**：PubChem 提升阈值 150 → 250（+0.0020，1/0）或直接关闭（+0.0045，3/0）。证据弱且 B 测不到库外收益；若只想一次一个变量，v12 只上第 1 条，PROMO 留给 v13。
 3. **不改**：REL_TH、POP_TAU、候选窗口（零效应）；LIB_TAU 0.85 的 +0.002 太小，不单独上。
-4. **MassBank538 扩池**：hook bug 已修，待重跑 B_mb538 后再决定；目前无证据，不并入 v12。
+4. **MassBank538 扩池**：重跑 Δ +0.0001（1/0），几乎零收益；**不并入 v12**。
 5. 以上全为 CPU 通道数字，**不含 ICEBERG/GLACIER**；完整 v12 仍须在 Kaggle T4 上挂模拟器跑。B 的 0.96 不代表 public，面板小（250）存在乐观偏差。
 
 ## 产物
 
 - 验证器：`src/eval_e006_local.py`，`src/casmi_metric.py`
-- 运行根：`/workspace/e021/`（runs/B_base, C_base, posthoc, …）
+- 运行根：`/workspace/e021/`（runs/B_base, C_base, B_mb538r, B_gates, posthoc, …；`mb538_compare.json`）
 - Notebook：`/workspace/k020/enveda-020-e006-repro.ipynb`（与 v11 同文）
 
