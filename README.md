@@ -1,10 +1,14 @@
 # Enveda CASMI 2026 研究项目
 
-从串联质谱（MS/MS）预测分子结构，围绕候选检索、排序、多谱融合和模型微调开展研究。研究状态更新：**2026-10-20**；下文规则及硬件资料保留各自核实日期。
+从串联质谱（MS/MS）预测分子结构，围绕候选检索、排序、多谱融合和模型微调开展研究。研究状态更新：**2026-10-21**；下文规则及硬件资料保留各自核实日期。
 
 比赛：[`enveda-CASMI26-molecule-id-mass-spectra`](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra)。最初提供的第一个链接显示文字为 ARC Prize，但实际链接属于 Enveda；本项目只研究 Enveda。
 
-## 当前研究入口：022（2026-10-20）
+## 当前研究入口：023（2026-10-21）
+
+**v13 = v11＋关闭 PubChem 提升，已提交（kernel v7，ref 57448005），public 待出。** 本地新增 R 遮蔽（真值无参考但在池，最接近隐藏集，R 基线 0.4547 与 public 0.446 接近）：关闭 PubChem 提升 0.4547→0.5068（+0.052，44/1）。Engine1 研究：is_gen 确认 C 命中全部来自生成；扩大生成（12/120/400）在 C 上 Engine1-only +0.067（29/3）但在 B 上 −0.022（4/23），不上线；保护 Engine1 生成第一名在 B/R 基本不生效、C +0.03～+0.16。Engine1 使用的 `fpnet_full1` 可能训练时见过 NP250，Engine1-only 与 C 收益偏乐观，v14 暂不提交，下一步换留出 NP 的 `fpnet_0` 复核。见[023计划](docs/plan/023-promo-off-and-engine1-generation.md)与[023进展](docs/progress/023-promo-off-and-engine1-generation.md)。
+
+## 022研究记录（2026-10-20）
 
 **v12 public 0.434，低于 v11 的 0.446（Δ −0.012），严格跨库直接参考规则不保留；当前最佳仍为 v11 0.446。** v12 = v11 原样＋末尾一个 cell：候选有 q≥0.8 的跨来源参考谱匹配、且当前第一名没有强参考（差≥0.2）时提到第一名。本地 B 遮蔽 +0.0140（7/0）、C 遮蔽 −0.0046（0/5），public 与 C 同向，说明隐藏集以无跨来源参考的分子为主。kernel v5，提交 ref 57436327。
 
