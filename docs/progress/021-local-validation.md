@@ -20,7 +20,7 @@
 |------|-----|------|-------|------|
 | B | **0.9569** | 231 | 250 | 跨源参考极强；与 public 0.446 不可比 |
 | C | **0.1168** | 4 | 89 | 池内无真值；e006_pre_rank2=0.1285，尾部融合略伤分 |
-| A | （运行中） | | | |
+| A | 未跑完 | | | 11:59 启动后为给门扫/MB538 让 CPU 主动终止；A 为近似上界，优先级低 |
 
 B→C 配对：Δ −0.840，wins 2 / losses 244 / ties 4。说明本面板上「库内参考」主导高分；去结构后召回崩塌。
 
@@ -46,6 +46,23 @@ hook：`/workspace/e021/hook_mb538.py`（Engine2 COCONUT 支路追加 mb539_*）
 ### 3) 门参数扫描
 
 `sweep_gates.json`：LIB_TAU / REL_TH / PROMO_REL / POP_TAU / WINDOW。C 全量 sweep 已中止（尾部 cell 27 单次约 6 min×16 过贵）。将用 `E021_SKIP_LATE=1` + reuse eng/pc 在 B 上补扫。**待跑**。
+
+### 1b) 直接参考质量在 C（真值无参考、不在池）上的伤害
+
+| 配置 | MRR | Δ vs C_base 0.1168 | wins | losses |
+|------|-----|---|---|---|
+| q≥0.8, m≥0.2 | 0.1122 | −0.0046 | 0 | 5 |
+| q≥0.7, m≥0.1 | 0.1109 | −0.0059 | 0 | 9 |
+
+即：真值缺参考时，此门会把有强参考的错误结构提到第 1（与 018 机制一致）。B 上 +0.014 / C 上 −0.005，净效果取决于隐藏集中「有跨源参考」比例。
+
+## C 中命中从哪来（事实核对）
+
+C 的 89 个 top25 命中（4 个 top1）：
+- PubChem 通道列表 top100 含真值：**0/89**；Engine2（casmi_engine）列表 top100：**0/89**。
+- 89/89 已出现在 Engine1（v4n `casmi` 引擎）的 `baseline_submission.csv`。
+- 真值不在 COCONUT/ChEBI-LIPID MAPS 池、不在 in_C train；v2-pool 中有 85 个命中真值，**85/85 已被 mask C 窗口过滤**。
+- Engine1 有 class-3 生成步骤（`casmi/engine.py` 中 `self.generate(analogs, ...)`：对库内类似物做衍生/位置异构生成）。按排除法，C 的命中来自**该生成路径**（未逐个读取 is_gen 标记，属排除法结论）。例：scopoletin 真值排第 3，前两名是其位置异构体。
 
 ## ICEBERG / GLACIER
 
