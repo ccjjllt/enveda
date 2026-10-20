@@ -263,6 +263,8 @@ def build_cells(nb, inroot, work, sets, skip_sim=True):
                  "PC = json.load(open(os.environ['E021_REUSE_PC'])); print('E021 reuse pc', len(PC), flush=True)\n")
         if "open(" in c and "probe_core2.py', 'w').write(CORE + V17_PATCH)" in c:
             c = re.sub(r"(open\('[^']*probe_core2\.py', 'w'\)\.write\(CORE \+ V17_PATCH\))", r"_e21._patch_strings(globals())\n\1", c, count=1)
+        if os.environ.get('E024_FP0') and "_FULL = glob.glob('/kaggle/input/**/casmi26-fpnet-full1/**/fpnet_full1.pt', recursive=True)" in c:
+            c = _rep(c, "_FULL = glob.glob('/kaggle/input/**/casmi26-fpnet-full1/**/fpnet_full1.pt', recursive=True)".replace('/kaggle/input', str(inroot)), "_FULL = []  # E024: NP-held-out fpnet_0")
         if "L = Library('work'); P = Pool('work')" in c:
             c = _rep(c, "L = Library('work'); P = Pool('work')", "L = Library('work'); P = Pool('work'); _e21._patch_pool(globals())")
         if "(rel > 150.0)" in c:
@@ -328,6 +330,9 @@ def cmd_run(a):
         print(f'\n===== E021 cell {i} =====', flush=True)
         exec(compile(c, f'<e006 code cell {i}>', 'exec'), ns)
         log.append((i, round(time.time() - t, 1)))
+    if 'BASE' in ns:
+        json.dump({m: [v[0][0] if v[0] else None, bool(v[4] and str(v[4][0]).endswith('|gen')), float(v[2])] for m, v in ns['BASE'].items()},
+                  open(work / 'e024_e1top1.json', 'w'))
     import copy
     snap = {k: copy.deepcopy(ns[k]) for k in ('BASE', 'PC', 'ENG') if k in ns}
     configs = {'base': {}}
