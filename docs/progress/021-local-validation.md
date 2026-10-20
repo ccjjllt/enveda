@@ -41,18 +41,31 @@ B→C 配对：Δ −0.840，wins 2 / losses 244 / ties 4。说明本面板上�
 
 ### 2) MassBank 538 扩池
 
-hook：`/workspace/e021/hook_mb538.py`（Engine2 COCONUT 支路追加 mb539_*）。**待跑**（等 A 结束后跑 B_mb538）。
+hook：`/workspace/e021/hook_mb538.py`（Engine2 COCONUT 支路追加 mb539_*）。
+
+**B_mb538 失败，无分数**（15:01–15:17）。日志 `/workspace/e021/B_mb538.log`：
+- 追加成功（`+ E021 MassBank538 500 new structures`），随后 `build_pool` 里给 275,808 个训练结构算指纹时 **全部返回 None** → `ValueError: need at least one array to stack` → Engine2 失败、回退 v4g 列表 → cell 26 `AssertionError: Engine 2 did not cover all active molecules`。
+- 根因是 hook 自身的 bug：hook 在主进程调用 `canon_key()`，它往全局 `_g` 写入 `"te"`；之后 fork 出的 `fp_and_mass` worker 看到 `_g` 非空就跳过 `_fp_init()`，访问 `_g["m2"]` 抛 KeyError 被吞成 None。与 MassBank 数据本身无关。
+- 已修 hook（追加后补一行 `if "m2" not in _g: _fp_init()`；原文件备份 `hook_mb538.py.bak`），**尚未重跑**。重跑 B_mb538 约 20 分钟（CPU）。
 
 ### 3) 门参数扫描
 
-`sweep_gates.json`：LIB_TAU / REL_TH / PROMO_REL / POP_TAU / WINDOW。C 全量 sweep 已中止（尾部 cell 27 单次约 6 min×16 过贵）。将用 `E021_SKIP_LATE=1` + reuse eng/pc 在 B 上补扫。**进行中**（B，reuse eng/pc，跳过 cell≥27；base=0.9571）：
+`sweep_gates.json`，B 遮蔽，reuse eng/pc，`E021_SKIP_LATE=1`（跳过 cell≥27）。默认值：LIB_TAU 0.9、REL_TH 600、PROMO_REL 150、POP_TAU 6.0、WINDOW 40；base MRR **0.9571**（231/250 top1）。配对比较 250 分子，bootstrap 2000 次。
 
-| 配置 | MRR | Δ |
-|---|---|---|
-| LIB_TAU 0.85 | 0.9591 | +0.0020 |
-| LIB_TAU 0.95 | 0.9549 | −0.0022 |
+| 配置 | MRR | Δ vs base | wins | losses | 95% CI |
+|---|---|---|---|---|---|
+| LIB_TAU 0.85 | 0.9591 | +0.0020 | 1 | 0 | [0.000, 0.006] |
+| LIB_TAU 0.95 | 0.9549 | −0.0021 | 1 | 2 | [−0.007, 0.000] |
+| REL_TH 400 | 0.9571 | 0 | 0 | 0 | — |
+| REL_TH 800 | 0.9571 | 0 | 0 | 0 | — |
+| PubChem 提升阈值 PROMO_REL 100 | 0.9524 | −0.0047 | 0 | 3 | [−0.011, 0.000] |
+| PROMO_REL 250 | 0.9591 | +0.0020 | 1 | 0 | [0.000, 0.006] |
+| PROMO_REL 关闭（1e18） | **0.9616** | **+0.0045** | 3 | 0 | [0.000, 0.011] |
+| POP_TAU 3 | 0.9571 | 0 | 0 | 0 | — |
+| POP_TAU 8 | 0.9571 | 0 | 0 | 0 | — |
+| 候选窗口 WINDOW 80 | 0.9571 | 0 | 0 | 0 | — |
 
-其余（REL_TH/PROMO/POP_TAU/WINDOW）与 MB538 在后台链中继续，结果写入 `/workspace/e021/B_gates.log`、`B_mb538.log`。
+**结论**：REL_TH、POP_TAU、窗口在 B 上完全无影响（逐分子一致）。PubChem 提升阈值单调：越宽松越伤（100: 0/3），越严/关闭越好（关闭 3/0）。LIB_TAU 0.85 小正。所有非零 Δ 只涉及 1–3 个分子，CI 下界贴 0，属弱证据。注意 B 保留跨源库参考，PubChem 提升对「库外结构」可能有用而 B 测不出；C 中 PubChem 通道贡献 0/89 命中，也不支持它在库外有用，但 C 同时把真值移出了 PubChem 池，不能算反证。
 
 ### 1b) 直接参考质量在 C（真值无参考、不在池）上的伤害
 
@@ -75,12 +88,13 @@ C 的 89 个 top25 命中（4 个 top1）：
 
 未找到可复用的 NP250 模拟分缓存；CPU 跳过。完整 v12 仍须在 Kaggle T4 上挂模拟器。
 
-## 对 v12 的建议（按当前证据）
+## 对 v12 的建议（按当前证据，2026-10-20 16:00 更新）
 
-1. **优先**：把「直接参考谱质量门」做成候选级特征或 post-fusion 提升，默认阈值对齐 `q≥0.8, margin≥0.2`（本地 +14 mrr、7/0）；上线前在独立留出或 Kaggle 小样本核对，防 018 类假强匹配。
-2. **次优先**：复现门扫与 MassBank538 本地 Δ 后再决定是否并入 v11 fork。
-3. **不要**根据 B 的 0.96 乐观估计 public；B 有跨源参考，C 的 0.12 更接近「库外结构」难度。
-4. 面板小（250）、与训练谱同批 NP 示例，存在乐观偏差；任何正 Δ 只作提交候选筛选。
+1. **主改动**：严格跨库直接参考规则（`q≥0.8, margin≥0.2`，提到第 1）。B +0.0140（7/0），C −0.0046（0/5）。净效果取决于隐藏集中有跨源参考的比例；上线前在 Kaggle 小样本或独立留出上核对，防 018 类假强匹配。
+2. **可选次改动**：PubChem 提升阈值 150 → 250（+0.0020，1/0）或直接关闭（+0.0045，3/0）。证据弱且 B 测不到库外收益；若只想一次一个变量，v12 只上第 1 条，PROMO 留给 v13。
+3. **不改**：REL_TH、POP_TAU、候选窗口（零效应）；LIB_TAU 0.85 的 +0.002 太小，不单独上。
+4. **MassBank538 扩池**：hook bug 已修，待重跑 B_mb538 后再决定；目前无证据，不并入 v12。
+5. 以上全为 CPU 通道数字，**不含 ICEBERG/GLACIER**；完整 v12 仍须在 Kaggle T4 上挂模拟器跑。B 的 0.96 不代表 public，面板小（250）存在乐观偏差。
 
 ## 产物
 
