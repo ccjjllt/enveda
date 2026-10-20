@@ -78,6 +78,7 @@ def main():
                                 k = C.key[i]
                                 if k in seen: continue
                                 seen.add(k); r_ += 1
+                                if r_ == 1: rec['top1_gen'] = bool(isg[i]); rec['top1_smiles'] = C.smiles[i]; rec['top1_score'] = float(sc[i])
                                 if r_ <= 25 and isg[i]: rec['top25_gen'] += 1
                                 if M.canonicalize_smiles_to_ik14(C.smiles[i]) in acc[mid] and rec['rank'] is None:
                                     rec['rank'] = r_; rec['gen_truth'] = bool(isg[i])
