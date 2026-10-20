@@ -25,6 +25,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--mask', default='C'); ap.add_argument('--variant', action='append', default=[])
     ap.add_argument('--out', default='/workspace/e021'); ap.add_argument('--study', default='/workspace/e023')
+    ap.add_argument('--tag', default='')
     ap.add_argument('--notebook', default='/workspace/k020_v11_backup.ipynb')
     a = ap.parse_args()
     out, st = Path(a.out), Path(a.study); st.mkdir(parents=True, exist_ok=True)
@@ -47,7 +48,7 @@ def main():
     te['nm'] = chem.neutral_mass(te.precursor_mz.values.astype(np.float64), te.adduct.values)
     base_cfg = dict(Eng.cfg.__dict__)
     for vn in a.variant or ['base']:
-        f = st / f'{a.mask}_{vn}.jsonl'
+        f = st / f'{a.mask}_{vn}{a.tag}.jsonl'
         done = {json.loads(l)['mid'] for l in open(f)} if f.exists() else set()
         for k, v in base_cfg.items(): setattr(Eng.cfg, k, v)
         for k, v in VARIANTS[vn].items(): setattr(Eng.cfg, k, v)
