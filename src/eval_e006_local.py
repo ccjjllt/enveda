@@ -229,7 +229,7 @@ def _patch_strings(ns):
 
 def _patch_pool(ns):
     """Engine 1 (v4n) pool window filter for mask C."""
-    if os.environ.get('E021_MASK') != 'C':
+    if os.environ.get('E021_MASK') not in ('C', 'H'):
         return
     P = ns['P']
     drop = np.load(os.environ['E021_DROP1'])
@@ -307,9 +307,11 @@ def cmd_run(a):
     if a.inroot:
         inroot = Path(a.inroot)
     os.environ['E021_MASK'] = a.mask
-    os.environ['E021_DROP'] = str(out / 'drop.json')
+    os.environ['E021_DROP'] = str(out / ('drop_H.json' if a.mask == 'H' else 'drop.json'))
     os.environ['PYTHONPATH'] = str(HERE) + os.pathsep + os.environ.get('PYTHONPATH', '')
     sys.path.insert(0, str(HERE))
+    if a.mask == 'H':
+        os.environ['E021_DROP1'] = str(out / 'drop1_H.npy')
     if a.mask == 'C':
         d1 = out / 'drop1_e1pool.npy'
         if not d1.exists():
@@ -361,7 +363,7 @@ def cmd_run(a):
 
 def score_dir(out, work, sub_name='submission.csv'):
     M = _metric()
-    sol = pd.read_csv(out / 'solution.csv')
+    sol = pd.read_csv(out / ('solution_H.csv' if Path(work).name.startswith('H_') or '/H_' in str(work) else 'solution.csv'))
     res = {}
     stages = [('final', sub_name), ('e006_pre_rank2', 'submission_e006.csv'), ('e004', 'submission_e004_control.csv'),
               ('reference', 'submission_reference.csv'), ('baseline', 'baseline_submission.csv')]
@@ -509,7 +511,7 @@ def main():
     ap = argparse.ArgumentParser()
     sp = ap.add_subparsers(dest='cmd', required=True)
     p = sp.add_parser('panel'); p.add_argument('--kin', required=True); p.add_argument('--out', required=True)
-    p = sp.add_parser('run'); p.add_argument('--out', required=True); p.add_argument('--mask', choices='ABRC', required=True)
+    p = sp.add_parser('run'); p.add_argument('--out', required=True); p.add_argument('--mask', choices='ABRCH', required=True)
     p.add_argument('--name', default='base'); p.add_argument('--set', action='append', default=[])
     p.add_argument('--notebook', default='/workspace/k020/enveda-020-e006-repro.ipynb')
     p.add_argument('--hook', default=None, help='python file exec-ed into the notebook namespace first (variant code)')
