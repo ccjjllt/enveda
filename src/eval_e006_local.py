@@ -243,6 +243,8 @@ def build_cells(nb, inroot, work, sets, skip_sim=True):
     cells = _cells(nb)
     out = []
     for i, c in enumerate(cells):
+        if os.environ.get('E021_SKIP_LATE') and i >= 27:
+            out.append((i, 'print("E021 skip late cell", %d)' % i)); continue
         c = c.replace('/kaggle/input', str(inroot)).replace('/kaggle/working', str(work))
         if 'E004_PREFLIGHT = _e004_preflight(globals())' in c:
             c = _rep(c, "gpu = subprocess.check_output(\n        ['nvidia-smi', '--query-gpu=name', '--format=csv,noheader'], text=True).strip()\n    assert 'T4' in gpu, gpu",
