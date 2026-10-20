@@ -268,6 +268,9 @@ def build_cells(nb, inroot, work, sets, skip_sim=True):
             c = _rep(c, _a24, "_FULL = []  # E024: NP-held-out fpnet_0")
         if "L = Library('work'); P = Pool('work')" in c:
             c = _rep(c, "L = Library('work'); P = Pool('work')", "L = Library('work'); P = Pool('work'); _e21._patch_pool(globals())")
+        if "BASE_TAIL_CANDIDATES = {str(k): list(v[0]) for k, v in BASE.items()}" in c:
+            c += ("\nimport json as _j24\n_j24.dump({m: [v[0][0] if v[0] else None, bool(len(v) > 4 and v[4] and str(v[4][0]).endswith('|gen')), "
+                  "float(v[2])] for m, v in BASE.items()}, open('e024_e1top1.json', 'w'))\n")
         if "(rel > 150.0)" in c:
             c = _rep(c, "(rel > 150.0)", "(rel > E021_PROMO_REL)")
         if "'experiment': 'E006', 'window': 40," in c:
@@ -331,9 +334,6 @@ def cmd_run(a):
         print(f'\n===== E021 cell {i} =====', flush=True)
         exec(compile(c, f'<e006 code cell {i}>', 'exec'), ns)
         log.append((i, round(time.time() - t, 1)))
-    if 'BASE' in ns:
-        json.dump({m: [v[0][0] if v[0] else None, bool(v[4] and str(v[4][0]).endswith('|gen')), float(v[2])] for m, v in ns['BASE'].items()},
-                  open(work / 'e024_e1top1.json', 'w'))
     import copy
     snap = {k: copy.deepcopy(ns[k]) for k in ('BASE', 'PC', 'ENG') if k in ns}
     configs = {'base': {}}
