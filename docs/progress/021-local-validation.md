@@ -45,7 +45,14 @@ hook：`/workspace/e021/hook_mb538.py`（Engine2 COCONUT 支路追加 mb539_*）
 
 ### 3) 门参数扫描
 
-`sweep_gates.json`：LIB_TAU / REL_TH / PROMO_REL / POP_TAU / WINDOW。C 全量 sweep 已中止（尾部 cell 27 单次约 6 min×16 过贵）。将用 `E021_SKIP_LATE=1` + reuse eng/pc 在 B 上补扫。**待跑**。
+`sweep_gates.json`：LIB_TAU / REL_TH / PROMO_REL / POP_TAU / WINDOW。C 全量 sweep 已中止（尾部 cell 27 单次约 6 min×16 过贵）。将用 `E021_SKIP_LATE=1` + reuse eng/pc 在 B 上补扫。**进行中**（B，reuse eng/pc，跳过 cell≥27；base=0.9571）：
+
+| 配置 | MRR | Δ |
+|---|---|---|
+| LIB_TAU 0.85 | 0.9591 | +0.0020 |
+| LIB_TAU 0.95 | 0.9549 | −0.0022 |
+
+其余（REL_TH/PROMO/POP_TAU/WINDOW）与 MB538 在后台链中继续，结果写入 `/workspace/e021/B_gates.log`、`B_mb538.log`。
 
 ### 1b) 直接参考质量在 C（真值无参考、不在池）上的伤害
 
