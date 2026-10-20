@@ -6,7 +6,7 @@
 
 ## 当前研究入口：023（2026-10-21）
 
-**v13 = v11＋关闭 PubChem 提升，已提交（kernel v7，ref 57448005），public 待出。** 本地新增 R 遮蔽（真值无参考但在池，最接近隐藏集，R 基线 0.4547 与 public 0.446 接近）：关闭 PubChem 提升 0.4547→0.5068（+0.052，44/1）。Engine1 研究：is_gen 确认 C 命中全部来自生成；扩大生成（12/120/400）在 C 上 Engine1-only +0.067（29/3）但在 B 上 −0.022（4/23），不上线；保护 Engine1 生成第一名在 B/R 基本不生效、C +0.03～+0.16。Engine1 使用的 `fpnet_full1` 可能训练时见过 NP250，Engine1-only 与 C 收益偏乐观，v14 暂不提交，下一步换留出 NP 的 `fpnet_0` 复核。见[023计划](docs/plan/023-promo-off-and-engine1-generation.md)与[023进展](docs/progress/023-promo-off-and-engine1-generation.md)。
+**v13 = v11＋关闭 PubChem 提升：public 0.432（v11 0.446，Δ −0.014），不保留。** 本地遮蔽一致看好关闭，隐藏集相反，本地 NP250 面板不能评估 PubChem 相关改动。 本地新增 R 遮蔽（真值无参考但在池，最接近隐藏集，R 基线 0.4547 与 public 0.446 接近）：关闭 PubChem 提升 0.4547→0.5068（+0.052，44/1）。Engine1 研究：is_gen 确认 C 命中全部来自生成；扩大生成（12/120/400）在 C 上 Engine1-only +0.067（29/3）但在 B 上 −0.022（4/23），不上线；保护 Engine1 生成第一名在 B/R 基本不生效、C +0.03～+0.16。Engine1 使用的 `fpnet_full1` 可能训练时见过 NP250，Engine1-only 与 C 收益偏乐观，v14 暂不提交，下一步换留出 NP 的 `fpnet_0` 复核。见[023计划](docs/plan/023-promo-off-and-engine1-generation.md)与[023进展](docs/progress/023-promo-off-and-engine1-generation.md)。
 
 ## 022研究记录（2026-10-20）
 
