@@ -307,7 +307,7 @@ def cmd_run(a):
     if a.inroot:
         inroot = Path(a.inroot)
     os.environ['E021_MASK'] = a.mask
-    os.environ['E021_DROP'] = str(out / ('drop_H.json' if a.mask == 'H' else 'drop.json'))
+    os.environ['E021_DROP'] = str(out / (f'drop_{a.mask}.json' if a.mask in 'HP' else 'drop.json'))
     os.environ['PYTHONPATH'] = str(HERE) + os.pathsep + os.environ.get('PYTHONPATH', '')
     sys.path.insert(0, str(HERE))
     if a.mask == 'H':
@@ -363,7 +363,9 @@ def cmd_run(a):
 
 def score_dir(out, work, sub_name='submission.csv'):
     M = _metric()
-    sol = pd.read_csv(out / ('solution_H.csv' if Path(work).name.startswith('H_') or '/H_' in str(work) else 'solution.csv'))
+    _m = Path(work).name.split('_')[0]
+    _sf = out / f'solution_{_m}.csv'
+    sol = pd.read_csv(_sf if _sf.exists() else out / 'solution.csv')
     res = {}
     stages = [('final', sub_name), ('e006_pre_rank2', 'submission_e006.csv'), ('e004', 'submission_e004_control.csv'),
               ('reference', 'submission_reference.csv'), ('baseline', 'baseline_submission.csv')]
@@ -511,7 +513,7 @@ def main():
     ap = argparse.ArgumentParser()
     sp = ap.add_subparsers(dest='cmd', required=True)
     p = sp.add_parser('panel'); p.add_argument('--kin', required=True); p.add_argument('--out', required=True)
-    p = sp.add_parser('run'); p.add_argument('--out', required=True); p.add_argument('--mask', choices='ABRCH', required=True)
+    p = sp.add_parser('run'); p.add_argument('--out', required=True); p.add_argument('--mask', choices='ABRCHP', required=True)
     p.add_argument('--name', default='base'); p.add_argument('--set', action='append', default=[])
     p.add_argument('--notebook', default='/workspace/k020/enveda-020-e006-repro.ipynb')
     p.add_argument('--hook', default=None, help='python file exec-ed into the notebook namespace first (variant code)')
