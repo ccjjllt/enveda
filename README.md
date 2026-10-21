@@ -419,5 +419,5 @@ kaggle competitions submissions enveda-CASMI26-molecule-id-mass-spectra
 
 
 ## 027 fork v465（0.456 公开 notebook，Apache-2.0）
-- 代码未改，作为 ccjjllt/enveda-020-e006-repro v8 运行（固定 Py3.12 GPU 镜像）；提交 v14 ref 57462581，公榜待出。
+- 代码未改，作为 ccjjllt/enveda-020-e006-repro v8 运行（固定 Py3.12 GPU 镜像）；提交 v14 ref 57462581，**公榜 0.456（新最佳）**。排行榜 10-21 17:50：#1 0.495，#20 0.464（金牌线约 0.465+）。
 - 以后的比较一律用 GPU 完整流程 A/B；分数阶梯与后续方向见 docs/progress/027。
