@@ -411,3 +411,8 @@ kaggle competitions submissions enveda-CASMI26-molecule-id-mass-spectra
 ## 025 PubChem 在库面板（P）
 - 250 分子/700 谱（gnps/riken/pluskal，[M+H]+，280–380，PubChem 在库，R 式遮蔽）。
 - v11 0.5006，v12 规则 0.4983（复现 v11>v12），promo_off 0.5380（未复现 v11>v13）。未提交。
+
+
+## 026 人气加权面板 Q 与公开 notebook
+- Q：v11 0.4915，v12 0.4885，promo_off 0.5168；人气偏差无法解释 promo 反转（疑与 CPU 跳过 ICEBERG/GLACIER 有关）。未提交。
+- 公开 notebook guhongbin/casmi26-v465-v15-pop015 公榜 0.456（Apache-2.0），建议作为新基线 fork。
