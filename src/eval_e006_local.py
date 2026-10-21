@@ -363,7 +363,7 @@ def cmd_run(a):
 
 def score_dir(out, work, sub_name='submission.csv'):
     M = _metric()
-    _m = Path(work).name.split('_')[0]
+    _m = next((x.split('_')[0] for x in Path(work).parts[::-1] if len(x) > 2 and x[1] == '_' and x[0].isupper()), '')
     _sf = out / f'solution_{_m}.csv'
     sol = pd.read_csv(_sf if _sf.exists() else out / 'solution.csv')
     res = {}
