@@ -416,3 +416,8 @@ kaggle competitions submissions enveda-CASMI26-molecule-id-mass-spectra
 ## 026 人气加权面板 Q 与公开 notebook
 - Q：v11 0.4915，v12 0.4885，promo_off 0.5168；人气偏差无法解释 promo 反转（疑与 CPU 跳过 ICEBERG/GLACIER 有关）。未提交。
 - 公开 notebook guhongbin/casmi26-v465-v15-pop015 公榜 0.456（Apache-2.0），建议作为新基线 fork。
+
+
+## 027 fork v465（0.456 公开 notebook，Apache-2.0）
+- 代码未改，作为 ccjjllt/enveda-020-e006-repro v8 运行（固定 Py3.12 GPU 镜像）；提交 v14 ref 57462581，公榜待出。
+- 以后的比较一律用 GPU 完整流程 A/B；分数阶梯与后续方向见 docs/progress/027。
