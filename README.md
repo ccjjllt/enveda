@@ -400,3 +400,9 @@ kaggle competitions submissions enveda-CASMI26-molecule-id-mass-spectra
 后续继承 [001 基线计划](docs/plan/001-baseline.md) 与 [001 进展](docs/progress/001-baseline.md) 中的数据、划分和 B0/B2 记录，补齐官方评分规范化与真实权重前向；按 [002 TPU 微调计划](docs/plan/002-tpu-finetuning.md) 先做 Colab T4 兼容性核对，再推进 v5e-1 适配。平台变更、已 push 的 Kaggle 作业和未验证项见 [002 进展](docs/progress/002-tpu-finetuning.md)。
 
 可复用参考：[官方 de novo 教程](https://www.kaggle.com/code/inversion/casmi-denovo-tutorial-notebook)、[公开 Analog Propagation 基线](https://www.kaggle.com/code/prvsiyan/analog-propagation-casmi-2026-baseline)。公开运行、代码注释或作者分数不算本项目实测结果。使用前记录版本，并分别确认代码、模型权重及外部候选库的许可和来源。
+
+
+## 024 验证缺口诊断
+- 可见测试为 enveda-180 训练谱副本（标签已恢复）；此前可见测试分数 0.03 为 smoke 伪影（只处理 12/400 分子）。
+- E180/H 面板：v11 0.0154，promo_off 0.0158；真值不在 PubChem/Engine2 列表（0/400），无法复现 v11>v13。
+- 隐藏测试分布与可见测试/NP250 均不同；尚无可复现公榜排序的面板，未提交。
