@@ -2,25 +2,36 @@
 Queries: gnps/riken/pluskal_ms2 spectra with adduct [M+H]+, precursor 280-380, structure ik14 in PubChem tier.
 250 molecules (seed 25), <=3 spectra each.  Mask: every train spectrum of these ik14 / metric keys removed; pools kept.
 """
-import json, sys
+import json, os, sys
 from pathlib import Path
 import numpy as np, pandas as pd, pyarrow as pa, pyarrow.parquet as pq
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import eval_e006_local as E
 kin, out = Path('/workspace/kin'), Path('/workspace/e021')
+MK = os.environ.get('PANEL_MASK', 'P')  # 026: Q = popularity-weighted
 comp = kin / 'competitions' / E.SLUG
 cols = ['ingest_lib', 'inchikey14', 'normalized_smiles', 'adduct', 'precursor_mz']
 tr = pd.read_parquet(comp / 'train.parquet', columns=cols)
 sel = tr.ingest_lib.isin(['gnps', 'riken', 'pluskal_ms2']) & (tr.adduct == '[M+H]+') & tr.precursor_mz.between(280, 380)
 ik = np.array(sorted(set(tr.inchikey14[sel])), dtype='S14')
 pc = np.load(kin / 'datasets/dmitriigluzdov/casmi26-pubchem-popularity-prior/pc_ik14.npy', mmap_mode='r')
-inpc = np.zeros(len(ik), bool)
+pdir = kin / 'datasets/dmitriigluzdov/casmi26-pubchem-popularity-prior'
+ls_, lp_ = np.load(pdir / 'pc_lsid.npy', mmap_mode='r'), np.load(pdir / 'pc_lpmid.npy', mmap_mode='r')
+inpc = np.zeros(len(ik), bool); pop = np.zeros(len(ik))
 for a in range(0, len(pc), 10_000_000):
-    inpc |= np.isin(ik, np.asarray(pc[a:a + 10_000_000]))
+    blk = np.asarray(pc[a:a + 10_000_000])
+    m = np.isin(blk, ik)
+    if m.any():
+        j = np.searchsorted(ik, blk[m]); pv = ls_[a:a + 10_000_000][m].astype(float) + lp_[a:a + 10_000_000][m].astype(float)
+        inpc[j] = True; np.maximum.at(pop, j, pv)
 ikp = [x.decode() for x in ik[inpc]]
 print('candidate ik14', len(ik), 'in pubchem', len(ikp), flush=True)
 rng = np.random.default_rng(25)
-pick = set(rng.choice(ikp, 250, replace=False))
+popp = pop[inpc]
+print('pop quantiles 50/90/99', np.percentile(popp, [50, 90, 99]), flush=True)
+w = np.exp(popp) / np.exp(popp).sum() if MK == 'Q' else None
+pick = set(rng.choice(ikp, 250, replace=False, p=w))
+print('picked pop median', float(np.median(popp[np.isin(ikp, list(pick))])), flush=True)
 idx = tr.index[sel & tr.inchikey14.isin(pick)]
 q = tr.loc[idx].copy(); q['row'] = idx
 q = q.groupby('inchikey14', group_keys=False).apply(lambda g: g.sample(min(3, len(g)), random_state=0))
@@ -37,8 +48,8 @@ hit = {s for s, k in zip(cand, ks) if k in keyset}
 rm = (tr.normalized_smiles.isin(hit) | tr.inchikey14.isin(pick)).values
 print('queries', len(rows), 'train removed', int(rm.sum()), flush=True)
 del tr
-d = out / 'in_P' / 'competitions' / E.SLUG; d.mkdir(parents=True, exist_ok=True)
-ds_ = out / 'in_P' / 'datasets'
+d = out / f'in_{MK}' / 'competitions' / E.SLUG; d.mkdir(parents=True, exist_ok=True)
+ds_ = out / f'in_{MK}' / 'datasets'
 if not ds_.exists(): ds_.symlink_to(kin / 'datasets')
 pf = pq.ParquetFile(comp / 'train.parquet'); w = None; pos = 0; qs = []
 for b in pf.iter_batches(batch_size=50000):
@@ -56,8 +67,8 @@ qq['spectrum_id'] = [f'pcs_{i:05d}' for i in range(len(qq))]
 qq[E.TEST_COLS].to_parquet(d / 'test.parquet', index=False)
 pd.DataFrame({'molecule_id': sorted(qq.molecule_id.unique()), 'smiles': 'CCO'}).to_csv(d / 'sample_submission.csv', index=False)
 sol = qq.groupby('molecule_id').normalized_smiles.agg(lambda s: ','.join(dict.fromkeys(s))).reset_index()
-sol.columns = ['molecule_id', 'smiles']; sol.to_csv(out / 'solution_P.csv', index=False)
+sol.columns = ['molecule_id', 'smiles']; sol.to_csv(out / f'solution_{MK}.csv', index=False)
 from rdkit import Chem
 from rdkit.Chem.Descriptors import ExactMolWt
-json.dump(dict(keys=sorted(keyset), ik14=sorted(pick), mass=[ExactMolWt(Chem.MolFromSmiles(s)) for s in truth]), open(out / 'drop_P.json', 'w'))
+json.dump(dict(keys=sorted(keyset), ik14=sorted(pick), mass=[ExactMolWt(Chem.MolFromSmiles(s)) for s in truth]), open(out / f'drop_{MK}.json', 'w'))
 print('done', len(qq), qq.molecule_id.nunique(), flush=True)

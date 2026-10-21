@@ -307,7 +307,7 @@ def cmd_run(a):
     if a.inroot:
         inroot = Path(a.inroot)
     os.environ['E021_MASK'] = a.mask
-    os.environ['E021_DROP'] = str(out / (f'drop_{a.mask}.json' if a.mask in 'HP' else 'drop.json'))
+    os.environ['E021_DROP'] = str(out / (f'drop_{a.mask}.json' if a.mask in 'HPQ' else 'drop.json'))
     os.environ['PYTHONPATH'] = str(HERE) + os.pathsep + os.environ.get('PYTHONPATH', '')
     sys.path.insert(0, str(HERE))
     if a.mask == 'H':
@@ -513,7 +513,7 @@ def main():
     ap = argparse.ArgumentParser()
     sp = ap.add_subparsers(dest='cmd', required=True)
     p = sp.add_parser('panel'); p.add_argument('--kin', required=True); p.add_argument('--out', required=True)
-    p = sp.add_parser('run'); p.add_argument('--out', required=True); p.add_argument('--mask', choices='ABRCHP', required=True)
+    p = sp.add_parser('run'); p.add_argument('--out', required=True); p.add_argument('--mask', choices='ABRCHPQ', required=True)
     p.add_argument('--name', default='base'); p.add_argument('--set', action='append', default=[])
     p.add_argument('--notebook', default='/workspace/k020/enveda-020-e006-repro.ipynb')
     p.add_argument('--hook', default=None, help='python file exec-ed into the notebook namespace first (variant code)')
