@@ -406,3 +406,8 @@ kaggle competitions submissions enveda-CASMI26-molecule-id-mass-spectra
 - 可见测试为 enveda-180 训练谱副本（标签已恢复）；此前可见测试分数 0.03 为 smoke 伪影（只处理 12/400 分子）。
 - E180/H 面板：v11 0.0154，promo_off 0.0158；真值不在 PubChem/Engine2 列表（0/400），无法复现 v11>v13。
 - 隐藏测试分布与可见测试/NP250 均不同；尚无可复现公榜排序的面板，未提交。
+
+
+## 025 PubChem 在库面板（P）
+- 250 分子/700 谱（gnps/riken/pluskal，[M+H]+，280–380，PubChem 在库，R 式遮蔽）。
+- v11 0.5006，v12 规则 0.4983（复现 v11>v12），promo_off 0.5380（未复现 v11>v13）。未提交。
