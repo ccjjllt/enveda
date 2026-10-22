@@ -421,3 +421,14 @@ kaggle competitions submissions enveda-CASMI26-molecule-id-mass-spectra
 ## 027 fork v465（0.456 公开 notebook，Apache-2.0）
 - 代码未改，作为 ccjjllt/enveda-020-e006-repro v8 运行（固定 Py3.12 GPU 镜像）；提交 v14 ref 57462581，**公榜 0.456（新最佳）**。排行榜 10-21 17:50：#1 0.495，#20 0.464（金牌线约 0.465+）。
 - 以后的比较一律用 GPU 完整流程 A/B；分数阶梯与后续方向见 docs/progress/027。
+
+
+## 028 Engine1 候选池扩展（PCL + ChEBI/LMSD）
+- notebook 已备好（`notebooks/028/`，推送目录 `/workspace/k027b`）；本地池扩展单元检查通过（710,701→724,938）。
+- **GPU 周配额已满**，重置 **2026-10-24 08:00 北京时间** 前不 push。详见[028计划](docs/plan/028-e1-pool-extension.md)与[028进展](docs/progress/028-e1-pool-extension.md)。
+
+
+## 029 lavinwins 对照与 joint ICE/GL
+- 纠正：lavinwins 实际 POP/POOLPOP 为 0.15（非 0.25）；其 changelog 0.464 来自 N1 上 joint ICE+GL。
+- 029a 离线备好：`notebooks/029/enveda-029a-joint-dreams.ipynb` 与 `/workspace/k029`（+DreaMS 数据集、GEN_N_ANALOG=20）。配额重置后顺序：先 028a，再 029a。见[029计划](docs/plan/029-lavinwins-diff-and-joint.md)。
+
