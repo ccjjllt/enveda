@@ -1,0 +1,85 @@
+{
+  "round": "030",
+  "checked_at": "2026-10-22T21:14:28.967438+08:00",
+  "account": "ccjjllt",
+  "best_submission": {
+    "ref": "57462581",
+    "description": "v14 fork v465 pop015 baseline",
+    "status": "SubmissionStatus.COMPLETE",
+    "publicScore": "0.456",
+    "date": "2026-10-21 02:52:32.267000"
+  },
+  "leaderboard": {
+    "source": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard",
+    "team_count": 3802,
+    "own_rank": 515,
+    "own_score": 0.456,
+    "rank1_score": 0.504,
+    "rank5_score": 0.484,
+    "rank20_score": 0.469,
+    "limitation": "Public snapshot; not the final medal or prize thresholds"
+  },
+  "quota": [
+    {
+      "resource": "GPU",
+      "used": "30.10h",
+      "remaining": "0.00h",
+      "total": "30.00h",
+      "refreshAt": "2026-10-24T00:00:00"
+    },
+    {
+      "resource": "TPU",
+      "used": "0.00h",
+      "remaining": "20.00h",
+      "total": "20.00h",
+      "refreshAt": "2026-10-24T00:00:00"
+    }
+  ],
+  "existing_kernel_status": "COMPLETE",
+  "baseline_source_matches_current_own_kernel_bytes": true,
+  "artifact": {
+    "baseline": "guhongbin/casmi26-v465-v15-pop015",
+    "baseline_sha256": "8ce4f69e6f8a6e38c0d7ee4ffec151cc2b7454699abb0f53b1e16fd592852e29",
+    "challenger_source": "lavinwins/casmi26-top-1-gold",
+    "challenger_source_sha256": "0ea965fd9bbda43b812e5bcce450d4f05db371987f977adb73311b740220feaa",
+    "notebook_sha256": "d64c97cf657e5916fb7ece3ac4b7a2e69d8cf4e51f8018dbcf558d5107e5a5b3",
+    "changed_source_cell_indices_zero_based": [
+      21,
+      33
+    ],
+    "output_cell_indices_zero_based": [
+      22,
+      34
+    ],
+    "dataset_count": 15,
+    "changes": [
+      "N1_COMPLEMENT=False retains proxy GL scores where finite ICE scores exist",
+      "Final joint ICE+proxy GL rerank only on N1_GL_MIDS",
+      "N1 coverage and finite joint-score counters; same-run control limitation"
+    ]
+  },
+  "manual_checks": {
+    "code_cells_parsed": 32,
+    "unchanged_original_source_cells": 33,
+    "changed_original_source_cells": [
+      21,
+      33
+    ],
+    "remote_run_performed": false,
+    "offline_improvement_measured": false,
+    "new_submission_performed": false
+  },
+  "findings": [
+    "029a N1_COMPLEMENT=True removes finite-ICE proxy GL results before joint reranking",
+    "030 retains finite-ICE N1 proxy GL and enables joint only for N1_GL_MIDS",
+    "Old CPU evaluation omits ICE/GL; it has not predicted promotion public direction",
+    "Same-run E004 control does not reconstruct original v465 full pipeline"
+  ],
+  "execution_decision": {
+    "user_choice": "prepare_now_continue_manually_later",
+    "automation_created": false,
+    "expected_gpu_reset_beijing": "2026-10-24T08:00:00+08:00",
+    "next_action": "Recheck ccjjllt quota; manually push notebooks/030; record actual version; submit after successful completion"
+  },
+  "result": "Prepared only. Current measured public score remains 0.456."
+}

@@ -1,5 +1,7 @@
 # 029 进展
 
+> **030复核更正（2026-10-22晚）：** 029a漏移植 `N1_COMPLEMENT=False`；旧开关会删除有有限ICE分数的N1代理GL结果，最终joint分支因此缺少双模型证据。原文件保留为历史产物，不直接push。当前优先运行从v465单独构建的完整N1 challenger，见[030进展](030-n1-challenger-and-score-strategy.md)。用户选择配额恢复后手动继续，先前“028a→029a”顺序已被030方案取代。
+
 ## 2026-10-22 12:00–12:30（北京时间）离线准备
 
 - 完成 lavinwins vs v465/028a 代码对照；**纠正**此前 progress/028 中「POP_LAM=0.25 / POOLPOP_MU=0.25」的误读（公开 notebook 赋值实为 0.15；0.464 来自 joint ICE+GL）。

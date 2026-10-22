@@ -1,10 +1,18 @@
 # Enveda CASMI 2026 研究项目
 
-从串联质谱（MS/MS）预测分子结构，围绕候选检索、排序、多谱融合和模型微调开展研究。研究状态更新：**2026-10-21**；下文规则及硬件资料保留各自核实日期。
+从串联质谱（MS/MS）预测分子结构，围绕候选检索、排序、多谱融合和模型微调开展研究。研究状态更新：**2026-10-22**；下文规则及硬件资料保留各自核实日期。
 
 比赛：[`enveda-CASMI26-molecule-id-mass-spectra`](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra)。最初提供的第一个链接显示文字为 ARC Prize，但实际链接属于 Enveda；本项目只研究 Enveda。
 
-## 当前研究入口：023（2026-10-21）
+## 当前研究入口：030（2026-10-22）
+
+**已实查最佳 v14/v465 public 0.456，当前515/3802；030提分候选已备好，尚未运行或提交。** 最新榜单第1为0.504、第5为0.484、第20为0.469，均为公榜快照，不是最终获奖分数线。030修复029a遗漏的 `N1_COMPLEMENT=False`，以实际已得分的v465源码为基线，只引入完整N1联合ICE＋代理GL路径。原029a会先过滤有ICE分数的N1结果，使joint缺少双模型证据，暂不直接推送。
+
+**主要研究缺口是完整流程验证：** 旧CPU面板跳过ICE/GL，已多次把实际掉分的融合改动评为有效。下一步先实测030，再建立包含模拟器的结构留出评估，独立验证028召回增量及缺参考/同式/负离子证据。代码、离线效果与排行榜提高分开记录。
+
+ccjjllt GPU周额度已用30.10/30h，剩余0，API预计北京时间 **2026-10-24 08:00**恢复。用户选择**先备好、届时手动继续**；本轮未安排自动任务。下一次直接从 [030计划](docs/plan/030-n1-challenger-and-score-strategy.md)、[030实际进展](docs/progress/030-n1-challenger-and-score-strategy.md)与 [notebooks/030](notebooks/030/enveda-030-n1-challenger.ipynb) 接手。注意本机CLI默认账号与研究账号不同，安全选择现有ccjjllt认证的方法见030进展。
+
+## 023历史记录（2026-10-21）
 
 **v13 = v11＋关闭 PubChem 提升：public 0.432（v11 0.446，Δ −0.014），不保留。** 本地遮蔽一致看好关闭，隐藏集相反，本地 NP250 面板不能评估 PubChem 相关改动。 本地新增 R 遮蔽（真值无参考但在池，最接近隐藏集，R 基线 0.4547 与 public 0.446 接近）：关闭 PubChem 提升 0.4547→0.5068（+0.052，44/1）。Engine1 研究：is_gen 确认 C 命中全部来自生成；扩大生成（12/120/400）在 C 上 Engine1-only +0.067（29/3）但在 B 上 −0.022（4/23），不上线；保护 Engine1 生成第一名在 B/R 基本不生效、C +0.03～+0.16。Engine1 使用的 `fpnet_full1` 可能训练时见过 NP250，Engine1-only 与 C 收益偏乐观，v14 暂不提交，下一步换留出 NP 的 `fpnet_0` 复核。见[023计划](docs/plan/023-promo-off-and-engine1-generation.md)与[023进展](docs/progress/023-promo-off-and-engine1-generation.md)。
 
@@ -430,5 +438,5 @@ kaggle competitions submissions enveda-CASMI26-molecule-id-mass-spectra
 
 ## 029 lavinwins 对照与 joint ICE/GL
 - 纠正：lavinwins 实际 POP/POOLPOP 为 0.15（非 0.25）；其 changelog 0.464 来自 N1 上 joint ICE+GL。
-- 029a 离线备好：`notebooks/029/enveda-029a-joint-dreams.ipynb` 与 `/workspace/k029`（+DreaMS 数据集、GEN_N_ANALOG=20）。配额重置后顺序：先 028a，再 029a。见[029计划](docs/plan/029-lavinwins-diff-and-joint.md)。
+- 029a 为历史准备版本（+DreaMS、GEN_N_ANALOG=20）。**030复核发现漏改N1 complement开关，不直接运行；当前先单独运行 `notebooks/030` 的完整N1 challenger，再考虑028扩池。** 见[030进展](docs/progress/030-n1-challenger-and-score-strategy.md)。旧记录里的 `/workspace/k029` 不在当前本机环境中。
 

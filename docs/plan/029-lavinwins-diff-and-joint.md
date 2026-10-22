@@ -1,5 +1,7 @@
 # 029 计划：对照 lavinwins/casmi26-top-1-gold，落地高价值差异
 
+> **当前执行方案已更新到030。** 2026-10-22晚复核发现029a漏移植 `N1_COMPLEMENT=False`，其joint主改动不能取得双模型证据。先运行从v465单独构建的完整N1 challenger；不直接推送旧029a，也不沿用文末旧执行顺序。见[030计划](030-n1-challenger-and-score-strategy.md)。
+
 ## 对照结论（2026-10-22 中午，代码级 diff）
 
 对照对象：

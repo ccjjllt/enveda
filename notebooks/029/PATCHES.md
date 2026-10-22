@@ -1,5 +1,7 @@
 # 029a 相对 028a 的补丁清单
 
+> 2026-10-22晚更正：此历史产物漏改 `N1_COMPLEMENT=False`，会过滤掉已有ICE证据的N1代理结果。不要直接推送；当前候选为 `notebooks/030` 的完整N1 challenger，详见 `docs/progress/030-n1-challenger-and-score-strategy.md`。
+
 源：`notebooks/028/enveda-028a-e1ext.ipynb` → `enveda-029a-joint-dreams.ipynb`
 
 1. **Markdown 头**：说明 joint / DreaMS / GEN_N_ANALOG=20，并写明保持 POP=0.15。

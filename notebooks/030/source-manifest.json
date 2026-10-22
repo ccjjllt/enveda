@@ -1,0 +1,21 @@
+{
+  "baseline": "guhongbin/casmi26-v465-v15-pop015",
+  "baseline_sha256": "8ce4f69e6f8a6e38c0d7ee4ffec151cc2b7454699abb0f53b1e16fd592852e29",
+  "challenger_source": "lavinwins/casmi26-top-1-gold",
+  "challenger_source_sha256": "0ea965fd9bbda43b812e5bcce450d4f05db371987f977adb73311b740220feaa",
+  "notebook_sha256": "d64c97cf657e5916fb7ece3ac4b7a2e69d8cf4e51f8018dbcf558d5107e5a5b3",
+  "changed_source_cell_indices_zero_based": [
+    21,
+    33
+  ],
+  "output_cell_indices_zero_based": [
+    22,
+    34
+  ],
+  "dataset_count": 15,
+  "changes": [
+    "N1_COMPLEMENT=False retains proxy GL scores where finite ICE scores exist",
+    "Final joint ICE+proxy GL rerank only on N1_GL_MIDS",
+    "N1 coverage and finite joint-score counters; same-run control limitation"
+  ]
+}
