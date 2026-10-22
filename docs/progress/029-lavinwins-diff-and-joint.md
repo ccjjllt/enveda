@@ -18,3 +18,9 @@
 - GPU 周配额仍未重置（2026-10-24 08:00），无运行中 kernel，未 push。
 - 排行榜：#1 仍 0.504；#2 0.469、#3 0.468（金牌线随之上移）。我们 0.456。
 - 新公开 notebook 留意：`likedge/casmi26-n1-challenger-pair-lambdarank`（N1 challenger + pair LambdaRank）、`ahmedberatozer/casmi26-v25-unq`，配额重置后可对照。
+
+## 2026-10-23 00:06（北京时间）定时巡检
+
+- GPU 周配额仍未重置（预计 2026-10-24 08:00），无运行中 enveda kernel，未 push。
+- 排行榜（CLI）：#1 Oleksandr Parfionov 0.504，#2 pikachu 0.499，#3 CHU1PC 0.495；#20 约 0.469（金牌线附近）。我们仍 0.456。
+- 下一步不变：配额重置后先 028a，后 029a。
