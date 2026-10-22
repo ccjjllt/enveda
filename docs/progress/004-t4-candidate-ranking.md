@@ -45,9 +45,9 @@
 
 ## 实际代码与产物
 
-- `notebooks/colab/004-t4-fpnet-feasibility.ipynb`：11 个 cell，其中 7 个代码 cell，全部 `execution_count=null`、无输出。可在 Colab 上手动运行：环境 → 固定 v1 权重 metadata → 外部参考定义与真实谱 → single 模型真实前向 → JSON 结果。
-- `artifacts/004-research/reference-fpnet-v32.py`：从 v32 cell 17/18 原样摘录模型/输入适配，保留出处；未执行，不把未知 notebook 代码许可与权重 Dataset CC0 混同。
-- `artifacts/004-research/np_forward_sample.json`：从本地 train 分块抽取 **16 谱 / 16 结构，正负各 8、全 timsTOF、5 类 adduct**；273,764 B，只用于前向兼容性，不是评估集。
+- `notebooks/archive/colab/004-t4-fpnet-feasibility.ipynb`：11 个 cell，其中 7 个代码 cell，全部 `execution_count=null`、无输出。可在 Colab 上手动运行：环境 → 固定 v1 权重 metadata → 外部参考定义与真实谱 → single 模型真实前向 → JSON 结果。
+- `artifacts/runs/004-research/reference-fpnet-v32.py`：从 v32 cell 17/18 原样摘录模型/输入适配，保留出处；未执行，不把未知 notebook 代码许可与权重 Dataset CC0 混同。
+- `artifacts/runs/004-research/np_forward_sample.json`：从本地 train 分块抽取 **16 谱 / 16 结构，正负各 8、全 timsTOF、5 类 adduct**；273,764 B，只用于前向兼容性，不是评估集。
 - `data/references/competition-update-2026-10-01.json`：比赛、评分、新讨论、排行榜和奖项证据。
 - `data/references/model-strategy-2026-10-01.json`：模型路线、位映射、输入契约、资源链接与 T4 预算的证据等级。
 - `data/references/colab-t4-environment-2026-10-01.json`：从本轮界面实际输出转录的设备记录，标明 UI 执行方式。
@@ -82,11 +82,11 @@ R0 notebook 默认只做 single 权重前向，merged 只核对 CPU 加载和 me
 本地手动验证（`.venv` Python 3.9.6 + pyarrow 21.0.0，`PYTHONPATH=src`，命令均为手动发起）：
 
 - AST 语法解析通过；仪器同义逐项核对（qTof/qTOF/qtof/Qtof/QTOF/LC-ESI-QTOF→QTOF；Orbitrap/Q-Exactive/ESI-QFT/LC-ESI-ITFT→Orbitrap；Ion Trap/Linear Ion Trap/iontrap/LC-ESI-QQ/QQQ→IT；None/nan/N/A/空→other）。记录到的 v32 口径边缘：`LIT`（11 行）与 `QIT`（1261 行）因不含 `trap`/`qq` 子串归入 other，已在 manifest 规则字符串中注明 verbatim，未私自改成 IT；是否增补独立缩写映射待定（改动将偏离 checkpoint 的 instrument embedding，必须另行记录）。
-- `build_np_manifest()` 实测 109s：NP keys 250；np-lib 行 1184（全 timsTOF，与计划一致）；跨全来源 holdout 行 **56783**（训练保留 2482825）；每结构行数 min 5 / median 174.5 / max 1468；holdout 来源 drug_plus 145 / enveda-np-examples 1184 / gnps 10263 / masaryk 83 / massbank 6505 / mona 5276 / msdial 2393 / pluskal_ms2 4470 / riken 26464（无 enveda-180/spectraverse）；仪器族 IT 3637 / Orbitrap 29638 / QTOF 20445 / other 1879 / timsTOF 1184；重复谱组 2088 组 / 4303 行。产物 `artifacts/004-research/np_manifest.json`（2,368,804B，已忽略）。NP250 与旧 seen/unseen 各 500 key 交集均为 0（按 shipped key 复核）。
+- `build_np_manifest()` 实测 109s：NP keys 250；np-lib 行 1184（全 timsTOF，与计划一致）；跨全来源 holdout 行 **56783**（训练保留 2482825）；每结构行数 min 5 / median 174.5 / max 1468；holdout 来源 drug_plus 145 / enveda-np-examples 1184 / gnps 10263 / masaryk 83 / massbank 6505 / mona 5276 / msdial 2393 / pluskal_ms2 4470 / riken 26464（无 enveda-180/spectraverse）；仪器族 IT 3637 / Orbitrap 29638 / QTOF 20445 / other 1879 / timsTOF 1184；重复谱组 2088 组 / 4303 行。产物 `artifacts/runs/004-research/np_manifest.json`（2,368,804B，已忽略）。NP250 与旧 seen/unseen 各 500 key 交集均为 0（按 shipped key 复核）。
 - 结构候选库实测约 3.3s：275,810 去重结构；公式质量 mass_ok 275,810（`stripped_charge_suffix` 509 含 `+2/+3` 多电荷 12 个已处理）、unknown 0；此前 `C12H30N2+2` 类 12 个在修复前记 unknown，修复后全部入库。
 - 质量窗口真值召回（候选质量=分子式单同位素理论质量 float64，query 质量=前体+adduct float64）：
-  - NP1184 目标域（timsTOF）：5ppm 1154/1184=0.9747；10ppm 1181/1184=0.9975；20ppm 1182/1184=0.9983；窗口内候选数 median 8/13/16，p90 45/74/105，max 224/227/384；真值 ppm 误差 median 1.68 / p90 3.26。20ppm 仅 2 谱 miss：row 2538939（`[M-H2O-H]-` 未知加合回退，误差 126744ppm）与 row 2538518（`[M-H]-` 误差 21.01ppm，恰为 NP 前体误差 max 21.06ppm 的同一谱）。产物 `artifacts/004-research/mass_recall_np1184.json`。
-  - 全 holdout 56783（跨来源对照）：5/10/20ppm 召回 0.7267/0.8255/0.9078；unknown adduct 204；真值误差 median 0.90 / p90 18.95。目标域外的稀有加合与大误差是主要缺口，不把全 holdout 召回当目标域结论。产物 `artifacts/004-research/mass_recall_holdout56783.json`。
+  - NP1184 目标域（timsTOF）：5ppm 1154/1184=0.9747；10ppm 1181/1184=0.9975；20ppm 1182/1184=0.9983；窗口内候选数 median 8/13/16，p90 45/74/105，max 224/227/384；真值 ppm 误差 median 1.68 / p90 3.26。20ppm 仅 2 谱 miss：row 2538939（`[M-H2O-H]-` 未知加合回退，误差 126744ppm）与 row 2538518（`[M-H]-` 误差 21.01ppm，恰为 NP 前体误差 max 21.06ppm 的同一谱）。产物 `artifacts/runs/004-research/mass_recall_np1184.json`。
+  - 全 holdout 56783（跨来源对照）：5/10/20ppm 召回 0.7267/0.8255/0.9078；unknown adduct 204；真值误差 median 0.90 / p90 18.95。目标域外的稀有加合与大误差是主要缺口，不把全 holdout 召回当目标域结论。产物 `artifacts/runs/004-research/mass_recall_holdout56783.json`。
 - `git status` 仅新增 `src/splits.py`、`src/candidates.py`（另有本轮既有未提交 `src/chemistry.py`，保留未动）；未创建测试文件/框架；未 push；凭据未入仓。
 
 待办（未执行，不虚构结果）：canonical key 的 RDKit 去立体+互变异构重算与等价结构复核；固定 Q 单谱规则（single 不依赖真值选一张 Q，融合只读 Q；同极性/同 adduct 先融合）尚未实现，当前召回为 per-spectrum 统计；R1 的 mass-only→cosine→FPNet 同一 Q/L/C 对照、packed 指纹与真实前向、R2–R4 均未开始。
@@ -98,19 +98,19 @@ R0 notebook 默认只做 single 权重前向，merged 只核对 CPU 加载和 me
 - `src/models/fingerprint.py`（subagent，经 review）：FPNet 定义与 feature contract，许可头明确 unknown（权重 CC0 不套代码）；`prep_peaks`/adduct26/instrument5 与 v32 摘录逐项相等已复核；本地无 torch/numpy 时导入期明确失败（符合要求，Colab 有这两者）。
 - `src/ranking.py`（subagent，经 review）：`dot_score`、`score_single_spectrum`、`aggregate_mean_scores`、真正的 `round_robin_fuse`（已验证 `['a','x','b','c']+['x','y']→['a','x','b','y','c']`，旧 retrieval 是顺序拼接）、超 25 截断计数；`SimpleLinearRanker` 占位。
 - `src/train_fingerprint.py`（subagent，AST 通过，未执行 torch 路径）：head_only/unfreeze_last2/from_scratch 三模式，200–500 步预算入口，FP16 注释，BCE+窗口排序损失，保存 optimizer/config/split。
-- `notebooks/colab/004-t4-candidate-ranking.ipynb`（12 cells）与 `notebooks/inference/004-offline-inference-skeleton.ipynb`（4 cells）：JSON 合法、代码 AST 通过，无硬编码路径/ID，无嵌入谱/权重。均未远端执行。
+- `notebooks/archive/colab/004-t4-candidate-ranking.ipynb`（12 cells）与 `notebooks/archive/inference/004-offline-inference-skeleton.ipynb`（4 cells）：JSON 合法、代码 AST 通过，无硬编码路径/ID，无嵌入谱/权重。均未远端执行。
 - review 发现并确认：ranking 报告中的 `dot` 实为 `dot_score`（命名出入，功能正常）；`round_robin_fuse` 入参为 dict（初次误传 list 系调用错误，非代码问题）。
 
 待办（未执行）：fp_bits.npy 下载联调、固定 Q 单谱规则、R1–R4 真实前向/训练、RDKit 规范化重算，均需远端手动执行。
 
 ## R0 真实前向结果（2026-10-01，用户手动执行，产物已落盘）
 
-- 产物 `artifacts/004-research/r0_feasibility.json`（6.5KB，已忽略不入 Git），`completed_utc=2026-10-01T16:54:57Z`。
+- 产物 `artifacts/runs/004-research/r0_feasibility.json`（6.5KB，已忽略不入 Git），`completed_utc=2026-10-01T16:54:57Z`。
 - 环境：Tesla T4（15,637,086,208 B ≈ 14.56 GiB），torch 2.11.0+cu128 / CUDA build 12.8，Python 3.13.15，numpy 2.1.3。
 - 权重：kagglehub 下 `prvsiyan/casmi26-fp-models-v2/versions/1`，11.3s；`fp_single_s2.pt` 144,110,255 B，sha 与本地一致（`c19aa290…`），`weights_only=True`，CPU 加载 0.12s，`{model,step,nbits,d,layers}`，step=20000，参数 36,019,474。
 - 前向：`state_dict strict` 0 缺失/0 多余；16 真实谱 → `[16,6930]`，shape 相符，110,880 值全 finite；首跑 0.56s（含建模搬运），后 3 跑各 0.041s；`research_effect: not evaluated`（未算 MRR，无提分声称）。
 - 结论：single 权重与输入 contract 一致，T4 单步前向可行；后 3 跑 0.041s/16谱是小 batch 诊断速度，不估计完整训练吞吐。下一步 R1 需 `fp_bits.npy`（候选侧 10,407→6,930 映射）与固定 Q/L/C。
-- `fp_bits.npy`（2026-10-01，用户在 Colab 取 `prvsiyan/coconut-casmi26-candidates/versions/2`）：`sha256=a61e372fc41091bf5c7467e08134081266262665077cb9e2c56d73e4887f3013`。Colab 侧已在 R1 前置位；本地 `artifacts/004-research/fp_bits.npy` 副本待补（55KB）。维度校验（6930/int64/上界10407）以用户 Colab 输出为准，shape 回执待补。
+- `fp_bits.npy`（2026-10-01，用户在 Colab 取 `prvsiyan/coconut-casmi26-candidates/versions/2`）：`sha256=a61e372fc41091bf5c7467e08134081266262665077cb9e2c56d73e4887f3013`。Colab 侧已在 R1 前置位；本地 `artifacts/runs/004-research/fp_bits.npy` 副本待补（55KB）。维度校验（6930/int64/上界10407）以用户 Colab 输出为准，shape 回执待补。
 
 ## 候选侧指纹链验证（2026-10-01，Colab T4 手动执行）
 
@@ -129,7 +129,7 @@ R0 notebook 默认只做 single 权重前向，merged 只核对 CPU 加载和 me
 ## R1 mass→FPNet 试点：coco 池真值召回为 0（2026-10-01/02，Colab T4）
 
 - 同一 Q（16 NP 谱）/C（coco 436,389）/20ppm 窗：16 个真值结构**全不在池**（`truth_in_pool=False`），`truth_rank` 无从谈起。key 格式已排除（两边同为 14 位大写），是该快照真实缺失。
-- 本地已导出 `artifacts/004-research/train_structures.jsonl`（2,539,608 行→275,810 去重结构，23MB，已忽略）：下一步 C 换训练结构池，真值必在池内，R1 才可测量排序增量。
+- 本地已导出 `artifacts/runs/004-research/train_structures.jsonl`（2,539,608 行→275,810 去重结构，23MB，已忽略）：下一步 C 换训练结构池，真值必在池内，R1 才可测量排序增量。
 
 ## R1 训练结构池建成（2026-10-01/02，Colab T4）
 
@@ -159,7 +159,7 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 
 ## R3 训练分片就绪（2026-10-01/02，本地导出）
 
-- `artifacts/004-research/train_shard_20k.parquet`（39MB，已忽略）：seed 2026，从训练保留 2,482,825 行抽 20,000 行，行号清单 `train_shard_20k_rows.json`；NP250 整组 holdout 零交集。R3 200–500 步预算估计用，不作完整训练。
+- `artifacts/runs/004-research/train_shard_20k.parquet`（39MB，已忽略）：seed 2026，从训练保留 2,482,825 行抽 20,000 行，行号清单 `train_shard_20k_rows.json`；NP250 整组 holdout 零交集。R3 200–500 步预算估计用，不作完整训练。
 
 ## R3 预算估计（2026-10-01/02，Colab T4，head-only）
 
@@ -169,12 +169,12 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 
 ## R3 20 万谱分片就绪（2026-10-01/02，本地导出）
 
-- `artifacts/004-research/train_shard_200k_p{0..3}.parquet`（142/141/71/22MB，已忽略）：seed 2026，从训练保留抽 200,000 行（4×50k），行号清单 `train_shard_200k_rows.json`；NP 整组零交集。用户定：5000 步 × 20 万谱，head-only，NP250 同口径验证。
+- `artifacts/runs/004-research/train_shard_200k_p{0..3}.parquet`（142/141/71/22MB，已忽略）：seed 2026，从训练保留抽 200,000 行（4×50k），行号清单 `train_shard_200k_rows.json`；NP 整组零交集。用户定：5000 步 × 20 万谱，head-only，NP250 同口径验证。
 
 ## 合订本（2026-10-02）：R1→R3 单 notebook
 
-- 昨日实例误删后，按用户要求把 R0 验证过的全部 cell 合订为 `notebooks/colab/004-r1-r3-consolidated.ipynb`（15 cells / 9 代码，AST 已验）：Drive 挂载 → 依赖/环境 → kagglehub 下权重与候选集 → fp 链自检 → 模型加载 → 训练池重建 → R1 全量 → R2 融合 → R3 5000 步训练 + 每 1000 步 NP 评估 + 落盘。训练输入改为 Drive 版 4 分片（q0–q7 八小块作废，不再使用）。
-- 产物统一落 `/content/004-output/`（`r1_np1184.json`、`r2_np250.json`、`head_5000.pt`、`r3_log.json`），带回本地 `artifacts/004-research/` 后 review。
+- 昨日实例误删后，按用户要求把 R0 验证过的全部 cell 合订为 `notebooks/archive/colab/004-r1-r3-consolidated.ipynb`（15 cells / 9 代码，AST 已验）：Drive 挂载 → 依赖/环境 → kagglehub 下权重与候选集 → fp 链自检 → 模型加载 → 训练池重建 → R1 全量 → R2 融合 → R3 5000 步训练 + 每 1000 步 NP 评估 + 落盘。训练输入改为 Drive 版 4 分片（q0–q7 八小块作废，不再使用）。
+- 产物统一落 `/content/004-output/`（`r1_np1184.json`、`r2_np250.json`、`head_5000.pt`、`r3_log.json`），带回本地 `artifacts/runs/004-research/` 后 review。
 
 ## R3 5000 步 head-only 结果（2026-10-02，Colab T4，训练 20 万谱分片）
 
@@ -194,7 +194,7 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 
 - single 赢 39、mean_all 赢 28、平 183（多数两边都是第 1）；两组在谱数（5.54 vs 5.14）、adduct 数（6.05 vs 6.36）上基本无分层——融合没有可识别的 systematically 有效子群。
 - single 排名 >10 的硬例 11 个（key 已列表中），是 forward 重排（ICEBERG/GLACIER）的候选对象，不是融合能修的。
-- 通用 Q 已导出 `artifacts/004-research/generic_queries.json`（500 结构/1411 谱，10MB，seed 2027，NP 整组排除）：A 诊断用。
+- 通用 Q 已导出 `artifacts/runs/004-research/generic_queries.json`（500 结构/1411 谱，10MB，seed 2027，NP 整组排除）：A 诊断用。
 - A+B 已追加进合订本（`0ff93b5`，共 20 格）：A 用 `head_5000.pt`（需传 Drive，62MB）对比公开/已训 head 在通用 Q 与 NP Q 上的表现；B 从公开 head 重起 timsTOF 50% 混合训练 5000 步（seed 11），NP 同口径评估，产物 `head_mixed_5000.pt` + `r3_mixed_log.json`。一次新实例跑完。
 
 ## A 诊断 + B 混合重训（2026-10-03，新实例一次跑完）
@@ -214,7 +214,7 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 
 ## part2 合订本（2026-10-03，一次跑完剩余项）
 
-- `notebooks/colab/004-part2-consolidated.ipynb`（19 格，已提交）：R1-cosine 档（20 万分片谱库）、R4（GEN 拟合→NP 评估 logistic 重排）、解冻末两层 2000 步（lr 1e-4，BCE+rank，NP/GEN 双验证）、merged 对照（合并峰表 mirror `_merge_peaks`）、forward 有界试点（无已核实权重 URL 则跳过并记录，不碰 NIST）。
+- `notebooks/archive/colab/004-part2-consolidated.ipynb`（19 格，已提交）：R1-cosine 档（20 万分片谱库）、R4（GEN 拟合→NP 评估 logistic 重排）、解冻末两层 2000 步（lr 1e-4，BCE+rank，NP/GEN 双验证）、merged 对照（合并峰表 mirror `_merge_peaks`）、forward 有界试点（无已核实权重 URL 则跳过并记录，不碰 NIST）。
 - de novo 生成与 Kaggle 提交不在本子（权重决策未定 / 不同平台）。产物 `/content/004-output2/` 共 7 个文件。
 
 ## part2 回执（2026-10-03，一次跑完，产物已回本地）
@@ -235,7 +235,7 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 ## 首次提交（2026-10-03，Kaggle GPU，本项目第一个隐藏重跑分等待中）
 
 - 提交 notebook `ccjjllt/enveda-submission` v1（FPNet single + 20ppm，coco-only 回退路径，因 GPU 镜像 Python 3.13 装不上 cp312 轮子）。
-- 开发运行 34s 完成，400 行×25 候选，44KB diverse SMILES，非 CCO。产物 `artifacts/submission-v1/submission.csv`（已忽略）。
+- 开发运行 34s 完成，400 行×25 候选，44KB diverse SMILES，非 CCO。产物 `artifacts/submissions/submission-v1/submission.csv`（已忽略）。
 - 提交 ref `56791264`，`SubmissionStatus.PENDING`，public/private 待出。今日还剩 4 次提交。
 - 边界：coco 池 43.6 万（训练结构因无 RDKit 未入池）；隐藏 Class-2/3 覆盖未知，分数出来前不声称效果。
 
@@ -273,7 +273,7 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 ## v7 COMPLETE（2026-10-03，GPU，约 130 秒）
 
 - `ccjjllt/enveda-submission` version 7 `COMPLETE`：combined 712,199（3.4s，修复生效）、test 400 分子/1213 谱、400 前向 ~43s、5 格 70+6.6+3.5+3.1+2.4s。
-- 产物 `artifacts/submission-v7/submission.csv`：400 行×25 候选，首候选裸 CCO 共 0 行（之前 `cco_rows 13` 是 `CCO…` 乙氧基前缀 SMILES 误报），empty/mass_fallback/exception 全 0。相对 v1（399/400 CCO，public 0.000）覆盖率修好。
+- 产物 `artifacts/submissions/submission-v7/submission.csv`：400 行×25 候选，首候选裸 CCO 共 0 行（之前 `cco_rows 13` 是 `CCO…` 乙氧基前缀 SMILES 误报），empty/mass_fallback/exception 全 0。相对 v1（399/400 CCO，public 0.000）覆盖率修好。
 - 待定：是否用此版占一次排行榜提交（今日剩约 4 次），等用户确认。
 
 ## v7 public 0.206（2026-10-03，code 提交）
@@ -284,7 +284,7 @@ single 0.6754/0.5280 优于 mean_all 0.6490、mean_ad 0.6370、rrfuse 0.6300。�
 
 ## 004 剩余任务清账：五路并行 + 主审验证（2026-10-03）
 
-- A（R4 ranker）：`src/ranking.py` 新增 `LogisticRanker` + `structure_grouped_fold_of_key` + `run_r4_local_cv`（numpy 手写，无 sklearn 依赖）；产物 `artifacts/004-research/r4_ranker.json`、`r4_np1184.json`。主审实测（brew python3.11，补 numpy/pyarrow 后）：OOF 1184 查询 ranker MRR 0.9796 vs 同集 cosine-only 0.9774（d=+0.0022），mass-only 0.4084。结论：本地集 cosine 已饱和，缺 fp_dot（无 GPU 权重）时 ranker 无实质增量；R4 真验证需 GPU 上带 fp_dot 重做。子 agent 未返回文字报告，verdict 由主审跑代码得出。
+- A（R4 ranker）：`src/ranking.py` 新增 `LogisticRanker` + `structure_grouped_fold_of_key` + `run_r4_local_cv`（numpy 手写，无 sklearn 依赖）；产物 `artifacts/runs/004-research/r4_ranker.json`、`r4_np1184.json`。主审实测（brew python3.11，补 numpy/pyarrow 后）：OOF 1184 查询 ranker MRR 0.9796 vs 同集 cosine-only 0.9774（d=+0.0022），mass-only 0.4084。结论：本地集 cosine 已饱和，缺 fp_dot（无 GPU 权重）时 ranker 无实质增量；R4 真验证需 GPU 上带 fp_dot 重做。子 agent 未返回文字报告，verdict 由主审跑代码得出。
 - B（ppm + 5 折）：`src/splits.py`、`src/candidates.py` 扩函数；`mass_recall_np1184.json` 与报告表逐项核对一致（5ppm 1154/1184；10ppm 1181；20ppm 1182；窗中位 8/13/16）；`np_canonical_5fold.json` 主审验证：78/45/41/44/42=250，折间交集 0，Q 56783 行/timsTOF 1184。推荐 10ppm + WMAX 200（目标域），20ppm 仅多 0.08% 召回但窗大 55%。小出入：报告称 5ppm 1155，文件为 1154（1 行差，不影响推荐）。
 - C（forward 重排）：权重 URL 与许可逐条对官方 README 活页验证通过（ICEBERG msg_all/msg_simulation、GLACIER checkpoint 三个 Dropbox 文件夹；代码 MIT；NIST 权重一律排除，官方要求持证发邮件索取）；训练门槛 2×24GB、RTX 4070M batch8/workers6 均与原文一致。verdict：GLACIER-first、10–20 分子 top-10/25/50 T4 试点值得做，不扩 top-100、不训。代码片段未落盘（按约束内联返回），执行前需先在 Colab 核 Dropbox 可达 + sha。
 - D（生成/DreaMS）：`enveda/DreaMS-Enveda` 主审活页验证：已归档只读、0 star/fork、364 commits，纯镜像无私有权重；`dreams_embeddings` → 1024 维、权重 zenodo 10997887 均与报告一致。排序接受：DreaMS > MS-GPT > FRIGID > FoAM；生成三家全被“已知分子式”卡住（oracle vs 预测 formula 必须分跑，MIST-CF 是 B 路径底座）；前置阻塞：四个大权重都超 500MB，本轮后需授权下载。

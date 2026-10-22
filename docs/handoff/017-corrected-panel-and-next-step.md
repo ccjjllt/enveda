@@ -71,12 +71,12 @@
 
 | 用途 | 路径 |
 |---|---|
-| 原015训练数据、特征和模型 | `artifacts/015-analog/{features,ranker,direct-only-ablation}/` |
-| 新400面板与完整参考索引 | `artifacts/016-panel/`、`artifacts/016-index/` |
-| 修正后的FP输入与ICE分数 | `artifacts/017-panel-inputs/{inputs.json,ice_scores.json}` |
-| 017两套特征、逐分子排名和参考谱证据 | `artifacts/017-corrected-features/`、`artifacts/017-corrected-features-ext/` |
-| 错误候选与分布研究 | `artifacts/017-review/corrected-{full,external}-crossings.json`、`direct-evidence-distribution-shift.json` |
-| 特征与预测实现 | `scripts/build_016_panel_features.py`、`scripts/run_016_panel_predict.py` |
-| 当前比赛入口 | `notebooks/submission-v10/enveda-submission-v10.ipynb` |
+| 原015训练数据、特征和模型 | `artifacts/runs/015-analog/{features,ranker,direct-only-ablation}/` |
+| 新400面板与完整参考索引 | `artifacts/runs/016-panel/`、`artifacts/runs/016-index/` |
+| 修正后的FP输入与ICE分数 | `artifacts/runs/017-panel-inputs/{inputs.json,ice_scores.json}` |
+| 017两套特征、逐分子排名和参考谱证据 | `artifacts/runs/017-corrected-features/`、`artifacts/runs/017-corrected-features-ext/` |
+| 错误候选与分布研究 | `artifacts/runs/017-review/corrected-{full,external}-crossings.json`、`direct-evidence-distribution-shift.json` |
+| 特征与预测实现 | `scripts/016/build_016_panel_features.py`、`scripts/016/run_016_panel_predict.py` |
+| 当前比赛入口 | `notebooks/submissions/submission-v10/enveda-submission-v10.ipynb` |
 
 实验一需要让现有特征构建器读取原015查询；它目前默认读取016面板，不能只改输出目录就声称完成同分子对照。精确命令、版本、复算记录保留在[017进展](../progress/017-review-and-corrected-panel.md)，指标摘要在`data/references/research-results-017.json`。原数据和大产物保存在本机ignored目录，接手同机可直接使用。

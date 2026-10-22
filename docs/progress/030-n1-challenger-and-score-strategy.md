@@ -34,7 +34,7 @@
 - `N1_COMPLEMENT=False`；最终只对 N1 代理覆盖列表 joint ICE＋GL；增加覆盖与有限分数计数。
 - 其余 **33个原cell源码逐字节不变**，维持原15数据源、候选池、默认生成规模、POP=0.15。
 - [metadata](../../notebooks/030/kernel-metadata.json)：私有、断网、T4、既有Py3.12镜像，`code_file` 已对应真实文件；本地目录可直接作为 CLI push 入口。
-- [改动说明](../../notebooks/030/PATCHES.md)、[源文件哈希](../../notebooks/030/source-manifest.json)、[手动构建脚本](../../scripts/build_030_n1_challenger.py)。
+- [改动说明](../../notebooks/030/PATCHES.md)、[源文件哈希](../../notebooks/030/source-manifest.json)、[手动构建脚本](../../scripts/030/build_030_n1_challenger.py)。
 - README首部改为030入口，并在029记录明确旧开关问题和新的实验顺序。原029 notebook保留作历史产物，不再直接推送它。
 
 来源：基线 [guhongbin/v465](https://www.kaggle.com/code/guhongbin/casmi26-v465-v15-pop015)，联合路径 [lavinwins](https://www.kaggle.com/code/lavinwins/casmi26-top-1-gold) / [flexonafft](https://www.kaggle.com/code/flexonafft/casmi26-closing-the-evidence-gap)。下载的当前自有源码与v465 **SHA256完全一致**：`8ce4f69e6f8a6e38c0d7ee4ffec151cc2b7454699abb0f53b1e16fd592852e29`。保留原署名及各资产许可。
@@ -48,7 +48,7 @@
 - **代码已准备；远端未运行；离线增益未测；新submission未提交；公榜仍0.456。** 没有新增训练或随机种子；沿用上游推理配置。精确挂载数据/权重版本、实际设备、时长及新kernel版本待远端运行后填写。
 - 本轮没有创建测试文件、测试框架或CI；语法与源码核对均为人工触发。
 
-安全的原始查询快照位于 `artifacts/030/`，包括 `quota.json`、`submissions.csv`、`leaderboard/`、上游及当前kernel源码；可携带的摘要见 `data/references/research-results-030.json`。
+安全的原始查询快照位于 `artifacts/runs/030/`，包括 `quota.json`、`submissions.csv`、`leaderboard/`、上游及当前kernel源码；可携带的摘要见 `data/references/research-results-030.json`。
 
 ## 下次直接执行
 

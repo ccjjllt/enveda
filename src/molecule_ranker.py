@@ -2,10 +2,10 @@
 
 背景：
 - E2 在 union 完整池、single 选谱、10ppm nocap 窗下，对 250 个公开天然产物
-  分子做多证据排序。产物为 artifacts/005/e2_*.json（ranker MRR 0.921143）。
+  分子做多证据排序。产物为 artifacts/runs/005/e2_*.json（ranker MRR 0.921143）。
 - 本模块把 E2 的 CPU 可重跑部分落盘：候选窗 C(q) 构造、FP 点积打分、E1 谱库
   特征接口、分子/谱特征定义、分子组 OOF 训练与排序评估。不做 GPU/CPU 神经
-  前向（复用 artifacts/005/e0_logits_single_s2_np1184.npy），不读凭据，不联网。
+  前向（复用 artifacts/runs/005/e0_logits_single_s2_np1184.npy），不读凭据，不联网。
 - 不硬编码任何分子/谱 ID；分子集合一律从输入动态读取。
 
 C(q) 定义（本模块与 E2 产物一致）：
@@ -13,7 +13,7 @@ C(q) 定义（本模块与 E2 产物一致）：
   436389（train×coco 零 shipped 重叠）。train 段下标 0..275809，coco 段下标
   275810..712198（coco 内部 pool_index + 275810）。
 - 每分子只用一张 single 选谱：v7 规则“原始峰最多的一张谱”（见
-  artifacts/005/e0_cq_selected.json 的 selected_index）。中性质量 qm_single
+  artifacts/runs/005/e0_cq_selected.json 的 selected_index）。中性质量 qm_single
   由前体 m/z + adduct 经 candidates.query_neutral_mass（ADDUCT_TABLE，float64，
   未知加合回退 precursor 本身）求得。
 - 窗为观测中性质量 ±10ppm 内的全部 union 条目（nocap，无 WMAX 截断；full
@@ -24,7 +24,7 @@ C(q) 定义（本模块与 E2 产物一致）：
   (-分, canon) 排序。真值等价按 canon 相等判定（rdkit_full 本地 2026.03.6，
   官方 2026.03.3 偏差已记录，不冒称相等）。
 
-特征顺序（固定，与 artifacts/005/e2_feature_schema.json 一致）：
+特征顺序（固定，与 artifacts/runs/005/e2_feature_schema.json 一致）：
 - 候选级 24 维 E2_FEATURES = 11 FP 聚合 + 5 谱库 + 8 分子上下文。
   顺序为 [f_max, f_mean_spec, f_mean_cond, f_mean_max_cond, f_top2_max,
   f_top2_mean, f_var, f_var_max, f_support, f_contra, f_std,
@@ -727,13 +727,13 @@ def _load_json(path: str):
 
 
 def recompute_single_baseline(
-    logits_path: str = "artifacts/005/e0_logits_single_s2_np1184.npy",
-    windows_path: str = "artifacts/005/e0_cq_windows.npz",
-    selected_path: str = "artifacts/005/e0_cq_selected.json",
-    per_molecule_path: str = "artifacts/005/e2_per_molecule_top25.json",
-    oof_path: str = "artifacts/005/e2_oof_predictions.json",
-    train_fp_path: str = "artifacts/pool-train/fp.npy",
-    coco_fp_path: str = "artifacts/005/coco/coco_fp.npy",
+    logits_path: str = "artifacts/runs/005/e0_logits_single_s2_np1184.npy",
+    windows_path: str = "artifacts/runs/005/e0_cq_windows.npz",
+    selected_path: str = "artifacts/runs/005/e0_cq_selected.json",
+    per_molecule_path: str = "artifacts/runs/005/e2_per_molecule_top25.json",
+    oof_path: str = "artifacts/runs/005/e2_oof_predictions.json",
+    train_fp_path: str = "artifacts/shared/pool-train/fp.npy",
+    coco_fp_path: str = "artifacts/runs/005/coco/coco_fp.npy",
 ) -> Dict:
     """用落盘代码重算 single 基线（CPU，复用 logits，不做神经前向）。
 
@@ -807,9 +807,9 @@ def recompute_single_baseline(
 
 
 def verify_saved_oof(
-    oof_path: str = "artifacts/005/e2_oof_predictions.json",
-    per_molecule_path: str = "artifacts/005/e2_per_molecule_top25.json",
-    metrics_path: str = "artifacts/005/e2_metrics.json",
+    oof_path: str = "artifacts/runs/005/e2_oof_predictions.json",
+    per_molecule_path: str = "artifacts/runs/005/e2_per_molecule_top25.json",
+    metrics_path: str = "artifacts/runs/005/e2_metrics.json",
     tol: float = E2_TOL,
 ) -> Dict:
     """回放已存 OOF logit 并核对排序与 MRR（CPU，确定性）。
@@ -900,14 +900,14 @@ def verify_saved_oof(
 
 
 def run_e2_verification(
-    logits_path: str = "artifacts/005/e0_logits_single_s2_np1184.npy",
-    windows_path: str = "artifacts/005/e0_cq_windows.npz",
-    selected_path: str = "artifacts/005/e0_cq_selected.json",
-    per_molecule_path: str = "artifacts/005/e2_per_molecule_top25.json",
-    oof_path: str = "artifacts/005/e2_oof_predictions.json",
-    metrics_path: str = "artifacts/005/e2_metrics.json",
-    train_fp_path: str = "artifacts/pool-train/fp.npy",
-    coco_fp_path: str = "artifacts/005/coco/coco_fp.npy",
+    logits_path: str = "artifacts/runs/005/e0_logits_single_s2_np1184.npy",
+    windows_path: str = "artifacts/runs/005/e0_cq_windows.npz",
+    selected_path: str = "artifacts/runs/005/e0_cq_selected.json",
+    per_molecule_path: str = "artifacts/runs/005/e2_per_molecule_top25.json",
+    oof_path: str = "artifacts/runs/005/e2_oof_predictions.json",
+    metrics_path: str = "artifacts/runs/005/e2_metrics.json",
+    train_fp_path: str = "artifacts/shared/pool-train/fp.npy",
+    coco_fp_path: str = "artifacts/runs/005/coco/coco_fp.npy",
     tol: float = E2_TOL,
 ) -> Dict:
     """E2 落盘代码重跑验证入口（CPU，不做神经前向）。
@@ -991,7 +991,7 @@ def run_e2_verification(
 # build_candidate_feature_row / train_logistic_oof / verify_saved_oof 保持原样，
 # 以保证 e2_metrics.json 回放口径不变。
 #
-# 1) 特征对齐结论（以 artifacts/005/e2_feature_schema.json 的 24 个名字为起点，
+# 1) 特征对齐结论（以 artifacts/runs/005/e2_feature_schema.json 的 24 个名字为起点，
 #    对照 data/references/submission-v8-audit-2026-10-05.json 中历史临时脚本
 #    /tmp/e2_run2.py 的自有代码片段）：
 #    - f_top2_max：历史 = 各条件 top2 均分的最大值（cond_top2.max）；

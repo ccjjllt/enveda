@@ -11,20 +11,20 @@
 - StandardScaler尺度由0.0305094变为0.0652980。标准化系数0.265→0.218，对应原始quality的logit斜率**8.697605→3.336954，下降61.6%**；并非仅略微降权。
 - 同式count的线性项在组内相消，但可能经训练影响其他系数。margin是已有quality的确定性重表达：在线性模型中相当于增加quality斜率，并额外奖励quality第一名的领先幅度；它不能提供某个峰区分候选的化学信息。
 
-机制笔记：`artifacts/019-research/mechanism-notes.md`。未重训权重。
+机制笔记：`artifacts/runs/019-research/mechanism-notes.md`。未重训权重。
 
 ## 固定8对的实际探索
 
 017的46条crossing先去重为38个query–候选对，再按`sha256('019|fragment|query|candidate')`取前8。它们恰好全为[M+H]+，不代表负离子或整体人群。沿用012固定的≤2次断键/H shift−2…3/0.005Da规则；未使用A里被排除的truth参考谱。
 
-手动执行`.venv-015/bin/python artifacts/019-research/manual_fragment_diagnostic.py`，本地CPU约1.85秒。没有训练、新排序或MRR提升结果。
+手动执行`.venv-015/bin/python artifacts/runs/019-research/manual_fragment_diagnostic.py`，本地CPU约1.85秒。没有训练、新排序或MRR提升结果。
 
 - 恢复所有正强度弱峰、取消top256限制，保留相同前体/单体移除后，错误参考cosine中位只改变−0.00238；范围约−0.01186至+0.00220。当前8对匹配均为direct，shift数为0。单纯恢复弱峰不是这批错例的主要突破口。
 - `VZLCYTHOFMBCOV`与`KUJPBAAEUZXUIJ`在两候选比较下，已有保留峰中分别有**9.63%和3.86%的查询原始强度**仅被正确结构的简化断键质量解释。主要峰包括103.0549、84.0809和246.1488；这是规则下的解释，不是已确认特征离子。
 - `UVMJRKUPBRAHRO`与`QVCNAMZBJOCRAF`为Br/F位置异构候选，cosine0.9936、23个direct峰对；当前枚举下无观测独占峰，恢复弱峰后仍0.9912。不能据此称真实化学绝对不可辨。
 - `IUJJBAAHICRIMM`无规则下truth-exclusive峰，却有1.91%原始强度被解释成wrong-exclusive。简单总解释率可能给错方向，不能直接作为已有效的新排序分数。
 
-结果：`artifacts/019-research/fixed8-fragment-diagnostic.json`；逐例结构、CE、原始/保留强度、双向未匹配峰与后续方向在`fragment-next-notes.md`。这里的未匹配强度使用“无任一容差内参考峰”的存在性定义，不是联合一对一匹配后的未分配量。
+结果：`artifacts/runs/019-research/fixed8-fragment-diagnostic.json`；逐例结构、CE、原始/保留强度、双向未匹配峰与后续方向在`fragment-next-notes.md`。这里的未匹配强度使用“无任一容差内参考峰”的存在性定义，不是联合一对一匹配后的未分配量。
 
 ## 三个代表的完整同式组：成对差异不等于全组特异
 
@@ -36,11 +36,11 @@
 | KUJPBAAEUZXUIJ | 50 | 84.0809：28/50；246.1488、247.153：22/50 | 原成对差异在完整组里不稀有 |
 | UVMJRKUPBRAHRO | 6 | truth/wrong仍无成对独占观测峰 | 当前规则缺少区别这两个位置异构候选的信息 |
 
-三例都没有“只被truth解释”的保留峰。因此不能把前面的9.63%/3.86%称为完整组中的truth特异强度。结果保存在`artifacts/019-research/full-group-specificity.json`；这三个代表根据前一分析挑选，属于机制解释而非独立效果确认。
+三例都没有“只被truth解释”的保留峰。因此不能把前面的9.63%/3.86%称为完整组中的truth特异强度。结果保存在`artifacts/runs/019-research/full-group-specificity.json`；这三个代表根据前一分析挑选，属于机制解释而非独立效果确认。
 
 ## 38个错误对与正确抬升对照
 
-手动执行 `.venv-015/bin/python scripts/run_019_support_matrix.py`，本地 CPU 5.04 秒，枚举候选写入断键缓存。规则仍是 ≤2 次断键、明确 carrier、H shift −2…3、0.005 Da。清洗与三例代表相同。少数支持预先定为支持候选数 ≤ max(1, 组大小//4)，用来覆盖代表里的 5/28，排除 28/50；不是在这 38 对上选出来的。相差 0.002 Da 以内的 +1/+2 个 ^{13}C、且支持集不更大、强度不更高的重峰，不另算一个离子。同一支持集里相差整数个氢或 ^{13}C 的峰也合成一个离子。组合峰指去掉这些重复后仍有至少两个独立离子。
+手动执行 `.venv-015/bin/python scripts/019/run_019_support_matrix.py`，本地 CPU 5.04 秒，枚举候选写入断键缓存。规则仍是 ≤2 次断键、明确 carrier、H shift −2…3、0.005 Da。清洗与三例代表相同。少数支持预先定为支持候选数 ≤ max(1, 组大小//4)，用来覆盖代表里的 5/28，排除 28/50；不是在这 38 对上选出来的。相差 0.002 Da 以内的 +1/+2 个 ^{13}C、且支持集不更大、强度不更高的重峰，不另算一个离子。同一支持集里相差整数个氢或 ^{13}C 的峰也合成一个离子。组合峰指去掉这些重复后仍有至少两个独立离子。
 
 38 对里 37 对可计算。`VZLMPJCKPLKFHB` 的 `[2M-H]-` 不在 012 的明确 carrier 里，没有猜一个加合物。已复现 VZL 的 103.0549 为 5/28、KU 的 84.0809 为 28/50。
 
@@ -63,4 +63,4 @@
 
 23 个没有独占保留峰的错误对里，15 对 Murcko 骨架相同、原子数相同。其中 14 对的最大公共子结构只少 0–3 个原子；`FOQHTVHTIUCJMQ` 对 `GVIPEARIGXBWBV` 虽然骨架相同，公共子结构只有 15/22 个原子。其余 14 对更接近位置异构。`UVMJRKUPBRAHRO` 的三个错候选都在其中。28 个错误 query 各只有一张谱，其中 21 张的 CE 是合并的 `20,40,60`，不能拆成三张真实单能谱。本地 ICE 前向还要 RDKit 2025.03 和 ms_pred，这次没有另开预测。逐 CE 预测谱仍然是这些位置异构对的下一步，但当前断键矩阵没有给出可先写入排序器的峰组合。
 
-产物：`artifacts/019-research/support-matrix-summary.json`、`support-matrix-pairs.jsonl`。精简数字在 `data/references/research-results-019.json`。
+产物：`artifacts/runs/019-research/support-matrix-summary.json`、`support-matrix-pairs.jsonl`。精简数字在 `data/references/research-results-019.json`。

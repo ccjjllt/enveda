@@ -10,7 +10,7 @@
   （文件夹页，非单文件直链；直接下载需 JS/官方 API，本项目改走 Kaggle 数据集）。
   上游 GLACIER_checkpoint.zip -> best.ckpt sha256
   5a47cecca707d3abd5a49c7dbac99d100aa2a586d5d4f848f1e8e35140d7db11。
-- 本地权重：artifacts/005/glacier.pt（Kaggle 数据集
+- 本地权重：artifacts/runs/005/glacier.pt（Kaggle 数据集
   ahmedberatozer/casmi26-glacier v1 内 ckpt/glacier.pt 的 stripped 重存，
   {hyper_parameters, state_dict}，优化器/trainer 状态已丢，fp32 张量一致；
   NIST 权重一律排除，见主办方答复 discussion/744470）。
@@ -697,7 +697,7 @@ class GlacierAdapter:
     """GLACIER 原始模型 adapter（延迟加载；缺依赖时只记失败不抛错）。
 
     用法：
-      ad = GlacierAdapter(ckpt_path='artifacts/005/glacier.pt', device='cuda')
+      ad = GlacierAdapter(ckpt_path='artifacts/runs/005/glacier.pt', device='cuda')
       ok, info = ad.load()   # ok=False 时 info 含 reason（供计数）
       out = ad.predict_scores(plan, candidates, cache, deadline_s=...)
       # out: {smiles: {'similarity'|None, 'n_matched', 'explained_query',
@@ -711,7 +711,7 @@ class GlacierAdapter:
     self.pcache 以 (canonical, adduct, instr, ce) 去重；键版本见 cache_key。
     """
 
-    def __init__(self, ckpt_path: str = "artifacts/005/glacier.pt",
+    def __init__(self, ckpt_path: str = "artifacts/runs/005/glacier.pt",
                  device: str = "cuda", batch_size: int = DEFAULT_BS,
                  model_version: str = MODEL_VERSION,
                  preproc_version: str = PREPROC_VERSION):
@@ -974,9 +974,9 @@ def summarize_records(records: Dict[str, Dict],
     return c.to_dict()
 
 
-def build_gpu_entry(pilot_path: str = "artifacts/005/pilot.json",
-                    ckpt_path: str = "artifacts/005/glacier.pt",
-                    out_path: str = "artifacts/005/glacier_scores.json",
+def build_gpu_entry(pilot_path: str = "artifacts/runs/005/pilot.json",
+                    ckpt_path: str = "artifacts/runs/005/glacier.pt",
+                    out_path: str = "artifacts/runs/005/glacier_scores.json",
                     device: str = "cuda", budget_s: float = 0.0) -> Dict:
     """待 GPU 一键执行入口（Colab T4 / Kaggle GPU 上人工运行）。
 

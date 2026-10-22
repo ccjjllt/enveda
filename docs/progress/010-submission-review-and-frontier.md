@@ -12,7 +12,7 @@
 
 NP/G1的500个真值原本都在base质量窗内。该实验中新增结构只能提供干扰，因此完整ICE融合ΔMRR=0是**未观察到指标损失的证据**，不是“扩库无法召回新答案”的证据。独立重算：NP0.668996801→0.668996801、G10.907021645→0.907021645，Top1/Top25均不变；NP一例真值全序40→42，仍在25外，应保留真实排序退化记录。
 
-R3旧表比较的是**已扩库FP→已扩库FP＋ICE**，故IFEJ首选1→2、B7的MRR下降衡量的是额外ICE证据，不能归因于添加539结构。新增[scripts/analyze_010_recall_audit.py](../../scripts/analyze_010_recall_audit.py)从相同候选分数和回传缓存为base/expanded分别重算z归一化，得到：
+R3旧表比较的是**已扩库FP→已扩库FP＋ICE**，故IFEJ首选1→2、B7的MRR下降衡量的是额外ICE证据，不能归因于添加539结构。新增[scripts/010/analyze_010_recall_audit.py](../../scripts/010/analyze_010_recall_audit.py)从相同候选分数和回传缓存为base/expanded分别重算z归一化，得到：
 
 | 对照，R3质量可用46例 | 原库MRR | 扩库MRR | 新增Top25 / 损失Top25 | 原A25变化 |
 | --- | ---: | ---: | ---: | --- |
@@ -27,7 +27,7 @@ R3旧表比较的是**已扩库FP→已扩库FP＋ICE**，故IFEJ首选1→2、B
 
 ## 条件多谱：确认结果成立，但不应否决其他改动
 
-新增[scripts/analyze_010_heldout_audit.py](../../scripts/analyze_010_heldout_audit.py)，从原train.parquet核对1400谱，重新运行FPNet CPU前向并重建所有候选分数、代表SMILES、top100和最终Top25；谱字段、1400×6930 logits、候选分数及最终排序均零差异。原始临时构建代码7份已保存到`artifacts/010-heldout-audit/recovered-build/`。
+新增[scripts/010/analyze_010_heldout_audit.py](../../scripts/010/analyze_010_heldout_audit.py)，从原train.parquet核对1400谱，重新运行FPNet CPU前向并重建所有候选分数、代表SMILES、top100和最终Top25；谱字段、1400×6930 logits、候选分数及最终排序均零差异。原始临时构建代码7份已保存到`artifacts/runs/010-heldout-audit/recovered-build/`。
 
 | 范围 | 原v9→冻结条件规则MRR | ΔMRR，95%分子bootstrap | Top1 | Top25 |
 | --- | --- | --- | --- | --- |
@@ -47,7 +47,7 @@ R3旧表比较的是**已扩库FP→已扩库FP＋ICE**，故IFEJ首选1→2、B
 
 ## LMSD：数值成立，停止所有扩库的推断不成立
 
-本轮[手动复算脚本](../../scripts/analyze_010_source_audit.py)独立从逐例rank重算：LMSD新增22765结构，在当前R3-50真值覆盖仍25→25，MRR0.356190→0.356190；新增15个窗口候选对，14个进入Top25，挤走7个旧尾部候选，正确答案排名均不变。4个质量未知者单列，B_known21新增命中0。
+本轮[手动复算脚本](../../scripts/010/analyze_010_source_audit.py)独立从逐例rank重算：LMSD新增22765结构，在当前R3-50真值覆盖仍25→25，MRR0.356190→0.356190；新增15个窗口候选对，14个进入Top25，挤走7个旧尾部候选，正确答案排名均不变。4个质量未知者单列，B_known21新增命中0。
 
 该B样本以非脂质结构为主，用脂质库出现零召回并不意外；不能推断ChEBI/PubChem也无价值。“暂不把LMSD混入本次539提交”合理，“停止其他来源”没有足够依据。下一来源要先用结构分层、与隐藏目标相关的观察集测**候选覆盖与增添的干扰**，无需先下载整个105M池，也不依据排行榜调候选预算。原文“PubChem许可混杂而禁下载”不是本项目用户要求或官方禁令，应撤回这种一刀切表述。
 
@@ -65,17 +65,17 @@ MRR@25、每分子最多25结构、RDKit2026.03.3身份匹配、离线≤9h仍�
 - 同一答复澄清电子质量修正**仅应用于隐藏test**，Enveda-180训练/Zenodo未修改；若构造同口径验证，可对这些来源的正模式m/z减0.000548 Da。**不要对已经修正的隐藏test再减一次**。本轮没有改动缓存或重算该校准下的分数，旧G1结果保留其原始质量口径。
 - 官方确认添加有效且不同的尾部候选不会降低未改变首选的单行MRR；当前live scorer采用公开v13。旧“尾部投毒”提问不能作为删除尾部或改变MRR定义的依据。
 
-原始快照在`artifacts/010-official/`，精简[官方证据](../../data/references/submission-review-2026-10-14.json)。NIST一般禁止及GNPS-NIST14-MATCHES具体例外沿用已核实原始回复；不可从DreaMS训练语料包含某评估文件的帖子标题推断权重实际训练于NIST。
+原始快照在`artifacts/runs/010-official/`，精简[官方证据](../../data/references/submission-review-2026-10-14.json)。NIST一般禁止及GNPS-NIST14-MATCHES具体例外沿用已核实原始回复；不可从DreaMS训练语料包含某评估文件的帖子标题推断权重实际训练于NIST。
 
 ## 高分代码：新东西是覆盖缺口，不是把fork当独立验证
 
-刷新ScoreDescending/DateRun并读取7份新/变化源码，保留版本、SHA与原始文件，详见[前沿源码摘录](../../artifacts/010-frontier/findings.md)。搜索前五为Dual-Band MassBank+ICEBERG、Ahmed v7c FragGap、Closing the Evidence Gap、nursrijan MetFrag-lite及Apex v340；第五仅查看搜索元信息，未深读。**API不返回这些notebook的数值分数，0.441等数字是作者/下游自报，不是本轮独立测得。**
+刷新ScoreDescending/DateRun并读取7份新/变化源码，保留版本、SHA与原始文件，详见[前沿源码摘录](../../artifacts/runs/010-frontier/findings.md)。搜索前五为Dual-Band MassBank+ICEBERG、Ahmed v7c FragGap、Closing the Evidence Gap、nursrijan MetFrag-lite及Apex v340；第五仅查看搜索元信息，未深读。**API不返回这些notebook的数值分数，0.441等数字是作者/下游自报，不是本轮独立测得。**
 
 - [v7c FragGap，版本357736980](https://www.kaggle.com/code/ahmedberatozer/casmi26-v7c-e006-fraggap?scriptVersionId=357736980)：无GL/ICE分数的分子增加MetFrag-lite结构碎片解释，至多2次断键，固定λ=.5，按同式组内`z(base)+.5z(fragment)`重排后放回原槽位。它不依赖某个候选已经有参考谱，正好对应我们的支持条件缺口。实际触发条件却混合了“adduct不支持”和“运行失败/超预算”，实验需改为明确的metadata支持边界。只有两个非并列候选的组，这个λ不能逆转原排序；先确认≥3候选组覆盖，不把机械零变化误判为碎片无信息。作者后续引用0.440→0.441，不能作本地已验证增益。
 - [Closing the Evidence Gap](https://www.kaggle.com/code/flexonafft/casmi26-closing-the-evidence-gap)：补融合后同式组的缺失forward分数。我们的ICE top100覆盖已经较完整，未见它足以解决负离子支持问题；不再重复花GPU做同一已完成的同式组合。
 - 新v8b全训练数据hard-negative continuation当前未取得独立得分且未绑定完整训练记录，不能直接替换当前模型并用NP/G1声称未见结构提升。Dual-Band标题中的MassBank heuristic已在正文声明移除，不能仅看标题断定实现。
 
-一个有实质价值的可复现性发现：**现用`fp_single_s2.pt`的原作者训练代码公开存在。** 在[prvsiyan原baseline v34](https://www.kaggle.com/code/prvsiyan/analog-propagation-casmi-2026-baseline)的raw cell18找到`TRAIN_SCRIPT_SRC`，cell47导出，静态提取11704字节到`artifacts/010-frontier/original_train_fingerprint_model.py`，SHA `e2eaef630c5f09f157eea3652095b8b9780cbe7fdffa6f0652ae5845d7b18c8a`。含BCE＋同10ppm窗63 decoy的CE，不能拿仓库现有仅BCE的训练器当等价复现。
+一个有实质价值的可复现性发现：**现用`fp_single_s2.pt`的原作者训练代码公开存在。** 在[prvsiyan原baseline v34](https://www.kaggle.com/code/prvsiyan/analog-propagation-casmi-2026-baseline)的raw cell18找到`TRAIN_SCRIPT_SRC`，cell47导出，静态提取11704字节到`artifacts/runs/010-frontier/original_train_fingerprint_model.py`，SHA `e2eaef630c5f09f157eea3652095b8b9780cbe7fdffa6f0652ae5845d7b18c8a`。含BCE＋同10ppm窗63 decoy的CE，不能拿仓库现有仅BCE的训练器当等价复现。
 
 剩余缺口是**把公开源码绑定到该具体权重**：`spec.npz`的six/is_val与FP/候选构建来源、s2实际seed/merge_p/训练CLI及数据版本；公开脚本默认seed7/merge_p=.6不等于single的实际参数，checkpoint不保存这些字段，torch种子还在模型初始化后设置。本轮没有执行下载的训练代码，也未宣称已经复现权重。应补血缘记录，不因“有代码”或“Other许可”两个单一信号就判定整个最终方案合规/不合规。
 
@@ -86,7 +86,7 @@ MRR@25、每分子最多25结构、RDKit2026.03.3身份匹配、离线≤9h仍�
 3. **修正基准实现比照搬论文榜单更重要。** [MassSpecGym in the Wild](https://arxiv.org/html/2606.19624v1)检查了encoder暴露、公式泄漏、候选偏差与MIST batch padding错误，并发布MSG1.5。下一次MIST接线要人工核对单谱/批处理一致性、修正实现和训练来源。它支持保留严格结构分组及已见谱检索两条评价，不要求为本项目建立自动测试体系。
 4. [GLACIER新版本](https://arxiv.org/abs/2606.29161v2)的MSG检索结果值得参考，但本地已有GL/ICE固定对照，不能据论文不同任务的Top1再宣布换模型必提分；MSG和NIST权重要分开。DreaMS及跨极性的MS2DeepScore2可作为以后谱库/analog证据，当前没有本地增量，不优先于上两项。
 
-结构分组可行性已做无标签统计（只读研究集top100与候选公式）：NP不支持34例中32例有≥3候选同式组，共62组/1541候选；G1不支持21例全部有，共71组/1559候选。产物`artifacts/010-frontier/fragment_group_coverage.json`。这说明有限碎片对照有可改变排序的空间，不代表碎片分数已有效；本轮未运行碎片打分。
+结构分组可行性已做无标签统计（只读研究集top100与候选公式）：NP不支持34例中32例有≥3候选同式组，共62组/1541候选；G1不支持21例全部有，共71组/1559候选。产物`artifacts/runs/010-frontier/fragment_group_coverage.json`。这说明有限碎片对照有可改变排序的空间，不代表碎片分数已有效；本轮未运行碎片打分。
 
 ## 下一次submission的具体范围
 
@@ -99,6 +99,6 @@ MRR@25、每分子最多25结构、RDKit2026.03.3身份匹配、离线≤9h仍�
 
 执行三个新增手动脚本：`analyze_010_recall_audit.py`（约2.16s CPU缓存重算）、`analyze_010_heldout_audit.py`（14.63s CPU含1400谱重新前向）、`analyze_010_source_audit.py`（逐rank算指标）。没有训练、GPU作业、push、submission或测试文件/CI。
 
-R3另人工重新加载59个峰文件做FP CPU前向：59×6930 logits与缓存逐元素相等，峰SHA/峰长全一致，50个代表谱选择全部一致；保存`artifacts/010-recall-audit/verification.json`。该核验消除了缓存行顺序疑问，不消除CPU/GPU数值及RDKit版本差异，不冒充最终Kaggle运行。
+R3另人工重新加载59个峰文件做FP CPU前向：59×6930 logits与缓存逐元素相等，峰SHA/峰长全一致，50个代表谱选择全部一致；保存`artifacts/runs/010-recall-audit/verification.json`。该核验消除了缓存行顺序疑问，不消除CPU/GPU数值及RDKit版本差异，不冒充最终Kaggle运行。
 
 范围覆盖：扩库两个评价域及R3比较、条件规则已用250、LMSD逐例指标、官方当前信息、7份新源码与训练原码、相关主论文。未重新扫描全部LMSD SDF、未执行第三方notebook/训练代码、未测新碎片/生成效果、未运行最终扩库notebook。主要结论已支持，最终提交集成仍待执行。语法、JSON和文档链接手动核对。

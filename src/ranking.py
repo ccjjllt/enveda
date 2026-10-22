@@ -412,9 +412,9 @@ def order_by_score(keys: Sequence[str], scores: Sequence[float]
 
 def run_r4_local_cv(
     train_parquet: str = "data/raw/train.parquet",
-    q_path: str = "artifacts/004-research/np_queries_1184.json",
-    l_path: str = "artifacts/004-research/np_lib_spectra.json",
-    r1_path: str = "artifacts/004-research/r1_np1184.json",
+    q_path: str = "artifacts/runs/004-research/np_queries_1184.json",
+    l_path: str = "artifacts/runs/004-research/np_lib_spectra.json",
+    r1_path: str = "artifacts/runs/004-research/r1_np1184.json",
     k: int = 5, seed: int = 2026, ppm: float = 20.0,
     lr: float = 0.1, iters: int = 300, verbose: bool = True,
 ) -> Dict:

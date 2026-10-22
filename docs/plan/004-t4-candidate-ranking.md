@@ -18,10 +18,10 @@
 
 - `data/raw/train.parquet`：3,033,286,496 B，2,539,608 行、18 列；无 `molecule_id/spectrum_id`。275,810 是 shipped `inchikey14` 去重数。
 - `src/data.py`、`src/retrieval.py`、`src/evaluation.py`：可复用流式读取和 B0 基础，但评分、聚合与部分注释仍需按本计划修正。
-- `artifacts/001-baseline/split_manifest.json`、`b0_metrics.json`、`b1b2_report.json`：历史实验记录，保留原样，不覆盖成新口径结果。
-- `artifacts/001-baseline/weights/fp_single_s2.pt` 和 `fp_merged_m1.pt`：各 144,110,255 B，来源 `prvsiyan/casmi26-fp-models-v2` v1。
+- `artifacts/runs/001-baseline/split_manifest.json`、`b0_metrics.json`、`b1b2_report.json`：历史实验记录，保留原样，不覆盖成新口径结果。
+- `artifacts/runs/001-baseline/weights/fp_single_s2.pt` 和 `fp_merged_m1.pt`：各 144,110,255 B，来源 `prvsiyan/casmi26-fp-models-v2` v1。
 - 官方 de novo 教程 v9 是从头训练示范；Analog Propagation v32 是当前 FPNet 参考。公开权重实际训练结构列表未知。
-- 原 `notebooks/baseline/` 仍不是完整有效的离线提交模型；尚无本项目排行榜分数。
+- 原 `notebooks/archive/baseline/` 仍不是完整有效的离线提交模型；尚无本项目排行榜分数。
 
 ## 已有结果的重新解释
 
@@ -123,9 +123,9 @@ DreaMS 可作为 Class1 检索或冻结编码器+指纹头的对照。先看与 
 | `src/models/fingerprint.py` | 与 checkpoint 完全一致的 FPNet 和 feature contract | R0 可用 artifacts 原定义研究；正式入库先确认 notebook 代码许可/归属，不能把 Dataset CC0 自动套到代码 |
 | `src/ranking.py` | single、多谱候选级聚合、简单学习排序 | 修正 `aggregate_by_molecule` 非真正轮转且可能超 25 的实现；选择一种明确规则 |
 | `src/train_fingerprint.py` | 冻结编码器仅训练头/局部解冻/从头训练模式，实际谱与标签，保存 optimizer/config/split | 200–500 步小预算估计，再定完整轮数；不对随机假输入训练后宣称实验完成 |
-| `notebooks/colab/004-t4-fpnet-feasibility.ipynb` | R0 环境、权重读取、真实谱前向与 JSON 结果 | 本轮提供；不等同上述训练和评分流水线 |
-| `notebooks/colab/004-t4-candidate-ranking.ipynb` | R1–R4 手动运行入口 | 后续实现；不硬编码本地路径或当前 test IDs |
-| `notebooks/inference/` | 自包含/显式挂载输入的离线 Kaggle 推理、动态 ID 输出 | 最终 <=9h；`push` 不同步整个 src，提前打包代码/依赖/权重 |
+| `notebooks/archive/colab/004-t4-fpnet-feasibility.ipynb` | R0 环境、权重读取、真实谱前向与 JSON 结果 | 本轮提供；不等同上述训练和评分流水线 |
+| `notebooks/archive/colab/004-t4-candidate-ranking.ipynb` | R1–R4 手动运行入口 | 后续实现；不硬编码本地路径或当前 test IDs |
+| `notebooks/archive/inference/` | 自包含/显式挂载输入的离线 Kaggle 推理、动态 ID 输出 | 最终 <=9h；`push` 不同步整个 src，提前打包代码/依赖/权重 |
 
 建议交付顺序：
 
@@ -135,7 +135,7 @@ DreaMS 可作为 Class1 检索或冻结编码器+指纹头的对照。先看与 
 
 ### 每次实验保存什么
 
-`artifacts/004-research/<run-id>/` 保存 config、environment、metrics、checkpoint、日志和逐分子表。逐分子表至少包含 `query_group_id/canonical_key/split/source/instrument/mode/n_spectra/true_in_pool/true_after_mass/true_after_truncation/rank_before/rank_after/rr/seconds`；旧的 `coverage` 更名为非空预测率，不能改名后仍指同一含义。
+`artifacts/runs/004-research/<run-id>/` 保存 config、environment、metrics、checkpoint、日志和逐分子表。逐分子表至少包含 `query_group_id/canonical_key/split/source/instrument/mode/n_spectra/true_in_pool/true_after_mass/true_after_truncation/rank_before/rank_after/rr/seconds`；旧的 `coverage` 更名为非空预测率，不能改名后仍指同一含义。
 
 只报告有真实观测的指标：候选池与各过滤阶段真值召回、MRR@25/Top1/Top25、候选存在条件下的排序、分层结果、训练 loss、稳定吞吐、峰值 CUDA 内存、推理总时长。小观察集同时给出命中数量和逐分子变化，必要时做分子级配对重采样；这属于研究分析，不是测试门控。
 

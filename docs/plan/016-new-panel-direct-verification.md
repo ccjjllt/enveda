@@ -4,7 +4,7 @@
 
 ## 背景与继承
 
-- 最佳仍 public 0.323（v9r2/v10）。015：NP 允许同结构参考 LR 组合 0.668997→0.725342，direct-only 0.723109；移除目标参考与 G1 均未确认改善。015 重放零误差已复核；direct-only 全量拟合本轮已补（42580 行、零警告，`artifacts/015-analog/direct-only-ablation/full_fit.json`），仅供新面板预测，未部署、无 OOF 成绩。
+- 最佳仍 public 0.323（v9r2/v10）。015：NP 允许同结构参考 LR 组合 0.668997→0.725342，direct-only 0.723109；移除目标参考与 G1 均未确认改善。015 重放零误差已复核；direct-only 全量拟合本轮已补（42580 行、零警告，`artifacts/runs/015-analog/direct-only-ablation/full_fit.json`），仅供新面板预测，未部署、无 OOF 成绩。
 - 新面板只称“本项目此前未用”，不称预训练未见；A 式移除评价沿用 015 干预口径，不作部署分支。
 - GPU 铁律（README）：配额按 session 存活扣；CPU 预处理全部前置挂载，T4 只跑神经计算；批量 unpackbits、多格输出、限时里程碑，超时即停。
 
@@ -22,7 +22,7 @@
 
 ## 待修改代码与交付
 
-- `scripts/build_016_panel.py`（排除清单 + 新鲜池统计 + 冻结面板 manifest，CPU）。
-- `scripts/build_016_reference_index.py`（可追溯索引 + 40 例计时，CPU）。
+- `scripts/016/build_016_panel.py`（排除清单 + 新鲜池统计 + 冻结面板 manifest，CPU）。
+- `scripts/016/build_016_reference_index.py`（可追溯索引 + 40 例计时，CPU）。
 - 新面板 GPU notebook（v10 变体，只增面板谱输入与候选输出分支，不改 v9/v10 排序）。
-- 产物 `artifacts/016-panel/`、`artifacts/016-index/`；精简记 `data/references/research-results-016.json`。禁测试文件/CI；运行成功、离线信号、public 提升分开记录。
+- 产物 `artifacts/runs/016-panel/`、`artifacts/runs/016-index/`；精简记 `data/references/research-results-016.json`。禁测试文件/CI；运行成功、离线信号、public 提升分开记录。

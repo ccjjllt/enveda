@@ -51,8 +51,8 @@
 - `src/retrieval.py`：adduct 到中性质量的处理、ppm 窗口、谱匹配、候选召回；精确质量计算保留足够精度。
 - `src/ranking.py`：单谱与多谱候选合并、去重、指纹与检索证据排序。
 - `src/evaluation.py`：手动研究用分子级评估，采用官方规范化/排名语义；这是实验代码，不是测试文件。
-- `notebooks/baseline/baseline.ipynb` 与 `kernel-metadata.json`：自包含或显式挂载代码输入；输出 `submission.csv`、`metrics.json`、配置及运行摘要。
-- `artifacts/001-baseline/`：划分清单、数据/权重来源与版本、指标、日志、提交产物，不入 Git。
+- `notebooks/archive/baseline/baseline.ipynb` 与 `kernel-metadata.json`：自包含或显式挂载代码输入；输出 `submission.csv`、`metrics.json`、配置及运行摘要。
+- `artifacts/runs/001-baseline/`：划分清单、数据/权重来源与版本、指标、日志、提交产物，不入 Git。
 
 只实现首轮实验实际需要的模块；如果一个简短 notebook 足够，不先拆成框架。
 

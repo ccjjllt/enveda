@@ -17,13 +17,13 @@ G1主要数字成立，可以作为新研究集上的方向性观察；“独立
 
 ## 实际复算与产物
 
-新增手动研究入口 [analyze_007_g1_evidence.py](../../scripts/analyze_007_g1_evidence.py)。命令：
+新增手动研究入口 [analyze_007_g1_evidence.py](../../scripts/007/analyze_007_g1_evidence.py)。命令：
 
 ```bash
-/opt/homebrew/bin/python3.11 scripts/analyze_007_g1_evidence.py --output artifacts/007/g1-evidence.json
+/opt/homebrew/bin/python3.11 scripts/007/analyze_007_g1_evidence.py --output artifacts/runs/007/g1-evidence.json
 ```
 
-本地M5/32GB、Python3.11.16/NumPy2.4.6，读取固化输入与结果，不调用神经模型。seed=20261011，按分子配对bootstrap 20,000次。完整输出在`artifacts/007/g1-evidence.json`，含输入SHA、错误分解与逐例诊断；精简证据见[审查汇总](../../data/references/research-audit-2026-10-11.json)。未对本次短CPU计算单独记录墙钟时长；保留集未参与模型计算或指标评价。
+本地M5/32GB、Python3.11.16/NumPy2.4.6，读取固化输入与结果，不调用神经模型。seed=20261011，按分子配对bootstrap 20,000次。完整输出在`artifacts/runs/007/g1-evidence.json`，含输入SHA、错误分解与逐例诊断；精简证据见[审查汇总](../../data/references/research-audit-2026-10-11.json)。未对本次短CPU计算单独记录墙钟时长；保留集未参与模型计算或指标评价。
 
 | G1方案 | MRR@25 | Top1 | Top25 |
 | --- | ---: | ---: | ---: |
@@ -57,7 +57,7 @@ G1主要数字成立，可以作为新研究集上的方向性观察；“独立
 
 G1预测使用RDKit2026.09.1，v9r2为2026.03.6，候选身份固定03.6，官方评分版本又不同。RDKit参与图构建，不能视作无影响元信息；但没有配对证据证明本次偏差由版本造成。CPU/GPU点积精度、中性质量表也并非位级一致，本批已核对排序对齐。
 
-已从`/tmp`恢复6份构建脚本至`artifacts/007/recovered-g1-build/`并记录SHA。链路为research行→logits2/质量窗→dot/canonical/top100→inputs；临时中间inputs与发包inputs SHA逐字节一致，logits亦一致。缺原始持久执行命令，不能仅凭mtime绝对确定历史入口。扫描训练表经过其他行不等于这些行进入模型；准确说法是保留集未被用于训练或评估，而非文件内容从未读取。
+已从`/tmp`恢复6份构建脚本至`artifacts/runs/007/recovered-g1-build/`并记录SHA。链路为research行→logits2/质量窗→dot/canonical/top100→inputs；临时中间inputs与发包inputs SHA逐字节一致，logits亦一致。缺原始持久执行命令，不能仅凭mtime绝对确定历史入口。扫描训练表经过其他行不等于这些行进入模型；准确说法是保留集未被用于训练或评估，而非文件内容从未读取。
 
 ## F2为什么仍值得做一次正确对照
 
@@ -69,7 +69,7 @@ G1预测使用RDKit2026.09.1，v9r2为2026.03.6，候选身份固定03.6，官�
 
 ## 补充实际计算：FIORA固定融合未获支持
 
-为解决旧“只看平均相似度”的证据缺口，新增手动入口 [analyze_007_fiora_evidence.py](../../scripts/analyze_007_fiora_evidence.py)。手动命令为`/opt/homebrew/bin/python3.11 scripts/analyze_007_fiora_evidence.py`，输出`artifacts/007/fiora22-evidence.json`；同一本地CPU环境，不运行模型、不训练、不扫描权重。
+为解决旧“只看平均相似度”的证据缺口，新增手动入口 [analyze_007_fiora_evidence.py](../../scripts/007/analyze_007_fiora_evidence.py)。手动命令为`/opt/homebrew/bin/python3.11 scripts/007/analyze_007_fiora_evidence.py`，输出`artifacts/runs/007/fiora22-evidence.json`；同一本地CPU环境，不运行模型、不训练、不扫描权重。
 
 746/746候选按代表SMILES映射到canonical；每个query恰是F1 top100的前50；22个真值都在候选池。固定一个`z(base)+z(FIORA)`规则，scored融合排序、失败候选按base续后，同分保持base顺序。
 
@@ -110,14 +110,14 @@ Kaggle MCP本次transport失败；网络权限下官方CLI/SDK只读成功。10�
 
 ## R1首要对照CPU实现（2026-10-11，主审验货，不冻结）
 
-- 产物 `artifacts/007-r1/`保存A底座、双集特征表、fold、掩码定义、OOF模型及汇总；候选OOF分数/排名未单独写盘，但可从模型和特征重建。A真值排名复现成立（NP 0.66899680、G1 0.907022）；C为16列、clip（`τ=1.0`）+预冻结`α∈{0.25,0.5}`。NP有参考时+0.104/+0.135，压力下−0.056/−0.092，22/33个Top1被改错；G1主要正向库证据系数五折均负，并非16项全部为负。暂不部署、不动保留250、不扫参、不宣称public分。本轮没有GPU前向。
+- 产物 `artifacts/runs/007-r1/`保存A底座、双集特征表、fold、掩码定义、OOF模型及汇总；候选OOF分数/排名未单独写盘，但可从模型和特征重建。A真值排名复现成立（NP 0.66899680、G1 0.907022）；C为16列、clip（`τ=1.0`）+预冻结`α∈{0.25,0.5}`。NP有参考时+0.104/+0.135，压力下−0.056/−0.092，22/33个Top1被改错；G1主要正向库证据系数五折均负，并非16项全部为负。暂不部署、不动保留250、不扫参、不宣称public分。本轮没有GPU前向。
 - 偏差记录：C保留`mol_nspec_x_libmax`及若干重复线性方向。当前16列实现的结果成立，但删列后的结论尚未验证，不能说“不受此影响”。另外本次复核发现库别名漏查、来源场景未执行与缺失排序语义不同，详见下文；这些问题应先修正再执行新的对照。
 
 ## R2/R3跟进（2026-10-11，CPU，主审验货）
 
-- R2换尾对照：剔除失败候选版MRR 0.254117（Top25 17/22），比原续后版0.260611更差；5失败从4掉top25变为5全掉，17成功子集不变，退化结论不变。恶化13=5零分宽tie+3有分被超+5失败尾部；零分与`n_matched==0`完全重合294个但全零池（JDUWHZ/QFJCIR等）均持平，判真值特异性低而非全池零膨胀。5失败Query全timsTOF/eV、NCE=0，无误判；SEEGHKW实际只喂4张`[M-H]-`。产物 `artifacts/007-r2/`（换尾/恶化/映射/16例次处置表）。
+- R2换尾对照：剔除失败候选版MRR 0.254117（Top25 17/22），比原续后版0.260611更差；5失败从4掉top25变为5全掉，17成功子集不变，退化结论不变。恶化13=5零分宽tie+3有分被超+5失败尾部；零分与`n_matched==0`完全重合294个但全零池（JDUWHZ/QFJCIR等）均持平，判真值特异性低而非全池零膨胀。5失败Query全timsTOF/eV、NCE=0，无误判；SEEGHKW实际只喂4张`[M-H]-`。产物 `artifacts/runs/007-r2/`（换尾/恶化/映射/16例次处置表）。
 - G1错例定案：12无forward（5纯负离子/3纯二聚体/4混合）与4 miss逐例处置，全部保持base回退；JHPXX/QAMYI（仅钠低分）、NKWOD（全窗107截断，转R3召回观察）、UAPNJ（不支持adduct，转参考谱核查）；23排序错只记同式拥挤，不开训练。
-- R3：观察集空模板+四源待核清单+去重干跑（NP250/G1研究/保留三名单两两交集0，排除canon 750，只读名单未读谱）+MIST单分子接通清单与33列表头。未下载数据。产物 `artifacts/007-r3/`。
+- R3：观察集空模板+四源待核清单+去重干跑（NP250/G1研究/保留三名单两两交集0，排除canon 750，只读名单未读谱）+MIST单分子接通清单与33列表头。未下载数据。产物 `artifacts/runs/007-r3/`。
 - 本轮零GPU、零Kaggle配额、未动保留250谱。
 
 ## R3来源许可决策（2026-10-11，用户授权主审决定）
@@ -179,16 +179,16 @@ Kaggle MCP本次transport失败；网络权限下官方CLI/SDK只读成功。10�
 
 ## R1-D固定对照（2026-10-11，CPU，主审验货，判STOP）
 
-- 产物 `artifacts/007-r1d/`（修正版特征构建+训练评价、双表、fold、掩码执行记录、逐候选OOF写盘）：先前指定的5项修正已落实，16组结果可复现；α=0与全无库的全序均双集250/250一致。NP seen +0.060/+0.087，pressure −0.027/−0.057，11/23个Top1被改错；G1来源移除后增量归零。当前配置STOP、不提交成立。但008发现训练未使用推理的缺库清零规则，且无forward候选的库分完全不起作用；不能据此否定一致门控的残差路线。下一步只允许有明确评分定义修正的一次固定对照，不扫α、不动保留250。本轮原D为CPU训练。
+- 产物 `artifacts/runs/007-r1d/`（修正版特征构建+训练评价、双表、fold、掩码执行记录、逐候选OOF写盘）：先前指定的5项修正已落实，16组结果可复现；α=0与全无库的全序均双集250/250一致。NP seen +0.060/+0.087，pressure −0.027/−0.057，11/23个Top1被改错；G1来源移除后增量归零。当前配置STOP、不提交成立。但008发现训练未使用推理的缺库清零规则，且无forward候选的库分完全不起作用；不能据此否定一致门控的残差路线。下一步只允许有明确评分定义修正的一次固定对照，不扫α、不动保留250。本轮原D为CPU训练。
 - 冻结的 `007-r1` 原产物未动。
 
 ## R3首批10分子（2026-10-11，MassBank，主审验货）
 
-- 10分子5A5B，许可CC BY-SA/CC BY逐条记录，日期齐备，exposure/temporal未知项如实标注；峰数据11个npz（SHA核对）+259个只读抓取缓存。覆盖：A类C/窗/top100全5/5，B类全0（结构不在库）。248条丢弃全记录（许可禁再分发86、750名单命中7、有train参考119、延期36）。产物 `artifacts/007-r3/observations_10.json` 及峰目录。零GPU，未动保留250谱。
+- 10分子5A5B，许可CC BY-SA/CC BY逐条记录，日期齐备，exposure/temporal未知项如实标注；峰数据11个npz（SHA核对）+259个只读抓取缓存。覆盖：A类C/窗/top100全5/5，B类全0（结构不在库）。248条丢弃全记录（许可禁再分发86、750名单命中7、有train参考119、延期36）。产物 `artifacts/runs/007-r3/observations_10.json` 及峰目录。零GPU，未动保留250谱。
 
 ## R3-10检索打分（2026-10-11，CPU，主审验货）
 
-- 11谱orig-head CPU前向+点积排序+库直接/analog评分，产物 `artifacts/007-r3/retrieval_scoring_10.json`（逐分子+汇总+建议）与shortlist、手动脚本。A类base MRR 0.900（Top1 4/5，Top25 5/5），真值库证据全0符合无参考预期；B类base全miss（0/5），同式拥挤重，B03还有库假阳性0.57。建议小预算约束扩池试点，保守新增1–2个，≤1则转生成。未执行扩池、未跑生成器、零GPU、未动保留250。
+- 11谱orig-head CPU前向+点积排序+库直接/analog评分，产物 `artifacts/runs/007-r3/retrieval_scoring_10.json`（逐分子+汇总+建议）与shortlist、手动脚本。A类base MRR 0.900（Top1 4/5，Top25 5/5），真值库证据全0符合无参考预期；B类base全miss（0/5），同式拥挤重，B03还有库假阳性0.57。建议小预算约束扩池试点，保守新增1–2个，≤1则转生成。未执行扩池、未跑生成器、零GPU、未动保留250。
 
 ## R3 oracle真值插入诊断（2026-10-11，原CONTINUE解释于10月12日撤回）
 
@@ -196,8 +196,8 @@ Kaggle MCP本次transport失败；网络权限下官方CLI/SDK只读成功。10�
 
 ## FIORA根因与MIST准备（2026-10-11，只读+CPU）
 
-- FIORA名称映射vs零峰：存量notebook把两类失败合并为`pred_missing`，本地无MGF/TITLE日志，结论 `unknown_无法判定`。不扩原配置；仅当H1/H0明确假设时才做SEEGHK/CZMR小对照。产物 `artifacts/007-r2/fiora_name_vs_zeropeak.json`。
-- MIST单分子计划：选B04（`C3H8FO3P`，最简），输入谱/公式两臂/指纹/长度/采样B=10配齐占位；本地缺FRIGID tar与MIST ckpt，判需GPU且Colab T4可胜任。只备未跑；跑之前再写notebook。产物 `artifacts/007-r3/single_molecule_plan.json`。
+- FIORA名称映射vs零峰：存量notebook把两类失败合并为`pred_missing`，本地无MGF/TITLE日志，结论 `unknown_无法判定`。不扩原配置；仅当H1/H0明确假设时才做SEEGHK/CZMR小对照。产物 `artifacts/runs/007-r2/fiora_name_vs_zeropeak.json`。
+- MIST单分子计划：选B04（`C3H8FO3P`，最简），输入谱/公式两臂/指纹/长度/采样B=10配齐占位；本地缺FRIGID tar与MIST ckpt，判需GPU且Colab T4可胜任。只备未跑；跑之前再写notebook。产物 `artifacts/runs/007-r3/single_molecule_plan.json`。
 
 ## R3扩到50分子（2026-10-11，CPU，主审验货）
 
@@ -205,7 +205,7 @@ Kaggle MCP本次transport失败；网络权限下官方CLI/SDK只读成功。10�
 
 ## MIST单分子包（2026-10-11，主审验货，未跑）
 
-- 包 `artifacts/mist-single/`（56K小文件）+ `mist-single.tar.gz`（16K，顶层唯一）+ `notebooks/colab/mist-single-colab.ipynb`（8格，EXPECT行）：B04单分子，公式两臂oracle/预测、指纹None、B=10；大文件一律Colab侧远端下载验size/md5，本地未下载；超时60min停，不点提交。凭据grep干净。待用户T4运行回传37列JSON。
+- 包 `artifacts/legacy/mist-single/`（56K小文件）+ `mist-single.tar.gz`（16K，顶层唯一）+ `notebooks/archive/colab/mist-single-colab.ipynb`（8格，EXPECT行）：B04单分子，公式两臂oracle/预测、指纹None、B=10；大文件一律Colab侧远端下载验size/md5，本地未下载；超时60min停，不点提交。凭据grep干净。待用户T4运行回传37列JSON。
 
 ## MIST单分子实跑：SAFE调用参数错误（2026-10-11实跑，10月12日更正解释）
 
@@ -214,7 +214,7 @@ Kaggle MCP本次transport失败；网络权限下官方CLI/SDK只读成功。10�
 
 ## R3-10检索打分（2026-10-11，CPU，主审验货）
 
-- 11谱orig-head CPU前向+点积排序+库直接/analog评分，产物 `artifacts/007-r3/retrieval_scoring_10.json`（逐分子+汇总+建议）与shortlist、手动脚本。A类base MRR 0.900（Top1 4/5，Top25 5/5），真值库证据全0符合无参考预期；B类base全miss（0/5），top100即全窗干扰，同式拥挤严重（B03 20/21同式）且有库假阳性（B03 lib 0.570但base排第2，融合会放大干扰）。
+- 11谱orig-head CPU前向+点积排序+库直接/analog评分，产物 `artifacts/runs/007-r3/retrieval_scoring_10.json`（逐分子+汇总+建议）与shortlist、手动脚本。A类base MRR 0.900（Top1 4/5，Top25 5/5），真值库证据全0符合无参考预期；B类base全miss（0/5），top100即全窗干扰，同式拥挤严重（B03 20/21同式）且有库假阳性（B03 lib 0.570但base排第2，融合会放大干扰）。
 - 建议：小预算按分子式/质量约束扩池试点（B窗<30、代价可控；上界5个、保守1–2个），若新增≤1则判检索无解转完整谱条件生成。未执行扩池、未跑生成器、零GPU、未动保留250。
 
 ### 本次产物与手动核对
@@ -222,9 +222,9 @@ Kaggle MCP本次transport失败；网络权限下官方CLI/SDK只读成功。10�
 手动执行（本地M5、Python3.11/NumPy，无训练、GPU或heldout评价）：
 
 ```bash
-/opt/homebrew/bin/python3.11 scripts/analyze_007_r1_evidence.py
-/opt/homebrew/bin/python3.11 scripts/analyze_007_library_identity.py
-/opt/homebrew/bin/python3.11 scripts/analyze_007_fiora_missing.py
+/opt/homebrew/bin/python3.11 scripts/007/analyze_007_r1_evidence.py
+/opt/homebrew/bin/python3.11 scripts/007/analyze_007_library_identity.py
+/opt/homebrew/bin/python3.11 scripts/007/analyze_007_fiora_missing.py
 ```
 
-结果和原模板快照在`artifacts/007/review-r1/`，原R1模型/特征/指标、R0回传与用户notebook未改。本次仅修正文档、未来R3模板及增加复算脚本；没有把修正后的谱库重新训练结果冒充本轮成果。检查均手动发起，无测试文件、测试框架或CI。
+结果和原模板快照在`artifacts/runs/007/review-r1/`，原R1模型/特征/指标、R0回传与用户notebook未改。本次仅修正文档、未来R3模板及增加复算脚本；没有把修正后的谱库重新训练结果冒充本轮成果。检查均手动发起，无测试文件、测试框架或CI。

@@ -33,5 +33,5 @@ metadata 指向本目录实际文件，保留私有、断网、T4 和既有 Pyth
 metadata 的 15 个数据源与 v465 完全相同，`code_file` 存在，所有输出已清除。
 未启动训练或 Kaggle 运行，也未创建测试文件。
 
-手动重建：`python3 scripts/build_030_n1_challenger.py`。
+手动重建：`python3 scripts/030/build_030_n1_challenger.py`。
 构建输入、输出 SHA256 和变更位置记录在 `source-manifest.json`。

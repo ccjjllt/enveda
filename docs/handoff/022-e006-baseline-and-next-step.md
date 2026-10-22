@@ -35,5 +35,5 @@
 ## 研究资产与入口
 
 - 验证器：`src/eval_e006_local.py`、`src/casmi_metric.py`；运行根 `/workspace/e021/`（box，本地，不入库）。
-- v11 notebook：kernel v4；v12 cell：`notebooks/submission-v12/v12_direct_ref_cell.py`。
+- v11 notebook：kernel v4；v12 cell：`notebooks/submissions/submission-v12/v12_direct_ref_cell.py`。
 - 训练：`src/train_fingerprint.py`、`src/fp_train_data.py`。

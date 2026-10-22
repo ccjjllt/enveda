@@ -15,7 +15,7 @@
 
 仪器族（5 类，与 v32 INSTR_LIST / instr_family 逐字对齐）：
     ["timsTOF", "Orbitrap", "QTOF", "IT", "other"]
-归一化规则复刻 artifacts/004-research/reference-fpnet-v32.py 的 instr_family：
+归一化规则复刻 artifacts/runs/004-research/reference-fpnet-v32.py 的 instr_family：
     None -> other；否则小写后依次检查 'timstof'、orbitrap 组
     （orbitrap/qft/ftms/hybrid ft/itft/exactive）、'tof'、trap/qq 组。
 qTof/qTOF/qtof/Qtof/QTOF/LC-ESI-QTOF 等同义写法都因含 'tof' 归入 QTOF；
@@ -62,7 +62,7 @@ MISSING_INSTR_TOKENS = {"", "nan", "n/a", "none", "null"}
 def normalize_instrument_family(raw) -> str:
     """仪器族归一化，返回 5 类名称之一。
 
-    与 v32 instr_family 逐字对齐（见 artifacts/004-research/reference-fpnet-v32.py）：
+    与 v32 instr_family 逐字对齐（见 artifacts/runs/004-research/reference-fpnet-v32.py）：
     timsTOF 优先，其次 Orbitrap 组，再次含 tof 即 QTOF，再次 trap/qq 即 IT，
     其余 other。None 与缺失写法一律 other。
     """
@@ -156,7 +156,7 @@ def collect_np_keys(train_path: str, batch_size: int = 65536) -> List[str]:
 
 def build_np_manifest(
     train_path: str = "data/raw/train.parquet",
-    out_path: str = "artifacts/004-research/np_manifest.json",
+    out_path: str = "artifacts/runs/004-research/np_manifest.json",
     batch_size: int = 8192,
     ms2_batch_size: int = 2048,
 ) -> Dict:
@@ -423,9 +423,9 @@ def manifest_summary(m: Dict) -> Dict:
 
 
 def build_np_canonical_folds(
-    np_manifest_path: str = "artifacts/004-research/np_manifest.json",
+    np_manifest_path: str = "artifacts/runs/004-research/np_manifest.json",
     smiles_map: Optional[Dict[str, str]] = None,
-    out_path: str = "artifacts/004-research/np_canonical_5fold.json",
+    out_path: str = "artifacts/runs/004-research/np_canonical_5fold.json",
     n_splits: int = 5,
     seed: int = 2026,
     n_total_structures: int = 275810,

@@ -15,34 +15,34 @@
 
 另有新增canonical `GIGFIWJRTMBSRP`与base raw key同字符串，但base规范化后为`FETOMZZQYPFKRV`。新索引统一使用`MB539_<canonical>`，与化学身份分离，避免碰撞；原notebook仍从SMILES重新生成canonical身份。
 
-资产在`artifacts/011-expansion-asset/`，不进入Git。生成入口[scripts/build_011_expansion_asset.py](../../scripts/build_011_expansion_asset.py)：
+资产在`artifacts/runs/011-expansion-asset/`，不进入Git。生成入口[scripts/011/build_011_expansion_asset.py](../../scripts/011/build_011_expansion_asset.py)：
 
 - keys Unicode[538]，masses float64[538]，FP uint8[538,867]，同6930选位与big位序、6尾位填0；SMILES和canonical同序。
 - `mb539_manifest.json` SHA256 `cf95c455dbc1ebe1ab91b3a9e6050f7279ec9de2333498532cb7db92a205d3b4`，每个输入文件记录bytes/SHA。
 - 538结构对应985条公开来源记录；结构许可CC BY479、CC BY-SA49、CC0 10。集合保守标CC-BY-SA-4.0，逐记录原许可和出处不变。原MassBank ZIP临时副本已清理，依据008保存的唯一许可证集合、009完整accession/贡献者证据恢复，未捏造缺失的作者/原记录哈希。
-- 包约1.89MB，只含公开结构及其衍生指纹、来源信息；无比赛谱或模型权重。`kaggle datasets create -p artifacts/011-expansion-asset --keep-tabular`实际成功，默认private，未使用`--public`。
+- 包约1.89MB，只含公开结构及其衍生指纹、来源信息；无比赛谱或模型权重。`kaggle datasets create -p artifacts/runs/011-expansion-asset --keep-tabular`实际成功，默认private，未使用`--public`。
 
 ## v10实现与保留的算法
 
-构建入口[scripts/build_011_submission.py](../../scripts/build_011_submission.py)，主文件[enveda-submission-v10.ipynb](../../notebooks/submission-v10/enveda-submission-v10.ipynb)。原712199候选追加538，合计712737。`run_groups`由原train/COCO两分支改为train/COCO/新增三分支，COCO继续使用原cidx，新候选独立读取packed FP。先对完整质量窗评分，再原canonical-max/top100，不尾接已截断列表。
+构建入口[scripts/011/build_011_submission.py](../../scripts/011/build_011_submission.py)，主文件[enveda-submission-v10.ipynb](../../notebooks/submissions/submission-v10/enveda-submission-v10.ipynb)。原712199候选追加538，合计712737。`run_groups`由原train/COCO两分支改为train/COCO/新增三分支，COCO继续使用原cidx，新候选独立读取packed FP。先对完整质量窗评分，再原canonical-max/top100，不尾接已截断列表。
 
 GPU主版本的FP模型、质量换算、ICE cell与v9逐字一致。原代表谱、10ppm、权重、fused_merge、ddof1、缺失续后与Top25均保留。另补原2000分子之外的动态尾部分块及实际test ID完整性校验，避免固定长度假设。输入使用唯一mb539前缀，避免原find('fp.npy')抓错文件。
 
 既有5个dataset版本固定为FP1/COCO2/train-pool1/ICE1/cp313-wheelhouse1，新资产v1；保留v9镜像digest `2757e0c7d1e0a9cb43da657b97e223c321a98f5014bdf64f44f2f6b083ad2b2f`，互联网关闭，notebook私有。
 
-CPU兼容性入口另置`artifacts/011-cpu-probe/`：同模型和评分，只改device为CPU/4线程、按metadata选2个具有ICE支持谱的分子，输出`cpu_probe.csv`，**不得提交该小样本入口**。主GPU版本未因此改变。
+CPU兼容性入口另置`artifacts/runs/011-cpu-probe/`：同模型和评分，只改device为CPU/4线程、按metadata选2个具有ICE支持谱的分子，输出`cpu_probe.csv`，**不得提交该小样本入口**。主GPU版本未因此改变。
 
 本轮不创建测试文件、框架或CI；手动编译各cell、核对数据/代码与实际运行日志，运行成功、提交成功和得分分别记录。
 
 ## 远端实际执行
 
-- 10月17日01:45 UTC，配额恢复后同一GPU入口push成功为`ccjjllt/enveda-submission-v10` **v1**，kernel id139133853。MCP latest metadata确认current_version_number=1、private/T4/offline、原镜像。拉回的35个cell类型及拼接后source逐个相同；远端source字段为字符串、本地是行列表，不能以JSON字段形式差异误判代码变化。远端副本在`artifacts/011-execution/remote-source-v1.ipynb`。
+- 10月17日01:45 UTC，配额恢复后同一GPU入口push成功为`ccjjllt/enveda-submission-v10` **v1**，kernel id139133853。MCP latest metadata确认current_version_number=1、private/T4/offline、原镜像。拉回的35个cell类型及拼接后source逐个相同；远端source字段为字符串、本地是行列表，不能以JSON字段形式差异误判代码变化。远端副本在`artifacts/runs/011-execution/remote-source-v1.ipynb`。
 - `versionLabel="1"`接口返回找不到标签，latest接口可读且明确版本1；本轮不再次push，避免latest指向漂移。API `last_run_time`仍出现10月14日的过时日期，耗时以本轮实际观察时间和完成日志为准。
 - GPU主版本第一次CLI push被Kaggle明确拒绝：`Maximum weekly GPU quota of 30.00 hours reached.` 未取得可运行的GPU版本，不能称运行中或提交成功；这是Kaggle配额限制，非自动审批拒绝。
 - 将title与slug对齐后，独立CPU小样本入口push成功：`ccjjllt/enveda-v10-cpu-probe` **v1**，关闭互联网、CPU、最多900s，仅2个metadata支持分子，输出`cpu_probe.csv`。该版本禁止作为比赛提交。
 - CPU v1完整成功：2分子/149候选、447个预测任务，status=ok、n_pred_fail=0、149条fused_merge有效、两行各25个候选；RDKit2026.03.6。预测243.34s、整段253.6s、1.84任务/s，notebook日志约322s结束。按旧v9占位运行72333任务仅作量级估算需10.92h，超过比赛9h，不能直接按当前配置全量提交。
-- 追加**同样2分子**的CPU v2，唯一执行配置变化为torch线程4→1，模型与评分保持相同；已push成功，最多900s。目的是检查CPU线程开销，不调模型/权重/评价规则。原v1输出保留在`artifacts/011-cpu-probe-output/`，v2另存目录，均不得提交。
-- CPU v2完整成功：447/447预测，预测487.09s、整段496.4s、0.92任务/s，无预测失败；两行最终CSV与v1逐字节相同。按同72333任务估算21.84h，单线程没有加速。产物`artifacts/011-cpu-probe-output-v2/`。CPU两次使用Python3.13.15、torch2.11.0+cu128（cuda不可用）、RDKit2026.03.6及同离线镜像。
+- 追加**同样2分子**的CPU v2，唯一执行配置变化为torch线程4→1，模型与评分保持相同；已push成功，最多900s。目的是检查CPU线程开销，不调模型/权重/评价规则。原v1输出保留在`artifacts/runs/011-cpu-probe-output/`，v2另存目录，均不得提交。
+- CPU v2完整成功：447/447预测，预测487.09s、整段496.4s、0.92任务/s，无预测失败；两行最终CSV与v1逐字节相同。按同72333任务估算21.84h，单线程没有加速。产物`artifacts/runs/011-cpu-probe-output-v2/`。CPU两次使用Python3.13.15、torch2.11.0+cu128（cuda不可用）、RDKit2026.03.6及同离线镜像。
 - 量级估算仅来自2分子，不是实跑完整CPU计时，也不声称所有可能CPU优化都不行；但已试配置无法支持按9小时上限提交，因此没有启动预计超限的全量CPU任务，没有减候选/砍ICE/提交截断结果。10月14日的两个CPU作业均COMPLETE，没有遗留CPU探针作业；10月17日GPU作业状态另见上文。
 
 ## 阻塞与恢复步骤
@@ -52,24 +52,24 @@ CPU兼容性入口另置`artifacts/011-cpu-probe/`：同模型和评分，只改
 GPU刷新时间2026-10-17 00:00 UTC，即北京时间**10月17日08:00**。恢复时复查额度，现有数据集v1可直接复用；按以下步骤续接：
 
 ```bash
-kaggle kernels push -p notebooks/submission-v10 --accelerator NvidiaTeslaT4
+kaggle kernels push -p notebooks/submissions/submission-v10 --accelerator NvidiaTeslaT4
 # 记录实际push返回版本号，等该版本COMPLETE后人工核对输出与ICE完整状态。
 kaggle competitions submit enveda-CASMI26-molecule-id-mass-spectra \
   -k ccjjllt/enveda-submission-v10 -v ACTUAL_COMPLETED_VERSION \
   -f submission.csv -m "v10 fixed MassBank expansion, 538 valid new structures"
 ```
 
-提交前须按真实test核对全部ID、原FP异常计数、ICE status=ok、文件格式和实际耗时；再查看隐藏重跑和publicScore，不用占位测试命中率声称有效。v9r2保留，不改变原最终选择。完整恢复状态在`artifacts/011-execution/run-state.json`，精简[执行记录](../../data/references/submission-execution-2026-10-14.json)。
+提交前须按真实test核对全部ID、原FP异常计数、ICE status=ok、文件格式和实际耗时；再查看隐藏重跑和publicScore，不用占位测试命中率声称有效。v9r2保留，不改变原最终选择。完整恢复状态在`artifacts/runs/011-execution/run-state.json`，精简[执行记录](../../data/references/submission-execution-2026-10-14.json)。
 
 ## 实际集成路径人工核对
 
-运行[scripts/check_011_integration.py](../../scripts/check_011_integration.py)，从实际v9/v10 notebook AST提取`run_groups`，只把执行设备换成本地CPU、写出路径改为`artifacts/011-check/`；复用550个代表谱logits（NP250/G1研究250/R3-50），随后执行原生RDKit canonical-max/top100。无额外神经前向、无新保留集评价、无参数选择。
+运行[scripts/011/check_011_integration.py](../../scripts/011/check_011_integration.py)，从实际v9/v10 notebook AST提取`run_groups`，只把执行设备换成本地CPU、写出路径改为`artifacts/runs/011-check/`；复用550个代表谱logits（NP250/G1研究250/R3-50），随后执行原生RDKit canonical-max/top100。无额外神经前向、无新保留集评价、无参数选择。
 
 - shipped候选对61826→61865，canonical对61390→61429，新增39对；无exception或canonical fallback。空窗5→4，扩库救回1窗，4个原未知质量窗口仍空。
 - 原候选顺序550/550不变。仅R3 ROTFFYYCARWRHQ一条FP分因同组padding宽度变动相差1个float32 ULP（6.1035e-05），排序不变，不声称所有浮点分数逐bit相同。
 - G1完整top100与原扩池缓存250/250一致，R3完整top100与010重新计算的float64参考50/50一致。
 - NP一例WYJAPUKIYAZSEM第84/85名因float64两分在float32舍入为同值而按canonical排序互换；原v9和v10都发生，真值rank21、Top25与Top100集合不变，不是扩库回归。
-- GPU主版本model cell4、mass cell5、ICE cell32逐字与v9一致；改动仅候选追加/指纹读取、动态尾部分块、输出ID完整性及说明。产物`artifacts/011-check/{integration,raw_score_comparison,r3_full_reference}.json`和日志保留。
+- GPU主版本model cell4、mass cell5、ICE cell32逐字与v9一致；改动仅候选追加/指纹读取、动态尾部分块、输出ID完整性及说明。产物`artifacts/runs/011-check/{integration,raw_score_comparison,r3_full_reference}.json`和日志保留。
 
 ## 10月17日运行期间的信息复查
 
@@ -97,10 +97,10 @@ kaggle competitions submit enveda-CASMI26-molecule-id-mass-spectra \
 通过以下命令拉回明确版本的四个产物（沙箱DNS受限后以允许联网的同命令成功执行）：
 
 ```bash
-kaggle kernels output ccjjllt/enveda-submission-v10/1 -p artifacts/011-v10-output --file-pattern '^(submission\.csv|ice_meta_f1\.json|iceberg_scores_f1\.json|canon100\.json)$' --quiet
+kaggle kernels output ccjjllt/enveda-submission-v10/1 -p artifacts/runs/011-v10-output --file-pattern '^(submission\.csv|ice_meta_f1\.json|iceberg_scores_f1\.json|canon100\.json)$' --quiet
 ```
 
-本地用`/opt/homebrew/bin/python3.11`手动读取CSV、实际test ID、候选缓存及ICE分数，RDKit2026.03.6解析全部9357种输出SMILES；按原ddof1 z融合、已评分候选优先及缺失候选续后重建400行排序，逐行与CSV完全一致。结果和文件bytes/SHA在`artifacts/011-v10-output/verification.json`，日志和原始产物同目录。无标签命中率计算、无测试文件或框架。
+本地用`/opt/homebrew/bin/python3.11`手动读取CSV、实际test ID、候选缓存及ICE分数，RDKit2026.03.6解析全部9357种输出SMILES；按原ddof1 z融合、已评分候选优先及缺失候选续后重建400行排序，逐行与CSV完全一致。结果和文件bytes/SHA在`artifacts/runs/011-v10-output/verification.json`，日志和原始产物同目录。无标签命中率计算、无测试文件或框架。
 
 - 实际读取400分子/1213谱，输出400行×25；ID无缺失、重复或额外项，SMILES解析失败0，首选裸CCO为0。
 - FP空窗/质量回退/异常均0；canonical fallback为0。完整窗57302条，canonical57149条，Top100总候选31044。

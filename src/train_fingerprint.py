@@ -35,7 +35,7 @@ torch 只在实际训练函数内延迟导入；本文件顶层导入不要求 t
   推理 checkpoint 没有已确认的完整优化器状态，加载只作微调初始化，
   不称精确续训；保存必须含 optimizer/config/split（见 save_train_state）。
 
-产物：artifacts/004-research/<run-id>/ 下存 config/environment/metrics/
+产物：artifacts/runs/004-research/<run-id>/ 下存 config/environment/metrics/
 checkpoint/日志/逐分子表（列见 004 计划）。不对随机假输入训练后宣称完成。
 """
 
@@ -91,7 +91,7 @@ class TrainConfig:
     ranking_temperature: float = 1.0
     grad_clip: float = 1.0
     # split 口径：训练排除的结构 key 集合名称与 manifest 路径（不内嵌 key）。
-    split_manifest: str = "artifacts/004-research/np_manifest.json"
+    split_manifest: str = "artifacts/runs/004-research/np_manifest.json"
     split_note: str = ("exclude NP250 shipped keys train-side; "
                        "canonical recheck pending RDKit")
     timstof_mix_note: str = ("stratified by structure, cap spectra per structure; "

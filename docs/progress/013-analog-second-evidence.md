@@ -19,21 +19,21 @@ kaggle quota
 - 提交：v10 ref57293821 COMPLETE/0.323；v9r2 ref57028399 COMPLETE/0.323；v8 0.307；v7 0.206；v1 0.000。v9（57027339）public 为空。
 - 榜单：榜首 0.495（CHU1PC、pikachu）、第五 0.468（Oliver Ford），与 012 快照一致，差距仍 0.145。
 - 配额：GPU used 2.61h /剩 27.39h，TPU 0/20h，刷新 2026-10-24T00:00Z。
-- 拉取三份源码到 `artifacts/013-notebooks/`（只读，未执行其下载/权重逻辑）：
+- 拉取三份源码到 `artifacts/runs/013-notebooks/`（只读，未执行其下载/权重逻辑）：
   - `prvsiyan/analog-propagation-casmi-2026-baseline`（58 cells，733K）：V33 AP-2，四证据通道 + mass-shift analog over train ∪ COCONUT，自报 V33 提交 56956461 public 0.344（正文自述，未独立验证）。
   - `beraterolelk/0-336-sota-enveda-casmi26-analog-ranker`（27 cells，73K）：CONFIG PPM_WIN 10.5、ANALOG_WIN ±200Da、N_ANALOG 80、SIM_POWER 3.2、GBM(6,500,0.03,80)；adduct→中性质量表、entropy/cosine 双核、代表谱每结构一条（3 条更差 0.49 vs 0.52）；候选特征刻意排除来源列以防 Class-2 泄漏。
   - `seyitkaangunes/casmi26-e006-pubchem-promo-rel-150-lb-0-446`（49 cells，171K）：E006 + PubChem promotion rel>150，自报 LB 0.446（未独立验证）。
 
 ## 支撑审计 v1：方法与边界
 
-代码 `scripts/build_013_analog_pilot.py`，手动命令：
+代码 `scripts/013/build_013_analog_pilot.py`，手动命令：
 
 ```bash
-/opt/homebrew/bin/python3.11 scripts/build_013_analog_pilot.py --probe
-/opt/homebrew/bin/python3.11 scripts/build_013_analog_pilot.py
+/opt/homebrew/bin/python3.11 scripts/013/build_013_analog_pilot.py --probe
+/opt/homebrew/bin/python3.11 scripts/013/build_013_analog_pilot.py
 ```
 
-- 查询谱：`artifacts/f1-bundle/inputs.json` NP250 + `artifacts/g1-validation/inputs.json` G1250（首谱，mz/it/prec/adduct 口径）+ `artifacts/007-r3/observations_50.json` R3-50（`peaks/*.npz`）。共 550，4 个 R3 未知 adduct 无中性质量而跳过，有效 546。
+- 查询谱：`artifacts/legacy/f1-bundle/inputs.json` NP250 + `artifacts/legacy/g1-validation/inputs.json` G1250（首谱，mz/it/prec/adduct 口径）+ `artifacts/runs/007-r3/observations_50.json` R3-50（`peaks/*.npz`）。共 550，4 个 R3 未知 adduct 无中性质量而跳过，有效 546。
 - 参考：`data/raw/train.parquet` 2539608 行，按 stride 50 抽样约 5 万（实际 50681），adduct→中性质量用 Berat NZD 表同口径（n,z,d），未知载荷不猜。分组为 `inchikey14` 代理，不等价完整 canonical 别名排除（已披露）。
 - 清洗：floor 0.002、top256、归一、0.01Da 余弦；analog 取 ±200Da 内非同组 max，shift 取 best-of（direct, shift=query_neutral − ref_neutral）。
 - 每 query 限最近 2000 参考（按质量距离），全量墙钟 34.5 秒；旧脚本未测RSS，<8GB仅为计划目标，不能作为本次实测。无神经前向、无训练、无 push。
@@ -47,7 +47,7 @@ kaggle quota
 | G1-250 | 250 | 19 | 17 | 226 | 246 | 0.064/0.697/0.821 |
 | R3（质量已知） | 46 | 0 | 0 | 26 | 32 | 0.000/0.356/0.511 |
 
-产物 `artifacts/013-analog/pilot_support.json`（546 行 + 4 errors）。
+产物 `artifacts/runs/013-analog/pilot_support.json`（546 行 + 4 errors）。
 
 人工核对：546 ok / 4 errors 均为 R3 未知 adduct（与 007 的 4 unknown 一致）；全量 train 计数抽查 `ACWBQPMHZXGDFX` 347 谱、`AAWZDTNXLSGCEK` 224 谱、R3 `CLSDHBVHQKWEJR` 0 谱，确认 R3 direct 0 非抽样假象。probe 5 例与全量口径一致。
 

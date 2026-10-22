@@ -51,7 +51,7 @@ GL50−GL25为+0.019232；base shortlist真值数量为top10 **205**、top25 **2
 - 216个分子取得forward分数，GL50 MRR=0.689225；**34个未取得forward证据，保持base的0.320370**。其中18个只有负谱，另16个虽有正谱却没有当前支持的正加合。
 - 用真值在GL50/ICE25之间择优可到0.690026，仅是互补性诊断。固定双模型平均没有得到这个收益，不能把oracle当可部署路由。
 
-证据与复现命令：[forward复算](../../data/references/forward-reanalysis-2026-10-05.json)、[分析脚本](../../scripts/analyze_006_forward_evidence.py)。
+证据与复现命令：[forward复算](../../data/references/forward-reanalysis-2026-10-05.json)、[分析脚本](../../scripts/006/analyze_006_forward_evidence.py)。
 
 ## F0：固定可比基线与新的研究样本
 

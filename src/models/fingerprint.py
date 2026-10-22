@@ -1,7 +1,7 @@
 """004-1c FPNet 定义与输入契约（第一条模型路线，研究用）.
 
 来源与归属（正式入库前必须人工确认）：
-- 定义摘录自 artifacts/004-research/reference-fpnet-v32.py，即
+- 定义摘录自 artifacts/runs/004-research/reference-fpnet-v32.py，即
   prvsiyan Analog Propagation v32 cell 17/18（作者 prvsiyan，读取 2026-10-01）。
 - 许可状态：unknown。权重数据集的 CC0 标注只覆盖权重文件本身，
   不得自动套用到 notebook 代码；本文件是重写后的研究用实现，

@@ -11,18 +11,18 @@
 ## 修改与运行
 
 - 新增`src/analog_evidence.py`：精确峰hash、adduct质量、谱清洗、direct＋precursor-shift联合贪心配峰、质量权重、统一Morgan指纹。
-- 新增`scripts/build_015_candidate_features.py`：冻结查询/排除集合，batch8192读取train，B/A两场景构造候选—参考证据，保存完整追溯记录。
-- 新增`scripts/run_015_candidate_ranker.py`：固定LR/HGB、canonical同折、query等权、同式槽位重排、分子级bootstrap、模型和输入hash、人工重放入口。
+- 新增`scripts/015/build_015_candidate_features.py`：冻结查询/排除集合，batch8192读取train，B/A两场景构造候选—参考证据，保存完整追溯记录。
+- 新增`scripts/015/run_015_candidate_ranker.py`：固定LR/HGB、canonical同折、query等权、同式槽位重排、分子级bootstrap、模型和输入hash、人工重放入口。
 - 本机brew Python3.11缺sklearn/scipy，从已有uv解包缓存离线重打包wheel，装到项目`.venv-015`，没有修改全局环境。缓存写受限后使用项目内缓存目录完成；`.gitignore`添加`.venv-015/`。
 - 不创建测试文件、自动化测试、CI或新工程门控。下述检查均由本轮手动发起。
 
 实际命令：
 
 ```bash
-/opt/homebrew/bin/python3.11 scripts/build_015_candidate_features.py --max-queries 5 --output-dir artifacts/015-analog/features-probe
-/opt/homebrew/bin/python3.11 scripts/build_015_candidate_features.py
-.venv-015/bin/python scripts/run_015_candidate_ranker.py
-.venv-015/bin/python scripts/run_015_candidate_ranker.py --replay
+/opt/homebrew/bin/python3.11 scripts/015/build_015_candidate_features.py --max-queries 5 --output-dir artifacts/runs/015-analog/features-probe
+/opt/homebrew/bin/python3.11 scripts/015/build_015_candidate_features.py
+.venv-015/bin/python scripts/015/run_015_candidate_ranker.py
+.venv-015/bin/python scripts/015/run_015_candidate_ranker.py --replay
 kaggle competitions submissions -c enveda-CASMI26-molecule-id-mass-spectra --csv
 kaggle quota
 ```
@@ -71,11 +71,11 @@ NP B的LR组合相对v9有52例RR改善、9例变差；NP A为23/20；G1为2/4�
 
 ## 事后直接谱归因消融
 
-主实验完成后，固定相同折、权重、LR/HGB参数、输入和排序槽位，仅用4基线＋`direct_quality`五列。新增`scripts/analyze_015_direct_ablation.py`，产物独立保存在`artifacts/015-analog/direct-only-ablation/`；原五方案与所有原产物未覆盖。没有阈值/超参搜索，没有新增全数据模型。
+主实验完成后，固定相同折、权重、LR/HGB参数、输入和排序槽位，仅用4基线＋`direct_quality`五列。新增`scripts/015/analyze_015_direct_ablation.py`，产物独立保存在`artifacts/runs/015-analog/direct-only-ablation/`；原五方案与所有原产物未覆盖。没有阈值/超参搜索，没有新增全数据模型。
 
 ```bash
-.venv-015/bin/python scripts/analyze_015_direct_ablation.py
-.venv-015/bin/python scripts/analyze_015_direct_ablation.py --replay
+.venv-015/bin/python scripts/015/analyze_015_direct_ablation.py
+.venv-015/bin/python scripts/015/analyze_015_direct_ablation.py --replay
 ```
 
 | 对比 | direct-only MRR | 相对v9 Δ/95%CI | 完整组合相对direct-only Δ/95%CI |
@@ -97,8 +97,8 @@ LR direct-only在NP B Top1同为151，主要已观察增量可由同结构参考
 - 不导入015计算代码的独立核对：原bundle＋ICE重建500个完整v9序列与代表谱全部相同；从train原峰独立枚举NP/G1各1query的A/B首参考，共4条，cosine/quality误差0、配峰数一致。
 - 另一组固定SHA选8个query/场景/参考，重新batch读取train原峰、独立广播配对矩阵＋贪心重算，cosine/quality差0、匹配数和来源一致。
 - 独立重算5000个输出排序、rank/RR及20组MRR全部相同；43项输入/输出/模型SHA一致；25个折模型canonical无训练/验证交叠。抽样模型前向误差0，LR训练折加权均值误差<4.8e-9。
-- 独立审阅素材在`artifacts/015-handoff/independent-audit.json`与`independent-review.md`。这些是本轮手动研究核对，不是新建自动化测试体系。
-- 交接收尾补记当前train.parquet及4份源码SHA到`artifacts/015-analog/code-and-data-snapshot.json`，并进入可入Git的精简记录。train为3033286496字节，SHA256`9423f90ec08b941a9646b535bf0606183e86ff0c5a297978f5a70693d41bcd98`。这是22:25的事后快照，不冒充事前冻结证明。
+- 独立审阅素材在`artifacts/runs/015-handoff/independent-audit.json`与`independent-review.md`。这些是本轮手动研究核对，不是新建自动化测试体系。
+- 交接收尾补记当前train.parquet及4份源码SHA到`artifacts/runs/015-analog/code-and-data-snapshot.json`，并进入可入Git的精简记录。train为3033286496字节，SHA256`9423f90ec08b941a9646b535bf0606183e86ff0c5a297978f5a70693d41bcd98`。这是22:25的事后快照，不冒充事前冻结证明。
 - 4份源码用brew Python3.11内存AST解析通过，JSON与文档本地链接核对通过，`git diff --check`无报错。系统`python3`指向3.9且py_compile写系统缓存受限，改用上述不写缓存的检查；实际研究一直使用指定3.11环境，不受影响。
 
 ## 远端状态与遗留限制

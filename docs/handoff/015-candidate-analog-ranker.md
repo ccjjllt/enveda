@@ -24,7 +24,7 @@
 | 竞争距离 | 013当日榜单快照第一0.495、第五0.468；第五比我们高0.145。不是金牌分数线，也不是本轮重新查询的名次 |
 | 当前工具边界 | 本会话没有可调用Kaggle MCP工具，已用Kaggle CLI完成只读查询；历史MCP成功不等于当前可调用。Colab当前执行通道未确认，不默认改用慢GUI |
 
-可直接用的最终入口是`notebooks/submission-v10/enveda-submission-v10.ipynb`。metadata固定六项输入：`prvsiyan/casmi26-fp-models-v2/1`、`prvsiyan/coconut-casmi26-candidates/2`、`ccjjllt/casmi26-train-fp-pool/1`、`ahmedberatozer/casmi26-iceberg/1`、`ccjjllt/casmi26-cp313-wheelhouse/1`、`ccjjllt/casmi26-massbank539-expansion/1`。原镜像SHA见同目录`kernel-metadata.json`。
+可直接用的最终入口是`notebooks/submissions/submission-v10/enveda-submission-v10.ipynb`。metadata固定六项输入：`prvsiyan/casmi26-fp-models-v2/1`、`prvsiyan/coconut-casmi26-candidates/2`、`ccjjllt/casmi26-train-fp-pool/1`、`ahmedberatozer/casmi26-iceberg/1`、`ccjjllt/casmi26-cp313-wheelhouse/1`、`ccjjllt/casmi26-massbank539-expansion/1`。原镜像SHA见同目录`kernel-metadata.json`。
 
 官方数据要点和规则来源保存在[README](../../README.md)与[比赛记录](../../data/references/competition-evidence-2026-09-30.json)。训练文件实际2539608谱、275810原始结构键，005重算canonical274186。官方隐藏集描述约400分子/1500谱，不可当作可见占位test统计。第三类de novo不在PubChem/COCONUT、类别比例未公布；只靠候选库检索不可能保证覆盖。
 
@@ -98,27 +98,27 @@ NP A组合相对v9仅+0.001586、CI跨0；G1−0.001028、CI跨0。B并非每个
 | 目的 | 仓库相对路径 |
 |---|---|
 | 015谱清洗/联合匹配 | `src/analog_evidence.py` |
-| 候选特征生成 | `scripts/build_015_candidate_features.py` |
-| 固定五方案训练/OOF/重放 | `scripts/run_015_candidate_ranker.py` |
-| 事后直接特征归因 | `scripts/analyze_015_direct_ablation.py`；`artifacts/015-analog/direct-only-ablation/`，原五方案未改 |
-| 当前源码与原始train SHA | `artifacts/015-analog/code-and-data-snapshot.json`；015结果JSON亦保存，明确为运行后的交接快照 |
-| 输入与特征 | `artifacts/015-analog/features/{config.json,manifest.json,features.npz,summary.json}` |
+| 候选特征生成 | `scripts/015/build_015_candidate_features.py` |
+| 固定五方案训练/OOF/重放 | `scripts/015/run_015_candidate_ranker.py` |
+| 事后直接特征归因 | `scripts/015/analyze_015_direct_ablation.py`；`artifacts/runs/015-analog/direct-only-ablation/`，原五方案未改 |
+| 当前源码与原始train SHA | `artifacts/runs/015-analog/code-and-data-snapshot.json`；015结果JSON亦保存，明确为运行后的交接快照 |
+| 输入与特征 | `artifacts/runs/015-analog/features/{config.json,manifest.json,features.npz,summary.json}` |
 | 排除集合、查询与参考证据 | 同目录`frozen_reference_exclusions.json`、`frozen_queries.json`、`reference_evidence.jsonl` |
-| 指标与逐分子完整排名 | `artifacts/015-analog/ranker/{metrics.json,oof_full_rankings.json,oof_candidate_scores.npz,row_alignment.npz}` |
+| 指标与逐分子完整排名 | `artifacts/runs/015-analog/ranker/{metrics.json,oof_full_rankings.json,oof_candidate_scores.npz,row_alignment.npz}` |
 | 折、参数、环境、hash | 同目录`folds.json`、`run_manifest.json`、`training_details.json`、`reproduction.json` |
 | 人工保存模型重放 | 同目录`manual_replay.json`；`models/`含25个折模型及5个experimental_full模型 |
-| 原NP/G1输入 | `artifacts/f1-bundle/inputs.json`、`artifacts/g1-validation/inputs.json` |
-| 原ICE缓存 | `artifacts/f1-scores/scores/f1e-4_ice_top100_split.json`、`artifacts/g1-scores/scores/g1e-4_ice_top100_split.json` |
-| 完整参考与规范化身份 | `data/raw/train.parquet`、`artifacts/005/structure_identity_train.parquet` |
-| v10输出核查 | `artifacts/011-v10-output/verification.json`及同目录submission/score文件 |
-| 013/014、扩库、碎片 | `artifacts/013-support-audit/`、`artifacts/013-r3-fragment/`、`artifacts/012-{chebi,pubchemlite,fragment}/` |
+| 原NP/G1输入 | `artifacts/legacy/f1-bundle/inputs.json`、`artifacts/legacy/g1-validation/inputs.json` |
+| 原ICE缓存 | `artifacts/legacy/f1-scores/scores/f1e-4_ice_top100_split.json`、`artifacts/legacy/g1-scores/scores/g1e-4_ice_top100_split.json` |
+| 完整参考与规范化身份 | `data/raw/train.parquet`、`artifacts/runs/005/structure_identity_train.parquet` |
+| v10输出核查 | `artifacts/runs/011-v10-output/verification.json`及同目录submission/score文件 |
+| 013/014、扩库、碎片 | `artifacts/runs/013-support-audit/`、`artifacts/runs/013-r3-fragment/`、`artifacts/012-{chebi,pubchemlite,fragment}/` |
 
 在项目根目录执行，先读现有结果，**不用为接手而重跑全量训练**：
 
 ```bash
 git status --short
-.venv-015/bin/python scripts/run_015_candidate_ranker.py --replay
-.venv-015/bin/python scripts/analyze_015_direct_ablation.py --replay
+.venv-015/bin/python scripts/015/run_015_candidate_ranker.py --replay
+.venv-015/bin/python scripts/015/analyze_015_direct_ablation.py --replay
 kaggle competitions submissions -c enveda-CASMI26-molecule-id-mass-spectra --csv
 kaggle quota
 ```
@@ -126,11 +126,11 @@ kaggle quota
 确需重建015时，另选产物目录防覆盖原始记录：
 
 ```bash
-/opt/homebrew/bin/python3.11 scripts/build_015_candidate_features.py --output-dir artifacts/015-analog/rebuild-features
-.venv-015/bin/python scripts/run_015_candidate_ranker.py --input-dir artifacts/015-analog/rebuild-features --output-dir artifacts/015-analog/rebuild-ranker
+/opt/homebrew/bin/python3.11 scripts/015/build_015_candidate_features.py --output-dir artifacts/runs/015-analog/rebuild-features
+.venv-015/bin/python scripts/015/run_015_candidate_ranker.py --input-dir artifacts/runs/015-analog/rebuild-features --output-dir artifacts/runs/015-analog/rebuild-ranker
 ```
 
-特征脚本自带900秒研究预算，不是自动化测试门控。随机种子20261017；ranker单线程。输入hash与原产物不同则先解释原因，不能直接覆盖原结果。环境：brew Python3.11.16、numpy2.4.6、RDKit2026.03.6、pyarrow25.0.1；项目`.venv-015`使用scikit-learn1.9.1、scipy1.17.1、joblib1.5.3、threadpoolctl3.6.0、narwhals2.24.0。来自已有离线缓存的重打包wheel和来源说明在`artifacts/015-analog/ranker/environment-wheels/`与`environment-cache-provenance.json`，没有改全局环境。其他机器应重建相同版本环境，不能把macOS arm64 wheel直接带到Kaggle Linux。
+特征脚本自带900秒研究预算，不是自动化测试门控。随机种子20261017；ranker单线程。输入hash与原产物不同则先解释原因，不能直接覆盖原结果。环境：brew Python3.11.16、numpy2.4.6、RDKit2026.03.6、pyarrow25.0.1；项目`.venv-015`使用scikit-learn1.9.1、scipy1.17.1、joblib1.5.3、threadpoolctl3.6.0、narwhals2.24.0。来自已有离线缓存的重打包wheel和来源说明在`artifacts/runs/015-analog/ranker/environment-wheels/`与`environment-cache-provenance.json`，没有改全局环境。其他机器应重建相同版本环境，不能把macOS arm64 wheel直接带到Kaggle Linux。
 
 `data/raw/`、`artifacts/`、权重和`.venv-015/`均被Git忽略，接手同一机器可直接访问；只克隆Git不具备这些资产。缺失时先恢复私有数据/版本和缓存；015特征manifest保存输入hash。自生成joblib只在兼容环境加载，不能把新的全数据模型的训练内分数写成OOF成绩。
 
@@ -142,6 +142,6 @@ kaggle quota
 
 `kaggle kernels push`会启动运行，并且只上传入口与metadata，不会同步整个仓库。最终入口须自包含或将代码、权重、依赖作为固定私有输入挂载；互联网关闭。用新版本进行完整运行后，必须按明确已完成notebook版本提交，不能直接传本地CSV。具体CLI参数见[README远程操作](../../README.md)与[011执行记录](../progress/011-massbank-expansion-submission.md)，勿把示例旧版本重新提交。
 
-进入奖项争夺前仍需补齐：现用s2的输入`spec.npz`、six/is_val的生成与划分、训练seed/CLI、输入版本到发布checkpoint的绑定；所有新增模型/库的公开来源、许可和实际本项目训练/推理代码。官方允许特定公开权重不等于必须重跑预训练，也不等于可以省略自己的复现材料。现用原作者代码在`artifacts/010-frontier/original_train_fingerprint_model.py`。
+进入奖项争夺前仍需补齐：现用s2的输入`spec.npz`、six/is_val的生成与划分、训练seed/CLI、输入版本到发布checkpoint的绑定；所有新增模型/库的公开来源、许可和实际本项目训练/推理代码。官方允许特定公开权重不等于必须重跑预训练，也不等于可以省略自己的复现材料。现用原作者代码在`artifacts/runs/010-frontier/original_train_fingerprint_model.py`。
 
 凭据、原始比赛谱和权重不进Git；云端数据保持私有。接手者可以直接推进已授权的例行研究，不需要重复询问。任何新结论都写入配对进展，留下实际命令、版本、设备、时长、指标、输出位置及局限。

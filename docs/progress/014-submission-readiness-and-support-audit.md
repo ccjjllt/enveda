@@ -16,10 +16,10 @@
 
 ## 有界支撑诊断：高分数来自什么
 
-新增[scripts/analyze_013_support_audit.py](../../scripts/analyze_013_support_audit.py)，旧013脚本与产物未覆盖。手动命令：
+新增[scripts/013/analyze_013_support_audit.py](../../scripts/013/analyze_013_support_audit.py)，旧013脚本与产物未覆盖。手动命令：
 
 ```bash
-/opt/homebrew/bin/python3.11 scripts/analyze_013_support_audit.py
+/opt/homebrew/bin/python3.11 scripts/013/analyze_013_support_audit.py
 ```
 
 按固定metadata和SHA256(`20261017|013-support-audit-v1|case`)选36例：NP正/负各6，G1正单体/正二聚体/负各4，R3正/负各6；不按已有分数或名次选样。仍使用原stride50抽样50681参考、每query质量最近2000池，原相似度逐项复算最大误差0。参考池排除后不补满，避免改变对照数量解释。
@@ -44,14 +44,14 @@
 - 主线程另核对首谱与v9最大原始峰数代表谱：NP有121/250不同，G1有204/250不同。013虽已披露用首谱，但其支撑率不能直接转成原v9排序增量。产物`main-query-diagnostics.json`。
 - 原脚本读取全峰列后抽样，没有RSS实测，`rng`未使用、实际确定性stride50。旧“内存<8GB”只能作设计目标，不能保留为实测。新诊断按8192行batch读峰，最终10.55秒、峰值RSS3.53GiB（3784605696字节）；这些不是旧脚本的资源测量。
 
-本地Python3.11.16、NumPy2.4.6、PyArrow25.0.1。完整manifest和获胜参考原行/来源/adduct/配峰贡献在`artifacts/013-support-audit/`；没有神经前向或训练。
+本地Python3.11.16、NumPy2.4.6、PyArrow25.0.1。完整manifest和获胜参考原行/来源/adduct/配峰贡献在`artifacts/runs/013-support-audit/`；没有神经前向或训练。
 
 ## R3固定碎片迁移：未确认收益
 
-013计划已提出纯[M-H]-迁移。本轮冻结全部22个符合metadata的R3分子，使用012同一参数：λ=.5、前50同式槽位、显式carrier、最多16谱、两次断键、固定容差/H位移。代码[scripts/analyze_013_r3_fragment_transfer.py](../../scripts/analyze_013_r3_fragment_transfer.py)。手动命令：
+013计划已提出纯[M-H]-迁移。本轮冻结全部22个符合metadata的R3分子，使用012同一参数：λ=.5、前50同式槽位、显式carrier、最多16谱、两次断键、固定容差/H位移。代码[scripts/013/analyze_013_r3_fragment_transfer.py](../../scripts/013/analyze_013_r3_fragment_transfer.py)。手动命令：
 
 ```bash
-/opt/homebrew/bin/python3.11 scripts/analyze_013_r3_fragment_transfer.py
+/opt/homebrew/bin/python3.11 scripts/013/analyze_013_r3_fragment_transfer.py
 ```
 
 候选只来自原池＋固定538资产，无oracle补结构；按原v9最大原始峰数代表谱、原质量换算重建全窗。原R3 `fused_merge`全缺失，因此保持FP回退，不加入未知CE的sum回退或多谱均值。50例原基线与010 Top25、012完整窗排序全部一致。
@@ -65,7 +65,7 @@
 
 人工独立重建22条排序，314候选canonical/分子式均核对，候选集合、公式槽位、第51—100位均不变。Python3.11.16/NumPy2.4.6/RDKit2026.03.6、seed20261017、本地CPU9.65秒，无Numba/GPU。4个未知质量分子单列。R3与NP/G1结构零交叠，但已反复用于其他研究、且与扩库同源，不能称独立盲测。46例表只代表本次22例处理，**不是对R3执行全部012条件路由后的成绩**。
 
-完整结果和人工核验在`artifacts/013-r3-fragment/`。碎片可继续作为联合排序特征，但当前没有充分理由把它包装为面向奖金竞争力的新提分版本。
+完整结果和人工核验在`artifacts/runs/013-r3-fragment/`。碎片可继续作为联合排序特征，但当前没有充分理由把它包装为面向奖金竞争力的新提分版本。
 
 ## 距离下一次有信息量的提交还缺什么
 

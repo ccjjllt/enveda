@@ -10,13 +10,13 @@
 
 - 复核 `data/raw/test.parquet`：1213 行 / 400 分子 / 12 列，adduct 分布 `[M+H]+` 959、`[M-H]-` 193、`[M+CH2O2-H]-` 31、`[M+Na]+` 22、`[M+NH4]+` 4、`[M+K]+` 2、`[M+Cl]-` 2，与既有 JSON 一致；`ionization positive 987 / negative 226`；`ms2` 前 1024 行配对 0 mismatch；`sample_submission.csv` 400 行×25 `CCO`，ID 双向差集 0。
 - MCP 核对：`train.parquet` 3,033,286,496 B；`column_summary` 仅 2 列，无代表性；讨论 742042 确认 train 18 列、无 `molecule_id/spectrum_id`（本项目未下载 train，未独立验证）；讨论 742278 确认可见 test verbatim 来自 train `enveda-180`，不可当泛化集。
-- 新建 `src/data.py`（流式读 parquet、缺列兼容、ms2 配对检查）、`src/retrieval.py`（adduct 占位、匹配占位、按分子聚合真实最小实现）、`src/evaluation.py`（分子级 MRR@25 占位实现，手动研究用，非测试文件）、`notebooks/baseline/baseline.ipynb` + `kernel-metadata.json`（T4 离线，输出 `/kaggle/working/submission.csv`）。
+- 新建 `src/data.py`（流式读 parquet、缺列兼容、ms2 配对检查）、`src/retrieval.py`（adduct 占位、匹配占位、按分子聚合真实最小实现）、`src/evaluation.py`（分子级 MRR@25 占位实现，手动研究用，非测试文件）、`notebooks/archive/baseline/baseline.ipynb` + `kernel-metadata.json`（T4 离线，输出 `/kaggle/working/submission.csv`）。
 - 本地手动验证：`adduct_counts` 与上一致；`baseline` 骨架产出 400 行×25 `CCO`，`rows_with_bad_width=0`。`adduct_to_neutral_mass` 未做加合物修正，匹配函数恒空，当前无 MRR、无提分，submission 仅格式占位。
 
 ## 2026-09-30 补充：001-2 最小闭环（train 实测与 split 清单，已人工验证）
 
-- 发现 `data/raw/train.parquet` 为断点残留：2,597,322,752 B（预期 3,033,286,496 B），PyArrow 报 `Parquet magic bytes not found in footer`。用任务指定命令断点续传补全，现 3,033,286,496 B、`size_match: true`，字节/sha 记录于 `artifacts/001-baseline/train_fetch.json`（`data/raw`、`artifacts` 均在 `.gitignore`）。
-- `.venv/bin/python` + PyArrow 21.0.0 流式实测（只读标量列，未加载 ms2 数组）：`train.parquet` 共 2,539,608 行 / 21 row groups / 18 列；**无 `molecule_id`、`spectrum_id`**（独立验证了讨论 742042 的报告）。schema 与列细节见 `artifacts/001-baseline/split_manifest.json` 的 `train` 段。
+- 发现 `data/raw/train.parquet` 为断点残留：2,597,322,752 B（预期 3,033,286,496 B），PyArrow 报 `Parquet magic bytes not found in footer`。用任务指定命令断点续传补全，现 3,033,286,496 B、`size_match: true`，字节/sha 记录于 `artifacts/runs/001-baseline/train_fetch.json`（`data/raw`、`artifacts` 均在 `.gitignore`）。
+- `.venv/bin/python` + PyArrow 21.0.0 流式实测（只读标量列，未加载 ms2 数组）：`train.parquet` 共 2,539,608 行 / 21 row groups / 18 列；**无 `molecule_id`、`spectrum_id`**（独立验证了讨论 742042 的报告）。schema 与列细节见 `artifacts/runs/001-baseline/split_manifest.json` 的 `train` 段。
 - 分组键为 shipped `inchikey14`（原文照用，未重算规范化）：去重后 275,810 个结构，`null`/空串 0 行，未分组 0 行。
 - `ingest_lib` 共 11 个：`enveda-180` 1,153,785、`pluskal_ms2` 527,581、`riken` 347,171、`gnps` 220,849、`massbank` 101,727（余 6 个见 manifest）。
 - `instrument_type` 命名杂乱：`timsTOF` 1,154,969、`Orbitrap` 745,562、`QTOF` 125,936 等约 80 种写法，`null` 33,053、空串 297、`nan` 字符串 972。timsTOF 是隐藏集仪器，但训练主体并非 timsTOF。
@@ -71,8 +71,8 @@
 ## 2026-09-30 补充：001-3 B0 真实检索（已本地手动执行，仅流程自检）
 
 - 扩展 `src/retrieval.py` 为真实 B0（保持占位接口名）：15 类 adduct 质量表（含可见 7 类 + `[2M+H]+/[2M+Na]+/[2M-H]-/[M-H2O+H]+/[M]+/[M+C2H4O2-H]-/[M-2H2O+H]+/[M+2H]2+`，float64，`M=(mz*|z|-delta)/n`，未知回退为 precursor 本身）、ppm 精确匹配（默认 20）、余弦（归一化强度、top-N 默认 128、`global_topn` 与 `window_50da` 二选一实现、本次取 `global_topn`、碎片 ppm 默认 20）。库过滤与同谱/整组留出由调用方按 manifest 保证。
-- 新建一次性手动脚本 `artifacts/001-baseline/b0_run.py`（非测试文件）：unseen（库=非留出 2535145 行，query=留出 4463 行/500 结构）、seen（库=3712，query=500）；unseen 每 query 按 `|ppm|` 取最近 200 个再做余弦（本地可行性截断，如实记录）。输出 `artifacts/001-baseline/b0_metrics.json`。
-- 本地手动执行（`.venv/bin/python artifacts/001-baseline/b0_run.py`，M5/32GB，约 242s）：scalar 3.4s、索引 0.9s、unseen 质量过滤 0.9s、Pass2 取峰 93.3s、seen 检索 0.6s、Pass3 余弦 143.0s。未 push、未提交、未下载权重。
+- 新建一次性手动脚本 `artifacts/runs/001-baseline/b0_run.py`（非测试文件）：unseen（库=非留出 2535145 行，query=留出 4463 行/500 结构）、seen（库=3712，query=500）；unseen 每 query 按 `|ppm|` 取最近 200 个再做余弦（本地可行性截断，如实记录）。输出 `artifacts/runs/001-baseline/b0_metrics.json`。
+- 本地手动执行（`.venv/bin/python artifacts/runs/001-baseline/b0_run.py`，M5/32GB，约 242s）：scalar 3.4s、索引 0.9s、unseen 质量过滤 0.9s、Pass2 取峰 93.3s、seen 检索 0.6s、Pass3 余弦 143.0s。未 push、未提交、未下载权重。
 - 两轨道（占位口径：精确字符串命中，RDKit 未接入，分数仅自检）：
   - unseen：MRR@25 0.0、Top1 0.0、Top25 0.0（真值不在库，符合整组留出预期）、分子覆盖率 0.988、无候选比 0.012、重复 0、空槽 0；谱级质量候选 mean 873.7/p50 658/max 3477/无候选 0.017；截断后 mean 168.1/p50 200；独立库行 114774、余弦 750139 次；未知 adduct query 0.47%/库 0.27%；多 SMILES 组 0。
   - seen：MRR@25 0.992、Top1 0.988、Top25 0.996、覆盖率 0.996、无候选 0.004、重复 0、空槽 0；谱级质量候选 mean 8.8/p50 6/max 100/无候选 0.004；manifest 行号核对 0 mismatch。
@@ -81,18 +81,18 @@
 
 ## 2026-10-01 补充：001-4 B1 权重核验 + B2 多谱融合对照（已本地手动执行，仅流程自检）
 
-- B1 下载：`kaggle datasets download prvsiyan/casmi26-fp-models-v2 -p artifacts/001-baseline/weights --unzip`，v1（2026-09-16，CC0），两文件各 144110255 B（与数据页一致），`artifacts/`、`*.pt` 均在 `.gitignore`，未入 Git、未提交。
+- B1 下载：`kaggle datasets download prvsiyan/casmi26-fp-models-v2 -p artifacts/runs/001-baseline/weights --unzip`，v1（2026-09-16，CC0），两文件各 144110255 B（与数据页一致），`artifacts/`、`*.pt` 均在 `.gitignore`，未入 Git、未提交。
   - `fp_single_s2.pt` sha256 `c19aa290…b2e52b614a`；`fp_merged_m1.pt` sha256 `261529c8…c507cce829`（两权重不同，data.pkl sha 各异）。
   - 本地无 torch（`.venv` 仅 PyArrow 21.0.0），按任务不强装 CUDA/XLA：文件头 `PK\x03\x04`（torch.save zip），`torch.load` 记录 `ModuleNotFoundError` 失败。标准库 zip/data.pkl 字节扫描实测：顶层容器 `{model: OrderedDict, step, nbits, d, layers}`（无 `opt`/优化器状态，纯推理权重）；single `step=20000`、merged `step=24000`，同 `nbits=6930/d=512/layers=6`；state dict 含 6 层 Transformer blocks（0–5）+ head，与 002 计划 FPNet 描述（d=512/6层）一致。
   - 训练来源：权重数据页无描述、无训练划分说明；作者 baseline v32 同时挂载比赛 train 与权重。**10-01 复核更正：共同挂载不足以证明权重用该 train 训练；训练来源与具体子集仍待证实。**
   - 留出与比赛训练池的交集（shipped inchikey14）：unseen 500/500、seen 500/500，两轨道互不相交。这是留出从 train 构造的事实，**不是 checkpoint 实际训练暴露的测量**；暴露状态仍 unknown，不能称严格未见泛化。
-- B2 融合对照：一次性手动脚本 `artifacts/001-baseline/b1b2_run.py`（同 b0 前例放 artifacts，非测试文件），库为 3712 全池化（同 B0 seen，跨结构干扰保留），seen 500 结构 4212 谱 leave-one-out，无新权重，占位口径。本地手动执行约 103s（fetch 96.5s、LOO 检索 5.0s）。`single` 复现 B0 seen 精确一致（MRR 0.992，`b0_reproduction_match=true`）。
+- B2 融合对照：一次性手动脚本 `artifacts/runs/001-baseline/b1b2_run.py`（同 b0 前例放 artifacts，非测试文件），库为 3712 全池化（同 B0 seen，跨结构干扰保留），seen 500 结构 4212 谱 leave-one-out，无新权重，占位口径。本地手动执行约 103s（fetch 96.5s、LOO 检索 5.0s）。`single` 复现 B0 seen 精确一致（MRR 0.992，`b0_reproduction_match=true`）。
   - 总体（分子级占位口径）：single 0.992 / scorefusion 0.996 / merged占位 0.995 / best_oracle 上限 0.998；平均候选数 single 1.24、scorefusion 1.25（20ppm 在 3712 池内选择性极强，同结构谱占命中多数）。
   - `[M+H]+`（n=313）：single 已 0.9968，融合无增益（scorefusion/merged 0.9952，天花板效应；1 例无候选融合也修不好）。
   - `[M-H]-`（n=75）：single 0.9867/Top1 0.9733 → scorefusion 与 merged 占位均 1.0/1.0。**10-01 撤回“两种融合在负模式都有效”的解释**：融合读入的谱与参考库重叠，且可能包含其他模式/adduct，无法据此归因。
   - 其他 adduct（n=112）：single 0.9821 → scorefusion 0.9955（修好无候选例+排名）、merged 占位 0.9911（只修排名）。
   - merged 占位口径说明：组内全谱峰池化取 top128，库只剔除指定 query，自合并输入包含仍在库中的其他谱。**10-01 更正：存在直接输入重叠，连相对趋势也不能用来选融合方法。** scorefusion 同样把原 library 谱重新作 query。早期“剔除全组”版本的 MRR=0 另保留为调试历史。
-- 产物：`artifacts/001-baseline/b1b2_report.json`（权重版本/加载性/重叠数/B2 对照表/耗时/seed）。未 push、未提交、未训练。
+- 产物：`artifacts/runs/001-baseline/b1b2_report.json`（权重版本/加载性/重叠数/B2 对照表/耗时/seed）。未 push、未提交、未训练。
 - Blocker/局限：无 torch 本地无法真正前向验证权重（需 T4/TPU 远端）；merged 占位≠真 FPNet-merged 推理；分数均为占位口径（RDKit 未接入）；unseen 轨道未做融合（真值不在库，融合无意义）。
 
 ## 遇到的问题

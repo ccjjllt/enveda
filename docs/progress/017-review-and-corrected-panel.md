@@ -68,11 +68,11 @@ A场景中，每query错误候选具有正direct_quality的平均比例，015抽
 实际在M5本地CPU运行，Python3.11.16、numpy2.4.6、RDKit2026.03.6；预测用`.venv-015`的sklearn1.9.1/scipy1.17.1，参数及模型SHA保持015全量fit。无GPU/新模型训练。
 
 ```bash
-/opt/homebrew/bin/python3.11 scripts/repair_017_panel_inputs.py
-/opt/homebrew/bin/python3.11 scripts/build_016_panel_features.py --inputs-path artifacts/017-panel-inputs/inputs.json --ice-path artifacts/017-panel-inputs/ice_scores.json --output-dir artifacts/017-corrected-features
-/opt/homebrew/bin/python3.11 scripts/build_016_panel_features.py --inputs-path artifacts/017-panel-inputs/inputs.json --ice-path artifacts/017-panel-inputs/ice_scores.json --cross-external-only --output-dir artifacts/017-corrected-features-ext
-.venv-015/bin/python scripts/run_016_panel_predict.py --input-dir artifacts/017-corrected-features --diagnostic-zero-direct
-.venv-015/bin/python scripts/run_016_panel_predict.py --input-dir artifacts/017-corrected-features-ext --diagnostic-zero-direct
+/opt/homebrew/bin/python3.11 scripts/017/repair_017_panel_inputs.py
+/opt/homebrew/bin/python3.11 scripts/016/build_016_panel_features.py --inputs-path artifacts/runs/017-panel-inputs/inputs.json --ice-path artifacts/runs/017-panel-inputs/ice_scores.json --output-dir artifacts/runs/017-corrected-features
+/opt/homebrew/bin/python3.11 scripts/016/build_016_panel_features.py --inputs-path artifacts/runs/017-panel-inputs/inputs.json --ice-path artifacts/runs/017-panel-inputs/ice_scores.json --cross-external-only --output-dir artifacts/runs/017-corrected-features-ext
+.venv-015/bin/python scripts/016/run_016_panel_predict.py --input-dir artifacts/runs/017-corrected-features --diagnostic-zero-direct
+.venv-015/bin/python scripts/016/run_016_panel_predict.py --input-dir artifacts/runs/017-corrected-features-ext --diagnostic-zero-direct
 kaggle competitions submissions -c enveda-CASMI26-molecule-id-mass-spectra --csv
 ```
 
@@ -80,7 +80,7 @@ kaggle competitions submissions -c enveda-CASMI26-molecule-id-mass-spectra --csv
 
 - 两种四例probe共16个query×scenario的最近2000行与原Python循环逐行一致，质量距离边界tie按原train row处理。
 - 两版各33130条与原016同canonical候选对应的六个参考特征，最大差0，证明加速未改变这些候选证据。差异来自正确ICE、排序/候选集合及已声明的MB身份修复。
-- 独立重算两版全部基础特征、候选概率、完整排序、MRR/Top1/25、配对CI及SHA均一致。详见`artifacts/017-review/corrected-{full,external}-review.json`和`corrected-results-review.md`。
+- 独立重算两版全部基础特征、候选概率、完整排序、MRR/Top1/25、配对CI及SHA均一致。详见`artifacts/runs/017-review/corrected-{full,external}-review.json`和`corrected-results-review.md`。
 - 新复制worker在NumPy2.4.6手动缓存写/读/覆盖成功，无tmp遗留；旧bundle未改、未执行future bundler的前向/打包。后续bundler默认输出改为`artifacts/017-colab`并支持`--output-dir`，避免覆盖016旧包。
 - 原016文档和精简记录加显著纠错说明，未删除历史指标；完整新指标/源码与输入hash另写`data/references/research-results-017.json`。没有创建测试文件、测试框架或CI。
 - 两版运行都显式传入017输入/ICE路径；运行结束后将builder的CLI默认值也改为同一017路径，避免默认命令再读旧MB身份。产物保留运行时源码SHA，精简记录另存当前源码SHA及这项默认值变更说明，不冒充重新计算。

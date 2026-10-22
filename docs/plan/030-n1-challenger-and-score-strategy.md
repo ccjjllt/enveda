@@ -22,7 +22,7 @@
 
 维持原15项数据源、原候选池、默认生成规模与 POP=0.15。028 扩池、GEN_N_ANALOG=20 和 DreaMS 不混入本次实验。关闭 complement 也会改变已有 PubChem 重排和中间融合的输入，所以这是完整 N1 路径对照；同次运行的 E004 输出不能代替原 v465 全流程基线。
 
-产物为 `notebooks/030/enveda-030-n1-challenger.ipynb`、同目录 metadata/来源记录，以及手动构建脚本 `scripts/build_030_n1_challenger.py`。
+产物为 `notebooks/030/enveda-030-n1-challenger.ipynb`、同目录 metadata/来源记录，以及手动构建脚本 `scripts/030/build_030_n1_challenger.py`。
 
 ## 手动继续顺序
 

@@ -18,7 +18,7 @@
 - 以NP/G1研究数据训练同一模型，按canonical原分子分折；增强副本同折，标准化只用训练折。分别报告两域和有库/全无库/真值缺库/来源移除，不合成假设隐藏比例的总分。
 - 保存逐候选分数、mask、fold、OOF排名和模型。若该固定对照仍出现同类明显压力损失，停止当前线性模型配置，把资源转向新证据，不继续仅改变α。
 
-待改代码：新增`src/evidence_residual.py`和`scripts/run_008_d2.py`，从冻结的`artifacts/007-r1d/`读取特征；不要覆盖D原始结果。仅CPU小型残差训练，先实测时长再决定任何放大；不重训FPNet。
+待改代码：新增`src/evidence_residual.py`和`scripts/008/run_008_d2.py`，从冻结的`artifacts/runs/007-r1d/`读取特征；不要覆盖D原始结果。仅CPU小型残差训练，先实测时长再决定任何放大；不重训FPNet。
 
 ## 008-B：把oracle插入换成真实候选召回
 
@@ -31,7 +31,7 @@
 5. 先在首批10例核对流程，再在50例报告开发结果；最终方法冻结后再用未参与规则选择的记录核查。A/B为人为分层，不用于估算隐藏类别比例；本地B只表示当前候选库外，不等于官方真正de novo类别。
 6. 先做CPU召回与FP排序，确有新增覆盖后才补新候选的ICE分数，复用可兼容旧缓存。按实际新增任务数估算，首轮额外T4研究预算建议上限2小时；不为oracle插入继续花GPU。
 
-待改代码：`src/candidate_expansion.py`（固定索引与无标签查询）、`scripts/build_008_candidate_index.py`、`scripts/evaluate_008_expansion.py`。输出新增结构来源、全候选分数与逐例增损，不只输出“找回几个真值”。最终索引须可作为Kaggle离线输入，隐藏推理不得联网查询。
+待改代码：`src/candidate_expansion.py`（固定索引与无标签查询）、`scripts/008/build_008_candidate_index.py`、`scripts/008/evaluate_008_expansion.py`。输出新增结构来源、全候选分数与逐例增损，不只输出“找回几个真值”。最终索引须可作为Kaggle离线输入，隐藏推理不得联网查询。
 
 ## 008-C：生成仅完成正确接线，不因SAFE错误换大分子
 

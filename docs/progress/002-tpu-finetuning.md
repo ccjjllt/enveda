@@ -8,20 +8,20 @@
 
 - 用户因 Kaggle TPU 排队选择 Colab T4 / v5e-1。更新 `AGENTS.md`、`README.md` 和 002 计划：Colab T4 先核对已有 PyTorch 模型、权重和真实前向；保留 TPU 偏好，随后适配 v5e-1；Kaggle 留作候补与最终离线推理。
 - 当前任务核实 Colab 接入并按需配置，不启动模型训练。用户进一步提出：Kaggle 已关联 Colab，是否可直接通过现有 MCP/CLI 控制；此能力由 003 核实，通用 Colab MCP 保留为拟评估方案，不预先认定必须增加服务。配置与连接结果分别写入 [003 计划](../plan/003-colab-mcp.md) 与 [003 进展](003-colab-mcp.md)，不能由本页的平台选择推断 MCP 已可调用或 Colab 已分配设备。
-- 人工对照提交 `5e22537`、001 进展以及 `artifacts/001-baseline/train_fetch.json` / `split_manifest.json`：完整 train 已下载并实测为 2,539,608 行、18 列、21 row groups；初步 split 使用原始 `inchikey14`。B0/B2 已有本地流程结果，两份 FPNet 权重已下载，但尚无 torch 真实加载/前向，评分也未接入官方 RDKit 规范化。README 中“未下载 train”“没有 src/入口”“尚未 push TPU”等过期当前状态已更正。
+- 人工对照提交 `5e22537`、001 进展以及 `artifacts/runs/001-baseline/train_fetch.json` / `split_manifest.json`：完整 train 已下载并实测为 2,539,608 行、18 列、21 row groups；初步 split 使用原始 `inchikey14`。B0/B2 已有本地流程结果，两份 FPNet 权重已下载，但尚无 torch 真实加载/前向，评分也未接入官方 RDKit 规范化。README 中“未下载 train”“没有 src/入口”“尚未 push TPU”等过期当前状态已更正。
 - B0/B2 数值和局限保留在 001 记录，不当成 002 的 T0/T1 结果；尤其 merged 占位与真实 FPNet-merged 推理不同，预训练实际子集未知。
 - 本次 002 文档同步仅修改四份协作文档，未修改代码、001 文档、客户端全局配置或云端作业；未重新查询、运行或取消既有 Kaggle v1。人工查看改动 diff，并执行 `git diff --check`，未发现空白格式问题；003 的新增入口由对应任务写入。下面的 QUEUED 与配额均为历史快照，不代表实时状态。
 
 ## 2026-10-01 补充：TPU v1 已 push（最后观察为 QUEUED）
 
-- 用户明确授权使用 Kaggle TPU 后，经 CLI 人工 push：`kaggle kernels push -p notebooks/tpu-training --accelerator TpuV5E8`，返回 `Kernel version 1`，地址 `ccjjllt/enveda-tpu-finetuning`。metadata 已补真实用户名，`is_private true`、`enable_tpu true`、`machine_shape TpuV5E8`、离线、比赛输入本比赛。
+- 用户明确授权使用 Kaggle TPU 后，经 CLI 人工 push：`kaggle kernels push -p notebooks/archive/tpu-training --accelerator TpuV5E8`，返回 `Kernel version 1`，地址 `ccjjllt/enveda-tpu-finetuning`。metadata 已补真实用户名，`is_private true`、`enable_tpu true`、`machine_shape TpuV5E8`、离线、比赛输入本比赛。
 - push 后约 6 分钟内 `kaggle kernels status` 均为 `QUEUED`，`logs` 暂空；MCP `get_notebook_session_status` 返回空。这是当时的观察；本次文档更新未刷新状态。配额查询成功不等于分配成功，实际设备/版本/内存待 runtime 日志确认。
 - 本次 push 前 TPU 配额 0/72000s 未用，GPU 约剩 3.2h，刷新 10-03 00:00 UTC。短运行只做环境/设备/挂载/单步占位，不训练。
 
 ## 2026-09-30 补充：参考固定与 TPU 骨架（已人工验证）
 
 - 固定 `inversion/casmi-denovo-tutorial-notebook v9`（谱→SMILES 生成，编码器 6 层 12 头，从头训练，不作微调起点）、`prvsiyan/analog-propagation-casmi-2026-baseline v32`（FPNet d=512/6 层/8 头/128 峰，BCE+排序损失，merge_p=0.6）、`prvsiyan/casmi26-fp-models-v2 v1` CC0（两文件各约 144MB，T1 首选）、`jahidhsn/casmi26-fingerprint-model` MIT 约 29.4MB（架构与训练来源未知，次选）；DreaMS/MIST 均为 MIT，TPU 路径未验证。Notebook 许可字段 MCP 无返回，标未知。
-- 当时新建 `notebooks/tpu-training/002-tpu-finetuning.ipynb`（环境/设备核对 + 单步占位前向，不训练）+ `kernel-metadata.json`（`TpuV5E8`，离线私有）。本地提取 cells 验证：torch/xla 缺失时优雅跳过，无训练循环。**截至该 09-30 步骤**未 push、未申请设备；10-01 已 push v1，见上节。
+- 当时新建 `notebooks/archive/tpu-training/002-tpu-finetuning.ipynb`（环境/设备核对 + 单步占位前向，不训练）+ `kernel-metadata.json`（`TpuV5E8`，离线私有）。本地提取 cells 验证：torch/xla 缺失时优雅跳过，无训练循环。**截至该 09-30 步骤**未 push、未申请设备；10-01 已 push v1，见上节。
 
 ## 实际完成内容
 

@@ -20,6 +20,6 @@
 ## 交付与决策
 
 - 修正代码：`build_016_panel_features.py`、`run_016_panel_predict.py`、`build_016_colab_inputs.py`及新增输入修复脚本；不创建测试文件/框架/CI。
-- 审阅/产物：`artifacts/017-review/`、`artifacts/017-panel-inputs/`、`artifacts/017-corrected-features{,-ext}/`；配对文档与`data/references/research-results-017.json`保留实际结果。
+- 审阅/产物：`artifacts/runs/017-review/`、`artifacts/runs/017-panel-inputs/`、`artifacts/runs/017-corrected-features{,-ext}/`；配对文档与`data/references/research-results-017.json`保留实际结果。
 - 若修正后仍未形成可解释且可部署增量，明确不新增submission，并指出最近的一项有效研究；如果达到提交条件，先完成独立离线入口和实际整链运行，再评估提交。不得把旧错误报告当成确认，也不得承诺必然涨分。
 - 016面板已被使用，本轮是固定方案的纠错复算，不把它重新称为全新盲测；索引增大、源分布与015训练不同仍需分别解释。

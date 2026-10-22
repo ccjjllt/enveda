@@ -17,4 +17,4 @@
 
 ## 产物
 
-新增独立手动脚本`scripts/analyze_013_support_audit.py`、`scripts/analyze_013_r3_fragment_transfer.py`，结果分别位于`artifacts/013-support-audit/`、`artifacts/013-r3-fragment/`。不覆盖013旧支撑结果、不改已提交v9/v10。不创建测试文件/框架/CI。最终更新013历史边界、README与014配对进展，报告真实命令、设备、时长、指标及提交决定。
+新增独立手动脚本`scripts/013/analyze_013_support_audit.py`、`scripts/013/analyze_013_r3_fragment_transfer.py`，结果分别位于`artifacts/runs/013-support-audit/`、`artifacts/runs/013-r3-fragment/`。不覆盖013旧支撑结果、不改已提交v9/v10。不创建测试文件/框架/CI。最终更新013历史边界、README与014配对进展，报告真实命令、设备、时长、指标及提交决定。

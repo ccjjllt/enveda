@@ -26,8 +26,8 @@
 
 ## 可复用实现
 
-- `scripts/analyze_012_fragment_pilot.py::load_frag()`：固定的简化断键模块。
-- `artifacts/017-panel-inputs/inputs.json`：query原峰、候选SMILES与分子式。
-- `artifacts/017-review/corrected-full-crossings.json`：错误抬升及最佳错误参考行。
-- `artifacts/017-corrected-features/predict_metrics_details.json`：正确抬升对照来源。
-- `artifacts/019-research/`：本轮小样本解释与后续支持矩阵。
+- `scripts/012/analyze_012_fragment_pilot.py::load_frag()`：固定的简化断键模块。
+- `artifacts/runs/017-panel-inputs/inputs.json`：query原峰、候选SMILES与分子式。
+- `artifacts/runs/017-review/corrected-full-crossings.json`：错误抬升及最佳错误参考行。
+- `artifacts/runs/017-corrected-features/predict_metrics_details.json`：正确抬升对照来源。
+- `artifacts/runs/019-research/`：本轮小样本解释与后续支持矩阵。

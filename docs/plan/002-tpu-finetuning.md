@@ -56,9 +56,9 @@ Kaggle v5e-8 为 8 芯片、每芯片 16 GB HBM；128 GB 是分布式总容量�
 - `src/train_xla.py`：XLA 训练、BF16、固定 batch、必要的梯度累积与恢复训练；先适配 Colab v5e-1 单芯片。仅在候补方案需要时补充 Kaggle v5e-8 多设备数据并行/分片，记录全局与每设备 batch。
 - `src/inference.py`：CPU/CUDA 加载导出权重、多谱融合、候选排序与输出。
 - `configs/002-tpu-finetuning.yaml`：模型/数据/训练配置、seed、权重路径和产物位置。
-- `notebooks/tpu-training/002-tpu-finetuning.ipynb` 与 metadata：保留已 push v1 的 `TpuV5E8` 短运行骨架，作为 Kaggle 候补入口；后续修改需另记版本，不为查看排队状态重复 push。
-- `notebooks/colab/002-tpu-finetuning.ipynb`：后续模型研究时创建，先实现 T4 权重加载/真实前向与数据核对，再增加 v5e-1 适配；003 的通用 MCP 配置不承担模型训练。
-- `notebooks/inference/`：离线 Kaggle 入口及 metadata；显式挂载代码、checkpoint、候选库、wheels。
+- `notebooks/archive/tpu-training/002-tpu-finetuning.ipynb` 与 metadata：保留已 push v1 的 `TpuV5E8` 短运行骨架，作为 Kaggle 候补入口；后续修改需另记版本，不为查看排队状态重复 push。
+- `notebooks/archive/colab/002-tpu-finetuning.ipynb`：后续模型研究时创建，先实现 T4 权重加载/真实前向与数据核对，再增加 v5e-1 适配；003 的通用 MCP 配置不承担模型训练。
+- `notebooks/archive/inference/`：离线 Kaggle 入口及 metadata；显式挂载代码、checkpoint、候选库、wheels。
 
 不要只替换 `.cuda()` 就宣称 TPU 兼容。按当前 XLA 文档适配设备、优化器步进、attention 算子、AMP、同步与保存；记录实际运行版本。
 

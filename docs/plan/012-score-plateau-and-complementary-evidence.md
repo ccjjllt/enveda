@@ -20,7 +20,7 @@ v10仅向712199候选追加538个有效MassBank结构，保留v9指纹/质量窗
 
 ## 待修改代码与交付
 
-- 子任务负责`scripts/analyze_012_fragment_pilot.py`及必要独立模块，产物`artifacts/012-fragment/`；不改已提交v9/v10。
-- 官方、源码、论文证据分别存`artifacts/012-official/`、`artifacts/012-notebooks/`、`artifacts/012-literature/`，精简状态进入`data/references/`。
+- 子任务负责`scripts/012/analyze_012_fragment_pilot.py`及必要独立模块，产物`artifacts/runs/012-fragment/`；不改已提交v9/v10。
+- 官方、源码、论文证据分别存`artifacts/runs/012-official/`、`artifacts/runs/012-notebooks/`、`artifacts/runs/012-literature/`，精简状态进入`data/references/`。
 - 主线程更新011实际评分终态、README及012配对进展，记录真实命令、环境、参数、设备、耗时、指标、来源边界及下一方向。禁止测试文件、自动化测试与CI。
 - 本轮已授权研究与手动实验；新的远端大规模训练或比赛候选应先完成具体实现与离线证据，再按实际必要性和预算决定。不能把读源码、代码完成、运行成功、离线增益和public提升合并声称。

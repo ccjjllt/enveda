@@ -93,8 +93,8 @@ NP 有参考时，真值 quality 减去最佳错误 quality 的均值从 0.151 �
 本地 CPU，`.venv-015`：Python 3.11、NumPy 2.4.6、RDKit 2026.03.6、scikit-learn 1.9.1。特征 257.1 秒，模型与 400 面板迁移 6.1 秒，相对特征 0.2 秒。命令：
 
 ```bash
-.venv-015/bin/python scripts/run_018_reference_condition.py --phase all
-.venv-015/bin/python scripts/run_018_reference_condition.py --phase relative
+.venv-015/bin/python scripts/018/run_018_reference_condition.py --phase all
+.venv-015/bin/python scripts/018/run_018_reference_condition.py --phase relative
 ```
 
-产物在 `artifacts/018-reference-condition/`：`features.npz`、`per_query.jsonl`、`model_report.json`、`relative_report.json` 和全库 direct / relative 模型。4 分子探针在 `probe/`，只用于确认复现，不作为结果。精简数字在 `data/references/research-results-018.json`。
+产物在 `artifacts/runs/018-reference-condition/`：`features.npz`、`per_query.jsonl`、`model_report.json`、`relative_report.json` 和全库 direct / relative 模型。4 分子探针在 `probe/`，只用于确认复现，不作为结果。精简数字在 `data/references/research-results-018.json`。

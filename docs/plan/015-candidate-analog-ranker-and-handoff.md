@@ -38,11 +38,11 @@
 
 ## 实施与预算
 
-- `src/analog_evidence.py`、`scripts/build_015_candidate_features.py`：先probe，特征计算目标≤15分钟CPU、内存适合M5/32GB，产物`artifacts/015-analog/features/`。
-- `scripts/run_015_candidate_ranker.py`：项目内`.venv-015`复用离线缓存安装scikit-learn/scipy，不改全局环境；产物`artifacts/015-analog/ranker/`含OOF、折、输入SHA及明确实验性的全数据拟合模型。
+- `src/analog_evidence.py`、`scripts/015/build_015_candidate_features.py`：先probe，特征计算目标≤15分钟CPU、内存适合M5/32GB，产物`artifacts/runs/015-analog/features/`。
+- `scripts/015/run_015_candidate_ranker.py`：项目内`.venv-015`复用离线缓存安装scikit-learn/scipy，不改全局环境；产物`artifacts/runs/015-analog/ranker/`含OOF、折、输入SHA及明确实验性的全数据拟合模型。
 - 代码、运行、离线指标和public分别记录；不创建测试文件/框架/CI，不新开GPU作业，不自动提交未经验证的模型。
 - 正式交接包含当前分数/版本、研究结果、数据使用边界、可复用路径、准确命令、停止无效路线的依据、下一次submission条件与远端操作限制。
 
 ## 主实验完成后的追加归因（事后诊断，非原预注册方案）
 
-五方案结果显示NP B有增量、NP A/G1未确认；shuffle仍保留direct和参考身份，无法分离直接谱库检索与analog。因此在不修改原五方案、折、特征、参数和权重的前提下，追加LR/HGB各自“4基线＋direct_quality”五折消融，单独保存`artifacts/015-analog/direct-only-ablation/`。只比较原v9、同模型baseline、direct-only与原组合，固定20000次分子bootstrap。不做超参/阈值扫描、不新增全量拟合模型、不按结果部署。实现`scripts/analyze_015_direct_ablation.py`，实际结果进入同名进展。
+五方案结果显示NP B有增量、NP A/G1未确认；shuffle仍保留direct和参考身份，无法分离直接谱库检索与analog。因此在不修改原五方案、折、特征、参数和权重的前提下，追加LR/HGB各自“4基线＋direct_quality”五折消融，单独保存`artifacts/runs/015-analog/direct-only-ablation/`。只比较原v9、同模型baseline、direct-only与原组合，固定20000次分子bootstrap。不做超参/阈值扫描、不新增全量拟合模型、不按结果部署。实现`scripts/015/analyze_015_direct_ablation.py`，实际结果进入同名进展。

@@ -44,10 +44,10 @@ Kaggle MCP 在根会话仍列有工具，但读取 submission/asset 时发生 HT
 
 ## 本轮实际手动计算
 
-新建 [analyze_005_existing_results.py](../../scripts/analyze_005_existing_results.py)，读取已有 JSON，不运行模型、不使用隐藏标签。命令：
+新建 [analyze_005_existing_results.py](../../scripts/005/analyze_005_existing_results.py)，读取已有 JSON，不运行模型、不使用隐藏标签。命令：
 
 ```bash
-/opt/homebrew/bin/python3.11 scripts/analyze_005_existing_results.py
+/opt/homebrew/bin/python3.11 scripts/005/analyze_005_existing_results.py
 ```
 
 本机 M5/32GB；Python3.11、NumPy；约5.2秒。固定 seed=20261004，10,000次按分子成对 bootstrap。结果写入 [004-metric-reanalysis-2026-10-04.json](../../data/references/004-metric-reanalysis-2026-10-04.json)，包括来源文件 SHA、250分子明细、分层结果与局限。
@@ -73,7 +73,7 @@ Kaggle MCP 在根会话仍列有工具，但读取 submission/asset 时发生 HT
 
 ## 实际代码修改与人工核对
 
-- 修正 `notebooks/colab/004-part2-consolidated.ipynb` cell11 的 R4：使用 `enumerate(order, start=1)` 返回排序位置。
+- 修正 `notebooks/archive/colab/004-part2-consolidated.ipynb` cell11 的 R4：使用 `enumerate(order, start=1)` 返回排序位置。
 - 手动例子：`order=[2,0,1]`、真值原索引2；原表达式输出3，修正后输出1。手动编译该 cell 的 Python源码通过。**没有远端重跑，不宣称修正后的R4分数。**
 - 新增上述旧结果分析脚本及结构化报告；未修改004原始大产物，未写测试文件或引入自动化测试。
 - 更新004状态/错误解释、README当前研究入口和AGENTS接手位置，避免下一位再次从未执行R0的旧描述开始。
@@ -102,13 +102,13 @@ GLACIER有可用MassSpecGym路线，但当前公开wrapper与Colab Python3.13的
 
 ## E0–E4 执行与主审验证（2026-10-04，四子任务并行 + E2 跟进，主审逐项验货）
 
-**E0（同池复现与身份修正）**：`artifacts/005/` 下身份映射（train/coco parquet + summary）、36 组召回（`e0_cq_recall.json`）、双模型 logits（1184×6930 finite 且互异）、canon 重算全明细。主审验证：summary 数字与文件一致（train unique canon 274,186/变更 4,370；coco 432,610/45,540；并集 canonical 706,242，554 组横跨双池；NP16 单列）；canon 重算 train orig 0.688468 / union orig 0.504854 与报告一致且带逐分子明细；train shipped orig 0.675203 逐位复现历史 R2。结论：扩池代价 orig head 下 train→union −0.183（23 分子掉出 top25）；rank-head union −0.045（53 改善/84 恶化），train 上基本持平。`src/train_fingerprint.py` 只有 BCE、与 notebook 的 BCE+CE 不是同一公式——决定不动，需训练时再统一口径。遗留：`e0_head_compare.json` 的 summary/detail 为空（数字以 canon 明细 + logits 为准）。
+**E0（同池复现与身份修正）**：`artifacts/runs/005/` 下身份映射（train/coco parquet + summary）、36 组召回（`e0_cq_recall.json`）、双模型 logits（1184×6930 finite 且互异）、canon 重算全明细。主审验证：summary 数字与文件一致（train unique canon 274,186/变更 4,370；coco 432,610/45,540；并集 canonical 706,242，554 组横跨双池；NP16 单列）；canon 重算 train orig 0.688468 / union orig 0.504854 与报告一致且带逐分子明细；train shipped orig 0.675203 逐位复现历史 R2。结论：扩池代价 orig head 下 train→union −0.183（23 分子掉出 top25）；rank-head union −0.045（53 改善/84 恶化），train 上基本持平。`src/train_fingerprint.py` 只有 BCE、与 notebook 的 BCE+CE 不是同一公式——决定不动，需训练时再统一口径。遗留：`e0_head_compare.json` 的 summary/detail 为空（数字以 canon 明细 + logits 为准）。
 
 **E1（完整背景谱库 + analog）**：`src/retrieval.py` +697 行（主审 import + 直接/偏移 disjoint smoke 通过；早前一次报错是主审误传参数格式，代码无问题）。完整背景 seen 谱 MRR 0.9263/分子 0.9228（相对旧 L2453 −0.049/−0.056，Top25 同为 1179/1184——召回同、排序变差）；unseen 真值证据 MRR 0.0（tie-break 0.136 已明确剔除，不冒充）。互补：谱库修 94 个 FPNet Top1 错误，反向 8 个；高相似误命中 121 例（含同 adduct 多源仍错），证阈值不可硬接管。局限如实声明：偏移全背景穷举本地未跑。
 
 **E2（分子级多证据 ranker）**：同一 C(q)（union|single|10ppm nocap）四种对照——single 0.5149、等权 0.4956、选谱权重 0.5112、ranker **0.9211**；lib_only 0.8933；unseen 真值去库模拟 0.1000。主审独立重算：1000 个 rank 声明（250 分子×4 法）与 top25 实际位置 0 错位，ranker MRR 重算 0.921143 分毫不差。代码初轮未落盘，已补派落盘 `src/molecule_ranker.py` 并重跑确认 ranker MRR 差 0（single 对照差 −0.000333 系并列决胜口径不同，真值 rank 仅 1 分子差一位，不影响 verdict）。**verdict：不进提交管线**——+0.406 几乎全来自谱库（ranker 仅再 +0.028），无库真值下系统性降权（215 loss），不满足缺失处理要求。
 
-**E3（GLACIER 试点准备）**：`artifacts/005/glacier.pt` sha256 `9192e4c2…b397a12` 主审实测一致（60,531,887B；任务写的 61,108,325B 在任何来源都对不上，已弃用）；`src/forward_rerank.py` 新建（import 通过，条件映射/五元组缓存键/四类计数/三种预算入口齐备）；28 分子试点集规则落盘；CPU prep 136 谱 0.006s。数字 pending（无 shortlist + 无 GPU 环境），未编造。卡点明确：缺 ms-pred 推理子集 + RDKit 版本须子进程隔离 + cp312/3.13 绕行方案已备。
+**E3（GLACIER 试点准备）**：`artifacts/runs/005/glacier.pt` sha256 `9192e4c2…b397a12` 主审实测一致（60,531,887B；任务写的 61,108,325B 在任何来源都对不上，已弃用）；`src/forward_rerank.py` 新建（import 通过，条件映射/五元组缓存键/四类计数/三种预算入口齐备）；28 分子试点集规则落盘；CPU prep 136 谱 0.006s。数字 pending（无 shortlist + 无 GPU 环境），未编造。卡点明确：缺 ms-pred 推理子集 + RDKit 版本须子进程隔离 + cp312/3.13 绕行方案已备。
 
 **E4（公式路径 + 缺失分析）**：MIST-CF 两 ckpt URL 主审对官方 `download_model.sh` 逐字验证通过（zenodo 8151490）；SIRIUS/decomp 版本约束、正模式限制（`still only positive mode`，6 加合；`[M+K]+` 与全部负谱 unsupported）已核实；缺失表：NP 池 100%/窗 99.7% vs holdout 窗 82.5%——NP 不适合衡量外部召回。生成小试只设计未执行（待权重/环境）。
 
@@ -119,12 +119,12 @@ GLACIER有可用MassSpecGym路线，但当前公开wrapper与Colab Python3.13的
 **E3 GLACIER 试点（28 分子，Kaggle GPU 实跑，主审复算）**：
 - 配额：GPU 剩约 17.1h（此前“47 分钟”为过期快照），本次只 push 两次开发运行（v1 挂载失败 ERROR 约 24s、v2 修好挂载后 pip 失败 ERROR、v3 成功），配额消耗可忽略。
 - 两次修 bug 都是主审亲手修的：① 数据集挂载在 `/kaggle/input/datasets/{owner}/{slug}` 而非 `/kaggle/input/{slug}`——v1 全 0 挂载的原因，改全树按文件名搜索后解决；② cp312 轮子在 python3.13 worker 上装不上（意料之中），改 PyPI 直装（rdkit/einops/lightning/torchmetrics）+ `site='none'` + `--any-rdkit`。rdkit 实际为 2026.03.6（非 panel-exact 2025.03，已记偏差）。
-- 实测（v3 COMPLETE，T4，41.5s，68.46 pred/s，峰值 0.42GB，632 候选 506 scored）：base MRR 0.5162 → GLACIER 重排 **0.5791（+0.0629）**，改善 8 / 恶化 6 / 持平 14。逐分子由主审从 `glacier_scores.json` 独立重算。大胜：WJXS 24→1、CKEX 13→1、IKMD 3→1、FXNF 3→1；大亏：VNON 1→5、XRWQ 1→3。结论：同式重排有净增益但硬覆盖会亏 rank-1，必须做融合而非替换；28 例太少，扩到全观察集前不报成绩。产物：`notebooks/glacier-pilot/`（开发运行，非提交）、`artifacts/005/e3_pilot_rerank_eval.json`（逐分子 base/glacier rank，主审生成）。
+- 实测（v3 COMPLETE，T4，41.5s，68.46 pred/s，峰值 0.42GB，632 候选 506 scored）：base MRR 0.5162 → GLACIER 重排 **0.5791（+0.0629）**，改善 8 / 恶化 6 / 持平 14。逐分子由主审从 `glacier_scores.json` 独立重算。大胜：WJXS 24→1、CKEX 13→1、IKMD 3→1、FXNF 3→1；大亏：VNON 1→5、XRWQ 1→3。结论：同式重排有净增益但硬覆盖会亏 rank-1，必须做融合而非替换；28 例太少，扩到全观察集前不报成绩。产物：`notebooks/archive/glacier-pilot/`（开发运行，非提交）、`artifacts/runs/005/e3_pilot_rerank_eval.json`（逐分子 base/glacier rank，主审生成）。
 
 **E4 公式路径（20 分子，本地 CPU 实跑，主审验权重 + 落盘复跑）**：
 - 双 ckpt md5 主审实测与 zenodo API 一致（mist bff0db38…/fast 505eced4…）；`download_model.sh` 主审对官方逐字验证通过。
-- MIST-CF 真实前向：质量基线 Top1 9/20 → MIST 重排 **Top1 15/20**（+6，恶化 3）。SIRIUS 缺席（本机无 Java），用 E0 窗内公式枚举代替 decomp——候选偏乐观，已在 `scripts/mist_cf_formula.py` docstring 与结果 meta 双记；timsTOF→Unknown override 已记。
-- 落盘补派：`scripts/mist_cf_formula.py` + `artifacts/005/mist_cf_formula_topk_20.json`，重跑 Top1 15/20 零差异，主审验 JSON 得同数。
+- MIST-CF 真实前向：质量基线 Top1 9/20 → MIST 重排 **Top1 15/20**（+6，恶化 3）。SIRIUS 缺席（本机无 Java），用 E0 窗内公式枚举代替 decomp——候选偏乐观，已在 `scripts/legacy/mist_cf_formula.py` docstring 与结果 meta 双记；timsTOF→Unknown override 已记。
+- 落盘补派：`scripts/legacy/mist_cf_formula.py` + `artifacts/runs/005/mist_cf_formula_topk_20.json`，重跑 Top1 15/20 零差异，主审验 JSON 得同数。
 - FRIGID 2.8GB @~90KB/s 下不动（8–9h ETA）；MS-GPT 无直接权重 URL。只有 MIST-CF 这条公式路跑通，生成器本身仍 pending。
 
 本轮仍无 submission、无提分；成绩保持 0.206。下一步：E3 扩全观察集 + 只做融合（不硬覆盖）；E4 等 FRIGID 可下时再开生成小试。
@@ -145,7 +145,7 @@ GLACIER有可用MassSpecGym路线，但当前公开wrapper与Colab Python3.13的
 
 ## G1–G4 收尾 + ICEBERG 全量 + FRIGID 进行中（2026-10-04/05，四子任务，主审验货）
 
-**G1（manifest + 005 总入口）**：`artifacts/005/candidate_manifest.json`（并集 712,199、canon 706,242/official 706,289、跨池 554、NP16、fp_bits sha 与 pool-train/meta 一致，数字实测断言）+ `notebooks/colab/005-multi-evidence-ranking.ipynb`（6 格，AST 通过，互引一致）。验过。
+**G1（manifest + 005 总入口）**：`artifacts/runs/005/candidate_manifest.json`（并集 712,199、canon 706,242/official 706,289、跨池 554、NP16、fp_bits sha 与 pool-train/meta 一致，数字实测断言）+ `notebooks/archive/colab/005-multi-evidence-ranking.ipynb`（6 格，AST 通过，互引一致）。验过。
 
 **G2（扩池）**：缺口实测——NP/GEN 真值 train 覆盖 100%，coco raw 0，union 相对 train 零真值增量只有拥挤（窗 median 13→59）。LMSD 50,586→新增 canonical 22,765，指纹 25 秒建完，R1 同池验证 delta MRR **−0.00567**、Top25 −1、真值召回增量 0。决定：**LMSD 不进池**，ChEBI/Lite 不继续。停下比扩池诚实。
 
@@ -155,7 +155,7 @@ GLACIER有可用MassSpecGym路线，但当前公开wrapper与Colab Python3.13的
 
 ## FRIGID 双路径结果：0 召回，生成线封存（2026-10-05，主审验货）
 
-- `ccjjllt/frigid-pilot` COMPLETE，20 分子×双臂×B=100（oracle 真值式 vs MIST-CF Top1），产物 `artifacts/005/frigid_pilot_results.json`（主审取回，非转述）。
+- `ccjjllt/frigid-pilot` COMPLETE，20 分子×双臂×B=100（oracle 真值式 vs MIST-CF Top1），产物 `artifacts/runs/005/frigid_pilot_results.json`（主审取回，非转述）。
 - 实测：valid 率仅 0.21/0.20，unique 0.14/0.11；**生成池真值召回 0.0，并入 MRR 0.0**——4000 次生成零命中。样例触目惊心：`ranked25 = ["N","CN","NC1NCC[NH+]1","CCN"]`，`n_formula_matched = 0`——连给定分子式都不遵守。
 - 根因（结果文件自述 + 主审核实）：`fingerprint=None`，MIST 谱编码前向从未接通（Spec-featurizer 适配 pending），跑的是纯 formula 无条件生成。不是“FRIGID 不行”，是“无谱条件的扩散”不行；谱条件 + ICEBERG 精修路径未测（重工程），按 004 口径不欠账但也不承诺。
 - verdict：**生成线封存**。v9 按 FPNet + ICEBERG 融合做，谱库 ranker 不进（E2 verdict），LMSD 不进池（G2 verdict），FRIGID 不进（本 verdict）。

@@ -28,7 +28,7 @@
 | GEN500 有 215 个结构/630 条 query 出现在训练 200k；NP canonical 表只改 NP250，不扩展全训练别名 | GEN 不是严格结构未见；先建立实际整组排除后的新观察集，再选择训练方案 |
 | 候选导出未接去立体/互变异构匹配键，仍按原 key 去重 | 修研究数据身份与预测导出，指纹输入身份单独保留，避免无意改变预训练模型输入 |
 
-审计：[v7 与 004 证据](../../data/references/submission-v7-audit-2026-10-03.json)。其中日期按 UTC 文件命名，实际最终检查是北京时间 10-04。当前本地 `artifacts/submission-v7/submission.csv` 是**可见占位输入开发产物**，不是隐藏集逐行反馈。Kaggle 未返回隐藏真值、逐分子排名或 Class1/2/3 分数分解。
+审计：[v7 与 004 证据](../../data/references/submission-v7-audit-2026-10-03.json)。其中日期按 UTC 文件命名，实际最终检查是北京时间 10-04。当前本地 `artifacts/submissions/submission-v7/submission.csv` 是**可见占位输入开发产物**，不是隐藏集逐行反馈。Kaggle 未返回隐藏真值、逐分子排名或 Class1/2/3 分数分解。
 
 ### 可复用的数值证据
 
@@ -174,8 +174,8 @@ MARLIN 目前作为方向资料。只有可用权重/代码出现且满足来源
 | `src/models/fingerprint.py` | 与 v7 完全一致的输入路径、原 head/rank-head overlay；缓存逐谱输出 | 逐谱 logits/embedding、权重 SHA、各谱有效峰与条件 |
 | `src/ranking.py` | 分子组 OOF；质量感知多谱聚合、缺失特征、轻量 ranker | 每折预测、特征顺序、逐分子最终 top25、RR 与 delta |
 | `src/forward_rerank.py` | GLACIER 原始模型 adapter、条件映射、缓存与预算 | 实际预测谱/相似度、unsupported原因、时延/显存 |
-| `notebooks/colab/005-multi-evidence-ranking.ipynb` | 按 E0→E3 人工分格运行；依赖与设备记录；下载/训练/评估分开 | 唯一 run 目录及完整原始输出，不覆盖 004 同名文件 |
-| `notebooks/submission/` 新版本 | 挂载相同模型/候选/特征定义；自包含、离线；按实际 NG 分块；输出1–25个有效候选 | 明确 notebook/version→assets→submission/ref→score 的对应关系 |
+| `notebooks/archive/colab/005-multi-evidence-ranking.ipynb` | 按 E0→E3 人工分格运行；依赖与设备记录；下载/训练/评估分开 | 唯一 run 目录及完整原始输出，不覆盖 004 同名文件 |
+| `notebooks/submissions/submission/` 新版本 | 挂载相同模型/候选/特征定义；自包含、离线；按实际 NG 分块；输出1–25个有效候选 | 明确 notebook/version→assets→submission/ref→score 的对应关系 |
 
 `src/train_fingerprint.py` 当前训练入口只算 BCE，不能复现旧 notebook 的 BCE+rank；要继续训练时才把真实 rank loss 移入该模块。`src/evaluation.py` 缺 RDKit 会回退字符串匹配：005正式指标路径需明确用官方 RDKit helper，不把回退结果标为官方效果。代码这些缺口没有进入 v7，不能称为已证实 0.206 原因。
 

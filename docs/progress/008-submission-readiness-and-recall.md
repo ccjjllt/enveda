@@ -10,7 +10,7 @@
 
 ## D：结果可复现，但训练与推理还有错配
 
-新增手动入口 [analyze_008_r1d_evidence.py](../../scripts/analyze_008_r1d_evidence.py)，从候选特征、已保存模型与OOF结果重建。16组指标、改善/恶化及20,000次分子bootstrap与汇总一致；α=0和全无库时完整排序均为250/250一致。10个模型的训练折四类增强均值/标准差可精确复算，未发现标准化读入验证折的证据。
+新增手动入口 [analyze_008_r1d_evidence.py](../../scripts/008/analyze_008_r1d_evidence.py)，从候选特征、已保存模型与OOF结果重建。16组指标、改善/恶化及20,000次分子bootstrap与汇总一致；α=0和全无库时完整排序均为250/250一致。10个模型的训练折四类增强均值/标准差可精确复算，未发现标准化读入验证折的证据。
 
 | 集合/场景 | A MRR | D α=0.25 | D α=0.50 |
 | --- | ---: | ---: | ---: |
@@ -28,7 +28,7 @@ NP压力损失分别−0.027082/−0.057260，11/23个原Top1被改错；当前D
 
 ## R3扩池：0→0.64是oracle插入，不是候选发现成功
 
-新增手动入口 [analyze_008_pool_pilot.py](../../scripts/analyze_008_pool_pilot.py)，只读已存JSON，不运行FP。
+新增手动入口 [analyze_008_pool_pilot.py](../../scripts/008/analyze_008_pool_pilot.py)，只读已存JSON，不运行FP。
 
 - `r3_pool_pilot.py:143–169`读取5个B评价分子的已知SMILES/公式，核对其canonical等于truth，然后仅加这5个结构。没有无标签的外部候选搜索/枚举/生成。
 - 5个B排名5/2/2/1/1、MRR **0.64**可复算，含义是“正确结构已进入池时的条件排序”。不代表推理时能发现这些结构。
@@ -60,11 +60,11 @@ NP压力损失分别−0.027082/−0.057260，11/23个原Top1被改错；当前D
 
 ## 产物与人工核对
 
-本地M5、Python3.11/NumPy，手动执行两个新增脚本；D审计seed=20261004、bootstrap20,000次，沿用已存模型而不重新拟合。输出`artifacts/008/r1d-audit.json`、`pool-pilot-audit.json`、`mist-single-audit.json`及日志，原始实验产物不覆盖。MIST审查含官方源码URL、输入SHA和已执行阶段。
+本地M5、Python3.11/NumPy，手动执行两个新增脚本；D审计seed=20261004、bootstrap20,000次，沿用已存模型而不重新拟合。输出`artifacts/runs/008/r1d-audit.json`、`pool-pilot-audit.json`、`mist-single-audit.json`及日志，原始实验产物不覆盖。MIST审查含官方源码URL、输入SHA和已执行阶段。
 
 ```bash
-/opt/homebrew/bin/python3.11 scripts/analyze_008_r1d_evidence.py
-/opt/homebrew/bin/python3.11 scripts/analyze_008_pool_pilot.py
+/opt/homebrew/bin/python3.11 scripts/008/analyze_008_r1d_evidence.py
+/opt/homebrew/bin/python3.11 scripts/008/analyze_008_pool_pilot.py
 ```
 
 精简记录见[审查证据汇总](../../data/references/research-review-2026-10-12.json)。脚本语法、输出JSON、配对文档链接和`git diff --check`均已手动核对。实跑notebook另确认SAFE版本为0.2.1，与本次核对源码一致。
@@ -74,8 +74,8 @@ NP压力损失分别−0.027082/−0.057260，11/23个原Top1被改错；当前D
 ## 008-B 真实候选召回：实际结果（2026-10-12，CPU-only 手动执行）
 
 替代 oracle 插入的无标签召回已按 008-B 六条落地。新增 `src/candidate_expansion.py`、
-`scripts/build_008_candidate_index.py`、`scripts/evaluate_008_expansion.py`；
-输出新增目录 `artifacts/008-expansion/`（不覆盖 007-r3）。未写测试文件，未用 GPU，
+`scripts/008/build_008_candidate_index.py`、`scripts/008/evaluate_008_expansion.py`；
+输出新增目录 `artifacts/runs/008-expansion/`（不覆盖 007-r3）。未写测试文件，未用 GPU，
 未 push/submit，未读保留集；索引离线可用，不联网查询。
 
 索引来源清单：MassBank-data 2026.03 bulk 快照
@@ -134,17 +134,17 @@ UTDAG（positive prec 433.1217≈M+1.007）与 JOECR（prec- mass 18.04）等无
 20/21（50）top25，属真实干扰下的无标签召回，非 oracle 插入。
 同源乐观、YTCZZ rank40 FP 局限、4 不确定未覆盖须带入后续；本次不跑 ICE、不花 GPU，
 首轮额外 T4 预算未动用。产物 `candidate_index_*`、`sources_manifest.json`、
-`expansion_eval_10/50.json` 均在 `artifacts/008-expansion/`；`git diff --check` 已核对。
+`expansion_eval_10/50.json` 均在 `artifacts/runs/008-expansion/`；`git diff --check` 已核对。
 
 ## 008-A D2固定对照：实际结果（2026-10-12，主审复核，判STOP）
 
 **009后续更正：** 下文`max_abs_diff=0`只验证raw门控残差的逐行/批量一致；训练pair logit仍隐含α=1、推理α=.25，且仍分NP/G1独立模型，未完成计划要求的最终评分一致及共享模型对照。压力退化数值和当前配置STOP仍成立，不据此否定整条一致残差方法。详见[009复核](009-frontier-and-transfer.md)。
 
 单配置 α=0.25、τ=1.0，不扫描。新增 `src/evidence_residual.py`（门控残差+标准化+分组排序同一函数）
-与 `scripts/run_008_d2.py`（只读冻结 `artifacts/007-r1d/` 特征/A_full/folds，复用 forward 缓存，
+与 `scripts/008/run_008_d2.py`（只读冻结 `artifacts/runs/007-r1d/` 特征/A_full/folds，复用 forward 缓存，
 不重建库、不覆盖D、不重训FPNet）。NP/G1分域独立5折，4副本同折，μ/sd只用训练折。
 本地CPU全量墙钟143.0s（NP69.5s/G173.4s），seed全冻结20261004，bootstrap 20,000/分子。
-零GPU（只用标准库+numpy，不导入torch）、未push/submit、未读保留集。产物 `artifacts/008-d2/`
+零GPU（只用标准库+numpy，不导入torch）、未push/submit、未读保留集。产物 `artifacts/runs/008-d2/`
 （models/oof/metrics/run_meta，不动007-r1d）。
 
 | 域/场景 | A MRR | D2 MRR | delta[95%CI] | 改善/恶化 | Top1 w2r/r2w | D冻结α0.25参考 |
@@ -176,8 +176,8 @@ G1来源唯一改善PYBOHFRFXPUXAC 2→1系uncovered组内干扰负残差让位�
 
 ## 008-C 生成接线：实际结果（2026-10-12，CPU可查部分，主审复核）
 
-零GPU，未动 `artifacts/mist-single/` 原始包。修正副本
-`artifacts/008-mist-fix/run_mist_single_fixed.py`（563行原包的修正版）+
+零GPU，未动 `artifacts/legacy/mist-single/` 原始包。修正副本
+`artifacts/runs/008-mist-fix/run_mist_single_fixed.py`（563行原包的修正版）+
 `INTERFACE_DIFF.md` + `positive_candidates.json` + `check_fingerprint_interface.py`。
 `py_compile`（原包/修正版/5个新py）与JSON校验均通过；校验脚本四节手动跑通。
 未下载大权重、未push/submit、未读保留集；未写测试文件/CI。
