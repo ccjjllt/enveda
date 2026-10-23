@@ -40,3 +40,13 @@
 - 排行榜（CLI）：#1 Oleksandr Parfionov 0.504，#2 pikachu 0.499，#3 CHU1PC 0.495；#4 Savko 0.490；#5 JJ 0.489；#20 Faraz92 **0.470**（上次约 0.469）。顶部分数未实质移动。
 - 监视 notebook：原列表 lastRun 时间相对 12:08 巡检无新版本。新增留意（配额恢复后对照，不混入本次 030）：`likedge/casmi26-funnel-r1-full`（COMPLETE，R1 结构留出全量，`PILOT_N=0`）、`likedge/casmi26-funnel-r2-full`（ERROR）。`a-gated-top1-swap` 与 `det-gate-a` 当前 status=ERROR；`det-gate-d` / `funnel-r1-pilot8` / `n1-challenger-pair-lambdarank` / `v25-unq` 仍为 COMPLETE。Edge（likedge）公榜约 **0.463**（#356），高于我方 0.007，方向仍与已备 030 N1 一致，无新可立即采纳的公榜分数跃迁。
 - 无安全可立即执行的 CPU/Colab 增产项；不起草 032。下一步不变：配额恢复后由用户手动继续 **030**。
+
+## 2026-10-24 06:10（北京时间）定时巡检
+
+- GPU 周配额仍耗尽（已用 30.10/30h，剩余 0；预计 **2026-10-24 08:00** 北京时间恢复，约 2 小时后），无运行中 enveda GPU kernel，按用户选择**未** auto-push 029a/030。
+- 提交仍最佳 v14 public **0.456**（ref `57462581`）；名次约 **666 / 3902**（队伍继续增加，分数未变；上次巡检约 613/3858）。
+- 排行榜（CLI 全量）：#1 Oleksandr Parfionov 0.504，#2 pikachu 0.499，#3 CHU1PC 0.495；#4 Savko 0.490；#5 JJ 0.489；#20 Shehab Alshehabi **0.470**。顶部分数相对 18:08 巡检无实质移动。
+- 监视 notebook：相对 `watch_nb_hashes/2026-10-23-1808.json` **SHA256 全无变化**；status 仍为 a-gated-top1-swap / det-gate-a / funnel-r2-full = ERROR，其余 COMPLETE。Edge（likedge）公榜约 **0.463**（#419），lavinwins / Hongbin Gu 约 **0.464**。
+- 新近公开 notebook（仅留意、不混入本次 030）：`senanuretin/casmi26-exact-public-example-overlap-audit`、`bhuvneshrichhariya/casmi26-*`、`d1m4official/enveda-casmi-2026-solution-v29`、`hailonglv/casmi26-v16-budget` 等；未见明显高于我方且可立即采纳的公开跃迁。
+- 下一步不变：配额恢复后由用户手动继续 **030** N1 challenger；例行检查不自动 push。
+
