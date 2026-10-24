@@ -1,5 +1,6 @@
 # Enveda CASMI 2026 研究项目
 
+- 034 负离子-only 分子：[M-H]- 平移 +2H 作 [M+H]+ 代理喂 ICE/GL（本地 ICE 0.681/GL 0.731 vs 随机 0.227），kernel v13 运行中。见 docs/plan/034-negproxy.md
 > 033（2026-10-24）：028 结构改为 Engine1 生成候选注入，GPU 运行干净，已提交 v16（ref 57595662），待评分。当前最佳 v15 0.464。
 
 > 032（2026-10-24）：v15 + 028 扩池两次 GPU 运行均未成功（缺 numpy 导入；v4b 特征族的池对齐资源与扩池不兼容），未提交。当前最佳仍 v15 公榜 0.464。详见 docs/progress/032-v15-plus-e1ext.md。
