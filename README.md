@@ -1,5 +1,7 @@
 # Enveda CASMI 2026 研究项目
 
+> 033（2026-10-24）：028 结构改为 Engine1 生成候选注入，GPU 运行干净，已提交 v16（ref 57595662），待评分。当前最佳 v15 0.464。
+
 > 032（2026-10-24）：v15 + 028 扩池两次 GPU 运行均未成功（缺 numpy 导入；v4b 特征族的池对齐资源与扩池不兼容），未提交。当前最佳仍 v15 公榜 0.464。详见 docs/progress/032-v15-plus-e1ext.md。
 
 从串联质谱（MS/MS）预测分子结构，研究候选召回、排序、多谱融合与模型训练。比赛：[Enveda CASMI 2026 — Molecule ID From Mass Spectra](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra)。交流与研究记录默认使用中文。
