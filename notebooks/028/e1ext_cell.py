@@ -3,7 +3,8 @@ not already in the v2 pool, restricted to neutral masses within 15 ppm of the ac
 bits (chem.raw_fingerprint + fp_bits), fragment masses (frag.fragments_for_smiles, time-budgeted; empty after budget) and
 join the pool (src=4), so Engine-1 scores and ranks them and the simulators see them via the base lists.
 Any failure keeps the original pool symlinks.'''
-import time as _xt, pickle as _xp
+import os, glob, time as _xt, pickle as _xp
+import numpy as np, pandas as pd
 E1EXT = dict(status='start'); _x0 = _xt.time(); E1EXT_ORDER = None; E1EXT_NNEW = 0
 try:
     from casmi import chem as _xc, frag as _xf
