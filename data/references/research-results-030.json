@@ -81,5 +81,114 @@
     "expected_gpu_reset_beijing": "2026-10-24T08:00:00+08:00",
     "next_action": "Recheck ccjjllt quota; manually push notebooks/030; record actual version; submit after successful completion"
   },
-  "result": "Prepared only. Current measured public score remains 0.456."
+  "result": "030 kernel v9 COMPLETE; submitted v15 ref57583178 at 2026-10-24 13:05 Beijing. Last observed PENDING; public score not returned. Best measured score remains 0.456.",
+  "execution_2026_10_24": {
+    "account": "ccjjllt",
+    "user_authorized_continue": true,
+    "kernel": "ccjjllt/enveda-020-e006-repro",
+    "version": 9,
+    "status": "COMPLETE",
+    "gpu_hours_available_before": 30.0,
+    "runtime_confirmed": {
+      "python": "3.12.13",
+      "device": "Tesla T4 x2",
+      "metric_rdkit": "2026.03.3"
+    },
+    "notebook_sha256": "d64c97cf657e5916fb7ece3ac4b7a2e69d8cf4e51f8018dbcf558d5107e5a5b3",
+    "source_cells_equal_remote": true,
+    "artifacts": "artifacts/runs/030/execution-2026-10-24",
+    "new_submission": {
+      "checked_at": "2026-10-24T13:06:14.302508+08:00",
+      "submission": {
+        "ref": "57583178",
+        "fileName": "submission.csv",
+        "date": "2026-10-24 05:05:38.263000",
+        "description": "v15 030 v465 + N1 challenger joint ICE-GL",
+        "status": "SubmissionStatus.PENDING",
+        "publicScore": "",
+        "privateScore": ""
+      }
+    },
+    "followup": "User will notify after competition scoring. No active polling or automation; do not push or submit again.",
+    "asset_versions_snapshot": "artifacts/runs/030/execution-2026-10-24/asset-versions-observed.json",
+    "runtime_ranker_seeds": {
+      "engine2": [
+        0,
+        1
+      ],
+      "pv": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "new_training_experiment": false,
+    "elapsed_seconds_log": 1533.496612705,
+    "output_check": {
+      "rows": 400,
+      "columns": [
+        "molecule_id",
+        "smiles"
+      ],
+      "unique_ids": 400,
+      "ids_match_input": true,
+      "empty_smiles": 0,
+      "min_candidates": 1,
+      "max_candidates": 25,
+      "sha256": "5c098f153b748a651757c5aea2f078a7d1d82cfb3ae89bd656c5cc81a203ce76",
+      "hash_matches_final": true,
+      "processed_smoke_molecules": 12,
+      "placeholder_rows": 388,
+      "n1": {
+        "complement": false,
+        "proxy_covered_molecules": 0,
+        "joint_rerank_rows": 0,
+        "joint_finite_ice_rows": 0,
+        "joint_finite_both_rows": 0
+      },
+      "base_errors": 0,
+      "ice_status": "ok",
+      "gl_status": "ok"
+    },
+    "simulators": {
+      "ice": {
+        "status": "ok",
+        "n_mols": 12,
+        "n_mols_covered": 11,
+        "n_mols_scored": 11,
+        "n_cands": 815,
+        "n_scored": 794,
+        "n_pred": 1601,
+        "n_pred_fail": 0,
+        "seconds": 106.45,
+        "device": "cuda",
+        "rdkit": "2025.03.6",
+        "torch": "2.10.0+cu128"
+      },
+      "gl": {
+        "status": "ok",
+        "n_mols": 11,
+        "n_mols_covered": 11,
+        "n_mols_scored": 11,
+        "n_cands": 794,
+        "n_scored": 794,
+        "n_pred": 1601,
+        "n_pred_fail": 0,
+        "seconds": 79.73,
+        "device": "cuda",
+        "rdkit": "2025.03.6",
+        "torch": "2.10.0+cu128"
+      }
+    },
+    "n1_synthetic": {
+      "molecules": 11,
+      "proxy_spectra": 39,
+      "merged_ce_spectra": 8,
+      "predictions": 1940,
+      "prediction_failures": 0,
+      "seconds": 39.03
+    },
+    "output_artifacts": "artifacts/submissions/030-v15-kernel-v9"
+  }
 }
