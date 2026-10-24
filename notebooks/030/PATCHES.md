@@ -1,6 +1,6 @@
 # 030：v465 + 完整 N1 challenger
 
-入口：`enveda-030-n1-challenger.ipynb`。10月22日完成准备；10月24日 `ccjjllt/enveda-020-e006-repro` v9已COMPLETE，Python3.12.13/T4×2，耗时25分33秒；已正式提交v15，ref57583178，最后查询PENDING。用户会在评分完成后通知继续，尚无新分数。当前状态见030进展。
+入口：`enveda-030-n1-challenger.ipynb`。10月22日完成准备；10月24日 `ccjjllt/enveda-020-e006-repro` v9已COMPLETE，Python3.12.13/T4×2，可见运行耗时25分33秒；正式提交v15/ref57583178已COMPLETE，**public 0.464，比原基线0.456提高0.008**。结果及解释边界见030进展。
 
 ## 改动
 

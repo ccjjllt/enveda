@@ -2,7 +2,7 @@
 
 整理日期：2026-10-22（北京时间）。**研究执行从030接手**；031记录本次目录整理，不代表新的模型实验或分数。
 
-- [当前研究计划](plan/030-n1-challenger-and-score-strategy.md)与[实际进展](progress/030-n1-challenger-and-score-strategy.md)：v14实测0.456；030 kernel v9已完成并提交v15（ref57583178），待评分，等用户通知后查询。
+- [当前研究计划](plan/030-n1-challenger-and-score-strategy.md)与[实际进展](progress/030-n1-challenger-and-score-strategy.md)：030已完成，v15（ref57583178/kernel v9）实测 **0.464，比v14提高0.008**；10月24日公榜171/3940。
 - [研究历史与结论](research-history.md)：原README各轮摘要，包含当时状态与已限缩的旧判断。
 - [比赛规则、数据与远端工作流](remote-workflow.md)：Kaggle/Colab说明和手动CLI参考。
 - [根目录说明](../README.md)与[协作约定](../AGENTS.md)。

@@ -81,7 +81,7 @@
     "expected_gpu_reset_beijing": "2026-10-24T08:00:00+08:00",
     "next_action": "Recheck ccjjllt quota; manually push notebooks/030; record actual version; submit after successful completion"
   },
-  "result": "030 kernel v9 COMPLETE; submitted v15 ref57583178 at 2026-10-24 13:05 Beijing. Last observed PENDING; public score not returned. Best measured score remains 0.456.",
+  "result": "v15 ref57583178 COMPLETE/public0.464, +0.008 versus v14 0.456. New best public baseline. Rank171/3940 at 2026-10-24 18:16 Beijing.",
   "execution_2026_10_24": {
     "account": "ccjjllt",
     "user_authorized_continue": true,
@@ -98,18 +98,28 @@
     "source_cells_equal_remote": true,
     "artifacts": "artifacts/runs/030/execution-2026-10-24",
     "new_submission": {
-      "checked_at": "2026-10-24T13:06:14.302508+08:00",
+      "checked_at": "2026-10-24T18:16:17.089782+08:00",
       "submission": {
         "ref": "57583178",
         "fileName": "submission.csv",
         "date": "2026-10-24 05:05:38.263000",
         "description": "v15 030 v465 + N1 challenger joint ICE-GL",
-        "status": "SubmissionStatus.PENDING",
-        "publicScore": "",
+        "status": "SubmissionStatus.COMPLETE",
+        "publicScore": "0.464",
         "privateScore": ""
-      }
+      },
+      "baseline": {
+        "ref": "57462581",
+        "fileName": "submission.csv",
+        "date": "2026-10-21 02:52:32.267000",
+        "description": "v14 fork v465 pop015 baseline",
+        "status": "SubmissionStatus.COMPLETE",
+        "publicScore": "0.456",
+        "privateScore": ""
+      },
+      "delta_public": 0.008
     },
-    "followup": "User will notify after competition scoring. No active polling or automation; do not push or submit again.",
+    "followup": "Scoring complete. v15 becomes new public baseline; no duplicate push/submission or automatic job.",
     "asset_versions_snapshot": "artifacts/runs/030/execution-2026-10-24/asset-versions-observed.json",
     "runtime_ranker_seeds": {
       "engine2": [
@@ -190,5 +200,21 @@
       "seconds": 39.03
     },
     "output_artifacts": "artifacts/submissions/030-v15-kernel-v9"
+  },
+  "scored_result": {
+    "checked_at": "2026-10-24T18:16:17.089782+08:00",
+    "submission_ref": "57583178",
+    "kernel_version": 9,
+    "public_score": 0.464,
+    "previous_best_public": 0.456,
+    "delta_public": 0.008,
+    "rank": 171,
+    "teams": 3940,
+    "rank20_score": 0.471,
+    "rank5_score": 0.489,
+    "rank1_score": 0.504,
+    "offline_improvement_measured": false,
+    "private_score_known": false,
+    "limitation": "No hidden N1 per-molecule evidence; exact mounted asset versions not proven equal to v14."
   }
 }
