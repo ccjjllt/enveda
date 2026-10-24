@@ -72,3 +72,8 @@ subprocess.run(['kaggle', 'kernels', 'push', '-p', 'notebooks/030'], check=True)
 使用现有 Kaggle CLI 的 Python 环境执行，保持项目为当前目录。收到版本号后观察同一版本完成情况，查看日志与产物；随后 `kaggle competitions submit ... -k ccjjllt/enveda-020-e006-repro -v <实际完成版本> -f submission.csv -m 'v15 030 v465 + N1 challenger joint ICE-GL'`。不要上传本地CSV代替代码提交，不猜版本号，不把可见smoke当泛化结果。
 
 完成一次实分对照后，研究优先级为：完整GPU留出流程 → 单独028召回增量 → 根据同式/缺参考/负离子错例引入新的候选或谱证据。目标是能在独立数据上成立的自有改进，而非反复适配public榜。
+
+## 2026-10-24 12:05 巡检附注
+
+ccjjllt GPU 配额已恢复为剩余 **30.00h**（已用 0）。远端仍未 push/运行 030；公榜仍 0.456。按用户「届时手动继续」约定，本巡检**未**执行 kernels push。手动顺序见上文「下次直接执行」。
+

@@ -50,3 +50,13 @@
 - 新近公开 notebook（仅留意、不混入本次 030）：`senanuretin/casmi26-exact-public-example-overlap-audit`、`bhuvneshrichhariya/casmi26-*`、`d1m4official/enveda-casmi-2026-solution-v29`、`hailonglv/casmi26-v16-budget` 等；未见明显高于我方且可立即采纳的公开跃迁。
 - 下一步不变：配额恢复后由用户手动继续 **030** N1 challenger；例行检查不自动 push。
 
+## 2026-10-24 12:05（北京时间）定时巡检
+
+- **GPU 周配额已重置**：ccjjllt 现为已用 **0.00h / 30h**，剩余 **30.00h**；下次刷新 UTC 10-31 00:00（北京时间 10-31 08:00）。TPU 剩余 20h。
+- 无运行中 enveda GPU kernel；`ccjjllt/enveda-020-e006-repro` 仍为 COMPLETE（旧 v8 / v14 得分版本）。**按用户选择未 auto-push 029a/030。**
+- 提交仍最佳 v14 public **0.456**（ref `57462581`）；名次约 **683 / 3914**（队伍继续增加，分数未变；上次 06:10 巡检约 666/3902）。
+- 排行榜（CLI 全量）：#1 Oleksandr Parfionov **0.504**，#2 pikachu 0.499，#3 CHU1PC 0.495；#4 Savko 0.490；#5 JJ 0.489；#20 Shehab Alshehabi **0.470**。顶部分数相对 06:10 无实质移动。
+- 监视 notebook 状态：`n1-challenger-pair-lambdarank` / `funnel-r1-full` / `det-gate-d` / `funnel-r1-pilot8` / `v25-unq` / `guhongbin/v465` = COMPLETE；`a-gated-top1-swap` / `det-gate-a` / `funnel-r2-full` / `lavinwins/casmi26-top-1-gold` = ERROR。未见新的明显高于我方且可立即采纳的公开跃迁。
+- 快照：`artifacts/runs/029/patrol_2026-10-24-1203/`（quota / submissions / leaderboard_summary / watch_status）。
+- **阻塞**：030 N1 challenger 代码已备好，配额已恢复，但仍待用户**手动** `kaggle kernels push -p notebooks/030` 后观察完成再提交。例行检查不代为 push。
+
