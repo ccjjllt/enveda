@@ -2,7 +2,7 @@
 score the final <=25 candidates with sanpier/casmi-spectrum-model-v1 (spectrum transformer + fingerprint head,
 trained on train.parquet) and fuse ranks: 1/(3+baseline_rank) + W/(3+neural_rank). Candidate SET never changes.
 Any failure -> submission.csv untouched.'''
-NEURAL_W, NEURAL_OFF = 0.25, 3.0
+NEURAL_W, NEURAL_OFF = 0.40, 3.0
 NEURAL_HEALTH = 'NEURAL NOT RUN'
 try:
     import glob as _g, json as _j, types as _t, importlib.util as _iu, shutil as _sh
