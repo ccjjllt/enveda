@@ -1,3 +1,10 @@
+import glob as _g, subprocess as _sp, sys as _sys
+_w = _g.glob('/kaggle/input/**/rdkit*.whl', recursive=True)
+try:
+    import rdkit
+except ImportError:
+    _sp.run([_sys.executable, '-m', 'pip', 'install', '-q', 'rdkit==2026.3.3'], check=True)
+import rdkit; print('rdkit', rdkit.__version__, flush=True)
 """own_spec features (zhan zhao / enveda project, own implementation).
 Spectrum -> K peak tokens; molecule -> Morgan count fingerprint. Pure numpy/RDKit."""
 import numpy as np
@@ -161,6 +168,7 @@ if __name__ == '__main__':
     log('spectra', len(Y), 'molecules', len(ulist))
     with Pool(os.cpu_count()) as p: fps = p.map(fp_one, [info[k][0] for k in ulist], chunksize=512)
     good = np.array([f is not None for f in fps])
+    assert good.mean() > 0.9, ('fingerprint failure', good.mean())
     FP = np.stack([f if f is not None else np.zeros(FP_BITS, np.uint8) for f in fps]); del fps
     sel = good[Y]; X, N, MM, A, I, Y = X[sel], N[sel], MM[sel], A[sel], I[sel], Y[sel]
     form = [info[k][1] for k in ulist]

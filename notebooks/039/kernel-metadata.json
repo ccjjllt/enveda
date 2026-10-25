@@ -6,8 +6,11 @@
  "kernel_type": "script",
  "is_private": true,
  "enable_gpu": true,
- "enable_internet": false,
+ "enable_internet": true,
  "dataset_sources": [],
- "competition_sources": ["enveda-CASMI26-molecule-id-mass-spectra"],
- "kernel_sources": []
+ "competition_sources": [
+  "enveda-CASMI26-molecule-id-mass-spectra"
+ ],
+ "kernel_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
 }
