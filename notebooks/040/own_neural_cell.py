@@ -4,13 +4,13 @@ score the final <=25 candidates with sanpier/casmi-spectrum-model-v1 (spectrum t
 trained on train.parquet) and fuse ranks: 1/(3+baseline_rank) + W/(3+neural_rank). Candidate SET never changes.
 Any failure -> submission.csv untouched.'''
 NEURAL_W, NEURAL_OFF = 0.25, 3.0
-OWN_FP_W = 1.0  # set from train_result.json best val weight
+OWN_FP_W = 0.5  # 039 train_result.json: best val isomer MRR 0.7606 @0.5
 NEURAL_HEALTH = 'NEURAL NOT RUN'
 try:
     import glob as _g, json as _j, types as _t, importlib.util as _iu, shutil as _sh
     import numpy as _np, pandas as _pd, torch as _torch
     from pathlib import Path as _P
-    _cfgs = sorted(_g.glob('/kaggle/input/**/own_spec/model.pt', recursive=True), key=len)
+    _cfgs = sorted(_g.glob('/kaggle/input/**/own_spec/model.pt', recursive=True), key=len) or sorted([p for p in _g.glob('/kaggle/input/**/model.pt', recursive=True) if os.path.exists(os.path.join(os.path.dirname(p), 'feats.py')) and 'sanpier' not in p and 'spectrum-model' not in p], key=len)
     assert _cfgs, 'own_spec bundle not mounted'
     _B = _P(_cfgs[0]).parent
     _pkg = '_casmi_own'; _m = _t.ModuleType(_pkg); _m.__path__ = [str(_B)]; sys.modules[_pkg] = _m
