@@ -1,5 +1,6 @@
 # Enveda CASMI 2026 研究项目
 
+- 036 v15 + 公开神经重排（sanpier spectrum model，W=0.25 RRF），GPU 运行中。见 docs/plan/036-neural-rerank.md
 - 035 v15 + 仅 034 负离子代理（去掉 033 注入），v18 已提交（ref 57608348，待评分）。见 docs/plan/035-v15-negproxy.md
 - 034 负离子-only 分子：[M-H]- 平移 +2H 作 [M+H]+ 代理喂 ICE/GL（本地 ICE 0.681/GL 0.731 vs 随机 0.227），kernel v13 完成，v17 public 0.446（退步，不采用）。见 docs/plan/034-negproxy.md
 > 033（2026-10-24）：028 结构改为 Engine1 生成候选注入，GPU 运行干净，v16 public 0.450（退步，不采用）。当前最佳仍为 v15 0.464。
