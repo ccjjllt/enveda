@@ -1,0 +1,18 @@
+{
+ "id": "ccjjllt/enveda-039-own-spec",
+ "title": "enveda-039-own-spec",
+ "code_file": "own_spec_train.py",
+ "language": "python",
+ "kernel_type": "script",
+ "is_private": true,
+ "enable_gpu": true,
+ "enable_internet": true,
+ "dataset_sources": [
+  "ccjjllt/enveda-own-spec"
+ ],
+ "competition_sources": [
+  "enveda-CASMI26-molecule-id-mass-spectra"
+ ],
+ "kernel_sources": [],
+ "machine_shape": "NvidiaTeslaT4"
+}

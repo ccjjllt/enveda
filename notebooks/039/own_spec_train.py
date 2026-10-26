@@ -173,7 +173,7 @@ if __name__ == '__main__':
     sel = good[Y]; X, N, MM, A, I, Y = X[sel], N[sel], MM[sel], A[sel], I[sel], Y[sel]
     form = [info[k][1] for k in ulist]
     log('fp done', FP.shape, 'spectra kept', len(Y))
-    rng = np.random.default_rng(20261025)
+    rng = np.random.default_rng(20261025)  # fixed: same holdout across runs
     hold = rng.random(len(ulist)) < (0.2 if SMOKE else 0.02)
     by_mol = {}
     for i, y in enumerate(Y.tolist()): by_mol.setdefault(y, []).append(i)
@@ -191,7 +191,12 @@ if __name__ == '__main__':
         va.append((random.Random(m).choice(by_mol[m]), [m] + c))
     log('train mols', len(tr_mols), 'val isomer sets', len(va), 'multi-formula groups', len(multi))
     dev = 'cuda' if torch.cuda.is_available() else 'cpu'
+    torch.manual_seed(int(os.environ.get('OWN_SEED', '0')))
     net = OwnSpec(fp_bits=FP_BITS).to(dev)
+    _init = glob.glob('/kaggle/input/**/own_spec/model.pt', recursive=True)
+    if os.environ.get('OWN_INIT', '1') == '1' and _init:
+        net.load_state_dict(torch.load(_init[0], map_location=dev)['state_dict']); log('warm start from', _init[0])
+    rng2 = np.random.default_rng(int(os.environ.get('OWN_SEED', '0')) + 7)
     BS = 64 if SMOKE else 1024
     opt = torch.optim.AdamW(net.parameters(), lr=3e-4, weight_decay=0.02)
     scaler = torch.amp.GradScaler(enabled=dev == 'cuda')
@@ -203,6 +208,7 @@ if __name__ == '__main__':
     both = Both(net); bothp = torch.nn.DataParallel(both) if torch.cuda.device_count() > 1 else both
 
     def batch():
+        rng = rng2
         mols = []
         while len(mols) < BS // 2:
             g = multi[rng.integers(len(multi))]
@@ -229,7 +235,7 @@ if __name__ == '__main__':
         torch.save({'state_dict': net.state_dict(), 'cfg': net.cfg}, f'{OUT}/model.pt')
         json.dump(dict(tag=tag, steps=step, val=last_val, n_val=len(va), elapsed_h=(time.time() - T0) / 3600), open(f'{OUT}/train_result.json', 'w'), indent=1)
 
-    step, last_val, lr0 = 0, None, 3e-4
+    step, last_val, lr0 = 0, None, float(os.environ.get('OWN_LR', '3e-4'))
     t_train0 = time.time(); total = BUDGET_H * 3600 - (t_train0 - T0) - 900
     if SMOKE: total = 60
     next_eval = t_train0 + (20 if SMOKE else 1800)
