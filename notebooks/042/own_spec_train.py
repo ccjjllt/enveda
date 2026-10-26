@@ -195,8 +195,9 @@ if __name__ == '__main__':
     dev = 'cuda' if torch.cuda.is_available() else 'cpu'
     torch.manual_seed(int(os.environ.get('OWN_SEED', '0')))
     net = OwnSpec(fp_bits=FP_BITS).to(dev)
-    _init = glob.glob('/kaggle/input/**/own_spec/model.pt', recursive=True)
-    if os.environ.get('OWN_INIT', '1') == '1' and _init:
+    _init = sorted(glob.glob('/kaggle/input/**/model.pt', recursive=True))
+    if os.environ.get('OWN_INIT', '1') == '1':
+        assert _init, 'OWN_INIT=1 but no model.pt under /kaggle/input'
         net.load_state_dict(torch.load(_init[0], map_location=dev)['state_dict']); log('warm start from', _init[0])
     rng2 = np.random.default_rng(int(os.environ.get('OWN_SEED', '0')) + 7)
     BS = 64 if SMOKE else 1024
@@ -241,7 +242,7 @@ if __name__ == '__main__':
     t_train0 = time.time(); total = BUDGET_H * 3600 - (t_train0 - T0) - 900
     if SMOKE: total = 60
     next_eval = t_train0 + (20 if SMOKE else 1800)
-    last_val = evaluate(); log('VAL init (random)', last_val)
+    last_val = evaluate(); log('VAL init', last_val)
     while True:
         frac = (time.time() - t_train0) / total
         if frac >= 1: break
