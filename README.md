@@ -4,6 +4,7 @@
 - 040 v15 + 自研神经重排（W0.25, fp0.5）kernel v18 运行中，待自动提交 v21。见 docs/plan/040-own-neural.md
 - 037 v20 W0.40 公榜 0.453（< W0.25 的 0.465），保留 W0.25；038 top1 保护已构建未提交；sanpier 模型许可证 unknown（获奖风险）
 - 039 自研谱模型训练完成：val isomer MRR 0.7606（fp 权重 0.5），私有 dataset ccjjllt/enveda-own-spec
+- 040 v21 自研神经重排 0.464（≈v19 0.465，许可证干净）→ 主线；v20 W0.40 0.453。041 = v21 + top1 保护，运行中
 - 037 神经重排权重扫描（W=0.40，v20 运行中）。见 docs/plan/037-neural-weight.md
 - 035 v15 + 仅 034 负离子代理（去掉 033 注入），v18 已提交（ref 57608348，待评分）。见 docs/plan/035-v15-negproxy.md
 - 034 负离子-only 分子：[M-H]- 平移 +2H 作 [M+H]+ 代理喂 ICE/GL（本地 ICE 0.681/GL 0.731 vs 随机 0.227），kernel v13 完成，v17 public 0.446（退步，不采用）。见 docs/plan/034-negproxy.md
