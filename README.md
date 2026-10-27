@@ -1,5 +1,6 @@
 # Enveda CASMI 2026 研究项目
 
+- 044 候选池硬负例微调训练中（目标：重排 val 收益能转化为公榜），见 docs/progress/044-hard-negative.md
 - 036 v15 + 公开神经重排（sanpier spectrum model，W=0.25 RRF），v19 公榜 0.465（当前最佳）。见 docs/plan/036-neural-rerank.md
 - 040 v15 + 自研神经重排（W0.25, fp0.5）kernel v18 运行中，待自动提交 v21。见 docs/plan/040-own-neural.md
 - 037 v20 W0.40 公榜 0.453（< W0.25 的 0.465），保留 W0.25；038 top1 保护已构建未提交；sanpier 模型许可证 unknown（获奖风险）
@@ -72,4 +73,5 @@ enveda/
 接手先读对应计划与进展，结束后更新进展。脚本按研究轮次归类，临时缓存与大文件放忽略目录，原始数据和权重不提交Git。失败实验及其实际结果保留用于研究复盘。
 
 不创建测试文件、测试框架或CI门控；数据读取、语法检查、notebook执行与研究指标核对均手动发起。复现记录包含notebook/资产版本、seed、设备、耗时、指标与输出位置。凭据留在用户认证配置中，不写入仓库、文档或日志。完整约定见[AGENTS.md](AGENTS.md)。
-- 043：自研双模型集成重排（042 续训 val 0.7636）；v22 保护=0.398 已废弃；v23 待评分
+- 043：自研双模型集成重排（042 续训 val 0.7636）；v22 保护=0.398 已废弃；v23 公榜 0.464（持平，重排进入平台期）
+- 044：自研模型「候选池硬负例」微调（PubChemLite+COCONUT 同分子式在线挖掘 + 推理同款打分 listwise CE），新增贴近测试的 pool val；训练 kernel v6 运行中，k044_watch 过门槛自动建 dataset→推送提交 kernel→提交。见 docs/plan/044-hard-negative.md
