@@ -1,7 +1,8 @@
 # Enveda CASMI 2026 研究项目
 
-- 045 leader-safe 融合（W_MID=0.75）+ 碎片校验 rank-1，排队待 10-31 配额重置提交，见 docs/progress/045-leader-safe-frag.md
-- 044 候选池硬负例微调训练中（目标：重排 val 收益能转化为公榜），见 docs/progress/044-hard-negative.md
+- 045 leader-safe 融合（W_MID=0.75）+ 碎片校验 rank-1，排队待 10-31 08:00 北京配额重置提交，见 docs/progress/045-leader-safe-frag.md
+- 046 实列表残差（草稿）：045 出分后在自研管线上做有界残差，见 docs/plan/046-real-list-residual.md
+- 044 硬负例 model3 已训完并入库；提交被周 GPU 配额挡住，由 045 队列承接，见 docs/progress/044-hard-negative.md
 - 036 v15 + 公开神经重排（sanpier spectrum model，W=0.25 RRF），v19 公榜 0.465（当前最佳）。见 docs/plan/036-neural-rerank.md
 - 040 v15 + 自研神经重排（W0.25, fp0.5）kernel v18 运行中，待自动提交 v21。见 docs/plan/040-own-neural.md
 - 037 v20 W0.40 公榜 0.453（< W0.25 的 0.465），保留 W0.25；038 top1 保护已构建未提交；sanpier 模型许可证 unknown（获奖风险）
