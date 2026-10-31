@@ -37,3 +37,9 @@
 - 仍无新提交（最佳仍 v19 0.465 / 最近 v23 0.464）；k045_queue.sh 存活（setsid 于 00:31 北京重启后仍在，PID 轮询 sleep 1800），最近失败仍为周 GPU 配额满（日志至 06:02）；距重置约 26h（10-31 08:00 北京）。
 - LB 下载快照约 4345 队；team ccjjllt 0.465 约第 929；#1 0.517；约第 18≈0.482；银 5%≈0.477（~217）、铜 10%≈0.472（~434）。
 - 045a/b notebook 与 model3.pt（ccjjllt/enveda-own-spec）仍就绪；046 仍等 045 公榜，未开工。无需叫醒用户。
+
+## 巡检 2026-10-31 12:09 北京
+- **045a 已推送并提交**：10:17 北京 `kaggle kernels push` 成功（kernel slug `ccjjllt/enveda-020-e006-repro` v21）；10:19–10:48 RUNNING→COMPLETE；`k_watch` 已提交 ref `57824441`（描述：045a leader-safe W_MID0.75 on model3），当前 **SubmissionStatus.PENDING**，尚无 publicScore。
+- `k045_queue.sh` 仍存活（PID 106020，自 00:20 北京起；`do_wait`），按脚本在 045a 提交日后一天 08:05 北京唤醒后推送 045b。
+- 最佳公榜仍 v19 **0.465**（最近完整分 v23 0.464）；LB 快照约 **4423** 队；team ccjjllt 0.465 约第 **1032**；#1 0.517；约第 18≈0.482；银/铜 5%/10% 分位均≈0.477（公开 SOTA 平台堆积）。
+- 046 仍等 045 公榜，未开工。无新分、无 blocker，不叫醒用户。
