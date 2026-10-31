@@ -78,3 +78,4 @@ enveda/
 - 043：自研双模型集成重排（042 续训 val 0.7636）；v22 保护=0.398 已废弃；v23 公榜 0.464（持平，重排进入平台期）
 - 044：自研模型「候选池硬负例」微调（PubChemLite+COCONUT 同分子式在线挖掘 + 推理同款打分 listwise CE），新增贴近测试的 pool val；训练 kernel v6 运行中，k044_watch 过门槛自动建 dataset→推送提交 kernel→提交。见 docs/plan/044-hard-negative.md
 - 045：045a = 044 + leader-safe 融合（rank1 W0.25，rank2–25 W0.75，离线扫描选定）；045b = 045a + 碎片校验 rank-1 规则（移植 Roman Tamrazov MetFrag-lite）。致谢 alex chilton、Roman Rozen、busyaprime、Roman Tamrazov。见 docs/plan/045-leader-safe-frag.md
+- 045a 结果：v24 公榜 0.462（ref 57824441），W_MID 0.75 对 model3 有害；045b 改为 044 融合（W0.25）+ 碎片 rank-1 规则

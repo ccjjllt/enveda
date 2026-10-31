@@ -17,15 +17,15 @@ def _ls_order(_br, _nr, _wm):
 '''
 NEW_A = "_new = [_c[i] for i in _ls_order(_br, _nr, NEURAL_W_MID)]"
 FRAG = open('frag_physical.py').read()
-NEW_B = '''_new = [_c[i] for i in _ls_order(_br, _nr, NEURAL_W_MID)]
+NEW_B = '''_new = [_c[i] for i in _ls_order(_br, _nr, NEURAL_W)]  # 045b v2: plain W0.25 on all ranks (045a W_MID 0.75 scored 0.462)
                 try:
-                    _fw_ = _frag_top1(_mid, [_c[i] for i in _ls_order(_br, _nr, 0.5)], dict(zip(_c, _s_mol)))
+                    _fw_ = _frag_top1(_mid, list(_new), dict(zip(_c, _s_mol)))
                 except Exception as _fe:
                     _fw_ = None; _st['frag_err'] = _st.get('frag_err', 0) + 1
                 if _fw_ is not None and _fw_ != _new[0]:
                     _old = _new[0]; _new = [_fw_, _old] + [x for x in _new if x not in (_fw_, _old)]; _st['frag_top1'] = _st.get('frag_top1', 0) + 1'''
 FRAG_HELP = '''# 045b fragment rank-1 rule (Roman Tamrazov "Spectral Parallax" MetFrag-lite; merge per busyaprime 0.477):
-# run on the W_MID=0.5 leader-safe order; keep only its leader change; old leader -> rank 2; rest = W_MID order.
+# run on the plain W=0.25 order (044 fusion); old leader -> rank 2; rest keep W=0.25 order.
 import time as _time, json as _json2
 from rdkit.Chem import rdMolDescriptors as _rmd
 _FRAG_SRC = %r
