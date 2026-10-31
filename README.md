@@ -1,5 +1,6 @@
 # Enveda CASMI 2026 研究项目
 
+- 046-sanpier（A 线，sanpier 冲奖牌）：046A = 036 + leader-safe W_MID0.75 + 碎片 rank-1(V2 序) 复现公开 0.477，020 kernel v22 运行中、跑完自动提交；见 docs/plan/046-sanpier-track.md
 - 045a leader-safe（W_MID=0.75 on model3）已提交 ref 57824441（PENDING 出分）；045b 排队明日配额日推送，见 docs/progress/045-leader-safe-frag.md
 - 046 实列表残差（草稿）：045 出分后在自研管线上做有界残差，见 docs/plan/046-real-list-residual.md
 - 044 硬负例 model3 已训完并入库；提交被周 GPU 配额挡住，由 045 队列承接，见 docs/progress/044-hard-negative.md
