@@ -8,3 +8,6 @@
 - 公榜：待出分。
 - 2026-11-02 00:06 巡检发现：10-31 16:46 v22 已 COMPLETE，但 k_watch 下载只拿到 baseline_submission.csv（submission.csv 未下载，疑为下载超时），门槛判定 NOT_SUBMITTED，046A 漏提交约 31h。按版本直接提交 `-v 22`：ref **57877235**（PENDING）。
 - 教训：k_watch 下载缺文件时应重试下载，而不是直接判 NOT_SUBMITTED；`kaggle kernels output owner/slug/<ver>` 对私有 kernel 报权限拒绝，只能拿最新版本输出。
+- 2026-11-02 06:05 巡检：046A（ref 57877235，020 v22）公榜 **0.468**，新最佳（> v19 0.465，+0.003），但低于预期 0.472–0.477。
+  - 判断：差距主要来自与公开 0.477 版的门槛差异（未接 ICE/GL simulator_vote，碎片 leader 改动召回偏少），以及底座 v19 与公开底座的细微差别。
+  - 下一步：按计划优先级 1 补齐 simulator_vote（ICE/GL 分数传入碎片规则，supports<1 但 sim≥1 放行、sim≤−1 拒绝），再推 A 线一次。

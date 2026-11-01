@@ -4,7 +4,8 @@
 - 045a leader-safe（W_MID=0.75 on model3）已提交 ref 57824441（PENDING 出分）；045b 排队明日配额日推送，见 docs/progress/045-leader-safe-frag.md
 - 046 实列表残差（草稿）：045 出分后在自研管线上做有界残差，见 docs/plan/046-real-list-residual.md
 - 044 硬负例 model3 已训完并入库；提交被周 GPU 配额挡住，由 045 队列承接，见 docs/progress/044-hard-negative.md
-- 036 v15 + 公开神经重排（sanpier spectrum model，W=0.25 RRF），v19 公榜 0.465（当前最佳）。见 docs/plan/036-neural-rerank.md
+- 036 v15 + 公开神经重排（sanpier spectrum model，W=0.25 RRF），v19 公榜 0.465。见 docs/plan/036-neural-rerank.md
+- 046A（A 线，sanpier + leader-safe W_MID0.75 + 碎片 rank-1，020 v22）公榜 **0.468**（当前最佳，许可 unknown 不参与奖金）；B 线自研最佳仍 0.464。见 docs/plan/046-sanpier-track.md
 - 040 v15 + 自研神经重排（W0.25, fp0.5）kernel v18 运行中，待自动提交 v21。见 docs/plan/040-own-neural.md
 - 037 v20 W0.40 公榜 0.453（< W0.25 的 0.465），保留 W0.25；038 top1 保护已构建未提交；sanpier 模型许可证 unknown（获奖风险）
 - 039 自研谱模型训练完成：val isomer MRR 0.7606（fp 权重 0.5），私有 dataset ccjjllt/enveda-own-spec
