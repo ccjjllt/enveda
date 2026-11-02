@@ -1,5 +1,6 @@
 # Enveda CASMI 2026 研究项目
 
+- 046B（A 线）：046A + ICE/GL simulator_vote 接入碎片 rank-1 规则（对齐公开 0.477 门槛：supports<1 但 sim≥1 放行、sim≤−1 否决），020 kernel **v24** 已推送运行中，watcher 跑完自动提交；见 docs/plan/046-sanpier-track.md
 - 046-sanpier（A 线，sanpier 冲奖牌）：046A = 036 + leader-safe W_MID0.75 + 碎片 rank-1(V2 序) 复现公开 0.477，020 kernel v22 运行中、跑完自动提交；见 docs/plan/046-sanpier-track.md
 - 045a leader-safe（W_MID=0.75 on model3）已提交 ref 57824441（PENDING 出分）；045b 排队明日配额日推送，见 docs/progress/045-leader-safe-frag.md
 - 046 实列表残差（草稿）：045 出分后在自研管线上做有界残差，见 docs/plan/046-real-list-residual.md

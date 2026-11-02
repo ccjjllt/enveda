@@ -21,3 +21,13 @@
 ## 额度与节奏
 - GPU 周额度 30h（周六 08:00 重置），单次全量约 0.5–1h T4；两线合计每天 ≤2 次提交（Kaggle 日界 08:00 北京）。
 - 新建独立 kernel ccjjllt/enveda-046-sanpier 失败：新 kernel 无法固定旧 docker 镜像，落到 Python 3.13，ICEBERG/GLACIER 需要的 RDKit cp312 wheel 装不上（v1、v2 均 ERROR，约 1 分钟）。因此 A 线也推到 ccjjllt/enveda-020-e006-repro，靠时间错开（046A 今天跑，045b 明天 08:05 推），按版本号提交互不影响。
+
+## 046B：补齐 ICE/GL simulator_vote（2026-11-02）
+- 046A 公榜 0.468（< 预期 0.472–0.477），差距判断主要在碎片规则的 leader 改动召回偏少。
+- 构建：`notebooks/046/build_b.py`（在 046A 已构建 notebook 上打补丁，046A 可复现不变）→ `enveda-046b-sanpier-sim.ipynb`。
+- 对齐公开 busyaprime 0.477（Spectral Parallax decision()）：
+  - supports = engine2 / pubchem / main（最终 baseline 列表 BASE[mid][0]）按 metric_identity 排名在 1..5 的个数（原 046A 用 e004 的 base_tail 精确 SMILES 匹配；异常时回退旧逻辑）。
+  - simulator_vote = Σ(ICE, GL)：候选 ≥ leader 记 +1；候选 < leader − 0.35 记 −1（两者都有限值才计；查表 smiles → score_key）。
+  - supports<1 且 sim<1 拒绝；sim≤−1 拒绝；得分 = margin + .05·nm + .025·sim + .01·supports。
+  - 其余门槛与 046A 相同；新增诊断计数 _FSIM（sim_rescue / sim_veto / gate_rej / 异常数），打印标记 `046B SANPIER LS FRAG SIM`。
+- 预期：+0.001~0.004（0.469–0.472）；若 ≤0.468，说明剩余差距在底座（v19 vs 公开 frozen 0.465 管线），下一步转融合权重扫描或 model3+sanpier 集成。

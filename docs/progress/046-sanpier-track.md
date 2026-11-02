@@ -11,3 +11,8 @@
 - 2026-11-02 06:05 巡检：046A（ref 57877235，020 v22）公榜 **0.468**，新最佳（> v19 0.465，+0.003），但低于预期 0.472–0.477。
   - 判断：差距主要来自与公开 0.477 版的门槛差异（未接 ICE/GL simulator_vote，碎片 leader 改动召回偏少），以及底座 v19 与公开底座的细微差别。
   - 下一步：按计划优先级 1 补齐 simulator_vote（ICE/GL 分数传入碎片规则，supports<1 但 sim≥1 放行、sim≤−1 拒绝），再推 A 线一次。
+- 2026-11-02 12:05 开始 046B：从 /tmp/pubk 公开 0.477 源码抽出 `_post` 中 decision()，确认 simulator_vote 门槛（a≥b +1，a<b−.35 −1；supports<1&sim<1 拒，sim≤−1 拒；+.025·sim 计分）及 supports 用 metric identity 排名（export_evidence: main=BASE[0]、engine2=ENG、pubchem=PC）。
+- 实现 `notebooks/046/build_b.py`；本地 mock 校验：sim/supports 计算与放行/否决逻辑符合预期（sup=0 但 sim=1 的候选被放行并夺 rank-1；ICE −1 + GL +1 = 0 且 sup=0 被拒）。
+- 当日（UTC 11-02）提交数 0。12:09 推送 ccjjllt/enveda-020-e006-repro **v24**（046B），RUNNING。
+- 监控：/workspace/k046b/run.sh（setsid nohup，日志 /workspace/k046b_watch.out）：墙钟循环（30s 短 sleep、每 2 分钟查状态，14h 截止）；COMPLETE 后下载输出最多重试 6 次直到拿到 submission.csv + log；门槛 = ≥100 行 + "NEURAL OK" + "046B SANPIER LS FRAG SIM"；提交前查 UTC 当日提交数 <2；按版本 `-v 24` 提交，成功后写 /workspace/k046b/SUBMITTED。
+- 公榜：待出分。
