@@ -16,3 +16,4 @@
 - 当日（UTC 11-02）提交数 0。12:09 推送 ccjjllt/enveda-020-e006-repro **v24**（046B），RUNNING。
 - 监控：/workspace/k046b/run.sh（setsid nohup，日志 /workspace/k046b_watch.out）：墙钟循环（30s 短 sleep、每 2 分钟查状态，14h 截止）；COMPLETE 后下载输出最多重试 6 次直到拿到 submission.csv + log；门槛 = ≥100 行 + "NEURAL OK" + "046B SANPIER LS FRAG SIM"；提交前查 UTC 当日提交数 <2；按版本 `-v 24` 提交，成功后写 /workspace/k046b/SUBMITTED。
 - 公榜：待出分。
+- 2026-11-02 18:05 巡检：046B（ref 57896547，020 v24）公榜 **0.467**，未超 046A 0.468。日志诊断 sim_rescue=0、sim_veto=0、gate_rej=0：simulator_vote 在本管线上没有改变任何决策，0.001 差异来自 supports 改用 metric-identity 排名。结论：A 线剩余差距不在碎片门槛，转入 047 融合权重扫描（046A 底座）。
