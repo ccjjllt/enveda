@@ -84,3 +84,5 @@ enveda/
 - 044：自研模型「候选池硬负例」微调（PubChemLite+COCONUT 同分子式在线挖掘 + 推理同款打分 listwise CE），新增贴近测试的 pool val；训练 kernel v6 运行中，k044_watch 过门槛自动建 dataset→推送提交 kernel→提交。见 docs/plan/044-hard-negative.md
 - 045：045a = 044 + leader-safe 融合（rank1 W0.25，rank2–25 W0.75，离线扫描选定）；045b = 045a + 碎片校验 rank-1 规则（移植 Roman Tamrazov MetFrag-lite）。致谢 alex chilton、Roman Rozen、busyaprime、Roman Tamrazov。见 docs/plan/045-leader-safe-frag.md
 - 045a 结果：v24 公榜 0.462（ref 57824441），W_MID 0.75 对 model3 有害；045b 改为 044 融合（W0.25）+ 碎片 rank-1 规则
+
+- **048 特征工程**：自研断键碎片解释/中性丢失特征 + 线性 listwise 残差，model3 独立 holdout isomer MRR 0.8174→0.8345（+0.017，CI>0）；020 v27 已推送自动提交（B 线）。见 docs/progress/048-feature-engineering.md。

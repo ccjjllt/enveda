@@ -1,0 +1,19 @@
+U 275810 hold 5495
+queries 1500
+q 0
+q 200
+q 400
+q 600
+q 800
+q 1000
+q 1200
+q 1400
+/workspace/enveda/src/fe048/build_val.py:63: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  r = df.groupby('q').apply(lambda g: 1.0 / (1 + (g[col] > g[g.y == 1][col].iloc[0]).sum()))
+/workspace/enveda/src/fe048/build_val.py:63: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  r = df.groupby('q').apply(lambda g: 1.0 / (1 + (g[col] > g[g.y == 1][col].iloc[0]).sum()))
+/workspace/enveda/src/fe048/build_val.py:63: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  r = df.groupby('q').apply(lambda g: 1.0 / (1 + (g[col] > g[g.y == 1][col].iloc[0]).sum()))
+/workspace/enveda/src/fe048/build_val.py:63: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  r = df.groupby('q').apply(lambda g: 1.0 / (1 + (g[col] > g[g.y == 1][col].iloc[0]).sum()))
+MRR base 0.8340074850147665 emb 0.8327531351594466 ll 0.7099148535532801 tani 0.7139144807444996 n 1500

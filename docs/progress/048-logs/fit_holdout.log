@@ -1,0 +1,5 @@
+holdout val2 base=emb: 0.8174 -> 0.8345 (+0.0171, CI [+0.0097,+0.0240], W/L 156/99, n=1500)
+   top1 0.7353 -> 0.758
+weights {'fr_cov': np.float64(0.161), 'fr_icov': np.float64(0.371), 'fr_top10': np.float64(0.561), 'fr_icov0': np.float64(-0.197), 'fr_sqi': np.float64(0.41), 'nl_cov': np.float64(0.02), 'nl_icov': np.float64(0.367), 'fr_any': np.float64(-0.344), 'fr_n': np.float64(-0.224)} a 2.767
+holdout val2 base=b1: 0.8172 -> 0.8385 (+0.0213, CI [+0.0139,+0.0292], W/L 162/88, n=1500)
+   top1 0.7333 -> 0.7633

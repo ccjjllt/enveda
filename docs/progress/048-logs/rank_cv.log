@@ -1,0 +1,28 @@
+model3 base MRR 0.834 queries 1500
+ single fr_icov 0.6863
+ single fr_any 0.653
+ single nl_icov 0.6268
+ single fr_top10 0.7646
+lgb_base         MRR 0.8174 delta -0.0166 CI [-0.0257,-0.0081] W/L 117/189
+lgb_base+frag    MRR 0.8380 delta +0.0039 CI [-0.0075,+0.0141] W/L 174/166
+lgb_all          MRR 0.8388 delta +0.0048 CI [-0.0054,+0.0152] W/L 171/161
+base_dm       51577.0
+emb_dm        42076.0
+emb_z          4848.0
+base_z         4512.0
+base           1864.0
+fr_sqi_dm      1192.0
+fr_sqi_r       1160.0
+fr_n           1120.0
+nl_icov_z      1031.0
+tani_z          865.0
+fr_icov_dm      864.0
+tani_r          790.0
+nl_icov_r       771.0
+ll_z            768.0
+fr_n_r          707.0
+d_logp          668.0
+ll_dm           657.0
+ll_r            638.0
+fr_n_dm         634.0
+ll              631.0
