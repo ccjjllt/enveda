@@ -6,7 +6,7 @@ reproducing the public 0.477 recipe:
   leader move kept: [frag_leader, V2_leader] + rest of 0.75 order (merge recipe: busyaprime, public 0.477).
 Neural model: Saner Turhaner (sanpier) casmi-spectrum-model-v1 -- license unknown; NOT prize-eligible track."""
 import json, copy, sys
-W_TOP, W_MID, W_FRAG = 0.25, float(sys.argv[1]) if len(sys.argv) > 1 else 0.60, 0.5
+W_TOP, W_MID, W_FRAG = 0.25, float(sys.argv[1]) if len(sys.argv) > 1 else 0.90, 0.5
 nb = json.load(open('../036/enveda-036-v15-neural.ipynb'))
 ix = [i for i, c in enumerate(nb['cells']) if 'NEURAL_W, NEURAL_OFF' in ''.join(c['source'])]; assert len(ix) == 1; ix = ix[0]
 src = ''.join(nb['cells'][ix]['source'])
@@ -31,7 +31,7 @@ rep = [
                     _fw_ = None; _st['frag_err'] = _st.get('frag_err', 0) + 1
                 if _fw_ is not None and _fw_ != _v2[0]:
                     _old = _v2[0]; _new = [_fw_, _old] + [x for x in _new if x not in (_fw_, _old)]; _st['frag_top1'] = _st.get('frag_top1', 0) + 1'''),
- ("print('036', NEURAL_HEALTH", "print('047 SANPIER WMID SCAN', NEURAL_W, NEURAL_W_MID, NEURAL_W_FRAG, NEURAL_HEALTH"),
+ ("print('036', NEURAL_HEALTH", "print('047b SANPIER WMID SCAN', NEURAL_W, NEURAL_W_MID, NEURAL_W_FRAG, NEURAL_HEALTH"),
 ]
 for a, b in rep:
     assert src.count(a) == 1, a; src = src.replace(a, b)

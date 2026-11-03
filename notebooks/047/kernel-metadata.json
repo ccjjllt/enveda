@@ -35,6 +35,6 @@
  "title": "enveda-020-e006-repro",
  "code_file": "enveda-047-sanpier-wmid.ipynb",
  "is_private": true,
- "docker_image": "gcr.io/kaggle-gpu-images/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461",
- "docker_image_pinning_type": "original"
+ "docker_image_pinning_type": "original",
+ "docker_image": "gcr.io/kaggle-gpu-images/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461"
 }
