@@ -86,3 +86,4 @@ enveda/
 - 045a 结果：v24 公榜 0.462（ref 57824441），W_MID 0.75 对 model3 有害；045b 改为 044 融合（W0.25）+ 碎片 rank-1 规则
 
 - **048 特征工程**：自研断键碎片解释/中性丢失特征 + 线性 listwise 残差，model3 独立 holdout isomer MRR 0.8174→0.8345（+0.017，CI>0）；020 v27 已推送自动提交（B 线）。见 docs/progress/048-feature-engineering.md。
+- **049 A×B 集成**：046A sanpier 流水线 + 自研 model3 rank 项 W_OWN=0.20（三种融合序统一加项，失败回退 046A）；020 v28 已推送，watcher 自动提交。见 docs/progress/049-ens-ab.md。
