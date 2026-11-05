@@ -1,0 +1,9 @@
+{
+  "lib_tau": 0.9,
+  "budget_s": 2400,
+  "mode": "freeze",
+  "train_ik14": "train_ik14.pkl",
+  "frag_lin": "frag_lin.json",
+  "frag_feats": "frag_feats.py",
+  "min_list_len": 2
+}

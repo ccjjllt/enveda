@@ -95,6 +95,10 @@ enveda/
 - **020 kernel v30 / ref 58008856 公榜 0.480**（新最佳，超过 046A 0.468）。详见 docs/plan/051-public-top-replication.md 与 docs/progress/051-public-top-replication.md。
 - 050b（v31，W_FR=0.30）top1_vs_046A=0，未提交。见 docs/progress/050-sanpier-fragres.md。
 
+### 053 碎片 FREEZE 重排（A 线，051 底座）
+- 自研 048 断键碎片线性分 + heliosli 式训练集结构冻结；lib_max≥0.9 / 短列表跳过。
+- 数据集 `ccjjllt/casmi26-053-fragfreeze`；020 kernel **v33** RUNNING；watcher `/workspace/k053/run.sh`（日志门控后 `-k/-v` 提交）。见 docs/plan/053-frag-isomer-freeze.md。
+
 ### 052 外部新版谱库叠加（A 线，051 底座）
 - 自建非 train 结构 MS2 库（MassBank permissive / GNPS CC0 / MSnLib / Zenodo novel / takumuhata，许可见 plan），cosine≥0.55 且匹配峰≥3 时提到 rank1；lib_max≥0.9 不动。
 - 离线：在 051 上改 top1 6/400（全为插入）。数据集 `ccjjllt/casmi26-extlib-052`；020 kernel **v32** COMPLETE；kernels output 下载卡住后改用 `-k/-v 32` 提交。
