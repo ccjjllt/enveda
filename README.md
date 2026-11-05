@@ -87,7 +87,7 @@ enveda/
 
 - **048 特征工程**：自研断键碎片解释/中性丢失特征 + 线性 listwise 残差，model3 独立 holdout isomer MRR 0.8174→0.8345（+0.017，CI>0）；020 v27 已推送自动提交（B 线）。见 docs/progress/048-feature-engineering.md。
 - **049 A×B 集成**：046A sanpier 流水线 + 自研 model3 rank 项 W_OWN=0.20（三种融合序统一加项，失败回退 046A）；020 v28 已推送，watcher 自动提交。见 docs/progress/049-ens-ab.md。
-- **050 A 线碎片残差**：046A + 048 自研碎片解释/中性丢失线性残差 rank 项 W_FR=0.15（日志 top1_vs_046A）；020 v29 已推送，watcher 于北京时间 11-05 08:05 后自动提交（top1 无改动则跳过）。见 docs/progress/050-sanpier-fragres.md。
+- **050 A 线碎片残差**：046A + 048 自研碎片解释/中性丢失线性残差 rank 项 W_FR=0.15（日志 top1_vs_046A）；020 v29 已推送，watcher 于北京时间 11-05 08:05 后自动提交（top1 无改动则跳过）。050a 结果 fr_used=12、top1_vs_046A=0，未提交；050b W_FR=0.30 已推送 020 v31，watcher 仅在 top1 有改动时提交。见 docs/progress/050-sanpier-fragres.md。
 
 
 ### 051 公开榜首方案复现
