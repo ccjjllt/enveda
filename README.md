@@ -8,7 +8,7 @@
 - 046 实列表残差（草稿）：045 出分后在自研管线上做有界残差，见 docs/plan/046-real-list-residual.md
 - 044 硬负例 model3 已训完并入库；提交被周 GPU 配额挡住，由 045 队列承接，见 docs/progress/044-hard-negative.md
 - 036 v15 + 公开神经重排（sanpier spectrum model，W=0.25 RRF），v19 公榜 0.465。见 docs/plan/036-neural-rerank.md
-- 046A（A 线，sanpier + leader-safe W_MID0.75 + 碎片 rank-1，020 v22）公榜 **0.468**（当前最佳，许可 unknown 不参与奖金）；B 线自研最佳仍 0.464。见 docs/plan/046-sanpier-track.md
+- 046A（A 线，sanpier + leader-safe W_MID0.75 + 碎片 rank-1，020 v22）公榜 0.468（已被 051 的 0.480 超越；许可 unknown 不参与奖金）；B 线自研最佳仍 0.464。见 docs/plan/046-sanpier-track.md
 - 040 v15 + 自研神经重排（W0.25, fp0.5）kernel v18 运行中，待自动提交 v21。见 docs/plan/040-own-neural.md
 - 037 v20 W0.40 公榜 0.453（< W0.25 的 0.465），保留 W0.25；038 top1 保护已构建未提交；sanpier 模型许可证 unknown（获奖风险）
 - 039 自研谱模型训练完成：val isomer MRR 0.7606（fp 权重 0.5），私有 dataset ccjjllt/enveda-own-spec
@@ -90,5 +90,11 @@ enveda/
 - **050 A 线碎片残差**：046A + 048 自研碎片解释/中性丢失线性残差 rank 项 W_FR=0.15（日志 top1_vs_046A）；020 v29 已推送，watcher 于北京时间 11-05 08:05 后自动提交（top1 无改动则跳过）。050a 结果 fr_used=12、top1_vs_046A=0，未提交；050b W_FR=0.30 已推送 020 v31，watcher 仅在 top1 有改动时提交。见 docs/progress/050-sanpier-fragres.md。
 
 
-### 051 公开榜首方案复现
-- 拆解 heliosli 0.482(私有异构体重排器+外部新版谱库，不可复现)与 alexchilton 0.480(可复现)；v30 复现 0.480 并提交。详见 docs/plan/051-public-top-replication.md。
+### 051 公开榜首方案复现（当前 A 线最佳）
+- 拆解 heliosli 0.482(私有异构体重排器+外部新版谱库，当时数据集私有不可复现)与 alexchilton 0.480(可复现)。
+- **020 kernel v30 / ref 58008856 公榜 0.480**（新最佳，超过 046A 0.468）。详见 docs/plan/051-public-top-replication.md 与 docs/progress/051-public-top-replication.md。
+- 050b（v31，W_FR=0.30）top1_vs_046A=0，未提交。见 docs/progress/050-sanpier-fragres.md。
+
+### 052 外部新版谱库叠加（A 线，051 底座）
+- 自建非 train 结构 MS2 库（MassBank permissive / GNPS CC0 / MSnLib / Zenodo novel / takumuhata，许可见 plan），cosine≥0.55 且匹配峰≥3 时提到 rank1；lib_max≥0.9 不动。
+- 离线：在 051 上改 top1 6/400（全为插入）。数据集 `ccjjllt/casmi26-extlib-052`；020 kernel **v32** 运行中，watcher 自动提交。见 docs/plan/052-extlib-overlay.md。

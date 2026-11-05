@@ -1,0 +1,9 @@
+{
+  "refs": "refs.parquet",
+  "refs_sha256": "d870eb069090a45f190601b2c140d89660926222a94f567a0d8abbd3710f7ab4",
+  "selftest": "selftest.json",
+  "tau": 0.55,
+  "k": 3,
+  "lib_tau": 0.9,
+  "notes": "TAU=0.55 K=3 from Enveda timsTOF train false-hit 8/2500=0.32%; most sensitive under 1% budget was 0.50 but 0.55 preferred for insert safety"
+}

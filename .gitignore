@@ -26,3 +26,6 @@ datasets/train-fp-pool/fp.npy
 datasets/train-fp-pool/mass.npy
 datasets/train-fp-pool/keys.npy
 datasets/train-fp-pool/smiles.txt
+
+# 052 extlib payload (on Kaggle as ccjjllt/casmi26-extlib-052)
+datasets/052-extlib/refs.parquet
