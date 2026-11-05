@@ -97,4 +97,5 @@ enveda/
 
 ### 052 外部新版谱库叠加（A 线，051 底座）
 - 自建非 train 结构 MS2 库（MassBank permissive / GNPS CC0 / MSnLib / Zenodo novel / takumuhata，许可见 plan），cosine≥0.55 且匹配峰≥3 时提到 rank1；lib_max≥0.9 不动。
-- 离线：在 051 上改 top1 6/400（全为插入）。数据集 `ccjjllt/casmi26-extlib-052`；020 kernel **v32** 运行中，watcher 自动提交。见 docs/plan/052-extlib-overlay.md。
+- 离线：在 051 上改 top1 6/400（全为插入）。数据集 `ccjjllt/casmi26-extlib-052`；020 kernel **v32** COMPLETE；kernels output 下载卡住后改用 `-k/-v 32` 提交。
+- **已提交 ref 58036512**（北京 2026-11-06 06:12，PENDING）。见 docs/plan/052-extlib-overlay.md / docs/progress/052-extlib-overlay.md。
