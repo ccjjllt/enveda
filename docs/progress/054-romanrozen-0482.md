@@ -8,3 +8,5 @@
 
 - 2026-11-06 18:30 北京：v34 推送后 watcher 误把 **fast-commit 占位** submission（全分子同一串 `CO;CCO;…`，日志 `skipped_fast_commit`）用 `-k/-v 34` 提交为 ref **58054713** PENDING。原 notebook `COMMIT_MODE='fast'`，完整管线只在 `KAGGLE_IS_COMPETITION_RERUN` 时跑；CLI `-k/-v` 若只取 commit 产物则会交占位（预期公榜≈0）。
 - 2026-11-06 18:40 北京：已改 `COMMIT_MODE='smoke'`（与 051 一致，commit 即跑全管线），推送 **020 v35**；watcher `/workspace/k054/run_v35.sh`（先等到 RUNNING 再等 COMPLETE；拒绝 top1 全相同占位）再用 `-k/-v 35` 提交。
+
+- 2026-11-07 00:05 北京：v34 占位提交 ref **58054713** 公榜 **0.459**（相对 051 的 0.480 退步；dummy SMILES 偶然命中，非真实管线）。v35 smoke COMPLETE 后 `kernels output` 持续 429/挂死；杀掉 watcher，改用 `-k/-v 35` 直接提交 ref **58062849** PENDING（当日剩余 3 次）。最佳仍 **051 0.480**。下一步 055：在已知得分底座上用 **TAU≥0.85 / K≥4** 严格 xl（052 的 TAU0.55 已证伪），不照搬 ozertuu 标题党 stub overlay。

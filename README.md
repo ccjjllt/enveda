@@ -1,5 +1,7 @@
 # Enveda CASMI 2026 研究项目
 
+- 055（A 线）：051 底座 + 严格 xl TAU0.85 K4（修正 052 TAU0.55 误插）；054b romanrozen smoke 已交 ref 58062849 PENDING；054 占位 0.459；最佳仍 051 **0.480**。见 docs/plan/055-strict-extlib.md
+
 - 047b（A 线）：047a W_MID=0.60 公榜 0.466 < 046A 0.468；改试 W_MID=0.90，020 kernel **v26** 已推送，watcher 自动提交。见 docs/plan/047-wmid-scan.md
 - 047 融合权重扫描（A 线）：046A 底座只改 W_MID=0.60，020 kernel **v25** 已推送，watcher 自动提交；046B 公榜 0.467（simulator_vote 未改变任何决策），最佳仍 046A 0.468。见 docs/plan/047-wmid-scan.md
 - 046B（A 线）：046A + ICE/GL simulator_vote 接入碎片 rank-1 规则（对齐公开 0.477 门槛：supports<1 但 sim≥1 放行、sim≤−1 否决），020 v24 公榜 0.467（无增益）；见 docs/plan/046-sanpier-track.md
