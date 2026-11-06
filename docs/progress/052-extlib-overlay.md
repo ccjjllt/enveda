@@ -10,3 +10,6 @@
 - 2026-11-06 06:09–06:12 北京时间：watcher 卡在 `kaggle kernels output`（经典问题，kout_v32 仅 stale bootstrap.log）。杀掉卡死下载 PID 后改用 `kaggle competitions submit -k ccjjllt/enveda-020-e006-repro -v 32 -f submission.csv`（直接提交 kernel 产出，无需完整下载）。离线产物 `artifacts/runs/052/submission_051_plus_xl.csv` 已校验：400 行、相对 051 top1 改 6、审计与 kernel 日志一致，并复制到 `/workspace/kout_v32/submission.csv` 作本地备份。
 - **已提交** ref **58036512**（2026-11-05 22:12:03 UTC / 北京 06:12，PENDING 评分，约 5h）。当日剩余提交额度 3。
 - xl 审计摘要：hit_cosines≈0.55–0.57（偏弱，有误插风险，按计划仍提交看公榜）；命中 mid：m_30024e / m_6ebcf9 / m_82f2e2 / m_930a3b / m_ab91a8 / m_e8359d。
+
+
+- 2026-11-06 巡检：ref **58036512** 公榜 **0.470**（相对 051 的 0.480 退步 −0.010）。xl hit_cosines≈0.55–0.57 偏弱导致误插，停止 TAU0.55 xl；不重试同阈值。

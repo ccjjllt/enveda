@@ -90,16 +90,17 @@ enveda/
 - **050 A 线碎片残差**：046A + 048 自研碎片解释/中性丢失线性残差 rank 项 W_FR=0.15（日志 top1_vs_046A）；020 v29 已推送，watcher 于北京时间 11-05 08:05 后自动提交（top1 无改动则跳过）。050a 结果 fr_used=12、top1_vs_046A=0，未提交；050b W_FR=0.30 已推送 020 v31，watcher 仅在 top1 有改动时提交。见 docs/progress/050-sanpier-fragres.md。
 
 
+### 054 复现 romanrozen 0.482（A 线，冲牌）
+- Gold Apex V22 + timsTOF MASS 先验 + 同式 RR 重排（`V8=BOTH`）；挂载 `bgunshui/casmi26-scorer-v5-model` + LOTUS（修复原 notebook 已删 kernel_sources）。
+- 020 kernel **v34** 推送中；watcher `/workspace/k054/run.sh` COMPLETE 后 `-k/-v 34` 提交。见 docs/plan/054-romanrozen-0482.md。
+
 ### 051 公开榜首方案复现（当前 A 线最佳）
 - 拆解 heliosli 0.482(私有异构体重排器+外部新版谱库，当时数据集私有不可复现)与 alexchilton 0.480(可复现)。
 - **020 kernel v30 / ref 58008856 公榜 0.480**（新最佳，超过 046A 0.468）。详见 docs/plan/051-public-top-replication.md 与 docs/progress/051-public-top-replication.md。
 - 050b（v31，W_FR=0.30）top1_vs_046A=0，未提交。见 docs/progress/050-sanpier-fragres.md。
 
-### 053 碎片 FREEZE 重排（A 线，051 底座）
-- 自研 048 断键碎片线性分 + heliosli 式训练集结构冻结；lib_max≥0.9 / 短列表跳过。
-- 数据集 `ccjjllt/casmi26-053-fragfreeze`；020 kernel **v33** RUNNING；watcher `/workspace/k053/run.sh`（日志门控后 `-k/-v` 提交）。见 docs/plan/053-frag-isomer-freeze.md。
+### 053 碎片 FREEZE 重排（A 线，051 底座）— 未提交
+- 020 v33 COMPLETE：`reranked=0`，`skipped_short=388`（可见 test 占位），GATE=SKIP_NO_RERANK，**未提交**。见 docs/progress/053-frag-isomer-freeze.md。
 
-### 052 外部新版谱库叠加（A 线，051 底座）
-- 自建非 train 结构 MS2 库（MassBank permissive / GNPS CC0 / MSnLib / Zenodo novel / takumuhata，许可见 plan），cosine≥0.55 且匹配峰≥3 时提到 rank1；lib_max≥0.9 不动。
-- 离线：在 051 上改 top1 6/400（全为插入）。数据集 `ccjjllt/casmi26-extlib-052`；020 kernel **v32** COMPLETE；kernels output 下载卡住后改用 `-k/-v 32` 提交。
-- **已提交 ref 58036512**（北京 2026-11-06 06:12，PENDING）。见 docs/plan/052-extlib-overlay.md / docs/progress/052-extlib-overlay.md。
+### 052 外部新版谱库叠加（A 线，051 底座）— 退步
+- 020 v32 / ref **58036512** 公榜 **0.470**（相对 051 0.480 退步）。TAU0.55 xl 误插，停止同阈值。见 docs/progress/052-extlib-overlay.md。
