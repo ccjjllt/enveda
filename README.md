@@ -91,8 +91,8 @@ enveda/
 
 
 ### 054 复现 romanrozen 0.482（A 线，冲牌）
-- Gold Apex V22 + timsTOF MASS 先验 + 同式 RR 重排（`V8=BOTH`）；挂载 `bgunshui/casmi26-scorer-v5-model` + LOTUS（修复原 notebook 已删 kernel_sources）。
-- 020 kernel **v34** 推送中；watcher `/workspace/k054/run.sh` COMPLETE 后 `-k/-v 34` 提交。见 docs/plan/054-romanrozen-0482.md。
+- Gold Apex V22 + MASS + RR（`V8=BOTH`）+ `bgunshui/casmi26-scorer-v5-model` + LOTUS。
+- v34 误交 fast-commit 占位 ref **58054713** PENDING（预期≈0）；已改 `COMMIT_MODE=smoke` 推送 **v35**，watcher `k054/run_v35.sh` 门控后 `-k/-v 35` 重交。见 docs/progress/054-romanrozen-0482.md。
 
 ### 051 公开榜首方案复现（当前 A 线最佳）
 - 拆解 heliosli 0.482(私有异构体重排器+外部新版谱库，当时数据集私有不可复现)与 alexchilton 0.480(可复现)。
