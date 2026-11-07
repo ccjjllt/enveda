@@ -6,3 +6,5 @@
 - 若 056 公榜 ≤0.480：下一候选 (a) aiokajima 变体 (b) gloriachen0816 claw-maxzero (c) 硬负例/自研 B 线——本轮不启动。
 
 - 2026-11-07 18:12 北京：020 **v36** 已推送（`enveda-056-gold-apex-mass481.ipynb`，smoke + V8=MASS + popwenman v80；无 bgunshui）。watcher `/workspace/k056/run.sh` 待 RUNNING→COMPLETE 后审计/提交。git `1a56036`。
+
+- 2026-11-08 00:08 北京：020 **v36** COMPLETE；watcher 已交 ref **58089862**；公榜 **0.481**（新最佳，此前 051=0.480）。top1 vs 051 差 10/400；NUNIQUE_TOP=13。确认路径：`V8=MASS` + popwenman v80 + smoke。下一轮 057 = kozykappa Domain-Evidence Layer（v23）叠在 056 底座上。
