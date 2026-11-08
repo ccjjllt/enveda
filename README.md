@@ -2,8 +2,8 @@
 
 - 056（A 线）：复现 alexchilton 公榜成功，ref 58089862 公榜 **0.481**（新最佳，超 051 0.480）；`V8=MASS` + popwenman v80 + smoke（020 v36）。见 docs/progress/056-gold-apex-mass481.md
 - 057（A 线）：kozykappa Domain-Evidence Layer（V23 + V8=MASS + smoke + popwenman v80）020 **v37** COMPLETE，ref **58107366** 公榜 **0.476**（相对 056 的 0.481 退步 −0.005；仅翻 1 个 top-1：m_050bf1 rank2→1）。不作新底座。见 docs/progress/057-domain-evidence.md
-- 058（A 线）：056 底座 + easonyanyan V50 多碰撞能 public MS/MS rank-1 救援（sergiomalv/casmi-open-msms-spectra，cos≥0.78 / K≥10，LIB_MAX≥0.87 不动）；smoke + V8=MASS + popwenman v80，020 **v38** COMPLETE，2026-11-08 14:57 北京提交 ref **58118277**（V50 插入 5 个、vs056 N_DIFF=5），PENDING。见 docs/progress/058-multice-rank1-rescue.md
-- 059（A 线）：056 底座 + 门控 LOTUS 天然产物同分子式异构体召回（仅 V8_LIB<0.60；质量带 + 同分子式；双神经联合前 2 才插到第 6 名；同轮强库命中分子误触发代理>15% 即中止），不叠 057/058；smoke + V8=MASS + popwenman v80，已推 020 **v39** RUNNING，watcher `/workspace/k059/`。见 docs/progress/059-lotus-gated-recall.md
+- 058（A 线）：056 底座 + easonyanyan V50 多碰撞能 public MS/MS rank-1 救援（sergiomalv/casmi-open-msms-spectra，cos≥0.78 / K≥10，LIB_MAX≥0.87 不动）；smoke + V8=MASS + popwenman v80，020 **v38** COMPLETE，2026-11-08 14:57 北京提交 ref **58118277** 公榜 **0.473**（V50 插入 5 个、vs056 N_DIFF=5；top-1 救援退步 −0.008）。见 docs/progress/058-multice-rank1-rescue.md
+- 059（A 线）：056 底座 + 门控 LOTUS 天然产物同分子式异构体召回（仅 V8_LIB<0.60；质量带 + 同分子式；双神经联合前 2 才插到第 6 名；同轮强库命中分子误触发代理>15% 即中止），不叠 057/058；smoke + V8=MASS + popwenman v80，020 **v39** COMPLETE，ref **58124700** 公榜 **0.481**（与 056 打平，无增益；rank 1 不动不退步）。见 docs/progress/059-lotus-gated-recall.md
 
 - 047b（A 线）：047a W_MID=0.60 公榜 0.466 < 046A 0.468；改试 W_MID=0.90，020 kernel **v26** 已推送，watcher 自动提交。见 docs/plan/047-wmid-scan.md
 - 047 融合权重扫描（A 线）：046A 底座只改 W_MID=0.60，020 kernel **v25** 已推送，watcher 自动提交；046B 公榜 0.467（simulator_vote 未改变任何决策），最佳仍 046A 0.468。见 docs/plan/047-wmid-scan.md
