@@ -6,3 +6,6 @@
 - 061b 推送报 "Maximum batch GPU session count of 2 reached"（另一个项目的 GPU kernel 占用）→ `/workspace/k061b/chain.sh` 等 061a 结束后自动推 `ccjjllt/enveda-061b-docprior020` 并启动 watcher。
 - 2026-11-09 ~12:33 北京：v41 COMPLETE（约 30 分钟）。`g60_audit.json` status=ok，先验表 710,701 行、证据 400 分子；可见 smoke 12 个分子第 2–25 名全部改变（diff_full=12），diff_top1=0、diff_top3=3、diff_top5=6（060 为 1/3，重排幅度约翻倍）；与 056 提交文件对比 N_DIFF_TOP1=0。watcher 用 `-k/-v 41` 提交 ref **58151402**（今日剩余 4 次），PENDING。输出 `/workspace/kout_061a/`。
 - 2026-11-09 12:36 北京：chain 推 `ccjjllt/enveda-061b-docprior020` **v1**（061b）RUNNING，watcher `/workspace/k061b/run.sh`。
+- 2026-11-09 18:10 北京：**061a ref 58151402 公榜 0.478**（较 056/060 的 0.481 退步 −0.003）。结论：第 2–25 名神经权重 NW_MID 0.75→1.00 有害，保持 0.75。
+- 061b v1 于 14:47 COMPLETE，但 watcher 的 `kaggle kernels output` 全量下载反复不完整（未拿到 submission.csv）。18:11 手动单独拉取 submission.csv，审计 status=ok、diff_top1=0、diff_top5=8、与 056 N_DIFF_TOP1=0 → 以 `-k/-v 1` 提交 ref **58160252**，PENDING（今日剩余 3 次）。
+- 下一步：若 061b ≥0.482 则文档先验继续加（0.25/0.30）；若 ≤0.480 则第 2–25 名旋钮方向基本到头，转向 Engine1 生成/池外召回或硬负例训练。
