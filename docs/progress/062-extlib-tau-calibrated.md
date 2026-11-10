@@ -7,3 +7,9 @@
   - pluskal_ms2 等结构在库内 3,000 分子（去 cos≥0.995 同源谱）：TAU 0.70/0.75/0.80/0.85/0.90 触发 45%/43%/40%/35%/27%，精度 0.880/0.889/0.894/0.903/0.920；分段精度 0.70–0.75 = 0.73、0.75–0.80 = 0.82、0.80–0.85 = 0.83；推算 0.65–0.70 ≈ 0.58、0.60–0.65 ≈ 0.47。
   - 结论：TAU 降到 0.70 的增量触发精度 ≥0.73、误触发极低，期望为正；0.65 以下边际精度快速下滑。
 - 构建 `notebooks/062b`（TAU 0.70）；推送遇 "Maximum batch GPU session count of 2" → `/workspace/k062b/chain.sh` 每 5 分钟重试推送，成功后接 watcher 自动审计提交。
+- 2026-11-10 12:10 北京检查：
+  - **061b ERROR 原因**：API `error_description` = "A system error. Please try resubmitting to resolve the error and contact Kaggle Support if it persists."——Kaggle 侧系统错误，与代码/格式无关。对照：`/workspace/kout_061b/submission.csv` 与成功的 `kout_v36/submission.csv` 字节数相同（17303）、400 行、ID 顺序一致、LF、无 BOM，smoke 占位格式一致（仅 12 行第 2–25 名不同，top-1 差 0）；061b 与 061a（成功 0.478）笔记本只差权重常量。→ 12:12 原样以 `-k ccjjllt/enveda-061b-docprior020 -v 1` **重新提交 ref 58185737**（PENDING，今日剩 4 次）。
+  - 062a v1 自 00:10 起 QUEUED 12 小时；12:10 时 GPU 会话 = pump-fun-139（另一个项目，10:01 北京起 RUNNING）+ 062b v1（chain 于 12:10 推送成功，立即 RUNNING），062a 仍 QUEUED（疑似队列卡死）。
+  - 原 062a watcher 12h 窗口 12:10 到期 → 已停掉并用 `/workspace/k062a/run3.sh`（`run.sh` 副本：`HOURS` 可配，30h；额外拉 `submission_neural.log`；`SKIP_IF` 兄弟已提交则不重复提交；`NEURAL_CHECK` 神经打分日志校验）重启。
+  - **GPU 队列绕行**：评估 062a 笔记本只有神经打分器子进程需要 GPU（`device='cuda'` + assert），其余阶段本就是 CPU；时间守卫为整场 8.55h/固定阶段预算，CPU 机器同为 4 vCPU。→ 新建 `notebooks/062a_cpu`（与 062a 唯一差别：两处神经打分调用 `'cuda'→'cpu'`，`enable_gpu=false`），推 `ccjjllt/enveda-062a-extlib-tau080-cpu` **v1**（12:15 RUNNING，CPU kernel 不占 GPU 批会话额度）。watcher `/workspace/k062a_cpu`（run3.sh，NEURAL_CHECK=1，SKIP_IF=/workspace/k062a/SUBMITTED）；GPU 版 watcher 设 SKIP_IF=/workspace/k062a_cpu/SUBMITTED——谁先完成谁提交，避免重复占名额。CPU 浮点与 GPU 可能有极小差异，属于有效复现而非逐字节复现。
+  - 062b v1 RUNNING（watcher `/workspace/k062b/watch.out`）；062c 决策器改为 `/workspace/k062c/decide2.sh`（同时识别 GPU 版 "062a alexchilton" 与 CPU 版 "062a-cpu = alexchilton" 提交描述），12:17 重启。
