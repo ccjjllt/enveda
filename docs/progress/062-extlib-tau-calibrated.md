@@ -15,3 +15,10 @@
   - 062b v1 RUNNING（watcher `/workspace/k062b/watch.out`）；062c 决策器改为 `/workspace/k062c/decide2.sh`（同时识别 GPU 版 "062a alexchilton" 与 CPU 版 "062a-cpu = alexchilton" 提交描述），12:17 重启。
 - 12:18 北京：**062a-cpu v1 ERROR**——内层冻结管线 `frozen_0465.ipynb`（SHA256 锁定，cell 28 `_e004_preflight`）强制 `nvidia-smi` 并断言有 GPU；且 Engine 2 两个排序器在 GPU 上**现训**（smoke 下 618 s，训练量与测试规模无关），cell 41 等 12 处 cuda。CPU 上需改冻结管线并重算哈希，训练预计慢 10–50 倍，会触发 8.55h 时间守卫跳阶段 → 不再是有效复现。**结论：CPU 路线不可行**；Colab/本机离线也不可行（代码赛，分数只来自 Kaggle 对 kernel 的隐藏测试重跑，本地无隐藏 test）。CPU watcher 已 FAIL 退出，`notebooks/062a_cpu` 保留作记录，不再使用。
 - 维持 GPU 排队：新增 `/workspace/k062a/requeue.sh`——等 062b 结束让出 GPU 会话后再给 062a v1 30 分钟；若仍 QUEUED 则重推 `notebooks/062a` 为新版本，并把 watcher（run3.sh，30h）切到新版本号；不取消 v1。
+- 12:36 北京 062b v1 COMPLETE、17:38 北京 062a v2 COMPLETE，但两个 watcher 都在拉输出时失败（`NO_OUTPUT`：多文件循环连续请求触发 Kaggle 429 限流 + SSL EOF，submission.csv 未落盘）；062c 决策器因 062b 未提交而退出（`NO_062B`）。
+- 2026-11-11 00:02 北京：手动单文件拉取 `kaggle kernels output <kernel> -p <dir> --file-pattern '^submission\.csv$'` 成功（062a v2、062b v1 各 17,303 字节）。
+- 审计：两份均 400 行、每行 1–25 个无重复/空、ID 集合与 056 一致；与 056（kout_v36）比 top-1 差 1 / 全列表差 12（仅 12 个可见 smoke 分子；底座换成 ozertuu Peaks-to-Structures，非 056 的 Gold Apex MASS+v80，属真正不同的管线）。**062a 与 062b 文件逐字节相同**（md5 4797f84e…）——smoke 下 12 个可见分子外部库 0 命中，TAU 不起作用。
+  - 另发现 watcher 审计门槛 bug：`top-1 去重数 <=20 判占位` 在 smoke 模式下必然误判（smoke 文件恒为 12 可见分子 + 1 个占位 = 13，056/061b 同样是 13），即便下载成功也会 SKIP。已改为 `<12`。
+- **外部库 hits=0 诊断**：不是加载失败——日志显示 Source A 200,724 谱 + Source B（MassBank harmonized）后共 324,884 谱，overlay 运行 30 s 正常结束。0 命中是数据本身：(1) commit 只跑 12 个可见 smoke 分子；(2) 离线标定已表明 enveda timsTOF 分子结构几乎不在外部库（0.015%），TAU0.80/0.70 最佳命中触发率仅 0.02%/0.08%（每 400 分子约 0.1/0.3 个），且触发全错。→ 在隐藏测试上外部库层大概率也几乎惰性，alexchilton 0.484 的增益应主要来自 ozertuu 底座本身（及时间守卫波动），而非外部库；062b（TAU0.70）与 062a 在隐藏集上预计至多差 1–2 个分子。无可"修复"之处，**不推 062c**（band-2 插入同样依赖外部库触发，期望≈0）。
+- 00:05 北京提交 062a v2：`-k ccjjllt/enveda-062a-extlib-tau080 -v 2`，**ref 58207046**；00:06 提交 062b v1（今日名额未用会作废，作为 TAU 对照）：**ref 58207066**。今日（至 08:00 北京）剩 2 次。
+- watcher 加固（`/workspace/k062a/run.sh`、`run3.sh`，副本入库 `scripts/062/watch_submit.sh`）：COMPLETE 后先等 10 分钟、只拉 submission.csv/审计/神经日志三个文件、每文件 10 次指数退避重试；占位门槛修正。
