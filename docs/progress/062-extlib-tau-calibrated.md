@@ -22,3 +22,12 @@
 - **外部库 hits=0 诊断**：不是加载失败——日志显示 Source A 200,724 谱 + Source B（MassBank harmonized）后共 324,884 谱，overlay 运行 30 s 正常结束。0 命中是数据本身：(1) commit 只跑 12 个可见 smoke 分子；(2) 离线标定已表明 enveda timsTOF 分子结构几乎不在外部库（0.015%），TAU0.80/0.70 最佳命中触发率仅 0.02%/0.08%（每 400 分子约 0.1/0.3 个），且触发全错。→ 在隐藏测试上外部库层大概率也几乎惰性，alexchilton 0.484 的增益应主要来自 ozertuu 底座本身（及时间守卫波动），而非外部库；062b（TAU0.70）与 062a 在隐藏集上预计至多差 1–2 个分子。无可"修复"之处，**不推 062c**（band-2 插入同样依赖外部库触发，期望≈0）。
 - 00:05 北京提交 062a v2：`-k ccjjllt/enveda-062a-extlib-tau080 -v 2`，**ref 58207046**；00:06 提交 062b v1（今日名额未用会作废，作为 TAU 对照）：**ref 58207066**。今日（至 08:00 北京）剩 2 次。
 - watcher 加固（`/workspace/k062a/run.sh`、`run3.sh`，副本入库 `scripts/062/watch_submit.sh`）：COMPLETE 后先等 10 分钟、只拉 submission.csv/审计/神经日志三个文件、每文件 10 次指数退避重试；占位门槛修正。
+
+## 2026-11-11 出分与更正（063 轮复核）
+- 公榜：062a v2 ref 58207046 = **0.484**（新最佳，复现 alexchilton）；062b TAU0.70 ref 58207066 = **0.479**。
+- 2026-11-11 12:06 北京复核：`/workspace/kout_062a/submission.csv` 与 `/workspace/kout_062b/submission.csv` md5 均为 `4797f84edda6569e16234a3018e0a32a`，**逐字节相同属实**；两个 `apex_extlib_audit.json` 均 hits 0/promoted 0。提交方式为 `-k <kernel> -v <ver>`（kernel 提交，submissions 列表 fileName 显示 submission.csv 但实际为代码赛隐藏测试重跑）。
+- **更正**：上文"外部库在隐藏测试上大概率惰性、062b 与 062a 至多差 1–2 分子"的推断**错误**。逐字节相同只说明 commit 运行（smoke，仅 12 个可见分子）里外部库不触发；评分是 Kaggle 用 kernel 在隐藏测试上**全量重跑**，那里外部库有触发，且 TAU 明显影响分数：
+  - alexchilton 账号实测：ozertuu 原版 TAU0.85 = 0.478、TAU0.90 = 0.478、TAU0.80 = 0.484、TAU0.75 = 0.484（无变化）、K_PEAKS 3 / LIB_TAU 0.95 = 0.484（无变化）；
+  - 我们：TAU0.70 = 0.479（−0.005，超出同代码 ±0.002 的时间守卫波动）。
+  - → 0.80–0.85 段触发有净收益，0.70–0.75 段误触发有净损失；离线标定（enveda timsTOF 0.015% 在库）低估了隐藏测试的在库比例/命中率。
+- 教训：smoke commit 输出相同 ≠ 隐藏测试相同；不能用 commit 输出推断评分差异。
