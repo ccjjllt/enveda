@@ -6,3 +6,8 @@
 - 12:10 北京：推 `ccjjllt/enveda-063b-p2s-scorer-v80-lotus` **v1**；watcher 同上（D=/workspace/k063b，O=/workspace/kout_063b）。
 - watcher 修正：原 `k062a/run3.sh` 审计调用的 `/workspace/k062/venv/bin/python` 已不存在（会导致审计输出为空→SKIP），063 改用系统 python3（pandas 3.0.6），已用 kout_062a 验证审计 `DECISION SUBMIT`。
 - 预计完成：约 6–9 小时后（时间守卫 8.55h），出分再约 4–6 小时。
+
+## 提交记录（2026-11-11 18:16 北京时间）
+- 063a 内核 v1 于 14:41 完成，watcher 审计通过（smoke 输出与 056 top-1 差 0、全列表差 12，extlib hits 0），18:09 以 kernel 提交，ref 58233824，PENDING。
+- 063b（+LOTUS）内核 v1 于 14:42 完成，审计同上，18:15 提交，ref 58233993，PENDING。
+- 预计公开分 ~23:00–00:00 出炉；≥0.485 则 A 轨切换到 063 基线，否则保留 062a（0.484）。
