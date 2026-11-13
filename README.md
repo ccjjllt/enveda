@@ -8,7 +8,8 @@
 - 061（A 线）：056 底座第 2–25 名大幅单旋钮，rank 1 不动 + 同轮反事实审计：061a `pxm_merge` 神经权重 NW_MID 0.75→1.00（020 **v41**，ref **58151402** 公榜 **0.478**，退步）；061b 文档先验 POP_W/SPEC_W 0.10→0.20（`ccjjllt/enveda-061b-docprior020`，ref 58160252 Kaggle 系统错误 ERROR → 原样重提 ref **58185737**）。smoke + V8=MASS + popwenman v80。见 docs/progress/061-ranks2-25-bold-knobs.md
 - 062（A 线）：复现 alexchilton 公榜 0.484（ozertuu + 外部谱库 rank-1 覆盖 TAU0.80）。062a v2（`ccjjllt/enveda-062a-extlib-tau080`）ref 58207046 公榜 **0.484**（新最佳）；062b TAU0.70 ref 58207066 公榜 **0.479**。smoke commit 输出逐字节相同，但评分为隐藏测试全量重跑，外部库在隐藏集有触发且 TAU 敏感（"惰性"结论已更正）。见 docs/progress/062-extlib-tau-calibrated.md
 - 063（A 线）：复现公开 0.487 成功。063a（062a 代码 + popwenman scorer v80、无 LOTUS）`ccjjllt/enveda-063a-p2s-scorer-v80` v1 ref **58233824** 公榜 **0.487**（新最佳，+0.003）；063b 挂回 LOTUS ref **58233993** 同为 **0.487**（LOTUS 输入在 3 位小数下中性）。A 轨切换到 063a。见 docs/progress/063-p2s-scorer-v80.md
-- 064（A 线，计划已修正）：原定在 063a 上只改 `RR8_ALPHA` 0.25 是空操作（`V8='MASS'` 关闭 RR8），已取消。下一刀改为活旋钮 `LIB_HIT_GATE` 0.78→0.75，`notebooks/064a` 已备好、等 2026-11-14 08:00 北京 GPU 刷新后再推。公开 0.488/0.500 标题配方尚未核实。见 docs/plan/064-zz48-diffs-on-063a.md
+- 065（A 线）：已核实公开 0.488 配方为 063a 同底座 + 外部库 overlay 之前的 N-1c 测试集内网络重排（alexchilton / analyticaobscura，τ=0.6 / λ=0.25）。`notebooks/065a`（slug `ccjjllt/enveda-065a-network-n1c`）已备好，等 2026-11-14 08:00 北京 GPU 刷新后作为第一刀推送。见 docs/plan/065-network-n1c.md
+- 064（A 线，计划已修正）：原定在 063a 上只改 `RR8_ALPHA` 0.25 是空操作（`V8='MASS'` 关闭 RR8），已取消。`LIB_HIT_GATE` 0.78→0.75 的 `notebooks/064a` 仍在，但让路给已核实的 065a，065a 出分后再考虑。见 docs/plan/064-zz48-diffs-on-063a.md
 
 - 047b（A 线）：047a W_MID=0.60 公榜 0.466 < 046A 0.468；改试 W_MID=0.90，020 kernel **v26** 已推送，watcher 自动提交。见 docs/plan/047-wmid-scan.md
 - 047 融合权重扫描（A 线）：046A 底座只改 W_MID=0.60，020 kernel **v25** 已推送，watcher 自动提交；046B 公榜 0.467（simulator_vote 未改变任何决策），最佳仍 046A 0.468。见 docs/plan/047-wmid-scan.md
