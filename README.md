@@ -1,6 +1,6 @@
 # Enveda CASMI 2026 研究项目
 
-- 066（A 线，进行中）：065a 底座 + 领头保护的训练库连续余弦 mid-rank 重排（移植 liuzewen123 libcos 的索引/打分，但钉死第 1 名、只改第 2–25 名，λ=0.25）。内核 `ccjjllt/enveda-066a-libcos-mid` **v1** 已于 2026-11-15 01:11 北京推送并 RUNNING，watcher 跑完审计通过后自动提交。公开 0.489+ 配方仍未核实。见 docs/plan/066-libcos-midrank.md 与 docs/progress/066-libcos-midrank.md
+- 066（A 线，进行中）：065a 底座 + 领头保护的训练库连续余弦 mid-rank 重排（移植 liuzewen123 libcos 的索引/打分，但钉死第 1 名、只改第 2–25 名，λ=0.25）。内核 `ccjjllt/enveda-066a-libcos-mid` **v1** 已于 2026-11-15 06:39 北京提交 ref **58358284**（PENDING，等待公开分）。smoke 输出与 065a 逐字节相同；libcos 在可见 12 条上因库命中门全部跳过，评分取决于隐藏集重跑。公开 0.489+ 配方仍未核实。见 docs/plan/066-libcos-midrank.md 与 docs/progress/066-libcos-midrank.md
 - 056（A 线）：复现 alexchilton 公榜成功，ref 58089862 公榜 **0.481**（新最佳，超 051 0.480）；`V8=MASS` + popwenman v80 + smoke（020 v36）。见 docs/progress/056-gold-apex-mass481.md
 - 057（A 线）：kozykappa Domain-Evidence Layer（V23 + V8=MASS + smoke + popwenman v80）020 **v37** COMPLETE，ref **58107366** 公榜 **0.476**（相对 056 的 0.481 退步 −0.005；仅翻 1 个 top-1：m_050bf1 rank2→1）。不作新底座。见 docs/progress/057-domain-evidence.md
 - 058（A 线）：056 底座 + easonyanyan V50 多碰撞能 public MS/MS rank-1 救援（sergiomalv/casmi-open-msms-spectra，cos≥0.78 / K≥10，LIB_MAX≥0.87 不动）；smoke + V8=MASS + popwenman v80，020 **v38** COMPLETE，2026-11-08 14:57 北京提交 ref **58118277** 公榜 **0.473**（V50 插入 5 个、vs056 N_DIFF=5；top-1 救援退步 −0.008）。见 docs/progress/058-multice-rank1-rescue.md
