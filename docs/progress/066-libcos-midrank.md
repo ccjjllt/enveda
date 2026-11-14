@@ -11,3 +11,5 @@
   - liuzewen123 的 0488-libcos / phys18 / spec2 / top25 / extmulti 是 0.488 栈上的附加模块；作者最后提交早于这些内核，公榜仍 0.481，模块本身无已核实公榜分。其中 libcos 原文改 rank-1，不原样跟。
 - 仍成立的瓶颈：召回（真结构不在池中或未检索到）与同分子式异构体排序。近期 2–25 名权重与 N-1c 的 λ/τ 调参已到平台。前沿可本周落地的部分是：把「库支持」从二元门控改成连续谱相似度，并只用于 mid-rank（GNPS / 库检索思路），而不是再加大 N-1c 权重。
 - 已写 `notebooks/066a`（slug `ccjjllt/enveda-066a-libcos-mid`）及本轮计划：065a + 领头保护的 enveda-180 训练库连续余弦 mid-rank（λ=0.25，钉死 top-1）。准备推内核并用 `scripts/063/chain.sh` 看守、审计通过后自动提交。
+
+- 2026-11-15 01:11 北京：已推 `ccjjllt/enveda-066a-libcos-mid` **v1**，状态 RUNNING。watcher：`scripts/063/watch.sh`（D=/workspace/k066a，O=/workspace/kout_066a，HOURS=30），完成后单文件拉取 `submission.csv`、审计通过则 `-k -v` 提交。今日提交额度仍 1/5（剩余 4，08:00 北京重置）。预计推理约 3–9 小时（065a 约 2.7 小时，本轮另加训练库索引，上限约 30 分钟）。
