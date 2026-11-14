@@ -16,7 +16,7 @@
 - 不要把 ozertuu 标题「0.500+」且 `V8='BOTH'` 的 notebook 当作本轮配方；作者现已到 0.488，但与已核实的 N-1c 路径不是同一件事。064a 的 `LIB_HIT_GATE` 0.78→0.75 仍是未提交的单旋钮猜测，本轮让路给已核实的 +0.001。
 
 ## 实验
-1. **065a**（已在 `notebooks/065a` 备好，2026-11-14 08:17 北京已推 **v1**，RUNNING）：063a 底座只插入上述 N-1c 代码格（外部库 overlay 之前），其余常量不动（`LIB_HIT_GATE=0.78`、`V8='MASS'`、`COMMIT_MODE='smoke'`）。内核 slug：`ccjjllt/enveda-065a-network-n1c`。
+1. **065a**（`notebooks/065a`）：063a 底座只插入上述 N-1c 代码格（外部库 overlay 之前），其余常量不动（`LIB_HIT_GATE=0.78`、`V8='MASS'`、`COMMIT_MODE='smoke'`）。内核 slug：`ccjjllt/enveda-065a-network-n1c`。2026-11-14 08:17 北京已推 **v1**，10:57 COMPLETE，11:13 提交 ref **58329677** PENDING。
 2. 等 2026-11-14 08:00 北京每周 GPU 配额刷新后再推；完整隐藏重跑约 6–9 小时。刷新前不推。064a 延后到 065a 出分之后。
 3. 审计/提交沿用 `scripts/063/watch.sh`（单文件拉取、退避、smoke 门槛、通过则 `-k -v`）。
 
