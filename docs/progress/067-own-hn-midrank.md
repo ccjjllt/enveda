@@ -6,3 +6,7 @@
 - 公开 0.489+ 配方仍未核实（详见本轮计划）。analyticaobscura 本人 0.495，公开笔记本仍停在 2026-11-11。
 - 已写 `notebooks/067a`（slug `ccjjllt/enveda-067a-own-hn-mid`）及本轮计划：065a + 领头保护的 044 model3 mid-rank（λ=0.20，钉死 top-1，不叠 066a）。准备用 `scripts/063/chain.sh` 推内核；若因同账号 GPU 预占而暂时无法启动会话，则自动每 5 分钟重试，完成后审计通过则自动提交。
 - 2026-11-15 12:35 北京：已启动 `scripts/063/chain.sh`（D=/workspace/k067a，O=/workspace/kout_067a，HOURS=30，PUSH_HOURS=24）。首次推送被拒：`Maximum batch GPU session count of 2 reached`；chain 将每 5 分钟重试。无提交。
+- 2026-11-15 18:36 北京（例行检查）：067a 内核 `ccjjllt/enveda-067a-own-hn-mid` **v1** 已于 17:46 推送成功（此前多次因 GPU 会话上限被拒），约 22 分钟 GPU 后 COMPLETE。审计通过，自动提交 ref **58380689**（PENDING，尚未出分）。最佳仍是 065a/066a 公榜 **0.488**。今日提交额度 1/5（剩余 4，2026-11-16 08:00 北京重置）。每周 GPU：27.93h 已用 / 2.07h 剩余 / 30.00h（预占 0），下次刷新 2026-11-21 08:00 北京。工作区无仍在运行的 enveda 任务。
+- Smoke 审计：N-1c 与 065a 相同（changed lists 2，top1 0）；ExtLib 0/0（TAU=0.80，K=4）。own-hn-mid `status=ok`，λ=0.20，fp_w=0.0，device=cuda，evaluated=12，lists_changed=12，top1_changed=0，top1_would_change=0，skipped_short=388（隐藏占位），scored_candidates=300，耗时 8.2s。相对 065a/066a：submission sha256 不同（067a `bb93b0a8…`，065a/066a 同为 `7fb9d60d…`），TOP1=0，12 条可见分子均为同集合置换且只改 mid-rank（相对 065a 最早差异从第 5–11 名起）。对照 056：TOP1_VS_056=0，FULL_VS_056=12。
+- 官方快照 2026-11-15T10:26:19Z（5310 队，约 2026-11-15 18:26 北京）：ccjjllt 第 **279**（仍 0.488；上次 12:22 快照为第 262/5296）。恰好 0.488 的平台为第 123–464 名共 342 队（先前 305 队）；≥0.488 共 464 队；≥0.489 共 122 队（先前 111）。名次下降来自平台扩大，不是自身掉分。
+- 公开 0.489+ 配方本轮未做新的内核核实。Rogers Johnson 本人已到 0.492（提交 2026-11-15 01:36 UTC）；analyticaobscura 仍为 0.495。出分前不另开新的 GPU 内核；周配额仅剩约 2.1h，下一刀需节省用量。

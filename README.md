@@ -1,6 +1,6 @@
 # Enveda CASMI 2026 研究项目
 
-- 067（A 线，进行中）：065a 底座 + 领头保护的自研 044 model3 mid-rank 重排（钉死第 1 名、只改第 2–25 名，λ=0.20；不叠已中性的 066a libcos）。内核 `ccjjllt/enveda-067a-own-hn-mid` 已备好，由 `scripts/063/chain.sh` 推送（若 GPU 会话被占用则重试），审计通过后自动提交。见 docs/plan/067-own-hn-midrank.md 与 docs/progress/067-own-hn-midrank.md
+- 067（A 线，已提交待出分）：065a 底座 + 领头保护的自研 044 model3 mid-rank 重排（钉死第 1 名、只改第 2–25 名，λ=0.20；不叠已中性的 066a libcos）。内核 `ccjjllt/enveda-067a-own-hn-mid` **v1** ref **58380689** 已提交（PENDING）。smoke 上 12/12 可见列表 mid-rank 有改动、top-1 未变。见 docs/plan/067-own-hn-midrank.md 与 docs/progress/067-own-hn-midrank.md
 - 066（A 线）：065a + 领头保护的训练库连续余弦 mid-rank（liuzewen123 libcos 索引/打分，钉死第 1 名、只改第 2–25 名，λ=0.25）。内核 `ccjjllt/enveda-066a-libcos-mid` **v1** ref **58358284** 公榜 **0.488**（与 065a 打平，无增益）。见 docs/progress/066-libcos-midrank.md
 - 056（A 线）：复现 alexchilton 公榜成功，ref 58089862 公榜 **0.481**（新最佳，超 051 0.480）；`V8=MASS` + popwenman v80 + smoke（020 v36）。见 docs/progress/056-gold-apex-mass481.md
 - 057（A 线）：kozykappa Domain-Evidence Layer（V23 + V8=MASS + smoke + popwenman v80）020 **v37** COMPLETE，ref **58107366** 公榜 **0.476**（相对 056 的 0.481 退步 −0.005；仅翻 1 个 top-1：m_050bf1 rank2→1）。不作新底座。见 docs/progress/057-domain-evidence.md
@@ -10,7 +10,7 @@
 - 061（A 线）：056 底座第 2–25 名大幅单旋钮，rank 1 不动 + 同轮反事实审计：061a `pxm_merge` 神经权重 NW_MID 0.75→1.00（020 **v41**，ref **58151402** 公榜 **0.478**，退步）；061b 文档先验 POP_W/SPEC_W 0.10→0.20（`ccjjllt/enveda-061b-docprior020`，ref 58160252 Kaggle 系统错误 ERROR → 原样重提 ref **58185737**）。smoke + V8=MASS + popwenman v80。见 docs/progress/061-ranks2-25-bold-knobs.md
 - 062（A 线）：复现 alexchilton 公榜 0.484（ozertuu + 外部谱库 rank-1 覆盖 TAU0.80）。062a v2（`ccjjllt/enveda-062a-extlib-tau080`）ref 58207046 公榜 **0.484**（新最佳）；062b TAU0.70 ref 58207066 公榜 **0.479**。smoke commit 输出逐字节相同，但评分为隐藏测试全量重跑，外部库在隐藏集有触发且 TAU 敏感（"惰性"结论已更正）。见 docs/progress/062-extlib-tau-calibrated.md
 - 063（A 线）：复现公开 0.487 成功。063a（062a 代码 + popwenman scorer v80、无 LOTUS）`ccjjllt/enveda-063a-p2s-scorer-v80` v1 ref **58233824** 公榜 **0.487**（新最佳，+0.003）；063b 挂回 LOTUS ref **58233993** 同为 **0.487**（LOTUS 输入在 3 位小数下中性）。A 轨切换到 063a。见 docs/progress/063-p2s-scorer-v80.md
-- 065（A 线）：复现公开 0.488 成功。`ccjjllt/enveda-065a-network-n1c` **v1** ref **58329677** 公榜 **0.488**（新最佳，相对 063a 的 0.487 为 +0.001；N-1c 只改 2 个 mid-rank 列表，top-1 未变）。2026-11-15 12:22 北京快照：第 **262**/5296，0.488 平台第 112–416 名。见 docs/progress/065-network-n1c.md
+- 065（A 线）：复现公开 0.488 成功。`ccjjllt/enveda-065a-network-n1c` **v1** ref **58329677** 公榜 **0.488**（新最佳，相对 063a 的 0.487 为 +0.001；N-1c 只改 2 个 mid-rank 列表，top-1 未变）。2026-11-15 18:26 北京快照：第 **279**/5310，0.488 平台第 123–464 名。见 docs/progress/065-network-n1c.md
 - 064（A 线，已取消推送）：原定只改 `RR8_ALPHA` 是空操作；后续拟定的 `LIB_HIT_GATE` 0.78→0.75 因公开消融在 0.487 上声称中性，065a 出分后不再推。见 docs/plan/064-zz48-diffs-on-063a.md
 
 - 047b（A 线）：047a W_MID=0.60 公榜 0.466 < 046A 0.468；改试 W_MID=0.90，020 kernel **v26** 已推送，watcher 自动提交。见 docs/plan/047-wmid-scan.md
