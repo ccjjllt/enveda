@@ -1,6 +1,6 @@
 # Enveda CASMI 2026 研究项目
 
-- 068（A 线，已备好待周 GPU 刷新后推送）：065a 底座只把 N-1c `LAM` 0.25→0.35，复现已核实的公开 0.492（Rogers Johnson / alex chilton 58380172 / mathleteutd 消融表）。内核 slug `ccjjllt/enveda-068a-n1c-lam035`，`COMMIT_MODE='smoke'`，不叠 066a/067a。周 GPU 已用尽（0.00h），刷新 2026-11-21 08:00 北京。见 docs/plan/068-n1c-lam035.md 与 docs/progress/068-n1c-lam035.md
+- 068（A 线，已备好待周 GPU 刷新后推送）：065a 底座只把 N-1c `LAM` 0.25→0.35，复现已核实的公开 0.492（Rogers Johnson / alex chilton 58380172 / mathleteutd 消融表）。内核 slug `ccjjllt/enveda-068a-n1c-lam035`，`COMMIT_MODE='smoke'`，不叠 066a/067a。周 GPU 已用尽（33.76h/30h，剩余 0.00h），刷新 2026-11-21 08:00 北京。官方快照 2026-11-15T22:22:06Z：第 **288**/5346，仍 0.488；恰好 0.492 已扩至 140 队。未见已核实的更高公开配方（jtheyogi「0494」作者仍为 0.487，不跟）。见 docs/plan/068-n1c-lam035.md 与 docs/progress/068-n1c-lam035.md
 - 067（A 线）：065a + 领头保护的自研 044 model3 mid-rank（钉死第 1 名、只改第 2–25 名，λ=0.20；不叠已中性的 066a libcos）。内核 `ccjjllt/enveda-067a-own-hn-mid` **v1** ref **58380689** 公榜 **0.488**（与 065a 打平，无增益）。见 docs/progress/067-own-hn-midrank.md
 - 066（A 线）：065a + 领头保护的训练库连续余弦 mid-rank（liuzewen123 libcos 索引/打分，钉死第 1 名、只改第 2–25 名，λ=0.25）。内核 `ccjjllt/enveda-066a-libcos-mid` **v1** ref **58358284** 公榜 **0.488**（与 065a 打平，无增益）。见 docs/progress/066-libcos-midrank.md
 - 056（A 线）：复现 alexchilton 公榜成功，ref 58089862 公榜 **0.481**（新最佳，超 051 0.480）；`V8=MASS` + popwenman v80 + smoke（020 v36）。见 docs/progress/056-gold-apex-mass481.md
