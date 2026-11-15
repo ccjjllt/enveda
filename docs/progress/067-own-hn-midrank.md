@@ -5,3 +5,4 @@
 - 066a 结论：领头保护的训练库连续余弦 mid-rank 在 3 位小数上中性，不作为新底座，也不在此方向继续调 λ。按 066 计划转向难负例/召回。
 - 公开 0.489+ 配方仍未核实（详见本轮计划）。analyticaobscura 本人 0.495，公开笔记本仍停在 2026-11-11。
 - 已写 `notebooks/067a`（slug `ccjjllt/enveda-067a-own-hn-mid`）及本轮计划：065a + 领头保护的 044 model3 mid-rank（λ=0.20，钉死 top-1，不叠 066a）。准备用 `scripts/063/chain.sh` 推内核；若因同账号 GPU 预占而暂时无法启动会话，则自动每 5 分钟重试，完成后审计通过则自动提交。
+- 2026-11-15 12:35 北京：已启动 `scripts/063/chain.sh`（D=/workspace/k067a，O=/workspace/kout_067a，HOURS=30，PUSH_HOURS=24）。首次推送被拒：`Maximum batch GPU session count of 2 reached`；chain 将每 5 分钟重试。无提交。
