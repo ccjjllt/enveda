@@ -74,7 +74,14 @@
 - 预期：可见 test 是 train 副本，commit 审计预计 0 命中；只有 hidden test 含这些“库外但 Enveda-180 有谱”的结构时才会生效。若 073a/076a 公榜正向而额度允许，用一次提交验证这个 hidden-specific 假设。
 - 实际 commit：`jiyujia/enveda-082a-e180lib` v1 COMPLETE；`e180lib_audit.json`：refs 14,471，**hits 164，promotions 164**，elapsed 59.8s；命中 cosine 0.95–0.99。
 - 自检索精度核验（CPU kernel `jiyujia/enveda-e180-precision`，30s）：3,559 个多谱结构 / 14,311 个 query，**coverage 0.991，top-1 precision 0.812**。即在 e180 内部，谱库检索能正确找回同一结构；但可见 test 是 train 副本，164 个命中是**跨结构 analog**，不能直接当作真阳性。若 hidden test 与 e180 有重叠，082a 的上限很高；若无重叠，164 个 rank-1 替换有下行风险。
-- 082c（多谱一致性门控）：`jiyujia/enveda-082c-e180cons` v1 COMPLETE；要求命中在 ≥2 张 query 谱上 cosine ≥0.75（或单谱 ≥0.95）。`e180lib_audit.json`：**hits 106，promotions 106**（从 164 降到 106），仍保留 rank-1 替换。明日优先提交 082c；082a/082b 作为对照。
+- 082c（多谱一致性门控）：`jiyujia/enveda-082c-e180cons` v1 COMPLETE；要求命中在 ≥2 张 query 谱上 cosine ≥0.75（或单谱 ≥0.95）。`e180lib_audit.json`：**hits 106，promotions 106**（从 164 降到 106），仍保留 rank-1 替换。
+- 082b（TAU 0.95，rank-2）：`jiyujia/enveda-082b-e180safe` v1 COMPLETE；**hits 143，promotions 143**，leader 不动，只把命中结构放到第 2 名。082a/082b/082c 三个变体覆盖“激进 rank-1 / 严格 rank-2 / 多谱一致 rank-1”，明日按额度提交对照。
+
+## 083a：Enveda-180 候选 + 管线神经打分（进行中）
+
+- 思路：主池不含 3,719 个“不在 train”的 Enveda-180 结构；082a/b/c 只用谱库余弦。083a 把这些结构按 ±10 ppm 组成候选 evidence，调用管线自己的 `neural_scores.py`（popwenman v80）逐候选打分，再按 z-score 边际决定是否升到第 1 名或第 2 名。
+- 这是**候选级**新信号，不是 2–25 名小权重叠加；若 e180 结构在 hidden test 中，神经打分比裸谱库余弦更可靠。
+- kernel `jiyujia/enveda-083a-e180neural` v1，commit 中；审计 `e180_neural_audit.json`。若 scorer 失败则原样返回。
 
 ## 079a/080a：组合层（commit-only）
 
