@@ -98,3 +98,25 @@ git worktree add /private/tmp/enveda-pre-cleanup pre-cleanup-2026-11-16
 1. 2026-11-21 08:00 北京 GPU 刷新后推送 068a，审计 smoke 输出并提交；只有公榜实际出分才算 0.492 复现成功。068a 仍值得推（+0.004），但 0.492 预计只到第 100–230 名，不再作为冲前 20 的方案。
 2. 公开配方已到平台：0.494/0.498/0.5 标题多为 0.492 配方或其变体，前 10/27 队无公开 notebook；继续扫 `LAM`、门控或 mid-rank 权重不足以进前 20。
 3. 下一阶段需要新信号：更好的候选生成，或使用当前通道没有的信息的 reranker。召回（真值不在池中）与同分子式异构体排序仍是未解决瓶颈；若重启，按新计划重新建立数据、留出与远端入口，不恢复旧代码。
+
+## 7. 069 轮已终止变体（2026-11-16 清理）
+
+背景：068a（065a + N-1c `LAM=0.35`）公榜 **0.492**（ref 58412029，自有；公开复现 ref 58410619 同为 0.492）。069 在同一底座上试了 15 个新信号变体，其中 12 个已有公榜或审计结论、方向终止；082a/082b/082c（Enveda-180 not-in-train 谱库）与 083a（神经打分）**未终止**，不在本次删除范围。
+
+| 变体 | 改动 | 结果 | 放弃原因 |
+| --- | --- | --- | --- |
+| 069a ISDB-NP 尾召回 | ISDB 预测谱 ±10ppm + cosine≥0.80 替换尾 3 槽 | 审计 0/400 插入，不提交 | 预测谱与实测 timsTOF 余弦在门控下无命中；与 ISDB 作者结论一致 |
+| 070a np-examples 源内升位 | 只搜 1,184 张 enveda-np-examples 谱 | 未推送（当时 GPU 槽满），未运行 | 与 073a 同向，优先级低 |
+| 071a timsTOF 源内重排 | enveda-180/NP 源内 direct-search | 未推送，未运行 | 与 073a 同向，优先级低 |
+| 072a DreaMS kNN | Enveda180 嵌入 top-100 kNN，w0.3，leader 冻结 | ref 58413244，**0.492 打平** | 中名次叠加无增益，不作新底座 |
+| 073a timsTOF ICEBERG | tims_ft3+ft2，top-20，w0.3 | ref 58413231，**0.491（−0.001）** | 底座已有 ICEBERG/GLACIER 通道，信号冗余；不再调 w0.5/topN |
+| 074a rescue=3 | outsider 尾 3 槽 | outsider_fills 0，no-op | 可见 test 无接纳；历史同改动 −0.006 |
+| 075a ICE w0.5 | 073a 权重 0.3→0.5 | 同为 12/400 重排 | 可见 test 无法区分权重，073a 已负，不再调 |
+| 076a DreaMS×Morgan 对齐 | 同式硬负例 InfoNCE，w0.3 | ref 58415444，**0.490（−0.002）** | 对齐头留出 R@1 0.668/R@20 0.995、未见结构 R@1 0.316/中位 rank 2，但叠加到底座为负 |
+| 077a/079a/080a 组合层 | ICE+kNN+对齐堆叠 | commit-only，约 12/400 | 单项已中性/负，不提交组合 |
+| 078a PubChem 尾插入 | e004 PubChem top-25 替换尾 5 名 | 0 插入（commit 只有 12 分子 payload） | 可见审计不可用；hidden rerun 才有 400 payload，不作为结论 |
+| 081a 全加合物 N-1c | 跨加合物建图 | 118 vs 114 邻居，仍只改 2 列表 | 可见证据弱，等额度再定 |
+
+代表分数：0.492（072a 打平）、0.491（073a）、0.490（076a），均未超过 068a 的 0.492。失败机制与 001–064 一致：底座融合已吸收这些证据，2–25 名小权重叠加净效应为零或轻微负；离线留出增益（ICE 未见结构 R@1 0.4395、对齐未见结构 R@1 0.316）不迁移公榜。
+
+删除范围（本次）：`notebooks/072a`、`073a`、`076a`（本地副本；Kaggle kernel 记录保留，Git 标签 `pre-cleanup-069-2026-11-16` 可恢复，提交号 d4c3d9c）；`/tmp` 内 enveda 废弃下载与审计产物约 518 MB（ISDB/LOTUS/DreaMS/e180 验证下载、GNPS 审计 parquet、ice/align 验证输出、已终止变体的 k*/kout* 构建目录）。保留：`notebooks/065a–068a`、`082c`（待提交）、082a/082b/083a 的 Kaggle 记录与待提交 CSV（`kout082c_sub`、`kout082b`）、`docs/research/069-*.md` 5 份调研、`data/raw`、`data/references`。`artifacts/` 为空。仓库内本次释放约 2.5 MB；未发现任何名为 arc facts 的文件（全仓库 `*arc*`/`*fact*` 搜索只命中 `artifacts/`、`research`、`research-archive` 等常规路径）。
