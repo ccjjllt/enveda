@@ -301,4 +301,4 @@ CSI:FingerID 被 NIST 条款排除（§4.4）；DreaMS 的指纹头**没有随�
 - 相似度/检索：[MS2DeepScore（Apache-2.0）](https://github.com/matchms/ms2deepscore)、[Spec2Vec/MS2Query 权重 Zenodo](https://zenodo.org/records/12606475)
 - 生成：[MIST（MIT）](https://github.com/samgoldman97/mist)、[MIST MSG 权重 Zenodo](https://zenodo.org/records/11580401)、[DiffMS 权重（MIT）](https://zenodo.org/records/15122968)、[MolForge（CC BY-NC 4.0）](https://github.com/knu-lcbc/MolForge)、[MIST+MolForge 修正复现](https://github.com/harrylaucngd/MIST-MolForge)、[FRIGID（Apache-2.0）](https://github.com/coleygroup/FRIGID)
 - 数据/基准：[MassSpecGym（MIT）](https://github.com/pluskal-lab/MassSpecGym)、[Spectraverse（CC BY 4.0）](https://zenodo.org/records/17870921)、[MassSpecGym in the Wild](https://arxiv.org/abs/2606.19624)、[SpecBridge（已撤稿）](https://arxiv.org/abs/2601.17204)
-- 本赛现状：[已放弃研究总览](../research-archive.md)、[068 进展](../progress/068-n1c-lam035.md)
+- 本赛现状：[已放弃研究总览](../../../archive/research-archive.md)、[068 进展](../../068-n1c-lam035/progress.md)

@@ -14,7 +14,7 @@
 - 清理前快照：Git 标签 `pre-cleanup-2026-11-16`（提交 `62f0177`）。所有 Git 跟踪文件可从标签恢复；未跟踪的 `artifacts/`、`datasets/` 载荷与虚拟环境不可恢复。
 - 删除：`docs/plan`/`docs/progress` 的 001–064、3 份 handoff、`research-history.md`、`workspace-paths.json`；`notebooks` 除 065a–068a 外的 41 个目录；`scripts` 除 `063/` 外的 75 个文件/目录；`src/`；`artifacts/` 全部；`datasets/` 全部；`.venv`、`.venv-015`、`.venv-fp`。
 - 释放：项目占用从 **9.4 GB 降到 2.8 GB**，约 **6.6 GB**；系统可用空间从 500 GiB 增至 507 GiB（`df -h` 取整）。
-- 保留：`data/raw/`（2.8 GB，比赛原始数据）、`data/references/`、065a–068a、`scripts/063`、065–068 计划/进展、[已放弃研究总览](../research-archive.md)。
+- 保留：`data/raw/`（2.8 GB，比赛原始数据）、`data/references/`、065a–068a、`scripts/063`、065–068 计划/进展、[已放弃研究总览](../../archive/research-archive.md)。
 - 未运行任何 Kaggle 内核、未提交、未改变 068a 的待推送状态；周 GPU 仍为 0.00h，刷新 2026-11-21 08:00 北京。
 
 ## 2026-11-16 公开方案与公榜复核（MCP）

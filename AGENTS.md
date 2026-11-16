@@ -16,24 +16,21 @@
 
 ## 计划与进展
 
-- 研究按轮次或紧密相关主题组织到 `docs/plan/NNN-topic.md`。
-- 对应实际结果必须写到同名 `docs/progress/NNN-topic.md`。
-- 计划写背景、目标与假设、实验设计、待修改代码、实现步骤及需继承的结论。
-- 进展写实际修改、产物、人工核对记录、实验结果、问题与后续方向。
-- 当前只保留 065–068 的配对文档；001–064 的研究概况、实际分数、失败机制和放弃原因统一在 `docs/research-archive.md`，不再逐轮保留明细。
-- 文档总入口为 `docs/README.md`；根 README 只保留当前状态与导航，比赛与远端操作放 `docs/remote-workflow.md`。
-- 当前 notebook 保留轮次目录（065a–068a）；`scripts/063/` 保留 chain/watch 入口。
+- 研究按轮次组织到 `rounds/NNN-topic/`：`plan.md` 写背景、目标与假设、实验设计，`progress.md` 写实际修改、产物、人工核对记录、实验结果、问题与后续方向；notebook 入口与专题调研与该轮同目录。
+- 当前只保留 065–069 轮目录；001–064 的研究概况、实际分数、失败机制和放弃原因统一在 `archive/research-archive.md`，不再逐轮保留明细。
+- 文档总入口为根 README 与 `rounds/README.md`；比赛与远端操作放 `ops/remote-workflow.md`。
+- 当前 notebook 保留轮次入口（065a–068a、082c，均在所属 `rounds/` 目录下）；`ops/063/` 保留 chain/watch 入口。
 - 本地产物仍放 `artifacts/`（不入 Git）。已放弃方向不再保留运行产物；需要复盘时从结论文档和 Git 标签恢复，不恢复大文件。
 
 ## 清理约定
 
-- 研究方向终止后，先把研究概况、代表分数、失败机制、放弃原因、删除范围写入 `docs/research-archive.md`，再删除明细文档、脚本、notebook 与大体积产物。
+- 研究方向终止后，先把研究概况、代表分数、失败机制、放弃原因、删除范围写入 `archive/research-archive.md`，再删除明细文档、脚本、notebook 与大体积产物。
 - 删除前打 Git 标签并记录提交号；Git 跟踪的文本可从标签恢复，未跟踪的 `artifacts/`、`datasets/` 载荷与虚拟环境不可恢复，必须在总览中写明。
 - 原始比赛数据 `data/raw/`、机器可读证据 `data/references/` 与当前 A 线入口不因清理而删除。
 
 ## 远程工作
 
-- Kaggle MCP 用于读取比赛、数据元信息、公开代码、运行状态、日志和输出；Kaggle CLI 用于 push notebook 与提交。具体命令见 `docs/remote-workflow.md`。
+- Kaggle MCP 用于读取比赛、数据元信息、公开代码、运行状态、日志和输出；Kaggle CLI 用于 push notebook 与提交。具体命令见 `ops/remote-workflow.md`。
 - 研究账号为 `ccjjllt`；本机 CLI 默认可能是其他账号，执行前在进程内选择认证，不改全局默认。
 - `kernels push` 会启动运行且不会同步整个本地仓库。入口必须是自包含 notebook，或把代码、权重和依赖作为输入挂载。
 - 每次实验记录 notebook 版本、数据/权重版本、随机种子、计算设备、时长、指标和输出位置。

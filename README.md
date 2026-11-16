@@ -14,31 +14,31 @@
 
 ## 导航
 
-- [已放弃研究总览](docs/research-archive.md)：001–064 的研究概况、实际结果、放弃原因、删除范围与恢复方式。**接手先读这一页。**
-- [当前计划 069](docs/plan/069-new-signals.md) / [当前进展 069](docs/progress/069-new-signals.md)：timsTOF ICEBERG、DreaMS kNN、对比对齐、PubChem 尾召回的实验与审计。
-- [068 计划](docs/plan/068-n1c-lam035.md) / [068 进展](docs/progress/068-n1c-lam035.md)：0.492 配方与推送顺序。
-- [065 计划](docs/plan/065-network-n1c.md) / [065 进展](docs/progress/065-network-n1c.md)：当前最佳 0.488 的来源。
-- [066](docs/plan/066-libcos-midrank.md) / [067](docs/plan/067-own-hn-midrank.md)：两个中性试验，不作为底座。
-- [比赛规则、数据与远端工作流](docs/remote-workflow.md)：Kaggle CLI、提交、配额与数据说明。
-- [文档索引](docs/README.md)、[脚本说明](scripts/README.md)、[notebook 入口](notebooks/README.md)。
+- [已放弃研究总览](archive/research-archive.md)：001–064 的研究概况、实际结果、放弃原因、删除范围与恢复方式。**接手先读这一页。**
+- [轮次索引](rounds/README.md)：065–069 计划/进展/notebook/专题调研，一轮一目录。
+- [当前计划 069](rounds/069-new-signals/plan.md) / [当前进展 069](rounds/069-new-signals/progress.md)：timsTOF ICEBERG、DreaMS kNN、对比对齐、PubChem 尾召回的实验与审计。
+- [068 计划](rounds/068-n1c-lam035/plan.md) / [068 进展](rounds/068-n1c-lam035/progress.md)：0.492 配方与推送顺序。
+- [065 计划](rounds/065-network-n1c/plan.md) / [065 进展](rounds/065-network-n1c/progress.md)：0.488 的来源。
+- [066](rounds/066-libcos-midrank/plan.md) / [067](rounds/067-own-hn-midrank/plan.md)：两个中性试验，不作为底座。
+- [比赛规则、数据与远端工作流](ops/remote-workflow.md)：Kaggle CLI、提交、配额与数据说明。
+- [远端脚本说明](ops/README.md)。
 
 ## 当前目录
 
 ```text
 enveda/
 ├── AGENTS.md                  # 协作约定
-├── docs/
-│   ├── research-archive.md    # 已放弃研究总览（001–064）
+├── rounds/                    # 研究主体，一轮一目录
+│   ├── 065-network-n1c/        # plan.md + progress.md + 065a/
+│   ├── 066-libcos-midrank/    # 同上结构
+│   ├── 067-own-hn-midrank/
+│   ├── 068-n1c-lam035/        # 当前最佳 0.492，入口 068a/
+│   ├── 069-new-signals/       # plan + progress + research/ + 待提交 082c/
+│   └── README.md              # 轮次索引
+├── archive/
+│   └── research-archive.md    # 已放弃研究总览
+├── ops/
 │   ├── remote-workflow.md     # 比赛/数据/Kaggle 操作
-│   ├── README.md
-│   ├── plan/065-069.md        # 当前 A 线与新信号
-│   ├── progress/065-069.md
-│   └── research/069-*.md      # 公开前沿、管线、资产、检索、模型调研
-├── notebooks/
-│   ├── 065a/ 066a/ 067a/ 068a/  # A 线底座
-│   ├── 082c/                    # 069 待验证（Enveda-180 谱库）
-│   └── README.md
-├── scripts/
 │   ├── 063/                   # chain.sh / watch.sh
 │   └── README.md
 ├── data/
@@ -47,7 +47,7 @@ enveda/
 └── artifacts/                 # 已清空；新产物仍不入 Git
 ```
 
-001–064 的明细文档、旧脚本、旧 notebook、`src/` 与 5.9 GB 本地产物已于 2026-11-16 清理；清理前快照见 Git 标签 `pre-cleanup-2026-11-16`。069 已终止变体（072a/073a/076a 等）的本地 notebook 与 /tmp 废弃下载约 520 MB 已于同日清理，快照见 `pre-cleanup-069-2026-11-16`。研究结论没有丢失，统一收敛到[已放弃研究总览](docs/research-archive.md)。
+001–064 的明细文档、旧脚本、旧 notebook、`src/` 与 5.9 GB 本地产物已于 2026-11-16 清理；清理前快照见 Git 标签 `pre-cleanup-2026-11-16`。069 已终止变体（072a/073a/076a 等）的本地 notebook 与 /tmp 废弃下载约 520 MB 已于同日清理，快照见 `pre-cleanup-069-2026-11-16`。研究结论没有丢失，统一收敛到[已放弃研究总览](archive/research-archive.md)。
 
 ## 工作约定
 
