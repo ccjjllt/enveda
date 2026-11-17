@@ -67,3 +67,14 @@ v8 已进入 `run` 阶段（MIST 编码 + MolForge beam=10 解码 150 分子，b
 - **082e**（`jiyujia/enveda-082e-e180tau065` v1 COMPLETE）：`hits 5, promotions 5, in_pool_promotions 0`（082d 为 4）。τ 0.72→0.65 只多 1 个升位；池内 e180 验证路径在可见集 0 命中（预期：可见 12 个分子是 train 结构，e180 是 not-in-train）。→ 与 082d 高度相关，**不单独提交**。
 - **082f v1**（`jiyujia/enveda-082f-outsiderice` v1 COMPLETE）：`outsiders 240, ice_scored 12, gate_pass 0, promotions 0`——可见集 12 个分子 `lib_max` 全 1.0，`lib_max<0.90` 门 100% 拦截，无法暴露任何行为。
 - 发现 v1 隐患：它把 `ice_rerank` 的 outsider 分与底座 `frozen_candidate_evidence.ice` 列跨源比较，尺度可能不一致（可见集被门挡住，测不出）。→ 已推 **v2**（同源双跑：池内 25 与 outsider 都用同一 ICE 跑；margin 0.15、MIN_OUT 0.40、cap 60、打印两侧 p50/p90 分布）。
+
+## 2026-11-17 14:08 **082c 出分 0.468（−0.024）——松门库匹配实测证伪**
+
+- ref `58450336` 由 PENDING 变 COMPLETE：public **0.468**（底座 0.492，−0.024），这是 11-16 以来第一个新出分结果。
+- 反推精度：106 个升位、−0.024 = −9.6 rank 单位；设点火集底座 rank-1 正确率 c，`k·1.0 − (106−k)·c·0.5 = −9.6`：
+  - c=0.43 → k≈10.9 → **precision 10.2%**；
+  - c=0.25 → k≈3.2 → **precision 3.1%**。
+  - 盈亏平衡是 11–19%，实测精度只有 3–10% → 大幅负分完全符合预期。
+- 结论 1：**082c 的"未归一化 sqrt-内积 τ=0.80"确实等价于"≥4 匹配峰"**，可见集 106 个 analog 命中在隐藏集同样是 analog（精度标定预测成立）。
+- 结论 2：隐藏集与 e180 的**真实重叠很低**（否则即使松门也会有一部分真命中把分数拉正）。082d 的严格门只剩 4 个升位，等于把同一假设压到最小暴露；其期望接近中性，不再是提分主力。
+- 后续：把额度转向**池内召回**（082f2：ICE 给 `fusion_overflow`（池内 26+ 名）与 PubChem 提案打分），这是 28% 零分分子里"真值在池内但排不进 25"那部分唯一未测的机制。
