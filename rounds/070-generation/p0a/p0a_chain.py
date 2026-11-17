@@ -81,7 +81,7 @@ def s_data():
         with open(f'{dd}/spec_files/{name}.ms','w') as f:
             f.write(f'>compound {name}\n>formula {r.molecular_formula}\n>parentmass {float(r.precursor_mz)}\n>ionization [M+H]+\n>num peaks {len(mz)}\n\n>ms2peaks\n')
             f.write('\n'.join(f'{a} {b}' for a,b in zip(mz,it))+'\n')
-        mgf.append(f'BEGIN IONS\nTITLE={name}\nPEPMASS={float(r.precursor_mz)}\nCHARGE=1+\n'+'\n'.join(f'{a} {b}' for a,b in zip(mz,it))+ '\nEND IONS\n')
+        mgf.append(f'BEGIN IONS\nTITLE={name}\nID={name}\nPEPMASS={float(r.precursor_mz)}\nCHARGE=1+\n'+'\n'.join(f'{a} {b}' for a,b in zip(mz,it))+ '\nEND IONS\n')
         rows.append(dict(spec=name,formula=str(r.molecular_formula),smiles=str(r.normalized_smiles),inchikey=str(r.inchikey14),ionization='positive',instrument='timsTOF'))
     pd.DataFrame(rows).to_csv(f'{dd}/labels.tsv',sep='\t',index=False)
     pd.DataFrame([dict(name=r['spec'],split='test') for r in rows]).to_csv(f'{dd}/split.tsv',sep='\t',index=False)
