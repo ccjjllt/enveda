@@ -90,24 +90,39 @@ def s_data():
 stage('data',s_data)
 # 5. subformulae
 def s_subform():
+    import shutil, runpy
     dd=os.path.join(work,'data')
-    import os as _os
-    _env=dict(_os.environ); _env['PYTHONPATH']='/kaggle/working/mist/src'
-    _diag=subprocess.run([sys.executable,'-c','import mist,mist.utils;print(mist.__file__);print(mist.utils.__file__);print(hasattr(mist.utils,"chunked_parallel"))'],
-        capture_output=True,text=True,env=_env)
-    print('[p0a] mist diag',_diag.stdout[-300:],_diag.stderr[-300:],flush=True)
-    r=subprocess.run([sys.executable,'/kaggle/working/mist/src/mist/subformulae/assign_subformulae.py',
-        '--spec-files',f'{dd}/spec.mgf','--labels-file',f'{dd}/labels.tsv','--output-dir',f'{dd}/subformulae',
-        '--max-formulae','50','--num-workers','4'],capture_output=True,text=True,env=_env)
-    found=[]
-    for dp,dn,fn in os.walk(dd+'/subformulae'):
-        found+=[os.path.join(dp,f) for f in fn if f.endswith('.json')]
-    if r.returncode!=0 and not found: raise RuntimeError(r.stderr[-800:]+r.stdout[-800:])
+    fx='/kaggle/working/mistfix'
+    if not os.path.exists(fx+'/DONE'):
+        shutil.copytree('/kaggle/working/mist/src/mist',fx+'/mist')
+        init=fx+'/mist/utils/__init__.py'
+        lines=[l for l in open(init) if 'tune_utils' not in l]
+        open(init,'w').write(''.join(lines))
+        open(fx+'/DONE','w').write('ok')
+    sys.path.insert(0,fx)
+    import types as _t
+    try:
+        import pytorch_lightning.loggers as _L
+        _base=_t.ModuleType('pytorch_lightning.loggers.base')
+        class _LLB:
+            def __init__(self,*a,**k): pass
+        def _rzo(fn): return fn
+        _base.LightningLoggerBase=_LLB; _base.rank_zero_experiment=_rzo
+        sys.modules['pytorch_lightning.loggers.base']=_base
+    except Exception as e:
+        print('[p0a] pl stub note',repr(e)[:200],flush=True)
     import glob as gb
+    _argv=sys.argv
+    sys.argv=['assign_subformulae.py','--spec-files',f'{dd}/spec.mgf','--labels-file',f'{dd}/labels.tsv','--output-dir',f'{dd}/subformulae','--max-formulae','50','--num-workers','4']
+    try:
+        runpy.run_path('/kaggle/working/mist/src/mist/subformulae/assign_subformulae.py',run_name='__main__')
+    finally:
+        sys.argv=_argv
     cands=sorted(gb.glob(dd+'/subformulae/**/*.json',recursive=True),key=len)
-    subf=os.path.dirname(cands[0]) if cands else dd+'/subformulae'
+    if not cands: raise RuntimeError('no subformula json produced')
+    subf=os.path.dirname(cands[0])
     open(os.path.join(work,'subform_dir.txt'),'w').write(subf)
-    return dict(n_json=len(cands),dir=subf,rc=r.returncode)
+    return dict(n_json=len(cands),dir=subf)
 stage('subform',s_subform)
 # 6. run benchmark core, batch_size=1, t=0.172
 def s_run():
