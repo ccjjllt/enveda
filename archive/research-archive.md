@@ -120,3 +120,66 @@ git worktree add /private/tmp/enveda-pre-cleanup pre-cleanup-2026-11-16
 代表分数：0.492（072a 打平）、0.491（073a）、0.490（076a），均未超过 068a 的 0.492。失败机制与 001–064 一致：底座融合已吸收这些证据，2–25 名小权重叠加净效应为零或轻微负；离线留出增益（ICE 未见结构 R@1 0.4395、对齐未见结构 R@1 0.316）不迁移公榜。
 
 删除范围（本次）：`notebooks/072a`、`073a`、`076a`（本地副本；Kaggle kernel 记录保留，Git 标签 `pre-cleanup-069-2026-11-16` 可恢复，提交号 d4c3d9c）；`/tmp` 内 enveda 废弃下载与审计产物约 518 MB（ISDB/LOTUS/DreaMS/e180 验证下载、GNPS 审计 parquet、ice/align 验证输出、已终止变体的 k*/kout* 构建目录）。保留：`notebooks/065a–068a`、`082c`（待提交）、082a/082b/083a 的 Kaggle 记录与待提交 CSV（`kout082c_sub`、`kout082b`）、`docs/research/069-*.md` 5 份调研、`data/raw`、`data/references`。`artifacts/` 为空。仓库内本次释放约 2.5 MB；未发现任何名为 arc facts 的文件（全仓库 `*arc*`/`*fact*` 搜索只命中 `artifacts/`、`research`、`research-archive` 等常规路径）。
+
+## 8. 070 轮已终止方向（2026-11-17 清理）
+
+背景：A 线停在 068a 的 **0.492**（ref `58412029`）。070 轮用四个方向去攻 0.492→0.549 的缺口，全部得到终止证据；本轮只保留仍在队列/在用的入口，其余明细与产物删除。
+
+### 8.1 终止方向、代表结果与放弃原因
+
+| 方向 | 变体 | 代表结果 | 放弃原因（实测/算术，非推测） |
+| --- | --- | --- | --- |
+| **池外生成**（MIST+MolForge） | `p0a` 链 v1–v9 | 链始终未产出候选：`run FAIL no mist .pt` | 公开源无 `mist_msg.pt`（DiffMS tar 仅 6 文件、MassSpecGym zip 22,726 条目 0 权重、`mist_fp.ckpt` 旧架构逐层 mismatch）；且 MRR@25 下尾槽生成上限 **+0.0004~+0.0013**、rank-1 替换盈亏平衡精度 **0.51** 而 MIST top-1 仅 0.107 |
+| **从零训练 class-2 排序器** | `class2` FP→谱 MLP | 分布内 5 路 R@1 **0.820** → e180 未见结构 **0.205**（=随机） | 闸门（>0.44）FAIL；模型只学到训练骨架记忆。且 ICE 的 `tims_ft3` 已在本赛 timsTOF 训练谱上微调过，同数据再训无增益 |
+| **Enveda-180 谱库升位（松门）** | `082c` → ref `58450336` | 公榜 **0.468（−0.024）**，106 个升位；反推精度 3–10% | 未归一化余弦使 τ=0.80 等价于"≥4 匹配峰"；盈亏平衡 11–19%，实测精度远低于它 |
+| **Enveda-180 谱库升位（严格门）** | `082d` → ref `58457692` | 公榜 **0.492（±0.000）**，4 个升位（τ=0.72，标定 precision 0.89） | 4.8h 后出分精确中性：隐藏集与 e180 的真实重叠不足（或底座已排对）。**至此 e180 路线判定到顶，082e（τ=0.65）不再提交** |
+| **ICE 池外召回** | `082f` / `082f2` | `gate_pass 0`；`ice` 列被误当分数（实为重排名次），v2 作废 | 语义错误 + 门全拦，被 `082f3` 取代（同源双跑 + `ice_tims_*` 余弦）；082f3/082g 仍待出分，故不删 |
+| **集合内重排**（候选级强打分） | `070a` / `070b` | 均 `reranked 12, top1_changed 0`（12/12 可审计分子，非 12/400） | 底座头部顺序已被现有证据锁定，神经/对齐/ICE 三类打分与底座共线；5 次独立重排全部零换帅 |
+
+### 8.2 失败机制归纳（本轮新增的三条）
+
+1. **精度门槛是硬约束，不是调参问题。** rank-1 替换的盈亏平衡 `p ≈ 0.9(1−c)`，c≈0.43 时需 p≈0.51。逐个实测的公开信号都够不到：MIST 0.107、对齐头 0.32（5 路）/0.131（10 路）、FP→谱 0.205、ICE 0.4395（且其候选集只有中位 5 个）。
+2. **库匹配的瓶颈是重叠，不是阈值。** 松门 106 升位 −0.024、严门 4 升位 ±0.000：同一机制从"广撒"收紧到"极严"也只是从亏变平，说明隐藏集里属于 e180 的分子极少。
+3. **可见集无法充当泛化证据。** commit 模式只排 12 个分子（其余 388 行为单候选占位），且这 12 个 `lib_max` 全为 1.0（库命中）；所有 overlay 的可见审计对 rank-1 精度**零信息**，判据只能是公榜。
+
+### 8.3 删除范围（本次）
+
+Git 跟踪文件（可从标签恢复）：
+
+| 路径 | 内容 | 大小 |
+| --- | --- | ---: |
+| `rounds/069-new-signals/082c/` | 松门 e180 库升位 notebook + metadata | 820 KB |
+| `rounds/070-generation/082d/` `082e/` | 严门/τ0.65 e180 库升位 | 1.6 MB |
+| `rounds/070-generation/082f/` `082f2/` | 作废的 ICE outsider 前两版 | 1.6 MB |
+| `rounds/070-generation/070a/` `070b/` | 集合内重排（零换帅） | 1.6 MB |
+| `rounds/070-generation/p0a/` | MIST+MolForge 链脚本 | 16 KB |
+| `rounds/070-generation/class2/` | FP→谱训练脚本（闸门 FAIL） | 12 KB |
+
+未跟踪的本地产物（不可恢复）：
+
+| 位置 | 内容 | 大小 |
+| --- | --- | ---: |
+| opencode 临时目录 | `mmf_src/`（MolForge 源码）、`mist_fp.ckpt`、`ztail.bin`、`pubscan/`、各变体 `k*/kout*` 构建与日志、旧榜单快照 zip | **264 MB** |
+| `/tmp` | `/tmp/mistck`（ckpt 解包，99 MB）、`/tmp/kiceval`（e180 验证输出 15 MB）等 | **116 MB** |
+| 仓库内 | 上述 6.8 MB 中的 5.6 MB（notebook 本体） | 5.6 MB |
+| **合计释放** | | **约 386 MB** |
+
+### 8.4 保留范围与理由
+
+- **当前 A 线入口**：`rounds/068-n1c-lam035/068a/`（0.492 底座）与 `rounds/070-generation/083a/`（一致性门，ref `58465327`，唯一正期望机制）。
+- **待出分的提交**：`rounds/070-generation/082f3/`、`082g/`（ref `58460262` / `58462795`）——结果未回，不能作为已终止方向删除。
+- **调研文档**：`rounds/*/research/` 7 份（含 `070-library-precision-calibration.md` 的 τ→precision 标定表、`070-gap-is-class2.md` 的官方三类定义、`070-agreement-gate.md` 的精度/覆盖率与下行推导）。它们体量小（约 250 KB），是后续接手的唯一依据。
+- **比赛原始数据与证据**：`data/raw/`（2.8 GB）、`data/references/` 不动。
+- **不属于本项目、未删除**：opencode 临时目录内约 **15 GB** 的 `sweep2/ verify_new2/ verify_new3/ qcc_push/ sweep3/ deep_* out_* nb2/ emit_src/` 全部是**另一个项目（量子线路 QCC）**的产物（含 `qcc-*` notebook、`*qubit*` 日志、`qcc-reproducible-circuit-portfolio` 等），最近修改时间在本日 16:00 之后。它们不是 Enveda 研究，删除会破坏另一条工作线，故原样保留；若确认那边也终止，可按同一流程单独归档清理。
+
+### 8.5 恢复方式
+
+```bash
+# 查看清理前的任意变体
+git show cleanup-070-dead-2026-11-17:rounds/070-generation/082d/enveda-082d-e180cal.ipynb
+
+# 恢复整棵被删目录到临时工作树
+git worktree add /private/tmp/enveda-070-dead cleanup-070-dead-2026-11-17
+```
+
+未跟踪产物（`mmf_src`、`mist_fp.ckpt`、`kiceval` 等）删除后不可恢复；需要重跑 P0 时按 `070-pool-external-generation.md` §7 的链接重新下载，class-2 训练按本节 8.1 的结论直接跳过（已证伪）。
