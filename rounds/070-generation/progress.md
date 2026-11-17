@@ -38,3 +38,10 @@ v8 已进入 `run` 阶段（MIST 编码 + MolForge beam=10 解码 150 分子，b
 - 底座 `COMMIT_MODE='smoke'`：commit run 只排 **12 个可见分子**，其余 388 行写单候选占位；`IS_RERUN`（hidden scoring rerun）才排全部 400。证据：`kout068a/submission.csv` 槽位数 min/median/max = 1/1/25，388 行 <25；底座 cell 27 原文「the counts cover the 12 visible smoke molecules」。
 - 因此 070a/070b 的 `reranked 12, top1_changed 0` 实际是 **12/12 个可审计分子**，不是 12/400。n=12 下 0 次换帅只能排除大效应（真实换帅率 20% 时漏检概率 6.9%），不能排除 5% 级小效应（漏检 54%）。
 - 结论不变（070a/070b 仍不提交：改动集中在 2–25 名、MRR 增量本就是 1e-4 量级），但**今后任何 overlay 审计都必须注明 n=12 的统计功效**，不能再用「改动只有 12/400」当作判死证据。
+
+## 2026-11-17 12:40 P0 终止（权重来源穷尽 + 算术上限≈0）
+
+- v9 结果：`subform OK`，`run FAIL RuntimeError('no mist .pt; candidates=[]')`。DiffMS `zenodo 15122968` 的 `diffms_checkpoints.tar.gz` 只有 **6 个成员、无任何含 "mist" 的文件**；`msg_preprocessed.tar.gz` 是数据（magma/谱），`MassSpecGym_mist_data.zip`（Zenodo 11580401）经中央目录实查 **22,726 条目、0 个 .pt/.ckpt/.pth 权重**。MIST-MolForge README 声称的 `mist_msg.pt` 在公开 Zenodo 记录里实际不可得。
+- 架构也不兼容：`mist_fp.ckpt`（Zenodo 11580401，103MB）是 MIST 旧架构（3 层 peak attn、fragment predictor 512 维），与官方 MSG 配置（2 层、2048 维）逐层 size mismatch，不能直接用。
+- 决定性判据见 `research/070-pool-external-generation.md` §6：MRR@25 下尾槽生成上限 +0.0004～+0.0013，rank-1 升位盈亏平衡精度 51%（弱池子集 72%），MIST 修正 top-1 仅 10.73%。**P0 不进入提交，GPU 不再投入。**
+- 遗留可复现资产：探针 kernel `jiyujia/enveda-mist-p0-probe`（5 个权重可下）、`p0a/p0a_chain.py`（含 subform 修复的完整链：拷包+空 `__init__`+剔除 `tune_utils`+runner stub 旧 PL API）。若将来拿到 `mist_msg.pt`，链只差替换权重文件。
