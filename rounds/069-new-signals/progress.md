@@ -134,3 +134,9 @@
 - GPU（ccjjllt token 实查）：已用 33.76h / 30h，剩余 0.00h；2026-11-21 00:00 UTC 刷新。
 - 公榜 top-10：0.549 / 0.540 / 0.536 / 0.528 / 0.521 / 0.518 / 0.510 / 0.510 / 0.509 / 0.509；榜首仍是 Shehab Alshehabi 0.549（11-15），无新榜首。
 - 公开 notebook：按 VoteCount 前 20 无 0.492 以上已核实新配方；rogersjohnson `casmi26-l4-lam035`（0.492 配方）无更新（last run 11-13）；heliosli `0.494-public demo` 等标题党无更新（last run 11-13）。前 10 队伍仍无公开 competition notebook。
+
+## 2026-11-17 13:33 提交 082d（标定版，ref 58457692）
+
+- 依据 `rounds/070-generation/research/070-library-precision-calibration.md`：归一化余弦 τ=0.70 precision 0.887 / τ=0.80 0.955，rank-1 替换盈亏平衡仅 ~0.19。
+- 发现 082c 的 cosine 未归一化，τ=0.80 等价于"≥4 匹配峰"，可见集 106 个命中全是 analog；082d 归一化后同一 400 query 只有 4 个命中（n_cons 均 2、cosine 0.75–0.96）。
+- 已提交 **58457692**，PENDING；今日剩 3 单。082c（58450336）+ 082d 构成"松门 vs 标定门"同日 A/B。
