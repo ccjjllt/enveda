@@ -2,6 +2,10 @@
 
 比赛：[Enveda CASMI 2026 — Molecule ID From Mass Spectra](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra)，指标 **MRR@25**。默认使用中文记录研究。
 
+## 最新研究入口（2026-11-17 晚间）
+
+[071 提分路线深度研究](rounds/071-breakthrough-research/research-report.md)与[实验设计](rounds/071-breakthrough-research/plan.md)：当前已验证最佳为068a **0.492**。优先研究新版官方MIST候选评分、MSAlign式结构表示与统一候选排序，MS-GPT作有限生成探索。已确认083a在DreaMS编码前平均原始峰序列的输入缺陷；e180校准与对齐头监督训练是否重叠仍待核对。“0.492已到顶”“0.51统一精度门槛”“一致性门零下行”的旧推断不再作为决策依据。最新提交读回与核查范围见[071实际进展](rounds/071-breakthrough-research/progress.md)。以下11月16日内容保留为历史快照。
+
 ## 当前状态（2026-11-16）
 
 - **新最佳：public 0.492**（ref `58410619`，公开 N-1c `LAM=0.35` 复现，2026-11-16 15:10 北京出分），ccjjllt 第 **314/5376**。相对 0.488 为 **+0.004**；0.492 平台已扩散，仍只在前 100–230 名区间。

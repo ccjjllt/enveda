@@ -1,0 +1,87 @@
+{
+  "checked_at_utc": "2026-11-17 13:50:51 UTC",
+  "competition": "enveda-CASMI26-molecule-id-mass-spectra",
+  "submissions": [
+    {
+      "ref": 58465327,
+      "submitted_at": "2026-11-17T10:26:50.547Z",
+      "description": "083a jiyujia: 068a + ICE x DreaMS-align agreement gate (e180 precision 1.00 @ 11% cov, zero-downside)",
+      "public_score": null,
+      "status": null,
+      "notebook_url": "/code/jiyujia/enveda-083a-agreegate?scriptVersionId=370597580"
+    },
+    {
+      "ref": 58462795,
+      "submitted_at": "2026-11-17T08:38:51.060Z",
+      "description": "082g jiyujia: 068a + e180 promo tau0.72 (4) + ICE outsider recall margin0.10 cap40, disjoint",
+      "public_score": null,
+      "status": null,
+      "notebook_url": "/code/jiyujia/enveda-082g-combined?scriptVersionId=370584940"
+    },
+    {
+      "ref": 58460262,
+      "submitted_at": "2026-11-17T07:06:31.303Z",
+      "description": "082f3 jiyujia: 068a + ICE-cosine outsider recall promotion (pool 26+, PubChem), margin 0.10 cap 40",
+      "public_score": "0.492",
+      "status": "COMPLETE",
+      "notebook_url": "/code/jiyujia/enveda-082f3-outsiderice?scriptVersionId=370558677"
+    },
+    {
+      "ref": 58457692,
+      "submitted_at": "2026-11-17T05:33:11.873Z",
+      "description": "082d jiyujia: 068a + e180 library promotion, calibrated normalized cosine tau0.72 (precision 0.89)",
+      "public_score": "0.492",
+      "status": "COMPLETE",
+      "notebook_url": "/code/jiyujia/enveda-082d-e180cal?scriptVersionId=370534193"
+    },
+    {
+      "ref": 58450336,
+      "submitted_at": "2026-11-17T00:49:03.697Z",
+      "description": "082c jiyujia: 068a + Enveda-180 not-in-train library, multi-spectrum consistency",
+      "public_score": "0.468",
+      "status": "COMPLETE",
+      "notebook_url": "/code/jiyujia/enveda-082c-e180cons?scriptVersionId=370214331"
+    },
+    {
+      "ref": 58415444,
+      "submitted_at": "2026-11-16T04:32:41.600Z",
+      "description": "076a jiyujia: 068a + DreaMS x Morgan contrastive alignment rerank w0.3",
+      "public_score": "0.490",
+      "status": "COMPLETE",
+      "notebook_url": "/code/jiyujia/enveda-076a-align?scriptVersionId=370120919"
+    },
+    {
+      "ref": 58413244,
+      "submitted_at": "2026-11-16T03:23:39.657Z",
+      "description": "072a jiyujia: 068a + DreaMS Enveda180 kNN rerank (w0.3, top100)",
+      "public_score": "0.492",
+      "status": "COMPLETE",
+      "notebook_url": "/code/jiyujia/enveda-072a-dreams-knn?scriptVersionId=370101667"
+    },
+    {
+      "ref": 58413231,
+      "submitted_at": "2026-11-16T03:23:28.513Z",
+      "description": "073a jiyujia: 068a + timsTOF fine-tuned ICEBERG (tims_ft3+ft2) rerank top20 w0.3",
+      "public_score": "0.491",
+      "status": "COMPLETE",
+      "notebook_url": "/code/jiyujia/enveda-073a-tims-iceberg?scriptVersionId=370103205"
+    },
+    {
+      "ref": 58412029,
+      "submitted_at": "2026-11-16T02:47:24.280Z",
+      "description": "068a jiyujia: 065a + N-1c LAM=0.35 (public 0.492 recipe)",
+      "public_score": "0.492",
+      "status": "COMPLETE",
+      "notebook_url": "/code/jiyujia/enveda-068a-n1c-lam035?scriptVersionId=370095730"
+    },
+    {
+      "ref": 58410619,
+      "submitted_at": "2026-11-16T02:06:52.350Z",
+      "description": "public 0.492 recipe: N-1c LAM=0.35 (Rogers Johnson), submitted via ccjjllt",
+      "public_score": "0.492",
+      "status": "COMPLETE",
+      "notebook_url": "/code/rogersjohnson/casmi26-l4-lam035?scriptVersionId=369719448"
+    }
+  ],
+  "note": "null means API did not return field, not an inferred terminal status."
+}

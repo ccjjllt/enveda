@@ -1,5 +1,7 @@
 # 070 双信号一致性门：ICE × 对齐头（本轮唯一的正期望机制）
 
+> 2026-11-17 晚间更正：下文保留原始研究记录，但“零下行”、统一盈亏平衡阈值和收益估计不成立。本次已确认083a平均原始峰序列后才送入DreaMS；监督训练与e180标定的结构交集尚未排除。392/392不能当作隐藏集安全保证。新决策以[071审计](../../071-breakthrough-research/research/history-and-validation.md)为准。
+
 日期：2026-11-17。Kernel：`jiyujia/enveda-agree-probe` v2（T4，67s）。实现：`rounds/070-generation/083a/`。
 
 ## 1. 动机（为什么值得测）

@@ -1,5 +1,7 @@
 # 070 进展
 
+> 2026-11-17 21:50补充：082f3 ref58460262已返回COMPLETE，public **0.492**；082g与083a尚未返回分数。071深度审计确认083a原始峰序列先平均再DreaMS编码的输入缺陷；其e180监督训练交集待核。下文“0.51统一阈值”“0.492已到顶”“零下行”推断不再作为决策依据，详见[071报告](../071-breakthrough-research/research-report.md)。原始运行记录保留。
+
 ## 2026-11-17 070a commit
 
 - `jiyujia/enveda-070a-full25` v1 COMPLETE 但 overlay 未生效：`neural_scores.py:32 assert mid in query`——evidence 含 400 分子而 commit run 的 query 谱只覆盖 12 分子，首个缺谱分子即断言失败，无输出、submission 原样。根因是 scorer 要求 evidence 分子必须在 query 中（083a 因 evidence 源自 query 未触发）。

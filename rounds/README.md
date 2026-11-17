@@ -9,7 +9,8 @@
 | [067-own-hn-midrank](067-own-hn-midrank/) | 自研 model3 mid-rank，0.488 中性；入口 `067a/` |
 | [068-n1c-lam035](068-n1c-lam035/) | N-1c `LAM=0.35`，public **0.492**；入口 `068a/`（ref `58412029`） |
 | [069-new-signals](069-new-signals/) | 新信号筛选（timsTOF ICEBERG / DreaMS / 对比对齐 / Enveda-180 谱库）；全部终止（072a 0.492 打平、073a 0.491、076a 0.490、082c 0.468），notebook 已清理；`research/` 下 5 份专题调研保留 |
-| [070-generation](070-generation/) | 070 新方向：候选级强打分、池外生成（P0）、class-2 训练、e180 库匹配（082c/082d）**均已终止并清理**；当前入口 **`083a/`（ICE × 对齐头一致性门，ref `58465327`）**；`082f3/`、`082g/` 待出分保留；`research/` 6 份调研 |
+| [070-generation](070-generation/) | 早期强打分/生成/class-2/e180变体已终止清理；082f3已出**0.492**；`082g/`与`083a/`待分保留。083a输入聚合缺陷及旧推断更正见071；`research/`保留6份历史调研 |
+| [071-breakthrough-research](071-breakthrough-research/research-report.md) | 深度研究：历史证据和083a输入审计、最新MIST/MS-GPT资产、MSAlign式对齐与真实候选排序；研究报告与后续实验设计已形成，尚未执行新GPU实验 |
 
 已终止方向的结论统一在[已放弃研究总览](../archive/research-archive.md)。notebook 入口都是自包含的，只依赖 Kaggle competition/dataset/kernel 输入；推送只上传入口目录：
 
