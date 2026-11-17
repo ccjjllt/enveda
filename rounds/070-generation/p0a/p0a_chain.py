@@ -92,7 +92,7 @@ stage('data',s_data)
 def s_subform():
     dd=os.path.join(work,'data')
     import os as _os
-    _env=dict(_os.environ); _env['PYTHONPATH']='/kaggle/working/mist/src:/kaggle/working/mmf/src'
+    _env=dict(_os.environ); _env['PYTHONPATH']='/kaggle/working/mist/src'
     _diag=subprocess.run([sys.executable,'-c','import mist,mist.utils;print(mist.__file__);print(mist.utils.__file__);print(hasattr(mist.utils,"chunked_parallel"))'],
         capture_output=True,text=True,env=_env)
     print('[p0a] mist diag',_diag.stdout[-300:],_diag.stderr[-300:],flush=True)
