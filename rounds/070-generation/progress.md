@@ -32,3 +32,9 @@ v8 已进入 `run` 阶段（MIST 编码 + MolForge beam=10 解码 150 分子，b
 - 公榜 5429 队；≥0.492 **538** 队、≥0.494 **83** 队、≥0.495 **63** 队。
 - Rogers Johnson 仍 **0.492 / 第 125 名**，`LastSubmissionDate 2026-11-16 00:27`——q1–q5（nbr10/nbr25/wexp2/posflat/placebo）跑完**未提交**，无新信号。
 - 榜首仍 0.549。公开侧仍无已核实 >0.492 配方。
+
+## 2026-11-17 11:50 审计口径校订（重要）
+
+- 底座 `COMMIT_MODE='smoke'`：commit run 只排 **12 个可见分子**，其余 388 行写单候选占位；`IS_RERUN`（hidden scoring rerun）才排全部 400。证据：`kout068a/submission.csv` 槽位数 min/median/max = 1/1/25，388 行 <25；底座 cell 27 原文「the counts cover the 12 visible smoke molecules」。
+- 因此 070a/070b 的 `reranked 12, top1_changed 0` 实际是 **12/12 个可审计分子**，不是 12/400。n=12 下 0 次换帅只能排除大效应（真实换帅率 20% 时漏检概率 6.9%），不能排除 5% 级小效应（漏检 54%）。
+- 结论不变（070a/070b 仍不提交：改动集中在 2–25 名、MRR 增量本就是 1e-4 量级），但**今后任何 overlay 审计都必须注明 n=12 的统计功效**，不能再用「改动只有 12/400」当作判死证据。
