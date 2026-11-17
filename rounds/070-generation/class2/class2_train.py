@@ -1,3 +1,5 @@
+import subprocess,sys
+subprocess.run([sys.executable,'-m','pip','install','-q','rdkit'],check=False)
 import os, glob, json, time, math, random
 import numpy as np, pandas as pd
 import pyarrow.parquet as pq
