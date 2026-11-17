@@ -91,9 +91,11 @@ stage('data',s_data)
 # 5. subformulae
 def s_subform():
     dd=os.path.join(work,'data')
+    import os as _os
+    _env=dict(_os.environ); _env['PYTHONPATH']='/kaggle/working/mist/src:/kaggle/working/mmf/src'
     r=subprocess.run([sys.executable,'/kaggle/working/mist/src/mist/subformulae/assign_subformulae.py',
         '--spec-files',f'{dd}/spec.mgf','--labels-file',f'{dd}/labels.tsv','--output-dir',f'{dd}/subformulae',
-        '--max-formulae','50','--num-workers','4'],capture_output=True,text=True)
+        '--max-formulae','50','--num-workers','4'],capture_output=True,text=True,env=_env)
     found=[]
     for dp,dn,fn in os.walk(dd+'/subformulae'):
         found+=[os.path.join(dp,f) for f in fn if f.endswith('.json')]
@@ -107,6 +109,7 @@ stage('subform',s_subform)
 # 6. run benchmark core, batch_size=1, t=0.172
 def s_run():
     import torch
+    sys.path.insert(0,'/kaggle/working/mist/src')
     from mist_molforge.benchmark import load_mist_encoder, load_spec_data, MolForgeDecoder, get_paired_loader, normalize_formula, canonicalize_smiles, dedup_keep_order, compute_morgan_fingerprint, compute_tanimoto_similarity
     from rdkit import Chem
     from rdkit.Chem import rdMolDescriptors
