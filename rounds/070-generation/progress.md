@@ -61,3 +61,9 @@ v8 已进入 `run` 阶段（MIST 编码 + MolForge beam=10 解码 150 分子，b
   - **759398 "Notebooks getting queued. Although GPU is available"**（2026-11-15T10:53Z，JamshaidSohail）：GPU 有余量但 notebook 排队。
 - 自证：公榜快照显示 **261 个队今天已评分**（最新 05:16Z），我方 `ccjjllt` 仍停在 11-16 04:32 的 0.492；082c（00:49Z）与 082d（05:33Z）均 PENDING。jiyujia GPU 余 14.37h、ccjjllt 0h；metadata GPU=on / internet=off / competition source 已挂，非配置问题。
 - 策略调整：不再"等分再动"。把高期望变体尽快推入队列（多份已评分提交可在最终选择时择优；被卡的提交不占额度）。优先级：082e（τ=0.65 + 池内 e180 验证）> 082f（ICE 给 outsider 打分补召回）。
+
+## 2026-11-17 14:07 082e / 082f v1 结果
+
+- **082e**（`jiyujia/enveda-082e-e180tau065` v1 COMPLETE）：`hits 5, promotions 5, in_pool_promotions 0`（082d 为 4）。τ 0.72→0.65 只多 1 个升位；池内 e180 验证路径在可见集 0 命中（预期：可见 12 个分子是 train 结构，e180 是 not-in-train）。→ 与 082d 高度相关，**不单独提交**。
+- **082f v1**（`jiyujia/enveda-082f-outsiderice` v1 COMPLETE）：`outsiders 240, ice_scored 12, gate_pass 0, promotions 0`——可见集 12 个分子 `lib_max` 全 1.0，`lib_max<0.90` 门 100% 拦截，无法暴露任何行为。
+- 发现 v1 隐患：它把 `ice_rerank` 的 outsider 分与底座 `frozen_candidate_evidence.ice` 列跨源比较，尺度可能不一致（可见集被门挡住，测不出）。→ 已推 **v2**（同源双跑：池内 25 与 outsider 都用同一 ICE 跑；margin 0.15、MIN_OUT 0.40、cap 60、打印两侧 p50/p90 分布）。
