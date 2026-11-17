@@ -126,73 +126,90 @@ def s_subform():
 stage('subform',s_subform)
 # 6. run benchmark core, batch_size=1, t=0.172
 def s_run():
-    import torch
-    sys.path.insert(0,'/kaggle/working/mist/src')
-    from mist_molforge.benchmark import load_mist_encoder, load_spec_data, MolForgeDecoder, get_paired_loader, normalize_formula, canonicalize_smiles, dedup_keep_order, compute_morgan_fingerprint, compute_tanimoto_similarity
-    from rdkit import Chem
-    from rdkit.Chem import rdMolDescriptors
+    import torch, tarfile, urllib.request, glob as gb
+    sys.path.insert(0,'/kaggle/working/mmf/src')
+    from mist_molforge.benchmark import load_mist_encoder, load_spec_data, MolForgeDecoder, get_paired_loader, canonicalize_smiles, dedup_keep_order
+    from rdkit import Chem, DataStructs
+    from rdkit.Chem import rdFingerprintGenerator
     device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     dd=os.path.join(work,'data'); ck=os.path.join(work,'ckpt')
     subf=open(os.path.join(work,'subform_dir.txt')).read().strip()
-    cfg=dict(data=dict(labels_file=f'{dd}/labels.tsv',split_file=f'{dd}/split.tsv',spec_folder=f'{dd}/spec_files',subform_folder=subf),
-        mist_encoder=dict(checkpoint=f'{ck}/mist_fp.ckpt',hidden_size=512,magma_modulo=2048,peak_attn_layers=2,num_heads=8,spectra_dropout=0.1,output_size=4096,form_embedder='pos-cos',set_pooling='cls',refine_layers=4,pairwise_featurization=True,embed_instrument=False,inten_transform='float',inten_prob=0.1,remove_prob=0.5,cls_type='ms1',spec_features='peakformula',mol_features='fingerprint',top_layers=1),
-        molforge=dict(checkpoint=f'{ck}/decoder_molforge.pth',src_sp_model=f'{ck}/combined_morgan4096_vocab_sp.model',trg_sp_model=f'{ck}/combined_smiles_vocab_sp_morgan4096.model',root_dir='/kaggle/working/mmf/MolForge',src_seq_len=104,trg_seq_len=130,beam_size=10,append_src_eos=False),
-        evaluation=dict(split='test'))
-    try:
-        enc=load_mist_encoder(cfg['mist_encoder'],device)
-    except Exception as e:
-        # fallback: DiffMS tarball mist_msg.pt
-        import urllib.request
+    # ---- MSG weights: DiffMS zenodo 15122968 -> mist_msg.pt (official config counterpart) ----
+    msg=os.path.join(ck,'mist_msg.pt')
+    if not os.path.exists(msg):
         tb=os.path.join(ck,'diffms_checkpoints.tar.gz')
-        if not os.path.exists(tb):
-            req=urllib.request.Request('https://zenodo.org/api/records/15122968/files/diffms_checkpoints.tar.gz/content',headers={'User-Agent':'kaggle-p0a/1.0'})
-            with urllib.request.urlopen(req,timeout=1800) as r, open(tb,'wb') as f:
+        if not os.path.exists(tb) or os.path.getsize(tb)<9e8:
+            req=urllib.request.Request('https://zenodo.org/api/records/15122968/files/diffms_checkpoints.tar.gz/content',
+                                       headers={'User-Agent':'kaggle-p0a/1.1'})
+            with urllib.request.urlopen(req,timeout=3600) as r, open(tb,'wb') as f:
                 while True:
-                    b=r.read(4<<20)
+                    b=r.read(8<<20)
                     if not b: break
                     f.write(b)
-        import tarfile
         with tarfile.open(tb) as t:
-            m=[x for x in t.getnames() if x.endswith('mist_msg.pt')]
-            t.extract(m[0],ck)
-            import shutil; shutil.move(os.path.join(ck,m[0]),os.path.join(ck,'mist_msg.pt'))
-        cfg['mist_encoder']['checkpoint']=os.path.join(ck,'mist_msg.pt')
-        enc=load_mist_encoder(cfg['mist_encoder'],device)
+            names=t.getnames()
+            mc=[n for n in names if os.path.basename(n).startswith('mist') and n.endswith('.pt')]
+            print('[p0a] tar members total',len(names),'mist .pt',mc[:10],flush=True)
+            if not mc:
+                raise RuntimeError('no mist .pt; candidates='+str([n for n in names if 'mist' in n.lower()][:10]))
+            pick=sorted(mc,key=lambda n:(0 if 'msg' in n.lower() else 1,len(n)))[0]
+            fh=t.extractfile(pick)
+            with open(msg,'wb') as f: f.write(fh.read())
+            print('[p0a] extracted',pick,os.path.getsize(msg),flush=True)
+    cfg=dict(data=dict(labels_file=f'{dd}/labels.tsv',split_file=f'{dd}/split.tsv',spec_folder=f'{dd}/spec_files',subform_folder=subf),
+        mist_encoder=dict(checkpoint=msg,hidden_size=512,magma_modulo=2048,peak_attn_layers=2,num_heads=8,spectra_dropout=0.1,
+            output_size=4096,form_embedder='pos-cos',set_pooling='cls',refine_layers=4,pairwise_featurization=True,
+            embed_instrument=False,inten_transform='float',inten_prob=0.1,remove_prob=0.5,cls_type='ms1',
+            spec_features='peakformula',mol_features='fingerprint',top_layers=1),
+        molforge=dict(checkpoint=f'{ck}/decoder_molforge.pth',src_sp_model=f'{ck}/combined_morgan4096_vocab_sp.model',
+            trg_sp_model=f'{ck}/combined_smiles_vocab_sp_morgan4096.model',root_dir='/kaggle/working/mmf/MolForge',
+            src_seq_len=104,trg_seq_len=130,beam_size=10,append_src_eos=False),
+        evaluation=dict(split='test'))
+    enc=load_mist_encoder(cfg['mist_encoder'],device)
+    print('[p0a] encoder loaded',flush=True)
     dataset,pairs=load_spec_data(cfg['data'],cfg['mist_encoder'],split='test',max_spectra=None)
-    dec=MolForgeDecoder(checkpoint_path=cfg['molforge']['checkpoint'],src_sp_model_path=cfg['molforge']['src_sp_model'],trg_sp_model_path=cfg['molforge']['trg_sp_model'],device=device,molforge_root=cfg['molforge']['root_dir'],src_seq_len=104,trg_seq_len=130,beam_size=10,append_src_eos=False)
+    dec=MolForgeDecoder(checkpoint_path=cfg['molforge']['checkpoint'],src_sp_model_path=cfg['molforge']['src_sp_model'],
+        trg_sp_model_path=cfg['molforge']['trg_sp_model'],device=device,molforge_root=cfg['molforge']['root_dir'],
+        src_seq_len=104,trg_seq_len=130,beam_size=10,append_src_eos=False)
+    print('[p0a] decoder loaded',flush=True)
     loader=get_paired_loader(dataset,shuffle=False,batch_size=1,num_workers=0)
-    top1=top10=ntot=0; tans=[]; ex=[]
-    import torch as T
+    gen=rdFingerprintGenerator.GetMorganGenerator(radius=2,fpSize=2048)
+    top1=top10=ntot=0; tans=[]; ex=[]; fails=0; onbits=[]
     for bi,batch in enumerate(loader):
-        batch={k:(v.to(device) if isinstance(v,T.Tensor) else v) for k,v in batch.items()}
-        with T.no_grad():
-            probs,_=enc(batch); probs=probs.detach().cpu().numpy()[0]
-        spec,mol=pairs[bi]
-        true=str(mol.get_smiles())
-        on=np.where(probs>=0.172)[0].tolist()
-        cands,_=dec.generate_topk_smiles(on,top_k=10)
-        cands=dedup_keep_order([canonicalize_smiles(s) for s in cands])[:10]
+        if time.time()-t0>2100:
+            print('[p0a] time cap hit at',bi,flush=True); break
+        if bi>=len(pairs): break
+        batch={k:(v.to(device) if isinstance(v,torch.Tensor) else v) for k,v in batch.items()}
         try:
+            with torch.no_grad():
+                probs,_=enc(batch)
+                probs=probs.detach().cpu().numpy()[0]
+            spec,mol=pairs[bi]
+            true=str(mol.get_smiles())
+            on=np.where(probs>=0.172)[0].tolist()
+            cands,_=dec.generate_topk_smiles(on,top_k=10)
+            cands=dedup_keep_order([canonicalize_smiles(s) for s in cands])[:10]
             tc=canonicalize_smiles(true)
-        except Exception: tc=true
-        hit1=int(len(cands)>0 and cands[0]==tc); hit10=int(tc in cands)
-        top1+=hit1; top10+=hit10; ntot+=1
+            hit1=int(len(cands)>0 and cands[0]==tc); hit10=int(tc in cands)
+        except Exception as e:
+            fails+=1
+            print('[p0a] mol',bi,'FAIL',repr(e)[:200],flush=True)
+            continue
+        top1+=hit1; top10+=hit10; ntot+=1; onbits.append(len(on))
         try:
-            from rdkit.Chem import DataStructs
-            from rdkit.Chem import rdFingerprintGenerator
-            gen=rdFingerprintGenerator.GetMorganGenerator(radius=2,fpSize=2048)
-            mt=Chem.MolFromSmiles(tc); f1=gen.GetFingerprint(mt) if mt else None
-            bt=0.0
-            for c in cands[:1]:
-                mc=Chem.MolFromSmiles(c)
-                if mc and f1: bt=DataStructs.TanimotoSimilarity(f1,gen.GetFingerprint(mc))
-            tans.append(bt)
+            mt=Chem.MolFromSmiles(tc); f1=gen.GetFingerprint(mt) if mt is not None else None
+            if f1 is not None and cands:
+                mc=Chem.MolFromSmiles(cands[0])
+                if mc is not None: tans.append(DataStructs.TanimotoSimilarity(f1,gen.GetFingerprint(mc)))
         except Exception: pass
-        if len(ex)<10: ex.append(dict(spec=spec.get_spec_name(),true=true[:80],top1=cands[0][:80] if cands else None,hit1=hit1,hit10=hit10,nbits=len(on)))
-        print(f'[p0a] {bi+1} onbits={len(on)} hit1={hit1} hit10={hit10}',flush=True)
-    res=dict(n=ntot,top1=top1,top10=top10,top1_rate=round(top1/max(ntot,1),4),top10_rate=round(top10/max(ntot,1),4),tan_mean=round(float(np.mean(tans)),4) if tans else 0,elapsed_s=round(time.time()-t0,1),examples=ex)
+        if len(ex)<10: ex.append(dict(spec=str(spec.get_spec_name()),true=true[:80],top1=cands[0][:80] if cands else None,hit1=hit1,hit10=hit10,nbits=len(on)))
+        if (bi+1)%10==0: print(f'[p0a] {bi+1} done top1={top1} top10={top10} fails={fails} onbits_med={int(np.median(onbits)) if onbits else -1}',flush=True)
+    res=dict(n=ntot,fails=fails,top1=top1,top10=top10,top1_rate=round(top1/max(ntot,1),4),top10_rate=round(top10/max(ntot,1),4),
+             tan_top1_mean=round(float(np.mean(tans)),4) if tans else 0.0,onbits_median=int(np.median(onbits)) if onbits else -1,
+             elapsed_s=round(time.time()-t0,1),examples=ex)
     json.dump(res,open(os.path.join(work,'p0a_result.json'),'w'),indent=2)
     audit['result']=res
+    print('[p0a] RESULT '+json.dumps({k:v for k,v in res.items() if k!='examples'}),flush=True)
     return res
 stage('run',s_run)
 done()
