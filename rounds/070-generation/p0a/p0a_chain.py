@@ -18,7 +18,7 @@ def done():
 N=int(os.environ.get('P0A_N','150'))
 # 1. deps
 def s_deps():
-    r=subprocess.run([sys.executable,'-m','pip','install','-q','rdkit','sentencepiece','pyyaml','tqdm','joblib'],
+    r=subprocess.run([sys.executable,'-m','pip','install','-q','rdkit','sentencepiece','pyyaml','tqdm','joblib','pathos','multiprocess'],
                      capture_output=True,text=True)
     import torch
     return dict(pip_rc=r.returncode,torch=torch.__version__,cuda=torch.cuda.is_available())
@@ -93,6 +93,9 @@ def s_subform():
     dd=os.path.join(work,'data')
     import os as _os
     _env=dict(_os.environ); _env['PYTHONPATH']='/kaggle/working/mist/src:/kaggle/working/mmf/src'
+    _diag=subprocess.run([sys.executable,'-c','import mist,mist.utils;print(mist.__file__);print(mist.utils.__file__);print(hasattr(mist.utils,"chunked_parallel"))'],
+        capture_output=True,text=True,env=_env)
+    print('[p0a] mist diag',_diag.stdout[-300:],_diag.stderr[-300:],flush=True)
     r=subprocess.run([sys.executable,'/kaggle/working/mist/src/mist/subformulae/assign_subformulae.py',
         '--spec-files',f'{dd}/spec.mgf','--labels-file',f'{dd}/labels.tsv','--output-dir',f'{dd}/subformulae',
         '--max-formulae','50','--num-workers','4'],capture_output=True,text=True,env=_env)
