@@ -53,3 +53,11 @@ v8 已进入 `run` 阶段（MIST 编码 + MolForge beam=10 解码 150 分子，b
 - 082d 审计（`jiyujia/enveda-082d-e180cal` v1 COMPLETE，55s CPU）：`refs 14471, hits 4, promotions 4`，四个升位 n_cons 均 2、cosine 0.754/0.963/0.868/0.792、`in_pool 0`、公式 C16H26N2O3 / C14H19BrN2O2 / C15H22N4O2 / C19H25N3O2。提交文件 400 行 / 唯一 / ≤25 槽。
 - 已提交 **ref 58457692**（今日剩 3 单），PENDING。与 082c（ref 58450336，松门 106 升位）构成同日"松门 vs 标定门" A/B。
 - 预期：082d 在隐藏集上的升位数 ≈ 隐藏集与 e180 的真实重叠数；若重叠 k 个，收益 ≈ +0.885k/400（k=20 → +0.044），误升损耗有界（每次 0.215/400）。若 082d 也中性，则隐藏集与 e180 无重叠，082 系与公开资产路线正式到顶。
+
+## 2026-11-17 13:45 平台级排队故障（PENDING 原因已查明）
+
+- 讨论区实证（Kaggle MCP `get_forum_topic` 原文，2026-11-17 实查）：
+  - **759394 "Submission Queued for 6 days"**（2026-11-15T10:22Z，OverfitOracle）：提交可被卡 6 天；回复（sacuscreed）称平台当日警告过执行问题，且**被卡的提交自动从每日额度中剔除**。
+  - **759398 "Notebooks getting queued. Although GPU is available"**（2026-11-15T10:53Z，JamshaidSohail）：GPU 有余量但 notebook 排队。
+- 自证：公榜快照显示 **261 个队今天已评分**（最新 05:16Z），我方 `ccjjllt` 仍停在 11-16 04:32 的 0.492；082c（00:49Z）与 082d（05:33Z）均 PENDING。jiyujia GPU 余 14.37h、ccjjllt 0h；metadata GPU=on / internet=off / competition source 已挂，非配置问题。
+- 策略调整：不再"等分再动"。把高期望变体尽快推入队列（多份已评分提交可在最终选择时择优；被卡的提交不占额度）。优先级：082e（τ=0.65 + 池内 e180 验证）> 082f（ICE 给 outsider 打分补召回）。
