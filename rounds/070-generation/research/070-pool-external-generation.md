@@ -118,14 +118,11 @@
 - 谱：`train.parquet`（2.5M 谱，自训/校准用）+ 测试谱（推理用）；adduct/极性/CE 按 `main_v2` covariates 口径传入；timsTOF 子集单独标记。
 - 分子式先验：MIST-CF（正离子）或管线已有公式；**负离子分子式缺失时该分子跳过生成**（如实记录跳过数，不硬编）。
 - 权重（全部离线打成 1 个私有 Kaggle dataset，notebook 断网只读）：
-  1. MIST MassSpecGym checkpoint（二选一，优先前者；许可表注明训练集为 MassSpecGym、非 NIST）：
-     - `mist_fp.ckpt` 103,416,120 B，直链 `https://zenodo.org/api/records/11580401/files/mist_fp.ckpt/content`（Zenodo 记录页 license `cc-by-4.0`，2026-11-17 实查）；
-     - 备选 `mist_msg.pt`，在 DiffMS `zenodo 15122968` 的 `diffms_checkpoints.tar.gz`（939,635,008 B）内，与 `mist_canopus.pt` 同包（MIST-MolForge README 原文）。
-  2. MolForge checkpoint（Drive 预下载方案作废，改用 OSF 直链；2026-11-17 实查可达）：
-     - `decoder_molforge.pth` 556,475,975 B，`https://osf.io/download/jeb3m/?view_only=17065170fb0e4a98a64f6d1ae6a5bd8f`（OSF node `dqcwm` "MolForge Decoder"，API 可读）；
-     - SP 模型 `combined_morgan4096_vocab_sp.model`（302,153 B）+ `combined_smiles_vocab_sp_morgan4096.model`（239,188 B）+ `.vocab`（68,084 B），同 node `molforge_sp/` 目录。
-  3. timsTOF ICEBERG `tims_ft3`（`hjyact` MIT dataset 已在站内，可直接挂载引用）。
-  4. MIST 代码 `samgoldman97/mist` `main_v2` 分支 + MIST-MolForge 集成层（`harrylaucngd/MIST-MolForge`，含 batch-size=1 修正后的 transformer mask；阈值用 prior-adjusted t=0.172 而非 0.5）。
+  - 2026-11-17 联网探针 kernel `jiyujia/enveda-mist-p0-probe` v1（CPU，零 GPU）已验证 Kaggle 内可直下全部 5 个文件，字节数与来源一致：
+  - `mist_fp.ckpt` 103,416,120 B，sha256 `59562ea6…`（Zenodo 直链）；
+  - `decoder_molforge.pth` 556,475,975 B，sha256 `67710e7b…`（OSF 直链）；
+  - `combined_morgan4096_vocab_sp.model` 302,153 B（sha256 与 OSF API 记录一致）、`combined_smiles_vocab_sp_morgan4096.model` 239,188 B、`.vocab` 68,084 B。
+  - 打包时按此清单 + MIST 代码 `main_v2` + MIST-MolForge 集成层组私有 dataset 即可，Drive/OSF 可达性风险已消除。
 
 ### 5.2 生成 + 四道门控（全部只动 23–25 名，1–22 名冻结）
 
