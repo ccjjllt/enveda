@@ -9,7 +9,7 @@
 | [067-own-hn-midrank](067-own-hn-midrank/) | 自研 model3 mid-rank，0.488 中性；入口 `067a/` |
 | [068-n1c-lam035](068-n1c-lam035/) | N-1c `LAM=0.35`，public **0.492**；入口 `068a/`（ref `58412029`） |
 | [069-new-signals](069-new-signals/) | 新信号筛选（timsTOF ICEBERG / DreaMS / 对比对齐 / Enveda-180 谱库）；待提交入口 `082c/`；`research/` 下 5 份专题调研 |
-| [070-generation](070-generation/) | 070 新方向：`research/` 下候选级强打分设计（070a/070b）、池外生成调研（MIST+MolForge P0 待决策）、公开重扫（无已核实>0.492；0.494/0.495 无源簇为开放问题） |
+| [070-generation](070-generation/) | 070 新方向：候选级强打分（070a/070b 已判死）、池外生成（P0 已按算术上限终止）、公开重扫、**谱库匹配精度标定（τ=0.72 precision 0.89）→ 082d 标定版入口 `082d/`** |
 
 已终止方向的结论统一在[已放弃研究总览](../archive/research-archive.md)。notebook 入口都是自包含的，只依赖 Kaggle competition/dataset/kernel 输入；推送只上传入口目录：
 
