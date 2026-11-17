@@ -100,12 +100,23 @@ def s_subform():
         open(init,'w').write(''.join(lines))
         open(fx+'/mist/__init__.py','w').write('')
         open(fx+'/DONE','w').write('ok')
+    runner=os.path.join(work,'run_assign.py')
+    open(runner,'w').write(
+        "import sys,types\n"
+        "sys.path.insert(0,'/kaggle/working/mistfix')\n"
+        "import pytorch_lightning.loggers as _L\n"
+        "_b=types.ModuleType('pytorch_lightning.loggers.base')\n"
+        "class _LLB:\n    def __init__(self,*a,**k): pass\n"
+        "def _rzo(fn): return fn\n"
+        "_b.LightningLoggerBase=_LLB;_b.rank_zero_experiment=_rzo\n"
+        "sys.modules['pytorch_lightning.loggers.base']=_b\n"
+        "import runpy\n"
+        "sys.argv=['assign_subformulae.py','--spec-files',r'"+dd+"/spec.mgf','--labels-file',r'"+dd+"/labels.tsv','--output-dir',r'"+dd+"/subformulae','--max-formulae','50','--num-workers','4']\n"
+        "runpy.run_path('/kaggle/working/mist/src/mist/subformulae/assign_subformulae.py',run_name='__main__')\n")
     import glob as gb
     import os as _os
     _env=dict(_os.environ); _env['PYTHONPATH']=fx
-    r=subprocess.run([sys.executable,'/kaggle/working/mist/src/mist/subformulae/assign_subformulae.py',
-        '--spec-files',f'{dd}/spec.mgf','--labels-file',f'{dd}/labels.tsv','--output-dir',f'{dd}/subformulae',
-        '--max-formulae','50','--num-workers','4'],capture_output=True,text=True,env=_env)
+    r=subprocess.run([sys.executable,runner],capture_output=True,text=True,env=_env)
     cands=sorted(gb.glob(dd+'/subformulae/**/*.json',recursive=True),key=len)
     if r.returncode!=0 and not cands: raise RuntimeError(r.stderr[-800:]+r.stdout[-800:])
     if not cands: raise RuntimeError('no subformula json produced; '+r.stderr[-500:])
