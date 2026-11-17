@@ -45,3 +45,11 @@ v8 已进入 `run` 阶段（MIST 编码 + MolForge beam=10 解码 150 分子，b
 - 架构也不兼容：`mist_fp.ckpt`（Zenodo 11580401，103MB）是 MIST 旧架构（3 层 peak attn、fragment predictor 512 维），与官方 MSG 配置（2 层、2048 维）逐层 size mismatch，不能直接用。
 - 决定性判据见 `research/070-pool-external-generation.md` §6：MRR@25 下尾槽生成上限 +0.0004～+0.0013，rank-1 升位盈亏平衡精度 51%（弱池子集 72%），MIST 修正 top-1 仅 10.73%。**P0 不进入提交，GPU 不再投入。**
 - 遗留可复现资产：探针 kernel `jiyujia/enveda-mist-p0-probe`（5 个权重可下）、`p0a/p0a_chain.py`（含 subform 修复的完整链：拷包+空 `__init__`+剔除 `tune_utils`+runner stub 旧 PL API）。若将来拿到 `mist_msg.pt`，链只差替换权重文件。
+
+## 2026-11-17 13:30 082d 标定版已提交（ref 58457692）
+
+- 先做了决定性精度标定（`research/070-library-precision-calibration.md`，kernel `jiyujia/enveda-e180-precision-curve` v3）：归一化余弦 τ=0.70 → precision **0.887**、τ=0.80 → **0.955**、τ=0.85 → 0.975；analog 中位仅 0.484。rank-1 替换盈亏平衡精度 ~0.19，库匹配是其 4.7 倍。
+- 由此发现 **082c 的门其实极松**：它的 `cos` 是未归一化 sqrt-强度内积（未除范数），τ=0.80 实际等价于"≥4 个匹配峰 + 质量窗"，可见集 106 个"命中"全是 analog。082d 改成归一化余弦后，同一 400 个 query 只有 **4 个** 通过 τ=0.72。
+- 082d 审计（`jiyujia/enveda-082d-e180cal` v1 COMPLETE，55s CPU）：`refs 14471, hits 4, promotions 4`，四个升位 n_cons 均 2、cosine 0.754/0.963/0.868/0.792、`in_pool 0`、公式 C16H26N2O3 / C14H19BrN2O2 / C15H22N4O2 / C19H25N3O2。提交文件 400 行 / 唯一 / ≤25 槽。
+- 已提交 **ref 58457692**（今日剩 3 单），PENDING。与 082c（ref 58450336，松门 106 升位）构成同日"松门 vs 标定门" A/B。
+- 预期：082d 在隐藏集上的升位数 ≈ 隐藏集与 e180 的真实重叠数；若重叠 k 个，收益 ≈ +0.885k/400（k=20 → +0.044），误升损耗有界（每次 0.215/400）。若 082d 也中性，则隐藏集与 e180 无重叠，082 系与公开资产路线正式到顶。
