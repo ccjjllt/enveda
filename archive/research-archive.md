@@ -162,7 +162,7 @@ Git 跟踪文件（可从标签恢复）：
 | opencode 临时目录 | `mmf_src/`（MolForge 源码）、`mist_fp.ckpt`、`ztail.bin`、`pubscan/`、各变体 `k*/kout*` 构建与日志、旧榜单快照 zip | **264 MB** |
 | `/tmp` | `/tmp/mistck`（ckpt 解包，99 MB）、`/tmp/kiceval`（e180 验证输出 15 MB）等 | **116 MB** |
 | 仓库内 | 上述 6.8 MB 中的 5.6 MB（notebook 本体） | 5.6 MB |
-| **合计释放** | | **约 386 MB** |
+| **合计释放** | | **约 385 MB**（实测：临时目录 263 MB + `/tmp` 116 MB + 仓库 5.6 MB） |
 
 ### 8.4 保留范围与理由
 
