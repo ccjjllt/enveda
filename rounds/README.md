@@ -13,7 +13,7 @@
 | [071-breakthrough-research](071-breakthrough-research/research-report.md) | 深度研究：历史证据和083a输入审计、最新MIST/MS-GPT资产、MSAlign式对齐与真实候选排序；研究报告与后续实验设计已形成，尚未执行新GPU实验 |
 | [072-scale](072-scale/) | 提分空间排查：公开 59 臂表与自测旋钮最大 +0.006；072c mass prior 网格可提升 **+0.00000**；072d 留出仪器召回 **150/150**、48 个排序错误中 **47 个同分异构**；072e 首次启用 RR8+保证金升位 **0.487（−0.005）**。判决 **0.492 = 本配方族上限**，升位族 0/6 |
 | [073-public-0495](073-public-0495/) | 复现公开 0.495 → **否证**：作者 7 个数据集均为 `PUBLIC-DEMO`，真实权重被替换为初始化 demo 权重、catalogue 为 3,683 个合成分子，且 Kaggle 拒绝提交（non-versioned datasets）。公榜复查：0.500→30 名、前 600 全 ≥0.492、0.500+ 无公开 notebook。**公开可复现前沿 = 0.494**（Dante fork），0.495 只是演示标签 |
-| [074-public-0494](074-public-0494/) | 复现并提交最高分公开方案 `ccuuuuy/casmi26-0-492-test-set-network-rerank`（作者 Dante，公榜 **0.494**）：alexchilton 0.488 网络 + `LAM 0.35` 之上叠 `w_mid=0.75` 共识、物理碎片检查、K14 去重与文档先验。`074a` 已推送，等公榜 |
+| [074-public-0494](074-public-0494/) | 复现并提交最高分公开方案 `ccuuuuy/casmi26-0-492-test-set-network-rerank`（作者 Dante，公榜 **0.494**）：alexchilton 0.488 网络 + `LAM 0.35` 之上叠 `w_mid=0.75` 共识、物理碎片检查、K14 去重与文档先验。`074a` 已提交（ref 58505232），等公榜 |
 
 已终止方向的结论统一在[已放弃研究总览](../archive/research-archive.md)。notebook 入口都是自包含的，只依赖 Kaggle competition/dataset/kernel 输入；推送只上传入口目录：
 
