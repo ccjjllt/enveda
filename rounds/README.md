@@ -22,3 +22,4 @@ kaggle kernels push -p rounds/068-n1c-lam035/068a
 ```
 
 远端推送/看守脚本在 `../ops/063/`，比赛与远端操作在 `../ops/remote-workflow.md`。
+| [075-frontier](075-frontier/) | 前沿冲刺：只做 MS2 同分异构体判别。三条并行调研（SOTA/公开权重、未使用信号审计、公开资产与规则）+ 化学型整组留出仪器设计（075b）。本地已确认本机 RDKit Murcko 不可用、训练库类似物家族稀疏（5,000 抽样仅 77 个 2–4 成员簇） |
