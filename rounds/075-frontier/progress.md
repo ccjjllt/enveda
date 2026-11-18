@@ -100,3 +100,26 @@ H_T 集                                    base 0.8142 -> sfz_w1 0.8361  (+0.021
 - 为减小干扰，`fp_bits.npy`（41 KB）单独重打包为私有数据集 `jiyujia/casmi26-nx-bits`，没有挂 1.3 GB 的 pool 包。
 
 commit run（smoke，12 分子）将先验证集成是否跑通；通过后提交触发 400 分子隐藏重跑。
+
+## 2026-11-18 15:56 UTC 075d v2 smoke：门控生效，但阈值读成了管线自己的 0.78
+
+```
+NX: submission rows 400 molecules 400
+NX: query rows 1213 molecules 400
+NX: library gate 0.78 lib entries 400
+NX RERANK {"status":"applied","weight":1.0,"lib_gate":0.78,"molecules":400,
+           "active":0,"changed_rows":0,"changed_top1":0,"failures":0}
+```
+
+- `active 0` 是**正确的**：12 个可见分子 `library_max = 1.0`，全部被门控跳过，所以这次没有动任何满分榜首（v1 是 `changed_top1 1`）。
+- 但门值不是我写的 0.9，而是管线自己的 `LIB_HIT_GATE = 0.78`——两者语义不同：0.78 会把「有较强类似物库匹配」的分子也一并保护起来，0.78–0.9 这一段 NX 就永远碰不到。
+- 改用显式 `NX_LIB_GATE`（默认 0.9，作者默认值），推送 **v3**。
+
+另一个操作教训：**commit run 还没产出 `submission.csv` 时提交会失败**：
+
+```
+400 Submission not allowed: Internal Error: Could not get Notebook Run information.
+    Did not find provided Notebook Output File.
+```
+
+必须等 commit run 完成后再提交。已改成「等 COMPLETE + 日志出现 `NX RERANK` 才自动提交」。
