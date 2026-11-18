@@ -123,3 +123,25 @@ NX RERANK {"status":"applied","weight":1.0,"lib_gate":0.78,"molecules":400,
 ```
 
 必须等 commit run 完成后再提交。已改成「等 COMPLETE + 日志出现 `NX RERANK` 才自动提交」。
+
+## 2026-11-18 17:20 UTC 075d v3 已提交：ref 58519267
+
+```
+NX: library gate 0.9 | NX RERANK {"status":"applied","weight":1.0,"lib_gate":0.9,
+    "molecules":400,"active":0,"changed_rows":0,"changed_top1":0,"failures":0}
+Submission ref: 58519267   (今日剩 2 次)
+```
+
+commit run 里 `active 0` 符合预期（12 个可见分子 `library_max = 1.0` 全被 0.9 门控挡住），评分路径只在隐藏重跑里执行。
+
+同时在本地把检查点组合也试了（免费，用已有 `nx_scores.csv`）：
+
+| 配置 | MRR@25 / top1（w=1.0） |
+| --- | --- |
+| fold0 | **0.9407 / 0.900** |
+| full1 | 0.9170 / 0.847 |
+| fold0+full1 均值 | 0.9281 / 0.867 |
+
+⇒ **不做集成，单用 fold0 最好**；提交的正是这个配置。
+
+判据：隐藏重跑的分数 >0.492 才算 NX 在未见结构上兑现；≥0.50 则说明作者 fold-safe 的 +0.022 基本可迁移。
