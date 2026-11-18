@@ -27,3 +27,9 @@
 ## 成本
 
 GPU 约 2.6–2.8h（当前剩 8.11h），提交 1 次（今日剩 4 次）。失败路径成本仅为一次 kernel 运行。
+
+## 结果（2026-11-18 08:15 UTC）
+
+**假设被否证，且不是「复现失败」，而是「没有可复现的东西」。** `heliosli` 的 7 个数据集都是 `PUBLIC-DEMO-1116-R1`：真实竞赛权重被删除、替换为初始化 demo 权重，catalogue 换成 3,683 个合成分子，数据集描述明确写「Not a reproduction of 0.494 / no claimed leaderboard score」。Kaggle 也拒绝提交（non-versioned datasets）。
+
+结论：公开可复现前沿 = **0.494**，0.495 是演示标签。本方向关闭。

@@ -60,3 +60,37 @@ V4 rank2-25 权重 1.00
 3. 若复现为 0.495：把它作为新底座，再考虑能否在其上叠加我们已验证有效的部件；若失败（数据集版本/路径），成本仅一次失败的 kernel 运行。
 
 风险：0.495 相对 0.492 只差 0.003（约 0.4 个分子），而复现差异可能吞掉它；但 17 支队同分说明这个平台是真实的，不是单次噪声。
+
+## 5. 判决：0.495「demo」是空壳，公开前沿上限是 0.494
+
+复现 kernel 跑通后（`jiyujia/enveda-073a-0495-repro` v1，smoke 30 分钟，管线与 ICE/GLACIER 全部正常），尝试提交被 Kaggle 拒绝：
+
+```
+400 Submission not allowed: Your Notebook uses non-versioned datasets
+[/datasets/heliosli/casmi26-joint-ranker, ...rr-v3, ...m5-v2d, ...frigid-e1,
+ ...pxv2-deploy, ...rt-np, ...analyticon-megx]
+```
+
+顺手查了这 7 个数据集的版本说明，答案很直接——作者在数据集描述里写明了：
+
+```
+casmi26-rr-v3 / joint-ranker / m5-v2d / frigid-e1 / pxv2-deploy / rt-np:
+  PUBLIC-DEMO-1116-R1: Runnable demonstration artifacts;
+  original competition weights excluded.
+  Not a reproduction of 0.494. ... has no claimed leaderboard score.
+  Private learned parameters are replaced with initialized demo weights
+  (the joint ranker uses a synthetic fit).
+
+casmi26-analyticon-megx:
+  Synthetic molecular catalogue; original catalogue membership excluded.
+  3,683 generated molecular examples for testing the notebook interface.
+```
+
+也就是说：
+
+1. **这份 0.495 notebook 不是可复现方案**，它是「接口演示」——真实权重被替换成初始化权重，catalogue 被替换成 3,683 个合成分子。
+2. 作者自己写的是 **0.494**，不是 0.495；`0.495` 只是 notebook 标题。
+3. 与公榜一致：作者不在前 600（前 600 全部 ≥0.492）。
+4. 我们的 smoke run 里 `reranked 0 / p1gate scored 0 / m5a actionable 0 / cvjoint swapped 0` 与「demo 权重无判别力」完全吻合。
+
+**因此不再提交，也不占 GPU。** 公开可复现前沿确认是 **0.494**（Dante 的 network-rerank fork，作者公榜确实 0.494），相对 0.492 基线只有 +0.002。
