@@ -1,0 +1,178 @@
+{
+  "as_of_local_date": "2026-11-19",
+  "timezone": "Asia/Shanghai",
+  "scope": "只读作者文本、代码和发布元数据；未下载权重、未运行GPU；不保证checkpoint内部provenance已核实",
+  "flare": {
+    "repository_url": "https://huggingface.co/spaces/HassounLab/FLARE",
+    "repository_revision_sha": "e7dfae2595b90703394527d985b5fab4b6a36806",
+    "paper_url": "https://www.biorxiv.org/content/10.64898/2026.01.27.702086v1",
+    "paper_index_url": "https://pubmed.ncbi.nlm.nih.gov/41659479/",
+    "checkpoint": {
+      "path": "pretrained_models/flare.ckpt",
+      "size_bytes": 83201370,
+      "publisher_lfs_sha256": "78d0be3cc488b2cccaa39cdcdf4fe1abe05aa22a76007f5ba7095a72fa93b9e0",
+      "metadata_url": "https://huggingface.co/api/spaces/HassounLab/FLARE/tree/main?recursive=true",
+      "downloaded": false,
+      "hash_independently_computed": false
+    },
+    "license": {
+      "readme_declaration": "MIT",
+      "separate_license_file": "README链接的LICENSE返回404且HF文件树未列出",
+      "checkpoint_specific_license": "README项目级声明，checkpoint内部未读取；保留此证据限制"
+    },
+    "training_verified": [
+      "发布训练params指向data/MassSpecGym.tsv；split_pth=null使用metadata fold",
+      "train.py创建模型，checkpoint_pth=null；未见加载MIST预训练encoder",
+      "MIST复用部分是子公式分配代码，不等同继承MIST权重",
+      "训练DataModule按train/val/test fold切分"
+    ],
+    "training_unverified": [
+      "实际83MB checkpoint是否完全对应发布训练配置/原始训练文件清单尚未读回",
+      "MSG内跨库重复、与本赛独立面板结构/谱重叠待核",
+      "全部负离子训练覆盖未核"
+    ],
+    "representation": {
+      "spectrum": "逐峰14元素计数+intensity，经2层Transformer保留512维peak tokens",
+      "molecule": "GCN图节点512维tokens",
+      "scoring": "有效peak-node余弦矩阵；双向各取最大匹配后按有效token求均值，再平均两个方向",
+      "conditioning": "默认模型输入没有显式CE或adduct嵌入；adduct只参与子公式预处理",
+      "cross_encoder_status": "发布checkpoint是filipContrastive late interaction；源码crossAttenContrastive类不等于已发布cross encoder权重"
+    },
+    "formula_boundary": [
+      "assign_subformulae.py读取labels formula；不可将真实公式当隐藏输入",
+      "对同式25候选可用共同候选式作为显式假设，再单独评估公式正确/错误影响",
+      "多公式窗口需按推断公式后验分别评分，避免免费给真式",
+      "predicted_formula_pth缺失映射会回填原formula：外部验证必须阻断真值fallback"
+    ],
+    "adduct_boundary": [
+      "列表含7种正离子和[M-H]-，未含formate/Cl等",
+      "[M-H]-在ion_to_mass中写成+H+electron；需人工核查消费处符号后才启用负离子",
+      "首轮建议H/Na等明确支持正离子；NH4等用等价名称映射"
+    ],
+    "implementation_cautions": [
+      "按checkpoint hparams建模；app YAML与paper recipe的GCN channels不同",
+      "external_test模式可无真值候选，正式评分标签应用官方规范身份重算",
+      "逐谱评分再做分子聚合；先保持默认mean的双向max聚合不扫变体",
+      "无需先重训；T4吞吐/显存/分子级增益均未测"
+    ],
+    "benchmark": {
+      "published_formula_candidate_r1": 0.2266,
+      "published_formula_candidate_r20": 0.7515,
+      "published_mass_candidate_r1": 0.4315,
+      "interpretation": "不是本赛MRR；默认公式特征与预测公式口径必须分开；低于新版MIST全局检索不排除局部错误互补"
+    },
+    "sources": {
+      "README.md": {
+        "url": "https://huggingface.co/spaces/HassounLab/FLARE/raw/main/README.md",
+        "error": "<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>"
+      },
+      "run_scripts/msgym_main/params.yaml": {
+        "url": "https://huggingface.co/spaces/HassounLab/FLARE/raw/main/run_scripts/msgym_main/params.yaml",
+        "size_bytes": 2068,
+        "sha256": "45b7b85627ff424d0f07cb7a12b5294a81d2a2b239ec09cef8348f5005abbfae"
+      },
+      "flare/models/spec_encoder.py": {
+        "url": "https://huggingface.co/spaces/HassounLab/FLARE/raw/main/flare/models/spec_encoder.py",
+        "error": "<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>"
+      },
+      "flare/models/contrastive.py": {
+        "url": "https://huggingface.co/spaces/HassounLab/FLARE/raw/main/flare/models/contrastive.py",
+        "size_bytes": 17900,
+        "sha256": "0f7f75af9956dbccdb83108d2cda429e0cb5d01ff8dcfe4e202509c9b70ff489"
+      },
+      "flare/utils/general.py": {
+        "url": "https://huggingface.co/spaces/HassounLab/FLARE/raw/main/flare/utils/general.py",
+        "error": "<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>"
+      },
+      "flare/utils/models.py": {
+        "url": "https://huggingface.co/spaces/HassounLab/FLARE/raw/main/flare/utils/models.py",
+        "size_bytes": 1630,
+        "sha256": "8d9754dc882600f71a1fd7604d8c5e12eff4c5c60707eb2a08c10f2e1fb455fe"
+      },
+      "flare/data/datasets.py": {
+        "url": "https://huggingface.co/spaces/HassounLab/FLARE/raw/main/flare/data/datasets.py",
+        "size_bytes": 13629,
+        "sha256": "c575077a6e34df7ee1079721457cf6761dc92f2654af7e24f120b65e9e221f39"
+      },
+      "massspecgym/data/data_module.py": {
+        "url": "https://huggingface.co/spaces/HassounLab/FLARE/raw/main/massspecgym/data/data_module.py",
+        "size_bytes": 3889,
+        "sha256": "1563d67e2224924112f16c5f2a379803fa54b1c4a0681f6a61603a567b1a10f0"
+      },
+      "flare/subformula_assign/assign_subformulae.py": {
+        "url": "https://huggingface.co/spaces/HassounLab/FLARE/raw/main/flare/subformula_assign/assign_subformulae.py",
+        "error": "<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>"
+      },
+      "flare/subformula_assign/utils/chem_utils.py": {
+        "url": "https://huggingface.co/spaces/HassounLab/FLARE/raw/main/flare/subformula_assign/utils/chem_utils.py",
+        "size_bytes": 16001,
+        "sha256": "c46167fa1ca54f28c1e05e9bdd589c6130a658fa4b9f2cadefe7429ccd31614d"
+      },
+      "flare/subformula_assign/utils/spectra_utils.py": {
+        "url": "https://huggingface.co/spaces/HassounLab/FLARE/raw/main/flare/subformula_assign/utils/spectra_utils.py",
+        "error": "<urlopen error EOF occurred in violation of protocol (_ssl.c:1129)>"
+      },
+      "flare/subformula_assign/utils/parse_utils.py": {
+        "url": "https://huggingface.co/spaces/HassounLab/FLARE/raw/main/flare/subformula_assign/utils/parse_utils.py",
+        "size_bytes": 9324,
+        "sha256": "47a41d1a3a867b7b5b346084bbe2d501aac3317baa2811b6de9f49f2cf7f792c"
+      },
+      "flare/subformula_assign/utils/__init__.py": {
+        "url": "https://huggingface.co/spaces/HassounLab/FLARE/raw/main/flare/subformula_assign/utils/__init__.py",
+        "size_bytes": 113,
+        "sha256": "64221c1222bee900ed1445deefec067fc29cee06be4cf19b4b5ba9c2518a0817"
+      }
+    }
+  },
+  "marason": {
+    "paper_url": "https://arxiv.org/html/2502.17874v2",
+    "latest_abs_url": "https://arxiv.org/abs/2502.17874",
+    "code_url": "https://github.com/coleygroup/ms-pred",
+    "mechanism": "候选与已知类似物的fragment DAG神经匹配，迁移参考谱强度",
+    "asset_status": "确认MSG训练脚本，未在作者README确认现成MSG checkpoint链接",
+    "data_warning": "论文4.2.3的MSG缺失CE由NIST预训练模型赋伪标签；从零MSG训练仍继承该NIST派生标注，不可直接称合法MSG-only",
+    "alternative": "仅作为高投入方法备选；若研究须用MSG-only模型或比赛训练谱做CE处理并重建，不启动原生模型重训",
+    "cost_evidence": "作者README训练建议2张至少24GB GPU；本赛推理耗时未测"
+  },
+  "iceberg_glacier": {
+    "code_url": "https://github.com/coleygroup/ms-pred",
+    "glacier_paper_url": "https://arxiv.org/html/2606.29161v1",
+    "verified": [
+      "ICEBERG2.1主更新为GPU约3倍加速，不等于已证新提分信号",
+      "官方README分别列msg_all和msg_simulation权重；前者包含CE补全workflow，后者仅官方simulation_challenge且CE已知",
+      "GLACIER为单阶段fragment set detector，作者提供MSG checkpoint",
+      "原GLACIER论文70%指mass候选；同式候选R1约48.49/49.88无/有contrastive finetune，不能混作70%同式精度"
+    ],
+    "unverified": [
+      "相对068a实际checkpoint是否不同、实际训练CE来源与版本",
+      "T4可用批量/候选数/耗时及与现有cosine错误互补"
+    ]
+  },
+  "aime": {
+    "paper_url": "https://www.biorxiv.org/content/10.64898/2026.08.05.743095v1.full",
+    "project_url": "https://www.cs.cornell.edu/gomes/udiscoverit/kosmos/",
+    "status": "当前不适用",
+    "evidence": [
+      "Methods明确NIST-trained模型，CASMI和MSG仅外部测试",
+      "Cornell当前页提供online search/visualizer但未见本地源码/权重下载",
+      "未找到独立MSG-only训练权重；MS2KOSMOS同属该模型预测派生物"
+    ],
+    "mechanism_only": "逐动作概率+化学规则构建碎裂路径可以借鉴；不使用其模型/预测库"
+  },
+  "additional_screening": [
+    {
+      "name": "SingleFrag",
+      "paper_url": "https://doi.org/10.1093/bib/bbaf333",
+      "code_url": "https://github.com/MaribelPR/SingleFrag",
+      "status": "候选，训练混合来源含NIST的原权重不应默认使用；未找到MSG-only版本",
+      "note": "逐m/z峰存在模型；本次只读README及论文索引，尚未独立重建全训练清单"
+    },
+    {
+      "name": "ModiFinder",
+      "code_url": "https://github.com/Wang-Bioinformatics-Lab/ModiFinder_base",
+      "paper_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12227169/",
+      "status": "仅方法启发；作者代码Academic Software License并非通用MIT",
+      "note": "多CE/adduct定位已知类似物的修饰位点；不是直接25候选通用排序权重"
+    }
+  ]
+}

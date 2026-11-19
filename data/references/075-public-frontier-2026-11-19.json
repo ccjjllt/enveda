@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-11-19",
+  "timezone": "Asia/Shanghai",
+  "scope": "公开Kaggle只读研究；无训练/推理/提交；未读取jiyujia私有源码",
+  "conclusion": "存在有平台团队分及公开同源码复现自报支持的0.495升级候选（相对068a +0.003），但本队未复现，训练全链重建尚待核；不称大幅突破。",
+  "public_0495_chain": {
+    "original": {
+      "url": "https://www.kaggle.com/code/taeyangg4/casmi26-lb-0-495-network-fr-p5-tail",
+      "notebook_version": 2,
+      "author_claim": "2026-11-17以完全相同code cells提交得0.495"
+    },
+    "platform": {
+      "tool": "list_team_public_submissions",
+      "team_id": 16898806,
+      "submission_id": 58449454,
+      "date_submitted": "2026-11-17T00:19:08.047Z",
+      "public_score": 0.495,
+      "notebook_binding": "该公共API不返回notebook；映射到上述recipe依赖原作者自报"
+    },
+    "independent_public_claims": [
+      {
+        "author": "alexchilton",
+        "url": "https://www.kaggle.com/code/alexchilton/casmi26-0-495-what-moved-the-board-60-arms",
+        "notebook_version": 3,
+        "submission_ref": 58517542,
+        "claimed_score": 0.495,
+        "platform_ref_read": "Permission 'submissions.get' was denied",
+        "source_check": "19个code cells与Taeyang v2逐字相同"
+      },
+      {
+        "author": "arsen123",
+        "url": "https://www.kaggle.com/code/arsen123/casmi26-base495-public",
+        "notebook_version": 8,
+        "submission_ref": 58527742,
+        "claimed_score": 0.495,
+        "platform_ref_read": "Permission 'submissions.get' was denied",
+        "source_check": "当前v8包含原版全部19个code cells，但另加后续修订；不能把v8新增改动归为已得0.495"
+      }
+    ],
+    "copy_not_independent": {
+      "url": "https://www.kaggle.com/code/zohrab/casmi26-0-495-what-moved-the-board-60-arms",
+      "version": 1,
+      "note": "复制Alex第一人称58517542文本与相同代码，不能另计独立复现"
+    },
+    "inference_environment": {
+      "gpu": "NvidiaTeslaT4",
+      "internet": false,
+      "docker_image": "gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461",
+      "dataset_sources": [
+        "samartalwar/casmi-2026-spectral-library-massbankharmonized",
+        "sanpier/casmi-spectrum-model-v1",
+        "taeyangg4/casmi26-extlib-gnps-full",
+        "dmitriigluzdov/casmi26-fold-safe-fpnet",
+        "taeyangg4/casmi26-fr3to25-clean",
+        "dmitriigluzdov/casmi26-natural-product-knowledge-table",
+        "dmitriigluzdov/casmi26-natural-product-panel-benchmark",
+        "dmitriigluzdov/casmi26-pubchem-popularity-prior",
+        "dmitriigluzdov/casmi26-attributed-v4g-reproduction-assets",
+        "sanpier/catalogue-experiment-saner",
+        "metric/rdkit-2026-3-3-wheel"
+      ],
+      "kernel_sources": [
+        "popwenman/casmi26-scorer-train-v80"
+      ],
+      "version_binding": "metadata列的其他dataset/kernel inputs没有版本号，本次未把当前最新版等同历史提交版本；FR权重/特征/模型代码在cell另有SHA锁"
+    },
+    "recipe": {
+      "base": "guhongbin 0.487；底座与068a同族，但不是仅改068a一处",
+      "execution_order": [
+        "N-1c D-L1",
+        "原external-library rank-1 overlay，改挂Taeyang重建GNPS库",
+        "FR 3–25",
+        "P5 tail"
+      ],
+      "author_ablation_ladder": [
+        [
+          "base",
+          0.487
+        ],
+        [
+          "GNPS rebuild",
+          0.487
+        ],
+        [
+          "FR 3–25",
+          0.488
+        ],
+        [
+          "P5 tail",
+          0.49
+        ],
+        [
+          "plain N-1c LAM0.35",
+          0.494
+        ],
+        [
+          "D-L1",
+          0.495
+        ]
+      ],
+      "ablation_status": "以上全部作者公开自报，未逐ref平台验证"
+    }
+  },
+  "fr": {
+    "url": "https://www.kaggle.com/datasets/taeyangg4/casmi26-fr3to25-clean",
+    "version": 1,
+    "license": "CC BY-NC-SA 4.0，保留源数据条款；公共notebook代码自述Apache-2.0",
+    "files_available": [
+      "fr_model.pt",
+      "model.py",
+      "fragfeat.py",
+      "fr_train_clean_v1.py",
+      "SOURCE.md",
+      "train_provenance.json",
+      "train_result.json",
+      "train_log.jsonl",
+      "SHA256SUMS",
+      "fr_config.json"
+    ],
+    "pinned_sha256": {
+      "weights": "4888123625bfff8b56ee631b4048a402c5620ab5e7d403132de39814687443df",
+      "features": "7b54023d89617fafebbd052e500dba30a7825d8e6893e8bf6567fe11ab7f8ecf",
+      "model": "b6276a285903181455df40bfe1215788f31f3ed6466066152efa68d2f21f596d",
+      "training_script": "ea363ad5143d49beb49d5622c8f85d6bb8c18a9a88c1e296e1f2dc98928d4f3c"
+    },
+    "relationship_to_068a": "068a metadata未挂FR资产，明文代码无FRNet/fragfeat/taeyangg4引用；v4g237文件清单未见FR模型文件。新增独立score，不是已计算未导出的字段。",
+    "physics_and_architecture": "同属Parallax/RR8的一二键切断+H shift/charge carrier物理假设，但fragfeat独立实现，不import frag_rescore；将解释强度定位到atom/bond graph，以5层GINE+2层peak transformer+global features评分，767942参数。新表示/学习目标，不是新的实验物理信号。",
+    "interface": "谱dict mz,it,adduct,mode,prec -> merge_spectra -> query_table -> featurize(candidate SMILES) -> packed FRNet batch -> raw logit；只需torch/numba/RDKit，无torch_geometric。",
+    "inference_policy": "全列表z-score，ranks3–25按-rank+3*z重排，ranks1–2冻结；不增加候选；CPU fp32预算2400s，非本次实测耗时。",
+    "energy_limit": "按polarity合并峰且汇合carrier，截48峰，没有CE输入；不应称energy-aware multi-spectrum模型。",
+    "training": {
+      "dataset": "competition train.parquet监督谱+公开结构库负例",
+      "split": "规范metric InChIKey14 hash留4%，非Murcko/scaffold",
+      "train_queries": 254971,
+      "val_queries": 10812,
+      "train_candidates": 4480060,
+      "val_candidates": 189992,
+      "parameters": 767942,
+      "author_validation_mrr": 0.8892,
+      "best_epoch": 9,
+      "author_training_seconds": 3182,
+      "author_gpu": "NVIDIA GeForce RTX 4070 Ti SUPER",
+      "author_gpu_memory_cap_gb": 5.5,
+      "scope": "GPU训练时间不含CPU feature构建，不是T4时间；内部验证分不是公榜"
+    },
+    "rebuild_gap": {
+      "status": "完整生成规则未定位，非自动判禁止",
+      "whitelist_intermediates": [
+        "data/derived/structure_keys.parquet",
+        "data/derived/structdb_v1/entries.parquet",
+        "runs/20261104_h54_s2/pool_chem/pool_chemistry.json"
+      ],
+      "reason": "training script硬编码精确SHA并读取这些文件；当前FR包不包含它们或完整builders，SOURCE仅列原始数据来源",
+      "checked_other_mounts": {
+        "v4g_files": 237,
+        "knowledge_table_files": 106,
+        "panel_files": 61,
+        "pubchem_prior_files": 129,
+        "result": "未见上述3个原文件名；未穷尽其他历史版本或所有同义文件，不能证明不可恢复"
+      },
+      "needed": "定位structure_keys规范化builder、structdb采集版本/标准化builder、Engine1 pool_chemistry导出builder，或可验证的对应公开输入"
+    }
+  },
+  "other_components": {
+    "extlib": {
+      "url": "https://www.kaggle.com/datasets/taeyangg4/casmi26-extlib-gnps-full",
+      "version": 1,
+      "license": "CC BY-NC-SA 4.0 compilation，逐行上游许可",
+      "spectra": 198581,
+      "structures": 147414,
+      "intensity_storage": "sqrt(intensity/max)，不得重复sqrt；相似度须按powered向量L2归一",
+      "scope": "作为身份检索增量单独消融作者报中性"
+    },
+    "network": {
+      "type": "D-L1",
+      "known_train_anchor_nodes_per_query": 5,
+      "delta_mass_weighting": true,
+      "propagation_steps": 2,
+      "lock_plain_n1c_leader": true,
+      "budget_seconds": 1800,
+      "increment": "不同于068a纯test内部N-1c，加入已知结构锚与合理质量编辑边权；不是全局联合最优/峰级归因"
+    },
+    "p5": {
+      "mechanism": "Engine1六个analog parents按matching_transforms可变换性优先；cap150不变，新parent生成结构才入tail3–25",
+      "rank1_rank2": "冻结",
+      "budget_seconds": 5400,
+      "session_guard_hours": 8.6,
+      "increment": "改父结构选择而非泛化尾槽随机补入；作者自报+0.002，单独不得外推大幅增益"
+    }
+  },
+  "nx_failure_review": {
+    "url": "https://www.kaggle.com/datasets/ahmedberatozer/casmi26-nx-model",
+    "version": 2,
+    "code_license": "MIT；权重按competition CC BY-NC及COCONUT CC BY源条款",
+    "checkpoint_difference": "fold0 benchmark从fold-safe FPNet初始化，identity fold0和250 NP留出；full1生产模型见过所有train结构；075d记录使用fold0。",
+    "public_ood_np_timstof": {
+      "fold0_fpnet_mrr": 0.527,
+      "nx_mrr": 0.567,
+      "nx_top1": 0.379,
+      "fusion_mrr": 0.576,
+      "interpretation": "作者真实未见NP top1远低于075c泄漏面板0.9394，且评测是pool window，不是最终25强候选+lib<0.9条件子集"
+    },
+    "interface_risks_not_proven_causes": [
+      "nx_rerank只按polarity合并最多8谱，随后取第一张precursor/adduct并平均CE；若同polarity多adduct会混合不相容视图",
+      "候选位序仅assert长度nbits，仍需要fp_bits哈希与raw_fingerprint规范一致",
+      "z(-rank)+w*z(NX)会把弱小差异放大，原排序绝对置信度丢失",
+      "没有私有075d源码/hidden audit，不能把-0.111唯一归因为模型训练过拟合或某接口bug"
+    ],
+    "action": "保持075d关闭，把这些风险用于新模型的训练暴露、输入语义和条件子集验证"
+  },
+  "external_validation_counterexample": {
+    "url": "https://www.kaggle.com/code/arsen123/casmi26-base495-public",
+    "version": 8,
+    "cross_library_panel_claim": "250 NP上多谱RRF vs max +0.0603 MRR，bootstrap[0.0337,0.0885]",
+    "deployment_aligned_correction": "换实际GNPS+MassBank refs并修正L2/sqrt后，shipped72 promotions/58 correct，fused62/52，62共同触发仅1个选不同结构",
+    "lesson": "跨库已见结构面板增益不能代替部署库/无谱U面板；触发更少不能推出风险更小"
+  },
+  "excluded_new_titles": [
+    {
+      "url": "https://www.kaggle.com/code/crazykirran/casmi26-spectrum-gnn-submission",
+      "version": 2,
+      "reason": "源码明确要求private checkpoint，未请求访问；不能称公开可复现"
+    },
+    {
+      "url": "https://www.kaggle.com/code/rogersjohnson/casmi26-diff-g1",
+      "version": 2,
+      "reason": "实际是固定molecule_id的rank1/2交换探针，不是新谱学模型；不作为泛化研究候选"
+    }
+  ],
+  "recommendations": [
+    "0.495作基线升级候选，先补FR训练输入生成链并固定所有版本；本队未复现，不替换068a已证基线",
+    "FR新score先仅做未见结构困难候选局部排名/连续图碎片信号诊断，不凭内部0.8892开放rank1",
+    "锚定网络与P5父结构选择是具体可测新机制，不由此前072d已见谱面板150/150召回推断已封死",
+    "不把+0.003当大幅突破；继续MIST/ICEBERG/MSAlign的无泄漏候选评分主线"
+  ]
+}

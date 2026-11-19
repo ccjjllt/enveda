@@ -1,0 +1,176 @@
+{
+  "audit_date_beijing": "2026-11-19",
+  "purpose": "只读重建072d/075c的原始query选样，检查离线基线与挑战模型的输入是否相同；不重启NX。",
+  "scope": "本机仅读取train.parquet第0个row group的5个标量列；未读取峰数组、未加载权重、未运行模型、未访问账户。",
+  "source_snapshot": {
+    "tag": "pre-cleanup-2026-11-19",
+    "commit": "7cf7681d8705785af9daf33beff0f7b3eb834ee8",
+    "notebooks": [
+      {
+        "git_path": "rounds/072-scale/072d/enveda-072d-instrument.ipynb",
+        "cell_index_0based": 7,
+        "cell_source_sha256": "a4f5ab0982fa9e7ffec0b6ea811a0a64a527d650332910bcd5a486d8448188fd",
+        "relevant_source_lines_1based": {
+          "first_row_group": 20,
+          "selection_first150_at_most6": 27,
+          "output_queries": 31,
+          "filter_train_by_stored_ik14": 53
+        }
+      },
+      {
+        "git_path": "rounds/075-frontier/075c/enveda-075c-nx-instrument.ipynb",
+        "cell_index_0based": 2,
+        "cell_source_sha256": "6069c5856842eb2b6cbd1946786c829827c63f43dfb5bf6239474e2fc3f79b7d",
+        "relevant_source_lines_1based": {
+          "read_row_group0": 35,
+          "all_rows_matching_selected_identity": 38,
+          "clean_peaks": 61,
+          "at_most8_per_polarity": 72,
+          "merge_across_same_polarity": 78,
+          "first_precursor_adduct_annotation": 80
+        }
+      },
+      {
+        "git_path": "rounds/075-frontier/075d/enveda-075d-nx-rerank.ipynb",
+        "cell_index_0based": 32,
+        "cell_source_sha256": "0fa78c5aea4df58e9d1847a21a8f112c988a0774293f1b9fe24994bad370c6d0",
+        "relevant_source_lines_1based": {
+          "at_most8_per_polarity": 95,
+          "merge_across_same_polarity": 101,
+          "first_precursor_adduct_annotation": 103,
+          "permutation_inside_formula": 143
+        }
+      }
+    ]
+  },
+  "data": {
+    "path": "data/raw/train.parquet",
+    "bytes": 3033286496,
+    "row_group_index": 0,
+    "row_group_rows": 131072,
+    "columns_read": [
+      "inchikey14",
+      "instrument_type",
+      "ionization_mode",
+      "adduct",
+      "ingest_lib"
+    ]
+  },
+  "selection": {
+    "identity_key": "stored inchikey14 (not official tautomer-canonical identity)",
+    "072d": "按row group0中身份首次出现顺序，取至少2条谱的前150个身份，每身份前6条谱。",
+    "075c_raw": "row group0中这150个身份的全部谱传给queries_of；该函数清峰后按positive/negative分别最多8条。",
+    "recheck_nx_proxy": "本复算不读取峰数组，直接对原始行按极性各取前8条，所得839是清峰前的选择计数，不能冒称实际送模型的有效谱数。"
+  },
+  "counts": {
+    "selected_identities": 150,
+    "072d_baseline": {
+      "spectra_count": 681,
+      "instrument_type": {
+        "__null__": 14,
+        "timsTOF": 667
+      },
+      "ionization_mode": {
+        "positive": 591,
+        "negative": 90
+      },
+      "ingest_lib": {
+        "drug_plus": 14,
+        "enveda-180": 667
+      },
+      "adduct": {
+        "[M+H]+": 363,
+        "[2M-H]-": 27,
+        "[M+NH4]+": 5,
+        "[M+K]+": 2,
+        "[M]+": 1,
+        "[M-H]-": 53,
+        "[2M+Na]+": 131,
+        "[M+CH2O2-H]-": 10,
+        "[2M+H]+": 86,
+        "[M+Na]+": 3
+      }
+    },
+    "075c_raw_first8_per_polarity_before_peak_cleaning": {
+      "spectra_count": 839,
+      "instrument_type": {
+        "__null__": 14,
+        "timsTOF": 825
+      },
+      "ionization_mode": {
+        "positive": 674,
+        "negative": 165
+      },
+      "ingest_lib": {
+        "drug_plus": 14,
+        "enveda-180": 825
+      },
+      "adduct": {
+        "[M+H]+": 436,
+        "[2M-H]-": 28,
+        "[M-H]-": 125,
+        "[M+NH4]+": 5,
+        "[M+K]+": 2,
+        "[M]+": 1,
+        "[2M+Na]+": 141,
+        "[M+CH2O2-H]-": 12,
+        "[2M+H]+": 86,
+        "[M+Na]+": 3
+      }
+    },
+    "075c_all_raw_matching_rows": 857,
+    "identities_with_different_raw_first8_input": 59,
+    "extra_raw_spectra_in_first8_input": 158,
+    "identities_with_multiple_adducts_within_polarity_all_raw_rows": 63,
+    "072d_dimer_spectra": 244,
+    "072d_dimer_fraction": 0.35829662261380324
+  },
+  "selection_fingerprint_sha256": "3e926035ae58347b0fb611e85b5cab5be51370115a58e01878abb70cbebae4c8",
+  "confirmed_conclusions": [
+    "072d是固定首rowgroup的定向样本；150/150只描述该样本，不能排除自然池外P/G的候选缺失。",
+    "075c没有复用072d的完全相同query行；按代码从全量身份谱重建，raw行选择已证实不等量。",
+    "075c/075d在同极性内合并多加合物谱并沿用第一谱precursor/adduct；这与逐谱/同加合物聚合不同。"
+  ],
+  "unresolved_boundaries": [
+    "未重新计算072d/075c指标或核对模型训练折；不将输入差异量化为MRR增益。",
+    "839/59/158是清峰前匹配计数；有效峰为空时queries_of会丢谱，实际模型输入需已有日志或下一次远端研究核实。",
+    "075d公榜0.381为实际失败，但无法仅凭本次审计将其具体归因于训练曝光、分布迁移、合并方式或其他实现因素。",
+    "不据此自动恢复或重跑已关闭NX方向；新模型比较必须共用同一query文件和身份分组。"
+  ],
+  "manual_reproduction": "python3 + pyarrow.parquet.ParquetFile(...).read_row_group(0, columns=上述5列)，按上述selection规则聚合Counter；源码通过git show读取，未恢复旧脚本。",
+  "visible_test_ce_interface_audit": {
+    "scope": "仅可见test接口覆盖审计；该test为训练副本，不推断隐藏分布，不作为泛化指标。",
+    "path": "data/raw/test.parquet",
+    "columns_read": [
+      "molecule_id",
+      "adduct",
+      "collision_energy_ev",
+      "collision_energy_orig",
+      "collision_energy_orig_units",
+      "instrument_type",
+      "ionization_mode"
+    ],
+    "spectra": 1213,
+    "molecules": 400,
+    "molecules_with_at_least2_spectra": 345,
+    "collision_energy_ev_categories": {
+      "multiple_finite_values": 298,
+      "single_finite_value": 915
+    },
+    "molecules_with_same_adduct_and_at_least2_distinct_single_finite_ce_values": 279,
+    "qualifying_molecule_adduct_groups": 312,
+    "qualifying_groups_by_adduct": {
+      "[M+H]+": 248,
+      "[M-H]-": 50,
+      "[M+CH2O2-H]-": 9,
+      "[M+K]+": 1,
+      "[M+NH4]+": 1,
+      "[M+Na]+": 3
+    },
+    "collision_energy_orig_units_counts": {
+      "eV": 1213
+    },
+    "method": "每谱collision_energy_ev转为一维数值序列并仅保留有限值；恰1个有限值为scalar，>1为multi-value；只在scalar谱里按molecule_id/adduct计至少2个不同CE。",
+    "limitation": "multi-value可能是ramp/list，未据此将一张谱拆成多个独立CE观测；未读取峰数组或运行模型。"
+  }
+}
