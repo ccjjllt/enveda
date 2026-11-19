@@ -1,37 +1,6 @@
-# 068 进度
+# 068 进展（当前最佳基线：public 0.492）
 
-- 2026-11-16 00:25 北京（例行检查）：067a ref **58380689** 已出分，公榜 **0.488**，与 065a（ref 58329677）和 066a（ref 58358284）打平，无增益。最佳仍是 **0.488**。领头保护的自研 model3 mid-rank 在 3 位小数上中性，不作为新底座。
-- 公榜快照（2026-11-15T16:19:51Z，5331 队）：ccjjllt 第 **211**（仍 0.488；上次 18:26 快照为第 279/5310）。恰好 0.488 的平台为第 184–510 名共 327 队；≥0.488 共 510 队；≥0.489 共 **183** 队（先前 122）；恰好 0.492 共 **65** 队。名次上升主要来自同分排序（067a 刚出分），不是自身提分；≥0.489 队伍明显增加。
-- 已核实公开 **0.492** 配方：在 065a 同款 N-1c 上只把 `LAM` 0.25→0.35。依据：Rogers Johnson `casmi26-l4-lam035`（作者 0.492）、alex chilton 原样复现提交 58380172 公榜 0.492、mathleteutd 消融表 LAM 0.35=0.492 且 LAM 0.50=0.484。heliosli/casmi26-0-489 拉取后仍是旧 0.477 正文，未采用。mathleteutd 的 learned reranker 未在公榜单独核实，本轮不纳入。
-- 已写 `notebooks/068a`（slug `ccjjllt/enveda-068a-n1c-lam035`）及本轮计划：065a + N-1c `LAM=0.35`，`COMMIT_MODE='smoke'`，不叠 066a/067a。
-- **尚未推送**：每周 GPU 31.15h 已用 / **0.00h** 剩余 / 30.00h，刷新时间 2026-11-21 08:00 北京。今日提交额度 1/5（剩余 4，2026-11-16 08:00 北京重置），但没有 GPU 无法跑该内核。CPU 路线在 062a 已失败，不再尝试。刷新后用 `scripts/063/chain.sh` 推送并自动提交。无运行中 enveda 内核，工作区无 enveda 后台任务。
-- 2026-11-16 06:22 北京（例行检查）：无新的自有提交或出分，最佳仍是 065a/066a/067a 公榜 **0.488**。官方快照 2026-11-15T22:22:06Z（5346 队，约 2026-11-16 06:22 北京）：ccjjllt 第 **288**（仍 0.488；上次 00:19 快照为第 211/5331）。恰好 0.488 的平台为第 264–555 名共 292 队；≥0.488 共 555 队；≥0.489 共 **263** 队（先前 183）；恰好 **0.492 共 140 队**（先前 65）。名次下降来自公开 0.492 配方扩散，不是自身掉分。周 GPU 33.76h 已用 / 预占 0 / **0.00h** 剩余 / 30.00h，刷新仍是 2026-11-21 08:00 北京。TPU 仍有 20.00h，但本管线需要 GPU，不改走 TPU。无运行中 enveda 内核，工作区无 enveda 后台任务。068a notebook 已核对其 `LAM=0.35` 默认，仍待刷新后推送。
-- 同期公开笔记本审计：未发现已核实的高于 0.492 的新配方。jtheyogi/enveda-casmi26-apex-0494-calibrated 标题写 0.494，但作者 JK #2 公榜仍为 0.487（最后提交 2026-11-14）；拉取后正文是 mathleteutd 的 0.492 + learned reranker 拷贝，`COMMIT_MODE='fast'`，`_n1c` 默认 `LAM=0.38`（与注释 0.35 及公开消融表不一致），不跟。heliosli/casmi26-0-489 再次拉取仍是 2026-10-29 的 0.477 正文。heliosli「The dataset is public now. Enjoy!」属另一场量子线路比赛，与本赛无关。analyticaobscura 本人已到 0.499（提交 2026-11-15 16:53 UTC），公开 `casmi-2026` 仍停在 11-11，无新公开配方。
-
-## 2026-11-16 研究清理
-
-- 目标：删除已不再进行的研究方向的文档、脚本、notebook 与本地 artifacts，释放磁盘，并保留研究概况与放弃原因。
-- 清理前快照：Git 标签 `pre-cleanup-2026-11-16`（提交 `62f0177`）。所有 Git 跟踪文件可从标签恢复；未跟踪的 `artifacts/`、`datasets/` 载荷与虚拟环境不可恢复。
-- 删除：`docs/plan`/`docs/progress` 的 001–064、3 份 handoff、`research-history.md`、`workspace-paths.json`；`notebooks` 除 065a–068a 外的 41 个目录；`scripts` 除 `063/` 外的 75 个文件/目录；`src/`；`artifacts/` 全部；`datasets/` 全部；`.venv`、`.venv-015`、`.venv-fp`。
-- 释放：项目占用从 **9.4 GB 降到 2.8 GB**，约 **6.6 GB**；系统可用空间从 500 GiB 增至 507 GiB（`df -h` 取整）。
-- 保留：`data/raw/`（2.8 GB，比赛原始数据）、`data/references/`、065a–068a、`scripts/063`、065–068 计划/进展、[已放弃研究总览](../../archive/research-archive.md)。
-- 未运行任何 Kaggle 内核、未提交、未改变 068a 的待推送状态；周 GPU 仍为 0.00h，刷新 2026-11-21 08:00 北京。
-
-## 2026-11-16 公开方案与公榜复核（MCP）
-
-- 公榜快照 2026-11-16T01:54:43Z（约 09:54 北京，5355 队）：前 10 为 **0.549 Shehab Alshehabi / 0.540 democat / 0.536 Oleksandr Parfionov / 0.528 Savko / 0.518 Terry Luo / 0.514 goonew / 0.510 Paweł Biernat / 0.509 BMW / 0.509 muse / 0.507 JTA**。
-- 分布：**27 队 ≥0.500，55 队 ≥0.494，229 队 ≥0.492，571 队 ≥0.488**。ccjjllt 0.488 当前第 **313/5355**（同分按提交时间）。0.492 已从 06:22 记录的 140 队扩散到 229 队；前 20 线 **0.503**，前 100 线约 **0.492**。068a 若兑现 0.492，预计落在第 100–230 名区间，而不是前 20。
-- **公开 notebook 仍没有已核实的高于 0.492 的配方。** 最高仍是 mathleteutd / alexchilton / Rogers Johnson 的 N-1c `LAM=0.35`：作者公榜均 **0.492**，本地复现 ref 58380172 也是 0.492。标题写 0.494/0.498/0.5 的 notebook（jtheyogi、jacobcascone、k3rn3l、subsh2004、adityaraj0612 等）正文多数是同一份 0.492 配方或其变体，作者公榜为 0.487–0.492；`huangkx666` 是 0.488 拷贝；`analyticaobscura` 公开本仍是 0.484（作者私有提交 0.499），`heliosli` 公开本仍是 0.477（作者私有 0.499）。
-- 前 10/前 27 队没有公开 competition notebook：逐个解析 `shehabalshehabi`、`w1326627677`、`parfyon`、`savchenko`、`pawebiernat`、`goonew`、`jta*`、`shutatakano`、`pikachu`、`marvinbmw`、`muse*`、`jaretarnold`、`grinders`、`johnlee92992`、`pjmathematician`、`stevelee2531`、`lhandfpga`、`giantwizard`、`huytngo`、`ryyymy`、`denizozaydin`、`xsmaxpc`、`upshifter` 等，均无公开 competition notebook。0.500+ 的分数来自私有管线，不是可复现公开代码。
-- alexchilton 的公开 59 臂分析（`casmi26-0-492-what-moved-the-board-59-arms`）记录：固定底座上 59 个单旋钮，只有 4 个增益 >+0.002，最大 **+0.006**；33 个退步，最大 **−0.047**。其结论是“**a knob will not get there; a new signal will have to**（更好的候选生成，或使用当前通道没有的信息的 reranker）”。
-- 结论：068a 仍值得推（0.488→0.492 是已核实 +0.004），但 **0.492 已不是竞争前沿**；继续扫 `LAM`、门控或 mid-rank 权重不足以进前 20。下一阶段应转向新信号，而不是在 0.492 上做单旋钮。该复核未运行内核、未提交；068a 推送计划不变。
-
-## 2026-11-16 公开 0.492 方案提交
-
-- 用户要求用当前最高分的公开方案做一次 submission。选定 `rogersjohnson/casmi26-l4-lam035` **v1**：公开、COMPLETE、T4、断网，正文即 065a 同款 N-1c `LAM=0.35`；作者 Rogers Johnson 公榜 **0.492**，与 mathleteutd/alexchilton 的 0.492 配方一致。
-- 提交方式：MCP 绑定的默认账号未接受本比赛规则，`create_code_competition_submission` 返回 “You must accept the rules”；改用 **ccjjllt** 认证的 Kaggle CLI 2.2.5 提交同一公开 kernel 版本。命令为 `kaggle competitions submit -c ... -k rogersjohnson/casmi26-l4-lam035 -v 1 -f submission.csv -m ...`。
-- 提交结果：ref **58410619**，2026-11-16 02:06:52 UTC（北京时间 10:06:52），状态 **PENDING**；今日剩余 **4/5** 次提交。未消耗本地 GPU；这是公开 kernel 的隐藏测试重跑，出分时间按既往约数小时。
-- 归因：Rogers Johnson（公开 kernel 与 0.492 消融）、analyticaobscura（N-1c 原始实现）、alex chilton（0.488/0.492 公开记录）、mathleteutd（0.492 消融表）、popwenman/scorer v80、guhongbin、ozertuu、sanpier、Dmitrii Gluzdov 等公开资产作者。
-- 边界：这是对公开方案的复现提交，不是自有新模型；若用于奖金，需另行核对作者许可与比赛规则。只有公榜实际出分才能记为 0.492；068a 仍保留，待 2026-11-21 GPU 刷新后推送自有权重版本。
-- 2026-11-16 15:10 北京：ref **58410619** 出分，公榜 **0.492**，新最佳（相对 065a 0.488 为 +0.004）。公榜快照 2026-11-16T07:10Z（5376 队）：ccjjllt 0.492 第 **314**；0.492 平台已扩散，仍未进入前 100。公开 N-1c `LAM=0.35` 配方在本账号复现成功。
-- 同期 jiyujia 自有 068a（同配方）ref **58412029** 出分 **0.492**，与公开复现一致；自有可复现版本确认。
+- **2026-11-16**：
+  - 公开 `rogersjohnson/casmi26-l4-lam035` v1 直提（ref `58410619`，ccjjllt）：`COMPLETE`，**public 0.492**。
+  - 自有 `jiyujia/enveda-068a-n1c-lam035` v1（ref `58412029`）：T4 commit 约 22 分钟，400 行审计通过（top-1 相对 pre-N-1c 0 变化，2 个列表重排），**public 0.492**。
+- **地位（2026-11-19）**：后续所有同配方族变体、外谱库升位与重排叠加均未超过 `0.492`（见[已放弃研究总览](../../archive/research-archive.md)）；`068a/`（ref `58412029`）保持为唯一保留的 A 线底座与收尾首选基线。
