@@ -1,0 +1,20 @@
+{
+  "id": "jiyujia/enveda-075b-comparison",
+  "title": "enveda-075b-comparison",
+  "code_file": "evaluate_scores.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": ["nahidhossainredom/casmi26-massspecgym"],
+  "competition_sources": [],
+  "kernel_sources": [
+    "jiyujia/enveda-075b-mass-queries",
+    "jiyujia/enveda-075b-flare-mist",
+    "jiyujia/enveda-075b-flare-group-formula",
+    "jiyujia/enveda-075b-ce-fragments"
+  ],
+  "model_sources": []
+}

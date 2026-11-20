@@ -2,12 +2,11 @@
 
 比赛：[Enveda CASMI 2026 — Molecule ID From Mass Spectra](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra)，指标 **MRR@25**。默认使用中文记录。
 
-## 当前现状（2026-11-19）
+## 当前进展（2026-11-20）
 
-- **当前最佳基线**：`068a`（N-1c `LAM=0.35`）public **0.492**（自有 ref `58412029` / 公开 ref `58410619`）。
-- **公开前沿**：11-19早间榜单快照第1名0.550、第20名0.506。晚间新核Taeyang平台公开提交0.495，Alex/Arsen公开自报复现；源码与FR/P5/D-L1推理资产可读，但FR训练三项派生输入生成链尚未闭环，本队未复现。它与旧073a演示版不同，详见[075框架研究](rounds/075-frontier/research/next-frameworks.md)。
+- **当前最高公榜为 0.495**。`jiyujia` 复现 Taeyang 公开方案原版 v2，Kaggle 提交 `58605458` 已完成。本仓的 068a 配置得到 **0.492**（`58412029`）。[公开方案](https://www.kaggle.com/code/taeyangg4/casmi26-lb-0-495-network-fr-p5-tail?scriptVersionId=371003154) · [最新实验](rounds/075-frontier/progress.md)
 - **已封闭方向**：`001–075d` 的配方旋钮、`RR8` 重排/重训、mass prior 重标定（`+0.00000`）、e180/ICE/对齐门事后升位（0/6）、`class2` MLP（OOD 0.205）及 `075d` NX 异构体判别器（公榜 **0.381**，`−0.111`）均已终止，结论见 [已放弃研究总览](archive/research-archive.md)。
-- **当前优先研究（[075-frontier](rounds/075-frontier/plan.md)）**：不重训原生模型，固定等输入、整组留出的075b面板；新增FLARE峰—原子局部匹配、adduct/CE条件下差异碎片评分，与MIST MSG比较互补。072d定向150题不能证明召回饱和；MARASON原MSG流程含NIST派生CE，仅作以后合规重建的备选。
+- **当前优先研究是 PubChem 同分子式候选召回**。在 110 道 MassBank 外部题上，将搜索深度扩到 50 后，PubChem 分支 MRR 从 **0.367** 升到 **0.382**，前 25 命中从 59 增到 65。扩到 100 时为 **0.386**、68 题。FLARE、MIST 与实测 CE 直接重排在固定前 25 上均降低 MRR。[075 实验进展](rounds/075-frontier/progress.md)
 
 ## 目录与入口
 

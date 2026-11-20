@@ -1,0 +1,15 @@
+{
+  "id": "jiyujia/enveda-075b-queries",
+  "title": "enveda-075b-queries",
+  "code_file": "build_panel.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": ["metric/rdkit-2026-3-3-wheel"],
+  "competition_sources": ["enveda-CASMI26-molecule-id-mass-spectra"],
+  "kernel_sources": [],
+  "model_sources": []
+}

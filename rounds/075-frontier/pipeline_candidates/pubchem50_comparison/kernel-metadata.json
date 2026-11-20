@@ -1,0 +1,20 @@
+{
+  "id": "jiyujia/enveda-075b-massbank-pubchem50-comparison",
+  "title": "enveda-075b-massbank-pubchem50-comparison",
+  "code_file": "compare_pubchem50.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "dataset_sources": [],
+  "kernel_sources": [
+    "jiyujia/enveda-075b-external-massbank-202611/1",
+    "jiyujia/enveda-075b-external-membership/2",
+    "jiyujia/enveda-075b-massbank-pipeline/1",
+    "jiyujia/enveda-075b-massbank-pubchem50/1",
+    "jiyujia/enveda-075b-massbank-pubchem-forward/1"
+  ],
+  "competition_sources": [],
+  "model_sources": []
+}

@@ -23,7 +23,8 @@
 
 ## 3. 公开分数与资产限制
 
-- **新增0.495候选**：Taeyang平台公开submission58449454为0.495，Alex/Arsen在公开源码中自报复现；FR/P5/D-L1推理资产已核，三个FR派生输入的生成链尚未闭环。本队尚未复现。旧073a演示版失败不能排除这个不同方案，当前未核实完整可复现的0.500+配方。详见[公开前沿证据](../../../data/references/075-public-frontier-2026-11-19.json)。
+- **公开 0.495 已复现**。Taeyang 团队公开提交 `58449454` 和 `jiyujia` 的原版 v2 复现 `58605458` 均为 **0.495**。三个 FR 派生训练输入的生成过程仍待核对。[原版 v2](https://www.kaggle.com/code/taeyangg4/casmi26-lb-0-495-network-fr-p5-tail?scriptVersionId=371003154) · [实验进展](../progress.md)
+- **FR 的训练与外部评估**。作者在 Enveda 训练谱中按结构键分折，逐题插入真值，主要取同式负例，见到的难负例至多八个按 Morgan 相似度选出。验证 MRR 0.8892 来自这种构造名单。公开资料给出 `structure_keys.parquet`、`structdb_v1/entries.parquet` 和 `pool_chemistry.json` 的哈希与字段，尚未找到相同文件或生成代码。原比赛推理仅调整第 3–25 名。外部比较采用自然召回的同一份 PubChem 深度 50 名单。[作者训练包](https://www.kaggle.com/datasets/taeyangg4/casmi26-fr3to25-clean)
 - **禁用/撤稿/已证伪**：
   - `CSI:FingerID / MSNovelist`相关受禁训练权重不使用；SIRIUS纯质量分解算法与这些模型分开判断，不笼统禁止全部算法。
   - `MSFlow`（2026-03-12 撤稿，潜在泄漏）与 `SpecBridge`（2026-03-03 撤稿，评估缺陷）：旧摘要数字不可信。

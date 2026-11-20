@@ -1,0 +1,19 @@
+{
+  "id": "jiyujia/enveda-075b-mist-cf",
+  "title": "enveda 075b mist cf",
+  "code_file": "score.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "dataset_sources": ["metric/rdkit-2026-3-3-wheel"],
+  "kernel_sources": [
+    "jiyujia/enveda-075b-queries",
+    "jiyujia/enveda-075b-pipeline",
+    "jiyujia/enveda-075b-flare-mist-assets"
+  ],
+  "competition_sources": [],
+  "model_sources": []
+}

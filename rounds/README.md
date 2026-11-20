@@ -4,7 +4,7 @@
 
 | 轮次 | 状态与入口 |
 | --- | --- |
-| [068-n1c-lam035](068-n1c-lam035/) | **当前最佳基线**：N-1c `LAM=0.35`，public **0.492**（`068a/`，ref `58412029`） |
-| [075-frontier](075-frontier/) | **前沿研究**：等输入化学型留出、FLARE局部匹配、adduct/CE差异碎片及MIST互补；新增公开0.495候选待核全链，本队基线不变；`075d` NX **0.381**已关闭。见[最新框架决策](075-frontier/research/next-frameworks.md) |
+| [068-n1c-lam035](068-n1c-lam035/) | N-1c `LAM=0.35`，公榜 **0.492**（`068a/`，提交 `58412029`） |
+| [075-frontier](075-frontier/) | 已复现公开方案，公榜 **0.495**（提交 `58605458`）。当前研究 PubChem 同式候选召回及预测谱排序，直接 FLARE、MIST、CE 重排已在外部样本对比。见 [实验进展](075-frontier/progress.md) |
 
 推送入口示例（只上传入口目录）：`kaggle kernels push -p rounds/068-n1c-lam035/068a`；远端脚本与操作见 [ops/remote-workflow.md](../ops/remote-workflow.md)。

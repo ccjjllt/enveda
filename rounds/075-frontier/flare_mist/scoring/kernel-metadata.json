@@ -1,0 +1,13 @@
+{
+  "id": "jiyujia/enveda-075b-flare-mist",
+  "title": "enveda-075b-flare-mist",
+  "code_file": "score.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_internet": false,
+  "dataset_sources": ["metric/rdkit-2026-3-3-wheel"],
+  "kernel_sources": ["jiyujia/enveda-075b-mass-queries", "jiyujia/enveda-075b-flare-mist-assets"],
+  "competition_sources": []
+}

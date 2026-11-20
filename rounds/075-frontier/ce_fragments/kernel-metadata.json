@@ -1,0 +1,18 @@
+{
+  "id": "jiyujia/enveda-075b-ce-fragments",
+  "title": "enveda 075b ce fragments",
+  "code_file": "score.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "ahmedberatozer/casmi26-iceberg",
+    "alexchilton/rdkit-2025-3-6-cp313"
+  ],
+  "kernel_sources": ["jiyujia/enveda-075b-mass-queries"],
+  "competition_sources": [],
+  "model_sources": []
+}
