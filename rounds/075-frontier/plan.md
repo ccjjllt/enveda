@@ -1,11 +1,16 @@
 # 075 前沿计划：候选局部判别与条件化多谱
 
-2026-11-20 更新。当前最高公榜为复现 Taeyang 原版的 **0.495**（`58605458`）。外部 MassBank 实验使用 `068a`（公榜 **0.492**，`58412029`）。比较过直接 FLARE、MIST 与 ICEBERG 实测能量重排后，当前优先处理 PubChem 同式结构召回。逐题结果与运行链接见 [实验进展](progress.md)。
+2026-11-21 更新。本项目最高公榜为复现 Taeyang 原版的 **0.495**（`58605458`）。外部 MassBank 实验使用 `068a`（公榜 **0.492**，`58412029`）。当前优先用第二批正离子谱复核异式换首。逐题结果与运行链接见 [实验进展](progress.md)。
 
 ## 当前实验
 
 - 110 题中 PubChem 原前 25 命中 59 题，前 100 命中 75 题。原前 25 经两种预测谱打分后，MRR 从 0.24737 升到 0.36715；各来源融合后为 0.33685。
 - 在原前 25 的分子式占位内加入同式候选后，深度 50 的 PubChem 前 25 命中 **65** 题，MRR **0.38216**，深度 100 是 **68** 题、**0.38640**。选择深度 50 接入完整融合，用同一批谱测最终前 25 和 MRR。[Kaggle 扩大同式候选](https://www.kaggle.com/code/jiyujia/enveda-075b-massbank-pubchem-forward)
+- 深度 50 整线将前 25 命中从 58 增至 60，MRR 从 0.33685 降至 0.33415。PubChem 新增的 6 个正确结构中，只有 2 个进入初融合，后来保留到最终名单。同式尾位替换最多回收 +0.00085 MRR。[整线分解](https://www.kaggle.com/code/jiyujia/enveda-075b-massbank-pubchem50-comparison) · [同式尾位替换](https://www.kaggle.com/code/jiyujia/enveda-075b-massbank-pubchem-tail-fuse)
+- 深度 50 的真正新增首选，仅在原首位异式且两模型都支持时插首。110 题触发 5 次，新增 1 个首位、无丢首，MRR **0.34586**（+0.00901）。独立复核只需补预测 PubChem 第一名所在分子式的候选，原重排按分子式分别归一化并放回对应位置。[新候选插首](https://www.kaggle.com/code/jiyujia/enveda-075b-massbank-pubchem50-novel-leader/output)
+- 固定异式换首在 110 题上得到 **3 升首、0 丢首**，MRR **0.36076**（+0.02391）。相同实测谱的两种预测都必须支持 PubChem 首选，并且原排名未被强谱库匹配支持。接入 Taeyang v2 时保留其外库直接匹配与原 FR/P5。第二批验证将沿用同一规则。[异式排序](https://www.kaggle.com/code/jiyujia/enveda-075b-massbank-pubchem-cross-formula)
+- FLARE 缩到同式前两名仍有 **0 升首、7 丢首**，MRR **0.30503**（−0.03182）。通用骨架未见组的 MRR 持平。这一权重的直接换首不再投入。[同式前两名](https://www.kaggle.com/code/jiyujia/enveda-075b-massbank-flare-second)
+- 跨能量碎片差异的同式前两名实验覆盖 18 题。等输入的逐谱余弦维持 **0.33685**，差异碎片在全 110 题降至 **0.32776**（0 升首、2 丢首）。结束这一差异分数的直接换首实验。[差异碎片配对](https://www.kaggle.com/code/jiyujia/enveda-075b-massbank-ce-pair/output)
 
 ## 原则与禁止项
 
