@@ -224,6 +224,13 @@ def export_candidates(root, panel_ids, audit):
             tier: retrieval_metrics(final_rank.loc[group['molecule_id']], union_rank.loc[group['molecule_id']])
             for tier, group in labels.groupby('scaffold_tier')
         }
+    query_adducts = pd.read_parquet(Path(audit['query_source']) / 'pipeline_queries.parquet',
+                                   columns=['molecule_id', 'adduct']).drop_duplicates()
+    if query_adducts['adduct'].nunique() > 1 or not query_adducts['adduct'].eq('[M+H]+').all():
+        audit['by_query_adduct'] = {
+            adduct: retrieval_metrics(final_rank.loc[group['molecule_id']], union_rank.loc[group['molecule_id']])
+            for adduct, group in query_adducts.groupby('adduct')
+        }
     observed = sources.merge(labels[['molecule_id', 'candidate_id']], on=['molecule_id', 'candidate_id'])
     audit['truth_rank_by_source'] = {}
     for name in sorted(sources['source'].unique()):
