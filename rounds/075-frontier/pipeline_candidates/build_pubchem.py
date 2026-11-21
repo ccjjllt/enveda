@@ -13,15 +13,12 @@ PANEL = 'jiyujia/enveda-075b-external-massbank-202611'
 PIPELINE = 'jiyujia/enveda-075b-massbank-pipeline'
 
 
-def build(destination, gpu):
-    path, = BASELINE.glob('*.ipynb')
-    original = json.loads(path.read_text())
-    frozen = json.loads(base64.b64decode(literal_value(source(original, 12), 'FROZEN_B64')))
+def candidate_setup(frozen):
     chemical_setup = source(frozen, 26).split('V4CODE = ', 1)[0]
     chemical_setup = replace(chemical_setup, "FOLD0_PATH = str(FOLD / 'fpnet_fold0.pt')", '''FOLD = Path(find('fpnet_fold0.pt')).parent
 POP = Path(find('pc_src_mask.npy')).parent
 FOLD0_PATH = str(FOLD / 'fpnet_fold0.pt')''')
-    setup = source(frozen, 2) + '\n' + chemical_setup + '''
+    return source(frozen, 2) + '\n' + chemical_setup + '''
 V3CODE = os.path.dirname(os.path.dirname(find('casmi26-v3-models/**/casmi/engine.py')))
 V3MOD = os.path.dirname(find('casmi26-v3-models/**/ranker_0.pkl'))
 POOL_DIR = os.path.dirname(find('pool_meta.parquet'))
@@ -30,6 +27,12 @@ TEST = find('pipeline_queries.parquet')
 T0 = time.time()
 '''
 
+
+def build(destination, gpu):
+    path, = BASELINE.glob('*.ipynb')
+    original = json.loads(path.read_text())
+    frozen = json.loads(base64.b64decode(literal_value(source(original, 12), 'FROZEN_B64')))
+    setup = candidate_setup(frozen)
     block = source(frozen, 34)
     core = replace(literal_value(block, 'CORE'), 'K = 25', 'K = 100')
     prior = replace(literal_value(block, 'V17_PATCH'), "    diag['n_listed'] = len(out)", '''    raw_candidates, raw_keys = [], set()
