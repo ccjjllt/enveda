@@ -1,4 +1,4 @@
-"""Stage the official MassBank 2026.11 positive MS2 accession additions."""
+"""Stage the official MassBank 2026.11 experimental MS2 accession additions."""
 
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
@@ -16,9 +16,13 @@ import pandas as pd
 
 NEW = ('24082491', '2026.11', 'd82fe03140b1d86f1cddf59577ef5bad')
 OLD = ('19590880', '2026.03', '1de9018361f7ffc689aa327f92e97e0f')
+MAY_2025 = ('15341877', '2025.05.1', '7f684f9f39df50943ef38573c104e572')
 OUTPUT = Path('/kaggle/working')
 PERMITTED_LICENSE = re.compile(r'^(?:CC0(?: 1\.0)?|CC BY(?: NC)?(?: SA)?(?: [0-9]+\.[0-9]+)?)$', re.I)
 SINGLE_CE = re.compile(r'^(\d+(?:\.\d+)?)\s*(eV)?$', re.I)
+PROTONATED = {'[M+H]+': 'positive'}
+EXTRA_ADDUCTS = {'[M-H]-': 'negative', '[M+Na]+': 'positive', '[M+NH4]+': 'positive'}
+AMMONIUM_ALIASES = {'[(M+NH3)+H]+', '[M+NH3+H]+', '[M+H+NH3]+', '[M+H3N+H]+', '[M+H4N]+'}
 
 
 def get_zip(release, directory):
@@ -45,7 +49,7 @@ def accession_files(archive):
     return entries
 
 
-def ms2_record(archive, member):
+def ms2_record(archive, member, allowed_adducts=PROTONATED):
     lines = archive.read(member).decode('utf-8-sig', errors='replace').splitlines()
     fields = {}
     mzs, intensities = [], []
@@ -79,10 +83,15 @@ def ms2_record(archive, member):
     license_code = ' '.join(license_text.replace('-', ' ').split())
     if not PERMITTED_LICENSE.fullmatch(license_code):
         return 'license_unavailable_or_restricted', None
+    polarity = fields.get('AC$MASS_SPECTROMETRY: ION_MODE', '').lower()
+    precursor_type = fields.get('MS$FOCUSED_ION: PRECURSOR_TYPE', '')
+    if not precursor_type and '[M+NH4]+' in allowed_adducts:
+        precursor_type = fields.get('MS$FOCUSED_ION: ION_TYPE', '')
+    raw_adduct = ''.join(precursor_type.split())
+    adduct = '[M+NH4]+' if raw_adduct in AMMONIUM_ALIASES else raw_adduct
     if (fields.get('AC$MASS_SPECTROMETRY: MS_TYPE', '').upper() != 'MS2'
-            or fields.get('AC$MASS_SPECTROMETRY: ION_MODE', '').upper() != 'POSITIVE'
-            or fields.get('MS$FOCUSED_ION: PRECURSOR_TYPE', '').replace(' ', '') != '[M+H]+'):
-        return 'outside_positive_protonated_ms2', None
+            or polarity not in {'positive', 'negative'} or allowed_adducts.get(adduct) != polarity):
+        return 'outside_requested_adduct_ms2', None
     smiles = fields.get('CH$SMILES', '')
     if not smiles or smiles in ('N/A', 'NA', 'Unknown'):
         return 'missing_smiles', None
@@ -104,7 +113,7 @@ def ms2_record(archive, member):
     ce_ev = float(ce_match.group(1)) if ce_match and ce_match.group(2) else None
     raw = fields.get('CH$LINK: INCHIKEY', '').split()
     return 'retained', dict(identifier=fields['ACCESSION'], smiles=smiles,
-                            inchikey=raw[0] if raw else None, adduct='[M+H]+',
+                            inchikey=raw[0] if raw else None, adduct=adduct, raw_adduct=raw_adduct, polarity=polarity,
                             mzs=mzs, intensities=intensities, precursor_mz=precursor_mz,
                             parent_mass=neutral_mass if np.isfinite(neutral_mass) else None,
                             instrument_type=instrument, instrument_name=instrument_name,
@@ -115,12 +124,12 @@ def ms2_record(archive, member):
                             record_date=fields.get('DATE'))
 
 
-def main():
+def main(allowed_adducts=PROTONATED, filename='massbank_added_positive.parquet', new_release=NEW, old_release=OLD):
     with tempfile.TemporaryDirectory(prefix='massbank-releases-') as temporary:
         directory = Path(temporary)
         with ThreadPoolExecutor(max_workers=2) as pool:
-            old_future = pool.submit(get_zip, OLD, directory)
-            new_future = pool.submit(get_zip, NEW, directory)
+            old_future = pool.submit(get_zip, old_release, directory)
+            new_future = pool.submit(get_zip, new_release, directory)
             old, new = old_future.result(), new_future.result()
         with ZipFile(old) as prior, ZipFile(new) as current:
             reference = accession_files(prior)
@@ -129,20 +138,24 @@ def main():
             counts = Counter()
             rows = []
             for accession in novel_accessions:
-                outcome, row = ms2_record(current, catalogue[accession])
+                outcome, row = ms2_record(current, catalogue[accession], allowed_adducts)
                 counts[outcome] += 1
                 if row is not None:
                     rows.append(row)
-    if not rows:
-        raise ValueError(f'No new positive experimental records: {dict(counts)}')
-    frame = pd.DataFrame(rows).drop_duplicates('identifier')
-    frame.to_parquet(OUTPUT / 'massbank_added_positive.parquet', index=False)
-    report = dict(release='MassBank 2026.11', new_zenodo_record=NEW[0], old_zenodo_record=OLD[0],
-                  new_md5=NEW[2], old_md5=OLD[2], new_accessions=len(novel_accessions),
-                  filter_counts=dict(counts), retained=len(frame), unique_smiles=int(frame.smiles.nunique()),
-                  licenses=frame.license.value_counts().to_dict(),
-                  by_source=frame.source_library.value_counts().to_dict(),
-                  single_ev_reported=int(frame.collision_energy.notna().sum()))
+    frame = pd.DataFrame(rows).drop_duplicates('identifier') if rows else pd.DataFrame()
+    report = dict(release=f'MassBank {new_release[1]}', old_release=f'MassBank {old_release[1]}',
+                  new_zenodo_record=new_release[0], old_zenodo_record=old_release[0],
+                  new_md5=new_release[2], old_md5=old_release[2], new_accessions=len(novel_accessions),
+                  filter_counts=dict(counts), retained=len(frame),
+                  requested_adducts=allowed_adducts)
+    if not frame.empty:
+        frame.to_parquet(OUTPUT / filename, index=False)
+        report.update(unique_smiles=int(frame.smiles.nunique()),
+                      licenses=frame.license.value_counts().to_dict(),
+                      by_source=frame.source_library.value_counts().to_dict(),
+                      by_adduct=frame.adduct.value_counts().to_dict(),
+                      by_reported_adduct=frame.raw_adduct.value_counts().to_dict(),
+                      single_ev_reported=int(frame.collision_energy.notna().sum()))
     (OUTPUT / 'massbank_source.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report), flush=True)
 
