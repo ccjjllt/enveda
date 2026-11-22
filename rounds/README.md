@@ -5,6 +5,6 @@
 | 轮次 | 状态与入口 |
 | --- | --- |
 | [068-n1c-lam035](068-n1c-lam035/) | N-1c `LAM=0.35`，公榜 **0.492**（`068a/`，提交 `58412029`） |
-| [075-frontier](075-frontier/) | 已复现公开方案，公榜 **0.495**（提交 `58605458`）。当前研究 PubChem 同式候选召回及预测谱排序，直接 FLARE、MIST、CE 重排已在外部样本对比。见 [实验进展](075-frontier/progress.md) |
+| [075-frontier](075-frontier/) | goodpjw 公开原版复现，公榜 **0.498**（提交 `58695195`）。当前研究 PubChem 首式粗筛外结构召回及预测谱排序。见 [实验进展](075-frontier/progress.md) |
 
 推送入口示例（只上传入口目录）：`kaggle kernels push -p rounds/068-n1c-lam035/068a`；远端脚本与操作见 [ops/remote-workflow.md](../ops/remote-workflow.md)。
