@@ -25,6 +25,7 @@
 
 - **公开 0.495 已复现**。Taeyang 团队公开提交 `58449454` 和 `jiyujia` 的原版 v2 复现 `58605458` 均为 **0.495**。三个 FR 派生训练输入的生成过程仍待核对。[原版 v2](https://www.kaggle.com/code/taeyangg4/casmi26-lb-0-495-network-fr-p5-tail?scriptVersionId=371003154) · [实验进展](../progress.md)
 - **FR 的训练与外部评估**。作者在 Enveda 训练谱中按结构键分折，逐题插入真值，主要取同式负例，见到的难负例至多八个按 Morgan 相似度选出。验证 MRR 0.8892 来自这种构造名单。公开资料给出 `structure_keys.parquet`、`structdb_v1/entries.parquet` 和 `pool_chemistry.json` 的哈希与字段，尚未找到相同文件或生成代码。原比赛推理仅调整第 3–25 名。外部比较采用自然召回的同一份 PubChem 深度 50 名单。[作者训练包](https://www.kaggle.com/datasets/taeyangg4/casmi26-fr3to25-clean)
+- **FraGNNet**。官方代码含碎片图与同式难负例采样。MassSpecGym 论文给了该模型的模拟结果；作者仓公开配置仍都是 NIST20，旧推理脚本从 W&B 按训练 run 下载，匿名查询找不到该项目的实测 MSG 权重。可研究用允许的真实绝对 CE 从零训练。[作者代码](https://github.com/FraGNNet/fragnnet) · [公开训练配置](https://github.com/FraGNNet/fragnnet/blob/main/config/README.md) · [MSG 权重讨论](https://github.com/pluskal-lab/MassSpecGym/issues/46)
 - **禁用/撤稿/已证伪**：
   - `CSI:FingerID / MSNovelist`相关受禁训练权重不使用；SIRIUS纯质量分解算法与这些模型分开判断，不笼统禁止全部算法。
   - `MSFlow`（2026-03-12 撤稿，潜在泄漏）与 `SpecBridge`（2026-03-03 撤稿，评估缺陷）：旧摘要数字不可信。
