@@ -1,0 +1,186 @@
+# Optional first-formula additions begin only after the original native ICE/GL/N1 runs.
+import math as _pc_first_math
+import signal as _pc_first_signal
+
+
+def _pc_first_finite(scores, smiles):
+    value = scores.get(smiles)
+    return isinstance(value, (float, int)) and _pc_first_math.isfinite(value)
+
+
+def _pc_first_plan(keep_head, audit):
+    arm = os.environ['CASMI_PC_FIRST_ARM']
+    if arm not in ('control', 'expanded'):
+        raise ValueError(f'Unknown PubChem arm: {arm}')
+    started = time.time()
+    nb_started = float(os.environ['CASMI_PC_FIRST_NB_T0'])
+    # Leave 15 minutes before the original 7.5h outer optional-stage guard.
+    # The local cap also limits extra work early in a session.
+    deadline = min(started + 3900., nb_started + 7.5 * 3600 - 900.)
+    audit.update(arm=arm, protect_head=keep_head, available_seconds=round(max(0, deadline-started), 1))
+    if deadline - started < 360.:
+        audit['status'] = 'session_budget'
+        return {}
+    available = {m: PC[m] for m in mids if ICE_PC and m in PC and PC[m].get('pc_form')
+                 and BASE[m][2] < LIB_TAU}
+    native = ice_fuse.build_ice_input(te, {m: [p['pc'][0]] for m, p in available.items()})
+    spectra = {row['mid']: row['spectra'] for row in native if any(
+        sp['adduct'] == '[M+H]+' and sp['mode'] == 'positive' and sp['mz']
+        and len(sp['mz']) == len(sp['it']) and np.isfinite(sp['prec']) for sp in row['spectra'])}
+    original_ice = {str(it['mid']): it['spectra'] for it in items}
+    original_gl = {str(it['mid']): it['spectra'] for it in gl_items}
+    proposals = {}
+    for m, proposal in available.items():
+        mid = str(m)
+        if mid not in spectra:
+            continue
+        measured = spectra[mid]
+        filtered = [sp for sp in measured if sp['adduct'] == '[M+H]+']
+        # Do not reuse an archive entry unless the actual original spectra agree exactly.
+        if (mid in original_ice and json.dumps(measured) != json.dumps(original_ice[mid])
+                or mid in original_gl and json.dumps(filtered) != json.dumps(original_gl[mid])):
+            continue
+        proposals[mid] = proposal
+    audit.update(eligible=len(proposals))
+    if not proposals:
+        audit['status'] = 'no_eligible_queries'
+        return {}
+
+    work = Path('/kaggle/working/pc_first_formula')
+    work.mkdir(exist_ok=True)
+    request, output = work / 'replay_request.json', work / 'replay_candidates.jsonl'
+    output.unlink(missing_ok=True)
+    left = deadline - time.time()
+    cpu_seconds = min(2400., left * .65, left - 245.)
+    if cpu_seconds <= 0:
+        audit['status'] = 'no_replay_budget'
+        return {}
+    request.write_text(json.dumps(dict(deadline=time.time()+cpu_seconds, proposals=proposals)))
+    with (work / 'replay.log').open('w') as log:
+        proc = subprocess.Popen([sys.executable, '/kaggle/working/pc_first_worker.py', V3CODE, PC_DIR, POOL_DIR,
+                                 '/tmp/pc_first_formula_snapshot', str(request), str(output)],
+                                stdout=log, stderr=subprocess.STDOUT, start_new_session=True,
+                                env={**os.environ, 'PYTHONHASHSEED': '0', 'PYTHONUNBUFFERED': '1'})
+        try:
+            proc.wait(timeout=cpu_seconds)
+        except subprocess.TimeoutExpired:
+            try:
+                os.killpg(proc.pid, _pc_first_signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            proc.wait()
+            audit['cpu_deadline'] = True
+    audit.update(cpu_seconds=round(time.time()-started, 1), cpu_returncode=proc.returncode)
+    additions = {}
+    if output.is_file():
+        for line in output.read_text().splitlines():
+            try:
+                record = json.loads(line)
+            except json.JSONDecodeError:
+                continue  # A terminated CPU process may leave a partial final line.
+            additions[record['mid']] = record
+    archive = dict(ice=ICE_SCORES, gl=GL_SCORES)
+    planned = {}
+    requests = dict(ice=[], gl=[])
+    for mid, proposal in proposals.items():
+        tail = additions.get(mid)
+        if not tail or tail['tail_budget'] != len(tail[arm]):
+            continue
+        first = proposal['pc_form'][0]
+        chosen = tail[arm]
+        if first != tail['formula'] or not chosen:
+            continue
+        originals = [(s, k, v, f) for s, k, v, f in zip(proposal['pc'], proposal['pc_keys'],
+                     proposal['pc_fz'], proposal['pc_form'], strict=True)]
+        positions = [i for i, row in enumerate(originals) if row[3] == first]
+        additions_to_group = [(r['smiles'], r['native_key'], r['score'], r['formula']) for r in chosen]
+        group = [originals[i] for i in positions] + additions_to_group
+        required = list(dict.fromkeys(row[0] for row in group))
+        for kind in requests:
+            native_scores = archive[kind].get(mid, {})
+            missing = [s for s in required if not _pc_first_finite(native_scores, s)]
+            if missing:
+                spec = spectra[mid] if kind == 'ice' else [s for s in spectra[mid] if s['adduct'] == '[M+H]+']
+                requests[kind].append(dict(mid=mid, spectra=spec, cands=missing))
+        evidence = {r['native_key']: dict(smiles=r['smiles'], raw_fz=r['raw_fz'], S=r['score'], pop=r['pop'])
+                    for r in chosen}
+        planned[mid] = dict(positions=positions, group=group, tail_evidence=evidence)
+    audit.update(planned=len(planned), outside_coarse_scored=sum(t['outside_scored'] for t in additions.values()),
+                 requests={kind: sum(len(row['cands']) for row in req) for kind, req in requests.items()})
+    if not planned:
+        audit['status'] = 'no_complete_retrieval'
+        return {}
+
+    remaining = deadline - time.time()
+    if remaining < 240. and any(requests.values()):
+        audit['status'] = 'no_physical_budget'
+        return {}
+    extra = dict(ice={}, gl={})
+    grace = 90.
+    opts = dict(site='/kaggle/working/ice_site', device='cuda', grace_s=grace, extra_args=['--any-rdkit'])
+    if requests['ice']:
+        # Split only the supplemental wall-time by the measured ICE/GL runtime ratio.
+        budget = (remaining - grace - 15.) if not requests['gl'] else (remaining - 2*grace - 15.) * 2./3.
+        extra['ice'] = ice_fuse.run_ice(ICE_PKG, requests['ice'], workdir=str(work / 'ice'),
+                                       budget_s=min(ICE_BUDGET, budget), **opts)
+
+    def ice_complete(mid):
+        original = archive['ice'].get(mid, {})
+        supplement = extra['ice'].get(mid, {})
+        return all(_pc_first_finite(original, smiles) or _pc_first_finite(supplement, smiles)
+                   for smiles, _, _, _ in planned[mid]['group'])
+
+    glacier_requests = [row for row in requests['gl'] if ice_complete(row['mid'])]
+    audit['glacier_requests_after_ice'] = sum(len(row['cands']) for row in glacier_requests)
+    if glacier_requests:
+        budget = deadline - time.time() - grace - 15.
+        if budget > 30.:
+            gc.collect(); torch.cuda.empty_cache()
+            extra['gl'] = gl_fuse.run_gl(GL_PKG, glacier_requests, workdir=str(work / 'gl'),
+                                         wheels=os.path.join(ICE_PKG, 'wheels'),
+                                         budget_s=min(GL_BUDGET, budget), **opts)
+    audit.update(status='scored', spectra_score_seconds=round(time.time()-started-audit['cpu_seconds'], 1),
+                 supplemental_finite={kind: sum(_pc_first_finite(by, s) for by in rows.values() for s in by)
+                                      for kind, rows in extra.items()})
+    for mid, plan in planned.items():
+        plan['extra'] = {kind: extra[kind].get(mid, {}) for kind in extra}
+    return planned
+
+
+def _pc_first_apply(proposal, plan, native_ice, native_gl, keep_head):
+    group = plan['group']
+    positions = plan['positions']
+    smis, keys, scores, forms = map(list, zip(*group, strict=True))
+    merged = {}
+    for name, native in [('ice', native_ice), ('gl', native_gl)]:
+        extra = plan['extra'][name]
+        merged[name] = {s: native[s] if _pc_first_finite(native, s) else extra.get(s) for s in smis}
+    if not all(_pc_first_finite(merged[name], s) for name in merged for s in smis):
+        return None
+    order = gl_fuse.rerank_multi(smis, keys, scores, forms, [merged['ice'], merged['gl']],
+                                 [ICE_LAM, GL_LAM], top_n=len(group))
+    selected = [group[i] for i in order]
+    old = list(zip(proposal['pc'], proposal['pc_keys'], proposal['pc_fz'], proposal['pc_form'], strict=True))
+    if keep_head:
+        old_head = next(row for row in group if row[:2] == old[0][:2])
+        selected = [old_head] + [row for row in selected if row[1] != old_head[1]]
+    result = list(old)
+    for position, row in zip(positions, selected[:len(positions)], strict=True):
+        result[position] = row
+    if len({row[1] for row in result}) != len(result) or [row[3] for row in result] != proposal['pc_form']:
+        return None
+    old_keys = {row[1] for row in old}
+    retained = [row for row in result if row[1] not in old_keys]
+    promotion = dict(proposal['promotion_evidence'])
+    for s, k, _, _ in retained:
+        evidence = plan['tail_evidence'][k]
+        if evidence['smiles'] != s or not all(np.isfinite(evidence[name]) for name in ('S', 'pop', 'raw_fz')):
+            return None
+        promotion[k] = evidence
+    if promotion[result[0][1]]['smiles'] != result[0][0]:
+        return None
+    patched = {**proposal, 'promotion_evidence': promotion, 'pc': [r[0] for r in result],
+               'pc_keys': [r[1] for r in result], 'pc_form': [r[3] for r in result],
+               'pc_fz': [proposal['pc_fz'][0]] + [r[2] for r in result[1:]]}
+    delta = {name: {r[0]: merged[name][r[0]] for r in retained} for name in merged}
+    return patched, delta, result[0][:2] != old[0][:2], len(retained)

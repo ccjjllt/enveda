@@ -1,0 +1,35 @@
+def locate_blind_input(input_root):
+    import hashlib
+    import json
+    import pyarrow.parquet as pq
+
+    receipts = list(input_root.rglob('e180_blind_input.json'))
+    if len(receipts) != 1:
+        raise ValueError('Attach the prepared inference-only E180 input.')
+    panel = receipts[0].parent
+    receipt = json.loads(receipts[0].read_text())
+    if (receipt['molecules'], receipt['spectra']) != (121, 299):
+        raise ValueError('Expected the complete E180 reserve panel.')
+    for name in ('blind_labels.parquet', 'e180_scan_pipeline_queries_ce.parquet', 'e180_fresh_d3_panel.parquet'):
+        if next(input_root.rglob(name), None) is not None:
+            raise ValueError(f'Unblinded E180 data is mounted: {name}')
+    for name in ('test.parquet', 'train.parquet', 'sample_submission.csv'):
+        matches = {p.resolve() for p in input_root.rglob(name)}
+        if matches != {(panel / name).resolve()}:
+            raise ValueError(f'All ranking-stage lookups must select the prepared {name}; found {matches}')
+        with (panel / name).open('rb') as stream:
+            digest = hashlib.sha256()
+            for block in iter(lambda: stream.read(4 << 20), b''):
+                digest.update(block)
+            if digest.hexdigest() != receipt['sha256'][name]:
+                raise ValueError(f'Blind input digest mismatch: {name}')
+    query = pq.read_table(panel / 'test.parquet', columns=['molecule_id', 'spectrum_id']).to_pandas()
+    sample = pd.read_csv(panel / 'sample_submission.csv')
+    if (len(query) != 299 or query.molecule_id.nunique() != 121 or not query.spectrum_id.is_unique
+            or len(sample) != 121 or set(sample.molecule_id) != set(query.molecule_id)):
+        raise ValueError('The frozen query and sample IDs differ.')
+    return panel.resolve(), receipt
+
+
+COMP, _blind_receipt = locate_blind_input(INPUT)
+os.environ['E180_BLIND_ROOT'] = str(COMP)

@@ -1,0 +1,23 @@
+"""Replay only authorized PubChem heads using the original V3 worker process."""
+import json
+import multiprocessing as mp
+import os
+from pathlib import Path
+import sys
+
+code, pc_dir, pool_dir, snapshots, request, output = sys.argv[1:]
+sys.path.insert(0, code)
+import probe_core2 as pc
+
+job = json.loads(Path(request).read_text())
+work = ((mid, snapshots, proposal, job['deadline']) for mid, proposal in job['proposals'].items())
+with mp.get_context('fork').Pool(4, initializer=pc.init_worker,
+                                initargs=(pc_dir, os.path.join(pool_dir, 'fp_bits.npy'),
+                                          os.path.join(pool_dir, 'pool_meta.parquet'), code)) as pool:
+    with Path(output).open('w') as stream:
+        for count, (mid, result) in enumerate(pool.imap_unordered(pc._pc_first_worker, work, chunksize=1), 1):
+            if result is not None:
+                stream.write(json.dumps(dict(mid=mid, **result), allow_nan=False) + '\n')
+                stream.flush()
+            if count % 25 == 0 or count == len(job['proposals']):
+                print('PC FIRST replay', count, '/', len(job['proposals']), flush=True)

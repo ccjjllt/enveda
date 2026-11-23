@@ -1,0 +1,126 @@
+# Executed only in the separate native PubChem Python process.
+from hashlib import sha256 as _pc_first_hash
+from pathlib import Path as _PCFirstPath
+from rdkit.Chem.rdMolDescriptors import CalcMolFormula as _pc_first_formula
+from rdkit.Chem.MolStandardize import rdMolStandardize as _pc_first_standardize
+
+
+def _pc_first_name(mid):
+    return _pc_first_hash(str(mid).encode()).hexdigest()
+
+
+def _pc_first_window_signature(smis):
+    return _pc_first_hash('\0'.join(smis).encode('ascii')).hexdigest()
+
+
+def _pc_first_snapshot(mid, target, z, smis, ok, top1, idx, fz, sc, out, out_s, out_k):
+    root = os.environ.get('CASMI_PC_FIRST_SNAPSHOT')
+    if not root or not out:
+        return
+    path = _PCFirstPath(root) / (_pc_first_name(mid) + '.npz')
+    temp = path.with_suffix('.tmp.npz')
+    try:
+        np.savez(temp, target=target, z=z, window_sha256=_pc_first_window_signature(smis),
+                 valid=ok, coarse=top1, indices=idx, raw=fz, adjusted=sc,
+                 head=np.asarray(out), head_scores=np.asarray(out_s), native_keys=np.asarray(out_k))
+        temp.replace(path)
+    except Exception as exc:
+        temp.unlink(missing_ok=True)
+        print('PC FIRST snapshot unavailable', str(mid), repr(exc), flush=True)
+
+
+def _pc_first_candidates(task):
+    mid, snapshot_root, original, deadline = task
+    if time.time() >= deadline:
+        return str(mid), None
+    path = _PCFirstPath(snapshot_root) / (_pc_first_name(mid) + '.npz')
+    if not path.is_file():
+        return str(mid), None
+    with np.load(path, allow_pickle=False) as snapshot:
+        target = float(snapshot['target'].item())
+        if (target != original['target'] or snapshot['head'].tolist() != original['pc']
+                or snapshot['native_keys'].tolist() != original['pc_keys']
+                or snapshot['head_scores'].tolist() != original['pc_fz']):
+            raise ValueError('Saved C34 head or observed mass changed')
+        smis, window_priors = _window_bundle(target)
+        if _pc_first_window_signature(smis) != snapshot['window_sha256'].item():
+            raise ValueError('Same three-tier mass window did not replay exactly')
+        scores, raw, coarse, indices, valid, z = [snapshot[x] for x in
+            ('adjusted', 'raw', 'coarse', 'indices', 'valid', 'z')]
+    pop = _pc_first_document_prior(window_priors, len(smis))
+    Chem = _W['Chem']
+    target_mol = Chem.MolFromSmiles(original['pc'][0])
+    if target_mol is None:
+        return str(mid), None
+    formula = _pc_first_formula(target_mol)
+    # Formula is evaluated on the same sanitized RDKit molecule as the original study.
+    same = np.zeros(len(smis), dtype=bool)
+    for count, i in enumerate(np.flatnonzero(valid)):
+        if count % 256 == 0 and time.time() >= deadline:
+            return str(mid), None
+        mol = Chem.MolFromSmiles(smis[i])
+        same[i] = mol is not None and _pc_first_formula(mol) == formula
+
+    def metric_key(mol):
+        Chem.RemoveStereochemistry(mol)
+        return Chem.MolToInchiKey(tautomer.Canonicalize(mol))[:14]
+
+    tautomer = _pc_first_standardize.TautomerEnumerator()
+    head_metric = {metric_key(mol) for s in original['pc'] if (mol := Chem.MolFromSmiles(s)) is not None}
+    head_native = set(original['pc_keys'])
+    dock = _W['chem']
+    key_cache = {}
+
+    def select(rows):
+        seen = set(head_metric)
+        result = []
+        for row, score, raw_score in sorted(rows, key=lambda r: -r[1]):
+            if row not in key_cache:
+                smiles = smis[row]
+                native = dock.score_key(smiles)
+                mol = Chem.MolFromSmiles(smiles) if native else None
+                key_cache[row] = (native, metric_key(mol) if mol is not None else '')
+            native, metric = key_cache[row]
+            if not metric or metric in seen or native in head_native or native in _W['pool_keys']:
+                continue
+            seen.add(metric)
+            result.append(dict(smiles=smis[row], native_key=native, metric_key=metric, formula=formula,
+                               score=score, raw_fz=raw_score, pop=float(pop[row])))
+            if len(result) == 25:
+                break
+        return result
+
+    positions = np.flatnonzero(same[indices])
+    old = [(int(indices[i]), float(scores[i]), float(raw[i])) for i in positions]
+    control = select(old)
+    if not control:
+        return str(mid), None
+    same[coarse] = False
+    additional = []
+    mean, scale = float(raw.mean()), float(raw.std() + 1e-9)
+    bits = _W['bits']
+    for count, i in enumerate(np.flatnonzero(same)):
+        if count % 128 == 0 and time.time() >= deadline:
+            return str(mid), None
+        fp = dock.raw_fingerprint(smis[i])
+        if fp is None:
+            continue
+        raw_score = float(fp[bits].astype(np.float32) @ z)
+        score = (raw_score - mean) / scale + _POP_LAM * pop[i]
+        if not np.isfinite(score):
+            raise ValueError('Nonfinite C34 extra score')
+        additional.append((int(i), float(score), raw_score))
+    expanded = select(old + additional)[:len(control)]
+    if len(expanded) != len(control):
+        raise ValueError('Expanded first formula did not fill the original equal budget')
+    return str(mid), dict(formula=formula, tail_budget=len(control), expanded=expanded, control=control,
+                          outside_scored=len(additional))
+
+
+def _pc_first_worker(task):
+    mid = task[0]
+    try:
+        return _pc_first_candidates(task)
+    except Exception as exc:
+        print('PC FIRST query replay unavailable', str(mid), repr(exc), flush=True)
+        return str(mid), None

@@ -1,0 +1,34 @@
+for _pc_m in list(PC):
+    _pc_mid = str(_pc_m)
+    if _pc_mid not in _pc_first_plans:
+        continue
+    try:
+        _pc_i, _pc_g = ICE_SCORES.get(_pc_mid, {}), GL_SCORES.get(_pc_mid, {})
+        _pc_result = _pc_first_apply(PC[_pc_m], _pc_first_plans[_pc_mid], _pc_i, _pc_g, _PC_FIRST_KEEP_HEAD)
+        if _pc_result is None:
+            _pc_first_audit['incomplete_or_inconsistent'] += 1
+            continue
+        _pc_patched, _pc_added_scores, _pc_head_change, _pc_retained = _pc_result
+        _pc_overlays = []
+        for _pc_archive, _pc_existing, _pc_name in [(ICE_SCORES, _pc_i, 'ice'), (GL_SCORES, _pc_g, 'gl')]:
+            _pc_new = {s: v for s, v in _pc_added_scores[_pc_name].items() if not _pc_first_finite(_pc_existing, s)}
+            if _pc_new:
+                _pc_overlays.append((_pc_archive, {**_pc_existing, **_pc_new}))
+        PC[_pc_m] = _pc_patched
+        for _pc_archive, _pc_merged in _pc_overlays:
+            _pc_archive[_pc_mid] = _pc_merged
+        _pc_first_audit['applied'] += 1
+        _pc_first_audit['retained'] += _pc_retained
+        _pc_first_audit['pc_head_changed'] += int(_pc_head_change)
+        _pc_first_audit['applied_queries'][_pc_mid] = dict(
+            retained=_pc_retained, head_changed=bool(_pc_head_change), head_key=_pc_patched['pc_keys'][0],
+            ranked_smiles=_pc_patched['pc'])
+    except Exception as _pc_exc:
+        _pc_first_audit['incomplete_or_inconsistent'] += 1
+        print('PC FIRST kept original PubChem result:', _pc_mid, repr(_pc_exc), flush=True)
+try:
+    Path('/kaggle/working/pc_first_formula_audit.json').write_text(json.dumps(_pc_first_audit, indent=2) + '\n')
+except OSError as _pc_exc:
+    print('PC FIRST audit could not be written:', repr(_pc_exc), flush=True)
+print('PC FIRST', json.dumps({k: v for k, v in _pc_first_audit.items() if k != 'applied_queries'}), flush=True)
+
