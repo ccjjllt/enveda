@@ -1,0 +1,168 @@
+{
+  "source": "train.parquet",
+  "row_group": 0,
+  "metadata_rows": 16384,
+  "eligible_formula_groups_stored_keys": 141,
+  "max_hash_pairs": 48,
+  "total_distinct_spectra_read": 306,
+  "rdkit": "2026.09.2",
+  "null_design": "每式固定 20 eV 的结构标签，独立交换 40 与 60 eV 的标签。三项配对符号依次为 s40、s60、s40*s60。",
+  "hash_selected": {
+    "selected_formula_pairs": 48,
+    "selected_spectra": 288,
+    "indices_sha256": "5225bd1a281cf1c2d361396ac7e78aae4007adf84ba697c56cb068630f22d367",
+    "filtered_morgan_tanimoto_quartiles": [
+      0.14868421052631578,
+      0.1751918158567775,
+      0.20966514459665142
+    ],
+    "filtered_morgan_tanimoto_ge_0_6": 0,
+    "excluded": {},
+    "all_with_four_fragments": {
+      "n_formula_pairs": 48,
+      "energy_pairs_eV": [
+        [
+          20,
+          40
+        ],
+        [
+          20,
+          60
+        ],
+        [
+          40,
+          60
+        ]
+      ],
+      "energy_mean_diagonal_minus_swap": [
+        0.6318419877702659,
+        0.31980277472075935,
+        0.6497256785925651
+      ],
+      "mean_diagonal_minus_swap": 0.5337901470278634,
+      "median_diagonal_minus_swap": 0.5286578713001131,
+      "formula_wins_ties_losses": [
+        48,
+        0,
+        0
+      ],
+      "null_mean": -0.0005180286659795774,
+      "permutations": 10000,
+      "exceedances": 0,
+      "one_sided_permutation_p": 9.999000099990002e-05
+    },
+    "without_near_duplicates": {
+      "n_formula_pairs": 48,
+      "energy_pairs_eV": [
+        [
+          20,
+          40
+        ],
+        [
+          20,
+          60
+        ],
+        [
+          40,
+          60
+        ]
+      ],
+      "energy_mean_diagonal_minus_swap": [
+        0.6318419877702659,
+        0.31980277472075935,
+        0.6497256785925651
+      ],
+      "mean_diagonal_minus_swap": 0.5337901470278634,
+      "median_diagonal_minus_swap": 0.5286578713001131,
+      "formula_wins_ties_losses": [
+        48,
+        0,
+        0
+      ],
+      "null_mean": -0.0005180286659795774,
+      "permutations": 10000,
+      "exceedances": 0,
+      "one_sided_permutation_p": 9.999000099990002e-05
+    }
+  },
+  "hard_selected": {
+    "selected_formula_pairs": 3,
+    "selected_spectra": 18,
+    "indices_sha256": "8db75a2d4c734a7bb52478613cf7f4e766b4adea433ce4961b289806ea19816e",
+    "filtered_morgan_tanimoto_quartiles": [
+      0.6728545343883141,
+      0.7419354838709677,
+      0.7836661546338966
+    ],
+    "filtered_morgan_tanimoto_ge_0_6": 3,
+    "excluded": {},
+    "all_with_four_fragments": {
+      "n_formula_pairs": 3,
+      "energy_pairs_eV": [
+        [
+          20,
+          40
+        ],
+        [
+          20,
+          60
+        ],
+        [
+          40,
+          60
+        ]
+      ],
+      "energy_mean_diagonal_minus_swap": [
+        0.057757225399553996,
+        0.03500641039756239,
+        0.12190665292849855
+      ],
+      "mean_diagonal_minus_swap": 0.07155676290853831,
+      "median_diagonal_minus_swap": 0.006012084242948718,
+      "formula_wins_ties_losses": [
+        3,
+        0,
+        0
+      ],
+      "null_mean": 0.00022624605175765097,
+      "permutations": 10000,
+      "exceedances": 160,
+      "one_sided_permutation_p": 0.0160983901609839
+    },
+    "without_near_duplicates": {
+      "n_formula_pairs": 3,
+      "energy_pairs_eV": [
+        [
+          20,
+          40
+        ],
+        [
+          20,
+          60
+        ],
+        [
+          40,
+          60
+        ]
+      ],
+      "energy_mean_diagonal_minus_swap": [
+        0.057757225399553996,
+        0.03500641039756239,
+        0.12190665292849855
+      ],
+      "mean_diagonal_minus_swap": 0.07155676290853831,
+      "median_diagonal_minus_swap": 0.006012084242948718,
+      "formula_wins_ties_losses": [
+        3,
+        0,
+        0
+      ],
+      "null_mean": 0.00022624605175765097,
+      "permutations": 10000,
+      "exceedances": 160,
+      "one_sided_permutation_p": 0.0160983901609839
+    }
+  },
+  "hard_selection": "在同一固定片段内，仅按结构选择每式 Morgan 相似度最大的结构对，最低 0.60。两结构精确质量相差最多 1e-6 Da，六条实测前体的极差不超过均值的 10 ppm。",
+  "scope": "比赛训练首个行组前16384行。真实参考谱两选一，只能衡量同仪器已见结构的跨能量鉴别。不同扫描行，源文件未提供独立采集批次号。"
+}

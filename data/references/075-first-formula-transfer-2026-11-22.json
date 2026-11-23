@@ -1,0 +1,280 @@
+{
+  "date": "2026-11-22",
+  "units": "MRR and counts of distinct structures",
+  "source": "Previously downloaded Kaggle receipts and the embedded source of both locally built submission notebooks.",
+  "cohorts": {
+    "development96": {
+      "source": "jiyujia/enveda-075b-e180-d3-first-formula-c41",
+      "summary_sha256": "7aa60fdf45e269f20d726611f7c72e76339deaef0dee9eaa8e77b8993bc8cad3",
+      "metrics": {
+        "all96": {
+          "baseline": {
+            "n": 96,
+            "mrr25": 0.46920354864433805,
+            "top1": 38,
+            "recall25": 59,
+            "top1_gains": 0,
+            "top1_losses": 0
+          },
+          "control_protected": {
+            "n": 96,
+            "mrr25": 0.46920354864433805,
+            "top1": 38,
+            "recall25": 59,
+            "top1_gains": 0,
+            "top1_losses": 0
+          },
+          "expanded_protected": {
+            "n": 96,
+            "mrr25": 0.5655577153110047,
+            "top1": 38,
+            "recall25": 80,
+            "top1_gains": 0,
+            "top1_losses": 0
+          },
+          "control_open": {
+            "n": 96,
+            "mrr25": 0.46225910419989363,
+            "top1": 37,
+            "recall25": 59,
+            "top1_gains": 0,
+            "top1_losses": 1
+          },
+          "expanded_open": {
+            "n": 96,
+            "mrr25": 0.6323979930887825,
+            "top1": 50,
+            "recall25": 80,
+            "top1_gains": 14,
+            "top1_losses": 2
+          }
+        },
+        "unseen_murcko": {
+          "baseline": {
+            "n": 39,
+            "mrr25": 0.49598822230401185,
+            "top1": 16,
+            "recall25": 26,
+            "top1_gains": 0,
+            "top1_losses": 0
+          },
+          "control_protected": {
+            "n": 39,
+            "mrr25": 0.49598822230401185,
+            "top1": 16,
+            "recall25": 26,
+            "top1_gains": 0,
+            "top1_losses": 0
+          },
+          "expanded_protected": {
+            "n": 39,
+            "mrr25": 0.5408600171758068,
+            "top1": 16,
+            "recall25": 30,
+            "top1_gains": 0,
+            "top1_losses": 0
+          },
+          "control_open": {
+            "n": 39,
+            "mrr25": 0.47889420520999476,
+            "top1": 15,
+            "recall25": 26,
+            "top1_gains": 0,
+            "top1_losses": 1
+          },
+          "expanded_open": {
+            "n": 39,
+            "mrr25": 0.5408600171758068,
+            "top1": 16,
+            "recall25": 30,
+            "top1_gains": 1,
+            "top1_losses": 1
+          }
+        }
+      }
+    },
+    "heldout121": {
+      "source": "jiyujia/enveda-075b-e180-d3-reserve-c41",
+      "summary_sha256": "a7ed6c6d05a5999a15aad007097f73517a5c0560e0a5605124ec641ac6cf2bb0",
+      "metrics": {
+        "all121": {
+          "baseline": {
+            "n": 121,
+            "mrr25": 0.638370720188902,
+            "mrr5": 0.6363636363636364,
+            "top1": 67,
+            "recall25": 92,
+            "recall5": 90,
+            "top1_gains": 0,
+            "top1_losses": 0
+          },
+          "control_protected": {
+            "n": 121,
+            "mrr25": 0.6409641873278238,
+            "mrr5": 0.6384297520661157,
+            "top1": 67,
+            "recall25": 93,
+            "recall5": 90,
+            "top1_gains": 0,
+            "top1_losses": 0
+          },
+          "expanded_protected": {
+            "n": 121,
+            "mrr25": 0.6891735537190082,
+            "mrr5": 0.6866391184573002,
+            "top1": 67,
+            "recall25": 108,
+            "recall5": 105,
+            "top1_gains": 0,
+            "top1_losses": 0
+          },
+          "control_open": {
+            "n": 121,
+            "mrr25": 0.6384848484848484,
+            "mrr5": 0.6359504132231404,
+            "top1": 67,
+            "recall25": 93,
+            "recall5": 90,
+            "top1_gains": 2,
+            "top1_losses": 2
+          },
+          "expanded_open": {
+            "n": 121,
+            "mrr25": 0.7073553719008264,
+            "mrr5": 0.7048209366391185,
+            "top1": 71,
+            "recall25": 108,
+            "recall5": 105,
+            "top1_gains": 8,
+            "top1_losses": 4
+          }
+        },
+        "unseen_murcko": {
+          "baseline": {
+            "n": 44,
+            "mrr25": 0.6571969696969696,
+            "mrr5": 0.6571969696969696,
+            "top1": 26,
+            "recall25": 33,
+            "recall5": 33,
+            "top1_gains": 0,
+            "top1_losses": 0
+          },
+          "control_protected": {
+            "n": 44,
+            "mrr25": 0.6609848484848485,
+            "mrr5": 0.6609848484848485,
+            "top1": 26,
+            "recall25": 33,
+            "recall5": 33,
+            "top1_gains": 0,
+            "top1_losses": 0
+          },
+          "expanded_protected": {
+            "n": 44,
+            "mrr25": 0.7272727272727272,
+            "mrr5": 0.7272727272727272,
+            "top1": 26,
+            "recall25": 41,
+            "recall5": 41,
+            "top1_gains": 0,
+            "top1_losses": 0
+          },
+          "control_open": {
+            "n": 44,
+            "mrr25": 0.649621212121212,
+            "mrr5": 0.649621212121212,
+            "top1": 25,
+            "recall25": 33,
+            "recall5": 33,
+            "top1_gains": 0,
+            "top1_losses": 1
+          },
+          "expanded_open": {
+            "n": 44,
+            "mrr25": 0.7348484848484849,
+            "mrr5": 0.7348484848484849,
+            "top1": 26,
+            "recall25": 41,
+            "recall5": 41,
+            "top1_gains": 2,
+            "top1_losses": 2
+          }
+        }
+      }
+    }
+  },
+  "c41_order": {
+    "open_notebook_sha256": "d733eadf8c8b759369290f9b5fefa8e8f372f904c1fad70ef213ebaa9b6f4003",
+    "open_inner_sha256": "c5bf3b7e449e41815cba06e6af14490a765a089a9fc6ae0d7dab72f78c0586e3",
+    "static_keephead_notebook_sha256": "1a806c17016c59869286ad20630a41a820da03012901ddb994f2fe396d1e90d8",
+    "static_keephead_inner_sha256": "c41ce01a6ac21848d552fa21a85fe23c9aaaa6b8a50fc72da80893832f5c25b7",
+    "open_inner_cell41_line_1based": {
+      "plan_using_c34": 1485,
+      "original_c41_reorder": 1525,
+      "apply_using_current_pc": 1536,
+      "write_patched_pc": 1546
+    },
+    "protected_identity": "Original C41 physical leader",
+    "package_difference": "Static keephead requests GL for all missing GL scores. The later open-head package requests GL only for queries with complete ICE scores."
+  },
+  "c43_slot_sensitivity": {
+    "unit": "121 reserve queries, expanded minus equally sized within-coarse control",
+    "assumptions": [
+      "The PubChem channel is active for all queries. Each main list is full and disjoint from its PubChem list.",
+      "The truth can enter via PubChem only. Across queries and arms the slot policy and the promotion flag are fixed in each scenario.",
+      "The endpoint is C43. Later fusion and ranking are excluded."
+    ],
+    "evaluation": "Executed packaged C43 merge/promote functions with disjoint candidate identities to establish rank mapping. Use branch MRR5 divided by slot spacing. With promotion add (1-1/spacing) times top1 fraction.",
+    "scenarios": {
+      "aggressive": {
+        "merge": {
+          "pc_ranks_in_merge": [
+            2,
+            4,
+            6,
+            8,
+            10
+          ],
+          "protected_expanded_minus_equal_control": 0.02410468,
+          "open_expanded_minus_equal_control": 0.03443526
+        },
+        "promote": {
+          "pc_ranks_in_merge": [
+            1,
+            4,
+            6,
+            8,
+            10
+          ],
+          "protected_expanded_minus_equal_control": 0.02410468,
+          "open_expanded_minus_equal_control": 0.05096419
+        }
+      },
+      "gentle": {
+        "merge": {
+          "pc_ranks_in_merge": [
+            4,
+            8,
+            12,
+            16,
+            20
+          ],
+          "protected_expanded_minus_equal_control": 0.01205234,
+          "open_expanded_minus_equal_control": 0.01721763
+        },
+        "promote": {
+          "pc_ranks_in_merge": [
+            1,
+            8,
+            12,
+            16,
+            20
+          ],
+          "protected_expanded_minus_equal_control": 0.01205234,
+          "open_expanded_minus_equal_control": 0.04201102
+        }
+      }
+    }
+  }
+}

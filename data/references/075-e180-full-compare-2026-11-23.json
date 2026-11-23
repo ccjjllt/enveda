@@ -1,0 +1,177 @@
+{
+  "molecules": 121,
+  "mrr25": {
+    "control": 0.5761142047602913,
+    "expanded": 0.5767499326687465
+  },
+  "hits25": {
+    "control": 103,
+    "expanded": 103
+  },
+  "top5": {
+    "control": 91,
+    "expanded": 91
+  },
+  "top1": {
+    "control": 52,
+    "expanded": 52
+  },
+  "delta_mrr25": 0.0006357279084551808,
+  "improved": 2,
+  "worsened": 4,
+  "top1_gained": 1,
+  "top1_lost": 1,
+  "previous_15": [
+    {
+      "case": 1,
+      "expansion_applied": true,
+      "expanded_pubchem_rank": 1,
+      "baseline_rank": 1,
+      "expanded_rank": 1
+    },
+    {
+      "case": 2,
+      "expansion_applied": true,
+      "expanded_pubchem_rank": 1,
+      "baseline_rank": 1,
+      "expanded_rank": 1
+    },
+    {
+      "case": 3,
+      "expansion_applied": true,
+      "expanded_pubchem_rank": 1,
+      "baseline_rank": 6,
+      "expanded_rank": 6
+    },
+    {
+      "case": 4,
+      "expansion_applied": false,
+      "expanded_pubchem_rank": null,
+      "baseline_rank": 3,
+      "expanded_rank": 3
+    },
+    {
+      "case": 5,
+      "expansion_applied": true,
+      "expanded_pubchem_rank": 1,
+      "baseline_rank": 1,
+      "expanded_rank": 1
+    },
+    {
+      "case": 6,
+      "expansion_applied": true,
+      "expanded_pubchem_rank": 4,
+      "baseline_rank": 11,
+      "expanded_rank": 11
+    },
+    {
+      "case": 7,
+      "expansion_applied": true,
+      "expanded_pubchem_rank": 6,
+      "baseline_rank": 4,
+      "expanded_rank": null
+    },
+    {
+      "case": 8,
+      "expansion_applied": true,
+      "expanded_pubchem_rank": 1,
+      "baseline_rank": 1,
+      "expanded_rank": 1
+    },
+    {
+      "case": 9,
+      "expansion_applied": true,
+      "expanded_pubchem_rank": 1,
+      "baseline_rank": 1,
+      "expanded_rank": 1
+    },
+    {
+      "case": 10,
+      "expansion_applied": true,
+      "expanded_pubchem_rank": 1,
+      "baseline_rank": 1,
+      "expanded_rank": 1
+    },
+    {
+      "case": 11,
+      "expansion_applied": true,
+      "expanded_pubchem_rank": 5,
+      "baseline_rank": 4,
+      "expanded_rank": 4
+    },
+    {
+      "case": 12,
+      "expansion_applied": true,
+      "expanded_pubchem_rank": 1,
+      "baseline_rank": 1,
+      "expanded_rank": 1
+    },
+    {
+      "case": 13,
+      "expansion_applied": true,
+      "expanded_pubchem_rank": 1,
+      "baseline_rank": 2,
+      "expanded_rank": 2
+    },
+    {
+      "case": 14,
+      "expansion_applied": true,
+      "expanded_pubchem_rank": 4,
+      "baseline_rank": null,
+      "expanded_rank": 3
+    },
+    {
+      "case": 15,
+      "expansion_applied": true,
+      "expanded_pubchem_rank": 1,
+      "baseline_rank": 1,
+      "expanded_rank": 1
+    }
+  ],
+  "expansion_applied_queries": 117,
+  "previous_15_expanded_rank_counts": {
+    "1": 8,
+    "6": 1,
+    "3": 2,
+    "11": 1,
+    ">25": 1,
+    "4": 1,
+    "2": 1
+  },
+  "runs": {
+    "expanded": {
+      "submission_sha256": "6e552e377bde132361710389802f385fd4cfe1e4d3970f0233bf17aae5d40602",
+      "stage_status": {
+        "pc_first_formula": "scored",
+        "n035net": "applied",
+        "fr3to25": "applied",
+        "p5tail": "applied",
+        "aprior": "applied",
+        "uniq": "applied"
+      },
+      "arm": "expanded",
+      "elapsed_seconds": 5638.7,
+      "cuda_devices": [
+        "Tesla T4",
+        "Tesla T4"
+      ]
+    },
+    "baseline": {
+      "submission_sha256": "2675b3cec0607a93b447c4bfbcac256812bc796cf8794b81fc8414c24fe1f55a",
+      "stage_status": {
+        "pc_first_formula": null,
+        "n035net": "applied",
+        "fr3to25": "applied",
+        "p5tail": "applied",
+        "aprior": "applied",
+        "uniq": "applied"
+      },
+      "arm": "baseline",
+      "elapsed_seconds": 4587.2,
+      "cuda_devices": [
+        "Tesla T4",
+        "Tesla T4"
+      ]
+    }
+  }
+}

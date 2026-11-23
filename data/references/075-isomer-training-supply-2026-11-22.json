@@ -1,0 +1,84 @@
+{
+  "date": "2026-11-22",
+  "scope": "训练可用性元数据计数。按原文件 inchikey14 和分子式，不含互变异构重归一、骨架切分、外部评估身份排重、官方原谱回配或模型评分。",
+  "source": "data/raw/train.parquet",
+  "engine": "DuckDB 1.4.5",
+  "measurements_sql": "SELECT adduct, collision_energy_ev[1] AS ev, molecular_formula AS formula, inchikey14 AS structure_key, count(*) AS n_spectra\nFROM read_parquet('data/raw/train.parquet')\nWHERE ingest_lib = 'enveda-180' AND instrument_type = 'timsTOF' AND adduct IN ('[M+H]+','[M-H]-') AND collision_energy_orig_units = 'eV'\nAND list_count(collision_energy_ev) = 1 AND collision_energy_ev[1] IN (20,40,60) AND num_peaks >= 4\nAND length(inchikey14) = 14 AND length(molecular_formula) > 0\nGROUP BY ALL",
+  "summary_sql": "WITH counts AS (SELECT *, count(*) OVER (PARTITION BY adduct,ev,formula) AS n_structures FROM measurements)\nSELECT adduct, sum(n_spectra) AS spectrum_rows, count(DISTINCT structure_key) AS distinct_keys,\ncount(DISTINCT structure_key) FILTER (WHERE n_structures>=2) AS keys_with_isomer,\ncount(DISTINCT structure_key) FILTER (WHERE n_structures>=4) AS keys_with_at_least_3_competitors,\ncount(DISTINCT structure_key) FILTER (WHERE n_structures>=8) AS keys_with_at_least_7_competitors,\nsum(n_spectra) FILTER (WHERE n_structures>=4) AS rows_with_at_least_3_competitors\nFROM counts GROUP BY adduct ORDER BY adduct",
+  "results": [
+    {
+      "adduct": "[M+H]+",
+      "spectrum_rows": 430333,
+      "distinct_keys": 166557,
+      "keys_with_isomer": 158401,
+      "keys_with_at_least_3_competitors": 146038,
+      "keys_with_at_least_7_competitors": 128315,
+      "rows_with_at_least_3_competitors": 373106
+    },
+    {
+      "adduct": "[M-H]-",
+      "spectrum_rows": 142773,
+      "distinct_keys": 64740,
+      "keys_with_isomer": 57460,
+      "keys_with_at_least_3_competitors": 47702,
+      "keys_with_at_least_7_competitors": 35739,
+      "rows_with_at_least_3_competitors": 100553
+    }
+  ],
+  "hard_neighbors_at_40_eV": {
+    "selection": "全量 enveda-180 timsTOF [M+H]+，原始 40 eV 且 collision_energy_ev=[40]，存储峰数至少四个。对每个原始 inchikey14 取字典序首个（molecular_formula, normalized_smiles），按 SHA256(isomer-energy-v1/ + inchikey14) 取前 128，含单例。",
+    "identity": "按存储分子式查所有同式竞争者。去立体、规范互变异构并按 InChIKey14 去同一身份及别名。",
+    "fingerprint": "规范结构 Morgan radius=2, fpSize=2048, useChirality=False，Tanimoto≥0.60。",
+    "rdkit": "2026.09.2",
+    "scaffold_filter": "供给审计未按 Murcko 骨架分折，训练/验证分折后须重计。",
+    "eligible_spectra": 165833,
+    "eligible_raw_structures": 165106,
+    "queries": 128,
+    "different_stored_key_comparisons": 6657,
+    "raw_formula_singleton_queries": 14,
+    "hard_neighbor_queries": 20,
+    "fraction": 0.15625,
+    "wilson95": [
+      0.10348354800906658,
+      0.22904810942897047
+    ],
+    "queries_with_at_least_three_hard_neighbors": 1,
+    "queries_with_at_least_seven_hard_neighbors": 0,
+    "hard_degree_quartiles": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "best_similarity_quartiles_including_zero_for_absent": [
+      0.2278966831017481,
+      0.3082579185520362,
+      0.4408410548823949
+    ],
+    "distinct_keys_processed_by_rdkit": 6029,
+    "invalid_keys": 0,
+    "confidence_scope": "Wilson 分数区间近似描述固定哈希等概率结构抽样的不确定性。未计来源/分子式内相关、规范化版本差异或骨架留出后的供给损失。"
+  },
+  "cross_polarity": {
+    "source": "data/raw/train.parquet",
+    "scope": "按归档原始 InChIKey14 匹配。以该能量条件下至少有一种加合物的结构键为分母，正负对应直接质子化和去质子化。同一能量不保证独立采集批次。训练折及标签规范化前计数，隐藏集组成未知。 单档 40 eV 要求原单位 eV、原字段的绝对值为 40、归一字段为 [40]；正负谱原字段分别为 40 和 -40。",
+    "sql": "WITH scans AS (\n SELECT inchikey14, adduct,\n   collision_energy_orig_units='eV' AND abs(try_cast(collision_energy_orig AS DOUBLE))=40\n     AND collision_energy_ev=[40.0] AS single_40ev\n FROM read_parquet('data/raw/train.parquet')\n WHERE ingest_lib='enveda-180' AND instrument_type='timsTOF'\n   AND num_peaks>=4 AND length(inchikey14)=14\n), modes AS (\n SELECT regime, inchikey14,\n        bool_or(adduct='[M+H]+') AS pos,\n        bool_or(adduct='[M-H]-') AS neg\n FROM (SELECT 'all_energies' AS regime, * FROM scans\n       UNION ALL\n       SELECT 'both_modes_restricted_to_single_40ev' AS regime, * FROM scans WHERE single_40ev)\n GROUP BY regime, inchikey14\n)\nSELECT regime, count(*) AS keys_with_any_adduct,\n       count(*) FILTER (WHERE pos AND neg) AS keys_with_both,\n       count(*) FILTER (WHERE NOT pos AND neg) AS direct_negative_without_direct_positive,\n       count(*) FILTER (WHERE pos AND NOT neg) AS direct_positive_without_direct_negative,\n       count(*) FILTER (WHERE NOT pos AND NOT neg) AS neither_direct_adduct\nFROM modes GROUP BY regime ORDER BY regime",
+    "results": [
+      {
+        "regime": "all_energies",
+        "keys_with_any_adduct": 182941,
+        "keys_with_both": 56047,
+        "direct_negative_without_direct_positive": 9827,
+        "direct_positive_without_direct_negative": 111149,
+        "neither_direct_adduct": 5918
+      },
+      {
+        "regime": "both_modes_restricted_to_single_40ev",
+        "keys_with_any_adduct": 180903,
+        "keys_with_both": 50979,
+        "direct_negative_without_direct_positive": 9773,
+        "direct_positive_without_direct_negative": 114127,
+        "neither_direct_adduct": 6024
+      }
+    ]
+  }
+}

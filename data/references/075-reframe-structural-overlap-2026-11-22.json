@@ -1,0 +1,28 @@
+{
+  "source": "https://zenodo.org/records/20816379",
+  "date": "2026-11-22",
+  "method": "仅提取 ReFRAME 两个公开成员，核对 ZIP CRC32。以作者 inchikey_2d 的前14位与比赛训练全表的 inchikey14 对照。",
+  "members_sha256": {
+    "reframe_ms2s_with_ccs.parquet": "4f13ee04436218949d3fe482dd1da607707343da759641990ff192030b2b9732",
+    "reframe_smiles_list.csv": "9b5931d4c0bc245c79f51f301a930f07adcd258c66daa5f23f37bad9e03a357c"
+  },
+  "spectra": 7219,
+  "distinct_key_audit": {
+    "external_keys": 5356,
+    "seen_in_competition": 5356,
+    "outside_competition": 0
+  },
+  "sql": "WITH ext AS (SELECT DISTINCT substr(inchikey_2d,1,14) AS key FROM read_parquet(?)), cmp AS (SELECT DISTINCT inchikey14 AS key FROM read_parquet('data/raw/train.parquet')) SELECT count(*) AS external_keys, count(cmp.key) AS seen_in_competition, count(*) FILTER(WHERE cmp.key IS NULL) AS outside_competition FROM ext LEFT JOIN cmp USING(key)",
+  "scope": "仅检查原始结构键是否出现。谱文件缺少逐谱 adduct、collision energy、采集标识；已见结构的独立采集/谱近重复待核查。",
+  "utrecht_secondary_screen": {
+    "source": "https://zenodo.org/records/21394919",
+    "file": "UU_QE_Metabolomics_Standards_Lib_noRT_unique_compounds.csv",
+    "md5": "00acd98743f1b185a541764b9d9bc4e0",
+    "compound_rows": 101,
+    "unique_nonmissing_key14": 99,
+    "source_rows_missing_structure": 1,
+    "outside_train_raw_keys": 5,
+    "protonated_outside_keys": 4,
+    "notes": "四个正质子条目均为酰基肉碱，第五个为双电荷 B12。Orbitrap NCE；仅核对作者结构清单，尚未按比赛身份及谱去重。"
+  }
+}

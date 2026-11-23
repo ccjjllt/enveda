@@ -1,0 +1,650 @@
+{
+  "date_beijing": "2026-11-23",
+  "audit": "jiyujia/enveda-075-negative-index-audit/2",
+  "massbank_release": "2026.11",
+  "index_rows": 105922969,
+  "wide_window_candidate_rows": 572655,
+  "store_metadata": [
+    {
+      "store": "tier",
+      "rows": 105875489,
+      "smiles_bytes": 5520120062
+    },
+    {
+      "store": "delta",
+      "rows": 36303,
+      "smiles_bytes": 2320475
+    },
+    {
+      "store": "growth",
+      "rows": 11177,
+      "smiles_bytes": 559168
+    }
+  ],
+  "queries": 11,
+  "seconds": 453.5,
+  "rdkit": "2026.03.3",
+  "external_positive_control": {
+    "exact_query_cid": 2519,
+    "same_connectivity_includes": 2519
+  },
+  "max_abs_structure_mass_error_ppm": 0.09781424312343273,
+  "per_query": [
+    {
+      "molecule_id": "A008",
+      "accession": "MSBNK-Eawag-EQ10009553",
+      "source_url": "https://raw.githubusercontent.com/MassBank/MassBank-data/2026.11/Eawag/MSBNK-Eawag-EQ10009553.txt",
+      "record_name": "BI-4326",
+      "formula": "C29H37N7O2",
+      "exact_mass": 515.300873424,
+      "raw_key": "MOTAFHNEZHQHBP-GRGXKFILSA-N",
+      "label_key": "MOTAFHNEZHQHBP",
+      "source_smiles_matches_panel": true,
+      "source_pubchem": null,
+      "pubchem_exact": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "pubchem_same_connectivity": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "native_score_key": "MOTAFHNEZHQHBP",
+      "tautomer_score_key": "MOTAFHNEZHQHBP",
+      "salt_charge_parent_key": "MOTAFHNEZHQHBP",
+      "rdkit_exact_mass": 515.300873424,
+      "neutral_mass_from_spectrum": 515.30087645217,
+      "structure_mass_error_ppm": -0.005876508536228911,
+      "complete_smiles_variants_scanned": 3,
+      "index_stores": {
+        "tier": {
+          "rows_10ppm": 2054,
+          "rows_100ppm": 21364,
+          "parsed_100ppm": 21364,
+          "same_formula_100ppm": 760,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "delta": {
+          "rows_10ppm": 1,
+          "rows_100ppm": 16,
+          "parsed_100ppm": 16,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "growth": {
+          "rows_10ppm": 0,
+          "rows_100ppm": 0,
+          "parsed_100ppm": 0,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        }
+      },
+      "finding": "structure absent under the scanned index representations and identity checks"
+    },
+    {
+      "molecule_id": "A030",
+      "accession": "MSBNK-BAFG-CSL26052936821",
+      "source_url": "https://raw.githubusercontent.com/MassBank/MassBank-data/2026.11/BAFG/MSBNK-BAFG-CSL26052936821.txt",
+      "record_name": "PAN-Sulfonate_C10",
+      "formula": "C30H32N10O3S",
+      "exact_mass": 612.238,
+      "raw_key": "IVBQVOLIJSVFTF-UHFFFAOYSA-N",
+      "label_key": "IVBQVOLIJSVFTF",
+      "source_smiles_matches_panel": true,
+      "source_pubchem": null,
+      "pubchem_exact": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "pubchem_same_connectivity": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "native_score_key": "IVBQVOLIJSVFTF",
+      "tautomer_score_key": "IVBQVOLIJSVFTF",
+      "salt_charge_parent_key": "IVBQVOLIJSVFTF",
+      "rdkit_exact_mass": 612.237955884,
+      "neutral_mass_from_spectrum": 612.23797645217,
+      "structure_mass_error_ppm": -0.033595057348600986,
+      "complete_smiles_variants_scanned": 2,
+      "index_stores": {
+        "tier": {
+          "rows_10ppm": 2432,
+          "rows_100ppm": 24435,
+          "parsed_100ppm": 24433,
+          "same_formula_100ppm": 4,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "delta": {
+          "rows_10ppm": 5,
+          "rows_100ppm": 19,
+          "parsed_100ppm": 19,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "growth": {
+          "rows_10ppm": 1,
+          "rows_100ppm": 2,
+          "parsed_100ppm": 2,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        }
+      },
+      "finding": "structure absent under the scanned index representations and identity checks"
+    },
+    {
+      "molecule_id": "A031",
+      "accession": "MSBNK-BAFG-CSL26052936829",
+      "source_url": "https://raw.githubusercontent.com/MassBank/MassBank-data/2026.11/BAFG/MSBNK-BAFG-CSL26052936829.txt",
+      "record_name": "PAN-Sulfonate_C6",
+      "formula": "C18H20N6O3S",
+      "exact_mass": 400.1318,
+      "raw_key": "NXGYEXKHKCVGSG-UHFFFAOYSA-N",
+      "label_key": "NXGYEXKHKCVGSG",
+      "source_smiles_matches_panel": true,
+      "source_pubchem": null,
+      "pubchem_exact": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "pubchem_same_connectivity": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "native_score_key": "NXGYEXKHKCVGSG",
+      "tautomer_score_key": "NXGYEXKHKCVGSG",
+      "salt_charge_parent_key": "NXGYEXKHKCVGSG",
+      "rdkit_exact_mass": 400.1317595000001,
+      "neutral_mass_from_spectrum": 400.13177645217,
+      "structure_mass_error_ppm": -0.042366467530369635,
+      "complete_smiles_variants_scanned": 2,
+      "index_stores": {
+        "tier": {
+          "rows_10ppm": 9043,
+          "rows_100ppm": 112703,
+          "parsed_100ppm": 112692,
+          "same_formula_100ppm": 1212,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "delta": {
+          "rows_10ppm": 3,
+          "rows_100ppm": 43,
+          "parsed_100ppm": 43,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "growth": {
+          "rows_10ppm": 1,
+          "rows_100ppm": 9,
+          "parsed_100ppm": 9,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        }
+      },
+      "finding": "structure absent under the scanned index representations and identity checks"
+    },
+    {
+      "molecule_id": "A033",
+      "accession": "MSBNK-BAFG-CSL26052936832",
+      "source_url": "https://raw.githubusercontent.com/MassBank/MassBank-data/2026.11/BAFG/MSBNK-BAFG-CSL26052936832.txt",
+      "record_name": "PAN-Sulfonate_C9",
+      "formula": "C27H29N9O3S",
+      "exact_mass": 559.2114,
+      "raw_key": "IMYHPGUNXNZTII-UHFFFAOYSA-N",
+      "label_key": "IMYHPGUNXNZTII",
+      "source_smiles_matches_panel": true,
+      "source_pubchem": null,
+      "pubchem_exact": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "pubchem_same_connectivity": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "native_score_key": "IMYHPGUNXNZTII",
+      "tautomer_score_key": "IMYHPGUNXNZTII",
+      "salt_charge_parent_key": "IMYHPGUNXNZTII",
+      "rdkit_exact_mass": 559.2114067880001,
+      "neutral_mass_from_spectrum": 559.21137645217,
+      "structure_mass_error_ppm": 0.05424751949708185,
+      "complete_smiles_variants_scanned": 2,
+      "index_stores": {
+        "tier": {
+          "rows_10ppm": 3476,
+          "rows_100ppm": 32059,
+          "parsed_100ppm": 32058,
+          "same_formula_100ppm": 62,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "delta": {
+          "rows_10ppm": 5,
+          "rows_100ppm": 30,
+          "parsed_100ppm": 30,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "growth": {
+          "rows_10ppm": 4,
+          "rows_100ppm": 9,
+          "parsed_100ppm": 9,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        }
+      },
+      "finding": "structure absent under the scanned index representations and identity checks"
+    },
+    {
+      "molecule_id": "A036",
+      "accession": "MSBNK-BAFG-CSL26052936823",
+      "source_url": "https://raw.githubusercontent.com/MassBank/MassBank-data/2026.11/BAFG/MSBNK-BAFG-CSL26052936823.txt",
+      "record_name": "PAN-Sulfonate_C12",
+      "formula": "C36H38N12O3S",
+      "exact_mass": 718.2911,
+      "raw_key": "ISEHHTASEAVSBI-UHFFFAOYSA-N",
+      "label_key": "ISEHHTASEAVSBI",
+      "source_smiles_matches_panel": true,
+      "source_pubchem": null,
+      "pubchem_exact": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "pubchem_same_connectivity": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "native_score_key": "ISEHHTASEAVSBI",
+      "tautomer_score_key": "ISEHHTASEAVSBI",
+      "salt_charge_parent_key": "ISEHHTASEAVSBI",
+      "rdkit_exact_mass": 718.2910540759999,
+      "neutral_mass_from_spectrum": 718.29107645217,
+      "structure_mass_error_ppm": -0.031151953393131253,
+      "complete_smiles_variants_scanned": 2,
+      "index_stores": {
+        "tier": {
+          "rows_10ppm": 1077,
+          "rows_100ppm": 12776,
+          "parsed_100ppm": 12774,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "delta": {
+          "rows_10ppm": 2,
+          "rows_100ppm": 6,
+          "parsed_100ppm": 6,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "growth": {
+          "rows_10ppm": 0,
+          "rows_100ppm": 0,
+          "parsed_100ppm": 0,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        }
+      },
+      "finding": "structure absent under the scanned index representations and identity checks"
+    },
+    {
+      "molecule_id": "A037",
+      "accession": "MSBNK-BAFG-CSL26052936830",
+      "source_url": "https://raw.githubusercontent.com/MassBank/MassBank-data/2026.11/BAFG/MSBNK-BAFG-CSL26052936830.txt",
+      "record_name": "PAN-Sulfonate_C7",
+      "formula": "C21H23N7O3S",
+      "exact_mass": 453.1583,
+      "raw_key": "PXVJLADZHPMGEL-UHFFFAOYSA-N",
+      "label_key": "PXVJLADZHPMGEL",
+      "source_smiles_matches_panel": true,
+      "source_pubchem": null,
+      "pubchem_exact": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "pubchem_same_connectivity": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "native_score_key": "PXVJLADZHPMGEL",
+      "tautomer_score_key": "PXVJLADZHPMGEL",
+      "salt_charge_parent_key": "PXVJLADZHPMGEL",
+      "rdkit_exact_mass": 453.15830859600015,
+      "neutral_mass_from_spectrum": 453.15827645217,
+      "structure_mass_error_ppm": 0.07093289874674277,
+      "complete_smiles_variants_scanned": 2,
+      "index_stores": {
+        "tier": {
+          "rows_10ppm": 8045,
+          "rows_100ppm": 81925,
+          "parsed_100ppm": 81920,
+          "same_formula_100ppm": 505,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "delta": {
+          "rows_10ppm": 19,
+          "rows_100ppm": 62,
+          "parsed_100ppm": 62,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "growth": {
+          "rows_10ppm": 0,
+          "rows_100ppm": 2,
+          "parsed_100ppm": 2,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        }
+      },
+      "finding": "structure absent under the scanned index representations and identity checks"
+    },
+    {
+      "molecule_id": "A039",
+      "accession": "MSBNK-BAFG-CSL26052936827",
+      "source_url": "https://raw.githubusercontent.com/MassBank/MassBank-data/2026.11/BAFG/MSBNK-BAFG-CSL26052936827.txt",
+      "record_name": "PAN-Sulfonate_C4",
+      "formula": "C12H14N4O3S",
+      "exact_mass": 294.0787,
+      "raw_key": "JICUJLIVFJSDNX-UHFFFAOYSA-N",
+      "label_key": "JICUJLIVFJSDNX",
+      "source_smiles_matches_panel": true,
+      "source_pubchem": null,
+      "pubchem_exact": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "pubchem_same_connectivity": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "native_score_key": "JICUJLIVFJSDNX",
+      "tautomer_score_key": "JICUJLIVFJSDNX",
+      "salt_charge_parent_key": "JICUJLIVFJSDNX",
+      "rdkit_exact_mass": 294.07866130800005,
+      "neutral_mass_from_spectrum": 294.07867645217,
+      "structure_mass_error_ppm": -0.05149700113781881,
+      "complete_smiles_variants_scanned": 2,
+      "index_stores": {
+        "tier": {
+          "rows_10ppm": 10297,
+          "rows_100ppm": 97009,
+          "parsed_100ppm": 97005,
+          "same_formula_100ppm": 3448,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "delta": {
+          "rows_10ppm": 4,
+          "rows_100ppm": 21,
+          "parsed_100ppm": 21,
+          "same_formula_100ppm": 1,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "growth": {
+          "rows_10ppm": 1,
+          "rows_100ppm": 8,
+          "parsed_100ppm": 8,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        }
+      },
+      "finding": "structure absent under the scanned index representations and identity checks"
+    },
+    {
+      "molecule_id": "A041",
+      "accession": "MSBNK-BAFG-CSL26052936831",
+      "source_url": "https://raw.githubusercontent.com/MassBank/MassBank-data/2026.11/BAFG/MSBNK-BAFG-CSL26052936831.txt",
+      "record_name": "PAN-Sulfonate_C8",
+      "formula": "C24H26N8O3S",
+      "exact_mass": 506.1849,
+      "raw_key": "AWHDVZWHFDKKGF-UHFFFAOYSA-N",
+      "label_key": "AWHDVZWHFDKKGF",
+      "source_smiles_matches_panel": true,
+      "source_pubchem": null,
+      "pubchem_exact": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "pubchem_same_connectivity": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "native_score_key": "AWHDVZWHFDKKGF",
+      "tautomer_score_key": "AWHDVZWHFDKKGF",
+      "salt_charge_parent_key": "AWHDVZWHFDKKGF",
+      "rdkit_exact_mass": 506.1848576920001,
+      "neutral_mass_from_spectrum": 506.18487645217,
+      "structure_mass_error_ppm": -0.0370618933253866,
+      "complete_smiles_variants_scanned": 2,
+      "index_stores": {
+        "tier": {
+          "rows_10ppm": 6441,
+          "rows_100ppm": 56024,
+          "parsed_100ppm": 56019,
+          "same_formula_100ppm": 251,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "delta": {
+          "rows_10ppm": 6,
+          "rows_100ppm": 64,
+          "parsed_100ppm": 64,
+          "same_formula_100ppm": 1,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "growth": {
+          "rows_10ppm": 3,
+          "rows_100ppm": 5,
+          "parsed_100ppm": 5,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        }
+      },
+      "finding": "structure absent under the scanned index representations and identity checks"
+    },
+    {
+      "molecule_id": "A042",
+      "accession": "MSBNK-BAFG-CSL26052936822",
+      "source_url": "https://raw.githubusercontent.com/MassBank/MassBank-data/2026.11/BAFG/MSBNK-BAFG-CSL26052936822.txt",
+      "record_name": "PAN-Sulfonate_C11",
+      "formula": "C33H35N11O3S",
+      "exact_mass": 665.2645,
+      "raw_key": "PLRPWVSWENVYGK-UHFFFAOYSA-N",
+      "label_key": "PLRPWVSWENVYGK",
+      "source_smiles_matches_panel": true,
+      "source_pubchem": null,
+      "pubchem_exact": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "pubchem_same_connectivity": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "native_score_key": "PLRPWVSWENVYGK",
+      "tautomer_score_key": "PLRPWVSWENVYGK",
+      "salt_charge_parent_key": "PLRPWVSWENVYGK",
+      "rdkit_exact_mass": 665.2645049799999,
+      "neutral_mass_from_spectrum": 665.26447645217,
+      "structure_mass_error_ppm": 0.04288193771111737,
+      "complete_smiles_variants_scanned": 2,
+      "index_stores": {
+        "tier": {
+          "rows_10ppm": 1630,
+          "rows_100ppm": 14662,
+          "parsed_100ppm": 14661,
+          "same_formula_100ppm": 5,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "delta": {
+          "rows_10ppm": 0,
+          "rows_100ppm": 15,
+          "parsed_100ppm": 15,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "growth": {
+          "rows_10ppm": 0,
+          "rows_100ppm": 0,
+          "parsed_100ppm": 0,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        }
+      },
+      "finding": "structure absent under the scanned index representations and identity checks"
+    },
+    {
+      "molecule_id": "A045",
+      "accession": "MSBNK-BAFG-CSL26052936828",
+      "source_url": "https://raw.githubusercontent.com/MassBank/MassBank-data/2026.11/BAFG/MSBNK-BAFG-CSL26052936828.txt",
+      "record_name": "PAN-Sulfonate_C5",
+      "formula": "C15H17N5O3S",
+      "exact_mass": 347.1052,
+      "raw_key": "DFYNDZWKSXDOLJ-UHFFFAOYSA-N",
+      "label_key": "DFYNDZWKSXDOLJ",
+      "source_smiles_matches_panel": true,
+      "source_pubchem": null,
+      "pubchem_exact": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "pubchem_same_connectivity": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "native_score_key": "DFYNDZWKSXDOLJ",
+      "tautomer_score_key": "DFYNDZWKSXDOLJ",
+      "salt_charge_parent_key": "DFYNDZWKSXDOLJ",
+      "rdkit_exact_mass": 347.1052104040001,
+      "neutral_mass_from_spectrum": 347.10517645217,
+      "structure_mass_error_ppm": 0.09781424312343273,
+      "complete_smiles_variants_scanned": 2,
+      "index_stores": {
+        "tier": {
+          "rows_10ppm": 9090,
+          "rows_100ppm": 112666,
+          "parsed_100ppm": 112659,
+          "same_formula_100ppm": 1697,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "delta": {
+          "rows_10ppm": 0,
+          "rows_100ppm": 19,
+          "parsed_100ppm": 19,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "growth": {
+          "rows_10ppm": 1,
+          "rows_100ppm": 11,
+          "parsed_100ppm": 11,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        }
+      },
+      "finding": "structure absent under the scanned index representations and identity checks"
+    },
+    {
+      "molecule_id": "A048",
+      "accession": "MSBNK-BAFG-CSL26052936824",
+      "source_url": "https://raw.githubusercontent.com/MassBank/MassBank-data/2026.11/BAFG/MSBNK-BAFG-CSL26052936824.txt",
+      "record_name": "PAN-Sulfonate_C13",
+      "formula": "C39H41N13O3S",
+      "exact_mass": 771.3176,
+      "raw_key": "QFZROJUOOAZJSX-UHFFFAOYSA-N",
+      "label_key": "QFZROJUOOAZJSX",
+      "source_smiles_matches_panel": true,
+      "source_pubchem": null,
+      "pubchem_exact": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "pubchem_same_connectivity": {
+        "status": 404,
+        "cids": [],
+        "fault": "PUGREST.NotFound"
+      },
+      "native_score_key": "QFZROJUOOAZJSX",
+      "tautomer_score_key": "QFZROJUOOAZJSX",
+      "salt_charge_parent_key": "QFZROJUOOAZJSX",
+      "rdkit_exact_mass": 771.3176031719997,
+      "neutral_mass_from_spectrum": 771.31757645217,
+      "structure_mass_error_ppm": 0.034641800684476955,
+      "complete_smiles_variants_scanned": 2,
+      "index_stores": {
+        "tier": {
+          "rows_10ppm": 587,
+          "rows_100ppm": 6677,
+          "parsed_100ppm": 6676,
+          "same_formula_100ppm": 1,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "delta": {
+          "rows_10ppm": 0,
+          "rows_100ppm": 13,
+          "parsed_100ppm": 13,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        },
+        "growth": {
+          "rows_10ppm": 0,
+          "rows_100ppm": 1,
+          "parsed_100ppm": 1,
+          "same_formula_100ppm": 0,
+          "normalization_matches": [],
+          "exact_strings_any_mass": {}
+        }
+      },
+      "finding": "structure absent under the scanned index representations and identity checks"
+    }
+  ]
+}
