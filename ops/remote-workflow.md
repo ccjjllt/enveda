@@ -1,6 +1,6 @@
 # 比赛规则、数据与远端工作流
 
-更新日期：2026-11-19。保留当前适用的比赛规则、数据边界与 Kaggle 操作；历史清理见 [archive/research-archive.md](../archive/research-archive.md)。
+更新日期 2026-11-22。比赛规则、数据边界与 Kaggle 操作如下，历史清理见 [archive/research-archive.md](../archive/research-archive.md)。
 
 ## 比赛与数据要点
 
@@ -11,7 +11,7 @@
 
 ## 算力与操作流程
 
-- **算力现状**：只用 Kaggle 远端 GPU（T4×2）；周配额按 session 存活时间计，当前账号周 GPU 刷新时间为 **2026-11-21T00:00:00Z**（北京 11-21 08:00）。本机 M5/32 GB 只做代码、文档与轻量审计。
+- 正式推理使用 Kaggle 断网 GPU。训练优先使用 `jiyujia` 的 Kaggle 配额，按该账号的即时余额安排。Colab 代理、账号、Drive 和断点操作见 [项目协作约定](../AGENTS.md)。
 - **提交流程**：`COMMIT_MODE='smoke'`、断网、私有、T4×2 → `ops/063/chain.sh` 推送 → `watch.sh` 等 `COMPLETE` 后拉 `submission.csv` 校验 400 行/ID/1–25 合法候选 → `kaggle competitions submit -c enveda-CASMI26-molecule-id-mass-spectra -k <slug> -v <version> -f submission.csv -m "..."`。
 - **关键坑点**：
   - `COMMIT_MODE='fast'` 会输出占位 SMILES；只允许用 `smoke` 产出通过校验后再 `-k/-v` 提交。
