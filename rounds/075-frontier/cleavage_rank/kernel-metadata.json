@@ -1,0 +1,21 @@
+{
+  "id": "jiyujia/enveda-075b-cleavage-contrast",
+  "title": "enveda-075b-cleavage-contrast",
+  "code_file": "train.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": ["metric/rdkit-2026-3-3-wheel"],
+  "kernel_sources": [
+    "jiyujia/enveda-075b-fragnnet-e180-d3-scale/1",
+    "jiyujia/enveda-075b-e180-d3-reserve-panel/1",
+    "jiyujia/enveda-075b-e180-d3-reserve-c41/1"
+  ],
+  "competition_sources": [],
+  "model_sources": [],
+  "docker_image": "gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461",
+  "machine_shape": "NvidiaTeslaT4"
+}
