@@ -1,0 +1,221 @@
+{
+  "date_beijing": "2026-11-24",
+  "dataset": "https://www.kaggle.com/datasets/dmitriigluzdov/casmi26-natural-product-panel-benchmark/versions/10",
+  "inputs_sha256": {
+    "panel.parquet": "93469d9bd7e51f9e0c2e891f59844a1ffc56c0921035110495b598c9b4e52eb3",
+    "panel_difficulty.parquet": "2e29797046cddc22245fc6e46778c98fb1032137eb4009bf86df6a7371bec3ec",
+    "main_candidates.parquet": "63854375ebd0f3242e31e31069363b497f1fd80a2bfcb3222ee69a848e74ae67",
+    "pubchem_candidates.parquet": "ac4d057c6772b5d276237a7fd6f5148b5eda39b2eec1c5bb09a2606166a368f3",
+    "casmi26-identity-disjoint-validation-folds/structures.parquet": "7c16c4968a15956e94eba58e3ff94d4a6c2f6899b10a2f2824047601a46bd6c8"
+  },
+  "rdkit": "2026.03.3",
+  "panel": {
+    "molecules": 250,
+    "spectra": 1184,
+    "multiple_spectra": 220,
+    "multiple_adducts": 160,
+    "outside_all_other_spectral_libraries": 0,
+    "other_reference_spectra_min_median_max": [
+      2,
+      170.5,
+      1464
+    ],
+    "in_coconut_by_panel_snapshot": 249,
+    "pubchem_window_contains_truth": 246,
+    "pubchem_candidate_rows": 1939476,
+    "main_candidate_rows": 89418
+  },
+  "old_main_stored_ranks": {
+    "reference_in_other_libraries": {
+      "first": 231,
+      "top5": 249,
+      "top25": 250,
+      "mrr25": 0.954830303030303
+    },
+    "structure_in_pool_no_reference": {
+      "first": 238,
+      "top5": 249,
+      "top25": 250,
+      "mrr25": 0.970640579710145
+    },
+    "structure_removed_from_pool": {
+      "first": 85,
+      "top5": 98,
+      "top25": 99,
+      "mrr25": 0.3605333333333333
+    }
+  },
+  "pubchem_masked_pool": {
+    "first": 241,
+    "top5": 244,
+    "top25": 244,
+    "mrr25": 0.969
+  },
+  "union_by_branch_cutoff": {
+    "1": {
+      "edit": 85,
+      "pubchem": 241,
+      "both": 84,
+      "union": 242,
+      "only_edit": 1,
+      "missing_both": 8
+    },
+    "5": {
+      "edit": 98,
+      "pubchem": 244,
+      "both": 97,
+      "union": 245,
+      "only_edit": 1,
+      "missing_both": 5
+    },
+    "25": {
+      "edit": 99,
+      "pubchem": 244,
+      "both": 98,
+      "union": 245,
+      "only_edit": 1,
+      "missing_both": 5
+    }
+  },
+  "union_misses_at25": [
+    "FJKROLUGYXJWQN",
+    "JDUWHZOLEDOQSR",
+    "LOIYMIARKYCTBW",
+    "MSUDDHFTWMZEIJ",
+    "ZPBYVFQJHWLTFB"
+  ],
+  "edit_supply": {
+    "anchor_raw_keys": 94892,
+    "excluded_panel_identity_groups": 250,
+    "one_step_roundtrip": 105,
+    "already_in_old_generation_top25": 67,
+    "missed_by_old_generation_top25": 38,
+    "missed_by_old_two_source_union_top25": 1,
+    "reachable_union_misses": {
+      "FJKROLUGYXJWQN": [
+        [
+          "O-hexosyl",
+          "XSSDYIMYZONMBL"
+        ],
+        [
+          "O-methyl",
+          "LXCFILQKKLGQFO"
+        ],
+        [
+          "O-methyl",
+          "ZEYHEAKUIGZSGI"
+        ],
+        [
+          "O-sulfate",
+          "RJTYSXVYCZAUHE"
+        ]
+      ]
+    },
+    "by_transform_overlapping": {
+      "O-methyl": 71,
+      "O-acetyl": 17,
+      "O-sulfate": 7,
+      "O-hexosyl": 51
+    }
+  },
+  "methods": [
+    "三种情景读取旧单引擎主库表中去标签前已存的 rank，在 250 个不同分子上取正确身份最好的名次。去真值结构情景里所有命中行均是生成候选。",
+    "模拟真结构已从主库删除时的 PubChem 分支，按缓存 FP 初筛 5000 行并入文档优先 200 行，在这些行内用 FP 的 z 分加 0.25 倍对数文档和。去除原主库候选时保留模拟移出主库的真值行，按 scorer_key 或原连接键去重。",
+    "逐来源前25的并集最多有50个候选。五道并集漏题对应完全新增身份的机会。固定最终25的融合损失、库中已有正确结构的换首机会须另计。",
+    "编辑供给只保留除 enveda-180 外至少还有一个实谱来源的母体，剔除面板 250 个 identity_group 和同组别名。对每个已知真结构反向枚举四类 O 修饰的增减，然后从匹配参考母体用逆算子重新生成，并核对原始二维 InChIKey14，忽略立体。各修饰覆盖数可以重叠。"
+  ],
+  "limits": [
+    "均来自有其他库实测参考且广为收录的 250 个赛内天然产物，屏蔽参考/结构是反事实实验。缓存模型的训练曝光和面板历史调参使此处的绝对分不能估计隐藏分。",
+    "旧公开分支没有完整 0.505 融合，PubChem 重算与作者原引擎的细节可能不同。分支并集和参考枚举可达性均不是实际盲检索收益。",
+    "供给审计记录实际 RDKit 版本。母体与正向生成物采用原始连接键，未重建互变异构和所有表示的编辑图。只枚举所列四类单步 O 修饰，未使用谱检索选择母体或位点。"
+  ],
+  "spectrum_guided_replay": {
+    "source": "data/raw/train.parquet, enveda-np-examples 原始谱和比赛其他有结构标注的来源。",
+    "design": "从上一步已知的 5 个并集漏题出发。方法和两种母体排序顺序在这些题上检查，故属探索性回放。生成阶段读取观测中性质量、峰、加合物及候选母体结构；以答案查找本题已隔离的输入谱，通过整个面板身份及别名屏蔽同一结构的所有参考。",
+    "retrieval": "对四种可逆 O 修饰按实测质量 ±10 ppm 取母体，在同加合物的实测谱之间取最大改良余弦。去掉母峰邻域，取最强 50 峰、平方根强度；直接或平移相差 ≤0.02 Da，按乘积贪心一对一匹配，至少三个峰。",
+    "ranking": "最多六个母体，每一母体对同一生成身份投一次票，按母体谱相似分之和、最佳母体名次、结构键依次排序，最多25个。两臂都采用相同上限。生成结构按该版 RDKit 的去立体、规范互变异构 InChIKey14 评价。",
+    "scope": "新增生成支路内部排名，尚未和完整 0.505 的全部来源合并或测量对其他分子的误升。",
+    "result": {
+      "FJKROLUGYXJWQN": {
+        "query_spectra": 2,
+        "parents_in_mass_windows": 51,
+        "parents_with_spectral_score": 44,
+        "scored_editable_parents": 14,
+        "arms": {
+          "rank_then_check_edit": {
+            "generated": 0,
+            "truth_rank": null
+          },
+          "check_edit_then_rank": {
+            "generated": 3,
+            "truth_rank": 1
+          }
+        }
+      },
+      "JDUWHZOLEDOQSR": {
+        "query_spectra": 4,
+        "parents_in_mass_windows": 6,
+        "parents_with_spectral_score": 0,
+        "scored_editable_parents": 0,
+        "arms": {
+          "rank_then_check_edit": {
+            "generated": 0,
+            "truth_rank": null
+          },
+          "check_edit_then_rank": {
+            "generated": 0,
+            "truth_rank": null
+          }
+        }
+      },
+      "LOIYMIARKYCTBW": {
+        "query_spectra": 2,
+        "parents_in_mass_windows": 28,
+        "parents_with_spectral_score": 27,
+        "scored_editable_parents": 1,
+        "arms": {
+          "rank_then_check_edit": {
+            "generated": 0,
+            "truth_rank": null
+          },
+          "check_edit_then_rank": {
+            "generated": 1,
+            "truth_rank": null
+          }
+        }
+      },
+      "MSUDDHFTWMZEIJ": {
+        "query_spectra": 3,
+        "parents_in_mass_windows": 33,
+        "parents_with_spectral_score": 1,
+        "scored_editable_parents": 0,
+        "arms": {
+          "rank_then_check_edit": {
+            "generated": 0,
+            "truth_rank": null
+          },
+          "check_edit_then_rank": {
+            "generated": 0,
+            "truth_rank": null
+          }
+        }
+      },
+      "ZPBYVFQJHWLTFB": {
+        "query_spectra": 5,
+        "parents_in_mass_windows": 8,
+        "parents_with_spectral_score": 7,
+        "scored_editable_parents": 0,
+        "arms": {
+          "rank_then_check_edit": {
+            "generated": 0,
+            "truth_rank": null
+          },
+          "check_edit_then_rank": {
+            "generated": 0,
+            "truth_rank": null
+          }
+        }
+      }
+    }
+  }
+}

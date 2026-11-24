@@ -1,0 +1,313 @@
+{
+  "date_beijing": "2026-11-24",
+  "account": "jiyujia",
+  "job": "https://www.kaggle.com/code/jiyujia/enveda-075-np-glacier-simulation/versions/1",
+  "status": "COMPLETE",
+  "source": "ahmedberatozer/casmi26-glacier (MassSpecGym); dmitriigluzdov/casmi26-natural-product-knowledge-table",
+  "private": true,
+  "offline": true,
+  "timeout_seconds": 2400,
+  "available_gpu_hours_before_start": 15.789,
+  "allocated_shape": "NvidiaTeslaT4",
+  "gpu_devices_used": 1,
+  "gpu": "Tesla T4",
+  "rdkit": "2025.03.6",
+  "teacher_sha256": "9192e4c2eeafe83317d5a2c2641e1fc4d68934488757a4faafeb66f2ab397a12",
+  "table_sha256": "6ccb833e47d88715fca1d614b05cae92fa333fa388ae1d64226f2695a62081aa",
+  "molecules": 2000,
+  "outside_main_pool": 689,
+  "non_training_status": "Knowledge-table flags aggregated across scorer_key aliases. External exposure and holdout scaffold overlap have not been ruled out.",
+  "adduct": "[M+H]+",
+  "instrument_token": "QTOF",
+  "energy_inputs": [
+    20.0,
+    40.0,
+    60.0
+  ],
+  "requests": 6000,
+  "usable_spectra": 6000,
+  "all_three_energies": 2000,
+  "prediction_seconds": 71.64,
+  "script_wall_seconds": 117.37,
+  "feature_errors": 0,
+  "prediction_errors": 0,
+  "compressed_spectra_bytes": 5344975,
+  "output_validation": "All 32 parquet shards read back. Unique identity/energy pairs, ordered finite positive peaks and normalized intensities verified. Does not evaluate ranks.",
+  "output_shards_sha256": {
+    "spectra_0000.parquet": "2e4a2f575e7fb384961e8d9fc6164c28b433a5a153734d57ffdf97cbd853d241",
+    "spectra_0064.parquet": "c85874364397dd33dd4e5959686b974cc099612df61e0181a510f0ce298f63e8",
+    "spectra_0128.parquet": "73ca156ad37c7545dc23578fc09a4db55ac50ce34ef5f22be09a9d684e7df0a8",
+    "spectra_0192.parquet": "7a8a3ab05a0be058a5c23ef486f820fb8dd0eb181fefdab0506ae9521f2139c5",
+    "spectra_0256.parquet": "fc14ffcb058d2967606d611d2b8058eb84cef0655adf97b8c4a3518593641916",
+    "spectra_0320.parquet": "6f4133f5c625e991628cfaebf392463ca850d62bac795908509bb715baac7a16",
+    "spectra_0384.parquet": "d843d1e0d2f518684d204fd86e6cf1dffced3f1d02a140c14a63c924b776268d",
+    "spectra_0448.parquet": "b893a236a86140d6bd04ce1d4bfd225251b678314f848dbcca04157f11809a55",
+    "spectra_0512.parquet": "09cda08b3c3ced4834984f49b2f1334f4deade1762eb2fec3db16cbdfe64a962",
+    "spectra_0576.parquet": "97e844cbb7cc556da5c59519f1659ac0aba59e070ffdda3b4d17ccb73cd65b53",
+    "spectra_0640.parquet": "7ab00865c7060481ba8ed9d3338ea48db8e575b71acbf66b6a68e168a239ce6d",
+    "spectra_0704.parquet": "9c294d27b103090f27a7117d2d2c8dec4bf154db8001da0abd67f50a1c8ecc77",
+    "spectra_0768.parquet": "3a79b815634d60e22a171d6e0d2767523eac9e0823c545fd05297813739f15b1",
+    "spectra_0832.parquet": "7048c5f76d0bf800a1646e479e2801ee6b8b44f68fb4290eb465c0632a1f7268",
+    "spectra_0896.parquet": "0e44b8d130ebd81253f950a0854bf15e11292d2042dc599d3635872e7bb20fcd",
+    "spectra_0960.parquet": "c1f5f7c02b9995baa131c4c039a493df677d5ac49b4ef066cecb56bf714abc5c",
+    "spectra_1024.parquet": "1138128c048777415cded324b6b583a3d8d5fbd15ec590b580677e18d2214f62",
+    "spectra_1088.parquet": "06f9194ae96b97189b5f6cc9d140bab3ce21834dea17b438203f4182e8b1c3b6",
+    "spectra_1152.parquet": "be00ddc813a38c154636add55298d75db0a4ce5ea82e852375f854405191eb5d",
+    "spectra_1216.parquet": "0ae4fed4300086a0beff7eeba39f476f5ed1947680bc6bbc5317732845ccc8a8",
+    "spectra_1280.parquet": "fac0d2ed861d2594a8ca2dbfdbb21ccf1effb301db3702667f633b3a160fc454",
+    "spectra_1344.parquet": "80d3b00a078181634132d021c20d05c1461037aeb4c072e762fdf9989c761f81",
+    "spectra_1408.parquet": "57bed9961b310b3c82a5db9367f1097e3b417c1e843c3bc7fc562e2ac6fb3f36",
+    "spectra_1472.parquet": "90f341bdae14c622df84a7f47caaa4ea47af4e94c05f8e5eb4d1314459cfc2b9",
+    "spectra_1536.parquet": "5bb9368eaa247976f599ebbc1abcc61f8118d6257ec4d8346419afd7232d21d3",
+    "spectra_1600.parquet": "b3798be694d505064a47b2414d91655879d378dfb8f6c3d1e9ea66cbe59c6711",
+    "spectra_1664.parquet": "23de21af663ca18dce7e13d1b37d3bd3a2bd21187684ca73d3fd0bd626489c9a",
+    "spectra_1728.parquet": "d527eede4463491e0c1e44d28e2b842d65e8fc68219d689a9f9ebc600149b400",
+    "spectra_1792.parquet": "9b94a58ca79e39b394fb6afa5df38a7286cd8b9bf66d34bd8ff822dd10647698",
+    "spectra_1856.parquet": "06c4a9d7796632729993316d3bbe3da74fe5f0eb5209e4ce7eef7b4b59b83b29",
+    "spectra_1920.parquet": "f65c240e4189c80309f9249521f0a1bee371793131979a1a35486f1e8f16f10c",
+    "spectra_1984.parquet": "74a05a3b1141ad595d81c411af4aab59a50384d3c22a192d935c8c4c95927159"
+  },
+  "peak_count_diagnostic": {
+    "method": "Remove precursor region (mz >= precursor - 0.5) and nonpositive/nonfinite peaks. Use up to 100 most intense, then count peaks reaching 1% of remaining base peak. Take molecule median first, then quartiles across molecules. Published NP250 raw keys only, [M+H]+ timsTOF from enveda-np-examples. Distributions are unmatched by structure, energy and mass. The squared view is diagnostic, and is not applied to the saved raw simulated spectra.",
+    "simulated_raw": {
+      "molecules": 2000,
+      "spectra": 6000,
+      "q25_median_q75": [
+        52.0,
+        99.0,
+        100.0
+      ]
+    },
+    "simulated_squared": {
+      "molecules": 2000,
+      "spectra": 6000,
+      "q25_median_q75": [
+        7.0,
+        15.0,
+        27.0
+      ]
+    },
+    "np_example_real": {
+      "molecules": 198,
+      "spectra": 529,
+      "q25_median_q75": [
+        18.625,
+        38.0,
+        78.75
+      ]
+    }
+  },
+  "same_formula_training_supply": {
+    "method": "Same stored molecular formula, distinct scorer_key, non-chiral Morgan radius 2 / 2048 Tanimoto. Count selected queries having at least one other identity at the stated threshold. Structure-only diagnostic before filtering held-out scaffold families. No spectrum used.",
+    "rdkit": "2026.03.6",
+    "qualified_pool_size": 124993,
+    "sample_size": 2000,
+    "sample_queries_evaluated": 2000,
+    "within_selected": {
+      "0": 623,
+      "0.6": 152,
+      "0.8": 65
+    },
+    "search_whole_eligible_lotus_pool": {
+      "0": 1457,
+      "0.6": 563,
+      "0.8": 170
+    }
+  },
+  "heldout_leader_swap_opportunities": {
+    "metric": "Diagnostic only on frozen 068a lists. Perfectly promote a non-leading truth within rank cutoff to first iff formula and fingerprint criteria hold versus the incumbent leader, with zero harm. Official stored candidate identity, formula and rank; the Morgan r2 2048 similarity on stored input smiles ignores chirality; RDKit 2026.03.6. Independent of proposed training pairs; a restriction on deployment only.",
+    "positive": {
+      "molecules": 110,
+      "original_hit25": 58,
+      "original_mrr25": 0.3368516738288762,
+      "caps": {
+        "top5_any_formula": {
+          "n": 8,
+          "ideal_delta_mrr25": 0.05045454545454546,
+          "ids": [
+            "U004",
+            "U008",
+            "U012",
+            "U026",
+            "U048",
+            "U088",
+            "U090",
+            "U108"
+          ]
+        },
+        "top5_same_formula_tanimoto_ge_0": {
+          "n": 2,
+          "ideal_delta_mrr25": 0.01287878787878788,
+          "ids": [
+            "U088",
+            "U090"
+          ]
+        },
+        "top5_same_formula_tanimoto_ge_0.6": {
+          "n": 1,
+          "ideal_delta_mrr25": 0.0060606060606060615,
+          "ids": [
+            "U088"
+          ]
+        },
+        "top5_same_formula_tanimoto_ge_0.8": {
+          "n": 0,
+          "ideal_delta_mrr25": 0.0,
+          "ids": []
+        },
+        "top25_any_formula": {
+          "n": 25,
+          "ideal_delta_mrr25": 0.19042105344385107,
+          "ids": [
+            "U003",
+            "U004",
+            "U008",
+            "U010",
+            "U012",
+            "U026",
+            "U029",
+            "U032",
+            "U041",
+            "U048",
+            "U051",
+            "U054",
+            "U060",
+            "U067",
+            "U082",
+            "U083",
+            "U086",
+            "U088",
+            "U090",
+            "U091",
+            "U092",
+            "U096",
+            "U099",
+            "U105",
+            "U108"
+          ]
+        },
+        "top25_same_formula_tanimoto_ge_0": {
+          "n": 12,
+          "ideal_delta_mrr25": 0.09507425284163253,
+          "ids": [
+            "U041",
+            "U067",
+            "U082",
+            "U083",
+            "U086",
+            "U088",
+            "U090",
+            "U091",
+            "U092",
+            "U096",
+            "U099",
+            "U105"
+          ]
+        },
+        "top25_same_formula_tanimoto_ge_0.6": {
+          "n": 3,
+          "ideal_delta_mrr25": 0.022424242424242426,
+          "ids": [
+            "U088",
+            "U092",
+            "U105"
+          ]
+        },
+        "top25_same_formula_tanimoto_ge_0.8": {
+          "n": 0,
+          "ideal_delta_mrr25": 0.0,
+          "ids": []
+        }
+      },
+      "conditional_formula_oracle": {
+        "applicable": 13,
+        "ideal_gain": 0.0680740733294913,
+        "gained_top1": 7,
+        "description": "When the incumbent leader has the wrong formula and the true structure occurs in the 25, put all existing candidates of the correct formula first, preserving order within that formula. Do nothing on other molecules. Oracle uses true formula, no insertion or harm."
+      }
+    },
+    "negative": {
+      "molecules": 47,
+      "original_hit25": 28,
+      "original_mrr25": 0.41061589120099756,
+      "caps": {
+        "top5_any_formula": {
+          "n": 5,
+          "ideal_delta_mrr25": 0.0723404255319149,
+          "ids": [
+            "A012",
+            "A014",
+            "A021",
+            "A024",
+            "A028"
+          ]
+        },
+        "top5_same_formula_tanimoto_ge_0": {
+          "n": 3,
+          "ideal_delta_mrr25": 0.03829787234042553,
+          "ids": [
+            "A014",
+            "A024",
+            "A028"
+          ]
+        },
+        "top5_same_formula_tanimoto_ge_0.6": {
+          "n": 0,
+          "ideal_delta_mrr25": 0.0,
+          "ids": []
+        },
+        "top5_same_formula_tanimoto_ge_0.8": {
+          "n": 0,
+          "ideal_delta_mrr25": 0.0,
+          "ids": []
+        },
+        "top25_any_formula": {
+          "n": 11,
+          "ideal_delta_mrr25": 0.18512878965006624,
+          "ids": [
+            "A001",
+            "A006",
+            "A012",
+            "A014",
+            "A018",
+            "A021",
+            "A022",
+            "A024",
+            "A025",
+            "A028",
+            "A029"
+          ]
+        },
+        "top25_same_formula_tanimoto_ge_0": {
+          "n": 7,
+          "ideal_delta_mrr25": 0.11252240667134285,
+          "ids": [
+            "A014",
+            "A018",
+            "A022",
+            "A024",
+            "A025",
+            "A028",
+            "A029"
+          ]
+        },
+        "top25_same_formula_tanimoto_ge_0.6": {
+          "n": 0,
+          "ideal_delta_mrr25": 0.0,
+          "ids": []
+        },
+        "top25_same_formula_tanimoto_ge_0.8": {
+          "n": 0,
+          "ideal_delta_mrr25": 0.0,
+          "ids": []
+        }
+      },
+      "conditional_formula_oracle": {
+        "applicable": 4,
+        "ideal_gain": 0.058421985815602845,
+        "gained_top1": 3,
+        "description": "When the incumbent leader has the wrong formula and the true structure occurs in the 25, put all existing candidates of the correct formula first, preserving order within that formula. Do nothing on other molecules. Oracle uses true formula, no insertion or harm."
+      }
+    }
+  }
+}

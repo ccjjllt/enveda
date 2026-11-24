@@ -1,0 +1,1179 @@
+{
+  "date_beijing": "2026-11-24",
+  "rdkit": "2026.03.3",
+  "device": "CPU",
+  "elapsed_seconds": 100.71,
+  "query_source": "jiyujia/enveda-075b-external-massbank-202611/1",
+  "candidate_source": "jiyujia/enveda-075b-massbank-pipeline/1",
+  "simulation_source": "GLACIER LOTUS throughput pilot; see simulation summary hash",
+  "sha256": {
+    "candidates": "a9a63eb9a5c8f55d8965f499b447842ee679ef4d71ef0a0c00677eb97d6c95d7",
+    "labels": "47a176798e7f145b2d537518f98739974f5a736dcf527af623e5d73df3201419",
+    "queries": "74929665fcceed3eb50e38f1bba500f7d208e21f7874c397b94df9071b6e75d5",
+    "structure_table": "7c16c4968a15956e94eba58e3ff94d4a6c2f6899b10a2f2824047601a46bd6c8",
+    "simulation_summary": "3b55d10a1bc32773720725a4b42b497d6b3def484b5753aaed32cd817446a04e"
+  },
+  "training": {
+    "real": {
+      "source": "riken; [M+H]+",
+      "raw_examined": 3475,
+      "raw_rejected": 578,
+      "identities": 2000,
+      "spectra": 4462,
+      "nonempty_generic_scaffolds": 1174,
+      "identity_hash": "386457f5cc9ea09fd16e7683ce7d1b2ed32def3c8cf1cee8a9f72664bae1ff6a",
+      "overlap_truth_keys": 0,
+      "overlap_nonempty_generic_scaffolds": 0
+    },
+    "simulation": {
+      "source": "LOTUS + MSG GLACIER; [M+H]+",
+      "raw_examined": 2000,
+      "raw_rejected": 242,
+      "identities": 1743,
+      "spectra": 4913,
+      "nonempty_generic_scaffolds": 1045,
+      "identity_hash": "01cf8022df732733350c72ac26fc9c34e1986ba7e7e0fb9cb995d71e5a282ec7",
+      "overlap_truth_keys": 0,
+      "overlap_nonempty_generic_scaffolds": 0
+    },
+    "real_and_simulated_sources_shared_identity_count": 0,
+    "phase_steps": [
+      128,
+      128
+    ],
+    "batch": 64,
+    "seeds": [
+      2411,
+      2412,
+      2413
+    ],
+    "per_arm_training_samples_per_seed": 16384,
+    "optimizer": "AdamW, lr=.002, wd=.01, BCE real-prevalence-weighted",
+    "phase2": "Identical measured batches and order for each matched seed. Uniform identities then a uniform usable scan."
+  },
+  "evaluation": {
+    "molecules": 110,
+    "applicable_molecules": 107,
+    "raw_spectra": 170,
+    "eligible_spectra": 163,
+    "frozen_candidate_slots": 2750,
+    "unique_target_keys": 110,
+    "unique_nonempty_generic_scaffolds": 94,
+    "target_mapped_to_MSG_train_or_val": 0,
+    "teacher_training_exposure": "Existing external panel removed MassSpecGym train/validation identity matches. Individual GLACIER training manifest and scaffold exposure were not independently audited. Baseline weights are historical.",
+    "matched_spectral_swap_supply": {
+      "ppm": 10,
+      "same_adduct_and_instrument": true,
+      "eligible_queries": 107,
+      "pairs": [
+        [
+          "U030",
+          "U031"
+        ]
+      ],
+      "model_wrong_spectrum_diagnostic_run": false
+    }
+  },
+  "method": "Relative 1% fragment threshold, at least three fragments below precursor−0.5 Da, nearest nominal mass bins for product m/z and neutral loss. Simulated intensity is squared before shared preprocessing. Uniform scans of training structures, fingerprint probability averages per query over available measured spectra, continuous Tanimoto against frozen fingerprints. Same ranking and slots in both arms. Fusion is 65% log original rank and 35% log model rank, stable ties. Queries without eligible spectra keep baseline for both arms. No hyperparameter selection on this run.",
+  "baseline": {
+    "n": 110,
+    "top1": 33,
+    "top5": 41,
+    "top25": 58,
+    "mrr25": 0.3368516738288762
+  },
+  "ensemble": {
+    "real_only": {
+      "model": {
+        "n": 110,
+        "top1": 2,
+        "top5": 7,
+        "top25": 58,
+        "mrr25": 0.06835526629594105
+      },
+      "fusion": {
+        "n": 110,
+        "top1": 24,
+        "top5": 40,
+        "top25": 58,
+        "mrr25": 0.29595181623987654
+      }
+    },
+    "sim_then_real": {
+      "model": {
+        "n": 110,
+        "top1": 2,
+        "top5": 6,
+        "top25": 58,
+        "mrr25": 0.061844524114146225
+      },
+      "fusion": {
+        "n": 110,
+        "top1": 24,
+        "top5": 39,
+        "top25": 58,
+        "mrr25": 0.2919931656458504
+      }
+    }
+  },
+  "per_seed": {
+    "real_only": {
+      "2411": {
+        "model": {
+          "n": 110,
+          "top1": 1,
+          "top5": 8,
+          "top25": 58,
+          "mrr25": 0.06306386855977526
+        },
+        "fusion": {
+          "n": 110,
+          "top1": 27,
+          "top5": 40,
+          "top25": 58,
+          "mrr25": 0.3067733349714744
+        }
+      },
+      "2412": {
+        "model": {
+          "n": 110,
+          "top1": 2,
+          "top5": 9,
+          "top25": 58,
+          "mrr25": 0.07097573832008601
+        },
+        "fusion": {
+          "n": 110,
+          "top1": 25,
+          "top5": 40,
+          "top25": 58,
+          "mrr25": 0.2983049220712432
+        }
+      },
+      "2413": {
+        "model": {
+          "n": 110,
+          "top1": 3,
+          "top5": 7,
+          "top25": 58,
+          "mrr25": 0.07127618469955013
+        },
+        "fusion": {
+          "n": 110,
+          "top1": 23,
+          "top5": 40,
+          "top25": 58,
+          "mrr25": 0.2907880027806086
+        }
+      }
+    },
+    "sim_then_real": {
+      "2411": {
+        "model": {
+          "n": 110,
+          "top1": 1,
+          "top5": 5,
+          "top25": 58,
+          "mrr25": 0.05697792222679335
+        },
+        "fusion": {
+          "n": 110,
+          "top1": 26,
+          "top5": 39,
+          "top25": 58,
+          "mrr25": 0.2982842898514132
+        }
+      },
+      "2412": {
+        "model": {
+          "n": 110,
+          "top1": 2,
+          "top5": 8,
+          "top25": 58,
+          "mrr25": 0.063658959547844
+        },
+        "fusion": {
+          "n": 110,
+          "top1": 25,
+          "top5": 39,
+          "top25": 58,
+          "mrr25": 0.29976876868214863
+        }
+      },
+      "2413": {
+        "model": {
+          "n": 110,
+          "top1": 3,
+          "top5": 6,
+          "top25": 58,
+          "mrr25": 0.06669559808005272
+        },
+        "fusion": {
+          "n": 110,
+          "top1": 22,
+          "top5": 38,
+          "top25": 58,
+          "mrr25": 0.2829460385305416
+        }
+      }
+    }
+  },
+  "sim_fusion_vs_baseline": {
+    "new_top5": [
+      "U041"
+    ],
+    "lost_top5": [
+      "U004",
+      "U026",
+      "U090"
+    ],
+    "new_top1": [],
+    "lost_top1": [
+      "U002",
+      "U030",
+      "U056",
+      "U066",
+      "U078",
+      "U084",
+      "U100",
+      "U101",
+      "U104"
+    ],
+    "delta_mrr25": -0.04485850818302578
+  },
+  "real_fusion_vs_baseline": {
+    "new_top5": [
+      "U041"
+    ],
+    "lost_top5": [
+      "U026",
+      "U090"
+    ],
+    "new_top1": [],
+    "lost_top1": [
+      "U002",
+      "U030",
+      "U056",
+      "U066",
+      "U078",
+      "U100",
+      "U101",
+      "U104",
+      "U107"
+    ],
+    "delta_mrr25": -0.040899857588999666
+  },
+  "sim_fusion_vs_real_fusion": {
+    "new_top5": [],
+    "lost_top5": [
+      "U004"
+    ],
+    "new_top1": [
+      "U107"
+    ],
+    "lost_top1": [
+      "U084"
+    ],
+    "delta_mrr25": -0.003958650594026114
+  },
+  "per_query": {
+    "U001": {
+      "eligible_scans": 4,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 6,
+      "sim_model": 6
+    },
+    "U002": {
+      "eligible_scans": 3,
+      "baseline": 1,
+      "real_fusion": 2,
+      "sim_fusion": 2,
+      "real_model": 11,
+      "sim_model": 12
+    },
+    "U003": {
+      "eligible_scans": 1,
+      "baseline": 7,
+      "real_fusion": 9,
+      "sim_fusion": 10,
+      "real_model": 18,
+      "sim_model": 17
+    },
+    "U004": {
+      "eligible_scans": 1,
+      "baseline": 4,
+      "real_fusion": 5,
+      "sim_fusion": 7,
+      "real_model": 14,
+      "sim_model": 21
+    },
+    "U005": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U006": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U007": {
+      "eligible_scans": 0,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U008": {
+      "eligible_scans": 1,
+      "baseline": 3,
+      "real_fusion": 3,
+      "sim_fusion": 3,
+      "real_model": 15,
+      "sim_model": 6
+    },
+    "U009": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U010": {
+      "eligible_scans": 1,
+      "baseline": 19,
+      "real_fusion": 23,
+      "sim_fusion": 23,
+      "real_model": 19,
+      "sim_model": 18
+    },
+    "U011": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U012": {
+      "eligible_scans": 1,
+      "baseline": 3,
+      "real_fusion": 2,
+      "sim_fusion": 2,
+      "real_model": 3,
+      "sim_model": 3
+    },
+    "U013": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U014": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 9,
+      "sim_model": 16
+    },
+    "U015": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U016": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U017": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U018": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U019": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U020": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U021": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U022": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U023": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U024": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 20,
+      "sim_model": 21
+    },
+    "U025": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U026": {
+      "eligible_scans": 1,
+      "baseline": 5,
+      "real_fusion": 6,
+      "sim_fusion": 6,
+      "real_model": 13,
+      "sim_model": 8
+    },
+    "U027": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U028": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U029": {
+      "eligible_scans": 1,
+      "baseline": 14,
+      "real_fusion": 15,
+      "sim_fusion": 16,
+      "real_model": 10,
+      "sim_model": 14
+    },
+    "U030": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 2,
+      "sim_fusion": 2,
+      "real_model": 13,
+      "sim_model": 13
+    },
+    "U031": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U032": {
+      "eligible_scans": 1,
+      "baseline": 9,
+      "real_fusion": 9,
+      "sim_fusion": 10,
+      "real_model": 20,
+      "sim_model": 21
+    },
+    "U033": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 10,
+      "sim_model": 11
+    },
+    "U034": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U035": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U036": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U037": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U038": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 6,
+      "sim_model": 10
+    },
+    "U039": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U040": {
+      "eligible_scans": 4,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 7,
+      "sim_model": 7
+    },
+    "U041": {
+      "eligible_scans": 4,
+      "baseline": 8,
+      "real_fusion": 3,
+      "sim_fusion": 4,
+      "real_model": 1,
+      "sim_model": 1
+    },
+    "U042": {
+      "eligible_scans": 4,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U043": {
+      "eligible_scans": 4,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 22,
+      "sim_model": 19
+    },
+    "U044": {
+      "eligible_scans": 3,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 13,
+      "sim_model": 14
+    },
+    "U045": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U046": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U047": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U048": {
+      "eligible_scans": 1,
+      "baseline": 2,
+      "real_fusion": 2,
+      "sim_fusion": 2,
+      "real_model": 13,
+      "sim_model": 13
+    },
+    "U049": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U050": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U051": {
+      "eligible_scans": 0,
+      "baseline": 17,
+      "real_fusion": 17,
+      "sim_fusion": 17,
+      "real_model": 17,
+      "sim_model": 17
+    },
+    "U052": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U053": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 21,
+      "sim_model": 21
+    },
+    "U054": {
+      "eligible_scans": 1,
+      "baseline": 12,
+      "real_fusion": 14,
+      "sim_fusion": 12,
+      "real_model": 18,
+      "sim_model": 18
+    },
+    "U055": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U056": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 2,
+      "sim_fusion": 2,
+      "real_model": 16,
+      "sim_model": 17
+    },
+    "U057": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U058": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U059": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U060": {
+      "eligible_scans": 1,
+      "baseline": 8,
+      "real_fusion": 9,
+      "sim_fusion": 11,
+      "real_model": 12,
+      "sim_model": 21
+    },
+    "U061": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U062": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U063": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U064": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U065": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U066": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 2,
+      "sim_fusion": 2,
+      "real_model": 19,
+      "sim_model": 20
+    },
+    "U067": {
+      "eligible_scans": 1,
+      "baseline": 11,
+      "real_fusion": 12,
+      "sim_fusion": 13,
+      "real_model": 12,
+      "sim_model": 12
+    },
+    "U068": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U069": {
+      "eligible_scans": 0,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U070": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U071": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 8,
+      "sim_model": 10
+    },
+    "U072": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U073": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U074": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U075": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U076": {
+      "eligible_scans": 4,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 21,
+      "sim_model": 20
+    },
+    "U077": {
+      "eligible_scans": 4,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 17,
+      "sim_model": 17
+    },
+    "U078": {
+      "eligible_scans": 4,
+      "baseline": 1,
+      "real_fusion": 2,
+      "sim_fusion": 2,
+      "real_model": 23,
+      "sim_model": 22
+    },
+    "U079": {
+      "eligible_scans": 4,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 9,
+      "sim_model": 9
+    },
+    "U080": {
+      "eligible_scans": 4,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 3,
+      "sim_model": 5
+    },
+    "U081": {
+      "eligible_scans": 4,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 1,
+      "sim_model": 1
+    },
+    "U082": {
+      "eligible_scans": 4,
+      "baseline": 24,
+      "real_fusion": 23,
+      "sim_fusion": 22,
+      "real_model": 12,
+      "sim_model": 10
+    },
+    "U083": {
+      "eligible_scans": 4,
+      "baseline": 11,
+      "real_fusion": 13,
+      "sim_fusion": 14,
+      "real_model": 23,
+      "sim_model": 23
+    },
+    "U084": {
+      "eligible_scans": 4,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 2,
+      "real_model": 25,
+      "sim_model": 24
+    },
+    "U085": {
+      "eligible_scans": 4,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 10,
+      "sim_model": 10
+    },
+    "U086": {
+      "eligible_scans": 4,
+      "baseline": 17,
+      "real_fusion": 18,
+      "sim_fusion": 18,
+      "real_model": 11,
+      "sim_model": 11
+    },
+    "U087": {
+      "eligible_scans": 3,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 2,
+      "sim_model": 4
+    },
+    "U088": {
+      "eligible_scans": 3,
+      "baseline": 3,
+      "real_fusion": 3,
+      "sim_fusion": 3,
+      "real_model": 7,
+      "sim_model": 5
+    },
+    "U089": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U090": {
+      "eligible_scans": 1,
+      "baseline": 4,
+      "real_fusion": 7,
+      "sim_fusion": 6,
+      "real_model": 19,
+      "sim_model": 18
+    },
+    "U091": {
+      "eligible_scans": 1,
+      "baseline": 8,
+      "real_fusion": 12,
+      "sim_fusion": 12,
+      "real_model": 17,
+      "sim_model": 19
+    },
+    "U092": {
+      "eligible_scans": 1,
+      "baseline": 10,
+      "real_fusion": 15,
+      "sim_fusion": 15,
+      "real_model": 20,
+      "sim_model": 18
+    },
+    "U093": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U094": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 18,
+      "sim_model": 21
+    },
+    "U095": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U096": {
+      "eligible_scans": 1,
+      "baseline": 7,
+      "real_fusion": 6,
+      "sim_fusion": 9,
+      "real_model": 7,
+      "sim_model": 10
+    },
+    "U097": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 11,
+      "sim_model": 12
+    },
+    "U098": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 4,
+      "sim_model": 6
+    },
+    "U099": {
+      "eligible_scans": 1,
+      "baseline": 12,
+      "real_fusion": 19,
+      "sim_fusion": 19,
+      "real_model": 24,
+      "sim_model": 23
+    },
+    "U100": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 2,
+      "sim_fusion": 3,
+      "real_model": 20,
+      "sim_model": 21
+    },
+    "U101": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 2,
+      "sim_fusion": 2,
+      "real_model": 23,
+      "sim_model": 22
+    },
+    "U102": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 17,
+      "sim_model": 15
+    },
+    "U103": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 22,
+      "sim_model": 23
+    },
+    "U104": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 2,
+      "sim_fusion": 2,
+      "real_model": 16,
+      "sim_model": 15
+    },
+    "U105": {
+      "eligible_scans": 1,
+      "baseline": 10,
+      "real_fusion": 7,
+      "sim_fusion": 11,
+      "real_model": 4,
+      "sim_model": 11
+    },
+    "U106": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    },
+    "U107": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 2,
+      "sim_fusion": 1,
+      "real_model": 15,
+      "sim_model": 13
+    },
+    "U108": {
+      "eligible_scans": 1,
+      "baseline": 4,
+      "real_fusion": 5,
+      "sim_fusion": 5,
+      "real_model": 12,
+      "sim_model": 21
+    },
+    "U109": {
+      "eligible_scans": 1,
+      "baseline": 1,
+      "real_fusion": 1,
+      "sim_fusion": 1,
+      "real_model": 24,
+      "sim_model": 24
+    },
+    "U110": {
+      "eligible_scans": 1,
+      "baseline": null,
+      "real_fusion": null,
+      "sim_fusion": null,
+      "real_model": null,
+      "sim_model": null
+    }
+  },
+  "cluster_bootstrap": {
+    "sim_vs_baseline": {
+      "paired_generic_scaffold_groups": 95,
+      "bootstrap_replicates": 5000,
+      "delta_mrr25_percentile_95": [
+        -0.07057791034194913,
+        -0.021120095737559113
+      ]
+    },
+    "sim_vs_real": {
+      "paired_generic_scaffold_groups": 95,
+      "bootstrap_replicates": 5000,
+      "delta_mrr25_percentile_95": [
+        -0.016559036942461844,
+        0.010342677695293876
+      ]
+    }
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "keys": [
+    {
+      "corpus_ik14": 486032,
+      "corpus_open": 412455,
+      "corpus_allowed": 484720,
+      "np0_overlap_open": 332042,
+      "new_open": 80413,
+      "new_allowed": 91780,
+      "np0_keys": 483105
+    }
+  ],
+  "panel_raw": [
+    {
+      "panel": "A",
+      "miss": false,
+      "questions": 29,
+      "unique_truth": 29,
+      "raw_differs_from_score": 0,
+      "np0_raw": 7,
+      "theo_raw": 7,
+      "theo_allowed_raw": 7,
+      "new_theo_raw": 0,
+      "theo_scorekey_as_stored": 7
+    },
+    {
+      "panel": "A",
+      "miss": true,
+      "questions": 18,
+      "unique_truth": 18,
+      "raw_differs_from_score": 1,
+      "np0_raw": 0,
+      "theo_raw": 0,
+      "theo_allowed_raw": 0,
+      "new_theo_raw": 0,
+      "theo_scorekey_as_stored": 0
+    },
+    {
+      "panel": "U",
+      "miss": false,
+      "questions": 65,
+      "unique_truth": 65,
+      "raw_differs_from_score": 0,
+      "np0_raw": 4,
+      "theo_raw": 4,
+      "theo_allowed_raw": 4,
+      "new_theo_raw": 0,
+      "theo_scorekey_as_stored": 4
+    },
+    {
+      "panel": "U",
+      "miss": true,
+      "questions": 45,
+      "unique_truth": 45,
+      "raw_differs_from_score": 4,
+      "np0_raw": 0,
+      "theo_raw": 0,
+      "theo_allowed_raw": 0,
+      "new_theo_raw": 0,
+      "theo_scorekey_as_stored": 0
+    }
+  ],
+  "real_raw_hits": [
+    {
+      "id": "A002",
+      "k": "IODMEDPPCXSFLD",
+      "rawk": "IODMEDPPCXSFLD",
+      "miss": false,
+      "in_npx": true,
+      "theo_open": true
+    },
+    {
+      "id": "A003",
+      "k": "ASDCLYXOQCGHNT",
+      "rawk": "ASDCLYXOQCGHNT",
+      "miss": false,
+      "in_npx": true,
+      "theo_open": true
+    },
+    {
+      "id": "A014",
+      "k": "DFZSBQYOXAUYCB",
+      "rawk": "DFZSBQYOXAUYCB",
+      "miss": false,
+      "in_npx": true,
+      "theo_open": true
+    },
+    {
+      "id": "A023",
+      "k": "IEEJAAUSLQCGJH",
+      "rawk": "IEEJAAUSLQCGJH",
+      "miss": false,
+      "in_npx": true,
+      "theo_open": true
+    },
+    {
+      "id": "A026",
+      "k": "UATJOMSPNYCXIX",
+      "rawk": "UATJOMSPNYCXIX",
+      "miss": false,
+      "in_npx": true,
+      "theo_open": true
+    },
+    {
+      "id": "A027",
+      "k": "OXNIZHLAWKMVMX",
+      "rawk": "OXNIZHLAWKMVMX",
+      "miss": false,
+      "in_npx": true,
+      "theo_open": true
+    },
+    {
+      "id": "A040",
+      "k": "IDCPFAYURAQKDZ",
+      "rawk": "IDCPFAYURAQKDZ",
+      "miss": false,
+      "in_npx": true,
+      "theo_open": true
+    },
+    {
+      "id": "U078",
+      "k": "JEFVHLMGRUJLET",
+      "rawk": "JEFVHLMGRUJLET",
+      "miss": false,
+      "in_npx": true,
+      "theo_open": true
+    },
+    {
+      "id": "U079",
+      "k": "SRARDYUHGVMEQI",
+      "rawk": "SRARDYUHGVMEQI",
+      "miss": false,
+      "in_npx": true,
+      "theo_open": true
+    },
+    {
+      "id": "U101",
+      "k": "VDVUCLWJZJHFAV",
+      "rawk": "VDVUCLWJZJHFAV",
+      "miss": false,
+      "in_npx": true,
+      "theo_open": true
+    },
+    {
+      "id": "U109",
+      "k": "VYHBFRJRBHMIQZ",
+      "rawk": "VYHBFRJRBHMIQZ",
+      "miss": false,
+      "in_npx": true,
+      "theo_open": true
+    }
+  ],
+  "total_distinct": [
+    {
+      "total_identities": 157,
+      "unique_misses": 63
+    }
+  ],
+  "matching_scorekey_missed_queries": [],
+  "events": {
+    "miss": 10848,
+    "hit": 19
+  },
+  "version": "2026.03.3",
+  "dataset": {
+    "release": "THEOBROMA v1.36",
+    "publication": "https://doi.org/10.1093/nar/gkag1083",
+    "archive": "https://doi.org/10.5281/zenodo.22816330",
+    "author_mirror": "https://huggingface.co/datasets/ThorKl/theobroma/tree/main/data",
+    "source_file": "data/compounds.parquet",
+    "size_bytes": 148893133,
+    "sha256": "3307fd21d39bc4a665824fcc5f783f2bfdd396338c1fb09821c8da1285c591d1",
+    "rows": 1132805
+  },
+  "natural_product_table": {
+    "baseline": "goodpjw2008/enveda-casmi-stack-npx-e180x-1-1-lb-0-505/7",
+    "definition": "natural_products.ik14 union pool_meta.key where src >= 2 union competition train.inchikey14 where ingest_lib=enveda-np-examples",
+    "natural_products_source": "dmitriigluzdov/casmi26-natural-product-knowledge-table",
+    "natural_products_sha256": "6ccb833e47d88715fca1d614b05cae92fa333fa388ae1d64226f2695a62081aa",
+    "pool_source": "dmitriigluzdov/casmi26-attributed-v4g-reproduction-assets/casmi26-v2-pool/pool_meta.parquet",
+    "pool_sha256": "82b8c40315611289b9a4004b3af18d6d3402b3cd5baa4ee5723da07b7e2f6bb0"
+  },
+  "license_subsets": {
+    "publicopen": [
+      "CC0",
+      "CC BY 4.0"
+    ],
+    "allowed_in_source_count": [
+      "CC0",
+      "CC BY 4.0",
+      "CC BY-NC 4.0"
+    ],
+    "unfiltered_in_official_miss_check": true
+  },
+  "identity_check": {
+    "raw": "First 14 characters of database InChIKey versus freshly recomputed historical truth key before tautomerization; no unspecified row contributes to new_open.",
+    "official": "Competition RDKit 2026.03.3: remove stereochemistry and canonicalize tautomers prior to computing first 14 InChIKey characters. Recomputed every historical truth from archived SMILES. For 63 union misses enumerated database entries sharing their heavy-element stoichiometry without using hydrogen, mass or charge as exclusion criteria; also included all 157 truth keys directly matching a stored first block. Filtered rows verified again using RDKit molecular graph.",
+    "raw_scanned": 1132805,
+    "official_candidates": 10867,
+    "official_invalid_candidates": 0,
+    "raw_truth_key_differs_from_official_on_misses": 5,
+    "norm_check_scope": "Official alternate-key coverage exhaustively tested for the union misses. On the 94 union hits, the selection only guaranteed inclusion of directly matching label keys, not every stoichiometry."
+  },
+  "evaluation": {
+    "positive_labels": "jiyujia/enveda-075b-external-massbank-202611/1",
+    "positive_union_misses": "jiyujia/enveda-075b-massbank-union-misses/1",
+    "negative_labels": "jiyujia/enveda-075b-external-massbank-adducts/1",
+    "negative_union_misses": "jiyujia/enveda-075-negative-hard-compare-t4/1",
+    "panels": "110 positive and 47 negative distinct MassBank structures, no identity shared across panels.",
+    "global_novelty": "New relative to the original NPX table. The structures may still occur in the 105.9 M-row index and the study does not establish leaderboard gain."
+  }
+}
