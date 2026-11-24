@@ -1,0 +1,2267 @@
+{
+  "date_beijing": "2026-11-24",
+  "experiment": "negative GLACIER same-formula top-five within-list rerank on 068a MassBank panel, fixed budget",
+  "status": "completed",
+  "queries": 47,
+  "total_candidates_scored": 228,
+  "queries_with_multiple_eligible_slots": 36,
+  "eligible_slots_total": 143,
+  "protocol": [
+    "The device comparison covers local CPU reranking of frozen candidates. Source ranks were previously generated on Kaggle. This run uses neither a new 0.505 full fusion nor a leaderboard submission.",
+    "Candidate membership frozen. Only the incumbent leader’s formula and its original ranks 1–5 are eligible slots. Each arm sorts those covered slots by predicted/observed entropy similarity, stably. No score would leave a slot fixed. No truth or extra identity is injected.",
+    "All 47 queries lack collision_energy_ev. Both arms use the released runner fallback, merging predictions at 20, 40 and 60 eV and scoring the merged prediction. LC-ESI-QFT maps to Orbitrap and LC-ESI-QTOF to QTOF. Neither source panel was measured on timsTOF."
+  ],
+  "baseline_url": "https://www.kaggle.com/code/jiyujia/enveda-075b-massbank-adducts-pipeline",
+  "source_dataset": "https://www.kaggle.com/datasets/nguyenchicuong/casmi26-glacier-neg-train/versions/2",
+  "finetune_notebook": "https://www.kaggle.com/code/nguyenchicuong/casmi26-glacier-neg-fit-clean/versions/1",
+  "zero_shot_package": "https://www.kaggle.com/datasets/ahmedberatozer/casmi26-glacier",
+  "input_sha256": {
+    "enveda-075b-external-massbank-adducts/pipeline_queries.parquet": "a49abe3825306a41b42a51bd081f46490d1602ade18d193f274ba7996d7e580f",
+    "enveda-075b-external-massbank-adducts/labels.parquet": "72e436b8323bebc665a1c470688ad961ce19d7fed4e1e5470e62f8d3bce5ef61",
+    "enveda-075b-massbank-adducts-pipeline/candidates.parquet": "71908bc86ef499214cbeef6a27fbd1612eadf9980e270359b9d3e601e02114c4"
+  },
+  "model_sha256": {
+    "base": "9192e4c2eeafe83317d5a2c2641e1fc4d68934488757a4faafeb66f2ab397a12",
+    "adapted": "1f35731858b22f9a955260f3c489c899f83f01bd4bbf0d396042737f91df3914"
+  },
+  "runner_sha256": {
+    "released": "5c4f74313ac54263d05d987c39d012d81ec57c5f35e1095ecd49a5bcb6440fca",
+    "both_arms_negative_routing": "25fd3efe27c0505de2263891f12e2306c01497353bb4309a2c26c05b9b044d97"
+  },
+  "route_change": "Replace is_covered positive-mode and H/Na predicate with mode == negative and adduct == [M-H]-. Both arms run the same patched code on CPU with 3 threads, batch size 16, site none.",
+  "exposure_audit": {
+    "author_adaptation_training_unique_raw_inchikey14": 58496,
+    "author_adaptation_validation_unique_raw_inchikey14": 1809,
+    "author_adaptation_test_unique_raw_inchikey14": 270,
+    "np250_raw_inchikey14_intersection_train_val_test": [
+      0,
+      0,
+      0
+    ],
+    "panel_stored_target_key_intersection_author_raw_inchikey14_train_val_test": [
+      0,
+      0,
+      0
+    ],
+    "panel_flagged_msg_train_or_val_exact_matches": 0,
+    "scope": "Reported intersections use stored keys. Shared scaffolds or spectral pretraining beyond that manifest may remain."
+  },
+  "inference": {
+    "base": {
+      "status": "ok",
+      "n_mols_scored": 47,
+      "n_mols_covered": 47,
+      "n_cands": 228,
+      "n_scored": 228,
+      "rdkit": "2025.03.6",
+      "torch": "2.8.0",
+      "device": "cpu",
+      "t_load": 87.44,
+      "n_pred": 669,
+      "t_pred": 12.79,
+      "seconds": 100.31
+    },
+    "adapted": {
+      "status": "ok",
+      "n_mols_scored": 47,
+      "n_mols_covered": 47,
+      "n_cands": 228,
+      "n_scored": 228,
+      "rdkit": "2025.03.6",
+      "torch": "2.8.0",
+      "device": "cpu",
+      "t_load": 87.44,
+      "n_pred": 669,
+      "t_pred": 12.88,
+      "seconds": 100.39
+    }
+  },
+  "metrics": {
+    "original": {
+      "top1": 17,
+      "top5": 22,
+      "hit25": 28,
+      "mrr25": 0.41061589120099756
+    },
+    "base": {
+      "top1": 13,
+      "top5": 22,
+      "hit25": 28,
+      "mrr25": 0.34855915361234513
+    },
+    "adapted": {
+      "top1": 10,
+      "top5": 22,
+      "hit25": 28,
+      "mrr25": 0.3074244018392955
+    }
+  },
+  "paired": {
+    "original_to_base": {
+      "delta_mrr25": -0.06205673758865243,
+      "gained_first": [
+        "A024",
+        "A028"
+      ],
+      "lost_first": [
+        "A002",
+        "A003",
+        "A017",
+        "A023",
+        "A026",
+        "A035"
+      ],
+      "rr_up": [
+        "A024",
+        "A028"
+      ],
+      "rr_down": [
+        "A002",
+        "A003",
+        "A014",
+        "A017",
+        "A023",
+        "A026",
+        "A035"
+      ],
+      "lists_with_new_leader": 23
+    },
+    "original_to_adapted": {
+      "delta_mrr25": -0.10319148936170208,
+      "gained_first": [],
+      "lost_first": [
+        "A002",
+        "A003",
+        "A017",
+        "A023",
+        "A026",
+        "A027",
+        "A044"
+      ],
+      "rr_up": [
+        "A024"
+      ],
+      "rr_down": [
+        "A002",
+        "A003",
+        "A014",
+        "A017",
+        "A023",
+        "A026",
+        "A027",
+        "A028",
+        "A044"
+      ],
+      "lists_with_new_leader": 21
+    },
+    "base_to_adapted": {
+      "delta_mrr25": -0.04113475177304965,
+      "gained_first": [
+        "A035"
+      ],
+      "lost_first": [
+        "A024",
+        "A027",
+        "A028",
+        "A044"
+      ],
+      "rr_up": [
+        "A002",
+        "A023",
+        "A035"
+      ],
+      "rr_down": [
+        "A014",
+        "A024",
+        "A027",
+        "A028",
+        "A044"
+      ],
+      "lists_with_new_leader": 17
+    }
+  },
+  "per_molecule": [
+    {
+      "molecule_id": "A001",
+      "target_connectivity": "UZGLIIJVICEWHF",
+      "eligible_slots": [
+        1,
+        2,
+        3
+      ],
+      "truth_rank": {
+        "original": 8,
+        "base": 8,
+        "adapted": 8
+      },
+      "top1_key": {
+        "original": "WPCYVIQYOQHPTM",
+        "base": "FPBQMNOCZPSHDL",
+        "adapted": "FPBQMNOCZPSHDL"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 3,
+        "adapted": 2
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "WPCYVIQYOQHPTM",
+          "zero_shot": 0.0,
+          "negative_finetune": 0.006469196151063117
+        },
+        {
+          "rank": 2,
+          "candidate_id": "FPBQMNOCZPSHDL",
+          "zero_shot": 0.02058052880003569,
+          "negative_finetune": 0.03263967669374723
+        },
+        {
+          "rank": 3,
+          "candidate_id": "LXUGLPFBGOZRQO",
+          "zero_shot": 0.011114344939013865,
+          "negative_finetune": 0.002565798185550139
+        }
+      ]
+    },
+    {
+      "molecule_id": "A002",
+      "target_connectivity": "IODMEDPPCXSFLD",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 3,
+        "adapted": 2
+      },
+      "top1_key": {
+        "original": "IODMEDPPCXSFLD",
+        "base": "RYJMQGMUCNUWMK",
+        "adapted": "RYJMQGMUCNUWMK"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 3,
+        "adapted": 2
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "IODMEDPPCXSFLD",
+          "zero_shot": 0.2234403172993631,
+          "negative_finetune": 0.4509954337931351
+        },
+        {
+          "rank": 2,
+          "candidate_id": "RYJMQGMUCNUWMK",
+          "zero_shot": 0.27122969898139804,
+          "negative_finetune": 0.47144474375315193
+        },
+        {
+          "rank": 3,
+          "candidate_id": "DTYKEZVXFWHACM",
+          "zero_shot": 0.23222336729286897,
+          "negative_finetune": 0.4199856021846683
+        },
+        {
+          "rank": 5,
+          "candidate_id": "MSCCTOKBJZRLSL",
+          "zero_shot": 0.08942028999463902,
+          "negative_finetune": 0.4123013111321552
+        }
+      ]
+    },
+    {
+      "molecule_id": "A003",
+      "target_connectivity": "ASDCLYXOQCGHNT",
+      "eligible_slots": [
+        1,
+        2,
+        3
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 2,
+        "adapted": 2
+      },
+      "top1_key": {
+        "original": "ASDCLYXOQCGHNT",
+        "base": "VMDOVDXYPWYJBI",
+        "adapted": "VMDOVDXYPWYJBI"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 2,
+        "adapted": 2
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "ASDCLYXOQCGHNT",
+          "zero_shot": 0.3390353231357889,
+          "negative_finetune": 0.45802678022459653
+        },
+        {
+          "rank": 2,
+          "candidate_id": "VMDOVDXYPWYJBI",
+          "zero_shot": 0.35028945532183287,
+          "negative_finetune": 0.49637140262149404
+        },
+        {
+          "rank": 3,
+          "candidate_id": "JHEAWFCPDMSGBX",
+          "zero_shot": 0.24349036873880836,
+          "negative_finetune": 0.045599121986437785
+        }
+      ]
+    },
+    {
+      "molecule_id": "A004",
+      "target_connectivity": "QJTIRVUEVSKJTK",
+      "eligible_slots": [
+        1
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 1,
+        "adapted": 1
+      },
+      "top1_key": {
+        "original": "QJTIRVUEVSKJTK",
+        "base": "QJTIRVUEVSKJTK",
+        "adapted": "QJTIRVUEVSKJTK"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "QJTIRVUEVSKJTK",
+          "zero_shot": 0.3522604901996448,
+          "negative_finetune": 0.30147673537628417
+        }
+      ]
+    },
+    {
+      "molecule_id": "A005",
+      "target_connectivity": "YZVCSNZYZPHGQQ",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "OSUKPVJRKDRFCO",
+        "base": "OSUKPVJRKDRFCO",
+        "adapted": "OSUKPVJRKDRFCO"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 2,
+        "adapted": 2
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "OSUKPVJRKDRFCO",
+          "zero_shot": 0.06306176900966132,
+          "negative_finetune": 0.10049171523531675
+        },
+        {
+          "rank": 2,
+          "candidate_id": "UIRMFHUSTFTIAY",
+          "zero_shot": 0.009227826847737597,
+          "negative_finetune": 0.07228364910860896
+        },
+        {
+          "rank": 3,
+          "candidate_id": "SBYCQUVZVYXHOO",
+          "zero_shot": 0.01767775956799489,
+          "negative_finetune": 0.00478742675452426
+        },
+        {
+          "rank": 4,
+          "candidate_id": "TWJYCNVHCFRJRR",
+          "zero_shot": 0.007275860420774771,
+          "negative_finetune": 0.024342535010000277
+        },
+        {
+          "rank": 5,
+          "candidate_id": "DNRCBIJRBVKDQJ",
+          "zero_shot": 0.004577623104881079,
+          "negative_finetune": 0.04214224574438663
+        }
+      ]
+    },
+    {
+      "molecule_id": "A006",
+      "target_connectivity": "JLUUVUUYIXBDCG",
+      "eligible_slots": [
+        1,
+        5
+      ],
+      "truth_rank": {
+        "original": 16,
+        "base": 16,
+        "adapted": 16
+      },
+      "top1_key": {
+        "original": "VLEJPORIPXEERI",
+        "base": "VLEJPORIPXEERI",
+        "adapted": "RDHFBGWNHMEKII"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 2
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "VLEJPORIPXEERI",
+          "zero_shot": 0.15387190385471194,
+          "negative_finetune": 0.15107736100518054
+        },
+        {
+          "rank": 5,
+          "candidate_id": "RDHFBGWNHMEKII",
+          "zero_shot": 0.1464913974634846,
+          "negative_finetune": 0.21725372841934698
+        }
+      ]
+    },
+    {
+      "molecule_id": "A007",
+      "target_connectivity": "PHYBFLAZLZLAGT",
+      "eligible_slots": [
+        1,
+        2,
+        4
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "HDYUJEFZBGAZNY",
+        "base": "HDYUJEFZBGAZNY",
+        "adapted": "HDYUJEFZBGAZNY"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "HDYUJEFZBGAZNY",
+          "zero_shot": 0.22674295905755537,
+          "negative_finetune": 0.20666259351055705
+        },
+        {
+          "rank": 2,
+          "candidate_id": "DPIACJUNUZDIKW",
+          "zero_shot": 0.06351309743877842,
+          "negative_finetune": 0.021274611556502787
+        },
+        {
+          "rank": 4,
+          "candidate_id": "CMSSCMRBBZVNCH",
+          "zero_shot": 0.008230802699134676,
+          "negative_finetune": 0.0
+        }
+      ]
+    },
+    {
+      "molecule_id": "A008",
+      "target_connectivity": "MOTAFHNEZHQHBP",
+      "eligible_slots": [
+        1
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "CSPZGLPWGHNGLG",
+        "base": "CSPZGLPWGHNGLG",
+        "adapted": "CSPZGLPWGHNGLG"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "CSPZGLPWGHNGLG",
+          "zero_shot": 0.05982810672308614,
+          "negative_finetune": 0.07878910345361956
+        }
+      ]
+    },
+    {
+      "molecule_id": "A009",
+      "target_connectivity": "MMJPVSDTLGFIQW",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "QUVCPGXJUQZCAW",
+        "base": "WRUYDQZAHINRCD",
+        "adapted": "WQMWDRSNVHNKGO"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 3,
+        "adapted": 3
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "QUVCPGXJUQZCAW",
+          "zero_shot": 0.023079974028495154,
+          "negative_finetune": 0.0683197141103522
+        },
+        {
+          "rank": 2,
+          "candidate_id": "WQMWDRSNVHNKGO",
+          "zero_shot": 0.05483527313667669,
+          "negative_finetune": 0.1299792644353237
+        },
+        {
+          "rank": 3,
+          "candidate_id": "WRUYDQZAHINRCD",
+          "zero_shot": 0.10881244316600536,
+          "negative_finetune": 0.08526716106530985
+        },
+        {
+          "rank": 5,
+          "candidate_id": "STDVCEHNLCXVHW",
+          "zero_shot": 0.05276789052072495,
+          "negative_finetune": 0.08643758736945584
+        }
+      ]
+    },
+    {
+      "molecule_id": "A010",
+      "target_connectivity": "OHVAMQAMWOAHLX",
+      "eligible_slots": [
+        1
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "RVDGVSHNZZEVRL",
+        "base": "RVDGVSHNZZEVRL",
+        "adapted": "RVDGVSHNZZEVRL"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "RVDGVSHNZZEVRL",
+          "zero_shot": 0.21403568698133657,
+          "negative_finetune": 0.07537483212800733
+        }
+      ]
+    },
+    {
+      "molecule_id": "A011",
+      "target_connectivity": "SYRVEVZSXHRXIX",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "DQWKIAGRUPXFOD",
+        "base": "MLYITOOPLQDKGA",
+        "adapted": "FWUJGIGXXWQYNO"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 4,
+        "adapted": 5
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "DQWKIAGRUPXFOD",
+          "zero_shot": 0.004441792022514379,
+          "negative_finetune": 0.003141209285840607
+        },
+        {
+          "rank": 2,
+          "candidate_id": "MLYITOOPLQDKGA",
+          "zero_shot": 0.14612443640195427,
+          "negative_finetune": 0.016446522849087875
+        },
+        {
+          "rank": 3,
+          "candidate_id": "WBLUUDJICRSTPN",
+          "zero_shot": 0.06469865129913832,
+          "negative_finetune": 0.06211799576198318
+        },
+        {
+          "rank": 4,
+          "candidate_id": "NHXKDDVAUHWRQH",
+          "zero_shot": 0.08790176676993389,
+          "negative_finetune": 0.0607765805695909
+        },
+        {
+          "rank": 5,
+          "candidate_id": "FWUJGIGXXWQYNO",
+          "zero_shot": 0.06397041983394147,
+          "negative_finetune": 0.06839347451330957
+        }
+      ]
+    },
+    {
+      "molecule_id": "A012",
+      "target_connectivity": "IYHHRZBKXXKDDY",
+      "eligible_slots": [
+        1
+      ],
+      "truth_rank": {
+        "original": 5,
+        "base": 5,
+        "adapted": 5
+      },
+      "top1_key": {
+        "original": "ONIODKUPORVFJO",
+        "base": "ONIODKUPORVFJO",
+        "adapted": "ONIODKUPORVFJO"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "ONIODKUPORVFJO",
+          "zero_shot": 0.005402223936319617,
+          "negative_finetune": 0.20400367366022942
+        }
+      ]
+    },
+    {
+      "molecule_id": "A013",
+      "target_connectivity": "ZKEBQPCQWMBCSM",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "AYJIUOZKKTUKKD",
+        "base": "ACOJVTFUEFLMTQ",
+        "adapted": "AYJIUOZKKTUKKD"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 5,
+        "adapted": 4
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "AYJIUOZKKTUKKD",
+          "zero_shot": 0.17571750275243603,
+          "negative_finetune": 0.4680282182806844
+        },
+        {
+          "rank": 2,
+          "candidate_id": "XKFPYPQQHFEXRZ",
+          "zero_shot": 0.019440591505017424,
+          "negative_finetune": 0.09675568733520201
+        },
+        {
+          "rank": 3,
+          "candidate_id": "WSJBSKRPKADYRQ",
+          "zero_shot": 0.155518586049199,
+          "negative_finetune": 0.3504907656719105
+        },
+        {
+          "rank": 4,
+          "candidate_id": "ACOJVTFUEFLMTQ",
+          "zero_shot": 0.19714156635686353,
+          "negative_finetune": 0.317779906726111
+        },
+        {
+          "rank": 5,
+          "candidate_id": "FCMLZDWJHIZDRM",
+          "zero_shot": 0.15853997730395242,
+          "negative_finetune": 0.2670546684604551
+        }
+      ]
+    },
+    {
+      "molecule_id": "A014",
+      "target_connectivity": "DFZSBQYOXAUYCB",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": 2,
+        "base": 3,
+        "adapted": 5
+      },
+      "top1_key": {
+        "original": "SPOWAUDUGZVURQ",
+        "base": "YCFJXOFFQLPCHD",
+        "adapted": "SPOWAUDUGZVURQ"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 4,
+        "adapted": 4
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "SPOWAUDUGZVURQ",
+          "zero_shot": 0.20182596534467845,
+          "negative_finetune": 0.30061951361893413
+        },
+        {
+          "rank": 2,
+          "candidate_id": "DFZSBQYOXAUYCB",
+          "zero_shot": 0.17086730307239706,
+          "negative_finetune": 0.18447079326941396
+        },
+        {
+          "rank": 3,
+          "candidate_id": "SBGRFQHKAXLHKI",
+          "zero_shot": 0.0544163501497108,
+          "negative_finetune": 0.2047009339000263
+        },
+        {
+          "rank": 4,
+          "candidate_id": "NVNGTTDFLMOBMZ",
+          "zero_shot": 0.11409645791099732,
+          "negative_finetune": 0.20118349683720183
+        },
+        {
+          "rank": 5,
+          "candidate_id": "YCFJXOFFQLPCHD",
+          "zero_shot": 0.21432346364552457,
+          "negative_finetune": 0.18871572154612548
+        }
+      ]
+    },
+    {
+      "molecule_id": "A015",
+      "target_connectivity": "SPRQKOMHAQHTFJ",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "WKGNRPVVXGGWCM",
+        "base": "LLGVULJZFPGDNO",
+        "adapted": "LLGVULJZFPGDNO"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 4,
+        "adapted": 5
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "WKGNRPVVXGGWCM",
+          "zero_shot": 0.08469840255084082,
+          "negative_finetune": 0.14767918323041096
+        },
+        {
+          "rank": 2,
+          "candidate_id": "LLGVULJZFPGDNO",
+          "zero_shot": 0.16917443135515098,
+          "negative_finetune": 0.27301434958856485
+        },
+        {
+          "rank": 3,
+          "candidate_id": "NACJSVRGPPMZRS",
+          "zero_shot": 0.025614896995913794,
+          "negative_finetune": 0.045214194166498634
+        },
+        {
+          "rank": 4,
+          "candidate_id": "SDLIGAWRQJWJJB",
+          "zero_shot": 0.049712764182307634,
+          "negative_finetune": 0.040022420459268626
+        },
+        {
+          "rank": 5,
+          "candidate_id": "JBSNRAYWNCVKRH",
+          "zero_shot": 0.0026586553640092214,
+          "negative_finetune": 0.2725337386082183
+        }
+      ]
+    },
+    {
+      "molecule_id": "A016",
+      "target_connectivity": "SVJLJEMEWHBCNB",
+      "eligible_slots": [
+        1,
+        4
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "VZMWSEGNULSNKY",
+        "base": "VZMWSEGNULSNKY",
+        "adapted": "VZMWSEGNULSNKY"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "VZMWSEGNULSNKY",
+          "zero_shot": 0.08240799174166258,
+          "negative_finetune": 0.08856081886688993
+        },
+        {
+          "rank": 4,
+          "candidate_id": "XBRBWXJAWNIALO",
+          "zero_shot": 0.015599163715973252,
+          "negative_finetune": 0.08071065608092476
+        }
+      ]
+    },
+    {
+      "molecule_id": "A017",
+      "target_connectivity": "INDOGKYZYLAGEM",
+      "eligible_slots": [
+        1,
+        5
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 5,
+        "adapted": 5
+      },
+      "top1_key": {
+        "original": "INDOGKYZYLAGEM",
+        "base": "DLNFICFQUIYVBX",
+        "adapted": "DLNFICFQUIYVBX"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 2,
+        "adapted": 2
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "INDOGKYZYLAGEM",
+          "zero_shot": 0.00603192973297606,
+          "negative_finetune": 0.10096946629075598
+        },
+        {
+          "rank": 5,
+          "candidate_id": "DLNFICFQUIYVBX",
+          "zero_shot": 0.006206667981804137,
+          "negative_finetune": 0.20212673808664772
+        }
+      ]
+    },
+    {
+      "molecule_id": "A018",
+      "target_connectivity": "MLJLTOGPAKLYJE",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": 6,
+        "base": 6,
+        "adapted": 6
+      },
+      "top1_key": {
+        "original": "WBLUUDJICRSTPN",
+        "base": "SATKHVNCMMZPHT",
+        "adapted": "SATKHVNCMMZPHT"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 4,
+        "adapted": 3
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "WBLUUDJICRSTPN",
+          "zero_shot": 0.03699313007117855,
+          "negative_finetune": 0.0077711578584688246
+        },
+        {
+          "rank": 2,
+          "candidate_id": "SATKHVNCMMZPHT",
+          "zero_shot": 0.12420207121785776,
+          "negative_finetune": 0.051808420878714845
+        },
+        {
+          "rank": 3,
+          "candidate_id": "CUFLNSWYHPEVIQ",
+          "zero_shot": 0.03690980578477343,
+          "negative_finetune": 0.03655236465857248
+        },
+        {
+          "rank": 4,
+          "candidate_id": "MLYITOOPLQDKGA",
+          "zero_shot": 0.0409718163388042,
+          "negative_finetune": 0.04843479263952011
+        },
+        {
+          "rank": 5,
+          "candidate_id": "NHXKDDVAUHWRQH",
+          "zero_shot": 0.03501811615881678,
+          "negative_finetune": 0.005872423542146121
+        }
+      ]
+    },
+    {
+      "molecule_id": "A019",
+      "target_connectivity": "AGUIVNYEYSCPNI",
+      "eligible_slots": [
+        1,
+        3
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 1,
+        "adapted": 1
+      },
+      "top1_key": {
+        "original": "AGUIVNYEYSCPNI",
+        "base": "AGUIVNYEYSCPNI",
+        "adapted": "AGUIVNYEYSCPNI"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "AGUIVNYEYSCPNI",
+          "zero_shot": 0.00915660075025726,
+          "negative_finetune": 0.10843905987494173
+        },
+        {
+          "rank": 3,
+          "candidate_id": "VUHRKRCMESZSTR",
+          "zero_shot": 0.0017385115698211884,
+          "negative_finetune": 0.0
+        }
+      ]
+    },
+    {
+      "molecule_id": "A020",
+      "target_connectivity": "CFYAUGJHWXGWHI",
+      "eligible_slots": [
+        1,
+        3,
+        5
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 1,
+        "adapted": 1
+      },
+      "top1_key": {
+        "original": "CFYAUGJHWXGWHI",
+        "base": "CFYAUGJHWXGWHI",
+        "adapted": "CFYAUGJHWXGWHI"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "CFYAUGJHWXGWHI",
+          "zero_shot": 0.11557074817360424,
+          "negative_finetune": 0.20492917065736516
+        },
+        {
+          "rank": 3,
+          "candidate_id": "HWTXGJCHJRRKNS",
+          "zero_shot": 0.09838764791399379,
+          "negative_finetune": 0.13539517717184846
+        },
+        {
+          "rank": 5,
+          "candidate_id": "WFQJNKXUIONBEW",
+          "zero_shot": 0.03539602233001593,
+          "negative_finetune": 0.04140081178588517
+        }
+      ]
+    },
+    {
+      "molecule_id": "A021",
+      "target_connectivity": "GDPVISFVPDYFPN",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "truth_rank": {
+        "original": 5,
+        "base": 5,
+        "adapted": 5
+      },
+      "top1_key": {
+        "original": "QXKHYNVANLEOEG",
+        "base": "RXOHFPCZGPKIRD",
+        "adapted": "KIJBJOZHXOXFKX"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 2,
+        "adapted": 2
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "QXKHYNVANLEOEG",
+          "zero_shot": 0.06979068149290857,
+          "negative_finetune": 0.06425509986978029
+        },
+        {
+          "rank": 2,
+          "candidate_id": "RXOHFPCZGPKIRD",
+          "zero_shot": 0.0784685118100048,
+          "negative_finetune": 0.07279387210045407
+        },
+        {
+          "rank": 3,
+          "candidate_id": "BGEBZHIAGXMEMV",
+          "zero_shot": 0.06716999029534243,
+          "negative_finetune": 0.06537894513515063
+        },
+        {
+          "rank": 4,
+          "candidate_id": "KIJBJOZHXOXFKX",
+          "zero_shot": 0.06299433639843643,
+          "negative_finetune": 0.07319448146203156
+        }
+      ]
+    },
+    {
+      "molecule_id": "A022",
+      "target_connectivity": "VTXBLQLZQLHDIL",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": 13,
+        "base": 13,
+        "adapted": 13
+      },
+      "top1_key": {
+        "original": "DZFVBIGUJAYIFJ",
+        "base": "IOYVGPITPVKNSC",
+        "adapted": "OCYJXSUPZMNXEN"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 4,
+        "adapted": 2
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "DZFVBIGUJAYIFJ",
+          "zero_shot": 0.08833581026396586,
+          "negative_finetune": 0.2619698775391156
+        },
+        {
+          "rank": 2,
+          "candidate_id": "OCYJXSUPZMNXEN",
+          "zero_shot": 0.07572152840516266,
+          "negative_finetune": 0.41149926158627403
+        },
+        {
+          "rank": 3,
+          "candidate_id": "FOPVYEUKBVIKFE",
+          "zero_shot": 0.05869929273750829,
+          "negative_finetune": 0.12060835429952865
+        },
+        {
+          "rank": 4,
+          "candidate_id": "IOYVGPITPVKNSC",
+          "zero_shot": 0.11207741173012498,
+          "negative_finetune": 0.11847577750396743
+        },
+        {
+          "rank": 5,
+          "candidate_id": "AKSYFXKHZGSZNB",
+          "zero_shot": 0.025055212610400557,
+          "negative_finetune": 0.08651183332186363
+        }
+      ]
+    },
+    {
+      "molecule_id": "A023",
+      "target_connectivity": "IEEJAAUSLQCGJH",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 3,
+        "adapted": 2
+      },
+      "top1_key": {
+        "original": "IEEJAAUSLQCGJH",
+        "base": "DCFLDKSHKLPIQA",
+        "adapted": "DCFLDKSHKLPIQA"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 5,
+        "adapted": 3
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "IEEJAAUSLQCGJH",
+          "zero_shot": 0.17083196085762087,
+          "negative_finetune": 0.24398527825257033
+        },
+        {
+          "rank": 2,
+          "candidate_id": "MOOOPNRPJGZXPE",
+          "zero_shot": 0.14272815431296382,
+          "negative_finetune": 0.20756597428558354
+        },
+        {
+          "rank": 3,
+          "candidate_id": "KQRJATLINVYHEZ",
+          "zero_shot": 0.19110543585951034,
+          "negative_finetune": 0.21056675857798934
+        },
+        {
+          "rank": 4,
+          "candidate_id": "DCFLDKSHKLPIQA",
+          "zero_shot": 0.19215263151104167,
+          "negative_finetune": 0.2704216933259922
+        },
+        {
+          "rank": 5,
+          "candidate_id": "MPRBKGQGZQRQAX",
+          "zero_shot": 0.1511721239850935,
+          "negative_finetune": 0.1882404635505982
+        }
+      ]
+    },
+    {
+      "molecule_id": "A024",
+      "target_connectivity": "KQRJATLINVYHEZ",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": 5,
+        "base": 1,
+        "adapted": 3
+      },
+      "top1_key": {
+        "original": "IEEJAAUSLQCGJH",
+        "base": "KQRJATLINVYHEZ",
+        "adapted": "MOOOPNRPJGZXPE"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 5,
+        "adapted": 4
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "IEEJAAUSLQCGJH",
+          "zero_shot": 0.18109882100012364,
+          "negative_finetune": 0.1859262332728937
+        },
+        {
+          "rank": 2,
+          "candidate_id": "MOOOPNRPJGZXPE",
+          "zero_shot": 0.10492271516918417,
+          "negative_finetune": 0.18676306768236361
+        },
+        {
+          "rank": 3,
+          "candidate_id": "IQEJEZOCXWJNKR",
+          "zero_shot": 0.08429880593057604,
+          "negative_finetune": 0.12763143766942908
+        },
+        {
+          "rank": 4,
+          "candidate_id": "YEYQXUWULBDKHV",
+          "zero_shot": 0.01972968551441845,
+          "negative_finetune": 0.13000804625135587
+        },
+        {
+          "rank": 5,
+          "candidate_id": "KQRJATLINVYHEZ",
+          "zero_shot": 0.19848526574464231,
+          "negative_finetune": 0.18004872378668868
+        }
+      ]
+    },
+    {
+      "molecule_id": "A025",
+      "target_connectivity": "HFCFJYRLBAANKN",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": 8,
+        "base": 8,
+        "adapted": 8
+      },
+      "top1_key": {
+        "original": "DSBIJCMXAIKKKI",
+        "base": "DSBIJCMXAIKKKI",
+        "adapted": "DSBIJCMXAIKKKI"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 3,
+        "adapted": 3
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "DSBIJCMXAIKKKI",
+          "zero_shot": 0.3037794496972296,
+          "negative_finetune": 0.4939415433609221
+        },
+        {
+          "rank": 2,
+          "candidate_id": "DLURHXYXQYMPLT",
+          "zero_shot": 0.21961446087284597,
+          "negative_finetune": 0.40078690592509225
+        },
+        {
+          "rank": 3,
+          "candidate_id": "XTTIQGSLJBWVIV",
+          "zero_shot": 0.2675402977673851,
+          "negative_finetune": 0.45868790901881995
+        },
+        {
+          "rank": 4,
+          "candidate_id": "XPAYEWBTLKOEDA",
+          "zero_shot": 0.29310614685901826,
+          "negative_finetune": 0.4153493216743336
+        },
+        {
+          "rank": 5,
+          "candidate_id": "IGDYNWKWXUCIJB",
+          "zero_shot": 0.23257946295553777,
+          "negative_finetune": 0.34622369224496163
+        }
+      ]
+    },
+    {
+      "molecule_id": "A026",
+      "target_connectivity": "UATJOMSPNYCXIX",
+      "eligible_slots": [
+        1,
+        2,
+        4
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 4,
+        "adapted": 4
+      },
+      "top1_key": {
+        "original": "UATJOMSPNYCXIX",
+        "base": "OCZYGLKDASBEPI",
+        "adapted": "OCZYGLKDASBEPI"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 3,
+        "adapted": 3
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "UATJOMSPNYCXIX",
+          "zero_shot": 0.0,
+          "negative_finetune": 0.030379222736370504
+        },
+        {
+          "rank": 2,
+          "candidate_id": "OCZYGLKDASBEPI",
+          "zero_shot": 0.09972068856427285,
+          "negative_finetune": 0.07670917545422506
+        },
+        {
+          "rank": 4,
+          "candidate_id": "ONOWMDPHGJEBAZ",
+          "zero_shot": 0.07179645573594073,
+          "negative_finetune": 0.0510204132256451
+        }
+      ]
+    },
+    {
+      "molecule_id": "A027",
+      "target_connectivity": "OXNIZHLAWKMVMX",
+      "eligible_slots": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 1,
+        "adapted": 3
+      },
+      "top1_key": {
+        "original": "OXNIZHLAWKMVMX",
+        "base": "OXNIZHLAWKMVMX",
+        "adapted": "UPOHJPYGIYINKG"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 2,
+        "adapted": 2
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "OXNIZHLAWKMVMX",
+          "zero_shot": 0.08204257245202862,
+          "negative_finetune": 0.12344486523427423
+        },
+        {
+          "rank": 3,
+          "candidate_id": "UPOHJPYGIYINKG",
+          "zero_shot": 0.037076233001838044,
+          "negative_finetune": 0.14943017685793047
+        },
+        {
+          "rank": 4,
+          "candidate_id": "SISDGGGHEWAVOI",
+          "zero_shot": 0.04111713505997294,
+          "negative_finetune": 0.07915335389344735
+        },
+        {
+          "rank": 5,
+          "candidate_id": "QZXJPKCXADYWKB",
+          "zero_shot": 0.034928888439890504,
+          "negative_finetune": 0.0483148880336981
+        }
+      ]
+    },
+    {
+      "molecule_id": "A028",
+      "target_connectivity": "QXYMVUZOGFVPGH",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": 2,
+        "base": 1,
+        "adapted": 5
+      },
+      "top1_key": {
+        "original": "QARVELJVEBLWGK",
+        "base": "QXYMVUZOGFVPGH",
+        "adapted": "QARVELJVEBLWGK"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 5,
+        "adapted": 4
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "QARVELJVEBLWGK",
+          "zero_shot": 0.06736455285168153,
+          "negative_finetune": 0.18124577403337938
+        },
+        {
+          "rank": 2,
+          "candidate_id": "QXYMVUZOGFVPGH",
+          "zero_shot": 0.12126225275064895,
+          "negative_finetune": 0.09284888660157098
+        },
+        {
+          "rank": 3,
+          "candidate_id": "KYAHYWNWDCXEQL",
+          "zero_shot": 0.031020332871341094,
+          "negative_finetune": 0.154605302441023
+        },
+        {
+          "rank": 4,
+          "candidate_id": "QDKMCPXBRNXVCF",
+          "zero_shot": 0.08233858973782171,
+          "negative_finetune": 0.13005728510231684
+        },
+        {
+          "rank": 5,
+          "candidate_id": "PSVHUKRUXGOGCF",
+          "zero_shot": 0.07117012592797767,
+          "negative_finetune": 0.1037799187984062
+        }
+      ]
+    },
+    {
+      "molecule_id": "A029",
+      "target_connectivity": "XTRDKALNCIHHNI",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": 7,
+        "base": 7,
+        "adapted": 7
+      },
+      "top1_key": {
+        "original": "RMBFBMJGBANMMK",
+        "base": "DVBKBUGAIYQNOE",
+        "adapted": "ZRSSXZYQEVYUAZ"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 5,
+        "adapted": 4
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "RMBFBMJGBANMMK",
+          "zero_shot": 0.16271212416926872,
+          "negative_finetune": 0.199909993315614
+        },
+        {
+          "rank": 2,
+          "candidate_id": "DVBKBUGAIYQNOE",
+          "zero_shot": 0.30155503025787245,
+          "negative_finetune": 0.21802657558573413
+        },
+        {
+          "rank": 3,
+          "candidate_id": "ZRSSXZYQEVYUAZ",
+          "zero_shot": 0.18534769953122376,
+          "negative_finetune": 0.24048185896494612
+        },
+        {
+          "rank": 4,
+          "candidate_id": "UEALKTCRMBVTFN",
+          "zero_shot": 0.14185130407647173,
+          "negative_finetune": 0.1792463102209917
+        },
+        {
+          "rank": 5,
+          "candidate_id": "RUCHWTKMOWXHLU",
+          "zero_shot": 0.15921929212702424,
+          "negative_finetune": 0.18151611346609198
+        }
+      ]
+    },
+    {
+      "molecule_id": "A030",
+      "target_connectivity": "IVBQVOLIJSVFTF",
+      "eligible_slots": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "HZGGLLIOCMSPGP",
+        "base": "DLQMFWSSJDUYCJ",
+        "adapted": "HZGGLLIOCMSPGP"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 4,
+        "adapted": 3
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "HZGGLLIOCMSPGP",
+          "zero_shot": 0.008928633824568766,
+          "negative_finetune": 0.10192787822092397
+        },
+        {
+          "rank": 3,
+          "candidate_id": "DLQMFWSSJDUYCJ",
+          "zero_shot": 0.0409296728190186,
+          "negative_finetune": 0.09466746451819208
+        },
+        {
+          "rank": 4,
+          "candidate_id": "UMUZKVPLICAIJC",
+          "zero_shot": 0.0,
+          "negative_finetune": 0.08834991183929775
+        },
+        {
+          "rank": 5,
+          "candidate_id": "HVUVLPLEPNJPQG",
+          "zero_shot": 0.026473483195370018,
+          "negative_finetune": 0.09678095140475851
+        }
+      ]
+    },
+    {
+      "molecule_id": "A031",
+      "target_connectivity": "NXGYEXKHKCVGSG",
+      "eligible_slots": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "ZIJAPMIPUKKPHO",
+        "base": "WVULHRKQCAHVKK",
+        "adapted": "WVULHRKQCAHVKK"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 2,
+        "adapted": 4
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "ZIJAPMIPUKKPHO",
+          "zero_shot": 0.11490350844985531,
+          "negative_finetune": 0.12086742467182077
+        },
+        {
+          "rank": 2,
+          "candidate_id": "PJPSUQOHAGMHCX",
+          "zero_shot": 0.15538163655219972,
+          "negative_finetune": 0.1150027465078074
+        },
+        {
+          "rank": 4,
+          "candidate_id": "CNARVDDCCYFWAS",
+          "zero_shot": 0.11498912209629675,
+          "negative_finetune": 0.11492026105711639
+        },
+        {
+          "rank": 5,
+          "candidate_id": "WVULHRKQCAHVKK",
+          "zero_shot": 0.2707921231812519,
+          "negative_finetune": 0.36874932354471623
+        }
+      ]
+    },
+    {
+      "molecule_id": "A032",
+      "target_connectivity": "DFCYBFLXCKGZML",
+      "eligible_slots": [
+        1,
+        2
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 1,
+        "adapted": 1
+      },
+      "top1_key": {
+        "original": "DFCYBFLXCKGZML",
+        "base": "DFCYBFLXCKGZML",
+        "adapted": "DFCYBFLXCKGZML"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "DFCYBFLXCKGZML",
+          "zero_shot": 0.2286420549962095,
+          "negative_finetune": 0.36957124389066
+        },
+        {
+          "rank": 2,
+          "candidate_id": "PVMARDWMEKXYPB",
+          "zero_shot": 0.0998648498525323,
+          "negative_finetune": 0.3426004106766255
+        }
+      ]
+    },
+    {
+      "molecule_id": "A033",
+      "target_connectivity": "IMYHPGUNXNZTII",
+      "eligible_slots": [
+        1,
+        2
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "MHOJVAIYLZMELW",
+        "base": "NZJZIHWJSWDRGH",
+        "adapted": "NZJZIHWJSWDRGH"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 2,
+        "adapted": 2
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "MHOJVAIYLZMELW",
+          "zero_shot": 0.005419124639566286,
+          "negative_finetune": 0.11003658779077397
+        },
+        {
+          "rank": 2,
+          "candidate_id": "NZJZIHWJSWDRGH",
+          "zero_shot": 0.007517393897966573,
+          "negative_finetune": 0.11456438165066973
+        }
+      ]
+    },
+    {
+      "molecule_id": "A034",
+      "target_connectivity": "MSJXTBMNRCTIDR",
+      "eligible_slots": [
+        1,
+        4
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 1,
+        "adapted": 1
+      },
+      "top1_key": {
+        "original": "MSJXTBMNRCTIDR",
+        "base": "MSJXTBMNRCTIDR",
+        "adapted": "MSJXTBMNRCTIDR"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "MSJXTBMNRCTIDR",
+          "zero_shot": 0.0034688725687795907,
+          "negative_finetune": 0.08855844016410308
+        },
+        {
+          "rank": 4,
+          "candidate_id": "CHJPMGYXYLXAKG",
+          "zero_shot": 0.0,
+          "negative_finetune": 0.08680556803707917
+        }
+      ]
+    },
+    {
+      "molecule_id": "A035",
+      "target_connectivity": "SQAFCSVGKMMETM",
+      "eligible_slots": [
+        1,
+        3,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 3,
+        "adapted": 1
+      },
+      "top1_key": {
+        "original": "SQAFCSVGKMMETM",
+        "base": "XGPVXGDIEWDGNA",
+        "adapted": "SQAFCSVGKMMETM"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 4,
+        "adapted": 3
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "SQAFCSVGKMMETM",
+          "zero_shot": 0.05776276680643977,
+          "negative_finetune": 0.37382144644615334
+        },
+        {
+          "rank": 3,
+          "candidate_id": "XGPVXGDIEWDGNA",
+          "zero_shot": 0.06862534210295179,
+          "negative_finetune": 0.2044757494248688
+        },
+        {
+          "rank": 4,
+          "candidate_id": "ZIUMOXWDLICQQC",
+          "zero_shot": 0.0362790200051345,
+          "negative_finetune": 0.06889756684966808
+        },
+        {
+          "rank": 5,
+          "candidate_id": "VNWNMGXRAPYVQE",
+          "zero_shot": 0.03686425590226772,
+          "negative_finetune": 0.22359911824374712
+        }
+      ]
+    },
+    {
+      "molecule_id": "A036",
+      "target_connectivity": "ISEHHTASEAVSBI",
+      "eligible_slots": [
+        1
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "ZHSGGJXRNHWHRS",
+        "base": "ZHSGGJXRNHWHRS",
+        "adapted": "ZHSGGJXRNHWHRS"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "ZHSGGJXRNHWHRS",
+          "zero_shot": 0.01532217632342947,
+          "negative_finetune": 0.16579745054539097
+        }
+      ]
+    },
+    {
+      "molecule_id": "A037",
+      "target_connectivity": "PXVJLADZHPMGEL",
+      "eligible_slots": [
+        1,
+        2,
+        3
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "PDBGPVSMUWAYBW",
+        "base": "SCVLVZSDDZIQPM",
+        "adapted": "FHCSBLWRGCOVPT"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 3,
+        "adapted": 2
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "PDBGPVSMUWAYBW",
+          "zero_shot": 0.10781920527795019,
+          "negative_finetune": 0.11749351701157484
+        },
+        {
+          "rank": 2,
+          "candidate_id": "SCVLVZSDDZIQPM",
+          "zero_shot": 0.23243184509472814,
+          "negative_finetune": 0.1996030187273462
+        },
+        {
+          "rank": 3,
+          "candidate_id": "FHCSBLWRGCOVPT",
+          "zero_shot": 0.18890363926602494,
+          "negative_finetune": 0.2147021999403238
+        }
+      ]
+    },
+    {
+      "molecule_id": "A038",
+      "target_connectivity": "XMRMVBVJGSKMEN",
+      "eligible_slots": [
+        1
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 1,
+        "adapted": 1
+      },
+      "top1_key": {
+        "original": "XMRMVBVJGSKMEN",
+        "base": "XMRMVBVJGSKMEN",
+        "adapted": "XMRMVBVJGSKMEN"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "XMRMVBVJGSKMEN",
+          "zero_shot": 0.14064640733711442,
+          "negative_finetune": 0.2685203885089157
+        }
+      ]
+    },
+    {
+      "molecule_id": "A039",
+      "target_connectivity": "JICUJLIVFJSDNX",
+      "eligible_slots": [
+        1
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "BOCGZZQIYULIHZ",
+        "base": "BOCGZZQIYULIHZ",
+        "adapted": "BOCGZZQIYULIHZ"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "BOCGZZQIYULIHZ",
+          "zero_shot": 0.0,
+          "negative_finetune": 0.4113148605929017
+        }
+      ]
+    },
+    {
+      "molecule_id": "A040",
+      "target_connectivity": "IDCPFAYURAQKDZ",
+      "eligible_slots": [
+        1
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 1,
+        "adapted": 1
+      },
+      "top1_key": {
+        "original": "IDCPFAYURAQKDZ",
+        "base": "IDCPFAYURAQKDZ",
+        "adapted": "IDCPFAYURAQKDZ"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "IDCPFAYURAQKDZ",
+          "zero_shot": 0.1725917842688699,
+          "negative_finetune": 0.4474375132761371
+        }
+      ]
+    },
+    {
+      "molecule_id": "A041",
+      "target_connectivity": "AWHDVZWHFDKKGF",
+      "eligible_slots": [
+        1,
+        5
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "DDSNVFRTGDFPAM",
+        "base": "DDSNVFRTGDFPAM",
+        "adapted": "LQXPTZJKIMDUSO"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 2
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "DDSNVFRTGDFPAM",
+          "zero_shot": 0.27777323595367964,
+          "negative_finetune": 0.21189060839050278
+        },
+        {
+          "rank": 5,
+          "candidate_id": "LQXPTZJKIMDUSO",
+          "zero_shot": 0.24395140109099933,
+          "negative_finetune": 0.25433921849198426
+        }
+      ]
+    },
+    {
+      "molecule_id": "A042",
+      "target_connectivity": "PLRPWVSWENVYGK",
+      "eligible_slots": [
+        1
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "JTFXQQFAKDHULA",
+        "base": "JTFXQQFAKDHULA",
+        "adapted": "JTFXQQFAKDHULA"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "JTFXQQFAKDHULA",
+          "zero_shot": 0.14073706531884322,
+          "negative_finetune": 0.15841806728821572
+        }
+      ]
+    },
+    {
+      "molecule_id": "A044",
+      "target_connectivity": "SKGBGOQHXBAKKO",
+      "eligible_slots": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 1,
+        "adapted": 3
+      },
+      "top1_key": {
+        "original": "SKGBGOQHXBAKKO",
+        "base": "SKGBGOQHXBAKKO",
+        "adapted": "VDKPSKAXYKUKMK"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 2,
+        "adapted": 3
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "SKGBGOQHXBAKKO",
+          "zero_shot": 0.009102616569907629,
+          "negative_finetune": 0.06918826556963242
+        },
+        {
+          "rank": 2,
+          "candidate_id": "RJBFXGSENMVGCH",
+          "zero_shot": 0.0030123761611262623,
+          "negative_finetune": 0.07321023361124812
+        },
+        {
+          "rank": 3,
+          "candidate_id": "XGCOSMYXEFPKFT",
+          "zero_shot": 0.006120149849883516,
+          "negative_finetune": 0.03677157515104457
+        },
+        {
+          "rank": 4,
+          "candidate_id": "VDKPSKAXYKUKMK",
+          "zero_shot": 0.009058202939402848,
+          "negative_finetune": 0.0734319333284893
+        }
+      ]
+    },
+    {
+      "molecule_id": "A045",
+      "target_connectivity": "DFYNDZWKSXDOLJ",
+      "eligible_slots": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "NJANXLQQNNONTQ",
+        "base": "QMLXQQRVHZUGBW",
+        "adapted": "NJANXLQQNNONTQ"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 3,
+        "adapted": 2
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "NJANXLQQNNONTQ",
+          "zero_shot": 0.11772641270680329,
+          "negative_finetune": 0.18726758616031303
+        },
+        {
+          "rank": 2,
+          "candidate_id": "QMLXQQRVHZUGBW",
+          "zero_shot": 0.15602320482390253,
+          "negative_finetune": 0.1631191615006149
+        },
+        {
+          "rank": 4,
+          "candidate_id": "OZZITABRHZOEKF",
+          "zero_shot": 0.1460509779335698,
+          "negative_finetune": 0.17664242400650998
+        },
+        {
+          "rank": 5,
+          "candidate_id": "SSGSHRIAZJRHPU",
+          "zero_shot": 0.10928155557231589,
+          "negative_finetune": 0.08625987787748446
+        }
+      ]
+    },
+    {
+      "molecule_id": "A046",
+      "target_connectivity": "TZIPMEZQXPAKPK",
+      "eligible_slots": [
+        1,
+        3
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 1,
+        "adapted": 1
+      },
+      "top1_key": {
+        "original": "TZIPMEZQXPAKPK",
+        "base": "TZIPMEZQXPAKPK",
+        "adapted": "TZIPMEZQXPAKPK"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "TZIPMEZQXPAKPK",
+          "zero_shot": 0.0,
+          "negative_finetune": 0.14284387014886424
+        },
+        {
+          "rank": 3,
+          "candidate_id": "VRDISUHJQIGASE",
+          "zero_shot": 0.0,
+          "negative_finetune": 0.018571424355092514
+        }
+      ]
+    },
+    {
+      "molecule_id": "A047",
+      "target_connectivity": "DKVATWZCDNHYCW",
+      "eligible_slots": [
+        1
+      ],
+      "truth_rank": {
+        "original": 1,
+        "base": 1,
+        "adapted": 1
+      },
+      "top1_key": {
+        "original": "DKVATWZCDNHYCW",
+        "base": "DKVATWZCDNHYCW",
+        "adapted": "DKVATWZCDNHYCW"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "DKVATWZCDNHYCW",
+          "zero_shot": 0.006738568834955938,
+          "negative_finetune": 0.2510067423082136
+        }
+      ]
+    },
+    {
+      "molecule_id": "A048",
+      "target_connectivity": "QFZROJUOOAZJSX",
+      "eligible_slots": [
+        1
+      ],
+      "truth_rank": {
+        "original": null,
+        "base": null,
+        "adapted": null
+      },
+      "top1_key": {
+        "original": "HSOOUVIQHJKEQZ",
+        "base": "HSOOUVIQHJKEQZ",
+        "adapted": "HSOOUVIQHJKEQZ"
+      },
+      "positions_changed": {
+        "original": 0,
+        "base": 0,
+        "adapted": 0
+      },
+      "eligible_candidate_scores": [
+        {
+          "rank": 1,
+          "candidate_id": "HSOOUVIQHJKEQZ",
+          "zero_shot": 0.13879372984457095,
+          "negative_finetune": 0.24526146191588827
+        }
+      ]
+    }
+  ]
+}

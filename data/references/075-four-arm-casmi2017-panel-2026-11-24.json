@@ -1,0 +1,480 @@
+{
+  "source_urls": {
+    "CASMI-solutions.csv": "http://www.casmi-contest.org/2017/CASMI-solutions.csv",
+    "Chal1to45Summary.csv": "http://www.casmi-contest.org/2017/challenges/Chal1to45Summary.csv",
+    "challenges-001-045-ms-mgf-20170908.zip": "http://www.casmi-contest.org/2017/challenges/challenges-001-045-ms-mgf-20170908.zip",
+    "challenges-001-045-msms-mgf-20170908.zip": "http://www.casmi-contest.org/2017/challenges/challenges-001-045-msms-mgf-20170908.zip",
+    "challenges-046-243-msms-mgf-20170522.zip": "http://www.casmi-contest.org/2017/challenges/challenges-046-243-msms-mgf-20170522.zip",
+    "challenges-046-243-msms-tsv-20170707.zip": "http://www.casmi-contest.org/2017/challenges/challenges-046-243-msms-tsv-20170707.zip"
+  },
+  "inputs_sha256": {
+    "CASMI-solutions.csv": "d1aed33a27746999fcf60ad0ff93389a515a8e012c7f66b028a34aa5528542a6",
+    "Chal1to45Summary.csv": "0d39cb0e191079f6e87af99d4aa67cb4b5faf7aff2a2607356ce26dfcf1e935d",
+    "challenges-001-045-ms-mgf-20170908.zip": "d3d4342e80d144eecdff7c9c5d8c9725555373d2bc14826c20b7e45046d5102a",
+    "challenges-001-045-msms-mgf-20170908.zip": "fe1732ba6b24724d3d24cc5745be5a58fd23c6bdae9556d01f9a0ed4060f9deb",
+    "challenges-046-243-msms-mgf-20170522.zip": "86f38e71b92c0971b7275e1f25b25a44e30d0f245dc4dc9899af4f1ac1b10813",
+    "challenges-046-243-msms-tsv-20170707.zip": "5a76a4dbca6929cd548c799b6f4de28547b9f4e7d674da682db2e31c3f4f8540"
+  },
+  "acquisition_pages": [
+    "http://www.casmi-contest.org/2017/challenges_1-45.shtml",
+    "http://www.casmi-contest.org/2017/challenges_46-243.shtml"
+  ],
+  "excluded_challenges": {
+    "challenge-030": "Published MS/MS charge disagrees with the acquisition summary or paired MS1 metadata.",
+    "challenge-042": "Organizer cannot confirm natural origin.",
+    "challenge-043": "Organizer cannot confirm natural origin.",
+    "challenge-045": "Organizer cannot confirm natural origin."
+  },
+  "eligible_queries": 23,
+  "eligible_identities": 21,
+  "molecules": 17,
+  "spectra": 19,
+  "origin_categories": {
+    "Plant-derived": 4,
+    "Natural product as declared for challenges 46–243 by organizer": 4,
+    "Rare plant-derived NP": 2,
+    "Isolated from Apiaceae family. Extensive in-source fragmentation": 1,
+    "Found in human fluids": 1,
+    "Isolated from Ferula species": 1,
+    "Identified in plants and human tissues": 1,
+    "Found in several plant species": 1,
+    "Identified in the Ranunculaceae family": 1,
+    "Isolated from multiple plant species": 1
+  },
+  "molecules_by_source": {
+    "CASMI2017_001_045": 13,
+    "CASMI2017_046_243": 4
+  },
+  "spectra_by_source": {
+    "CASMI2017_001_045": 13,
+    "CASMI2017_046_243": 6
+  },
+  "spectra_by_adduct": {
+    "[M+H]+": 16,
+    "[M-H]-": 3
+  },
+  "multiplicity": {
+    "1": 15,
+    "2": 2
+  },
+  "trust": "The organizer provides measured polarity, not ion species. For all scans use the same label-independent direct proton assumption; no reference to true mass. Ramps are one experimental spectrum with endpoints in eV.",
+  "blocking": "Source is the entire CASMI 2017 benchmark; the two independent acquisition series are additionally reported. LC methods within the first series are not treated as independent institutions. Normalize tautomers and remove stereochemistry before generic Murcko and identity filtering. Acyclic compounds have no scaffold.",
+  "output_sha256": {
+    "blind/test.parquet": "55fe6cb0344d10ee9a564e0bb3fcfea1c7cabedce4fa62bb82604795a947928f",
+    "blind/sample_submission.csv": "2ec1d146815012473fe9856cb0f327b28e9e8a974414ea9d25379dcdb8a755cd",
+    "private/labels.parquet": "71124739e3fc24a2d32c5a08e029eec5325f8d433a3eddbf4aed69a850fad8a1",
+    "private/holdout.json": "bad8cf3c94c3572ac416c84dc330404c3dbc6fec8ee068bfe4c00c11d169d506",
+    "private/spectra_provenance.parquet": "ed10bee5b9fe58e9ea257fdcdb93a3746c45f4d9400d6412e53e027d1f020968"
+  },
+  "date_beijing": "2026-11-24",
+  "rdkit": "2026.03.3",
+  "parent_eligibility": "data/references/075-casmi2017-overlap-2026-11-24.json",
+  "script": "rounds/075-frontier/four_arm/panel/prepare_casmi2017.py",
+  "postfreeze_adduct_diagnostic": {
+    "formula": "Use the published label exact molecular mass (as drawn) plus or minus the proton as supplied by the blind polarity assumption. No changes to group membership, adduct, precursor, exclusion files, or inferencer based on this post hoc comparison.",
+    "within_10ppm": 18,
+    "scans": [
+      {
+        "source_id": "challenge-035",
+        "spectrum_id": "s_10824d76",
+        "molecule_id": "m_10824d",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": -1.0612
+      },
+      {
+        "source_id": "challenge-034",
+        "spectrum_id": "s_207ac5f2",
+        "molecule_id": "m_207ac5",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": 0.5332
+      },
+      {
+        "source_id": "challenge-010",
+        "spectrum_id": "s_3070c438",
+        "molecule_id": "m_3070c4",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": 3.6303
+      },
+      {
+        "source_id": "challenge-001",
+        "spectrum_id": "s_3570d797",
+        "molecule_id": "m_3570d7",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": 0.5495
+      },
+      {
+        "source_id": "challenge-019",
+        "spectrum_id": "s_3f82a8ca",
+        "molecule_id": "m_3f82a8",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": 3.0224
+      },
+      {
+        "source_id": "challenge-018",
+        "spectrum_id": "s_43e385cf",
+        "molecule_id": "m_43e385",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": 2.1243
+      },
+      {
+        "source_id": "challenge-178",
+        "spectrum_id": "s_568829c7",
+        "molecule_id": "m_568829",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": -0.1182
+      },
+      {
+        "source_id": "challenge-012",
+        "spectrum_id": "s_65ab2d79",
+        "molecule_id": "m_65ab2d",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": 3.3609
+      },
+      {
+        "source_id": "challenge-024",
+        "spectrum_id": "s_9358b3f5",
+        "molecule_id": "m_9358b3",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": 3.8832
+      },
+      {
+        "source_id": "challenge-020",
+        "spectrum_id": "s_96acb7a2",
+        "molecule_id": "m_96acb7",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": 1.7277
+      },
+      {
+        "source_id": "challenge-011",
+        "spectrum_id": "s_a45c839e",
+        "molecule_id": "m_a45c83",
+        "formal_charge": 1,
+        "diagnostic_error_ppm": -3576.9857
+      },
+      {
+        "source_id": "challenge-115",
+        "spectrum_id": "s_16d1eab2",
+        "molecule_id": "m_a4ecc9",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": -0.0467
+      },
+      {
+        "source_id": "challenge-226",
+        "spectrum_id": "s_e4fb28eb",
+        "molecule_id": "m_a4ecc9",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": 0.0337
+      },
+      {
+        "source_id": "challenge-033",
+        "spectrum_id": "s_c0d3751e",
+        "molecule_id": "m_c0d375",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": 1.7184
+      },
+      {
+        "source_id": "challenge-179",
+        "spectrum_id": "s_d224588f",
+        "molecule_id": "m_d22458",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": 0.0097
+      },
+      {
+        "source_id": "challenge-021",
+        "spectrum_id": "s_dbbfab67",
+        "molecule_id": "m_dbbfab",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": 0.2782
+      },
+      {
+        "source_id": "challenge-017",
+        "spectrum_id": "s_e3d64569",
+        "molecule_id": "m_e3d645",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": 2.2076
+      },
+      {
+        "source_id": "challenge-139",
+        "spectrum_id": "s_538df8f4",
+        "molecule_id": "m_ee1a66",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": -0.0149
+      },
+      {
+        "source_id": "challenge-090",
+        "spectrum_id": "s_8e9c7ee7",
+        "molecule_id": "m_ee1a66",
+        "formal_charge": 0,
+        "diagnostic_error_ppm": 0.0588
+      }
+    ]
+  },
+  "spectrum_copy_audit": {
+    "blind_sha256": "55fe6cb0344d10ee9a564e0bb3fcfea1c7cabedce4fa62bb82604795a947928f",
+    "training_reference": "Competition train.parquet",
+    "training_rows": 2539608,
+    "method": "All train rows with same measured polarity and precursor within 20 ppm. Remove peaks within 0.5 Da of precursor and above, keep top 100 at >=0.5% of base peak; square-root intensity, L2 norm, greedy one-to-one cosine, mass tolerance max(5 mDa, 10 ppm). Flag cosine >=0.97 with >=4 matched peaks and >=80% coverage by peak count on both sides. Low-peak similarities listed separately by raw maxima. Does not inspect every external/pretraining library.",
+    "spectra": 19,
+    "pairs": 6926,
+    "flagged_pairs": 0,
+    "results": [
+      {
+        "spectrum_id": "s_9358b3f5",
+        "molecule_id": "m_9358b3",
+        "checked": 609,
+        "maximum": {
+          "cosine": 0.674648989629896,
+          "matched_peaks": 5,
+          "query_peaks": 9,
+          "training_peaks": 23,
+          "train_key": "SBNKFTQSBPKMBZ",
+          "train_source": "pluskal_ms2"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_3f82a8ca",
+        "molecule_id": "m_3f82a8",
+        "checked": 211,
+        "maximum": {
+          "cosine": 0.3198314462709611,
+          "matched_peaks": 4,
+          "query_peaks": 7,
+          "training_peaks": 34,
+          "train_key": "RHGKLRLOHDJJDR",
+          "train_source": "gnps"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_dbbfab67",
+        "molecule_id": "m_dbbfab",
+        "checked": 95,
+        "maximum": {
+          "cosine": 0.4893256431529392,
+          "matched_peaks": 4,
+          "query_peaks": 23,
+          "training_peaks": 10,
+          "train_key": "ZXLDQJLIBNPEFJ",
+          "train_source": "pluskal_ms2"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_96acb7a2",
+        "molecule_id": "m_96acb7",
+        "checked": 273,
+        "maximum": {
+          "cosine": 0.34748647593004406,
+          "matched_peaks": 6,
+          "query_peaks": 18,
+          "training_peaks": 27,
+          "train_key": "ITWJELJENLIOLJ",
+          "train_source": "pluskal_ms2"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_3070c438",
+        "molecule_id": "m_3070c4",
+        "checked": 0,
+        "maximum": null,
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_e3d64569",
+        "molecule_id": "m_e3d645",
+        "checked": 193,
+        "maximum": {
+          "cosine": 0.17547459968250403,
+          "matched_peaks": 2,
+          "query_peaks": 6,
+          "training_peaks": 10,
+          "train_key": "JDJPNKPFDDUBFV",
+          "train_source": "pluskal_ms2"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_3570d797",
+        "molecule_id": "m_3570d7",
+        "checked": 539,
+        "maximum": {
+          "cosine": 0.4611441627957173,
+          "matched_peaks": 1,
+          "query_peaks": 13,
+          "training_peaks": 2,
+          "train_key": "CQIUKKVOEOPUDV",
+          "train_source": "riken"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_a45c839e",
+        "molecule_id": "m_a45c83",
+        "checked": 637,
+        "maximum": {
+          "cosine": 0.2842008793958903,
+          "matched_peaks": 1,
+          "query_peaks": 11,
+          "training_peaks": 13,
+          "train_key": "DZTZJNGATJMDSH",
+          "train_source": "gnps"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_568829c7",
+        "molecule_id": "m_568829",
+        "checked": 497,
+        "maximum": {
+          "cosine": 0.5054843617428613,
+          "matched_peaks": 1,
+          "query_peaks": 21,
+          "training_peaks": 15,
+          "train_key": "DILXHIQZGJKWQB",
+          "train_source": "pluskal_ms2"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_65ab2d79",
+        "molecule_id": "m_65ab2d",
+        "checked": 728,
+        "maximum": {
+          "cosine": 0.5809330487221591,
+          "matched_peaks": 17,
+          "query_peaks": 30,
+          "training_peaks": 59,
+          "train_key": "YGPRSGKVLATIHT",
+          "train_source": "gnps"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_207ac5f2",
+        "molecule_id": "m_207ac5",
+        "checked": 1752,
+        "maximum": {
+          "cosine": 0.30900495561207764,
+          "matched_peaks": 2,
+          "query_peaks": 12,
+          "training_peaks": 14,
+          "train_key": "SXQCZZPCJDRNSE",
+          "train_source": "pluskal_ms2"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_c0d3751e",
+        "molecule_id": "m_c0d375",
+        "checked": 480,
+        "maximum": {
+          "cosine": 0.45331588018076535,
+          "matched_peaks": 17,
+          "query_peaks": 33,
+          "training_peaks": 100,
+          "train_key": "MHCYVCDXRQGUFW",
+          "train_source": "riken"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_43e385cf",
+        "molecule_id": "m_43e385",
+        "checked": 291,
+        "maximum": {
+          "cosine": 0.24946770130271972,
+          "matched_peaks": 5,
+          "query_peaks": 18,
+          "training_peaks": 52,
+          "train_key": "QFAPONVNJTUMHF",
+          "train_source": "riken"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_10824d76",
+        "molecule_id": "m_10824d",
+        "checked": 447,
+        "maximum": {
+          "cosine": 0.1794993103380342,
+          "matched_peaks": 6,
+          "query_peaks": 12,
+          "training_peaks": 42,
+          "train_key": "QAZXNPZBYLAEFL",
+          "train_source": "enveda-180"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_d224588f",
+        "molecule_id": "m_d22458",
+        "checked": 149,
+        "maximum": {
+          "cosine": 0.0,
+          "matched_peaks": 0,
+          "query_peaks": 7,
+          "training_peaks": 10,
+          "train_key": "MAYOFJJXKYWLBV",
+          "train_source": "enveda-180"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_16d1eab2",
+        "molecule_id": "m_a4ecc9",
+        "checked": 0,
+        "maximum": null,
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_e4fb28eb",
+        "molecule_id": "m_a4ecc9",
+        "checked": 11,
+        "maximum": {
+          "cosine": 0.16644406808806708,
+          "matched_peaks": 6,
+          "query_peaks": 100,
+          "training_peaks": 27,
+          "train_key": "LOHHRJVRAMTARJ",
+          "train_source": "pluskal_ms2"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_8e9c7ee7",
+        "molecule_id": "m_ee1a66",
+        "checked": 6,
+        "maximum": {
+          "cosine": 0.7428468783868633,
+          "matched_peaks": 9,
+          "query_peaks": 35,
+          "training_peaks": 13,
+          "train_key": "KJMIDUOUTLARSE",
+          "train_source": "pluskal_ms2"
+        },
+        "strong": 0
+      },
+      {
+        "spectrum_id": "s_538df8f4",
+        "molecule_id": "m_ee1a66",
+        "checked": 8,
+        "maximum": {
+          "cosine": 0.8459451238053421,
+          "matched_peaks": 2,
+          "query_peaks": 10,
+          "training_peaks": 4,
+          "train_key": "KJMIDUOUTLARSE",
+          "train_source": "pluskal_ms2"
+        },
+        "strong": 0
+      }
+    ]
+  },
+  "holdout_counts": {
+    "unique_nonempty_generic_scaffolds": 15,
+    "acyclic_identities": 2,
+    "acyclic_training_block": true
+  }
+}

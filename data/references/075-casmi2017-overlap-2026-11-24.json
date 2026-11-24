@@ -1,0 +1,104 @@
+{
+  "date_beijing": "2026-11-24",
+  "competition": "CASMI 2017 Category 2/3 natural products",
+  "study": "历史公开题作为 Enveda CASMI 2026 天然产物验证样本的独立性和候选覆盖审计",
+  "sources": {
+    "paper": "https://doi.org/10.3390/metabo10060260",
+    "archive": "https://mdpi-res.com/d_attachment/metabolites/metabolites-10-00260/article_deploy/metabolites-10-00260-s001.zip",
+    "sha256": "63716b26da3b8b8ee93e860d424b72f5558e819628d071b9f3cd338bc6dba2a5",
+    "sheet": "Supplemental File 1_v2.xlsx / CASMI2017",
+    "label_selection": "同一 challenge 按主办方原始 Challenge、InChIkey、SMILES 字段取一次。相同 challenge 的条目须一致。忽略 EPA 拓展的同义和立体结构候选。",
+    "reference": "Enveda CASMI 2026 data/raw/train.parquet"
+  },
+  "competition_rows": 243,
+  "distinct_train_smiles_key_pairs_searched": 277566,
+  "raw_inchikey14": {
+    "distinct": 170,
+    "seen_queries": 220,
+    "unseen_queries": 23,
+    "seen_structures": 149,
+    "unseen_structures": 21,
+    "raw_key_matches_original_smiles": 243
+  },
+  "scoring_identity": {
+    "rdkit": "2026.03.3",
+    "method": "去立体后 canonical tautomer，再取 InChIKey 前 14 位。完整比较所有与目标重元素计数相同或原始键直接相同的训练结构。",
+    "train_candidates_recanonicalized": 9235,
+    "invalid_candidates": 0,
+    "distinct": 170,
+    "seen_queries": 220,
+    "unseen_queries": 23,
+    "seen_structures": 149,
+    "unseen_structures": 21,
+    "unseen_query_ids": [
+      "challenge-001",
+      "challenge-010",
+      "challenge-011",
+      "challenge-012",
+      "challenge-017",
+      "challenge-018",
+      "challenge-019",
+      "challenge-020",
+      "challenge-021",
+      "challenge-024",
+      "challenge-030",
+      "challenge-033",
+      "challenge-034",
+      "challenge-035",
+      "challenge-042",
+      "challenge-043",
+      "challenge-045",
+      "challenge-090",
+      "challenge-115",
+      "challenge-139",
+      "challenge-178",
+      "challenge-179",
+      "challenge-226"
+    ]
+  },
+  "typed_murcko_within_21": {
+    "same_nonempty_scaffold_as_train": 10,
+    "nonempty_scaffold_absent_from_train": 8,
+    "acyclic": 3,
+    "reference_file": "casmi26-identity-disjoint-validation-folds/structures.parquet",
+    "reference_file_sha256": "7c16c4968a15956e94eba58e3ff94d4a6c2f6899b10a2f2824047601a46bd6c8",
+    "scaffold_method": "沿用来源 build_folds.py 的顺序，先 canonicalize，再计算 Bemis–Murcko scaffold，使用不含立体的 SMILES。此处只查带元素和键类型的骨架；通用骨架、同系物和谱库来源仍需另外留出。"
+  },
+  "natural_product_evidence": {
+    "joining_key": "CASMI 原始结构的 InChIKey14；此处按不同身份计数。",
+    "source": "075-public-0505-submission-2026-11-24.json 中 v7 原版 NPX 表和 THEOBROMA v1.36 (CC0/CC BY)",
+    "theobroma_release": "https://doi.org/10.5281/zenodo.22816330",
+    "seen_149": {
+      "npx": 144,
+      "theobroma": 136,
+      "theobroma_only": 2
+    },
+    "unseen_21": {
+      "npx": 16,
+      "theobroma": 17,
+      "theobroma_only": 1,
+      "only_challenge": "challenge-011",
+      "only_raw_key": "UHJZITVWXGMYKV",
+      "source_db": "COCONUT"
+    },
+    "meaning": "天然产物标记的覆盖，尚未对这些题运行完整候选生成或评估名次。"
+  },
+  "spectra": {
+    "published_challenge_spectra": true,
+    "reference": "https://www.mdpi.com/2218-1989/10/6/260",
+    "first_45_download_manifest": "https://github.com/josiehong/FIDDLE/blob/main/scripts/download_benchmarks.py",
+    "first_45_benchmark_notes": "https://msfiddle.readthedocs.io/en/stable/benchmarks.html",
+    "verified_independent_spectra": null,
+    "qualification": "本次核实答案与训练库身份，尚未逐谱检查与所有训练/检索谱库的峰列表重合。FIDDLE 派生基准替换前体质量，首轮应使用原始实测输入和正式评分键。",
+    "host_release_announcement": "https://sourceforge.net/p/casmi/mailman/casmi-announce/"
+  },
+  "validation_decision": {
+    "permitted_scope": "21 个互不相同的训练标签未见身份可作为待审计的历史天然产物探针；23 个题号按身份聚合。8 个非空精细骨架在所查比赛训练骨架库中未见。",
+    "fully_unseen": false,
+    "requirements_before_unseen_claim": [
+      "剔除所有模型训练/预训练和自然产物标签训练中的同身份、同骨架和同系物家族",
+      "从参考谱库、缓存及谱图近重复中排除查询来源与复制谱，另报告结构库检索设置",
+      "核对各题原实测谱、加合物和采集方式，在冻结配置上按分子评分"
+    ]
+  }
+}
