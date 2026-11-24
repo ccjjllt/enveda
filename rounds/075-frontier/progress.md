@@ -1,9 +1,29 @@
 # 075 进展
 
+## 2026-11-24 公开 0.505 底座的四臂对照
+
+- `jiyujia` 私有断网 T4 作业 v1 已启动。原版先完成来源与骨架留出条件下的全流程，再锁定每题最终名单，比较原序、只判分子式、只做式内结构配对、两者联合。四组读取同一组盲谱并保持每题原有候选与名额。新模型只使用未被留出的实测训练谱；评分在排名落盘后读取逐题答案。[Kaggle v1](https://www.kaggle.com/code/jiyujia/enveda-075-np-four-arm-0505/versions/1) · [启动回执及结果路径](../../data/references/075-np-four-arm-2026-11-24.json)
+- 验证覆盖 CASMI 2017 两个采集系列的 17 个比赛训练未见身份、19 张实测谱，来源分别有 13 和 4 个身份。排除 15 个非空通用骨架，无环结构整组留出。两版公开 MassSpecGym 训练及验证分折均无相同规范身份，一个身份仅在测试分折出现。公开原档未逐谱指认加合物，统一按观测极性推断；challenge-011 是本征带电结构，保留在总分母。该面板的 MRR 只能用于离线对照。[面板来源与采集核查](../../data/references/075-four-arm-casmi2017-panel-2026-11-24.json)
+
+## 2026-11-24 天然产物训练与正负离子实测
+
+- 在 `jiyujia` 的 Kaggle 单张 T4 上跑完第一批 LOTUS 天然产物模拟。2,000 个结构均得到三档正离子预测，6,000 张谱通过回读校验，纯预测耗时 71.64 秒。原抽样中只有 152 个结构有相似度至少 0.60 的同式伙伴，在完整可用的 LOTUS 子集中为 563 个。训练设计和验证域分解见[本轮研究](research/training-and-retrieval.md)与[模拟回执](../../data/references/075-np-simulation-2026-11-24.json)。
+- 同一批模拟谱完成三种子、等步数的模拟到实谱迁移训练。110 题、2,750 个固定候选的原序/纯实谱融合/模拟后实谱融合 MRR 为 **0.336852 / 0.295952 / 0.291993**。后者相对原序前五新增 1、掉出 3；相对纯实谱新增 0、掉出 1，停止扩大当前指纹模型。[数据划分与逐题对照](../../data/references/075-np-simulation-transfer-2026-11-24.json)
+- 47 道负离子题的 068a 前五名单保持固定。只在与首位同式的槽内按预测谱重排。原排序、开放负离子输入的 MSG GLACIER、公开 E180 微调权重的首位数为 17、13、10；MRR@25 为 **0.410616、0.348559、0.307424**。结束这款权重直接重排的实验。[逐题结果](../../data/references/075-negative-glacier-pilot-2026-11-24.json)
+- NP250 的旧生成与 PubChem 两路各取 25 后，并集覆盖 245/250。用实谱选可编辑母体的探索性回放在剩余五题中找回一题，生成分支内部排第一。THEOBROMA 相对原 NPX 有 80,413 个开放许可新标记，在两个 MassBank 面板原各来源共同漏掉的 63 个身份中覆盖为零。历史 CASMI 2017 的 170 个不同身份里，21 个未在比赛训练表出现。[NP250 逐题回放](../../data/references/075-np250-generation-opportunity-2026-11-24.json) · [THEOBROMA 核查](../../data/references/075-theobroma-overlap-2026-11-24.json) · [CASMI 2017 核查](../../data/references/075-casmi2017-overlap-2026-11-24.json)
+
+## 2026-11-24 公开方案提交
+
+- Kaggle 公榜首位为 **0.554**。核实 goodpjw2008 的 NPX + E180X 1.1 有 **0.505** 实分，提交 `58749432`，作者注明该提交使用与公开版相同的推理单元。Pablo 队伍实得 **0.506**，尚缺精确公开版本对应关系。[公榜](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard) · [选用原版 v7](https://www.kaggle.com/code/goodpjw2008/enveda-casmi-stack-npx-e180x-1-1-lb-0-505/versions/7)
+- `jiyujia` 私有断网 T4×2 v1 已完成 12 个可见样例的真实推理预检。核对 `submission.csv` 的 400 个 ID 与候选格式后，于北京时间 **09:28** 正式提交一次，编号 **58804528**。当前 `PENDING`，本次公榜分数待 Kaggle 隐藏集重跑。可见提交预检使用 `smoke`，隐藏推理使用作者原代码。[提交 Notebook](https://www.kaggle.com/code/jiyujia/enveda-casmi-0505-npx-e180x?scriptVersionId=373271594) · [提交回执](../../data/references/075-public-0505-submission-2026-11-24.json)
+
 ## 2026-11-23 负离子结构覆盖和窗口难负例
 
 - 逐一回读 MassBank 2026.11 原始记录，11 份 SMILES 和原面板逐字符一致。BAFG 的 10 题是 **PAN-Sulfonate C4–C13**，Eawag A008 是 **BI-4326**。PubChem PUG REST 的精确 InChIKey 和 `same_connectivity` 查询均返回 `PUGREST.NotFound`。三份索引共 **105,922,969** 行，整库 SMILES 表示及实测 ±100 ppm 内 **572,655** 个候选行均无匹配。11 题原始连接键、生产键与互变异构键一致，RDKit 计算中性质量最大绝对偏差 **0.098 ppm**。实验归因是当前结构库覆盖缺口。[MassBank 2026.11 实例](https://github.com/MassBank/MassBank-data/blob/2026.11/BAFG/MSBNK-BAFG-CSL26052936821.txt) · [索引核查 v2](https://www.kaggle.com/code/jiyujia/enveda-075-negative-index-audit/versions/2) · [11 题逐项回执](../../data/references/075-negative-index-audit-2026-11-23.json)
-- 固定从 Enveda-180 取训练与适配开发谱，用 068a 原 C34 的实测 ±10 ppm 高排名误召做对比。外部评价继续保留 47 题，Eawag、BAFG 两个来源和 PAN-Sulfonate 同系物整体留出。训练、冻结全窗名单、等预算 CPU 整线融合按依赖推进。当前 `jiyujia` GPU 统计上限为 6 小时且已超额，小规模适配与本次整线使用匹配 CPU 对照。[原 C34 挖掘 v2](https://www.kaggle.com/code/jiyujia/enveda-075-negative-hard-mine/versions/2)
+- 固定从 Enveda-180 取训练与适配开发谱，用 068a 原 C34 的实测 ±10 ppm 高排名误召做对比。外部评价继续保留 47 题，Eawag、BAFG 两个来源和 PAN-Sulfonate 同系物整体留出。启动前 `jiyujia` 的配额接口曾返回 6 小时上限。北京时间 14:07 用同账号复核，上限为 **30 小时**、已用 **12 小时 52 分 05 秒**、预留为零，剩余 **17 小时 07 分 55 秒**。[原 C34 CPU 挖掘 v2](https://www.kaggle.com/code/jiyujia/enveda-075-negative-hard-mine/versions/2)
+- 北京时间 14:12 核实 CPU 挖掘 v2 仍在运行。挖掘结束后，后台依次提交 `jiyujia` T4×2 小规模训练与全窗检索、T4×2 068a 完整融合。复用同设备原版 v1，逐题保持 PubChem 名单总长，每题最多替换 5 个尾位。记录融合后新增与失去的前五，再决定是否扩大训练。[同设备原版 v1](https://www.kaggle.com/code/jiyujia/enveda-075-negative-window-control/versions/1)
+- CPU 挖掘 v2 完成，240 题产生 6,000 个实际 C34 候选，用时 **2,322.2 秒**。T4×2 适配采用 **192** 题和 **3,019** 个真实窗口难负例，更新 **73,984** 个参数、8 轮，用时 **110.3 秒**。适配开发集使用 47 题，MRR **0.655830 → 0.656349**，前五 **36 → 35**。全窗 47 题共打分 **174,515** 个题–结构，用时 **1,065.6 秒**。7 道原并集漏题在窗内有真结构，最佳窗内排名从第 103 提至第 81，仍全部落在 64 个冻结备选之外。后台读取状态超时后，用已完成的冻结候选接续提交完整融合 v1。[T4×2 适配与检索](https://www.kaggle.com/code/jiyujia/enveda-075-negative-hard-retrieve-t4/versions/1) · [T4×2 完整融合](https://www.kaggle.com/code/jiyujia/enveda-075-negative-hard-fusion-t4/versions/1)
+- 11 月 24 日北京时间 03:03 融合完成，03:09 逐题评分完成。已从原版和扩池版最终产物独立复算。两臂均为 T4×2，保留相同的逐题候选数和 **1,125** 个 PubChem 槽位，45 题各替换 5 个尾位。20 个插入候选进入最终名单，共改变 13 题的名单，但 **47 题的正确结构最终名次逐题一致**。首位 **17 → 17**、前五 **22 → 22**、前 25 **28 → 28**，MRR@25 **0.410616 → 0.410616**。前五新增、丢失及原各来源漏题的新召回均为 **0**。停止扩大当前难负例适配配置。[Kaggle 逐题评分](https://www.kaggle.com/code/jiyujia/enveda-075-negative-hard-compare-t4/versions/1) · [独立复核回执](../../data/references/075-negative-hard-comparison-2026-11-24.json)
 
 ## 2026-11-23 争榜整线对照
 
@@ -17,7 +37,7 @@
 - 正负离子配对训练对照在 `jiyujia` 私有断网 T4 完成，脚本用时 **247.7 秒**。6,000 个结构有单档 40 eV 双极性实测谱，按通用 Murcko 骨架分为 **4,779 / 1,221**，训练剔除独立负离子面板的身份及非空通用骨架。两臂共用近质量批次和 18 轮训练，配对臂额外对齐同一结构的两种谱。独立 47 个 `[M-H]-` 查询在原 **2,600** 条候选并集中检索。无对齐与配对的 MRR 为 **0.15574 / 0.11615**，前 25 **20 / 22**，前五 **11 / 7**，首位 **4 / 3**。原整线是 **0.41062 / 28 前 25 / 22 前五 / 17 首位**。当前对齐损失和近质量批次配置结束扩训。[训练作业](https://www.kaggle.com/code/jiyujia/enveda-075-cross-polarity-pilot/versions/1) · [训练回执](../../data/references/075-cross-polarity-pilot-2026-11-23.json)
 - 相对无对齐，配对臂在旧分支并集上新增前 25 的两题是 **A003（第 16）**和 **A016（第 18）**。原整线把 A003 排第一；A016 已在原 PubChem 第 7，但最终漏选。A016 按配对名次单独计贡献 **0.001182 MRR**，这个数来自旧候选重排。[补充评分](https://www.kaggle.com/code/jiyujia/enveda-075-cross-polarity-overlap/versions/1)
 
-更新日期 2026-11-23（北京时间）。
+更新日期 2026-11-24（北京时间）。
 
 ## 2026-11-22 自主训练
 
