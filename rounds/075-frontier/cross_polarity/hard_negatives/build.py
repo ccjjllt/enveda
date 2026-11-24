@@ -13,6 +13,7 @@ PANEL = f'{OWNER}/enveda-075b-external-massbank-adducts/1'
 ARCHIVE = f'{OWNER}/enveda-075b-massbank-adducts-pipeline/1'
 PAIRED = f'{OWNER}/enveda-075-cross-polarity-pilot/1'
 WINDOW = f'{OWNER}/enveda-075-negative-full-window/1'
+CONTROL = f'{OWNER}/enveda-075-negative-window-control/1'
 WHEEL = 'metric/rdkit-2026-3-3-wheel'
 POPULARITY = 'dmitriigluzdov/casmi26-pubchem-popularity-prior'
 V4G = 'dmitriigluzdov/casmi26-attributed-v4g-reproduction-assets'
@@ -68,8 +69,7 @@ def build(arm, destination, original=None, mining_version=1):
         prefix += f"\n\nC34_RUNNER = {literal(code, 'RUNNER')!r}"
     elif arm == 'fit_retrieve':
         assets.remove(V4G)
-        inputs.extend([PAIRED, f'{OWNER}/enveda-075-negative-hard-mine/{mining_version}',
-                       f'{OWNER}/enveda-075-negative-window-control-cpu/2'])
+        inputs.extend([PAIRED, f'{OWNER}/enveda-075-negative-hard-mine/{mining_version}', CONTROL])
         retrieve = HERE.parent / 'full_window/retrieve.py'
         definitions = {'POPULARITY', 'index_files', 'PPM', 'BLOCK', 'PROPOSALS', 'init_window', 'enumerate_window'}
         prefix += '\n\n' + sections(retrieve, definitions)
@@ -78,10 +78,12 @@ def build(arm, destination, original=None, mining_version=1):
     script = prefix + '\n\n' + (HERE / f'{arm}.py').read_text()
     compile(script, f'{arm}.py', 'exec')
     slug = {'audit':'enveda-075-negative-index-audit', 'mine':'enveda-075-negative-hard-mine',
-            'fit_retrieve':'enveda-075-negative-hard-retrieve'}[arm]
+            'fit_retrieve':'enveda-075-negative-hard-retrieve-t4'}[arm]
     metadata = dict(id=f'{OWNER}/{slug}', title=slug, code_file=f'{arm}.py', language='python',
-                    kernel_type='script', is_private=True, enable_gpu=False, enable_internet=False,
+                    kernel_type='script', is_private=True, enable_gpu=arm == 'fit_retrieve', enable_internet=False,
                     dataset_sources=assets, kernel_sources=inputs, competition_sources=competitions)
+    if arm == 'fit_retrieve':
+        metadata['machine_shape'] = 'NvidiaTeslaT4'
     destination.mkdir(parents=True, exist_ok=True)
     (destination / f'{arm}.py').write_text(script)
     (destination / 'kernel-metadata.json').write_text(json.dumps(metadata, indent=2)+'\n')

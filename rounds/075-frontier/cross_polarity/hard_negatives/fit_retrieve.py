@@ -7,7 +7,7 @@ from multiprocessing import get_context
 
 MINING = 'enveda-075-negative-hard-mine'
 ARCHIVE = 'enveda-075b-massbank-adducts-pipeline'
-CONTROL = 'enveda-075-negative-window-control-cpu'
+CONTROL = 'enveda-075-negative-window-control'
 INITIAL = 'enveda-075-cross-polarity-pilot'
 SEED = 7523
 NEGATIVES = 16
@@ -133,7 +133,7 @@ def score_windows(device, model):
     old = pd.concat(references).groupby('molecule_id').candidate_id.agg(set).to_dict()
     masses = (queries.precursor_mz.to_numpy() + PROTON).tolist()
     counts, proposals, frames = {}, {}, []
-    with ProcessPoolExecutor(max_workers=4,mp_context=get_context('fork'),initializer=init_window) as pool:
+    with ProcessPoolExecutor(max_workers=4,mp_context=get_context('spawn'),initializer=init_window) as pool:
         pending = pool.map(enumerate_window,masses,chunksize=1)
         with torch.inference_mode():
             for query,mass,(per_store,keys,smiles,fp) in zip(queries.itertuples(),masses,pending,strict=True):
@@ -166,13 +166,16 @@ def main():
     started = time.monotonic()
     torch.manual_seed(SEED)
     torch.set_num_threads(2)
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    gpus = [torch.cuda.get_device_name(i) for i in range(torch.cuda.device_count())]
+    if len(gpus) != 2 or any('T4' not in gpu for gpu in gpus):
+        raise RuntimeError(f'Expected the Kaggle T4×2 instance, got {gpus}.')
+    device = 'cuda:0'
     model, adaptation = fit(device,chemistry())
     fit_seconds = time.monotonic()-started
-    (OUTPUT/'hard_adaptation_receipt.json').write_text(json.dumps({**adaptation,'seconds':round(fit_seconds,1)},indent=2)+'\n')
+    adaptation.update(seconds=round(fit_seconds,1),device=gpus[0],instance_gpus=gpus)
+    (OUTPUT/'hard_adaptation_receipt.json').write_text(json.dumps(adaptation,indent=2)+'\n')
     report = score_windows(device,model)
-    report.update(seconds=round(time.monotonic()-started-fit_seconds,1),
-                  device=torch.cuda.get_device_name() if device=='cuda' else 'CPU')
+    report.update(seconds=round(time.monotonic()-started-fit_seconds,1),device=gpus[0],instance_gpus=gpus)
     (OUTPUT/'negative_window_receipt.json').write_text(json.dumps(report,indent=2)+'\n')
 
 
