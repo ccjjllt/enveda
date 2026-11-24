@@ -1,0 +1,113 @@
+"""Run the instrumented C34 worker without modifying the frozen candidate selection."""
+import glob
+from hashlib import sha256
+import json
+import math
+import os
+from pathlib import Path
+import subprocess
+import sys
+
+
+INPUT = Path("/kaggle/input")
+OUTPUT = Path("/kaggle/working")
+FOLD_SHA256 = "ddf6eaaa8e541a16e3f0357ed30f0346e529054f75d5619aedb6024dcb1bd7f0"
+LOTUS_HELPER_SHA256 = "89873c7312c16be2180d44bb9eb3c4e9ce19c821e74ab92bb41666ea0c0f9248"
+
+
+def find(pattern):
+    choices = sorted(glob.glob(str(INPUT / "**" / pattern), recursive=True), key=len)
+    if not choices:
+        raise FileNotFoundError(pattern)
+    return Path(choices[0])
+
+
+def fingerprint_file(path):
+    with path.open("rb") as stream:
+        digest = sha256()
+        for chunk in iter(lambda: stream.read(4 << 20), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def finite_or_null(value):
+    if isinstance(value, dict):
+        return {k: finite_or_null(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [finite_or_null(v) for v in value]
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+    return value
+
+
+def run(directory, original_digests):
+    tag = f"cp{sys.version_info.major}{sys.version_info.minor}"
+    wheel = find(f"rdkit-2026.3.3-{tag}-*.whl")
+    subprocess.run([sys.executable, "-m", "pip", "install", "--quiet", "--no-index",
+                    "--no-deps", str(wheel)], check=True)
+    import torch
+    if not torch.cuda.is_available() or "T4" not in torch.cuda.get_device_name(0):
+        raise RuntimeError("Use the original v1 Tesla T4 device for C34 fingerprint logits")
+    output = OUTPUT / "five_c34_rank_audit.json"
+    pool = find("pool_meta.parquet").parent
+    tier = find("pc_smiles.npy").parent
+    pop = find("casmi26-pubchem-popularity-prior/pc_lsid.npy").parent
+    fold = find("casmi26-fold-safe-fpnet/MODEL_INPUTS.json").parent / "fpnet_fold0.pt"
+    if fingerprint_file(fold) != FOLD_SHA256:
+        raise ValueError("Fold0 checkpoint differs from the frozen C34 asset")
+    if fingerprint_file(pop / "aligned_public_priors.py") != LOTUS_HELPER_SHA256:
+        raise ValueError("LOTUS prior differs from the frozen C34 asset")
+    code = find("casmi26-v3-models/**/casmi/engine.py").parent.parent
+    models = find("casmi26-v3-models/**/ranker_0.pkl").parent
+    env = dict(os.environ, CASMI_FPNET_FOLD0=str(fold), CASMI_POP_DIR=str(pop), CASMI_POP_LAM="0.15",
+               CASMI_POP_UNION="200", CASMI_SRC_BONUS="0.5", CASMI_SRC_BITS="1", CASMI_NP_BONUS="1.0",
+               CASMI_LOTUS_W="0.5", PYTHONHASHSEED="0",
+               CASMI_C34_AUDIT_REQUEST=str(directory / "request.json"))
+    path = directory / "ranked.json"
+    subprocess.run([sys.executable, str(directory / "pc_runner.py"), str(code), str(models),
+                    str(pool), str(tier), str(directory / "query.parquet"), str(path), "4"],
+                   env=env, check=True)
+    archive = json.loads((directory / "archive.json").read_text())
+    cases = json.loads((directory / "request.json").read_text())["cases"]
+    ranked = json.loads(path.read_text())
+    expected = {k+s for k, spec in cases.items()
+                for s in ["", *("@" + name for name in spec["alternative_centres"])]}
+    if set(ranked) != expected:
+        raise ValueError(f"C34 returned {len(ranked)} of {len(expected)} cases")
+    for name, row in ranked.items():
+        mid, _, alternate = name.partition("@")
+        row["challenge"] = cases[mid]["challenge"]
+        row["window"] = alternate or "original"
+        if not alternate:
+            prev = archive[mid]
+            if not math.isclose(row["target"], prev["target"], abs_tol=1e-10, rel_tol=0):
+                raise ValueError("Original target mass changed")
+            if row["pc"] != prev["pc"] or row["pc_keys"] != prev["pc_keys"]:
+                prev_ranks = {s: i for i, s in enumerate(prev["pc"], 1)}
+                new_ranks = {s: i for i, s in enumerate(row["pc"], 1)}
+                row["ordered_list_matches_archive"] = False
+                row["archive_list_differences"] = [
+                    (s, prev_ranks.get(s), new_ranks.get(s))
+                    for s in sorted(set(prev_ranks) | set(new_ranks)) if prev_ranks.get(s) != new_ranks.get(s)
+                ]
+            else:
+                row["ordered_list_matches_archive"] = True
+                row["maximum_adjusted_score_difference"] = max(
+                    (abs(a-b) for a, b in zip(row["pc_fz"], prev["pc_fz"], strict=True)), default=0
+                )
+        row.pop("promotion_evidence", None)
+    report = dict(
+        v1_sources=original_digests,
+        dataset_mounts={"pool": str(pool), "tier": str(tier), "popularity": str(pop), "models": str(models)},
+        fpnet_sha256={p.name: fingerprint_file(p) for p in sorted(models.glob("fpnet_*.pt"))},
+        fold0_sha256=FOLD_SHA256,
+        device=torch.cuda.get_device_name(0),
+        procedure="C34 exact ±10 ppm windows, 5000 ECFP4-score rows union 200 document-prior rows. "
+        "Two independent corrected 011 centres retain the original adduct and spectrum logits and change only the mass gate. "
+        "Canonical InChIKey14 and heavy-element counts identify all truth rows; native key and main-pool exclusion are scored separately.",
+        candidates=ranked,
+    )
+    output.write_text(json.dumps(finite_or_null(report), indent=2, allow_nan=False) + "\n")
+    for case in ranked.values():
+        print(case["challenge"], case["window"], case["target"], case["ordered_list_matches_archive"]
+              if case["window"] == "original" else "counterfactual", len(case["diagnostic"]["truth_hits"]), flush=True)

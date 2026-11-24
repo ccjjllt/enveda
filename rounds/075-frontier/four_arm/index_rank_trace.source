@@ -1,0 +1,101 @@
+"""Read-only trace hooks for the exact v7 C34 candidate worker."""
+from collections import Counter
+from functools import lru_cache
+import json
+from pathlib import Path
+from rdkit import Chem, rdBase
+from rdkit.Chem.MolStandardize import rdMolStandardize
+
+
+_AUDIT_REQUEST = json.loads(Path(os.environ["CASMI_C34_AUDIT_REQUEST"]).read_text())
+_AUDIT_ENUMERATOR = rdMolStandardize.TautomerEnumerator()
+if rdBase.rdkitVersion != "2026.03.3":
+    raise RuntimeError(f"Expected the competition RDKit build; found {rdBase.rdkitVersion}")
+
+
+def _audit_composition(mol):
+    return tuple(sorted(Counter(a.GetAtomicNum() for a in mol.GetAtoms() if a.GetAtomicNum() > 1).items()))
+
+
+def _audit_key(mol):
+    clean = Chem.Mol(mol)
+    Chem.RemoveStereochemistry(clean)
+    return Chem.MolToInchiKey(_AUDIT_ENUMERATOR.Canonicalize(clean))[:14]
+
+
+@lru_cache(None)
+def _audit_identity(mid):
+    case = _AUDIT_REQUEST["cases"][mid.split("@", 1)[0]]
+    mol = Chem.MolFromSmiles(case["truth_smiles"])
+    key = _audit_key(mol)
+    if key != case["truth_key"]:
+        raise ValueError("Validation molecule disagrees with the normalized competition key")
+    return key, mol.GetNumHeavyAtoms(), _audit_composition(mol)
+
+
+def _audit_is_truth(mid, mol):
+    key, count, composition = _audit_identity(mid)
+    return (mol.GetNumHeavyAtoms() == count and _audit_composition(mol) == composition
+            and _audit_key(mol) == key)
+
+
+def _audit_rank_interval(scores, index):
+    score = scores[index]
+    highest = int(np.count_nonzero(scores > score)) + 1
+    return [highest, highest - 1 + int(np.count_nonzero(scores == score))]
+
+
+def _audit_collect(diag, target, smis, valid, coarse_scores, partial_indices, prior_values,
+                   prior_indices, union, idx, full, adjusted, order, truth_rows):
+    pool = _W["pool_keys"]
+    chem = _W["chem"]
+    seen = set()
+    rank_native = 0
+    final_top_to_full = {}
+    target_key = _audit_identity(diag["molecule_id"])[0]
+    truth_rows = set(truth_rows)
+    last_truth = max((int(i) for i in np.flatnonzero(np.isin(idx[order], list(truth_rows)))), default=-1)
+    for pos in range(last_truth + 1):
+        i = int(idx[order[pos]])
+        key = chem.score_key(smis[i])
+        if key is None or key in seen:
+            continue
+        seen.add(key)
+        if key in pool:
+            continue
+        rank_native += 1
+        if i in truth_rows:
+            final_top_to_full[i] = rank_native
+    full_by_window_index = {int(i): j for j, i in enumerate(idx)}
+    order_by_window_index = {int(idx[j]): pos for pos, j in enumerate(order, 1)}
+    per_store = _W["last_window_counts"]
+    names = list(per_store)
+    edges = np.cumsum([0] + [per_store[s] for s in names])
+    store_windows = {
+        s["name"]: int(np.searchsorted(s["mass"], target - target * PPM * 1e-6, "left"))
+        for s in _W["pc_stores"]
+    }
+    pvalid = np.where(valid, prior_values, -np.inf)
+    for i in sorted(truth_rows):
+        store_id = int(np.searchsorted(edges, i, "right") - 1)
+        store = _W["pc_stores"][store_id]
+        row = store_windows[names[store_id]] + i - int(edges[store_id])
+        rank_full = order_by_window_index.get(i)
+        native = chem.score_key(smis[i])
+        diag["truth_hits"].append(dict(
+            index_name=names[store_id], index_row=row, stored_mass=float(store["mass"][row]),
+            mass_error_ppm=float((store["mass"][row]-target)/target*1e6),
+            window_position=i + 1, smiles=smis[i], official_key=target_key,
+            native_key=native, native_main_pool_key=bool(native and native in pool),
+            partial_score=float(coarse_scores[i]),
+            partial_rank_interval=_audit_rank_interval(coarse_scores, i),
+            survived_partial_cutoff=bool(i in partial_indices),
+            documentary_score=float(prior_values[i]),
+            documentary_rank_interval=_audit_rank_interval(pvalid, i),
+            survived_documentary_cutoff=bool(i in prior_indices),
+            survived_coarse_union=bool(i in union), has_full_fingerprint=rank_full is not None,
+            adjusted_score_rank_in_shortlist=rank_full,
+            full_fingerprint_score=float(full[full_by_window_index[i]]) if rank_full is not None else None,
+            adjusted_score=float(adjusted[full_by_window_index[i]]) if rank_full is not None else None,
+            native_pubchem_rank_after_pool_exclusion_and_dedup=final_top_to_full.get(i),
+        ))

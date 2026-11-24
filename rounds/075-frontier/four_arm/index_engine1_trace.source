@@ -1,0 +1,132 @@
+"""Collect exact Engine 1 positions before and after its archived top-60 cutoff."""
+from collections import Counter
+from functools import lru_cache
+import inspect
+import textwrap
+from types import MethodType
+
+from rdkit import Chem, rdBase
+from rdkit.Chem.MolStandardize import rdMolStandardize
+
+
+if rdBase.rdkitVersion != "2026.03.3":
+    raise RuntimeError("Engine 1 audit requires competition RDKit")
+enumerator = rdMolStandardize.TautomerEnumerator()
+engine1_results = {}
+engine1_candidates = {}
+
+
+@lru_cache(None)
+def normative_identity(smiles):
+    mol = Chem.MolFromSmiles(smiles)
+    if mol is None:
+        return None, ()
+    Chem.RemoveStereochemistry(mol)
+    mol = enumerator.Canonicalize(mol)
+    composition = Counter(atom.GetAtomicNum() for atom in mol.GetAtoms() if atom.GetAtomicNum() > 1)
+    return Chem.MolToInchiKey(mol)[:14], tuple(sorted(composition.items()))
+
+
+def install_engine1_recording(engine):
+    import casmi.engine as source
+
+    text = textwrap.dedent(inspect.getsource(source.Engine.run))
+    text = text.replace("def run(", "def _window_audit_run(", 1)
+    for old, new in (
+        ("    cfg = self.cfg; L = self.L; P = self.pool",
+         "    self._window_audit_frag_selected = np.empty(0, dtype=int)\n"
+         "    self._window_audit_fz = np.empty(0, dtype=float)\n"
+         "    cfg = self.cfg; L = self.L; P = self.pool"),
+        ("    info = dict(n_cand=nc,",
+         "    self._window_audit_fz = fz_avg.copy()\n"
+         "    info = dict(n_cand=nc,"),
+        ("        fr = np.zeros((nc, 5), np.float32); frn = np.zeros(nc, np.float32)",
+         "        self._window_audit_frag_selected = sel.copy()\n"
+         "        fr = np.zeros((nc, 5), np.float32); frn = np.zeros(nc, np.float32)"),
+    ):
+        if text.count(old) != 1:
+            raise ValueError(f"Cannot instrument frozen Engine 1 function: {old}")
+        text = text.replace(old, new)
+    scope = source.__dict__.copy()
+    exec(compile(text, source.__file__ + ":audit", "exec"), scope)
+    engine.run = MethodType(scope["_window_audit_run"], engine)
+
+
+def trace_engine1(mid, target, candidates, scores, order):
+    case = AUDIT["cases"][mid]
+    truth_key, truth_elements = normative_identity(case["truth_smiles"])
+    if truth_key != case["truth_key"]:
+        raise ValueError("Archived truth differs from the competition normalization")
+    n_heavy = sum(count for _, count in truth_elements)
+    if len(candidates.pid) != len(E._window_audit_fz):
+        raise ValueError("Native fingerprint output does not align with the candidate generator")
+    wins = P.window(target, E.cfg.ppm_win)
+    used_mass_window_ppm = E.cfg.ppm_win if len(wins) else E.cfg.ppm_fallback
+    pool_ids = P.window(target, used_mass_window_ppm).tolist()
+    used_pool_ids = candidates.pid[candidates.pid >= 0].tolist()
+    if pool_ids != used_pool_ids:
+        raise ValueError("Actual native pool candidates differ from their mass window")
+    score_keys = set()
+    truth_hits = []
+    fragment_selection = set(E._window_audit_frag_selected.tolist())
+    ledger = []
+    for pos, i in enumerate(order, 1):
+        score_key = candidates.key[i]
+        present = score_key in score_keys
+        score_keys.add(score_key)
+        native_unique_rank = None if present else len(score_keys)
+        fp = E._window_audit_fz[i]
+        row = dict(
+            molecule_id=mid, challenge=case["challenge"], ordered_rank=pos,
+            native_unique_rank=native_unique_rank, pool_row=int(candidates.pid[i]),
+            native_key=score_key, formula=candidates.formula[i], mass=float(candidates.mass[i]),
+            raw_ranker_score=float(scores[i]), raw_fp_score=float(fp),
+            fragment_selected=bool(i in fragment_selection),
+        )
+        ledger.append(row)
+        if candidates.n_heavy[i] != n_heavy:
+            continue
+        if normative_identity(candidates.smiles[i]) == (truth_key, truth_elements):
+            low = int((E._window_audit_fz > fp).sum())+1
+            high = low+int((E._window_audit_fz == fp).sum())-1
+            truth_hits.append(dict(row, smiles=candidates.smiles[i],
+                                   raw_fp_rank_interval=[low, high],
+                                   original_top60=native_unique_rank is not None and native_unique_rank <= TOPN))
+    engine1_candidates[mid] = ledger
+    engine1_results[mid] = dict(
+        challenge=case["challenge"], truth_key=truth_key, target_mass=target,
+        native_ppm_window=used_mass_window_ppm, pool_rows=len(pool_ids),
+        generated_rows=len(candidates.pid) - len(pool_ids), ranked_rows=len(scores),
+        raw_score_unique_identities=len(score_keys), native_fragment_cutoff=int(E.cfg.frag_max_cand),
+        fragment_scored_rows=len(fragment_selection), truth_hits=truth_hits,
+    )
+
+
+def write_engine1_report():
+    from hashlib import sha256
+    original = AUDIT["base_tail"]
+    if set(BASE) != set(original) or set(engine1_results) != set(original) or n_err:
+        raise ValueError("One or more frozen inquiries did not produce full Engine 1 diagnostics")
+    for mid, (smiles, keys, _, _, _) in BASE.items():
+        archived = original[mid]
+        entry = engine1_results[mid]
+        entry["top60_matches_archive"] = smiles == archived
+        entry["archived_top60_truth_ranks"] = [
+            j for j, value in enumerate(archived, 1)
+            if normative_identity(value) == normative_identity(AUDIT["cases"][mid]["truth_smiles"])
+        ]
+        if smiles != archived:
+            entry["first_replay_difference"] = next(
+                (j for j, (a, b) in enumerate(zip(smiles, archived), 1) if a != b), None
+            )
+    artifact = ROOT / "five_engine1_candidate_rows.parquet"
+    pd.DataFrame([row for rows in engine1_candidates.values() for row in rows]).to_parquet(artifact, index=False)
+    (ROOT / "five_engine1_rank_audit.json").write_text(json.dumps(dict(
+        source="jiyujia/enveda-075-np-four-arm-0505/1, exact Engine 1 cells and masked spectra",
+        device=dev, gpu=torch.cuda.get_device_name(0) if dev == 'cuda' else None,
+        rdkit=rdBase.rdkitVersion, references=_four_train_stats,
+        source_output_rows_injected=False, pool_rows=len(P.mass),
+        ledger_sha256=sha256(artifact.read_bytes()).hexdigest(), cases=engine1_results,
+    ), indent=2, default=str, allow_nan=False) + "\n")
+    for item in engine1_results.values():
+        print(item["challenge"], item["top60_matches_archive"], item["ranked_rows"], item["truth_hits"], flush=True)
