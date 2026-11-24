@@ -1,0 +1,40 @@
+{
+  "date_beijing": "2026-11-24",
+  "author_plan": "goodpjw2008/enveda-casmi-stack-npx-e180x-1-1-lb-0-505/7",
+  "author_public_score": "0.505",
+  "author_submission": 58749432,
+  "notebook": "jiyujia/enveda-casmi-0505-npx-e180x/1",
+  "submission": 58804528,
+  "status": "PENDING",
+  "submitted_utc": "2026-11-24 01:28:45.153000",
+  "public_score": "",
+  "version_url": "/code/jiyujia/enveda-casmi-0505-npx-e180x?scriptVersionId=373271594",
+  "validation": {
+    "rows": 400,
+    "lengths": {
+      "25": 12,
+      "1": 388
+    },
+    "unique_top1": 13,
+    "smoke_molecules": 12,
+    "rdkit": "2026.03.3",
+    "gpu": [
+      "Tesla T4",
+      "Tesla T4"
+    ],
+    "pipeline_seconds": 1133.3,
+    "sha256": "663023e569cd3c5811e8cf2d7c5bf26d66429598352187e813be6abb5df4d0e2"
+  },
+  "author_notebook_sha256": "a7e9b7f609ed56a24e67d90eea23ed522e5fe9ec21da9de4fb04f73e1d45eddb",
+  "reproduction_notebook_sha256": "cdbabba01fd3929b4b311d3ae724ec8d6a605e2e5ed92e1f60b362d12038645c",
+  "runtime_options": {
+    "internet": false,
+    "private": true,
+    "gpu": "2 × Tesla T4",
+    "notebook_timeout_seconds": 32400,
+    "code_change": "Visible commit COMMIT_MODE from 'fast' to 'smoke'"
+  },
+  "attempts_submitted": 1,
+  "daily_slots_remaining_at_submission": 4,
+  "prior_team_best": "0.498"
+}
