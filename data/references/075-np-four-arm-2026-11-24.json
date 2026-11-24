@@ -1,0 +1,1853 @@
+{
+  "date_beijing": "2026-11-24",
+  "observed_utc": "2026-11-24T03:31:28.267706+00:00",
+  "job_url": "https://www.kaggle.com/code/jiyujia/enveda-075-np-four-arm-0505/versions/2",
+  "job_type": "private offline validation only",
+  "owner": "jiyujia",
+  "v": 2,
+  "shape": "NvidiaTeslaT4",
+  "private": true,
+  "internet": false,
+  "status": "COMPLETE",
+  "detail": "NPX and E180X applied; four-arm experiment completed on jiyujia Tesla T4.",
+  "gpu_hours_free_before_launch": 14.914,
+  "timeout_seconds": 9000,
+  "seed": 241125,
+  "public_baseline": "goodpjw2008/enveda-casmi-stack-npx-e180x-1-1-lb-0-505/7",
+  "variants": [
+    "original",
+    "formula",
+    "structure",
+    "joint"
+  ],
+  "molecules": 17,
+  "spectra": 19,
+  "sources": {
+    "CASMI2017_001_045": 13,
+    "CASMI2017_046_243": 4
+  },
+  "adduct_assumption": "The organizer provides measured polarity, not ion species. For all scans use the same label-independent direct proton assumption; no reference to true mass. Ramps are one experimental spectrum with endpoints in eV.",
+  "reported_coverage": "Observed full-group holdout shared by all four arms; each query is evaluated once. Frozen public pretrained weights retain any historic unreported exposure.",
+  "frame_sha256": {
+    "blind/test.parquet": "55fe6cb0344d10ee9a564e0bb3fcfea1c7cabedce4fa62bb82604795a947928f",
+    "blind/sample_submission.csv": "2ec1d146815012473fe9856cb0f327b28e9e8a974414ea9d25379dcdb8a755cd",
+    "private/holdout.json": "bad8cf3c94c3572ac416c84dc330404c3dbc6fec8ee068bfe4c00c11d169d506",
+    "private/labels.parquet": "71124739e3fc24a2d32c5a08e029eec5325f8d433a3eddbf4aed69a850fad8a1"
+  },
+  "local_model_source_sha256": "f65c775e83a94b338316e27e6ee66cee34ffce2b8ed0f311713bcc19f9648cfa",
+  "pushed_notebook_sha256": "92468a3b41a7417fbe6e802bcd1a708143a4b40f28f01113bde86cc1d56e2661",
+  "msg_overlap": {
+    "rdkit": "2026.03.3",
+    "panel_identities": 17,
+    "dataset": "https://huggingface.co/datasets/roman-bushuiev/MassSpecGym/tree/018a954/data",
+    "scope": "Published MassSpecGym folds, exact normalized identity. Exposure in other pretrained weights and shared scaffolds requires separate evidence.",
+    "tables": {
+      "enveda-four-msg-v1.tsv": {
+        "sha256": "0c9cc50450def3f0d4fe2dc09dea1105fc15e635db8c6656bc3e3be37a3bcd95",
+        "spectra": 231104,
+        "matching_folds": {
+          "GARAEILXWIXANX": {
+            "test": 3
+          }
+        }
+      },
+      "enveda-four-msg-v15.tsv": {
+        "sha256": "50cfdd1d22f79543c59555f9ce43c6893bd788a19a42b21fb4e2e3a54673c06a",
+        "spectra": 231104,
+        "matching_folds": {
+          "GARAEILXWIXANX": {
+            "test": 3
+          }
+        }
+      }
+    }
+  },
+  "outputs": {
+    "metrics": "four_arm/score/metrics.json",
+    "per_query": "four_arm/score/per_query.csv",
+    "source_and_scaffold": "four_arm/score/group_metrics.csv",
+    "ranks": "four_arm/rank/ranks.parquet",
+    "baseline": "four_arm_baseline.csv",
+    "reference_mask_audit": "four_arm_baseline_receipt.json",
+    "fit": "four_arm/model/fit.json"
+  },
+  "v1_failure": {
+    "location": "NPX training feature preparation, before the four-arm models",
+    "seconds_in_npx": 859.6,
+    "feature_deadline_seconds": 840,
+    "valid_upstream_slots": 425,
+    "npx_audit": {
+      "version": "1.0.0",
+      "status": "failed closed: original bytes kept",
+      "lam": 0.35,
+      "rank1": true,
+      "exception": "TimeoutError('NPX featurisation over budget')",
+      "elapsed_s": 859.6
+    },
+    "e180x_audit": {
+      "version": "1.1.0",
+      "status": "applied",
+      "use_tier_b": true,
+      "e180": 182941,
+      "other": 95157,
+      "natural": 483364,
+      "tier_a": 209849,
+      "tier_b": 26418,
+      "common_exempt": 13153,
+      "solo_to_a": 27753,
+      "tables": [
+        "pool_meta",
+        "natural_products"
+      ],
+      "sets_s": 1.9,
+      "lead_a": 0,
+      "top5_a": 1,
+      "top5_b": 1,
+      "flagged_a": 13,
+      "flagged_b": 6,
+      "unkeyed": 0,
+      "molecules": 17,
+      "changed_lists": 6,
+      "top1_changed": 0,
+      "elapsed_s": 2.2
+    },
+    "reference_audit": {
+      "unmapped": 0,
+      "heldout_group": 301526,
+      "source": 0,
+      "total": 2539608,
+      "retained": 2238082,
+      "excluded_raw_keys": 30098
+    },
+    "artifact_sha256": {
+      "apex_extlib_audit.json": "9e1935eea3f949c8bee3c25a9ec8150324394b5ade977aa238eadf83d7c6e334",
+      "aprior_audit.json": "05d817f50d35978f5bbd15622345ba3c9c721eb22b2da9608649bc29fcc15cbf",
+      "e180x_audit.json": "02306a2aab7c773f4b9a90c201c7d0ac8e48827cf84c95a559fcec3306518986",
+      "effective_query_spectra.parquet": "071218191b7bb59958d7288f76aa8f752714fe41d8216a5785fb179fbdee9a41",
+      "execution_receipt.json": "d088bea495b2ba9010f5004b0b7d5e1e5a81b9a790c103c1705229958eb1ee78",
+      "four_inner_reference.json": "d2ded19f041907be9f00c5774ff14e720be71a31b56192c072f6bd5c81e49aab",
+      "four_reference_audit.json": "6397ed386bc34f5f75933fbe0baf37824023c1043ad4c1087af9e56104380d5c",
+      "four_source_lists.json": "7e30c2d7566156c15d4e5d0d855563ee662e374cac9975548c5d8d0f44457d60",
+      "fr3to25_audit.json": "6267d9530c933485ab540d6d22035e92fcd7ffa503a7cbd2336dd0672bcdf2ec",
+      "n035net_audit.json": "99ac7b7dd7f5a334a3c1e2d3fba67daefcbd3c7a380ce5c44199c2d1bad0a0b9",
+      "npx_audit.json": "bedc1b6f2ade429926864bf81a85e04a2ac4461c32e424c817622b9eb8aa2c14",
+      "p5tail_audit.json": "67a5d0d83b132cb447ddffacfd5ddda2b3cf7560e4d45a9efaebcd4bbbd447eb",
+      "submission.csv": "eb6ebc30b415f9eb4e6e2f9359ea3fedafe97045fd4d033f9cb487281e74f5d8",
+      "submission_pre_e180x.csv": "c9dac5355660f566166dd61fe73a9ff32c0692c89f815e1e964d4ca84e43ab31",
+      "uniq_audit.json": "2873263013b73cf4df70c03382fe4e83a424fb1e99f9b7d0805ddd6acaa919e8",
+      "v43_execution_receipt.json": "f47ca6f20adb588d8703b38549010dbac0611450afa8c7c6d8ef809aacd2ed08"
+    },
+    "four_arm_metrics_available": false,
+    "blind_spectra_match_original_columns": true,
+    "verified_snapshot_membership": "Both archived CSVs have 17 IDs, 425 slots, and equal per-query SMILES multisets; E180X changed order in six.",
+    "status": "ERROR",
+    "job_url": "https://www.kaggle.com/code/jiyujia/enveda-075-np-four-arm-0505/versions/1",
+    "pushed_notebook_sha256": "9a6c5e72a9acf94955bc2c8379617d75ccbf427a77de8f8bd6eb8cfa19362782",
+    "timeout_seconds": 10800
+  },
+  "failure_observed_at_utc": "2026-11-24T03:25:09.024392+00:00",
+  "recovery": {
+    "input": "v1 submission_pre_e180x.csv after upstream stages and before NPX changed any order",
+    "v1_post_e180x_bytes_reproduced_locally": true,
+    "remote_repeat_required_before_npx": true,
+    "npx_total_limit_seconds": 5400,
+    "npx_feature_limit_seconds": 3780,
+    "frozen_data_and_ranker": true,
+    "recovery_receipt_output": "four_arm_resume_receipt.json"
+  },
+  "v2_result": {
+    "checksums": {
+      "four_arm/score/metrics.json": "d3b710a717a7e46b71962ca4e0d8d9f807555a35823d79eb668bfde60f71b377",
+      "four_arm/score/per_query.csv": "4f6ede2b52622a8366e5f379ee49b30529af0dee6946226c24dfccd8fcc37127",
+      "four_arm/score/group_metrics.csv": "0cd3be6ad94cd12b64ae373bf19dcd7c78b26835a7f6cefc95acfa00785bad7d",
+      "four_arm/rank/ranks.parquet": "6f464fed14f4b0a45162d0bf0db5bb2a566b28eb88c0821546157b271679ae16",
+      "four_arm/rank/ranking.json": "63a181adc34af98adfe9bb0ee67df1ab6866e225b1cc045dd4e91076971b8c8f",
+      "four_arm/model/fit.json": "94fd6419ed236674951e221b835e0747ca94e80c7fc683c9bb324599fe091f9b",
+      "four_arm/model/training_identities.parquet": "fb44fd83b0450f8a52acbefa1e23c514cb680de4625d3a16c2696a9670f76cb0",
+      "four_arm/locked_inputs.json": "1e4877e60321dd6966c4b014a7ca9db40f40f96498dab990811e2a6b0ee4fbb0",
+      "four_arm_baseline.csv": "684d5174e7933e9ac1450fca42fcf43ae922a7e1dbaa1deeb558eb9e758fdd33",
+      "four_arm_baseline_candidates.parquet": "0836aa5ac07b224eead89976030f2d04c56729df13b7f08af90280ba22c1ede5",
+      "four_arm_baseline_receipt.json": "de4752b688ad6e8b8a91c437185847c0cb2027e3916dac166a331fa8283e22ae",
+      "four_arm_resume_receipt.json": "a6e9f4ff9f950c8980635fceab14b664e92a91ceeeb74f52612de3890ad683ef",
+      "npx_audit.json": "12bf32973d55ed4820ecc3ae07fcf93b0519a23fa0b5ced8a7b923adbfcf1c6b",
+      "e180x_audit.json": "df43d1b848455e3fa881a56fe9afc458cb281349317fca3bedca6074581507c9",
+      "four_reference_audit.json": "6397ed386bc34f5f75933fbe0baf37824023c1043ad4c1087af9e56104380d5c"
+    },
+    "metrics": {
+      "arms": {
+        "original": {
+          "n": 17,
+          "mrr25": 0.4549274255156608,
+          "top1": 6,
+          "top5": 10,
+          "top25": 12
+        },
+        "formula": {
+          "n": 17,
+          "mrr25": 0.4549274255156608,
+          "top1": 6,
+          "top5": 10,
+          "top25": 12
+        },
+        "structure": {
+          "n": 17,
+          "mrr25": 0.4549274255156608,
+          "top1": 6,
+          "top5": 10,
+          "top25": 12
+        },
+        "joint": {
+          "n": 17,
+          "mrr25": 0.4549274255156608,
+          "top1": 6,
+          "top5": 10,
+          "top25": 12
+        }
+      },
+      "paired": {
+        "formula": {
+          "gained_top1": [],
+          "lost_top1": [],
+          "gained_top5": [],
+          "lost_top5": [],
+          "delta_mrr25": 0.0,
+          "delta_rr_positive_sum": 0.0,
+          "delta_rr_negative_sum": 0.0,
+          "bootstrap95_by_scaffold": [
+            0.0,
+            0.0
+          ],
+          "bootstrap95_by_source": [
+            0.0,
+            0.0
+          ]
+        },
+        "structure": {
+          "gained_top1": [],
+          "lost_top1": [],
+          "gained_top5": [],
+          "lost_top5": [],
+          "delta_mrr25": 0.0,
+          "delta_rr_positive_sum": 0.0,
+          "delta_rr_negative_sum": 0.0,
+          "bootstrap95_by_scaffold": [
+            0.0,
+            0.0
+          ],
+          "bootstrap95_by_source": [
+            0.0,
+            0.0
+          ]
+        },
+        "joint": {
+          "gained_top1": [],
+          "lost_top1": [],
+          "gained_top5": [],
+          "lost_top5": [],
+          "delta_mrr25": 0.0,
+          "delta_rr_positive_sum": 0.0,
+          "delta_rr_negative_sum": 0.0,
+          "bootstrap95_by_scaffold": [
+            0.0,
+            0.0
+          ],
+          "bootstrap95_by_source": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "source_groups": 2,
+      "generic_scaffold_groups": 16,
+      "eligible_questions": 17,
+      "ranks_sha256": "6f464fed14f4b0a45162d0bf0db5bb2a566b28eb88c0821546157b271679ae16",
+      "labels_sha256": "71124739e3fc24a2d32c5a08e029eec5325f8d433a3eddbf4aed69a850fad8a1",
+      "notes": "Rank 0 denotes a miss. All questions remain in the denominator. Acyclic structures form one shared group for uncertainty; see holdout manifest for source/family exposure."
+    },
+    "np_prior": {
+      "version": "1.0.0",
+      "status": "applied",
+      "lam": 0.35,
+      "rank1": true,
+      "train": 46202,
+      "auc_holdout": 1.0,
+      "np_examples": 217,
+      "np_examples_median_p": 1.0,
+      "np_examples_share_p_gt_0_5": 0.926,
+      "train_s": 2467.8,
+      "gate_ok": true,
+      "table_keys": 483105,
+      "molecules": 17,
+      "changed_lists": 2,
+      "top1_changed": 0,
+      "scored": 425,
+      "unscored": 0,
+      "elapsed_s": 2469.0
+    },
+    "baseline": {
+      "public_source": "goodpjw2008/enveda-casmi-stack-npx-e180x-1-1-lb-0-505/7",
+      "source_sha256": "a7e9b7f609ed56a24e67d90eea23ed522e5fe9ec21da9de4fb04f73e1d45eddb",
+      "molecules": 17,
+      "slots": 425,
+      "all_queries": true,
+      "baseline_sha256": "684d5174e7933e9ac1450fca42fcf43ae922a7e1dbaa1deeb558eb9e758fdd33",
+      "blind_test_sha256": "55fe6cb0344d10ee9a564e0bb3fcfea1c7cabedce4fa62bb82604795a947928f",
+      "stage_status": {
+        "n035net": "applied",
+        "apex_extlib": "completed",
+        "p5tail": "applied",
+        "fr3to25": "applied",
+        "aprior": "applied",
+        "uniq": "applied",
+        "npx": "applied",
+        "e180x": "applied"
+      },
+      "external_extension": {
+        "path": "/kaggle/working/external_reference_3hv03dup",
+        "added": 477,
+        "keys": 325,
+        "base_rows": 2238082,
+        "validation_removed": 274,
+        "error": null
+      },
+      "removed_references": {
+        "unmapped": 0,
+        "heldout_group": 301526,
+        "source": 0,
+        "total": 2539608,
+        "retained": 2238082,
+        "excluded_raw_keys": 30098
+      },
+      "scope": "0.505 v7 complete scoring pipeline with masked spectral references and fold-restricted on-the-fly fits; structure-only candidate inventory preserved. Original frozen pretrained models are unchanged and may share historical chemical families."
+    },
+    "training": {
+      "source_allowlist": [
+        "enveda-180",
+        "riken"
+      ],
+      "actual_sources": [
+        "enveda-180",
+        "riken"
+      ],
+      "rejected_counts": {},
+      "identities": 7980,
+      "spectra": 30850,
+      "nonempty_generic_scaffolds": 3884,
+      "zero_scaffold_identities": 0,
+      "exclude_all_acyclic": true,
+      "excluded_source_labels": [
+        "CASMI2017_001_045",
+        "CASMI2017_046_243",
+        "casmi",
+        "casmi 2017",
+        "casmi-2017",
+        "casmi2017",
+        "casmi_2017"
+      ],
+      "excluded_scaffold_count": 15,
+      "excluded_key_count": 17,
+      "source_overlap": 0,
+      "score_key_overlap": 0,
+      "nonempty_scaffold_overlap": 0,
+      "seed": 241125,
+      "train_file_sha256": "7e8666c06fb7b600df40899ada06662c1ceaf4cf870d71b22b2850f9886a7ec4",
+      "holdout_sha256": "bad8cf3c94c3572ac416c84dc330404c3dbc6fec8ee068bfe4c00c11d169d506",
+      "formula_examples": 29811,
+      "matched_structure_groups": 8009,
+      "updates": 600,
+      "batch_size": 96,
+      "device": "cuda",
+      "device_name": "Tesla T4",
+      "rdkit": "2026.03.3",
+      "elapsed_seconds": 139.67,
+      "checkpoint_sha256": "c57e1b513df4f763de6d36db509f77a34945fa04def95be6f7064b2589cdd088"
+    },
+    "independently_recomputed_groups": {
+      "source": {
+        "CASMI2017_001_045": {
+          "original": {
+            "n": 13,
+            "mrr25": 0.4154179154179154,
+            "top1": 4,
+            "top5": 7,
+            "top25": 9
+          },
+          "formula": {
+            "n": 13,
+            "mrr25": 0.4154179154179154,
+            "top1": 4,
+            "top5": 7,
+            "top25": 9
+          },
+          "structure": {
+            "n": 13,
+            "mrr25": 0.4154179154179154,
+            "top1": 4,
+            "top5": 7,
+            "top25": 9
+          },
+          "joint": {
+            "n": 13,
+            "mrr25": 0.4154179154179154,
+            "top1": 4,
+            "top5": 7,
+            "top25": 9
+          }
+        },
+        "CASMI2017_046_243": {
+          "original": {
+            "n": 4,
+            "mrr25": 0.5833333333333334,
+            "top1": 2,
+            "top5": 3,
+            "top25": 3
+          },
+          "formula": {
+            "n": 4,
+            "mrr25": 0.5833333333333334,
+            "top1": 2,
+            "top5": 3,
+            "top25": 3
+          },
+          "structure": {
+            "n": 4,
+            "mrr25": 0.5833333333333334,
+            "top1": 2,
+            "top5": 3,
+            "top25": 3
+          },
+          "joint": {
+            "n": 4,
+            "mrr25": 0.5833333333333334,
+            "top1": 2,
+            "top5": 3,
+            "top25": 3
+          }
+        }
+      },
+      "scaffold_group": {
+        "C1CCC(C2CCCCC2)CC1": {
+          "original": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          }
+        },
+        "CC1CC2CCC3CCCCC3C2C1": {
+          "original": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          }
+        },
+        "CC1CC2C(CC3CC(C)C4C5CCC2(CC5)C34)C2CCCC12": {
+          "original": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          }
+        },
+        "C1CCC2CCC3CCCC(C1)C23": {
+          "original": {
+            "n": 1,
+            "mrr25": 0.09090909090909091,
+            "top1": 0,
+            "top5": 0,
+            "top25": 1
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 0.09090909090909091,
+            "top1": 0,
+            "top5": 0,
+            "top25": 1
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 0.09090909090909091,
+            "top1": 0,
+            "top5": 0,
+            "top25": 1
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 0.09090909090909091,
+            "top1": 0,
+            "top5": 0,
+            "top25": 1
+          }
+        },
+        "C1CCC2CCCCC2C1": {
+          "original": {
+            "n": 1,
+            "mrr25": 0.3333333333333333,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 0.3333333333333333,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 0.3333333333333333,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 0.3333333333333333,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          }
+        },
+        "CC1CCC2C1CCC1CCCCC12": {
+          "original": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          }
+        },
+        "ACYCLIC": {
+          "original": {
+            "n": 2,
+            "mrr25": 0.5,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "formula": {
+            "n": 2,
+            "mrr25": 0.5,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "structure": {
+            "n": 2,
+            "mrr25": 0.5,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "joint": {
+            "n": 2,
+            "mrr25": 0.5,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          }
+        },
+        "CC1CC2CCCCC2C2CCCC12": {
+          "original": {
+            "n": 1,
+            "mrr25": 0.5,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 0.5,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 0.5,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 0.5,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          }
+        },
+        "CC1CC2CC3C4CCCC4CCC3C34CCC(CC3)C1C24": {
+          "original": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          }
+        },
+        "CC1C2CCCCC2CCC1C1CCCCC1": {
+          "original": {
+            "n": 1,
+            "mrr25": 0.14285714285714285,
+            "top1": 0,
+            "top5": 0,
+            "top25": 1
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 0.14285714285714285,
+            "top1": 0,
+            "top5": 0,
+            "top25": 1
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 0.14285714285714285,
+            "top1": 0,
+            "top5": 0,
+            "top25": 1
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 0.14285714285714285,
+            "top1": 0,
+            "top5": 0,
+            "top25": 1
+          }
+        },
+        "CC1CCC(C)CC(C2CCCCC2)CC(C)CCC(C)C2CCCC2C(C)CC1": {
+          "original": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          }
+        },
+        "CC1CCC(C2CCC3C2CCC2C4CCC(CC5CCCCC5)CC4CCC23)C1": {
+          "original": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          }
+        },
+        "CC(CCC1CCCCC1)C1CCCCC1": {
+          "original": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 1.0,
+            "top1": 1,
+            "top5": 1,
+            "top25": 1
+          }
+        },
+        "C1CCCCC1": {
+          "original": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 0.0,
+            "top1": 0,
+            "top5": 0,
+            "top25": 0
+          }
+        },
+        "CC1CCC2CCCCC2C(C)CCC2CC34CC(CCC3CC(C)C2C4)C1": {
+          "original": {
+            "n": 1,
+            "mrr25": 0.3333333333333333,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 0.3333333333333333,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 0.3333333333333333,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 0.3333333333333333,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          }
+        },
+        "C1CC2CC3CC4CC(C3CC2C1)C1CCCCC41": {
+          "original": {
+            "n": 1,
+            "mrr25": 0.3333333333333333,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          },
+          "formula": {
+            "n": 1,
+            "mrr25": 0.3333333333333333,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          },
+          "structure": {
+            "n": 1,
+            "mrr25": 0.3333333333333333,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          },
+          "joint": {
+            "n": 1,
+            "mrr25": 0.3333333333333333,
+            "top1": 0,
+            "top5": 1,
+            "top25": 1
+          }
+        }
+      }
+    },
+    "candidate_movements": {
+      "original": {
+        "touched_queries": 0,
+        "moved_candidate_slots": 0,
+        "changed_top_candidate": [],
+        "changed_any_top5_member": []
+      },
+      "formula": {
+        "touched_queries": 4,
+        "moved_candidate_slots": 41,
+        "changed_top_candidate": [],
+        "changed_any_top5_member": []
+      },
+      "structure": {
+        "touched_queries": 13,
+        "moved_candidate_slots": 135,
+        "changed_top_candidate": [],
+        "changed_any_top5_member": [
+          "challenge-178"
+        ]
+      },
+      "joint": {
+        "touched_queries": 15,
+        "moved_candidate_slots": 167,
+        "changed_top_candidate": [],
+        "changed_any_top5_member": [
+          "challenge-178"
+        ]
+      }
+    },
+    "diagnostics": {
+      "correct_structure_missing": [
+        "challenge-035",
+        "challenge-034",
+        "challenge-178",
+        "challenge-011",
+        "challenge-033"
+      ],
+      "missing_from_all_archived_lists": [
+        "challenge-035",
+        "challenge-034",
+        "challenge-178",
+        "challenge-011",
+        "challenge-033"
+      ],
+      "missing_correct_structure_but_25_correct_formula_slots": [
+        "challenge-035",
+        "challenge-034",
+        "challenge-178",
+        "challenge-033"
+      ],
+      "correct_nonleading_with_different_leader_formula": [],
+      "single_formula_queries": 13,
+      "scope": "Readback diagnostic on the fixed v2 panel; unweighted structure scores are descriptive and no weight was selected.",
+      "correct_nonleading_raw_structure_best_tied_or_sole": [
+        "challenge-090|challenge-139"
+      ],
+      "nonleading_truth_structure_score_vs_original_head": {
+        "higher": [
+          "challenge-018",
+          "challenge-024"
+        ],
+        "tied": [
+          "challenge-001",
+          "challenge-090|challenge-139"
+        ],
+        "lower": [
+          "challenge-012",
+          "challenge-021"
+        ]
+      }
+    },
+    "per_query": [
+      {
+        "molecule_id": "m_3570d7",
+        "challenges": "challenge-001",
+        "source": "CASMI2017_001_045",
+        "scaffold": "CC1C2CCCCC2CCC1C1CCCCC1",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": 7,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": 7,
+            "slots_reordered": 4,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": 7,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": 7,
+            "slots_reordered": 4,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C15H12O5",
+          "original_leader_formula": "C15H12O5",
+          "distinct_formulas": 1,
+          "same_formula_slots": 25,
+          "source_truth_ranks": {
+            "main": [
+              8
+            ],
+            "prefusion": [
+              10
+            ],
+            "engine2": [
+              37
+            ],
+            "pubchem": []
+          },
+          "structure_score_rank_within_formula": 6,
+          "structure_score_truth_minus_leader": 0.0,
+          "gap_to_overtake_leader_with_frozen_weight": 4.324244775678474,
+          "structures_tied_at_truth_raw_score": 20
+        }
+      },
+      {
+        "molecule_id": "m_3070c4",
+        "challenges": "challenge-010",
+        "source": "CASMI2017_001_045",
+        "scaffold": "C1CCC(C2CCCCC2)CC1",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": 1,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": 1,
+            "slots_reordered": 12,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": 1,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": 1,
+            "slots_reordered": 12,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C13H22N2O",
+          "original_leader_formula": "C13H22N2O",
+          "distinct_formulas": 1,
+          "same_formula_slots": 25,
+          "source_truth_ranks": {
+            "main": [
+              2
+            ],
+            "prefusion": [
+              3
+            ],
+            "engine2": [
+              7
+            ],
+            "pubchem": []
+          },
+          "structure_score_rank_within_formula": 3
+        }
+      },
+      {
+        "molecule_id": "m_a45c83",
+        "challenges": "challenge-011",
+        "source": "CASMI2017_001_045",
+        "scaffold": "C1CCCCC1",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": null,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": null,
+            "slots_reordered": 8,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": null,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": null,
+            "slots_reordered": 8,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C15H22NO4+",
+          "original_leader_formula": "C15H21NO4",
+          "distinct_formulas": 1,
+          "same_formula_slots": 0,
+          "source_truth_ranks": {
+            "main": [],
+            "prefusion": [],
+            "engine2": [],
+            "pubchem": []
+          }
+        }
+      },
+      {
+        "molecule_id": "m_65ab2d",
+        "challenges": "challenge-012",
+        "source": "CASMI2017_001_045",
+        "scaffold": "C1CC2CC3CC4CC(C3CC2C1)C1CCCCC41",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": 3,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": 3,
+            "slots_reordered": 3,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": 3,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": 3,
+            "slots_reordered": 3,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C17H19NO4",
+          "original_leader_formula": "C17H19NO4",
+          "distinct_formulas": 1,
+          "same_formula_slots": 25,
+          "source_truth_ranks": {
+            "main": [
+              4
+            ],
+            "prefusion": [
+              5
+            ],
+            "engine2": [
+              10
+            ],
+            "pubchem": []
+          },
+          "structure_score_rank_within_formula": 13,
+          "structure_score_truth_minus_leader": -0.1361527442932129,
+          "gap_to_overtake_leader_with_frozen_weight": 2.4413606414846885,
+          "structures_tied_at_truth_raw_score": 12
+        }
+      },
+      {
+        "molecule_id": "m_e3d645",
+        "challenges": "challenge-017",
+        "source": "CASMI2017_001_045",
+        "scaffold": "CC(CCC1CCCCC1)C1CCCCC1",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": 1,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": 1,
+            "slots_reordered": 14,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": 1,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": 1,
+            "slots_reordered": 14,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C15H14O4",
+          "original_leader_formula": "C15H14O4",
+          "distinct_formulas": 1,
+          "same_formula_slots": 25,
+          "source_truth_ranks": {
+            "main": [
+              1
+            ],
+            "prefusion": [
+              1
+            ],
+            "engine2": [
+              2
+            ],
+            "pubchem": []
+          },
+          "structure_score_rank_within_formula": 16
+        }
+      },
+      {
+        "molecule_id": "m_43e385",
+        "challenges": "challenge-018",
+        "source": "CASMI2017_001_045",
+        "scaffold": "CC1CC2CCCCC2C2CCCC12",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": 2,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": 2,
+            "slots_reordered": 5,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": 2,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": 2,
+            "slots_reordered": 5,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C24H30O4",
+          "original_leader_formula": "C24H30O4",
+          "distinct_formulas": 1,
+          "same_formula_slots": 25,
+          "source_truth_ranks": {
+            "main": [
+              5
+            ],
+            "prefusion": [
+              6
+            ],
+            "engine2": [
+              9
+            ],
+            "pubchem": []
+          },
+          "structure_score_rank_within_formula": 2,
+          "structure_score_truth_minus_leader": 0.026040077209472656,
+          "gap_to_overtake_leader_with_frozen_weight": 1.5403270679109895,
+          "structures_tied_at_truth_raw_score": 6
+        }
+      },
+      {
+        "molecule_id": "m_3f82a8",
+        "challenges": "challenge-019",
+        "source": "CASMI2017_001_045",
+        "scaffold": "ACYCLIC",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": 1,
+            "slots_reordered": 2,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": 1,
+            "slots_reordered": 12,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": 1,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": 1,
+            "slots_reordered": 10,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C6H13N3O3",
+          "original_leader_formula": "C6H13N3O3",
+          "distinct_formulas": 2,
+          "same_formula_slots": 3,
+          "source_truth_ranks": {
+            "main": [
+              2
+            ],
+            "prefusion": [
+              2
+            ],
+            "engine2": [
+              3
+            ],
+            "pubchem": []
+          },
+          "structure_score_rank_within_formula": 1
+        }
+      },
+      {
+        "molecule_id": "m_96acb7",
+        "challenges": "challenge-020",
+        "source": "CASMI2017_001_045",
+        "scaffold": "CC1CCC2C1CCC1CCCCC12",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": 1,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": 1,
+            "slots_reordered": 13,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": 1,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": 1,
+            "slots_reordered": 13,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C12H13NO3",
+          "original_leader_formula": "C12H13NO3",
+          "distinct_formulas": 1,
+          "same_formula_slots": 25,
+          "source_truth_ranks": {
+            "main": [
+              1
+            ],
+            "prefusion": [
+              1
+            ],
+            "engine2": [
+              2
+            ],
+            "pubchem": []
+          },
+          "structure_score_rank_within_formula": 2
+        }
+      },
+      {
+        "molecule_id": "m_dbbfab",
+        "challenges": "challenge-021",
+        "source": "CASMI2017_001_045",
+        "scaffold": "C1CCC2CCC3CCCC(C1)C23",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": 11,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": 11,
+            "slots_reordered": 10,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": 11,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": 11,
+            "slots_reordered": 10,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C13H16N2O",
+          "original_leader_formula": "C13H16N2O",
+          "distinct_formulas": 1,
+          "same_formula_slots": 25,
+          "source_truth_ranks": {
+            "main": [
+              22
+            ],
+            "prefusion": [],
+            "engine2": [
+              20
+            ],
+            "pubchem": []
+          },
+          "structure_score_rank_within_formula": 12,
+          "structure_score_truth_minus_leader": -0.1510024070739746,
+          "gap_to_overtake_leader_with_frozen_weight": 5.328656161774157,
+          "structures_tied_at_truth_raw_score": 8
+        }
+      },
+      {
+        "molecule_id": "m_9358b3",
+        "challenges": "challenge-024",
+        "source": "CASMI2017_001_045",
+        "scaffold": "C1CCC2CCCCC2C1",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": 3,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": 3,
+            "slots_reordered": 9,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": 3,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": 3,
+            "slots_reordered": 9,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C9H11NO2",
+          "original_leader_formula": "C9H11NO2",
+          "distinct_formulas": 1,
+          "same_formula_slots": 25,
+          "source_truth_ranks": {
+            "main": [
+              9
+            ],
+            "prefusion": [
+              11
+            ],
+            "engine2": [
+              4
+            ],
+            "pubchem": []
+          },
+          "structure_score_rank_within_formula": 13,
+          "structure_score_truth_minus_leader": 0.2948155403137207,
+          "gap_to_overtake_leader_with_frozen_weight": 2.4413606414846885,
+          "structures_tied_at_truth_raw_score": 5
+        }
+      },
+      {
+        "molecule_id": "m_c0d375",
+        "challenges": "challenge-033",
+        "source": "CASMI2017_001_045",
+        "scaffold": "CC1CC2C(CC3CC(C)C4C5CCC2(CC5)C34)C2CCCC12",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": null,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": null,
+            "slots_reordered": 14,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": null,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": null,
+            "slots_reordered": 14,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C19H20O7",
+          "original_leader_formula": "C19H20O7",
+          "distinct_formulas": 1,
+          "same_formula_slots": 25,
+          "source_truth_ranks": {
+            "main": [],
+            "prefusion": [],
+            "engine2": [],
+            "pubchem": []
+          }
+        }
+      },
+      {
+        "molecule_id": "m_207ac5",
+        "challenges": "challenge-034",
+        "source": "CASMI2017_001_045",
+        "scaffold": "CC1CC2CC3C4CCCC4CCC3C34CCC(CC3)C1C24",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": null,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": null,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": null,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": null,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C19H22O6",
+          "original_leader_formula": "C19H22O6",
+          "distinct_formulas": 1,
+          "same_formula_slots": 25,
+          "source_truth_ranks": {
+            "main": [],
+            "prefusion": [],
+            "engine2": [],
+            "pubchem": []
+          }
+        }
+      },
+      {
+        "molecule_id": "m_10824d",
+        "challenges": "challenge-035",
+        "source": "CASMI2017_001_045",
+        "scaffold": "CC1CC2CCC3CCCCC3C2C1",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": null,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": null,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": null,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": null,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C22H30O6",
+          "original_leader_formula": "C22H30O6",
+          "distinct_formulas": 1,
+          "same_formula_slots": 25,
+          "source_truth_ranks": {
+            "main": [],
+            "prefusion": [],
+            "engine2": [],
+            "pubchem": []
+          }
+        }
+      },
+      {
+        "molecule_id": "m_ee1a66",
+        "challenges": "challenge-090|challenge-139",
+        "source": "CASMI2017_046_243",
+        "scaffold": "CC1CCC2CCCCC2C(C)CCC2CC34CC(CCC3CC(C)C2C4)C1",
+        "tested_scans": 2,
+        "ranks": {
+          "formula": {
+            "truth_rank": 3,
+            "slots_reordered": 18,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": 3,
+            "slots_reordered": 18,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": 3,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": 3,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C34H41NO16",
+          "original_leader_formula": "C34H41NO16",
+          "distinct_formulas": 8,
+          "same_formula_slots": 8,
+          "source_truth_ranks": {
+            "main": [
+              2
+            ],
+            "prefusion": [
+              2
+            ],
+            "engine2": [
+              3
+            ],
+            "pubchem": []
+          },
+          "structure_score_rank_within_formula": 1,
+          "structure_score_truth_minus_leader": 0.0,
+          "gap_to_overtake_leader_with_frozen_weight": 2.4413606414846885,
+          "structures_tied_at_truth_raw_score": 5
+        }
+      },
+      {
+        "molecule_id": "m_a4ecc9",
+        "challenges": "challenge-115|challenge-226",
+        "source": "CASMI2017_046_243",
+        "scaffold": "CC1CCC(C)CC(C2CCCCC2)CC(C)CCC(C)C2CCCC2C(C)CC1",
+        "tested_scans": 2,
+        "ranks": {
+          "formula": {
+            "truth_rank": 1,
+            "slots_reordered": 11,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": 1,
+            "slots_reordered": 11,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": 1,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": 1,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C25H33Cl2N5O7",
+          "original_leader_formula": "C25H33Cl2N5O7",
+          "distinct_formulas": 4,
+          "same_formula_slots": 2,
+          "source_truth_ranks": {
+            "main": [
+              2
+            ],
+            "prefusion": [
+              2
+            ],
+            "engine2": [
+              2
+            ],
+            "pubchem": []
+          },
+          "structure_score_rank_within_formula": 1
+        }
+      },
+      {
+        "molecule_id": "m_568829",
+        "challenges": "challenge-178",
+        "source": "CASMI2017_046_243",
+        "scaffold": "ACYCLIC",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": null,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": null,
+            "slots_reordered": 22,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 1
+          },
+          "original": {
+            "truth_rank": null,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": null,
+            "slots_reordered": 22,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 1
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C18H20O4",
+          "original_leader_formula": "C18H20O4",
+          "distinct_formulas": 1,
+          "same_formula_slots": 25,
+          "source_truth_ranks": {
+            "main": [],
+            "prefusion": [],
+            "engine2": [],
+            "pubchem": []
+          }
+        }
+      },
+      {
+        "molecule_id": "m_d22458",
+        "challenges": "challenge-179",
+        "source": "CASMI2017_046_243",
+        "scaffold": "CC1CCC(C2CCC3C2CCC2C4CCC(CC5CCCCC5)CC4CCC23)C1",
+        "tested_scans": 1,
+        "ranks": {
+          "formula": {
+            "truth_rank": 1,
+            "slots_reordered": 10,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "joint": {
+            "truth_rank": 1,
+            "slots_reordered": 12,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "original": {
+            "truth_rank": 1,
+            "slots_reordered": 0,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          },
+          "structure": {
+            "truth_rank": 1,
+            "slots_reordered": 11,
+            "changed_head": false,
+            "new_candidate_slots_in_top5": 0
+          }
+        },
+        "diagnostic": {
+          "true_formula": "C30H44O8",
+          "original_leader_formula": "C30H44O8",
+          "distinct_formulas": 2,
+          "same_formula_slots": 24,
+          "source_truth_ranks": {
+            "main": [
+              1
+            ],
+            "prefusion": [
+              1
+            ],
+            "engine2": [
+              19
+            ],
+            "pubchem": []
+          },
+          "structure_score_rank_within_formula": 4
+        }
+      }
+    ]
+  },
+  "decision": "Do not expand this configuration. No truth rank changes across 17 identities; assess formulas on a new external cohort with measured competing-formula errors, and require independent net first-place/top-five and MRR gain before scaling.",
+  "completion_observed_utc": "2026-11-24T05:28:20.413763+00:00"
+}

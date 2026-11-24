@@ -1,0 +1,3198 @@
+{
+  "date_beijing": "2026-11-24",
+  "baseline": "public 0.505 v7, source-masked CASMI2017 blind-panel run jiyujia/enveda-075-np-four-arm-0505/2 with upstream candidates recovered from v1",
+  "jobs": {
+    "full_index": "https://www.kaggle.com/code/jiyujia/enveda-075-five-miss-full-index-audit/versions/1",
+    "c34_replay": "https://www.kaggle.com/code/jiyujia/enveda-075-five-c34-rank-audit/versions/1",
+    "engine1_replay": "https://www.kaggle.com/code/jiyujia/enveda-075-five-e1-rank-audit/versions/1",
+    "engine1_replay_cpu": "https://www.kaggle.com/code/jiyujia/enveda-075-five-e1-rank-audit-cpu/versions/1"
+  },
+  "output_sha256": {
+    "full_index": "2d6d3d02a02033db575acfdf942d86dbd5cf09484fbe62affd57f2fbf63daaf8",
+    "c34_replay": "ca21685bd2cfc2c8b5d61e66a5650963cf2c308b96a807b327e8bc5d069d3596",
+    "main_inventory": "5a962cf9929a9648d524d0e517390973c80dad4345d28f2820639682b0c2882b",
+    "pubchem_pug": "0735d6613effa2b4b2774b96924bd9778ab5c5095c89ede257e61c0d04327c85",
+    "frozen_lists": "02b56e0ed7bddbe53a36e4a87216508a0a25eba8ad9e4a6ca7e7c78f7cf85dac",
+    "physics_035": "fb200fd211529f212432412527f1dc3efda0c221db2c451a9002af3f6dd6d406"
+  },
+  "rdkit": "2026.03.3",
+  "methods": "All index offsets scanned. Conservative C/N/O count prefilter; parsed records require a matching RDKit-canonical InChIKey14 and heavy-atom composition. Charge-parent/salt-only matches are excluded under the official metric. Theoretical masses and retrospective ionic windows only diagnose coverage, never alter baseline search.",
+  "frozen_input_hashes": {
+    "labels": "71124739e3fc24a2d32c5a08e029eec5325f8d433a3eddbf4aed69a850fad8a1",
+    "spectra": "55fe6cb0344d10ee9a564e0bb3fcfea1c7cabedce4fa62bb82604795a947928f",
+    "effective_spectra": "071218191b7bb59958d7288f76aa8f752714fe41d8216a5785fb179fbdee9a41",
+    "pc_lists": "b4a8136d8491dd9a4cbb30d8f34b858510c39a334766e14325d4e3b59b01f876"
+  },
+  "full_index_elapsed_seconds": 808.3,
+  "full_pubchem_index_rows": 105922969,
+  "pubchem_stores": {
+    "tier": {
+      "rows": 105875489,
+      "smiles_bytes": 5520120062,
+      "rows_rdkit_checked": 163057,
+      "invalid_smiles_among_checked": 0
+    },
+    "delta": {
+      "rows": 36303,
+      "smiles_bytes": 2320475,
+      "rows_rdkit_checked": 41,
+      "invalid_smiles_among_checked": 0
+    },
+    "growth": {
+      "rows": 11177,
+      "smiles_bytes": 559168,
+      "rows_rdkit_checked": 13,
+      "invalid_smiles_among_checked": 0
+    }
+  },
+  "main_inventory_rows": {
+    "engine1": 710701,
+    "engine2_coco": 436389,
+    "engine2_bio": 98433,
+    "engine2_pubchemlite": 356820,
+    "engine2_train": 245591
+  },
+  "main_inventory_sources_sha256": {
+    "pool_meta.parquet": "82b8c40315611289b9a4004b3af18d6d3402b3cd5baa4ee5723da07b7e2f6bb0",
+    "train.parquet": "9423f90ec08b941a9646b535bf0606183e86ff0c5a297978f5a70693d41bcd98",
+    "coco_meta.pkl": "29eab3083adcb329b52ac7909b4d3ce21f9f95a4008a93356bc526310ab44091",
+    "pubchemlite_meta.pkl": "3c9a18c7662022bce51759b1660292b712fe7544459020e38299d2f0747517ce",
+    "bio_meta.pkl": "bfc92d81dafe8244a86f3a7b74b0da66b61605a9581b78c60acea619908404d4",
+    "bio_mass.npy": "2407a2ee04bd6bc468db876e7c0569842e7652432386cf1101dc85ef5a5611df",
+    "pubchemlite_mass.npy": "f107bdf361b75fb2f6115abb2a28eda053b476b6c3694f4b0a2bfdadb248730f",
+    "coco_mass.npy": "2b2af92c3185fa8cd52a4a3e3e7fd7eda4d94e8b9402662a3a4c55ffb13c6e5c"
+  },
+  "c34_sources": {
+    "v1_sources": {
+      "probe_core2.py": "8f43825302f4018dcf0b33efa666ca7d61e9bea4433be1e4c142bb3d56407403",
+      "pc_runner.py": "4b4b8ca36ab9cc868bfe263895b490aa35c95ff90d83ba652577edd0aec9f53d"
+    },
+    "dataset_mounts": {
+      "pool": "/kaggle/input/datasets/dmitriigluzdov/casmi26-attributed-v4g-reproduction-assets/casmi26-v2-pool",
+      "tier": "/kaggle/input/datasets/dmitriigluzdov/casmi26-pubchem-popularity-prior/casmi26-pubchem-tier",
+      "popularity": "/kaggle/input/datasets/dmitriigluzdov/casmi26-pubchem-popularity-prior",
+      "models": "/kaggle/input/datasets/dmitriigluzdov/casmi26-attributed-v4g-reproduction-assets/casmi26-v3-models"
+    },
+    "fpnet_sha256": {
+      "fpnet_0.pt": "edccf479a2a2e53461a06bc5e1aee4341b22abb32302c4f6d2c45281000d742a",
+      "fpnet_1.pt": "6f60a22b3c3b21aa48d47328bb9523bdf07cc004bfb72966e0f9713507c24f2e"
+    },
+    "fold0_sha256": "ddf6eaaa8e541a16e3f0357ed30f0346e529054f75d5619aedb6024dcb1bd7f0",
+    "device": "Tesla T4",
+    "procedure": "C34 exact ±10 ppm windows, 5000 ECFP4-score rows union 200 document-prior rows. Two independent corrected 011 centres retain the original adduct and spectrum logits and change only the mass gate. Canonical InChIKey14 and heavy-element counts identify all truth rows; native key and main-pool exclusion are scored separately."
+  },
+  "engine1_sources": null,
+  "physics_035": {
+    "base_rank_before_physics": 49,
+    "formula": "C22H30O6",
+    "formula_slots": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60
+    ],
+    "by_model": {
+      "ice": {
+        "035_requested": true,
+        "035_score": 0.28253823045744325,
+        "finite_same_formula_in_main_top60": 60,
+        "score_rank_same_formula_in_main_top60": 10
+      },
+      "gl": {
+        "035_requested": true,
+        "035_score": 0.41078669716814253,
+        "finite_same_formula_in_main_top60": 60,
+        "score_rank_same_formula_in_main_top60": 17
+      }
+    },
+    "scope": "Actual Kaggle v1 physical scores; rank per model among finite scores of same-formula candidates in original main top60.",
+    "source_input_sha256": {
+      "enveda-five-frozen-gl_in.json": "301f0ce0d04b6d976e4caa12b26dac1c0735f5a40077b43ff119bc1be61b64cd",
+      "enveda-five-frozen-gl_out.json": "aa93d682d8e4210573130092a923c50c89a827cb78c3085c489fb3facb506ada",
+      "enveda-five-frozen-ice_in.json": "88670e22b17357dcfaf88d1f93bce3cf4a4b4f74a24ceeece5d2ade132a87c8e",
+      "enveda-five-frozen-ice_out.json": "bc039ae6a6ba7fb4f80ff73d8c10dc36c316ffe7d7013906353eef9dcb5b1248"
+    },
+    "actual_e1_physics_pre_top25": false
+  },
+  "archived_e1_rule": {
+    "queries_with_exact_top25_prefix_match": 17,
+    "base_ice_enabled": false,
+    "archive_sha256": {
+      "four_source_lists.json": "7e30c2d7566156c15d4e5d0d855563ee662e374cac9975548c5d8d0f44457d60",
+      "e004_candidate_inputs.json": "91a570f899edf81ac1ee75daf373b7e9d9a3f6a882e5c4930f3cd9ba174a9857"
+    }
+  },
+  "positive_identities_verified_with_scorer": 25,
+  "decision": {
+    "first_priority": "Fixed-budget replay of wider post-rank shortlists, with candidate selection/reranking before final 25 slots.",
+    "ion_011": "Use charge-aware, public permanent-cation structure inventory together with an [M]+ mass hypothesis. Check both keys and mass conventions before retrieval.",
+    "scope": "These five labeled misses are used to locate stages. Assess improvement on a new source/scaffold-held-out panel."
+  },
+  "per_query": {
+    "challenge-011": {
+      "structure_and_windows": {
+        "challenge": "challenge-011",
+        "molecule_id": "m_a45c83",
+        "precursor_mz": 280.1559,
+        "original_adduct": "[M+H]+",
+        "original_C34_target": 279.14862354782997,
+        "truth_smiles": "C[N+](C)(C)CCOC(=O)/C=C/c1ccc(c(c1)O)OC",
+        "truth_key": "UHJZITVWXGMYKV",
+        "raw_key": "UHJZITVWXGMYKV",
+        "normalized_key": "UHJZITVWXGMYKV",
+        "composition": [
+          [
+            6,
+            15
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            8,
+            4
+          ]
+        ],
+        "normalized_smiles": "COc1ccc(C=CC(=O)OCC[N+](C)(C)C)cc1O",
+        "formal_charge": 1,
+        "exact_ion_or_neutral_mass": 280.15433460409,
+        "exact_mass_sum_of_atoms": 280.154883183999,
+        "formula": "C15H22NO4+",
+        "windows": {
+          "original_C34": 279.14862354782997,
+          "intrinsic_ion_raw_mz": 280.1559,
+          "intrinsic_ion_native_C34": 280.15644857990895
+        }
+      },
+      "main_inventories": {
+        "engine1": {
+          "profile_rows": 712,
+          "same_formula_all_mass": 1,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 147,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 589,
+                "same_formula": 0,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_raw_mz": {
+              "10": {
+                "rows": 102,
+                "same_formula": 1,
+                "identity": 0
+              },
+              "100": {
+                "rows": 940,
+                "same_formula": 1,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_native_C34": {
+              "10": {
+                "rows": 100,
+                "same_formula": 1,
+                "identity": 0
+              },
+              "100": {
+                "rows": 938,
+                "same_formula": 1,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "engine2_coco": {
+          "profile_rows": 299,
+          "same_formula_all_mass": 0,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 49,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 170,
+                "same_formula": 0,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_raw_mz": {
+              "10": {
+                "rows": 24,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 531,
+                "same_formula": 0,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_native_C34": {
+              "10": {
+                "rows": 18,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 529,
+                "same_formula": 0,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "engine2_bio": {
+          "profile_rows": 46,
+          "same_formula_all_mass": 1,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 10,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 40,
+                "same_formula": 0,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_raw_mz": {
+              "10": {
+                "rows": 7,
+                "same_formula": 1,
+                "identity": 0
+              },
+              "100": {
+                "rows": 45,
+                "same_formula": 1,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_native_C34": {
+              "10": {
+                "rows": 5,
+                "same_formula": 1,
+                "identity": 0
+              },
+              "100": {
+                "rows": 45,
+                "same_formula": 1,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "engine2_pubchemlite": {
+          "profile_rows": 311,
+          "same_formula_all_mass": 2,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 77,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 303,
+                "same_formula": 0,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_raw_mz": {
+              "10": {
+                "rows": 51,
+                "same_formula": 2,
+                "identity": 0
+              },
+              "100": {
+                "rows": 307,
+                "same_formula": 2,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_native_C34": {
+              "10": {
+                "rows": 55,
+                "same_formula": 2,
+                "identity": 0
+              },
+              "100": {
+                "rows": 297,
+                "same_formula": 2,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "engine2_train": {
+          "profile_rows": 373,
+          "same_formula_all_mass": 0,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 85,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 389,
+                "same_formula": 0,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_raw_mz": {
+              "10": {
+                "rows": 70,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 384,
+                "same_formula": 0,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_native_C34": {
+              "10": {
+                "rows": 75,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 384,
+                "same_formula": 0,
+                "identity": 0
+              }
+            }
+          }
+        }
+      },
+      "engine1_replay": null,
+      "all_mass_pubchem_index": {
+        "tier": {
+          "profile_rows": 84805,
+          "same_formula_all_mass": 0,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 26650,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 152138,
+                "same_formula": 0,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_raw_mz": {
+              "10": {
+                "rows": 23074,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 147748,
+                "same_formula": 0,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_native_C34": {
+              "10": {
+                "rows": 21529,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 146558,
+                "same_formula": 0,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "delta": {
+          "profile_rows": 13,
+          "same_formula_all_mass": 0,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 2,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 17,
+                "same_formula": 0,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_raw_mz": {
+              "10": {
+                "rows": 2,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 24,
+                "same_formula": 0,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_native_C34": {
+              "10": {
+                "rows": 4,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 24,
+                "same_formula": 0,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "growth": {
+          "profile_rows": 6,
+          "same_formula_all_mass": 0,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 0,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 9,
+                "same_formula": 0,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_raw_mz": {
+              "10": {
+                "rows": 3,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 8,
+                "same_formula": 0,
+                "identity": 0
+              }
+            },
+            "intrinsic_ion_native_C34": {
+              "10": {
+                "rows": 2,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 8,
+                "same_formula": 0,
+                "identity": 0
+              }
+            }
+          }
+        }
+      },
+      "c34_replay": {
+        "measured_ion_mz": {
+          "target": 280.1559,
+          "archived_order_matches": null,
+          "archived_score_max_error": null,
+          "diagnostics": {
+            "molecule_id": "m_a45c83@measured_ion_mz",
+            "n_window": 23079,
+            "n_pass1": 5000,
+            "n_pass2": 5125,
+            "n_keyed": 28,
+            "n_in_pool": 1,
+            "n_listed": 25,
+            "fz_top": -504.6812438964844,
+            "store_window_counts": {
+              "tier": 23074,
+              "delta_pc": 2,
+              "growth_pc": 3
+            },
+            "truth_hits": [],
+            "n_prior_selected": 200,
+            "n_coarse_union": 5125,
+            "S": 3.2602923265665824,
+            "top_pop": 4.888671875,
+            "secs": 33.98249888420105
+          }
+        },
+        "original": {
+          "target": 279.14862354782997,
+          "archived_order_matches": true,
+          "archived_score_max_error": 0.0,
+          "diagnostics": {
+            "molecule_id": "m_a45c83",
+            "n_window": 26652,
+            "n_pass1": 5000,
+            "n_pass2": 5161,
+            "n_keyed": 43,
+            "n_in_pool": 1,
+            "n_listed": 25,
+            "fz_top": 385.21380615234375,
+            "store_window_counts": {
+              "tier": 26650,
+              "delta_pc": 2,
+              "growth_pc": 0
+            },
+            "truth_hits": [],
+            "n_prior_selected": 200,
+            "n_coarse_union": 5161,
+            "S": 3.748614127863401,
+            "top_pop": 2.29296875,
+            "secs": 133.35991048812866
+          }
+        },
+        "measured_mz_plus_electron": {
+          "target": 280.15644857990895,
+          "archived_order_matches": null,
+          "archived_score_max_error": null,
+          "diagnostics": {
+            "molecule_id": "m_a45c83@measured_mz_plus_electron",
+            "n_window": 21535,
+            "n_pass1": 5000,
+            "n_pass2": 5121,
+            "n_keyed": 32,
+            "n_in_pool": 1,
+            "n_listed": 25,
+            "fz_top": -251.48924255371094,
+            "store_window_counts": {
+              "tier": 21529,
+              "delta_pc": 4,
+              "growth_pc": 2
+            },
+            "truth_hits": [],
+            "n_prior_selected": 200,
+            "n_coarse_union": 5121,
+            "S": 4.071137181108718,
+            "top_pop": 0.693359375,
+            "secs": 32.15356135368347
+          }
+        }
+      },
+      "archived_candidate_stages": {
+        "prefusion": {
+          "total": 25,
+          "hits": []
+        },
+        "engine2": {
+          "total": 40,
+          "hits": []
+        },
+        "pubchem": {
+          "total": 25,
+          "hits": []
+        },
+        "base_tail": {
+          "total": 60,
+          "hits": []
+        },
+        "fusion_overflow": {
+          "total": 15,
+          "hits": []
+        }
+      },
+      "current_public_pubchem": {
+        "official_label_key": "UHJZITVWXGMYKV-SOFGYWHQSA-O",
+        "metric_key": "UHJZITVWXGMYKV",
+        "pubchem_normalized_matches": [
+          101607211
+        ],
+        "pubchem_properties": [
+          {
+            "CID": 101607211,
+            "SMILES": "C[N+](C)(C)CCOC(=O)/C=C/C1=CC(=C(C=C1)OC)O",
+            "ConnectivitySMILES": "C[N+](C)(C)CCOC(=O)C=CC1=CC(=C(C=C1)OC)O",
+            "InChIKey": "UHJZITVWXGMYKV-SOFGYWHQSA-O",
+            "MonoisotopicMass": "280.15488318",
+            "Charge": 1,
+            "metric_match": true,
+            "metric_key": "UHJZITVWXGMYKV"
+          }
+        ],
+        "endpoint_evidence": {
+          "official_full_key": {
+            "status": 200,
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/UHJZITVWXGMYKV-SOFGYWHQSA-O/property/SMILES,ConnectivitySMILES,InChIKey,MonoisotopicMass,Charge/JSON",
+            "data": {
+              "PropertyTable": {
+                "Properties": [
+                  {
+                    "CID": 101607211,
+                    "SMILES": "C[N+](C)(C)CCOC(=O)/C=C/C1=CC(=C(C=C1)OC)O",
+                    "ConnectivitySMILES": "C[N+](C)(C)CCOC(=O)C=CC1=CC(=C(C=C1)OC)O",
+                    "InChIKey": "UHJZITVWXGMYKV-SOFGYWHQSA-O",
+                    "MonoisotopicMass": "280.15488318",
+                    "Charge": 1
+                  }
+                ]
+              }
+            }
+          },
+          "official_smiles_same_connectivity": {
+            "status": 200,
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/fastidentity/smiles/property/SMILES,ConnectivitySMILES,InChIKey,MonoisotopicMass,Charge/JSON?smiles=C%5BN%2B%5D%28C%29%28C%29CCOC%28%3DO%29%2FC%3DC%2Fc1ccc%28c%28c1%29O%29OC&identity_type=same_connectivity",
+            "data": {
+              "PropertyTable": {
+                "Properties": [
+                  {
+                    "CID": 101607211,
+                    "SMILES": "C[N+](C)(C)CCOC(=O)/C=C/C1=CC(=C(C=C1)OC)O",
+                    "ConnectivitySMILES": "C[N+](C)(C)CCOC(=O)C=CC1=CC(=C(C=C1)OC)O",
+                    "InChIKey": "UHJZITVWXGMYKV-SOFGYWHQSA-O",
+                    "MonoisotopicMass": "280.15488318",
+                    "Charge": 1
+                  }
+                ]
+              }
+            }
+          },
+          "frozen_full_key": {
+            "status": 404,
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/UHJZITVWXGMYKV-UHFFFAOYSA-O/property/SMILES,ConnectivitySMILES,InChIKey,MonoisotopicMass,Charge/JSON",
+            "data": {
+              "Fault": {
+                "Code": "PUGREST.NotFound",
+                "Message": "No CID found",
+                "Details": [
+                  "No CID found that matches the given InChI key"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "challenge-033": {
+      "structure_and_windows": {
+        "challenge": "challenge-033",
+        "molecule_id": "m_c0d375",
+        "precursor_mz": 361.1288,
+        "original_adduct": "[M+H]+",
+        "original_C34_target": 360.12152354783,
+        "truth_smiles": "C[C@]12C3[C@@H](C[C@@H]4[C@@H](CC(=O)c5ccoc45)[C@]43C[C@@H]([C@]2(O)OC4)O)OC1=O",
+        "truth_key": "OXFCHVUTODNYNS",
+        "raw_key": "OXFCHVUTODNYNS",
+        "normalized_key": "OXFCHVUTODNYNS",
+        "composition": [
+          [
+            6,
+            19
+          ],
+          [
+            8,
+            7
+          ]
+        ],
+        "normalized_smiles": "CC12C(=O)OC3CC4c5occc5C(=O)CC4C4(COC1(O)C(O)C4)C32",
+        "formal_charge": 0,
+        "exact_ion_or_neutral_mass": 360.1209029799999,
+        "exact_mass_sum_of_atoms": 360.1209029799999,
+        "formula": "C19H20O7",
+        "windows": {
+          "original_C34": 360.12152354783
+        }
+      },
+      "main_inventories": {
+        "engine1": {
+          "profile_rows": 903,
+          "same_formula_all_mass": 128,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 175,
+                "same_formula": 128,
+                "identity": 0
+              },
+              "100": {
+                "rows": 1008,
+                "same_formula": 128,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "engine2_coco": {
+          "profile_rows": 840,
+          "same_formula_all_mass": 113,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 128,
+                "same_formula": 113,
+                "identity": 0
+              },
+              "100": {
+                "rows": 620,
+                "same_formula": 113,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "engine2_bio": {
+          "profile_rows": 49,
+          "same_formula_all_mass": 9,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 13,
+                "same_formula": 9,
+                "identity": 0
+              },
+              "100": {
+                "rows": 72,
+                "same_formula": 9,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "engine2_pubchemlite": {
+          "profile_rows": 18,
+          "same_formula_all_mass": 4,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 20,
+                "same_formula": 4,
+                "identity": 0
+              },
+              "100": {
+                "rows": 224,
+                "same_formula": 4,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "engine2_train": {
+          "profile_rows": 45,
+          "same_formula_all_mass": 14,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 46,
+                "same_formula": 14,
+                "identity": 0
+              },
+              "100": {
+                "rows": 374,
+                "same_formula": 14,
+                "identity": 0
+              }
+            }
+          }
+        }
+      },
+      "engine1_replay": null,
+      "all_mass_pubchem_index": {
+        "tier": {
+          "profile_rows": 8064,
+          "same_formula_all_mass": 1090,
+          "hits": [
+            {
+              "row_id": 56041029,
+              "smiles": "C[C]12[CH]3[CH](C[CH]4[CH]([C]35C[CH]([C]1(OC5)O)O)CC(=O)C6=C4OC=C6)OC2=O",
+              "indexed_mass": 360.12090297,
+              "stored_identity": null,
+              "raw_key": "OXFCHVUTODNYNS",
+              "normalized_key": "OXFCHVUTODNYNS",
+              "formal_charge": 0,
+              "formula": "C19H20O7",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": -1.723245597542534,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            }
+          ],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 12293,
+                "same_formula": 1090,
+                "identity": 1
+              },
+              "100": {
+                "rows": 115870,
+                "same_formula": 1090,
+                "identity": 1
+              }
+            }
+          }
+        },
+        "delta": {
+          "profile_rows": 3,
+          "same_formula_all_mass": 1,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 3,
+                "same_formula": 1,
+                "identity": 0
+              },
+              "100": {
+                "rows": 26,
+                "same_formula": 1,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "growth": {
+          "profile_rows": 0,
+          "same_formula_all_mass": 0,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 1,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 6,
+                "same_formula": 0,
+                "identity": 0
+              }
+            }
+          }
+        }
+      },
+      "c34_replay": {
+        "original": {
+          "target": 360.12152354783,
+          "archived_order_matches": true,
+          "archived_score_max_error": 0.0,
+          "diagnostics": {
+            "molecule_id": "m_c0d375",
+            "n_window": 12297,
+            "n_pass1": 5000,
+            "n_pass2": 5049,
+            "n_keyed": 219,
+            "n_in_pool": 34,
+            "n_listed": 25,
+            "fz_top": -5.436734199523926,
+            "store_window_counts": {
+              "tier": 12293,
+              "delta_pc": 3,
+              "growth_pc": 1
+            },
+            "truth_hits": [
+              {
+                "index_name": "tier",
+                "index_row": 56041029,
+                "stored_mass": 360.12090297,
+                "mass_error_ppm": -1.7232455975425338,
+                "window_position": 2496,
+                "smiles": "C[C]12[CH]3[CH](C[CH]4[CH]([C]35C[CH]([C]1(OC5)O)O)CC(=O)C6=C4OC=C6)OC2=O",
+                "official_key": "OXFCHVUTODNYNS",
+                "native_key": "OXFCHVUTODNYNS",
+                "native_main_pool_key": false,
+                "partial_score": -190.5830535888672,
+                "partial_rank_interval": [
+                  287,
+                  287
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 2.080078125,
+                "documentary_rank_interval": [
+                  4581,
+                  4694
+                ],
+                "survived_documentary_cutoff": false,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 389,
+                "full_fingerprint_score": -628.1785888671875,
+                "adjusted_score": 2.1430009531897585,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": 85
+              }
+            ],
+            "n_prior_selected": 200,
+            "n_coarse_union": 5049,
+            "S": 3.249542152871296,
+            "top_pop": 2.29296875,
+            "secs": 69.07522988319397
+          }
+        }
+      },
+      "archived_candidate_stages": {
+        "prefusion": {
+          "total": 25,
+          "hits": []
+        },
+        "engine2": {
+          "total": 40,
+          "hits": []
+        },
+        "pubchem": {
+          "total": 25,
+          "hits": []
+        },
+        "base_tail": {
+          "total": 60,
+          "hits": []
+        },
+        "fusion_overflow": {
+          "total": 15,
+          "hits": []
+        }
+      },
+      "current_public_pubchem": {
+        "official_label_key": "OXFCHVUTODNYNS-MMARFKMCNA-N",
+        "metric_key": "OXFCHVUTODNYNS",
+        "pubchem_normalized_matches": [
+          101615558
+        ],
+        "pubchem_properties": [
+          {
+            "CID": 101615558,
+            "SMILES": "C[C@@]12[C@@H]3[C@@H](C[C@@H]4[C@H]([C@@]35C[C@@H]([C@@]1(OC5)O)O)CC(=O)C6=C4OC=C6)OC2=O",
+            "ConnectivitySMILES": "CC12C3C(CC4C(C35CC(C1(OC5)O)O)CC(=O)C6=C4OC=C6)OC2=O",
+            "InChIKey": "OXFCHVUTODNYNS-YYJWHEFVSA-N",
+            "MonoisotopicMass": "360.12090297",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "OXFCHVUTODNYNS"
+          }
+        ],
+        "endpoint_evidence": {
+          "official_full_key": {
+            "status": -1,
+            "error": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1016)>"
+          },
+          "official_smiles_same_connectivity": {
+            "status": 200,
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/fastidentity/smiles/property/SMILES,ConnectivitySMILES,InChIKey,MonoisotopicMass,Charge/JSON?smiles=C%5BC%40%5D12C3%5BC%40%40H%5D%28C%5BC%40%40H%5D4%5BC%40%40H%5D%28CC%28%3DO%29c5ccoc45%29%5BC%40%5D43C%5BC%40%40H%5D%28%5BC%40%5D2%28O%29OC4%29O%29OC1%3DO&identity_type=same_connectivity",
+            "data": {
+              "PropertyTable": {
+                "Properties": [
+                  {
+                    "CID": 101615558,
+                    "SMILES": "C[C@@]12[C@@H]3[C@@H](C[C@@H]4[C@H]([C@@]35C[C@@H]([C@@]1(OC5)O)O)CC(=O)C6=C4OC=C6)OC2=O",
+                    "ConnectivitySMILES": "CC12C3C(CC4C(C35CC(C1(OC5)O)O)CC(=O)C6=C4OC=C6)OC2=O",
+                    "InChIKey": "OXFCHVUTODNYNS-YYJWHEFVSA-N",
+                    "MonoisotopicMass": "360.12090297",
+                    "Charge": 0
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "challenge-034": {
+      "structure_and_windows": {
+        "challenge": "challenge-034",
+        "molecule_id": "m_207ac5",
+        "precursor_mz": 347.1491,
+        "original_adduct": "[M+H]+",
+        "original_C34_target": 346.14182354783,
+        "truth_smiles": "C[C@]12C3[C@@H](CC4C(CCC5=C4OCC5=O)[C@]43CC[C@@]2(O)OC4)OC1=O",
+        "truth_key": "UXWOIMRDMNTYAT",
+        "raw_key": "KGRQDFZHUBOWKM",
+        "normalized_key": "UXWOIMRDMNTYAT",
+        "composition": [
+          [
+            6,
+            19
+          ],
+          [
+            8,
+            6
+          ]
+        ],
+        "normalized_smiles": "CC12C(=O)OC3CC4c5occ(O)c5CCC4C4(CCC1(O)OC4)C32",
+        "formal_charge": 0,
+        "exact_ion_or_neutral_mass": 346.14163842399995,
+        "exact_mass_sum_of_atoms": 346.14163842399995,
+        "formula": "C19H22O6",
+        "windows": {
+          "original_C34": 346.14182354783
+        }
+      },
+      "main_inventories": {
+        "engine1": {
+          "profile_rows": 1322,
+          "same_formula_all_mass": 189,
+          "hits": [
+            {
+              "row_id": 304181,
+              "smiles": "CC12C(=O)OC3CC4C5=C(CCC4C4(CCC1(O)OC4)C32)C(=O)CO5",
+              "indexed_mass": 346.14163842399995,
+              "stored_identity": "UXWOIMRDMNTYAT",
+              "raw_key": "KGRQDFZHUBOWKM",
+              "normalized_key": "UXWOIMRDMNTYAT",
+              "formal_charge": 0,
+              "formula": "C19H22O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": -0.5348207509986534,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            }
+          ],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 342,
+                "same_formula": 189,
+                "identity": 1
+              },
+              "100": {
+                "rows": 1929,
+                "same_formula": 189,
+                "identity": 1
+              }
+            }
+          }
+        },
+        "engine2_coco": {
+          "profile_rows": 1243,
+          "same_formula_all_mass": 176,
+          "hits": [
+            {
+              "row_id": 130514,
+              "smiles": "C[C@@]12C(=O)O[C@H]3C[C@H]4C5=C(CC[C@H]4[C@]4(CC[C@@]1(O)OC4)[C@@H]32)C(=O)CO5",
+              "indexed_mass": 346.14163842399995,
+              "stored_identity": "KGRQDFZHUBOWKM",
+              "raw_key": "KGRQDFZHUBOWKM",
+              "normalized_key": "UXWOIMRDMNTYAT",
+              "formal_charge": 0,
+              "formula": "C19H22O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": -0.5348207509986534,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            }
+          ],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 223,
+                "same_formula": 176,
+                "identity": 1
+              },
+              "100": {
+                "rows": 522,
+                "same_formula": 176,
+                "identity": 1
+              }
+            }
+          }
+        },
+        "engine2_bio": {
+          "profile_rows": 78,
+          "same_formula_all_mass": 10,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 11,
+                "same_formula": 10,
+                "identity": 0
+              },
+              "100": {
+                "rows": 91,
+                "same_formula": 10,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "engine2_pubchemlite": {
+          "profile_rows": 42,
+          "same_formula_all_mass": 5,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 37,
+                "same_formula": 5,
+                "identity": 0
+              },
+              "100": {
+                "rows": 230,
+                "same_formula": 5,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "engine2_train": {
+          "profile_rows": 44,
+          "same_formula_all_mass": 4,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 108,
+                "same_formula": 4,
+                "identity": 0
+              },
+              "100": {
+                "rows": 1382,
+                "same_formula": 4,
+                "identity": 0
+              }
+            }
+          }
+        }
+      },
+      "engine1_replay": null,
+      "all_mass_pubchem_index": {
+        "tier": {
+          "profile_rows": 15984,
+          "same_formula_all_mass": 2265,
+          "hits": [
+            {
+              "row_id": 51405161,
+              "smiles": "C[C]12[CH]3[CH](C[CH]4[CH]([C]35CC[C]1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+              "indexed_mass": 346.14163842,
+              "stored_identity": null,
+              "raw_key": "KGRQDFZHUBOWKM",
+              "normalized_key": "UXWOIMRDMNTYAT",
+              "formal_charge": 0,
+              "formula": "C19H22O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": -0.5348323068333612,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 51405573,
+              "smiles": "CC12C3C(CC4C(C35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+              "indexed_mass": 346.14163842,
+              "stored_identity": null,
+              "raw_key": "KGRQDFZHUBOWKM",
+              "normalized_key": "UXWOIMRDMNTYAT",
+              "formal_charge": 0,
+              "formula": "C19H22O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": -0.5348323068333612,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 51405574,
+              "smiles": "C[C]12[CH]3[CH](C[CH]4[CH]([C]35CC[C]1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+              "indexed_mass": 346.14163842,
+              "stored_identity": null,
+              "raw_key": "KGRQDFZHUBOWKM",
+              "normalized_key": "UXWOIMRDMNTYAT",
+              "formal_charge": 0,
+              "formula": "C19H22O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": -0.5348323068333612,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 51405575,
+              "smiles": "C[C]12[CH]3[CH](C[CH]4[CH]([C]35CC[C]1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+              "indexed_mass": 346.14163842,
+              "stored_identity": null,
+              "raw_key": "KGRQDFZHUBOWKM",
+              "normalized_key": "UXWOIMRDMNTYAT",
+              "formal_charge": 0,
+              "formula": "C19H22O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": -0.5348323068333612,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 51405854,
+              "smiles": "C[C]12[CH]3[CH](C[CH]4[CH]([C]35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+              "indexed_mass": 346.14163842,
+              "stored_identity": null,
+              "raw_key": "KGRQDFZHUBOWKM",
+              "normalized_key": "UXWOIMRDMNTYAT",
+              "formal_charge": 0,
+              "formula": "C19H22O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": -0.5348323068333612,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            }
+          ],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 16067,
+                "same_formula": 2265,
+                "identity": 5
+              },
+              "100": {
+                "rows": 140952,
+                "same_formula": 2265,
+                "identity": 5
+              }
+            }
+          }
+        },
+        "delta": {
+          "profile_rows": 2,
+          "same_formula_all_mass": 0,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 1,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 26,
+                "same_formula": 0,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "growth": {
+          "profile_rows": 0,
+          "same_formula_all_mass": 0,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 0,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 6,
+                "same_formula": 0,
+                "identity": 0
+              }
+            }
+          }
+        }
+      },
+      "c34_replay": {
+        "original": {
+          "target": 346.14182354783,
+          "archived_order_matches": true,
+          "archived_score_max_error": 0.0,
+          "diagnostics": {
+            "molecule_id": "m_207ac5",
+            "n_window": 16068,
+            "n_pass1": 5000,
+            "n_pass2": 5008,
+            "n_keyed": 476,
+            "n_in_pool": 50,
+            "n_listed": 25,
+            "fz_top": 461.209228515625,
+            "store_window_counts": {
+              "tier": 16067,
+              "delta_pc": 1,
+              "growth_pc": 0
+            },
+            "truth_hits": [
+              {
+                "index_name": "tier",
+                "index_row": 51405161,
+                "stored_mass": 346.14163842,
+                "mass_error_ppm": -0.5348323068333614,
+                "window_position": 3043,
+                "smiles": "C[C]12[CH]3[CH](C[CH]4[CH]([C]35CC[C]1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                "official_key": "UXWOIMRDMNTYAT",
+                "native_key": "UXWOIMRDMNTYAT",
+                "native_main_pool_key": true,
+                "partial_score": -143.6016082763672,
+                "partial_rank_interval": [
+                  670,
+                  674
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 5.243058204650879,
+                "documentary_rank_interval": [
+                  730,
+                  734
+                ],
+                "survived_documentary_cutoff": false,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 629,
+                "full_fingerprint_score": -242.06312561035156,
+                "adjusted_score": 1.8666680274418448,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 51405573,
+                "stored_mass": 346.14163842,
+                "mass_error_ppm": -0.5348323068333614,
+                "window_position": 3455,
+                "smiles": "CC12C3C(CC4C(C35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                "official_key": "UXWOIMRDMNTYAT",
+                "native_key": "UXWOIMRDMNTYAT",
+                "native_main_pool_key": true,
+                "partial_score": -143.6016082763672,
+                "partial_rank_interval": [
+                  670,
+                  674
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 5.243058204650879,
+                "documentary_rank_interval": [
+                  730,
+                  734
+                ],
+                "survived_documentary_cutoff": false,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 630,
+                "full_fingerprint_score": -242.06312561035156,
+                "adjusted_score": 1.8666680274418448,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 51405574,
+                "stored_mass": 346.14163842,
+                "mass_error_ppm": -0.5348323068333614,
+                "window_position": 3456,
+                "smiles": "C[C]12[CH]3[CH](C[CH]4[CH]([C]35CC[C]1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                "official_key": "UXWOIMRDMNTYAT",
+                "native_key": "UXWOIMRDMNTYAT",
+                "native_main_pool_key": true,
+                "partial_score": -143.6016082763672,
+                "partial_rank_interval": [
+                  670,
+                  674
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 5.243058204650879,
+                "documentary_rank_interval": [
+                  730,
+                  734
+                ],
+                "survived_documentary_cutoff": false,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 631,
+                "full_fingerprint_score": -242.06312561035156,
+                "adjusted_score": 1.8666680274418448,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 51405575,
+                "stored_mass": 346.14163842,
+                "mass_error_ppm": -0.5348323068333614,
+                "window_position": 3457,
+                "smiles": "C[C]12[CH]3[CH](C[CH]4[CH]([C]35CC[C]1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                "official_key": "UXWOIMRDMNTYAT",
+                "native_key": "UXWOIMRDMNTYAT",
+                "native_main_pool_key": true,
+                "partial_score": -143.6016082763672,
+                "partial_rank_interval": [
+                  670,
+                  674
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 5.243058204650879,
+                "documentary_rank_interval": [
+                  730,
+                  734
+                ],
+                "survived_documentary_cutoff": false,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 632,
+                "full_fingerprint_score": -242.06312561035156,
+                "adjusted_score": 1.8666680274418448,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 51405854,
+                "stored_mass": 346.14163842,
+                "mass_error_ppm": -0.5348323068333614,
+                "window_position": 3736,
+                "smiles": "C[C]12[CH]3[CH](C[CH]4[CH]([C]35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                "official_key": "UXWOIMRDMNTYAT",
+                "native_key": "UXWOIMRDMNTYAT",
+                "native_main_pool_key": true,
+                "partial_score": -143.6016082763672,
+                "partial_rank_interval": [
+                  670,
+                  674
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 5.243058204650879,
+                "documentary_rank_interval": [
+                  730,
+                  734
+                ],
+                "survived_documentary_cutoff": false,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 633,
+                "full_fingerprint_score": -242.06312561035156,
+                "adjusted_score": 1.8666680274418448,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              }
+            ],
+            "n_prior_selected": 200,
+            "n_coarse_union": 5008,
+            "S": 2.7427558988933534,
+            "top_pop": 0.693359375,
+            "secs": 150.56308913230896
+          }
+        }
+      },
+      "archived_candidate_stages": {
+        "prefusion": {
+          "total": 25,
+          "hits": []
+        },
+        "engine2": {
+          "total": 40,
+          "hits": []
+        },
+        "pubchem": {
+          "total": 25,
+          "hits": []
+        },
+        "base_tail": {
+          "total": 60,
+          "hits": []
+        },
+        "fusion_overflow": {
+          "total": 15,
+          "hits": []
+        }
+      },
+      "current_public_pubchem": {
+        "official_label_key": "KGRQDFZHUBOWKM-PNMPORGGSA-N",
+        "metric_key": "UXWOIMRDMNTYAT",
+        "pubchem_normalized_matches": [
+          122178828,
+          162847848,
+          162847849,
+          162847850,
+          172028273
+        ],
+        "pubchem_properties": [
+          {
+            "CID": 122178828,
+            "SMILES": "C[C@@]12[C@@H]3[C@@H](C[C@@H]4[C@H]([C@@]35CC[C@]1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+            "ConnectivitySMILES": "CC12C3C(CC4C(C35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+            "InChIKey": "KGRQDFZHUBOWKM-NLQGKHLCSA-N",
+            "MonoisotopicMass": "346.14163842",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "UXWOIMRDMNTYAT"
+          },
+          {
+            "CID": 162847848,
+            "SMILES": "CC12C3C(CC4C(C35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+            "ConnectivitySMILES": "CC12C3C(CC4C(C35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+            "InChIKey": "KGRQDFZHUBOWKM-UHFFFAOYSA-N",
+            "MonoisotopicMass": "346.14163842",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "UXWOIMRDMNTYAT"
+          },
+          {
+            "CID": 162847849,
+            "SMILES": "C[C@@]12[C@@H]3[C@@H](C[C@@H]4[C@H]([C@@]35CC[C@@]1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+            "ConnectivitySMILES": "CC12C3C(CC4C(C35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+            "InChIKey": "KGRQDFZHUBOWKM-AJFIRTLESA-N",
+            "MonoisotopicMass": "346.14163842",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "UXWOIMRDMNTYAT"
+          },
+          {
+            "CID": 162847850,
+            "SMILES": "C[C@]12[C@@H]3[C@H](C[C@@H]4[C@H]([C@]35CC[C@]1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+            "ConnectivitySMILES": "CC12C3C(CC4C(C35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+            "InChIKey": "KGRQDFZHUBOWKM-GLMUTUJVSA-N",
+            "MonoisotopicMass": "346.14163842",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "UXWOIMRDMNTYAT"
+          },
+          {
+            "CID": 172028273,
+            "SMILES": "C[C@@]12[C@@H]3[C@@H](C[C@@H]4[C@H]([C@@]35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+            "ConnectivitySMILES": "CC12C3C(CC4C(C35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+            "InChIKey": "KGRQDFZHUBOWKM-AVUBLTGNSA-N",
+            "MonoisotopicMass": "346.14163842",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "UXWOIMRDMNTYAT"
+          }
+        ],
+        "endpoint_evidence": {
+          "official_full_key": {
+            "status": 404,
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/KGRQDFZHUBOWKM-PNMPORGGSA-N/property/SMILES,ConnectivitySMILES,InChIKey,MonoisotopicMass,Charge/JSON",
+            "data": {
+              "Fault": {
+                "Code": "PUGREST.NotFound",
+                "Message": "No CID found",
+                "Details": [
+                  "No CID found that matches the given InChI key"
+                ]
+              }
+            }
+          },
+          "official_smiles_same_connectivity": {
+            "status": 200,
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/fastidentity/smiles/property/SMILES,ConnectivitySMILES,InChIKey,MonoisotopicMass,Charge/JSON?smiles=C%5BC%40%5D12C3%5BC%40%40H%5D%28CC4C%28CCC5%3DC4OCC5%3DO%29%5BC%40%5D43CC%5BC%40%40%5D2%28O%29OC4%29OC1%3DO&identity_type=same_connectivity",
+            "data": {
+              "PropertyTable": {
+                "Properties": [
+                  {
+                    "CID": 122178828,
+                    "SMILES": "C[C@@]12[C@@H]3[C@@H](C[C@@H]4[C@H]([C@@]35CC[C@]1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                    "ConnectivitySMILES": "CC12C3C(CC4C(C35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                    "InChIKey": "KGRQDFZHUBOWKM-NLQGKHLCSA-N",
+                    "MonoisotopicMass": "346.14163842",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 162847848,
+                    "SMILES": "CC12C3C(CC4C(C35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                    "ConnectivitySMILES": "CC12C3C(CC4C(C35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                    "InChIKey": "KGRQDFZHUBOWKM-UHFFFAOYSA-N",
+                    "MonoisotopicMass": "346.14163842",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 162847849,
+                    "SMILES": "C[C@@]12[C@@H]3[C@@H](C[C@@H]4[C@H]([C@@]35CC[C@@]1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                    "ConnectivitySMILES": "CC12C3C(CC4C(C35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                    "InChIKey": "KGRQDFZHUBOWKM-AJFIRTLESA-N",
+                    "MonoisotopicMass": "346.14163842",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 162847850,
+                    "SMILES": "C[C@]12[C@@H]3[C@H](C[C@@H]4[C@H]([C@]35CC[C@]1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                    "ConnectivitySMILES": "CC12C3C(CC4C(C35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                    "InChIKey": "KGRQDFZHUBOWKM-GLMUTUJVSA-N",
+                    "MonoisotopicMass": "346.14163842",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 172028273,
+                    "SMILES": "C[C@@]12[C@@H]3[C@@H](C[C@@H]4[C@H]([C@@]35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                    "ConnectivitySMILES": "CC12C3C(CC4C(C35CCC1(OC5)O)CCC6=C4OCC6=O)OC2=O",
+                    "InChIKey": "KGRQDFZHUBOWKM-AVUBLTGNSA-N",
+                    "MonoisotopicMass": "346.14163842",
+                    "Charge": 0
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "challenge-035": {
+      "structure_and_windows": {
+        "challenge": "challenge-035",
+        "molecule_id": "m_10824d",
+        "precursor_mz": 391.2111,
+        "original_adduct": "[M+H]+",
+        "original_C34_target": 390.20382354783,
+        "truth_smiles": "C/C=C(/C)\\C(=O)O[C@@]1(C)[C@@H]2CC[C@]3(C)[C@@H](CC=C(C)[C@H]3C2OC1=O)OC(=O)C",
+        "truth_key": "TURJFYBHQNTMCA",
+        "raw_key": "TURJFYBHQNTMCA",
+        "normalized_key": "TURJFYBHQNTMCA",
+        "composition": [
+          [
+            6,
+            22
+          ],
+          [
+            8,
+            6
+          ]
+        ],
+        "normalized_smiles": "CC=C(C)C(=O)OC1(C)C(=O)OC2C1CCC1(C)C(OC(C)=O)CC=C(C)C21",
+        "formal_charge": 0,
+        "exact_ion_or_neutral_mass": 390.2042386799999,
+        "exact_mass_sum_of_atoms": 390.2042386799999,
+        "formula": "C22H30O6",
+        "windows": {
+          "original_C34": 390.20382354783
+        }
+      },
+      "main_inventories": {
+        "engine1": {
+          "profile_rows": 1369,
+          "same_formula_all_mass": 210,
+          "hits": [
+            {
+              "row_id": 409899,
+              "smiles": "CC=C(C)C(=O)OC1(C)C(=O)OC2C1CCC1(C)C(OC(C)=O)CC=C(C)C21",
+              "indexed_mass": 390.20423867999995,
+              "stored_identity": "TURJFYBHQNTMCA",
+              "raw_key": "TURJFYBHQNTMCA",
+              "normalized_key": "TURJFYBHQNTMCA",
+              "formal_charge": 0,
+              "formula": "C22H30O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 1.0638854488607454,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            }
+          ],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 304,
+                "same_formula": 210,
+                "identity": 1
+              },
+              "100": {
+                "rows": 1120,
+                "same_formula": 210,
+                "identity": 1
+              }
+            }
+          }
+        },
+        "engine2_coco": {
+          "profile_rows": 1320,
+          "same_formula_all_mass": 204,
+          "hits": [
+            {
+              "row_id": 183345,
+              "smiles": "C/C=C(/C)C(=O)O[C@]1(C)C(=O)O[C@H]2[C@H]3C(C)=CC[C@@H](OC(C)=O)[C@]3(C)CC[C@H]21",
+              "indexed_mass": 390.20423867999995,
+              "stored_identity": "TURJFYBHQNTMCA",
+              "raw_key": "TURJFYBHQNTMCA",
+              "normalized_key": "TURJFYBHQNTMCA",
+              "formal_charge": 0,
+              "formula": "C22H30O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 1.0638854488607454,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            }
+          ],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 236,
+                "same_formula": 204,
+                "identity": 1
+              },
+              "100": {
+                "rows": 802,
+                "same_formula": 204,
+                "identity": 1
+              }
+            }
+          }
+        },
+        "engine2_bio": {
+          "profile_rows": 58,
+          "same_formula_all_mass": 7,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 27,
+                "same_formula": 7,
+                "identity": 0
+              },
+              "100": {
+                "rows": 135,
+                "same_formula": 7,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "engine2_pubchemlite": {
+          "profile_rows": 58,
+          "same_formula_all_mass": 1,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 7,
+                "same_formula": 1,
+                "identity": 0
+              },
+              "100": {
+                "rows": 117,
+                "same_formula": 1,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "engine2_train": {
+          "profile_rows": 31,
+          "same_formula_all_mass": 4,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 66,
+                "same_formula": 4,
+                "identity": 0
+              },
+              "100": {
+                "rows": 289,
+                "same_formula": 4,
+                "identity": 0
+              }
+            }
+          }
+        }
+      },
+      "engine1_replay": null,
+      "all_mass_pubchem_index": {
+        "tier": {
+          "profile_rows": 17147,
+          "same_formula_all_mass": 1672,
+          "hits": [
+            {
+              "row_id": 65583764,
+              "smiles": "CC=C(C)C(=O)O[C]1([CH]2CC[C]3([CH](CC=C([CH]3[CH]2OC1=O)C)OC(=O)C)C)C",
+              "indexed_mass": 390.20423867,
+              "stored_identity": null,
+              "raw_key": "TURJFYBHQNTMCA",
+              "normalized_key": "TURJFYBHQNTMCA",
+              "formal_charge": 0,
+              "formula": "C22H30O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 1.0638598213540786,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 65583811,
+              "smiles": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+              "indexed_mass": 390.20423867,
+              "stored_identity": null,
+              "raw_key": "TURJFYBHQNTMCA",
+              "normalized_key": "TURJFYBHQNTMCA",
+              "formal_charge": 0,
+              "formula": "C22H30O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 1.0638598213540786,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 65583827,
+              "smiles": "CC=C(C)C(=O)O[C]1([CH]2CC[C]3([CH](CC=C([CH]3[CH]2OC1=O)C)OC(=O)C)C)C",
+              "indexed_mass": 390.20423867,
+              "stored_identity": null,
+              "raw_key": "TURJFYBHQNTMCA",
+              "normalized_key": "TURJFYBHQNTMCA",
+              "formal_charge": 0,
+              "formula": "C22H30O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 1.0638598213540786,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 65583983,
+              "smiles": "CC=C(C)C(=O)O[C]1([CH]2CC[C]3([CH](CC=C([CH]3[CH]2OC1=O)C)OC(=O)C)C)C",
+              "indexed_mass": 390.20423867,
+              "stored_identity": null,
+              "raw_key": "TURJFYBHQNTMCA",
+              "normalized_key": "TURJFYBHQNTMCA",
+              "formal_charge": 0,
+              "formula": "C22H30O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 1.0638598213540786,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 65584708,
+              "smiles": "CC=C(C)C(=O)O[C]1([CH]2CC[C]3([CH](CC=C([CH]3[CH]2OC1=O)C)OC(=O)C)C)C",
+              "indexed_mass": 390.20423867,
+              "stored_identity": null,
+              "raw_key": "TURJFYBHQNTMCA",
+              "normalized_key": "TURJFYBHQNTMCA",
+              "formal_charge": 0,
+              "formula": "C22H30O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 1.0638598213540786,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 65585106,
+              "smiles": "CC=C(C)C(=O)O[C]1([CH]2CC[C]3([CH](CC=C([CH]3[CH]2OC1=O)C)OC(=O)C)C)C",
+              "indexed_mass": 390.20423867,
+              "stored_identity": null,
+              "raw_key": "TURJFYBHQNTMCA",
+              "normalized_key": "TURJFYBHQNTMCA",
+              "formal_charge": 0,
+              "formula": "C22H30O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 1.0638598213540786,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 65585107,
+              "smiles": "CC=C(C)C(=O)O[C]1([CH]2CC[C]3([CH](CC=C([CH]3[CH]2OC1=O)C)OC(=O)C)C)C",
+              "indexed_mass": 390.20423867,
+              "stored_identity": null,
+              "raw_key": "TURJFYBHQNTMCA",
+              "normalized_key": "TURJFYBHQNTMCA",
+              "formal_charge": 0,
+              "formula": "C22H30O6",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 1.0638598213540786,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            }
+          ],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 17617,
+                "same_formula": 1672,
+                "identity": 7
+              },
+              "100": {
+                "rows": 105196,
+                "same_formula": 1672,
+                "identity": 7
+              }
+            }
+          }
+        },
+        "delta": {
+          "profile_rows": 6,
+          "same_formula_all_mass": 0,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 6,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 23,
+                "same_formula": 0,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "growth": {
+          "profile_rows": 1,
+          "same_formula_all_mass": 0,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 1,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 5,
+                "same_formula": 0,
+                "identity": 0
+              }
+            }
+          }
+        }
+      },
+      "c34_replay": {
+        "original": {
+          "target": 390.20382354783,
+          "archived_order_matches": true,
+          "archived_score_max_error": 0.0,
+          "diagnostics": {
+            "molecule_id": "m_10824d",
+            "n_window": 17624,
+            "n_pass1": 5000,
+            "n_pass2": 5006,
+            "n_keyed": 235,
+            "n_in_pool": 24,
+            "n_listed": 25,
+            "fz_top": -400.2697448730469,
+            "store_window_counts": {
+              "tier": 17617,
+              "delta_pc": 6,
+              "growth_pc": 1
+            },
+            "truth_hits": [
+              {
+                "index_name": "tier",
+                "index_row": 65583764,
+                "stored_mass": 390.20423867,
+                "mass_error_ppm": 1.0638598213540786,
+                "window_position": 1119,
+                "smiles": "CC=C(C)C(=O)O[C]1([CH]2CC[C]3([CH](CC=C([CH]3[CH]2OC1=O)C)OC(=O)C)C)C",
+                "official_key": "TURJFYBHQNTMCA",
+                "native_key": "TURJFYBHQNTMCA",
+                "native_main_pool_key": true,
+                "partial_score": -298.41192626953125,
+                "partial_rank_interval": [
+                  1203,
+                  1209
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 6.57267951965332,
+                "documentary_rank_interval": [
+                  243,
+                  249
+                ],
+                "survived_documentary_cutoff": false,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 252,
+                "full_fingerprint_score": -1109.7242431640625,
+                "adjusted_score": 2.3071590122586763,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 65583811,
+                "stored_mass": 390.20423867,
+                "mass_error_ppm": 1.0638598213540786,
+                "window_position": 1166,
+                "smiles": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+                "official_key": "TURJFYBHQNTMCA",
+                "native_key": "TURJFYBHQNTMCA",
+                "native_main_pool_key": true,
+                "partial_score": -298.41192626953125,
+                "partial_rank_interval": [
+                  1203,
+                  1209
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 6.57267951965332,
+                "documentary_rank_interval": [
+                  243,
+                  249
+                ],
+                "survived_documentary_cutoff": false,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 253,
+                "full_fingerprint_score": -1109.7242431640625,
+                "adjusted_score": 2.3071590122586763,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 65583827,
+                "stored_mass": 390.20423867,
+                "mass_error_ppm": 1.0638598213540786,
+                "window_position": 1182,
+                "smiles": "CC=C(C)C(=O)O[C]1([CH]2CC[C]3([CH](CC=C([CH]3[CH]2OC1=O)C)OC(=O)C)C)C",
+                "official_key": "TURJFYBHQNTMCA",
+                "native_key": "TURJFYBHQNTMCA",
+                "native_main_pool_key": true,
+                "partial_score": -298.41192626953125,
+                "partial_rank_interval": [
+                  1203,
+                  1209
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 6.57267951965332,
+                "documentary_rank_interval": [
+                  243,
+                  249
+                ],
+                "survived_documentary_cutoff": false,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 254,
+                "full_fingerprint_score": -1109.7242431640625,
+                "adjusted_score": 2.3071590122586763,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 65583983,
+                "stored_mass": 390.20423867,
+                "mass_error_ppm": 1.0638598213540786,
+                "window_position": 1338,
+                "smiles": "CC=C(C)C(=O)O[C]1([CH]2CC[C]3([CH](CC=C([CH]3[CH]2OC1=O)C)OC(=O)C)C)C",
+                "official_key": "TURJFYBHQNTMCA",
+                "native_key": "TURJFYBHQNTMCA",
+                "native_main_pool_key": true,
+                "partial_score": -298.41192626953125,
+                "partial_rank_interval": [
+                  1203,
+                  1209
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 6.57267951965332,
+                "documentary_rank_interval": [
+                  243,
+                  249
+                ],
+                "survived_documentary_cutoff": false,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 255,
+                "full_fingerprint_score": -1109.7242431640625,
+                "adjusted_score": 2.3071590122586763,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 65584708,
+                "stored_mass": 390.20423867,
+                "mass_error_ppm": 1.0638598213540786,
+                "window_position": 2063,
+                "smiles": "CC=C(C)C(=O)O[C]1([CH]2CC[C]3([CH](CC=C([CH]3[CH]2OC1=O)C)OC(=O)C)C)C",
+                "official_key": "TURJFYBHQNTMCA",
+                "native_key": "TURJFYBHQNTMCA",
+                "native_main_pool_key": true,
+                "partial_score": -298.41192626953125,
+                "partial_rank_interval": [
+                  1203,
+                  1209
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 6.57267951965332,
+                "documentary_rank_interval": [
+                  243,
+                  249
+                ],
+                "survived_documentary_cutoff": false,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 256,
+                "full_fingerprint_score": -1109.7242431640625,
+                "adjusted_score": 2.3071590122586763,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 65585106,
+                "stored_mass": 390.20423867,
+                "mass_error_ppm": 1.0638598213540786,
+                "window_position": 2461,
+                "smiles": "CC=C(C)C(=O)O[C]1([CH]2CC[C]3([CH](CC=C([CH]3[CH]2OC1=O)C)OC(=O)C)C)C",
+                "official_key": "TURJFYBHQNTMCA",
+                "native_key": "TURJFYBHQNTMCA",
+                "native_main_pool_key": true,
+                "partial_score": -298.41192626953125,
+                "partial_rank_interval": [
+                  1203,
+                  1209
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 6.57267951965332,
+                "documentary_rank_interval": [
+                  243,
+                  249
+                ],
+                "survived_documentary_cutoff": false,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 257,
+                "full_fingerprint_score": -1109.7242431640625,
+                "adjusted_score": 2.3071590122586763,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 65585107,
+                "stored_mass": 390.20423867,
+                "mass_error_ppm": 1.0638598213540786,
+                "window_position": 2462,
+                "smiles": "CC=C(C)C(=O)O[C]1([CH]2CC[C]3([CH](CC=C([CH]3[CH]2OC1=O)C)OC(=O)C)C)C",
+                "official_key": "TURJFYBHQNTMCA",
+                "native_key": "TURJFYBHQNTMCA",
+                "native_main_pool_key": true,
+                "partial_score": -298.41192626953125,
+                "partial_rank_interval": [
+                  1203,
+                  1209
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 6.57267951965332,
+                "documentary_rank_interval": [
+                  243,
+                  249
+                ],
+                "survived_documentary_cutoff": false,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 258,
+                "full_fingerprint_score": -1109.7242431640625,
+                "adjusted_score": 2.3071590122586763,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              }
+            ],
+            "n_prior_selected": 200,
+            "n_coarse_union": 5006,
+            "S": 2.868024421944957,
+            "top_pop": 1.9462890625,
+            "secs": 74.115793466568
+          }
+        }
+      },
+      "archived_candidate_stages": {
+        "prefusion": {
+          "total": 25,
+          "hits": []
+        },
+        "engine2": {
+          "total": 40,
+          "hits": []
+        },
+        "pubchem": {
+          "total": 25,
+          "hits": []
+        },
+        "base_tail": {
+          "total": 60,
+          "hits": [
+            49
+          ]
+        },
+        "fusion_overflow": {
+          "total": 15,
+          "hits": []
+        }
+      },
+      "current_public_pubchem": {
+        "official_label_key": "TURJFYBHQNTMCA-PUQWFUBYSA-N",
+        "metric_key": "TURJFYBHQNTMCA",
+        "pubchem_normalized_matches": [
+          158847,
+          5259424,
+          6440771,
+          13137395,
+          101927619,
+          162897024,
+          162897025
+        ],
+        "pubchem_properties": [
+          {
+            "CID": 158847,
+            "SMILES": "CC=C(C)C(=O)O[C@]1([C@@H]2CC[C@@]3([C@@H](CC=C([C@H]3[C@@H]2OC1=O)C)OC(=O)C)C)C",
+            "ConnectivitySMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+            "InChIKey": "TURJFYBHQNTMCA-GAQXIGJGSA-N",
+            "MonoisotopicMass": "390.20423867",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "TURJFYBHQNTMCA"
+          },
+          {
+            "CID": 5259424,
+            "SMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+            "ConnectivitySMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+            "InChIKey": "TURJFYBHQNTMCA-UHFFFAOYSA-N",
+            "MonoisotopicMass": "390.20423867",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "TURJFYBHQNTMCA"
+          },
+          {
+            "CID": 6440771,
+            "SMILES": "C/C=C(/C)\\C(=O)O[C@]1([C@@H]2CC[C@@]3([C@@H](CC=C([C@H]3[C@@H]2OC1=O)C)OC(=O)C)C)C",
+            "ConnectivitySMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+            "InChIKey": "TURJFYBHQNTMCA-DZKNJIKXSA-N",
+            "MonoisotopicMass": "390.20423867",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "TURJFYBHQNTMCA"
+          },
+          {
+            "CID": 13137395,
+            "SMILES": "C/C=C(\\C)/C(=O)O[C@]1([C@@H]2CC[C@@]3([C@@H](CC=C([C@H]3[C@@H]2OC1=O)C)OC(=O)C)C)C",
+            "ConnectivitySMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+            "InChIKey": "TURJFYBHQNTMCA-GMDIPIBKSA-N",
+            "MonoisotopicMass": "390.20423867",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "TURJFYBHQNTMCA"
+          },
+          {
+            "CID": 101927619,
+            "SMILES": "C/C=C(/C)\\C(=O)O[C@]1([C@@H]2CC[C@]3([C@@H](CC=C([C@@H]3[C@@H]2OC1=O)C)OC(=O)C)C)C",
+            "ConnectivitySMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+            "InChIKey": "TURJFYBHQNTMCA-HCLFBCSZSA-N",
+            "MonoisotopicMass": "390.20423867",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "TURJFYBHQNTMCA"
+          },
+          {
+            "CID": 162897024,
+            "SMILES": "C/C=C(/C)\\C(=O)O[C@]1([C@H]2CC[C@@]3([C@@H](CC=C([C@H]3[C@@H]2OC1=O)C)OC(=O)C)C)C",
+            "ConnectivitySMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+            "InChIKey": "TURJFYBHQNTMCA-DMSNSFEJSA-N",
+            "MonoisotopicMass": "390.20423867",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "TURJFYBHQNTMCA"
+          },
+          {
+            "CID": 162897025,
+            "SMILES": "C/C=C(/C)\\C(=O)O[C@]1([C@@H]2CC[C@]3([C@@H](CC=C([C@@H]3[C@H]2OC1=O)C)OC(=O)C)C)C",
+            "ConnectivitySMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+            "InChIKey": "TURJFYBHQNTMCA-KGINRGLMSA-N",
+            "MonoisotopicMass": "390.20423867",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "TURJFYBHQNTMCA"
+          }
+        ],
+        "endpoint_evidence": {
+          "official_full_key": {
+            "status": 404,
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/TURJFYBHQNTMCA-PUQWFUBYSA-N/property/SMILES,ConnectivitySMILES,InChIKey,MonoisotopicMass,Charge/JSON",
+            "data": {
+              "Fault": {
+                "Code": "PUGREST.NotFound",
+                "Message": "No CID found",
+                "Details": [
+                  "No CID found that matches the given InChI key"
+                ]
+              }
+            }
+          },
+          "official_smiles_same_connectivity": {
+            "status": 200,
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/fastidentity/smiles/property/SMILES,ConnectivitySMILES,InChIKey,MonoisotopicMass,Charge/JSON?smiles=C%2FC%3DC%28%2FC%29%5CC%28%3DO%29O%5BC%40%40%5D1%28C%29%5BC%40%40H%5D2CC%5BC%40%5D3%28C%29%5BC%40%40H%5D%28CC%3DC%28C%29%5BC%40H%5D3C2OC1%3DO%29OC%28%3DO%29C&identity_type=same_connectivity",
+            "data": {
+              "PropertyTable": {
+                "Properties": [
+                  {
+                    "CID": 158847,
+                    "SMILES": "CC=C(C)C(=O)O[C@]1([C@@H]2CC[C@@]3([C@@H](CC=C([C@H]3[C@@H]2OC1=O)C)OC(=O)C)C)C",
+                    "ConnectivitySMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+                    "InChIKey": "TURJFYBHQNTMCA-GAQXIGJGSA-N",
+                    "MonoisotopicMass": "390.20423867",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 5259424,
+                    "SMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+                    "ConnectivitySMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+                    "InChIKey": "TURJFYBHQNTMCA-UHFFFAOYSA-N",
+                    "MonoisotopicMass": "390.20423867",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 6440771,
+                    "SMILES": "C/C=C(/C)\\C(=O)O[C@]1([C@@H]2CC[C@@]3([C@@H](CC=C([C@H]3[C@@H]2OC1=O)C)OC(=O)C)C)C",
+                    "ConnectivitySMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+                    "InChIKey": "TURJFYBHQNTMCA-DZKNJIKXSA-N",
+                    "MonoisotopicMass": "390.20423867",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 13137395,
+                    "SMILES": "C/C=C(\\C)/C(=O)O[C@]1([C@@H]2CC[C@@]3([C@@H](CC=C([C@H]3[C@@H]2OC1=O)C)OC(=O)C)C)C",
+                    "ConnectivitySMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+                    "InChIKey": "TURJFYBHQNTMCA-GMDIPIBKSA-N",
+                    "MonoisotopicMass": "390.20423867",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 101927619,
+                    "SMILES": "C/C=C(/C)\\C(=O)O[C@]1([C@@H]2CC[C@]3([C@@H](CC=C([C@@H]3[C@@H]2OC1=O)C)OC(=O)C)C)C",
+                    "ConnectivitySMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+                    "InChIKey": "TURJFYBHQNTMCA-HCLFBCSZSA-N",
+                    "MonoisotopicMass": "390.20423867",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 162897024,
+                    "SMILES": "C/C=C(/C)\\C(=O)O[C@]1([C@H]2CC[C@@]3([C@@H](CC=C([C@H]3[C@@H]2OC1=O)C)OC(=O)C)C)C",
+                    "ConnectivitySMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+                    "InChIKey": "TURJFYBHQNTMCA-DMSNSFEJSA-N",
+                    "MonoisotopicMass": "390.20423867",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 162897025,
+                    "SMILES": "C/C=C(/C)\\C(=O)O[C@]1([C@@H]2CC[C@]3([C@@H](CC=C([C@@H]3[C@H]2OC1=O)C)OC(=O)C)C)C",
+                    "ConnectivitySMILES": "CC=C(C)C(=O)OC1(C2CCC3(C(CC=C(C3C2OC1=O)C)OC(=O)C)C)C",
+                    "InChIKey": "TURJFYBHQNTMCA-KGINRGLMSA-N",
+                    "MonoisotopicMass": "390.20423867",
+                    "Charge": 0
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "challenge-178": {
+      "structure_and_windows": {
+        "challenge": "challenge-178",
+        "molecule_id": "m_568829",
+        "precursor_mz": 301.1434,
+        "original_adduct": "[M+H]+",
+        "original_C34_target": 300.13612354783,
+        "truth_smiles": "C/C=C/C#CC#C/C=C/C=C/C(CCOC(=O)C)OC(=O)C",
+        "truth_key": "PGHCYQUSYHWJAI",
+        "raw_key": "PGHCYQUSYHWJAI",
+        "normalized_key": "PGHCYQUSYHWJAI",
+        "composition": [
+          [
+            6,
+            18
+          ],
+          [
+            8,
+            4
+          ]
+        ],
+        "normalized_smiles": "CC=CC#CC#CC=CC=CC(CCOC(C)=O)OC(C)=O",
+        "formal_charge": 0,
+        "exact_ion_or_neutral_mass": 300.13615912,
+        "exact_mass_sum_of_atoms": 300.13615912,
+        "formula": "C18H20O4",
+        "windows": {
+          "original_C34": 300.13612354783
+        }
+      },
+      "main_inventories": {
+        "engine1": {
+          "profile_rows": 1022,
+          "same_formula_all_mass": 104,
+          "hits": [
+            {
+              "row_id": 140384,
+              "smiles": "CC=CC#CC#CC=CC=CC(CCOC(C)=O)OC(C)=O",
+              "indexed_mass": 300.13615911999995,
+              "stored_identity": "PGHCYQUSYHWJAI",
+              "raw_key": "PGHCYQUSYHWJAI",
+              "normalized_key": "PGHCYQUSYHWJAI",
+              "formal_charge": 0,
+              "formula": "C18H20O4",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 0.11852012194642451,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            }
+          ],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 151,
+                "same_formula": 104,
+                "identity": 1
+              },
+              "100": {
+                "rows": 1311,
+                "same_formula": 104,
+                "identity": 1
+              }
+            }
+          }
+        },
+        "engine2_coco": {
+          "profile_rows": 939,
+          "same_formula_all_mass": 97,
+          "hits": [
+            {
+              "row_id": 81670,
+              "smiles": "C/C=C/C#CC#C/C=C\\C=C\\C(CCOC(C)=O)OC(C)=O",
+              "indexed_mass": 300.13615911999995,
+              "stored_identity": "PGHCYQUSYHWJAI",
+              "raw_key": "PGHCYQUSYHWJAI",
+              "normalized_key": "PGHCYQUSYHWJAI",
+              "formal_charge": 0,
+              "formula": "C18H20O4",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 0.11852012194642451,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            }
+          ],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 105,
+                "same_formula": 97,
+                "identity": 1
+              },
+              "100": {
+                "rows": 341,
+                "same_formula": 97,
+                "identity": 1
+              }
+            }
+          }
+        },
+        "engine2_bio": {
+          "profile_rows": 206,
+          "same_formula_all_mass": 7,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 11,
+                "same_formula": 7,
+                "identity": 0
+              },
+              "100": {
+                "rows": 68,
+                "same_formula": 7,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "engine2_pubchemlite": {
+          "profile_rows": 163,
+          "same_formula_all_mass": 16,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 29,
+                "same_formula": 16,
+                "identity": 0
+              },
+              "100": {
+                "rows": 259,
+                "same_formula": 16,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "engine2_train": {
+          "profile_rows": 40,
+          "same_formula_all_mass": 3,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 41,
+                "same_formula": 3,
+                "identity": 0
+              },
+              "100": {
+                "rows": 955,
+                "same_formula": 3,
+                "identity": 0
+              }
+            }
+          }
+        }
+      },
+      "engine1_replay": null,
+      "all_mass_pubchem_index": {
+        "tier": {
+          "profile_rows": 37057,
+          "same_formula_all_mass": 4613,
+          "hits": [
+            {
+              "row_id": 35370988,
+              "smiles": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+              "indexed_mass": 300.13615911,
+              "stored_identity": null,
+              "raw_key": "PGHCYQUSYHWJAI",
+              "normalized_key": "PGHCYQUSYHWJAI",
+              "formal_charge": 0,
+              "formula": "C18H20O4",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 0.11848680389403148,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 35372949,
+              "smiles": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+              "indexed_mass": 300.13615911,
+              "stored_identity": null,
+              "raw_key": "PGHCYQUSYHWJAI",
+              "normalized_key": "PGHCYQUSYHWJAI",
+              "formal_charge": 0,
+              "formula": "C18H20O4",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 0.11848680389403148,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 35373244,
+              "smiles": "CC=CC#CC#CC=CC=C[CH](CCOC(=O)C)OC(=O)C",
+              "indexed_mass": 300.13615911,
+              "stored_identity": null,
+              "raw_key": "PGHCYQUSYHWJAI",
+              "normalized_key": "PGHCYQUSYHWJAI",
+              "formal_charge": 0,
+              "formula": "C18H20O4",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 0.11848680389403148,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 35373245,
+              "smiles": "CC=CC#CC#CC=CC=C[CH](CCOC(=O)C)OC(=O)C",
+              "indexed_mass": 300.13615911,
+              "stored_identity": null,
+              "raw_key": "PGHCYQUSYHWJAI",
+              "normalized_key": "PGHCYQUSYHWJAI",
+              "formal_charge": 0,
+              "formula": "C18H20O4",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 0.11848680389403148,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 35373993,
+              "smiles": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+              "indexed_mass": 300.13615911,
+              "stored_identity": null,
+              "raw_key": "PGHCYQUSYHWJAI",
+              "normalized_key": "PGHCYQUSYHWJAI",
+              "formal_charge": 0,
+              "formula": "C18H20O4",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 0.11848680389403148,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            },
+            {
+              "row_id": 35374816,
+              "smiles": "CC=CC#CC#CC=CC=C[CH](CCOC(=O)C)OC(=O)C",
+              "indexed_mass": 300.13615911,
+              "stored_identity": null,
+              "raw_key": "PGHCYQUSYHWJAI",
+              "normalized_key": "PGHCYQUSYHWJAI",
+              "formal_charge": 0,
+              "formula": "C18H20O4",
+              "windows": {
+                "original_C34": {
+                  "ppm_offset": 0.11848680389403148,
+                  "within_10ppm": true,
+                  "within_100ppm": true
+                }
+              }
+            }
+          ],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 10652,
+                "same_formula": 4613,
+                "identity": 6
+              },
+              "100": {
+                "rows": 147023,
+                "same_formula": 4613,
+                "identity": 6
+              }
+            }
+          }
+        },
+        "delta": {
+          "profile_rows": 17,
+          "same_formula_all_mass": 0,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 2,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 15,
+                "same_formula": 0,
+                "identity": 0
+              }
+            }
+          }
+        },
+        "growth": {
+          "profile_rows": 6,
+          "same_formula_all_mass": 0,
+          "hits": [],
+          "within": {
+            "original_C34": {
+              "10": {
+                "rows": 3,
+                "same_formula": 0,
+                "identity": 0
+              },
+              "100": {
+                "rows": 19,
+                "same_formula": 0,
+                "identity": 0
+              }
+            }
+          }
+        }
+      },
+      "c34_replay": {
+        "original": {
+          "target": 300.13612354783,
+          "archived_order_matches": true,
+          "archived_score_max_error": 0.0,
+          "diagnostics": {
+            "molecule_id": "m_568829",
+            "n_window": 10657,
+            "n_pass1": 5000,
+            "n_pass2": 5067,
+            "n_keyed": 39,
+            "n_in_pool": 2,
+            "n_listed": 25,
+            "fz_top": 89.91236877441406,
+            "store_window_counts": {
+              "tier": 10652,
+              "delta_pc": 2,
+              "growth_pc": 3
+            },
+            "truth_hits": [
+              {
+                "index_name": "tier",
+                "index_row": 35370988,
+                "stored_mass": 300.13615911,
+                "mass_error_ppm": 0.11848680389403148,
+                "window_position": 3114,
+                "smiles": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+                "official_key": "PGHCYQUSYHWJAI",
+                "native_key": "PGHCYQUSYHWJAI",
+                "native_main_pool_key": true,
+                "partial_score": -193.62319946289062,
+                "partial_rank_interval": [
+                  1174,
+                  1179
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 7.31315803527832,
+                "documentary_rank_interval": [
+                  52,
+                  57
+                ],
+                "survived_documentary_cutoff": true,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 3056,
+                "full_fingerprint_score": -1591.1754150390625,
+                "adjusted_score": -0.08985749704207313,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 35372949,
+                "stored_mass": 300.13615911,
+                "mass_error_ppm": 0.11848680389403148,
+                "window_position": 5075,
+                "smiles": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+                "official_key": "PGHCYQUSYHWJAI",
+                "native_key": "PGHCYQUSYHWJAI",
+                "native_main_pool_key": true,
+                "partial_score": -193.62319946289062,
+                "partial_rank_interval": [
+                  1174,
+                  1179
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 7.31315803527832,
+                "documentary_rank_interval": [
+                  52,
+                  57
+                ],
+                "survived_documentary_cutoff": true,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 3057,
+                "full_fingerprint_score": -1591.1754150390625,
+                "adjusted_score": -0.08985749704207313,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 35373244,
+                "stored_mass": 300.13615911,
+                "mass_error_ppm": 0.11848680389403148,
+                "window_position": 5370,
+                "smiles": "CC=CC#CC#CC=CC=C[CH](CCOC(=O)C)OC(=O)C",
+                "official_key": "PGHCYQUSYHWJAI",
+                "native_key": "PGHCYQUSYHWJAI",
+                "native_main_pool_key": true,
+                "partial_score": -193.62319946289062,
+                "partial_rank_interval": [
+                  1174,
+                  1179
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 7.31315803527832,
+                "documentary_rank_interval": [
+                  52,
+                  57
+                ],
+                "survived_documentary_cutoff": true,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 3058,
+                "full_fingerprint_score": -1591.1754150390625,
+                "adjusted_score": -0.08985749704207313,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 35373245,
+                "stored_mass": 300.13615911,
+                "mass_error_ppm": 0.11848680389403148,
+                "window_position": 5371,
+                "smiles": "CC=CC#CC#CC=CC=C[CH](CCOC(=O)C)OC(=O)C",
+                "official_key": "PGHCYQUSYHWJAI",
+                "native_key": "PGHCYQUSYHWJAI",
+                "native_main_pool_key": true,
+                "partial_score": -193.62319946289062,
+                "partial_rank_interval": [
+                  1174,
+                  1179
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 7.31315803527832,
+                "documentary_rank_interval": [
+                  52,
+                  57
+                ],
+                "survived_documentary_cutoff": true,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 3059,
+                "full_fingerprint_score": -1591.1754150390625,
+                "adjusted_score": -0.08985749704207313,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 35373993,
+                "stored_mass": 300.13615911,
+                "mass_error_ppm": 0.11848680389403148,
+                "window_position": 6119,
+                "smiles": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+                "official_key": "PGHCYQUSYHWJAI",
+                "native_key": "PGHCYQUSYHWJAI",
+                "native_main_pool_key": true,
+                "partial_score": -193.62319946289062,
+                "partial_rank_interval": [
+                  1174,
+                  1179
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 7.31315803527832,
+                "documentary_rank_interval": [
+                  52,
+                  57
+                ],
+                "survived_documentary_cutoff": true,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 3060,
+                "full_fingerprint_score": -1591.1754150390625,
+                "adjusted_score": -0.08985749704207313,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              },
+              {
+                "index_name": "tier",
+                "index_row": 35374816,
+                "stored_mass": 300.13615911,
+                "mass_error_ppm": 0.11848680389403148,
+                "window_position": 6942,
+                "smiles": "CC=CC#CC#CC=CC=C[CH](CCOC(=O)C)OC(=O)C",
+                "official_key": "PGHCYQUSYHWJAI",
+                "native_key": "PGHCYQUSYHWJAI",
+                "native_main_pool_key": true,
+                "partial_score": -193.62319946289062,
+                "partial_rank_interval": [
+                  1174,
+                  1179
+                ],
+                "survived_partial_cutoff": true,
+                "documentary_score": 7.31315803527832,
+                "documentary_rank_interval": [
+                  52,
+                  57
+                ],
+                "survived_documentary_cutoff": true,
+                "survived_coarse_union": true,
+                "has_full_fingerprint": true,
+                "adjusted_score_rank_in_shortlist": 3061,
+                "full_fingerprint_score": -1591.1754150390625,
+                "adjusted_score": -0.08985749704207313,
+                "native_pubchem_rank_after_pool_exclusion_and_dedup": null
+              }
+            ],
+            "n_prior_selected": 200,
+            "n_coarse_union": 5067,
+            "S": 4.087016680407187,
+            "top_pop": 6.2939453125,
+            "secs": 145.45860481262207
+          }
+        }
+      },
+      "archived_candidate_stages": {
+        "prefusion": {
+          "total": 25,
+          "hits": []
+        },
+        "engine2": {
+          "total": 40,
+          "hits": []
+        },
+        "pubchem": {
+          "total": 25,
+          "hits": []
+        },
+        "base_tail": {
+          "total": 60,
+          "hits": []
+        },
+        "fusion_overflow": {
+          "total": 15,
+          "hits": []
+        }
+      },
+      "current_public_pubchem": {
+        "official_label_key": "PGHCYQUSYHWJAI-NOPLWHKLSA-N",
+        "metric_key": "PGHCYQUSYHWJAI",
+        "pubchem_normalized_matches": [
+          9796350,
+          85040203,
+          92974045,
+          92974046,
+          131751099,
+          162943567
+        ],
+        "pubchem_properties": [
+          {
+            "CID": 9796350,
+            "SMILES": "C/C=C/C#CC#C/C=C/C=C/C(CCOC(=O)C)OC(=O)C",
+            "ConnectivitySMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+            "InChIKey": "PGHCYQUSYHWJAI-NOPLWHKLSA-N",
+            "MonoisotopicMass": "300.13615911",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "PGHCYQUSYHWJAI"
+          },
+          {
+            "CID": 85040203,
+            "SMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+            "ConnectivitySMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+            "InChIKey": "PGHCYQUSYHWJAI-UHFFFAOYSA-N",
+            "MonoisotopicMass": "300.13615911",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "PGHCYQUSYHWJAI"
+          },
+          {
+            "CID": 92974045,
+            "SMILES": "C/C=C/C#CC#C/C=C/C=C/[C@@H](CCOC(=O)C)OC(=O)C",
+            "ConnectivitySMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+            "InChIKey": "PGHCYQUSYHWJAI-MADFGGETSA-N",
+            "MonoisotopicMass": "300.13615911",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "PGHCYQUSYHWJAI"
+          },
+          {
+            "CID": 92974046,
+            "SMILES": "C/C=C/C#CC#C/C=C/C=C/[C@H](CCOC(=O)C)OC(=O)C",
+            "ConnectivitySMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+            "InChIKey": "PGHCYQUSYHWJAI-GWNNJWKOSA-N",
+            "MonoisotopicMass": "300.13615911",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "PGHCYQUSYHWJAI"
+          },
+          {
+            "CID": 131751099,
+            "SMILES": "C/C=C\\C#CC#C/C=C/C=C/C(CCOC(=O)C)OC(=O)C",
+            "ConnectivitySMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+            "InChIKey": "PGHCYQUSYHWJAI-YSQYCKBNSA-N",
+            "MonoisotopicMass": "300.13615911",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "PGHCYQUSYHWJAI"
+          },
+          {
+            "CID": 162943567,
+            "SMILES": "CC=CC#CC#CC=CC=C[C@H](CCOC(=O)C)OC(=O)C",
+            "ConnectivitySMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+            "InChIKey": "PGHCYQUSYHWJAI-GOSISDBHSA-N",
+            "MonoisotopicMass": "300.13615911",
+            "Charge": 0,
+            "metric_match": true,
+            "metric_key": "PGHCYQUSYHWJAI"
+          }
+        ],
+        "endpoint_evidence": {
+          "official_full_key": {
+            "status": 200,
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/inchikey/PGHCYQUSYHWJAI-NOPLWHKLSA-N/property/SMILES,ConnectivitySMILES,InChIKey,MonoisotopicMass,Charge/JSON",
+            "data": {
+              "PropertyTable": {
+                "Properties": [
+                  {
+                    "CID": 9796350,
+                    "SMILES": "C/C=C/C#CC#C/C=C/C=C/C(CCOC(=O)C)OC(=O)C",
+                    "ConnectivitySMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+                    "InChIKey": "PGHCYQUSYHWJAI-NOPLWHKLSA-N",
+                    "MonoisotopicMass": "300.13615911",
+                    "Charge": 0
+                  }
+                ]
+              }
+            }
+          },
+          "official_smiles_same_connectivity": {
+            "status": 200,
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/fastidentity/smiles/property/SMILES,ConnectivitySMILES,InChIKey,MonoisotopicMass,Charge/JSON?smiles=C%2FC%3DC%2FC%23CC%23C%2FC%3DC%2FC%3DC%2FC%28CCOC%28%3DO%29C%29OC%28%3DO%29C&identity_type=same_connectivity",
+            "data": {
+              "PropertyTable": {
+                "Properties": [
+                  {
+                    "CID": 9796350,
+                    "SMILES": "C/C=C/C#CC#C/C=C/C=C/C(CCOC(=O)C)OC(=O)C",
+                    "ConnectivitySMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+                    "InChIKey": "PGHCYQUSYHWJAI-NOPLWHKLSA-N",
+                    "MonoisotopicMass": "300.13615911",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 85040203,
+                    "SMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+                    "ConnectivitySMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+                    "InChIKey": "PGHCYQUSYHWJAI-UHFFFAOYSA-N",
+                    "MonoisotopicMass": "300.13615911",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 92974045,
+                    "SMILES": "C/C=C/C#CC#C/C=C/C=C/[C@@H](CCOC(=O)C)OC(=O)C",
+                    "ConnectivitySMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+                    "InChIKey": "PGHCYQUSYHWJAI-MADFGGETSA-N",
+                    "MonoisotopicMass": "300.13615911",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 92974046,
+                    "SMILES": "C/C=C/C#CC#C/C=C/C=C/[C@H](CCOC(=O)C)OC(=O)C",
+                    "ConnectivitySMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+                    "InChIKey": "PGHCYQUSYHWJAI-GWNNJWKOSA-N",
+                    "MonoisotopicMass": "300.13615911",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 131751099,
+                    "SMILES": "C/C=C\\C#CC#C/C=C/C=C/C(CCOC(=O)C)OC(=O)C",
+                    "ConnectivitySMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+                    "InChIKey": "PGHCYQUSYHWJAI-YSQYCKBNSA-N",
+                    "MonoisotopicMass": "300.13615911",
+                    "Charge": 0
+                  },
+                  {
+                    "CID": 162943567,
+                    "SMILES": "CC=CC#CC#CC=CC=C[C@H](CCOC(=O)C)OC(=O)C",
+                    "ConnectivitySMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+                    "InChIKey": "PGHCYQUSYHWJAI-GOSISDBHSA-N",
+                    "MonoisotopicMass": "300.13615911",
+                    "Charge": 0
+                  }
+                ]
+              }
+            }
+          },
+          "official_known_cid": {
+            "status": 200,
+            "url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/9796350/property/SMILES,ConnectivitySMILES,InChIKey,MonoisotopicMass,Charge/JSON",
+            "data": {
+              "PropertyTable": {
+                "Properties": [
+                  {
+                    "CID": 9796350,
+                    "SMILES": "C/C=C/C#CC#C/C=C/C=C/C(CCOC(=O)C)OC(=O)C",
+                    "ConnectivitySMILES": "CC=CC#CC#CC=CC=CC(CCOC(=O)C)OC(=O)C",
+                    "InChIKey": "PGHCYQUSYHWJAI-NOPLWHKLSA-N",
+                    "MonoisotopicMass": "300.13615911",
+                    "Charge": 0
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
