@@ -1,0 +1,72 @@
+import json
+import shutil
+import hashlib
+from pathlib import Path
+import pandas as pd
+from rdkit import Chem
+from rdkit.Chem.MolStandardize import rdMolStandardize
+from functools import lru_cache
+
+four_query_ids = set(pd.read_parquet(COMP / 'test.parquet', columns=['molecule_id']).molecule_id)
+four_run = json.loads((ROOT / 'execution_receipt.json').read_text())
+four_v43 = json.loads((ROOT / 'v43_execution_receipt.json').read_text())
+if not (IS_RERUN and PIPELINE_DONE and four_run['is_full_run']
+        and four_run['processed_molecules'] == len(four_query_ids) and four_v43['main_errors'] == 0
+        and four_v43['placeholder_rows'] == 0 and set(four_v43['processed_ids']) == four_query_ids):
+    raise RuntimeError('Original pipeline did not finish all frozen spectra.')
+four_audits = {}
+for four_stage in ('n035net','apex_extlib','p5tail','fr3to25','aprior','uniq','npx','e180x'):
+    four_detail = json.loads((ROOT / f'{four_stage}_audit.json').read_text())
+    if four_stage == 'apex_extlib':
+        if four_detail['molecules'] != len(four_query_ids) or four_detail['reference_rows'] <= 0:
+            raise RuntimeError('Missing complete APEX spectrum search')
+    else:
+        s = four_detail['status']
+        if not (s.startswith('applied') or (four_stage == 'npx' and s.startswith('gate failed'))):
+            raise RuntimeError(f'Incomplete original 0.505 {four_stage}: {four_detail}')
+    four_audits[four_stage] = four_detail
+four_final = pd.read_csv(ROOT / 'submission.csv',dtype=str,keep_default_na=False)
+if set(four_final.molecule_id) != four_query_ids or not four_final.molecule_id.is_unique:
+    raise RuntimeError('Final answers do not match the frozen panel')
+four_taut = rdMolStandardize.TautomerEnumerator()
+@lru_cache(maxsize=None)
+def four_key(smiles):
+    mol = Chem.MolFromSmiles(smiles)
+    if mol is None:
+        return None
+    Chem.RemoveStereochemistry(mol)
+    return Chem.MolToInchiKey(four_taut.Canonicalize(mol))[:14]
+four_inner = json.loads((ROOT / 'four_source_lists.json').read_text())
+four_rows = []
+for row in four_final.itertuples(index=False):
+    mid = row.molecule_id
+    out = row.smiles.split(';')
+    if not 1 <= len(out) <= 25 or any(not s for s in out):
+        raise ValueError(f'Unexpected original budget for {mid}')
+    maps = {}
+    for source, source_list in four_inner[mid].items():
+        ranks = {}
+        for rank, smi in enumerate(source_list, 1):
+            key = four_key(smi)
+            if key:
+                ranks.setdefault(key, rank)
+        maps[source] = ranks
+    for rank, smi in enumerate(out, 1):
+        key = four_key(smi)
+        if key is None:
+            raise ValueError(f'Invalid 0.505 candidate in {mid} at {rank}')
+        four_rows.append(dict(molecule_id=mid, rank=rank, smiles=smi, candidate_id=key,
+                              **{source+'_rank': ranks.get(key) for source,ranks in maps.items()}))
+pd.DataFrame(four_rows).to_parquet(ROOT / 'four_arm_baseline_candidates.parquet',index=False)
+shutil.copyfile(ROOT / 'submission.csv', ROOT / 'four_arm_baseline.csv')
+four_manifest = dict(public_source='goodpjw2008/enveda-casmi-stack-npx-e180x-1-1-lb-0-505/7',
+                     source_sha256='a7e9b7f609ed56a24e67d90eea23ed522e5fe9ec21da9de4fb04f73e1d45eddb',
+                     molecules=len(four_query_ids), slots=len(four_rows), all_queries=True,
+                     baseline_sha256=hashlib.sha256((ROOT/'four_arm_baseline.csv').read_bytes()).hexdigest(),
+                     blind_test_sha256=hashlib.sha256((COMP/'test.parquet').read_bytes()).hexdigest(),
+                     stage_status={k:v.get('status','completed') for k,v in four_audits.items()},
+                     external_extension=json.loads((ROOT/'four_inner_reference.json').read_text()),
+                     removed_references=_four_train_stats,
+                     scope='0.505 v7 complete scoring pipeline with masked spectral references and fold-restricted on-the-fly fits; structure-only candidate inventory preserved. Original frozen pretrained models are unchanged and may share historical chemical families.')
+(ROOT/'four_arm_baseline_receipt.json').write_text(json.dumps(four_manifest, indent=2))
+print('FROZEN ORIGINAL BASELINE', four_manifest, flush=True)
