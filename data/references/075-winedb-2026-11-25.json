@@ -1,0 +1,224 @@
+{
+  "gnps2": {
+    "kernel": "jiyujia/enveda-075-winedb-ms2-overlap/1",
+    "status": "COMPLETE",
+    "summary_sha256": "329f34c0831685abdccc333fc762b6f3161820eac5256062d6f251f35356d8bf",
+    "summary": {
+      "all_parsed": {
+        "energy_scope": {
+          "merge_declared_in_author_filename": 251,
+          "not_exposed_in_gnps_record": 834
+        },
+        "explicit_raw_provenance": 0,
+        "fine_scaffolds": 62,
+        "generic_scaffolds": 54,
+        "identities": 162,
+        "negative_identities": 132,
+        "positive_identities": 139,
+        "reported_mz_decimal_places": {
+          "1": 4,
+          "2": 128,
+          "3": 953
+        },
+        "single_ce_with_unit": 0,
+        "spectra": 1085
+      },
+      "data_sources": {
+        "WINE-DB-ORBITRAP": {
+          "all_public_spectra": 383,
+          "archive": {
+            "bytes": 1247711,
+            "dataset": "WINE-DB-ORBITRAP",
+            "etag": "\"1795549332.8372815-1247711-2399537518\"",
+            "last_modified": "Tue, 24 Nov 2026 19:42:12 GMT",
+            "sha256": "8bc234a4616712423fd05ff66c09ffb4791b7ff411bb32130a8dba7ad5f595b3",
+            "url": "https://external.gnps2.org/gnpslibrary/WINE-DB-ORBITRAP.json"
+          },
+          "parsed": {
+            "energy_scope": {
+              "not_exposed_in_gnps_record": 148
+            },
+            "explicit_raw_provenance": 0,
+            "fine_scaffolds": 50,
+            "generic_scaffolds": 45,
+            "identities": 128,
+            "negative_identities": 0,
+            "positive_identities": 128,
+            "reported_mz_decimal_places": {
+              "2": 12,
+              "3": 136
+            },
+            "single_ce_with_unit": 0,
+            "spectra": 148
+          },
+          "rejections": {
+            "invalid_precursor_or_fewer_than_four_fragments": 13,
+            "missing_permitted_structure": 9,
+            "not_an_explicit_protonated_or_deprotonated_adduct": 213
+          },
+          "source_fields": {
+            "Adduct": {
+              "M+H": 365,
+              "M+NH3": 3,
+              "M+Na": 15
+            },
+            "Compound_Source": {
+              "Commercial": 266,
+              "Isolated": 117
+            },
+            "Instrument": {
+              "Orbitrap": 383
+            },
+            "Ion_Mode": {
+              "Negative": 200,
+              "Positive": 183
+            }
+          }
+        },
+        "WINE-DB-QTOF": {
+          "all_public_spectra": 1383,
+          "archive": {
+            "bytes": 4573590,
+            "dataset": "WINE-DB-QTOF",
+            "etag": "\"1795549329.2912815-4573590-1829374021\"",
+            "last_modified": "Tue, 24 Nov 2026 19:42:09 GMT",
+            "sha256": "3f886771df4995dfedf5871ea014e47e85766f28d3575a30845582ed069da788",
+            "url": "https://external.gnps2.org/gnpslibrary/WINE-DB-QTOF.json"
+          },
+          "parsed": {
+            "energy_scope": {
+              "merge_declared_in_author_filename": 251,
+              "not_exposed_in_gnps_record": 686
+            },
+            "explicit_raw_provenance": 0,
+            "fine_scaffolds": 59,
+            "generic_scaffolds": 51,
+            "identities": 151,
+            "negative_identities": 132,
+            "positive_identities": 112,
+            "reported_mz_decimal_places": {
+              "1": 4,
+              "2": 116,
+              "3": 817
+            },
+            "single_ce_with_unit": 0,
+            "spectra": 937
+          },
+          "rejections": {
+            "invalid_precursor_or_fewer_than_four_fragments": 281,
+            "missing_permitted_structure": 32,
+            "not_an_explicit_protonated_or_deprotonated_adduct": 133
+          },
+          "source_fields": {
+            "Adduct": {
+              "M+H": 549,
+              "M+K": 48,
+              "M+NH3": 23,
+              "M+NH4": 1,
+              "M+NH5": 1,
+              "M+Na": 60,
+              "M-H": 701
+            },
+            "Compound_Source": {
+              "Commercial": 969,
+              "Isolated": 414
+            },
+            "Instrument": {
+              "qTof": 1383
+            },
+            "Ion_Mode": {
+              "Negative": 701,
+              "Positive": 682
+            }
+          }
+        }
+      },
+      "original_license": "CC0 1.0 Universal",
+      "original_license_record": "https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=71642757606c40738edd1c8354779989",
+      "per_instrument_training_unseen_within_10ppm": {
+        "orbitrap": {
+          "energy_scope": {},
+          "explicit_raw_provenance": 0,
+          "fine_scaffolds": 0,
+          "generic_scaffolds": 0,
+          "identities": 0,
+          "negative_identities": 0,
+          "positive_identities": 0,
+          "reported_mz_decimal_places": {},
+          "single_ce_with_unit": 0,
+          "spectra": 0
+        },
+        "qtof": {
+          "energy_scope": {},
+          "explicit_raw_provenance": 0,
+          "fine_scaffolds": 0,
+          "generic_scaffolds": 0,
+          "identities": 0,
+          "negative_identities": 0,
+          "positive_identities": 0,
+          "reported_mz_decimal_places": {},
+          "single_ce_with_unit": 0,
+          "spectra": 0
+        }
+      },
+      "provider_scope": "One WineDB study spanning two acquisition instruments.",
+      "public_library_documentation": "https://ccms-ucsd.github.io/GNPSDocumentation/gnpslibraries/#library-list",
+      "rdkit": "2026.03.3",
+      "rows_file": "wine_db_public_rows.json",
+      "rows_sha256": "39e3253eef07397f6b7d230f26d6edfb69f4a3ecd94fb80693d9251ac9edbbec",
+      "scope": "This first audit checks WineDB public library peak records, compound identities and official training exposure. An author-exported precursor is retained exactly; raw centroid and single-CE provenance are counted only if explicitly available. No prior blind labels or private exclusion files are used.",
+      "training_identity_unseen": {
+        "energy_scope": {},
+        "explicit_raw_provenance": 0,
+        "fine_scaffolds": 0,
+        "generic_scaffolds": 0,
+        "identities": 0,
+        "negative_identities": 0,
+        "positive_identities": 0,
+        "reported_mz_decimal_places": {},
+        "single_ce_with_unit": 0,
+        "spectra": 0
+      },
+      "training_identity_unseen_within_10ppm": {
+        "energy_scope": {},
+        "explicit_raw_provenance": 0,
+        "fine_scaffolds": 0,
+        "generic_scaffolds": 0,
+        "identities": 0,
+        "negative_identities": 0,
+        "positive_identities": 0,
+        "reported_mz_decimal_places": {},
+        "single_ce_with_unit": 0,
+        "spectra": 0
+      },
+      "training_overlap": {
+        "direct_keys_hit": 166,
+        "exact_metric_identity_hits": 162,
+        "normalized_competition_structures": 3847,
+        "rows": 2539608,
+        "same_composition_or_unclassified_rows": 141607,
+        "sha256": "9423f90ec08b941a9646b535bf0606183e86ff0c5a297978f5a70693d41bcd98",
+        "training_source_counts": {
+          "drug_plus": 2545,
+          "enveda-180": 1153785,
+          "enveda-np-examples": 1184,
+          "gnps": 220849,
+          "masaryk": 652,
+          "massbank": 101727,
+          "mona": 92416,
+          "msdial": 40765,
+          "pluskal_ms2": 527581,
+          "riken": 347171,
+          "spectraverse": 50933
+        },
+        "unclassified_formula_rows": 0
+      }
+    }
+  },
+  "author_release": {
+    "kernel": "jiyujia/enveda-075-winedb-author-overlap/1",
+    "status_at_last_check": "RUNNING",
+    "study_files": "https://massive.ucsd.edu/ProteoSAFe/dataset_files.jsp?task=3edfe5c92cba405f942978f0f3fe6e56",
+    "package_sha256": "33c18e32f181335867de05ad524953abfe1f629d243686a281c37bb821191adf"
+  }
+}
