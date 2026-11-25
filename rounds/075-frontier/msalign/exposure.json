@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-25",
+  "queries_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+  "labels_sha256": "ab7a98f7f5e35fd9029ebc905de279d25adde894f2ea49949066a72a1b2cb1fa",
+  "panel_molecules": 60,
+  "official_zip": "https://zenodo.org/records/23372807/files/massspecgym.zip",
+  "split": "mces_1",
+  "official_entries_sha256": {
+    "massspecgym/unique_smiles.csv": "13ce7bb2e1b4b78bf221fb9ec4150007ef635e56c8f8f495eb96e7866f082b72",
+    "massspecgym/splits/mces_1.csv": "5b485c54775af02e65fb07c91ca1a7bf535561dbe1de0dd20ca496522a5d52d5"
+  },
+  "official_entries_integrity": "ZIP member CRC and uncompressed size verified",
+  "structures_by_fold": {"train": 22755, "val": 3184, "test": 2997},
+  "spectra_by_fold": {"train": 194119, "val": 19429, "test": 17556},
+  "structures_assigned_multiple_folds": 0,
+  "exact_method": "Compare formula-matched structures under the competition stereo-removed canonical-tautomer connectivity plus heavy-element signature.",
+  "exact_identity_matches_by_fold": {"train": 0, "val": 0, "test": 0},
+  "scaffold_method": "Match the panel generic Murcko scaffold to generic Murcko scaffolds computed on raw released SMILES. Folds may share the same scaffold.",
+  "generic_scaffold_matches_by_fold": {"train": 27, "val": 10, "test": 14},
+  "training_scaffold_detected_query_ids": [
+    "m_0caacbf876a7", "m_1171d6646590", "m_17c4ed1464aa", "m_2776589bbaaf",
+    "m_2c88e89659ae", "m_2ce8f34509d5", "m_325c6b4639a2", "m_417cb1557f0c",
+    "m_4bab16fbc5ff", "m_55918f78ea0b", "m_5db188e44509", "m_60249642d700",
+    "m_629bc25507b4", "m_70a62ae7bf3b", "m_798b2c8d5a7d", "m_8bed1ae34ab6",
+    "m_91b084360271", "m_9f225112099d", "m_ae07d08d1663", "m_b48250cfa30e",
+    "m_b68e840e9062", "m_bb3228296dcd", "m_cb63eb5b511e", "m_e03d62a97bf7",
+    "m_ea26de384593", "m_f7b102f14304", "m_ffd4bba01fb3"
+  ]
+}
