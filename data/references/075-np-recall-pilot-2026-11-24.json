@@ -1,0 +1,172 @@
+{
+  "owner": "jiyujia",
+  "timeout_seconds_per_arm": 10800,
+  "device": "Tesla T4 ×2",
+  "local_panel": "/private/tmp/enveda-075-retrieval-pilot-panel",
+  "panel": {
+    "sampling": "casmi26-pilot-retrieval-2026-11-24-v1",
+    "rdkit": "2026.03.3",
+    "molecules": 60,
+    "spectra": 98,
+    "molecules_by_source": {
+      "MycoMSBase": 43,
+      "MassBank_Eawag": 13,
+      "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": 4
+    },
+    "spectra_by_adduct": {
+      "[M-H]-": 50,
+      "[M+H]+": 48
+    },
+    "source_availability": {
+      "MassBank_Athens_Univ": 1,
+      "MassBank_Eawag": 17,
+      "MassBank_RIKEN": 1,
+      "MassBank_SMB_Measured": 2,
+      "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": 4,
+      "MycoMSBase": 53
+    },
+    "exclusions": {
+      "previous development identity": 21,
+      "invalid, acyclic or disconnected": 10,
+      "CASMI2017: Published MS/MS charge disagrees with the acquisition summary or paired MS1 metadata.": 1,
+      "CASMI2017: Organizer cannot confirm natural origin.": 4,
+      "fewer than four fragment peaks": 19,
+      "CASMI2017: invalid or absent organizer spectrum (ValueError)": 1,
+      "MassBank: known raw training or development identity": 65837,
+      "MassBank: no catalogued natural origin": 74473,
+      "MassBank: absent published InChIKey": 2083,
+      "MassBank: outside_requested_adduct_ms2": 2354,
+      "MassBank: unusable_spectrum": 43,
+      "MassBank: invalid_mass": 9,
+      "MassBank: parsed structure differs from catalog evidence": 13,
+      "GNPS: known raw training or development identity": 819,
+      "GNPS: no public SMILES label in original record": 54,
+      "GNPS: unsupported or conflicting adduct": 39,
+      "MycoMSBase: excluded by independent accession audit": 422,
+      "known Kaggle training identity among eligible source groups": 174
+    },
+    "prior_development_keys": {
+      "private/labels.parquet": 18,
+      "enveda-075-1124-np250-v10/panel.parquet": 250,
+      "enveda-075b-external-massbank-202611/labels.parquet": 114,
+      "enveda-075b-external-massbank-adducts/labels.parquet": 49,
+      "tmp/enveda-pilot-dev-202603-labels.parquet": 110,
+      "tmp/enveda-pilot-dev-multims2-labels.parquet": 8,
+      "enveda-np-examples": 256
+    },
+    "blocked_sources": [
+      "Eawag",
+      "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION",
+      "Helmholtz",
+      "MassBank_Eawag",
+      "MycoMSB",
+      "MycoMSBase",
+      "TUEBINGEN-NATURAL-PRODUCT-COLLECTION",
+      "gnps",
+      "massbank",
+      "mona"
+    ],
+    "blocked_scaffolds": 48,
+    "train_structure_index_sha256": "7c16c4968a15956e94eba58e3ff94d4a6c2f6899b10a2f2824047601a46bd6c8",
+    "matched_training_index_keys": 0,
+    "exact_competition_normalization": {
+      "same_heavy_composition_training_rows_renormalized": 2156,
+      "collision_identities_excluded": 0
+    },
+    "exact_raw_identities_in_unmasked_competition_train": 0,
+    "unmasked_train_raw_identities_by_library": {},
+    "source_urls": {
+      "CASMI-solutions.csv": "http://www.casmi-contest.org/2017/CASMI-solutions.csv",
+      "Chal1to45Summary.csv": "http://www.casmi-contest.org/2017/challenges/Chal1to45Summary.csv",
+      "challenges-001-045-ms-mgf-20170908.zip": "http://www.casmi-contest.org/2017/challenges/challenges-001-045-ms-mgf-20170908.zip",
+      "challenges-001-045-msms-mgf-20170908.zip": "http://www.casmi-contest.org/2017/challenges/challenges-001-045-msms-mgf-20170908.zip",
+      "challenges-046-243-msms-mgf-20170522.zip": "http://www.casmi-contest.org/2017/challenges/challenges-046-243-msms-mgf-20170522.zip",
+      "challenges-046-243-msms-tsv-20170707.zip": "http://www.casmi-contest.org/2017/challenges/challenges-046-243-msms-tsv-20170707.zip",
+      "MassBank 2026.11": "https://zenodo.org/records/24082491",
+      "THEOBROMA v1.36": "https://doi.org/10.5281/zenodo.22816330",
+      "TUEBINGEN-NATURAL-PRODUCT-COLLECTION": "https://external.gnps2.org/gnpslibrary/TUEBINGEN-NATURAL-PRODUCT-COLLECTION.json",
+      "TUEBINGEN-NATURAL-PRODUCT-COLLECTION original study": "https://gnps.ucsd.edu/ProteoSAFe/gnpslibrary.jsp?library=TUEBINGEN-NATURAL-PRODUCT-COLLECTION",
+      "MycoMSBase": "https://mycomsbase.helmholtz-hzi.de/MycoMSBase/"
+    },
+    "source_hashes": {
+      "CASMI-solutions.csv": "d1aed33a27746999fcf60ad0ff93389a515a8e012c7f66b028a34aa5528542a6",
+      "Chal1to45Summary.csv": "0d39cb0e191079f6e87af99d4aa67cb4b5faf7aff2a2607356ce26dfcf1e935d",
+      "challenges-001-045-ms-mgf-20170908.zip": "d3d4342e80d144eecdff7c9c5d8c9725555373d2bc14826c20b7e45046d5102a",
+      "challenges-001-045-msms-mgf-20170908.zip": "fe1732ba6b24724d3d24cc5745be5a58fd23c6bdae9556d01f9a0ed4060f9deb",
+      "challenges-046-243-msms-mgf-20170522.zip": "86f38e71b92c0971b7275e1f25b25a44e30d0f245dc4dc9899af4f1ac1b10813",
+      "challenges-046-243-msms-tsv-20170707.zip": "5a76a4dbca6929cd548c799b6f4de28547b9f4e7d674da682db2e31c3f4f8540",
+      "MassBank 2026.11 md5": "d82fe03140b1d86f1cddf59577ef5bad",
+      "Natural product catalog sha256": "6ccb833e47d88715fca1d614b05cae92fa333fa388ae1d64226f2695a62081aa",
+      "THEOBROMA v1.36 sha256": "3307fd21d39bc4a665824fcc5f783f2bfdd396338c1fb09821c8da1285c591d1",
+      "TUEBINGEN-NATURAL-PRODUCT-COLLECTION sha256": "8fd3fabe4917e772e86dd731fab1f99cd76d4f58b85b022da13c7cfed6c43a51",
+      "MycoMSBase independent accession audit sha256": "4603ed6f294642565281c41d1ef71c0e75882ed850f3da67d4f607763d894a70"
+    },
+    "scope": "Reference and newly fitted components are held out by source, grouped generic scaffold and metric identity. Public pretrained checkpoint exposure is a separate limitation.",
+    "output_sha256": {
+      "blind/sample_submission.csv": "dd4d2face217a41a9237c4357940098c23973e7b7ad4458c119cfa7698edcbd1",
+      "blind/test.parquet": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+      "private/holdout.json": "438ef222c28e8a3ec36cffca2ab4f5db1930666b2a2dadb40c2547d1710ac8f5",
+      "private/labels.parquet": "ab7a98f7f5e35fd9029ebc905de279d25adde894f2ea49949066a72a1b2cb1fa",
+      "private/spectra_provenance.parquet": "0ca11bb727a66332a71e580f18be1dfdffe7b45d1d87bc9e271e12d2eafd8bb5"
+    },
+    "mycomsb_precursor_policy": "Preserved the published focused-ion m/z exactly. The author resource does not state that this field is always an independently measured precursor; MS/MS fragment peaks are experimental Bruker MetaboScape library data."
+  },
+  "jobs": {
+    "baseline": {
+      "arm": "baseline",
+      "slug": "enveda-075-np-recall-base",
+      "notebook_sha256": "08c6fd1393e8e49014aeb1d9b7ab35c1f761e2237614879666d5f94ec71272cc",
+      "query_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+      "version": 2,
+      "accepted_beijing": "2026-11-25T09:10:21.340848+08:00",
+      "url": "https://www.kaggle.com/code/jiyujia/enveda-075-np-recall-base/versions/2"
+    },
+    "early_score": {
+      "arm": "early_score",
+      "slug": "enveda-075-np-recall-early",
+      "notebook_sha256": "ed9646bb93e0978c58004ee6815ba6742561ae3c4a90613288c63cb4ef0da0a3",
+      "query_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+      "version": 2,
+      "accepted_beijing": "2026-11-25T09:10:27.847886+08:00",
+      "url": "https://www.kaggle.com/code/jiyujia/enveda-075-np-recall-early/versions/2"
+    },
+    "late_dedupe": {
+      "arm": "late_dedupe",
+      "slug": "enveda-075-np-recall-dedup",
+      "notebook_sha256": "bbf738ad156bfa5339eba33dcc35fab36a61153cb0348cbe66b5bf715768ea15",
+      "query_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+      "version": 1,
+      "accepted_beijing": "2026-11-25T11:04:08.492202+08:00",
+      "url": "https://www.kaggle.com/code/jiyujia/enveda-075-np-recall-dedup/versions/1"
+    },
+    "joint": {
+      "arm": "joint",
+      "slug": "enveda-075-np-recall-joint",
+      "notebook_sha256": "52cbe7aa314fde542762cbfd16be5d4c83430219c6428f28d0d2e37b08446524",
+      "query_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+      "version": 1,
+      "accepted_beijing": "2026-11-25T11:04:14.442533+08:00",
+      "url": "https://www.kaggle.com/code/jiyujia/enveda-075-np-recall-joint/versions/1"
+    }
+  },
+  "superseded_jobs": [
+    {
+      "arm": "baseline",
+      "slug": "enveda-075-np-recall-base",
+      "notebook_sha256": "f20f16a286485f611019062dd2e49d4efd828d714f03e751f26190485b68e6d6",
+      "query_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+      "version": 1,
+      "accepted_beijing": "2026-11-24T18:31:55.278000+08:00",
+      "url": "https://www.kaggle.com/code/jiyujia/enveda-075-np-recall-base/versions/1"
+    },
+    {
+      "arm": "early_score",
+      "slug": "enveda-075-np-recall-early",
+      "notebook_sha256": "e60bdcf03c523866ff80dc15c7c0cb4e6aa572c17b25a61b006f28e6a17da6af",
+      "query_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+      "version": 1,
+      "accepted_beijing": "2026-11-24T18:32:00.807050+08:00",
+      "url": "https://www.kaggle.com/code/jiyujia/enveda-075-np-recall-early/versions/1"
+    }
+  ]
+}

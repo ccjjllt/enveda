@@ -5,9 +5,10 @@
   "author_submission": 58749432,
   "notebook": "jiyujia/enveda-casmi-0505-npx-e180x/1",
   "submission": 58804528,
-  "status": "PENDING",
+  "status": "COMPLETE",
   "submitted_utc": "2026-11-24 01:28:45.153000",
-  "public_score": "",
+  "public_score": "0.505",
+  "status_last_checked_beijing": "2026-11-24T15:21:57+08:00",
   "version_url": "/code/jiyujia/enveda-casmi-0505-npx-e180x?scriptVersionId=373271594",
   "validation": {
     "rows": 400,

@@ -1,0 +1,49 @@
+{
+  "date_beijing": "2026-11-24",
+  "author_plan": "pablodiegoo/enveda-casmi26-starter-notebook/29",
+  "author_internal_version": 30,
+  "author_public_score": "0.506",
+  "author_submission": 58768161,
+  "matching_public_copy_submissions": [
+    58800444,
+    58793170
+  ],
+  "author_notebook_sha256": "a183882abe0b131581109455e1b704ec6d93f27fb99e7b5c2f07d40063e9c5af",
+  "reproduction_notebook_sha256": "371b39ca69b22fb980590b2ea0681948eea550e44f61b8630c0427384560c39f",
+  "runtime_options": {
+    "internet": false,
+    "private": true,
+    "gpu": "2 × Tesla T4",
+    "notebook_timeout_seconds": 32400,
+    "docker_image": "gcr.io/kaggle-private-byod/python@sha256:2757e0c7d1e0a9cb43da657b97e223c321a98f5014bdf64f44f2f6b083ad2b2f",
+    "code_change": null,
+    "extlib2_enabled": false,
+    "inactive_mount_omitted": "nakhun/casmi26-extlib2"
+  },
+  "notebook": "jiyujia/enveda-casmi-0506-pablo/1",
+  "submission": 58820476,
+  "status": "COMPLETE",
+  "submitted_utc": "2026-11-24 08:40:42.110000",
+  "public_score": "0.506",
+  "version_url": "/code/jiyujia/enveda-casmi-0506-pablo?scriptVersionId=373372380",
+  "validation": {
+    "rows": 400,
+    "lengths": {
+      "25": 12,
+      "1": 388
+    },
+    "smoke_molecules": 12,
+    "gpu": [
+      "Tesla T4",
+      "Tesla T4"
+    ],
+    "rdkit": "2026.03.3",
+    "pipeline_seconds": 1156.95,
+    "ensemble_candidates": 688,
+    "sha256": "6cdcd09a67cfcd1876423c8780091338770b8b8cc921e2f3b0d8682b755cf9ca"
+  },
+  "attempts_submitted": 1,
+  "status_last_checked_beijing": "2026-11-25T09:09:22+08:00",
+  "kernel_status": "COMPLETE",
+  "gpu_hours_available_last_checked": 12.743
+}

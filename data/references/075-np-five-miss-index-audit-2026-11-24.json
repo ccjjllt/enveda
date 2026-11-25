@@ -10,10 +10,12 @@
   "output_sha256": {
     "full_index": "2d6d3d02a02033db575acfdf942d86dbd5cf09484fbe62affd57f2fbf63daaf8",
     "c34_replay": "ca21685bd2cfc2c8b5d61e66a5650963cf2c308b96a807b327e8bc5d069d3596",
+    "engine1_replay": "cd0ddb663e93db3c9728c1f3105b64a94993cc11dae0ca7ad5189dbe14a2f746",
     "main_inventory": "5a962cf9929a9648d524d0e517390973c80dad4345d28f2820639682b0c2882b",
     "pubchem_pug": "0735d6613effa2b4b2774b96924bd9778ab5c5095c89ede257e61c0d04327c85",
     "frozen_lists": "02b56e0ed7bddbe53a36e4a87216508a0a25eba8ad9e4a6ca7e7c78f7cf85dac",
-    "physics_035": "fb200fd211529f212432412527f1dc3efda0c221db2c451a9002af3f6dd6d406"
+    "physics_035": "fb200fd211529f212432412527f1dc3efda0c221db2c451a9002af3f6dd6d406",
+    "physics_035_pre_truncation": "e60f4390726f50fa04fe7cf3a8e230bc6003e0693300ca3e68b004e4cc5c46cb"
   },
   "rdkit": "2026.03.3",
   "methods": "All index offsets scanned. Conservative C/N/O count prefilter; parsed records require a matching RDKit-canonical InChIKey14 and heavy-atom composition. Charge-parent/salt-only matches are excluded under the official metric. Theoretical masses and retrospective ionic windows only diagnose coverage, never alter baseline search.",
@@ -81,7 +83,22 @@
     "device": "Tesla T4",
     "procedure": "C34 exact ±10 ppm windows, 5000 ECFP4-score rows union 200 document-prior rows. Two independent corrected 011 centres retain the original adduct and spectrum logits and change only the mass gate. Canonical InChIKey14 and heavy-element counts identify all truth rows; native key and main-pool exclusion are scored separately."
   },
-  "engine1_sources": null,
+  "engine1_sources": {
+    "source": "jiyujia/enveda-075-np-four-arm-0505/1, exact Engine 1 cells and masked spectra",
+    "gpu": "Tesla T4",
+    "rdkit": "2026.03.3",
+    "references": {
+      "unmapped": 0,
+      "heldout_group": 301526,
+      "source": 0,
+      "total": 2539608,
+      "retained": 2238082,
+      "excluded_raw_keys": 30098
+    },
+    "source_output_rows_injected": false,
+    "pool_rows": 710701,
+    "ledger_sha256": "f54bf7d97f7780b0c526727df4c8b0d371ef6c35f8f14deb51cac29e9d637fea"
+  },
   "physics_035": {
     "base_rank_before_physics": 49,
     "formula": "C22H30O6",
@@ -168,7 +185,27 @@
       "enveda-five-frozen-ice_in.json": "88670e22b17357dcfaf88d1f93bce3cf4a4b4f74a24ceeece5d2ade132a87c8e",
       "enveda-five-frozen-ice_out.json": "bc039ae6a6ba7fb4f80ff73d8c10dc36c316ffe7d7013906353eef9dcb5b1248"
     },
-    "actual_e1_physics_pre_top25": false
+    "actual_e1_physics_pre_top25": false,
+    "pre_truncation_counterfactual": {
+      "scope": "Counterfactual C41 E1 physical ranking switched on. T4 E1 raw scores with frozen literature terms and v1 ICEBERG/GLACIER outputs, preserving all 60 candidates.",
+      "original_top60_truth_ranks": [
+        49
+      ],
+      "result": {
+        "ice": {
+          "truth_positions": [
+            19
+          ],
+          "main_top25_matches_v1": false
+        },
+        "joint": {
+          "truth_positions": [
+            17
+          ],
+          "main_top25_matches_v1": false
+        }
+      }
+    }
   },
   "archived_e1_rule": {
     "queries_with_exact_top25_prefix_match": 17,
@@ -438,7 +475,21 @@
           }
         }
       },
-      "engine1_replay": null,
+      "engine1_replay": {
+        "challenge": "challenge-011",
+        "truth_key": "UHJZITVWXGMYKV",
+        "target_mass": 279.14862354782997,
+        "native_ppm_window": 10.0,
+        "pool_rows": 147,
+        "generated_rows": 0,
+        "ranked_rows": 147,
+        "raw_score_unique_identities": 147,
+        "native_fragment_cutoff": 600,
+        "fragment_scored_rows": 147,
+        "truth_hits": [],
+        "top60_matches_archive": true,
+        "archived_top60_truth_ranks": []
+      },
       "all_mass_pubchem_index": {
         "tier": {
           "profile_rows": 84805,
@@ -870,7 +921,21 @@
           }
         }
       },
-      "engine1_replay": null,
+      "engine1_replay": {
+        "challenge": "challenge-033",
+        "truth_key": "OXFCHVUTODNYNS",
+        "target_mass": 360.12152354783,
+        "native_ppm_window": 10.0,
+        "pool_rows": 175,
+        "generated_rows": 1,
+        "ranked_rows": 176,
+        "raw_score_unique_identities": 176,
+        "native_fragment_cutoff": 600,
+        "fragment_scored_rows": 176,
+        "truth_hits": [],
+        "top60_matches_archive": true,
+        "archived_top60_truth_ranks": []
+      },
       "all_mass_pubchem_index": {
         "tier": {
           "profile_rows": 8064,
@@ -1235,7 +1300,41 @@
           }
         }
       },
-      "engine1_replay": null,
+      "engine1_replay": {
+        "challenge": "challenge-034",
+        "truth_key": "UXWOIMRDMNTYAT",
+        "target_mass": 346.14182354783,
+        "native_ppm_window": 10.0,
+        "pool_rows": 342,
+        "generated_rows": 0,
+        "ranked_rows": 342,
+        "raw_score_unique_identities": 342,
+        "native_fragment_cutoff": 600,
+        "fragment_scored_rows": 342,
+        "truth_hits": [
+          {
+            "molecule_id": "m_207ac5",
+            "challenge": "challenge-034",
+            "ordered_rank": 71,
+            "native_unique_rank": 71,
+            "pool_row": 304181,
+            "native_key": "UXWOIMRDMNTYAT",
+            "formula": "C19H22O6",
+            "mass": 346.14163842399995,
+            "raw_ranker_score": -3.0629364320079624,
+            "raw_fp_score": -403.56298828125,
+            "fragment_selected": true,
+            "smiles": "CC12C(=O)OC3CC4C5=C(CCC4C4(CCC1(O)OC4)C32)C(=O)CO5",
+            "raw_fp_rank_interval": [
+              89,
+              89
+            ],
+            "original_top60": false
+          }
+        ],
+        "top60_matches_archive": true,
+        "archived_top60_truth_ranks": []
+      },
       "all_mass_pubchem_index": {
         "tier": {
           "profile_rows": 15984,
@@ -1869,7 +1968,43 @@
           }
         }
       },
-      "engine1_replay": null,
+      "engine1_replay": {
+        "challenge": "challenge-035",
+        "truth_key": "TURJFYBHQNTMCA",
+        "target_mass": 390.20382354783,
+        "native_ppm_window": 10.0,
+        "pool_rows": 304,
+        "generated_rows": 0,
+        "ranked_rows": 304,
+        "raw_score_unique_identities": 304,
+        "native_fragment_cutoff": 600,
+        "fragment_scored_rows": 304,
+        "truth_hits": [
+          {
+            "molecule_id": "m_10824d",
+            "challenge": "challenge-035",
+            "ordered_rank": 54,
+            "native_unique_rank": 54,
+            "pool_row": 409899,
+            "native_key": "TURJFYBHQNTMCA",
+            "formula": "C22H30O6",
+            "mass": 390.20423867999995,
+            "raw_ranker_score": -4.587791192042504,
+            "raw_fp_score": -808.890869140625,
+            "fragment_selected": true,
+            "smiles": "CC=C(C)C(=O)OC1(C)C(=O)OC2C1CCC1(C)C(OC(C)=O)CC=C(C)C21",
+            "raw_fp_rank_interval": [
+              41,
+              41
+            ],
+            "original_top60": true
+          }
+        ],
+        "top60_matches_archive": true,
+        "archived_top60_truth_ranks": [
+          49
+        ]
+      },
       "all_mass_pubchem_index": {
         "tier": {
           "profile_rows": 17147,
@@ -2635,7 +2770,41 @@
           }
         }
       },
-      "engine1_replay": null,
+      "engine1_replay": {
+        "challenge": "challenge-178",
+        "truth_key": "PGHCYQUSYHWJAI",
+        "target_mass": 300.13612354783,
+        "native_ppm_window": 10.0,
+        "pool_rows": 151,
+        "generated_rows": 0,
+        "ranked_rows": 151,
+        "raw_score_unique_identities": 151,
+        "native_fragment_cutoff": 600,
+        "fragment_scored_rows": 151,
+        "truth_hits": [
+          {
+            "molecule_id": "m_568829",
+            "challenge": "challenge-178",
+            "ordered_rank": 79,
+            "native_unique_rank": 79,
+            "pool_row": 140384,
+            "native_key": "PGHCYQUSYHWJAI",
+            "formula": "C18H20O4",
+            "mass": 300.13615911999995,
+            "raw_ranker_score": -6.699529430307283,
+            "raw_fp_score": -1422.2750244140625,
+            "fragment_selected": true,
+            "smiles": "CC=CC#CC#CC=CC=CC(CCOC(C)=O)OC(C)=O",
+            "raw_fp_rank_interval": [
+              139,
+              139
+            ],
+            "original_top60": false
+          }
+        ],
+        "top60_matches_archive": true,
+        "archived_top60_truth_ranks": []
+      },
       "all_mass_pubchem_index": {
         "tier": {
           "profile_rows": 37057,
