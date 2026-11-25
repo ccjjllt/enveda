@@ -1,0 +1,72 @@
+{
+  "slug": "enveda-075-msnlib-preflight",
+  "version": 1,
+  "status": "COMPLETE",
+  "report_sha256": "ee3861fde172e24b1f3f5445fb80ab168b2abdc332666502f3c875a83a7eac5a",
+  "date_beijing": "2026-11-25T11:36:18.389751+08:00",
+  "url": "https://www.kaggle.com/code/jiyujia/enveda-075-msnlib-preflight/versions/1",
+  "author_release": 21105617,
+  "source_scope": "Raw InChIKey14 and same-formula counts precede scorer normalization and benchmark exclusions.",
+  "assets": {
+    "targetmol_pos": {
+      "provenance": {
+        "url": "https://zenodo.org/api/records/21105617/files/20250828_targetmol_hts_np_pos_msn.mgf/content",
+        "bytes": 108944735,
+        "md5": "954ff7dba644b12954724bc3d7be029d",
+        "sha256": "9d056a796168d2f10fdfbe66e8083066f81e25ac0872365c5dff36b85aa4eb6e"
+      },
+      "counts": {
+        "usable_ms2_rows": 3884,
+        "usable_ms2_with_raw_scan_map": 3884,
+        "usable_ms3_rows": 17446,
+        "usable_ms3_with_raw_scan_map": 17446,
+        "ms3_too_few_peaks": 2421,
+        "ms2_too_few_peaks": 290,
+        "export_purity_below_0p90": 671,
+        "ms3_has_no_unambiguous_mass_ce_chain": 226,
+        "export_chimeric_flag": 261,
+        "ms3_native_root_and_selected_observed_peak": 17319,
+        "ms3_selected_peak_and_shared_raw_file": 17319,
+        "same_file_link_with_both_exported_purities": 17319,
+        "ms3_no_native_same_tree_same_ce_root": 119,
+        "ms3_has_root_without_matching_isolated_product": 8,
+        "native_ms2_identity_conditions_with_raw_file": 2346,
+        "native_ms2_identity_conditions_with_two_raw_files": 53
+      }
+    },
+    "targetmol_neg": {
+      "provenance": {
+        "url": "https://zenodo.org/api/records/21105617/files/20250828_targetmol_hts_np_neg_msn.mgf/content",
+        "bytes": 87793533,
+        "md5": "2891f986185c202756de454f3d1d4cb4",
+        "sha256": "a04cd4067071fdadcf6391c0afff662e1b3bb6c6d97603649465bf2f5dce4395"
+      },
+      "counts": {
+        "usable_ms2_rows": 2813,
+        "usable_ms2_with_raw_scan_map": 2813,
+        "usable_ms3_rows": 13133,
+        "usable_ms3_with_raw_scan_map": 13133,
+        "ms3_too_few_peaks": 1809,
+        "ms2_too_few_peaks": 436,
+        "export_purity_below_0p90": 238,
+        "export_chimeric_flag": 124,
+        "ms3_has_no_unambiguous_mass_ce_chain": 168,
+        "ms3_native_root_and_selected_observed_peak": 12912,
+        "ms3_selected_peak_and_shared_raw_file": 12912,
+        "same_file_link_with_both_exported_purities": 12912,
+        "ms3_no_native_same_tree_same_ce_root": 221,
+        "native_ms2_identity_conditions_with_raw_file": 1709,
+        "native_ms2_identity_conditions_with_two_raw_files": 50
+      }
+    }
+  },
+  "raw_negative_sample": {
+    "candidate_links_checked": 18,
+    "candidate_links_with_observed_child": 18,
+    "candidate_links_with_precursor_ref": 18,
+    "candidate_links_directly_verified": 18
+  },
+  "combined_multiple_file_isomer_conditions": 6,
+  "combined_multiple_file_isomer_identities": 4,
+  "decision": "Use as a fragmentation reference, not as a standalone independent matched-isomer validation panel."
+}

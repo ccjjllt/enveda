@@ -1,0 +1,1691 @@
+{
+  "kernel": "jiyujia/enveda-075-two-cut-hard-pairs/1",
+  "status": "COMPLETE",
+  "artifact_sha256": "13658c222ca57b2bf8103b84e50307843a8345bed1b7f3123aa194bf8fac374b",
+  "result": {
+    "scope": "Observed competition training spectra. Same formula and same experimental condition on each pair.",
+    "selected_pairs": 800,
+    "available_scans": 8046,
+    "sample_per_fold": 160,
+    "selected_similarity_min": 0.6,
+    "pairs_with_added_fragments": {
+      "bridge": 796,
+      "ring": 796
+    },
+    "seconds": 63.35876461699999,
+    "views": {
+      "positive": {
+        "models": {
+          "single": {
+            "pairs": 800,
+            "wins": 78,
+            "ties": 712,
+            "losses": 10,
+            "assignment_accuracy_with_ties": 0.5425,
+            "both_spectra_correct": 38,
+            "mean_mrr_at_two": 0.764375
+          },
+          "bridge": {
+            "pairs": 800,
+            "wins": 117,
+            "ties": 653,
+            "losses": 30,
+            "assignment_accuracy_with_ties": 0.554375,
+            "both_spectra_correct": 38,
+            "mean_mrr_at_two": 0.76171875
+          },
+          "ring": {
+            "pairs": 800,
+            "wins": 190,
+            "ties": 504,
+            "losses": 106,
+            "assignment_accuracy_with_ties": 0.5525,
+            "both_spectra_correct": 44,
+            "mean_mrr_at_two": 0.76671875
+          },
+          "two_cut": {
+            "pairs": 800,
+            "wins": 227,
+            "ties": 453,
+            "losses": 120,
+            "assignment_accuracy_with_ties": 0.566875,
+            "both_spectra_correct": 46,
+            "mean_mrr_at_two": 0.7659375
+          }
+        },
+        "sign_transitions": {
+          "bridge": {
+            "tie_to_tie": 653,
+            "tie_to_win": 41,
+            "win_to_win": 73,
+            "tie_to_loss": 18,
+            "loss_to_loss": 7,
+            "win_to_loss": 5,
+            "loss_to_win": 3
+          },
+          "ring": {
+            "tie_to_win": 120,
+            "tie_to_tie": 499,
+            "win_to_win": 70,
+            "tie_to_loss": 93,
+            "loss_to_loss": 8,
+            "win_to_loss": 5,
+            "win_to_tie": 3,
+            "loss_to_tie": 2
+          },
+          "two_cut": {
+            "tie_to_win": 154,
+            "tie_to_tie": 453,
+            "win_to_win": 70,
+            "tie_to_loss": 105,
+            "loss_to_loss": 7,
+            "win_to_loss": 8,
+            "loss_to_win": 3
+          }
+        }
+      },
+      "negative": {
+        "models": {
+          "single": {
+            "pairs": 800,
+            "wins": 61,
+            "ties": 730,
+            "losses": 9,
+            "assignment_accuracy_with_ties": 0.5325,
+            "both_spectra_correct": 28,
+            "mean_mrr_at_two": 0.76265625
+          },
+          "bridge": {
+            "pairs": 800,
+            "wins": 88,
+            "ties": 694,
+            "losses": 18,
+            "assignment_accuracy_with_ties": 0.54375,
+            "both_spectra_correct": 34,
+            "mean_mrr_at_two": 0.76390625
+          },
+          "ring": {
+            "pairs": 800,
+            "wins": 105,
+            "ties": 636,
+            "losses": 59,
+            "assignment_accuracy_with_ties": 0.52875,
+            "both_spectra_correct": 29,
+            "mean_mrr_at_two": 0.7615625
+          },
+          "two_cut": {
+            "pairs": 800,
+            "wins": 129,
+            "ties": 610,
+            "losses": 61,
+            "assignment_accuracy_with_ties": 0.5425,
+            "both_spectra_correct": 35,
+            "mean_mrr_at_two": 0.76296875
+          }
+        },
+        "sign_transitions": {
+          "bridge": {
+            "tie_to_tie": 694,
+            "tie_to_win": 27,
+            "loss_to_loss": 6,
+            "win_to_win": 58,
+            "tie_to_loss": 9,
+            "win_to_loss": 3,
+            "loss_to_win": 3
+          },
+          "ring": {
+            "tie_to_tie": 632,
+            "loss_to_loss": 9,
+            "win_to_win": 55,
+            "tie_to_loss": 48,
+            "tie_to_win": 50,
+            "win_to_tie": 4,
+            "win_to_loss": 2
+          },
+          "two_cut": {
+            "tie_to_tie": 608,
+            "tie_to_win": 71,
+            "loss_to_loss": 6,
+            "win_to_win": 55,
+            "tie_to_loss": 51,
+            "win_to_loss": 4,
+            "win_to_tie": 2,
+            "loss_to_win": 3
+          }
+        }
+      },
+      "dual": {
+        "models": {
+          "single": {
+            "pairs": 800,
+            "wins": 87,
+            "ties": 704,
+            "losses": 9,
+            "assignment_accuracy_with_ties": 0.54875,
+            "both_spectra_correct": 43,
+            "mean_mrr_at_two": 0.766875
+          },
+          "bridge": {
+            "pairs": 800,
+            "wins": 123,
+            "ties": 651,
+            "losses": 26,
+            "assignment_accuracy_with_ties": 0.560625,
+            "both_spectra_correct": 43,
+            "mean_mrr_at_two": 0.76453125
+          },
+          "ring": {
+            "pairs": 800,
+            "wins": 212,
+            "ties": 464,
+            "losses": 124,
+            "assignment_accuracy_with_ties": 0.555,
+            "both_spectra_correct": 55,
+            "mean_mrr_at_two": 0.76875
+          },
+          "two_cut": {
+            "pairs": 800,
+            "wins": 248,
+            "ties": 420,
+            "losses": 132,
+            "assignment_accuracy_with_ties": 0.5725,
+            "both_spectra_correct": 59,
+            "mean_mrr_at_two": 0.76859375
+          }
+        },
+        "sign_transitions": {
+          "bridge": {
+            "tie_to_tie": 651,
+            "tie_to_win": 37,
+            "loss_to_win": 5,
+            "win_to_win": 81,
+            "tie_to_loss": 16,
+            "loss_to_loss": 4,
+            "win_to_loss": 6
+          },
+          "ring": {
+            "tie_to_win": 134,
+            "tie_to_tie": 459,
+            "loss_to_loss": 7,
+            "win_to_win": 77,
+            "tie_to_loss": 111,
+            "win_to_loss": 6,
+            "win_to_tie": 4,
+            "loss_to_tie": 1,
+            "loss_to_win": 1
+          },
+          "two_cut": {
+            "tie_to_win": 164,
+            "tie_to_tie": 420,
+            "loss_to_win": 5,
+            "win_to_win": 79,
+            "tie_to_loss": 120,
+            "loss_to_loss": 4,
+            "win_to_loss": 8
+          }
+        }
+      }
+    }
+  },
+  "group_held_out_calibration": {
+    "kernel": "jiyujia/enveda-075-learned-two-cut-hard/1",
+    "status": "COMPLETE",
+    "artifact_sha256": "415edb19b8b7c8c371629da02f5d80488f62eba5c542bf121511cd0eb21f88fd",
+    "selected_pairs": 2067,
+    "unique_training_scans": 19835,
+    "run_seconds": 72.722439957,
+    "views": {
+      "positive": {
+        "all": {
+          "models": {
+            "single": {
+              "pairs": 2065,
+              "wins": 198,
+              "ties": 1841,
+              "losses": 26,
+              "assignment_accuracy_with_ties": 0.5416464891041162,
+              "both_spectra_correct": 98,
+              "mean_mrr_at_two": 0.7648910411622276
+            },
+            "uniform_two_cut": {
+              "pairs": 2065,
+              "wins": 562,
+              "ties": 1222,
+              "losses": 281,
+              "assignment_accuracy_with_ties": 0.5680387409200969,
+              "both_spectra_correct": 145,
+              "mean_mrr_at_two": 0.7694309927360775
+            },
+            "learned_two_cut": {
+              "pairs": 2065,
+              "wins": 561,
+              "ties": 1211,
+              "losses": 293,
+              "assignment_accuracy_with_ties": 0.5648910411622277,
+              "both_spectra_correct": 159,
+              "mean_mrr_at_two": 0.7670702179176755
+            },
+            "learned_when_single_ties": {
+              "pairs": 2065,
+              "wins": 545,
+              "ties": 1211,
+              "losses": 309,
+              "assignment_accuracy_with_ties": 0.5571428571428572,
+              "both_spectra_correct": 164,
+              "mean_mrr_at_two": 0.7676755447941889
+            }
+          },
+          "sign_changes": {
+            "uniform_two_cut": {
+              "tie_to_win": 371,
+              "tie_to_tie": 1218,
+              "win_to_win": 181,
+              "tie_to_loss": 252,
+              "loss_to_loss": 15,
+              "win_to_loss": 14,
+              "loss_to_win": 10,
+              "win_to_tie": 3,
+              "loss_to_tie": 1
+            },
+            "learned_two_cut": {
+              "tie_to_loss": 269,
+              "tie_to_tie": 1211,
+              "tie_to_win": 361,
+              "win_to_win": 189,
+              "loss_to_loss": 15,
+              "win_to_loss": 9,
+              "loss_to_win": 11
+            },
+            "learned_when_single_ties": {
+              "tie_to_loss": 269,
+              "tie_to_tie": 1211,
+              "tie_to_win": 361,
+              "win_to_win": 177,
+              "loss_to_loss": 19,
+              "win_to_loss": 21,
+              "loss_to_win": 7
+            }
+          }
+        },
+        "very_close": {
+          "models": {
+            "single": {
+              "pairs": 207,
+              "wins": 7,
+              "ties": 199,
+              "losses": 1,
+              "assignment_accuracy_with_ties": 0.5144927536231884,
+              "both_spectra_correct": 4,
+              "mean_mrr_at_two": 0.7548309178743962
+            },
+            "uniform_two_cut": {
+              "pairs": 207,
+              "wins": 31,
+              "ties": 161,
+              "losses": 15,
+              "assignment_accuracy_with_ties": 0.538647342995169,
+              "both_spectra_correct": 7,
+              "mean_mrr_at_two": 0.7632850241545893
+            },
+            "learned_two_cut": {
+              "pairs": 207,
+              "wins": 24,
+              "ties": 161,
+              "losses": 22,
+              "assignment_accuracy_with_ties": 0.5048309178743962,
+              "both_spectra_correct": 7,
+              "mean_mrr_at_two": 0.7560386473429952
+            },
+            "learned_when_single_ties": {
+              "pairs": 207,
+              "wins": 23,
+              "ties": 161,
+              "losses": 23,
+              "assignment_accuracy_with_ties": 0.5,
+              "both_spectra_correct": 6,
+              "mean_mrr_at_two": 0.7548309178743962
+            }
+          },
+          "sign_changes": {
+            "uniform_two_cut": {
+              "tie_to_tie": 161,
+              "tie_to_win": 23,
+              "tie_to_loss": 15,
+              "win_to_win": 7,
+              "loss_to_win": 1
+            },
+            "learned_two_cut": {
+              "tie_to_tie": 161,
+              "tie_to_loss": 22,
+              "win_to_win": 7,
+              "tie_to_win": 16,
+              "loss_to_win": 1
+            },
+            "learned_when_single_ties": {
+              "tie_to_tie": 161,
+              "tie_to_loss": 22,
+              "win_to_win": 7,
+              "tie_to_win": 16,
+              "loss_to_loss": 1
+            }
+          }
+        },
+        "folds": {
+          "0": {
+            "models": {
+              "single": {
+                "pairs": 342,
+                "wins": 26,
+                "ties": 310,
+                "losses": 6,
+                "assignment_accuracy_with_ties": 0.5292397660818714,
+                "both_spectra_correct": 13,
+                "mean_mrr_at_two": 0.7613304093567251
+              },
+              "uniform_two_cut": {
+                "pairs": 342,
+                "wins": 93,
+                "ties": 194,
+                "losses": 55,
+                "assignment_accuracy_with_ties": 0.5555555555555556,
+                "both_spectra_correct": 22,
+                "mean_mrr_at_two": 0.7682748538011696
+              },
+              "learned_two_cut": {
+                "pairs": 342,
+                "wins": 98,
+                "ties": 193,
+                "losses": 51,
+                "assignment_accuracy_with_ties": 0.5687134502923976,
+                "both_spectra_correct": 29,
+                "mean_mrr_at_two": 0.7679093567251462
+              },
+              "learned_when_single_ties": {
+                "pairs": 342,
+                "wins": 95,
+                "ties": 193,
+                "losses": 54,
+                "assignment_accuracy_with_ties": 0.5599415204678363,
+                "both_spectra_correct": 26,
+                "mean_mrr_at_two": 0.7664473684210527
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_win": 67,
+                "tie_to_tie": 194,
+                "win_to_win": 23,
+                "tie_to_loss": 49,
+                "loss_to_loss": 3,
+                "win_to_loss": 3,
+                "loss_to_win": 3
+              },
+              "learned_two_cut": {
+                "tie_to_loss": 46,
+                "tie_to_tie": 193,
+                "tie_to_win": 71,
+                "win_to_win": 24,
+                "loss_to_loss": 3,
+                "win_to_loss": 2,
+                "loss_to_win": 3
+              },
+              "learned_when_single_ties": {
+                "tie_to_loss": 46,
+                "tie_to_tie": 193,
+                "tie_to_win": 71,
+                "win_to_win": 23,
+                "loss_to_loss": 5,
+                "win_to_loss": 3,
+                "loss_to_win": 1
+              }
+            }
+          },
+          "1": {
+            "models": {
+              "single": {
+                "pairs": 417,
+                "wins": 29,
+                "ties": 384,
+                "losses": 4,
+                "assignment_accuracy_with_ties": 0.5299760191846523,
+                "both_spectra_correct": 11,
+                "mean_mrr_at_two": 0.7595923261390888
+              },
+              "uniform_two_cut": {
+                "pairs": 417,
+                "wins": 95,
+                "ties": 272,
+                "losses": 50,
+                "assignment_accuracy_with_ties": 0.5539568345323741,
+                "both_spectra_correct": 20,
+                "mean_mrr_at_two": 0.7649880095923262
+              },
+              "learned_two_cut": {
+                "pairs": 417,
+                "wins": 94,
+                "ties": 270,
+                "losses": 53,
+                "assignment_accuracy_with_ties": 0.5491606714628298,
+                "both_spectra_correct": 25,
+                "mean_mrr_at_two": 0.762589928057554
+              },
+              "learned_when_single_ties": {
+                "pairs": 417,
+                "wins": 92,
+                "ties": 270,
+                "losses": 55,
+                "assignment_accuracy_with_ties": 0.5443645083932853,
+                "both_spectra_correct": 26,
+                "mean_mrr_at_two": 0.763189448441247
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_loss": 47,
+                "tie_to_tie": 271,
+                "loss_to_loss": 2,
+                "win_to_win": 27,
+                "tie_to_win": 66,
+                "loss_to_win": 2,
+                "win_to_loss": 1,
+                "win_to_tie": 1
+              },
+              "learned_two_cut": {
+                "tie_to_loss": 50,
+                "tie_to_tie": 270,
+                "loss_to_loss": 2,
+                "win_to_win": 28,
+                "tie_to_win": 64,
+                "loss_to_win": 2,
+                "win_to_loss": 1
+              },
+              "learned_when_single_ties": {
+                "tie_to_loss": 50,
+                "tie_to_tie": 270,
+                "loss_to_loss": 1,
+                "win_to_win": 25,
+                "tie_to_win": 64,
+                "loss_to_win": 3,
+                "win_to_loss": 4
+              }
+            }
+          },
+          "2": {
+            "models": {
+              "single": {
+                "pairs": 415,
+                "wins": 50,
+                "ties": 359,
+                "losses": 6,
+                "assignment_accuracy_with_ties": 0.553012048192771,
+                "both_spectra_correct": 26,
+                "mean_mrr_at_two": 0.7695783132530121
+              },
+              "uniform_two_cut": {
+                "pairs": 415,
+                "wins": 120,
+                "ties": 239,
+                "losses": 56,
+                "assignment_accuracy_with_ties": 0.5771084337349398,
+                "both_spectra_correct": 38,
+                "mean_mrr_at_two": 0.7743975903614457
+              },
+              "learned_two_cut": {
+                "pairs": 415,
+                "wins": 126,
+                "ties": 235,
+                "losses": 54,
+                "assignment_accuracy_with_ties": 0.5867469879518072,
+                "both_spectra_correct": 39,
+                "mean_mrr_at_two": 0.7740963855421686
+              },
+              "learned_when_single_ties": {
+                "pairs": 415,
+                "wins": 123,
+                "ties": 235,
+                "losses": 57,
+                "assignment_accuracy_with_ties": 0.5795180722891566,
+                "both_spectra_correct": 41,
+                "mean_mrr_at_two": 0.7753012048192771
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_tie": 237,
+                "tie_to_win": 74,
+                "win_to_loss": 4,
+                "win_to_win": 45,
+                "tie_to_loss": 48,
+                "loss_to_loss": 4,
+                "win_to_tie": 1,
+                "loss_to_tie": 1,
+                "loss_to_win": 1
+              },
+              "learned_two_cut": {
+                "tie_to_tie": 235,
+                "tie_to_win": 76,
+                "win_to_loss": 1,
+                "win_to_win": 49,
+                "tie_to_loss": 48,
+                "loss_to_loss": 5,
+                "loss_to_win": 1
+              },
+              "learned_when_single_ties": {
+                "tie_to_tie": 235,
+                "tie_to_win": 76,
+                "win_to_loss": 3,
+                "win_to_win": 47,
+                "tie_to_loss": 48,
+                "loss_to_loss": 6
+              }
+            }
+          },
+          "3": {
+            "models": {
+              "single": {
+                "pairs": 515,
+                "wins": 52,
+                "ties": 459,
+                "losses": 4,
+                "assignment_accuracy_with_ties": 0.5466019417475728,
+                "both_spectra_correct": 27,
+                "mean_mrr_at_two": 0.7662621359223301
+              },
+              "uniform_two_cut": {
+                "pairs": 515,
+                "wins": 155,
+                "ties": 295,
+                "losses": 65,
+                "assignment_accuracy_with_ties": 0.587378640776699,
+                "both_spectra_correct": 40,
+                "mean_mrr_at_two": 0.7713592233009708
+              },
+              "learned_two_cut": {
+                "pairs": 515,
+                "wins": 146,
+                "ties": 292,
+                "losses": 77,
+                "assignment_accuracy_with_ties": 0.566990291262136,
+                "both_spectra_correct": 41,
+                "mean_mrr_at_two": 0.7679611650485437
+              },
+              "learned_when_single_ties": {
+                "pairs": 515,
+                "wins": 142,
+                "ties": 292,
+                "losses": 81,
+                "assignment_accuracy_with_ties": 0.5592233009708738,
+                "both_spectra_correct": 40,
+                "mean_mrr_at_two": 0.7674757281553398
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_tie": 294,
+                "tie_to_loss": 62,
+                "tie_to_win": 103,
+                "win_to_win": 50,
+                "loss_to_win": 2,
+                "loss_to_loss": 2,
+                "win_to_loss": 1,
+                "win_to_tie": 1
+              },
+              "learned_two_cut": {
+                "tie_to_tie": 292,
+                "tie_to_loss": 73,
+                "tie_to_win": 94,
+                "win_to_win": 50,
+                "loss_to_win": 2,
+                "win_to_loss": 2,
+                "loss_to_loss": 2
+              },
+              "learned_when_single_ties": {
+                "tie_to_tie": 292,
+                "tie_to_loss": 73,
+                "tie_to_win": 94,
+                "win_to_win": 46,
+                "win_to_loss": 6,
+                "loss_to_win": 2,
+                "loss_to_loss": 2
+              }
+            }
+          },
+          "4": {
+            "models": {
+              "single": {
+                "pairs": 376,
+                "wins": 41,
+                "ties": 329,
+                "losses": 6,
+                "assignment_accuracy_with_ties": 0.5465425531914894,
+                "both_spectra_correct": 21,
+                "mean_mrr_at_two": 0.7669547872340425
+              },
+              "uniform_two_cut": {
+                "pairs": 376,
+                "wins": 99,
+                "ties": 222,
+                "losses": 55,
+                "assignment_accuracy_with_ties": 0.5585106382978723,
+                "both_spectra_correct": 25,
+                "mean_mrr_at_two": 0.7672872340425532
+              },
+              "learned_two_cut": {
+                "pairs": 376,
+                "wins": 97,
+                "ties": 221,
+                "losses": 58,
+                "assignment_accuracy_with_ties": 0.5518617021276596,
+                "both_spectra_correct": 25,
+                "mean_mrr_at_two": 0.7623005319148937
+              },
+              "learned_when_single_ties": {
+                "pairs": 376,
+                "wins": 93,
+                "ties": 221,
+                "losses": 62,
+                "assignment_accuracy_with_ties": 0.5412234042553191,
+                "both_spectra_correct": 31,
+                "mean_mrr_at_two": 0.765625
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_loss": 46,
+                "tie_to_win": 61,
+                "tie_to_tie": 222,
+                "win_to_win": 36,
+                "win_to_loss": 5,
+                "loss_to_loss": 4,
+                "loss_to_win": 2
+              },
+              "learned_two_cut": {
+                "tie_to_loss": 52,
+                "tie_to_win": 56,
+                "tie_to_tie": 221,
+                "win_to_win": 38,
+                "loss_to_loss": 3,
+                "win_to_loss": 3,
+                "loss_to_win": 3
+              },
+              "learned_when_single_ties": {
+                "tie_to_loss": 52,
+                "tie_to_win": 56,
+                "tie_to_tie": 221,
+                "win_to_win": 36,
+                "loss_to_loss": 5,
+                "win_to_loss": 5,
+                "loss_to_win": 1
+              }
+            }
+          }
+        }
+      },
+      "negative": {
+        "all": {
+          "models": {
+            "single": {
+              "pairs": 2065,
+              "wins": 151,
+              "ties": 1888,
+              "losses": 26,
+              "assignment_accuracy_with_ties": 0.5302663438256658,
+              "both_spectra_correct": 70,
+              "mean_mrr_at_two": 0.761501210653753
+            },
+            "uniform_two_cut": {
+              "pairs": 2065,
+              "wins": 342,
+              "ties": 1577,
+              "losses": 146,
+              "assignment_accuracy_with_ties": 0.5474576271186441,
+              "both_spectra_correct": 94,
+              "mean_mrr_at_two": 0.7655569007263923
+            },
+            "learned_two_cut": {
+              "pairs": 2065,
+              "wins": 351,
+              "ties": 1548,
+              "losses": 166,
+              "assignment_accuracy_with_ties": 0.5447941888619855,
+              "both_spectra_correct": 98,
+              "mean_mrr_at_two": 0.7654963680387409
+            },
+            "learned_when_single_ties": {
+              "pairs": 2065,
+              "wins": 339,
+              "ties": 1548,
+              "losses": 178,
+              "assignment_accuracy_with_ties": 0.5389830508474577,
+              "both_spectra_correct": 97,
+              "mean_mrr_at_two": 0.7654963680387409
+            }
+          },
+          "sign_changes": {
+            "uniform_two_cut": {
+              "tie_to_tie": 1566,
+              "tie_to_win": 195,
+              "loss_to_loss": 11,
+              "win_to_win": 136,
+              "tie_to_loss": 127,
+              "win_to_loss": 8,
+              "loss_to_win": 11,
+              "win_to_tie": 7,
+              "loss_to_tie": 4
+            },
+            "learned_two_cut": {
+              "tie_to_tie": 1548,
+              "tie_to_win": 195,
+              "loss_to_loss": 13,
+              "win_to_win": 143,
+              "tie_to_loss": 145,
+              "win_to_loss": 8,
+              "loss_to_win": 13
+            },
+            "learned_when_single_ties": {
+              "tie_to_tie": 1548,
+              "tie_to_win": 195,
+              "loss_to_loss": 24,
+              "win_to_win": 142,
+              "tie_to_loss": 145,
+              "win_to_loss": 9,
+              "loss_to_win": 2
+            }
+          }
+        },
+        "very_close": {
+          "models": {
+            "single": {
+              "pairs": 207,
+              "wins": 6,
+              "ties": 200,
+              "losses": 1,
+              "assignment_accuracy_with_ties": 0.5120772946859904,
+              "both_spectra_correct": 5,
+              "mean_mrr_at_two": 0.7560386473429952
+            },
+            "uniform_two_cut": {
+              "pairs": 207,
+              "wins": 12,
+              "ties": 187,
+              "losses": 8,
+              "assignment_accuracy_with_ties": 0.5096618357487923,
+              "both_spectra_correct": 5,
+              "mean_mrr_at_two": 0.7554347826086957
+            },
+            "learned_two_cut": {
+              "pairs": 207,
+              "wins": 13,
+              "ties": 187,
+              "losses": 7,
+              "assignment_accuracy_with_ties": 0.5144927536231884,
+              "both_spectra_correct": 7,
+              "mean_mrr_at_two": 0.7578502415458938
+            },
+            "learned_when_single_ties": {
+              "pairs": 207,
+              "wins": 12,
+              "ties": 187,
+              "losses": 8,
+              "assignment_accuracy_with_ties": 0.5096618357487923,
+              "both_spectra_correct": 5,
+              "mean_mrr_at_two": 0.7554347826086957
+            }
+          },
+          "sign_changes": {
+            "uniform_two_cut": {
+              "tie_to_loss": 8,
+              "tie_to_tie": 187,
+              "win_to_win": 6,
+              "tie_to_win": 5,
+              "loss_to_win": 1
+            },
+            "learned_two_cut": {
+              "tie_to_loss": 7,
+              "tie_to_tie": 187,
+              "win_to_win": 6,
+              "tie_to_win": 6,
+              "loss_to_win": 1
+            },
+            "learned_when_single_ties": {
+              "tie_to_loss": 7,
+              "tie_to_tie": 187,
+              "win_to_win": 6,
+              "tie_to_win": 6,
+              "loss_to_loss": 1
+            }
+          }
+        },
+        "folds": {
+          "0": {
+            "models": {
+              "single": {
+                "pairs": 342,
+                "wins": 16,
+                "ties": 321,
+                "losses": 5,
+                "assignment_accuracy_with_ties": 0.5160818713450293,
+                "both_spectra_correct": 11,
+                "mean_mrr_at_two": 0.7587719298245614
+              },
+              "uniform_two_cut": {
+                "pairs": 342,
+                "wins": 48,
+                "ties": 265,
+                "losses": 29,
+                "assignment_accuracy_with_ties": 0.5277777777777778,
+                "both_spectra_correct": 15,
+                "mean_mrr_at_two": 0.7620614035087719
+              },
+              "learned_two_cut": {
+                "pairs": 342,
+                "wins": 57,
+                "ties": 260,
+                "losses": 25,
+                "assignment_accuracy_with_ties": 0.5467836257309941,
+                "both_spectra_correct": 17,
+                "mean_mrr_at_two": 0.7668128654970761
+              },
+              "learned_when_single_ties": {
+                "pairs": 342,
+                "wins": 56,
+                "ties": 260,
+                "losses": 26,
+                "assignment_accuracy_with_ties": 0.543859649122807,
+                "both_spectra_correct": 17,
+                "mean_mrr_at_two": 0.7668128654970761
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_tie": 265,
+                "tie_to_win": 32,
+                "loss_to_loss": 4,
+                "win_to_win": 15,
+                "tie_to_loss": 24,
+                "win_to_loss": 1,
+                "loss_to_win": 1
+              },
+              "learned_two_cut": {
+                "tie_to_tie": 260,
+                "tie_to_win": 41,
+                "loss_to_loss": 4,
+                "win_to_win": 15,
+                "tie_to_loss": 20,
+                "win_to_loss": 1,
+                "loss_to_win": 1
+              },
+              "learned_when_single_ties": {
+                "tie_to_tie": 260,
+                "tie_to_win": 41,
+                "loss_to_loss": 5,
+                "win_to_win": 15,
+                "tie_to_loss": 20,
+                "win_to_loss": 1
+              }
+            }
+          },
+          "1": {
+            "models": {
+              "single": {
+                "pairs": 417,
+                "wins": 21,
+                "ties": 392,
+                "losses": 4,
+                "assignment_accuracy_with_ties": 0.5203836930455635,
+                "both_spectra_correct": 9,
+                "mean_mrr_at_two": 0.7577937649880095
+              },
+              "uniform_two_cut": {
+                "pairs": 417,
+                "wins": 67,
+                "ties": 326,
+                "losses": 24,
+                "assignment_accuracy_with_ties": 0.5515587529976019,
+                "both_spectra_correct": 13,
+                "mean_mrr_at_two": 0.7661870503597122
+              },
+              "learned_two_cut": {
+                "pairs": 417,
+                "wins": 63,
+                "ties": 319,
+                "losses": 35,
+                "assignment_accuracy_with_ties": 0.5335731414868106,
+                "both_spectra_correct": 11,
+                "mean_mrr_at_two": 0.7610911270983214
+              },
+              "learned_when_single_ties": {
+                "pairs": 417,
+                "wins": 65,
+                "ties": 319,
+                "losses": 33,
+                "assignment_accuracy_with_ties": 0.5383693045563549,
+                "both_spectra_correct": 12,
+                "mean_mrr_at_two": 0.7622901678657075
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_tie": 321,
+                "tie_to_loss": 22,
+                "win_to_win": 18,
+                "tie_to_win": 49,
+                "win_to_tie": 3,
+                "loss_to_tie": 2,
+                "loss_to_loss": 2
+              },
+              "learned_two_cut": {
+                "tie_to_tie": 319,
+                "tie_to_loss": 29,
+                "win_to_win": 18,
+                "tie_to_win": 44,
+                "win_to_loss": 3,
+                "loss_to_win": 1,
+                "loss_to_loss": 3
+              },
+              "learned_when_single_ties": {
+                "tie_to_tie": 319,
+                "tie_to_loss": 29,
+                "win_to_win": 21,
+                "tie_to_win": 44,
+                "loss_to_loss": 4
+              }
+            }
+          },
+          "2": {
+            "models": {
+              "single": {
+                "pairs": 415,
+                "wins": 36,
+                "ties": 371,
+                "losses": 8,
+                "assignment_accuracy_with_ties": 0.5337349397590362,
+                "both_spectra_correct": 17,
+                "mean_mrr_at_two": 0.7644578313253012
+              },
+              "uniform_two_cut": {
+                "pairs": 415,
+                "wins": 76,
+                "ties": 313,
+                "losses": 26,
+                "assignment_accuracy_with_ties": 0.5602409638554217,
+                "both_spectra_correct": 26,
+                "mean_mrr_at_two": 0.7719879518072289
+              },
+              "learned_two_cut": {
+                "pairs": 415,
+                "wins": 77,
+                "ties": 307,
+                "losses": 31,
+                "assignment_accuracy_with_ties": 0.555421686746988,
+                "both_spectra_correct": 25,
+                "mean_mrr_at_two": 0.7710843373493976
+              },
+              "learned_when_single_ties": {
+                "pairs": 415,
+                "wins": 70,
+                "ties": 307,
+                "losses": 38,
+                "assignment_accuracy_with_ties": 0.5385542168674698,
+                "both_spectra_correct": 22,
+                "mean_mrr_at_two": 0.769277108433735
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_tie": 310,
+                "tie_to_win": 38,
+                "win_to_tie": 2,
+                "win_to_win": 33,
+                "loss_to_loss": 2,
+                "loss_to_win": 5,
+                "tie_to_loss": 23,
+                "win_to_loss": 1,
+                "loss_to_tie": 1
+              },
+              "learned_two_cut": {
+                "tie_to_tie": 307,
+                "tie_to_loss": 29,
+                "win_to_win": 36,
+                "tie_to_win": 35,
+                "loss_to_win": 6,
+                "loss_to_loss": 2
+              },
+              "learned_when_single_ties": {
+                "tie_to_tie": 307,
+                "tie_to_loss": 29,
+                "win_to_win": 35,
+                "tie_to_win": 35,
+                "loss_to_loss": 8,
+                "win_to_loss": 1
+              }
+            }
+          },
+          "3": {
+            "models": {
+              "single": {
+                "pairs": 515,
+                "wins": 48,
+                "ties": 464,
+                "losses": 3,
+                "assignment_accuracy_with_ties": 0.5436893203883495,
+                "both_spectra_correct": 20,
+                "mean_mrr_at_two": 0.7643203883495145
+              },
+              "uniform_two_cut": {
+                "pairs": 515,
+                "wins": 95,
+                "ties": 382,
+                "losses": 38,
+                "assignment_accuracy_with_ties": 0.5553398058252427,
+                "both_spectra_correct": 23,
+                "mean_mrr_at_two": 0.7645631067961165
+              },
+              "learned_two_cut": {
+                "pairs": 515,
+                "wins": 99,
+                "ties": 375,
+                "losses": 41,
+                "assignment_accuracy_with_ties": 0.5563106796116505,
+                "both_spectra_correct": 30,
+                "mean_mrr_at_two": 0.7674757281553398
+              },
+              "learned_when_single_ties": {
+                "pairs": 515,
+                "wins": 98,
+                "ties": 375,
+                "losses": 42,
+                "assignment_accuracy_with_ties": 0.554368932038835,
+                "both_spectra_correct": 30,
+                "mean_mrr_at_two": 0.7679611650485437
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_tie": 380,
+                "tie_to_loss": 34,
+                "tie_to_win": 50,
+                "win_to_win": 42,
+                "win_to_loss": 4,
+                "loss_to_win": 3,
+                "win_to_tie": 2
+              },
+              "learned_two_cut": {
+                "tie_to_tie": 375,
+                "tie_to_loss": 38,
+                "tie_to_win": 51,
+                "win_to_win": 45,
+                "loss_to_win": 3,
+                "win_to_loss": 3
+              },
+              "learned_when_single_ties": {
+                "tie_to_tie": 375,
+                "tie_to_loss": 38,
+                "tie_to_win": 51,
+                "win_to_loss": 2,
+                "win_to_win": 46,
+                "loss_to_loss": 2,
+                "loss_to_win": 1
+              }
+            }
+          },
+          "4": {
+            "models": {
+              "single": {
+                "pairs": 376,
+                "wins": 30,
+                "ties": 340,
+                "losses": 6,
+                "assignment_accuracy_with_ties": 0.5319148936170213,
+                "both_spectra_correct": 13,
+                "mean_mrr_at_two": 0.760970744680851
+              },
+              "uniform_two_cut": {
+                "pairs": 376,
+                "wins": 56,
+                "ties": 291,
+                "losses": 29,
+                "assignment_accuracy_with_ties": 0.535904255319149,
+                "both_spectra_correct": 17,
+                "mean_mrr_at_two": 0.7623005319148937
+              },
+              "learned_two_cut": {
+                "pairs": 376,
+                "wins": 55,
+                "ties": 287,
+                "losses": 34,
+                "assignment_accuracy_with_ties": 0.5279255319148937,
+                "both_spectra_correct": 15,
+                "mean_mrr_at_two": 0.7603058510638298
+              },
+              "learned_when_single_ties": {
+                "pairs": 376,
+                "wins": 50,
+                "ties": 287,
+                "losses": 39,
+                "assignment_accuracy_with_ties": 0.5146276595744681,
+                "both_spectra_correct": 16,
+                "mean_mrr_at_two": 0.7603058510638298
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_tie": 290,
+                "tie_to_win": 26,
+                "win_to_win": 28,
+                "tie_to_loss": 24,
+                "loss_to_loss": 3,
+                "win_to_loss": 2,
+                "loss_to_win": 2,
+                "loss_to_tie": 1
+              },
+              "learned_two_cut": {
+                "tie_to_tie": 287,
+                "tie_to_win": 24,
+                "win_to_win": 29,
+                "tie_to_loss": 29,
+                "loss_to_loss": 4,
+                "win_to_loss": 1,
+                "loss_to_win": 2
+              },
+              "learned_when_single_ties": {
+                "tie_to_tie": 287,
+                "tie_to_win": 24,
+                "win_to_win": 25,
+                "tie_to_loss": 29,
+                "loss_to_loss": 5,
+                "win_to_loss": 5,
+                "loss_to_win": 1
+              }
+            }
+          }
+        }
+      },
+      "dual": {
+        "all": {
+          "models": {
+            "single": {
+              "pairs": 2065,
+              "wins": 224,
+              "ties": 1813,
+              "losses": 28,
+              "assignment_accuracy_with_ties": 0.5474576271186441,
+              "both_spectra_correct": 108,
+              "mean_mrr_at_two": 0.7665859564164649
+            },
+            "uniform_two_cut": {
+              "pairs": 2065,
+              "wins": 611,
+              "ties": 1136,
+              "losses": 318,
+              "assignment_accuracy_with_ties": 0.5709443099273608,
+              "both_spectra_correct": 168,
+              "mean_mrr_at_two": 0.7705205811138015
+            },
+            "learned_two_cut": {
+              "pairs": 2065,
+              "wins": 598,
+              "ties": 1120,
+              "losses": 347,
+              "assignment_accuracy_with_ties": 0.560774818401937,
+              "both_spectra_correct": 168,
+              "mean_mrr_at_two": 0.7665254237288136
+            },
+            "learned_when_single_ties": {
+              "pairs": 2065,
+              "wins": 573,
+              "ties": 1120,
+              "losses": 372,
+              "assignment_accuracy_with_ties": 0.5486682808716707,
+              "both_spectra_correct": 178,
+              "mean_mrr_at_two": 0.7674939467312348
+            }
+          },
+          "sign_changes": {
+            "uniform_two_cut": {
+              "tie_to_win": 391,
+              "tie_to_tie": 1131,
+              "loss_to_win": 14,
+              "win_to_win": 206,
+              "tie_to_loss": 291,
+              "loss_to_loss": 11,
+              "win_to_loss": 16,
+              "loss_to_tie": 3,
+              "win_to_tie": 2
+            },
+            "learned_two_cut": {
+              "tie_to_loss": 320,
+              "tie_to_tie": 1120,
+              "tie_to_win": 373,
+              "loss_to_win": 16,
+              "win_to_win": 209,
+              "loss_to_loss": 12,
+              "win_to_loss": 15
+            },
+            "learned_when_single_ties": {
+              "tie_to_loss": 320,
+              "tie_to_tie": 1120,
+              "tie_to_win": 373,
+              "loss_to_win": 7,
+              "win_to_win": 193,
+              "loss_to_loss": 21,
+              "win_to_loss": 31
+            }
+          }
+        },
+        "very_close": {
+          "models": {
+            "single": {
+              "pairs": 207,
+              "wins": 7,
+              "ties": 199,
+              "losses": 1,
+              "assignment_accuracy_with_ties": 0.5144927536231884,
+              "both_spectra_correct": 6,
+              "mean_mrr_at_two": 0.7572463768115942
+            },
+            "uniform_two_cut": {
+              "pairs": 207,
+              "wins": 31,
+              "ties": 155,
+              "losses": 21,
+              "assignment_accuracy_with_ties": 0.5241545893719807,
+              "both_spectra_correct": 7,
+              "mean_mrr_at_two": 0.7620772946859904
+            },
+            "learned_two_cut": {
+              "pairs": 207,
+              "wins": 26,
+              "ties": 155,
+              "losses": 26,
+              "assignment_accuracy_with_ties": 0.5,
+              "both_spectra_correct": 8,
+              "mean_mrr_at_two": 0.7560386473429952
+            },
+            "learned_when_single_ties": {
+              "pairs": 207,
+              "wins": 25,
+              "ties": 155,
+              "losses": 27,
+              "assignment_accuracy_with_ties": 0.49516908212560384,
+              "both_spectra_correct": 8,
+              "mean_mrr_at_two": 0.7560386473429952
+            }
+          },
+          "sign_changes": {
+            "uniform_two_cut": {
+              "tie_to_loss": 21,
+              "tie_to_tie": 155,
+              "tie_to_win": 23,
+              "win_to_win": 7,
+              "loss_to_win": 1
+            },
+            "learned_two_cut": {
+              "tie_to_loss": 26,
+              "tie_to_tie": 155,
+              "win_to_win": 7,
+              "tie_to_win": 18,
+              "loss_to_win": 1
+            },
+            "learned_when_single_ties": {
+              "tie_to_loss": 26,
+              "tie_to_tie": 155,
+              "win_to_win": 7,
+              "tie_to_win": 18,
+              "loss_to_loss": 1
+            }
+          }
+        },
+        "folds": {
+          "0": {
+            "models": {
+              "single": {
+                "pairs": 342,
+                "wins": 26,
+                "ties": 309,
+                "losses": 7,
+                "assignment_accuracy_with_ties": 0.5277777777777778,
+                "both_spectra_correct": 14,
+                "mean_mrr_at_two": 0.7613304093567251
+              },
+              "uniform_two_cut": {
+                "pairs": 342,
+                "wins": 100,
+                "ties": 183,
+                "losses": 59,
+                "assignment_accuracy_with_ties": 0.5599415204678363,
+                "both_spectra_correct": 25,
+                "mean_mrr_at_two": 0.7679093567251462
+              },
+              "learned_two_cut": {
+                "pairs": 342,
+                "wins": 107,
+                "ties": 181,
+                "losses": 54,
+                "assignment_accuracy_with_ties": 0.577485380116959,
+                "both_spectra_correct": 28,
+                "mean_mrr_at_two": 0.7679093567251462
+              },
+              "learned_when_single_ties": {
+                "pairs": 342,
+                "wins": 102,
+                "ties": 181,
+                "losses": 59,
+                "assignment_accuracy_with_ties": 0.5628654970760234,
+                "both_spectra_correct": 27,
+                "mean_mrr_at_two": 0.7671783625730995
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_win": 71,
+                "tie_to_tie": 183,
+                "loss_to_win": 4,
+                "win_to_win": 25,
+                "tie_to_loss": 55,
+                "loss_to_loss": 3,
+                "win_to_loss": 1
+              },
+              "learned_two_cut": {
+                "tie_to_loss": 50,
+                "tie_to_tie": 181,
+                "tie_to_win": 78,
+                "loss_to_win": 5,
+                "win_to_win": 24,
+                "loss_to_loss": 2,
+                "win_to_loss": 2
+              },
+              "learned_when_single_ties": {
+                "tie_to_loss": 50,
+                "tie_to_tie": 181,
+                "tie_to_win": 78,
+                "loss_to_win": 1,
+                "win_to_win": 23,
+                "loss_to_loss": 6,
+                "win_to_loss": 3
+              }
+            }
+          },
+          "1": {
+            "models": {
+              "single": {
+                "pairs": 417,
+                "wins": 35,
+                "ties": 377,
+                "losses": 5,
+                "assignment_accuracy_with_ties": 0.5359712230215827,
+                "both_spectra_correct": 13,
+                "mean_mrr_at_two": 0.7613908872901679
+              },
+              "uniform_two_cut": {
+                "pairs": 417,
+                "wins": 111,
+                "ties": 249,
+                "losses": 57,
+                "assignment_accuracy_with_ties": 0.564748201438849,
+                "both_spectra_correct": 31,
+                "mean_mrr_at_two": 0.7697841726618705
+              },
+              "learned_two_cut": {
+                "pairs": 417,
+                "wins": 103,
+                "ties": 244,
+                "losses": 70,
+                "assignment_accuracy_with_ties": 0.539568345323741,
+                "both_spectra_correct": 29,
+                "mean_mrr_at_two": 0.7622901678657075
+              },
+              "learned_when_single_ties": {
+                "pairs": 417,
+                "wins": 100,
+                "ties": 244,
+                "losses": 73,
+                "assignment_accuracy_with_ties": 0.5323741007194245,
+                "both_spectra_correct": 31,
+                "mean_mrr_at_two": 0.7634892086330936
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_loss": 55,
+                "tie_to_tie": 246,
+                "win_to_win": 33,
+                "tie_to_win": 76,
+                "loss_to_loss": 1,
+                "win_to_loss": 1,
+                "loss_to_tie": 2,
+                "loss_to_win": 2,
+                "win_to_tie": 1
+              },
+              "learned_two_cut": {
+                "tie_to_loss": 65,
+                "tie_to_win": 68,
+                "tie_to_tie": 244,
+                "win_to_win": 32,
+                "loss_to_loss": 2,
+                "win_to_loss": 3,
+                "loss_to_win": 3
+              },
+              "learned_when_single_ties": {
+                "tie_to_loss": 65,
+                "tie_to_win": 68,
+                "tie_to_tie": 244,
+                "win_to_win": 30,
+                "loss_to_win": 2,
+                "win_to_loss": 5,
+                "loss_to_loss": 3
+              }
+            }
+          },
+          "2": {
+            "models": {
+              "single": {
+                "pairs": 415,
+                "wins": 58,
+                "ties": 353,
+                "losses": 4,
+                "assignment_accuracy_with_ties": 0.5650602409638554,
+                "both_spectra_correct": 28,
+                "mean_mrr_at_two": 0.7716867469879518
+              },
+              "uniform_two_cut": {
+                "pairs": 415,
+                "wins": 131,
+                "ties": 224,
+                "losses": 60,
+                "assignment_accuracy_with_ties": 0.5855421686746988,
+                "both_spectra_correct": 41,
+                "mean_mrr_at_two": 0.7765060240963856
+              },
+              "learned_two_cut": {
+                "pairs": 415,
+                "wins": 125,
+                "ties": 221,
+                "losses": 69,
+                "assignment_accuracy_with_ties": 0.5674698795180723,
+                "both_spectra_correct": 38,
+                "mean_mrr_at_two": 0.7704819277108433
+              },
+              "learned_when_single_ties": {
+                "pairs": 415,
+                "wins": 122,
+                "ties": 221,
+                "losses": 72,
+                "assignment_accuracy_with_ties": 0.5602409638554217,
+                "both_spectra_correct": 43,
+                "mean_mrr_at_two": 0.7728915662650603
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_tie": 223,
+                "tie_to_win": 77,
+                "win_to_loss": 6,
+                "win_to_win": 52,
+                "tie_to_loss": 53,
+                "loss_to_win": 2,
+                "loss_to_tie": 1,
+                "loss_to_loss": 1
+              },
+              "learned_two_cut": {
+                "tie_to_tie": 221,
+                "tie_to_win": 69,
+                "win_to_loss": 5,
+                "win_to_win": 53,
+                "tie_to_loss": 63,
+                "loss_to_loss": 1,
+                "loss_to_win": 3
+              },
+              "learned_when_single_ties": {
+                "tie_to_tie": 221,
+                "tie_to_win": 69,
+                "win_to_loss": 5,
+                "win_to_win": 53,
+                "tie_to_loss": 63,
+                "loss_to_loss": 4
+              }
+            }
+          },
+          "3": {
+            "models": {
+              "single": {
+                "pairs": 515,
+                "wins": 58,
+                "ties": 451,
+                "losses": 6,
+                "assignment_accuracy_with_ties": 0.5504854368932038,
+                "both_spectra_correct": 32,
+                "mean_mrr_at_two": 0.7691747572815534
+              },
+              "uniform_two_cut": {
+                "pairs": 515,
+                "wins": 165,
+                "ties": 271,
+                "losses": 79,
+                "assignment_accuracy_with_ties": 0.583495145631068,
+                "both_spectra_correct": 41,
+                "mean_mrr_at_two": 0.7703883495145631
+              },
+              "learned_two_cut": {
+                "pairs": 515,
+                "wins": 165,
+                "ties": 267,
+                "losses": 83,
+                "assignment_accuracy_with_ties": 0.579611650485437,
+                "both_spectra_correct": 48,
+                "mean_mrr_at_two": 0.7703883495145631
+              },
+              "learned_when_single_ties": {
+                "pairs": 515,
+                "wins": 157,
+                "ties": 267,
+                "losses": 91,
+                "assignment_accuracy_with_ties": 0.5640776699029126,
+                "both_spectra_correct": 50,
+                "mean_mrr_at_two": 0.7713592233009708
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_tie": 270,
+                "tie_to_loss": 75,
+                "tie_to_win": 106,
+                "win_to_win": 55,
+                "win_to_loss": 2,
+                "loss_to_win": 4,
+                "loss_to_loss": 2,
+                "win_to_tie": 1
+              },
+              "learned_two_cut": {
+                "tie_to_tie": 267,
+                "tie_to_win": 104,
+                "tie_to_loss": 80,
+                "win_to_win": 57,
+                "loss_to_win": 4,
+                "loss_to_loss": 2,
+                "win_to_loss": 1
+              },
+              "learned_when_single_ties": {
+                "tie_to_tie": 267,
+                "tie_to_win": 104,
+                "tie_to_loss": 80,
+                "win_to_loss": 9,
+                "win_to_win": 49,
+                "loss_to_win": 4,
+                "loss_to_loss": 2
+              }
+            }
+          },
+          "4": {
+            "models": {
+              "single": {
+                "pairs": 376,
+                "wins": 47,
+                "ties": 323,
+                "losses": 6,
+                "assignment_accuracy_with_ties": 0.5545212765957447,
+                "both_spectra_correct": 21,
+                "mean_mrr_at_two": 0.7679521276595744
+              },
+              "uniform_two_cut": {
+                "pairs": 376,
+                "wins": 104,
+                "ties": 209,
+                "losses": 63,
+                "assignment_accuracy_with_ties": 0.5545212765957447,
+                "both_spectra_correct": 30,
+                "mean_mrr_at_two": 0.7672872340425532
+              },
+              "learned_two_cut": {
+                "pairs": 376,
+                "wins": 98,
+                "ties": 207,
+                "losses": 71,
+                "assignment_accuracy_with_ties": 0.535904255319149,
+                "both_spectra_correct": 25,
+                "mean_mrr_at_two": 0.7603058510638298
+              },
+              "learned_when_single_ties": {
+                "pairs": 376,
+                "wins": 92,
+                "ties": 207,
+                "losses": 77,
+                "assignment_accuracy_with_ties": 0.5199468085106383,
+                "both_spectra_correct": 27,
+                "mean_mrr_at_two": 0.760970744680851
+              }
+            },
+            "sign_changes": {
+              "uniform_two_cut": {
+                "tie_to_loss": 53,
+                "tie_to_win": 61,
+                "tie_to_tie": 209,
+                "win_to_win": 41,
+                "win_to_loss": 6,
+                "loss_to_win": 2,
+                "loss_to_loss": 4
+              },
+              "learned_two_cut": {
+                "tie_to_loss": 62,
+                "tie_to_win": 54,
+                "tie_to_tie": 207,
+                "win_to_win": 43,
+                "loss_to_loss": 5,
+                "win_to_loss": 4,
+                "loss_to_win": 1
+              },
+              "learned_when_single_ties": {
+                "tie_to_loss": 62,
+                "tie_to_win": 54,
+                "tie_to_tie": 207,
+                "win_to_win": 38,
+                "loss_to_loss": 6,
+                "win_to_loss": 9
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

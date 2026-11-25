@@ -1,0 +1,1116 @@
+{
+  "kaggle": {
+    "slug": "enveda-075-absolute-confirm-massbank",
+    "version": 1,
+    "status": "COMPLETE",
+    "artifact_sha256": {
+      "metrics.json": "dc7dbf14d5dd724b05bbc1fca1eb38df336a75450366bfe042b69716b67830d4",
+      "per_query.csv": "a7fe78908a2503935c648ceee37957e9bc6a9d40624cb0e70e420826f5575443",
+      "ranking_receipt.json": "c73bb555cced3adae0d94d056d5bd73b097e8e0dae911461a26f47ab3f27ada0"
+    }
+  },
+  "ranking_receipt": {
+    "panel": "MassBank 2026.11",
+    "baseline": "068a N-1c LAM=0.35",
+    "candidate_budget": 25,
+    "molecules": 110,
+    "candidate_slots": 2750,
+    "measured_spectra": 170,
+    "eligible_spectra": 164,
+    "eligible_molecules": 108,
+    "protected_leaders": 0,
+    "eligible_with_unprotected_leader": 108,
+    "swaps": [
+      {
+        "molecule_id": "U001",
+        "anchor_rank": 5,
+        "chosen_rank": 6
+      },
+      {
+        "molecule_id": "U037",
+        "anchor_rank": 5,
+        "chosen_rank": 7
+      },
+      {
+        "molecule_id": "U044",
+        "anchor_rank": 5,
+        "chosen_rank": 6
+      },
+      {
+        "molecule_id": "U057",
+        "anchor_rank": 5,
+        "chosen_rank": 7
+      },
+      {
+        "molecule_id": "U071",
+        "anchor_rank": 5,
+        "chosen_rank": 7
+      },
+      {
+        "molecule_id": "U073",
+        "anchor_rank": 5,
+        "chosen_rank": 6
+      },
+      {
+        "molecule_id": "U079",
+        "anchor_rank": 5,
+        "chosen_rank": 6
+      },
+      {
+        "molecule_id": "U082",
+        "anchor_rank": 5,
+        "chosen_rank": 7
+      },
+      {
+        "molecule_id": "U088",
+        "anchor_rank": 1,
+        "chosen_rank": 2
+      },
+      {
+        "molecule_id": "U093",
+        "anchor_rank": 5,
+        "chosen_rank": 7
+      },
+      {
+        "molecule_id": "U095",
+        "anchor_rank": 5,
+        "chosen_rank": 6
+      },
+      {
+        "molecule_id": "U100",
+        "anchor_rank": 5,
+        "chosen_rank": 6
+      },
+      {
+        "molecule_id": "U109",
+        "anchor_rank": 1,
+        "chosen_rank": 2
+      }
+    ],
+    "swaps_by_anchor": {
+      "5": 11,
+      "1": 2
+    },
+    "baseline_sha256": "a2277d569ccf838c11cc2b8fd36cf6bcb1b6565ffbe3c4312017480eaac7c5a1",
+    "query_sha256": "74929665fcceed3eb50e38f1bba500f7d208e21f7874c397b94df9071b6e75d5",
+    "absolute_sha256": "358b6cbddff13e449a8ac11aac152634c462e77cbb8cafc633816ad7987426c9",
+    "candidate_ids_sha256": "a9a63eb9a5c8f55d8965f499b447842ee679ef4d71ef0a0c00677eb97d6c95d7",
+    "source_inputs_sha256": "124c25cb20d039baf975ac7d62f1205838ec51e1ca878f9b5c58f678e17f04a4",
+    "source_ranks_sha256": "0dcc671e581b5632d971c4422d8a748533dc688eab2d53ef5a41b923589d29f8",
+    "source_by_query": {
+      "U001": "MUI",
+      "U002": "MUI",
+      "U003": "Eawag",
+      "U004": "Eawag",
+      "U005": "Eawag",
+      "U006": "Eawag",
+      "U007": "Eawag",
+      "U008": "Eawag",
+      "U009": "Eawag",
+      "U010": "Eawag",
+      "U011": "Eawag",
+      "U012": "Eawag",
+      "U013": "Eawag",
+      "U014": "Eawag",
+      "U015": "Eawag",
+      "U016": "Eawag",
+      "U017": "Eawag",
+      "U018": "Eawag",
+      "U019": "Eawag",
+      "U020": "Eawag",
+      "U021": "Eawag",
+      "U022": "Eawag",
+      "U023": "Eawag",
+      "U024": "Eawag",
+      "U025": "Eawag",
+      "U026": "Eawag",
+      "U027": "Eawag",
+      "U028": "Eawag",
+      "U029": "Eawag",
+      "U030": "Eawag",
+      "U031": "Eawag",
+      "U032": "Eawag",
+      "U033": "Eawag",
+      "U034": "Eawag",
+      "U035": "Eawag",
+      "U036": "Eawag",
+      "U037": "Eawag",
+      "U038": "Eawag",
+      "U039": "Eawag",
+      "U040": "MUI",
+      "U041": "MUI",
+      "U042": "MUI",
+      "U043": "MUI",
+      "U044": "MUI",
+      "U045": "Eawag",
+      "U046": "Eawag",
+      "U047": "Eawag",
+      "U048": "Eawag",
+      "U049": "Eawag",
+      "U050": "Eawag",
+      "U051": "Eawag",
+      "U052": "Eawag",
+      "U053": "Eawag",
+      "U054": "Eawag",
+      "U055": "Eawag",
+      "U056": "Eawag",
+      "U057": "Eawag",
+      "U058": "Eawag",
+      "U059": "Eawag",
+      "U060": "Eawag",
+      "U061": "Eawag",
+      "U062": "Eawag",
+      "U063": "Eawag",
+      "U064": "Eawag",
+      "U065": "Eawag",
+      "U066": "MSSJ",
+      "U067": "Eawag",
+      "U068": "Eawag",
+      "U069": "Eawag",
+      "U070": "Eawag",
+      "U071": "Eawag",
+      "U072": "Eawag",
+      "U073": "Eawag",
+      "U074": "Eawag",
+      "U075": "Eawag",
+      "U076": "MUI",
+      "U077": "MUI",
+      "U078": "MUI",
+      "U079": "MUI",
+      "U080": "MUI",
+      "U081": "MUI",
+      "U082": "MUI",
+      "U083": "MUI",
+      "U084": "MUI",
+      "U085": "MUI",
+      "U086": "MUI",
+      "U087": "MUI",
+      "U088": "MUI",
+      "U089": "Eawag",
+      "U090": "Eawag",
+      "U091": "Eawag",
+      "U092": "Eawag",
+      "U093": "Eawag",
+      "U094": "BAFG",
+      "U095": "Eawag",
+      "U096": "Eawag",
+      "U097": "Eawag",
+      "U098": "Eawag",
+      "U099": "Eawag",
+      "U100": "Eawag",
+      "U101": "Eawag",
+      "U102": "Eawag",
+      "U103": "Eawag",
+      "U104": "Eawag",
+      "U105": "Eawag",
+      "U106": "Eawag",
+      "U107": "Eawag",
+      "U108": "Eawag",
+      "U109": "BAFG",
+      "U110": "Eawag"
+    },
+    "frozen_rule_sha256": "680e266c2f7da7c577292301bac4423071b4fa0f143eca33386f5d8381f89ec3"
+  },
+  "metrics": {
+    "molecules": 110,
+    "baseline": {
+      "top1": 33,
+      "top5": 41,
+      "top25": 58,
+      "mrr25": 0.3368516738288762
+    },
+    "absolute": {
+      "top1": 32,
+      "top5": 41,
+      "top25": 58,
+      "mrr25": 0.33230621928342163
+    },
+    "delta_mrr25": -0.004545454545454575,
+    "new_top1": [],
+    "lost_top1": [
+      "U109"
+    ],
+    "new_top5": [],
+    "lost_top5": [],
+    "non_eawag": {
+      "molecules": 23,
+      "baseline": {
+        "top1": 17,
+        "top5": 18,
+        "top25": 22,
+        "mrr25": 0.767379679144385
+      },
+      "absolute": {
+        "top1": 16,
+        "top5": 18,
+        "top25": 22,
+        "mrr25": 0.7456405487096024
+      },
+      "delta_mrr25": -0.021739130434782594,
+      "new_top1": [],
+      "lost_top1": [
+        "U109"
+      ],
+      "new_top5": [],
+      "lost_top5": []
+    },
+    "by_source": {
+      "BAFG": {
+        "molecules": 2,
+        "baseline": {
+          "top1": 2,
+          "top5": 2,
+          "top25": 2,
+          "mrr25": 1.0
+        },
+        "absolute": {
+          "top1": 1,
+          "top5": 2,
+          "top25": 2,
+          "mrr25": 0.75
+        },
+        "delta_mrr25": -0.25,
+        "new_top1": [],
+        "lost_top1": [
+          "U109"
+        ],
+        "new_top5": [],
+        "lost_top5": []
+      },
+      "Eawag": {
+        "molecules": 87,
+        "baseline": {
+          "top1": 16,
+          "top5": 23,
+          "top25": 36,
+          "mrr25": 0.22303392529718996
+        },
+        "absolute": {
+          "top1": 16,
+          "top5": 23,
+          "top25": 36,
+          "mrr25": 0.22303392529718996
+        },
+        "delta_mrr25": 0.0,
+        "new_top1": [],
+        "lost_top1": [],
+        "new_top5": [],
+        "lost_top5": []
+      },
+      "MSSJ": {
+        "molecules": 1,
+        "baseline": {
+          "top1": 1,
+          "top5": 1,
+          "top25": 1,
+          "mrr25": 1.0
+        },
+        "absolute": {
+          "top1": 1,
+          "top5": 1,
+          "top25": 1,
+          "mrr25": 1.0
+        },
+        "delta_mrr25": 0.0,
+        "new_top1": [],
+        "lost_top1": [],
+        "new_top5": [],
+        "lost_top5": []
+      },
+      "MUI": {
+        "molecules": 20,
+        "baseline": {
+          "top1": 14,
+          "top5": 15,
+          "top25": 19,
+          "mrr25": 0.7324866310160428
+        },
+        "absolute": {
+          "top1": 14,
+          "top5": 15,
+          "top25": 19,
+          "mrr25": 0.7324866310160428
+        },
+        "delta_mrr25": 0.0,
+        "new_top1": [],
+        "lost_top1": [],
+        "new_top5": [],
+        "lost_top5": []
+      }
+    },
+    "scored_rank_sha256": "c9bae469ccc41467c693ab917334052a9a3ec11f259e75eacb45c1488c269475",
+    "ranking_sha256": "358b6cbddff13e449a8ac11aac152634c462e77cbb8cafc633816ad7987426c9"
+  },
+  "per_query": [
+    {
+      "molecule_id": "U001",
+      "source": "MUI",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U002",
+      "source": "MUI",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U003",
+      "source": "Eawag",
+      "baseline_rank": 7,
+      "absolute_rank": 7,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U004",
+      "source": "Eawag",
+      "baseline_rank": 4,
+      "absolute_rank": 4,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U005",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U006",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U007",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U008",
+      "source": "Eawag",
+      "baseline_rank": 3,
+      "absolute_rank": 3,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U009",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U010",
+      "source": "Eawag",
+      "baseline_rank": 19,
+      "absolute_rank": 19,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U011",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U012",
+      "source": "Eawag",
+      "baseline_rank": 3,
+      "absolute_rank": 3,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U013",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U014",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U015",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U016",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U017",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U018",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U019",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U020",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U021",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U022",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U023",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U024",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U025",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U026",
+      "source": "Eawag",
+      "baseline_rank": 5,
+      "absolute_rank": 5,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U027",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U028",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U029",
+      "source": "Eawag",
+      "baseline_rank": 14,
+      "absolute_rank": 14,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U030",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U031",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U032",
+      "source": "Eawag",
+      "baseline_rank": 9,
+      "absolute_rank": 9,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U033",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U034",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U035",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U036",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U037",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U038",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U039",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U040",
+      "source": "MUI",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U041",
+      "source": "MUI",
+      "baseline_rank": 8,
+      "absolute_rank": 8,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U042",
+      "source": "MUI",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U043",
+      "source": "MUI",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U044",
+      "source": "MUI",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U045",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U046",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U047",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U048",
+      "source": "Eawag",
+      "baseline_rank": 2,
+      "absolute_rank": 2,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U049",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U050",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U051",
+      "source": "Eawag",
+      "baseline_rank": 17,
+      "absolute_rank": 17,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U052",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U053",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U054",
+      "source": "Eawag",
+      "baseline_rank": 12,
+      "absolute_rank": 12,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U055",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U056",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U057",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U058",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U059",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U060",
+      "source": "Eawag",
+      "baseline_rank": 8,
+      "absolute_rank": 8,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U061",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U062",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U063",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U064",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U065",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U066",
+      "source": "MSSJ",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U067",
+      "source": "Eawag",
+      "baseline_rank": 11,
+      "absolute_rank": 11,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U068",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U069",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U070",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U071",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U072",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U073",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U074",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U075",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U076",
+      "source": "MUI",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U077",
+      "source": "MUI",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U078",
+      "source": "MUI",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U079",
+      "source": "MUI",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U080",
+      "source": "MUI",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U081",
+      "source": "MUI",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U082",
+      "source": "MUI",
+      "baseline_rank": 24,
+      "absolute_rank": 24,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U083",
+      "source": "MUI",
+      "baseline_rank": 11,
+      "absolute_rank": 11,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U084",
+      "source": "MUI",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U085",
+      "source": "MUI",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U086",
+      "source": "MUI",
+      "baseline_rank": 17,
+      "absolute_rank": 17,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U087",
+      "source": "MUI",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U088",
+      "source": "MUI",
+      "baseline_rank": 3,
+      "absolute_rank": 3,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U089",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U090",
+      "source": "Eawag",
+      "baseline_rank": 4,
+      "absolute_rank": 4,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U091",
+      "source": "Eawag",
+      "baseline_rank": 8,
+      "absolute_rank": 8,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U092",
+      "source": "Eawag",
+      "baseline_rank": 10,
+      "absolute_rank": 10,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U093",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U094",
+      "source": "BAFG",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U095",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U096",
+      "source": "Eawag",
+      "baseline_rank": 7,
+      "absolute_rank": 7,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U097",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U098",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U099",
+      "source": "Eawag",
+      "baseline_rank": 12,
+      "absolute_rank": 12,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U100",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U101",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U102",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U103",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U104",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U105",
+      "source": "Eawag",
+      "baseline_rank": 10,
+      "absolute_rank": 10,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U106",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U107",
+      "source": "Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U108",
+      "source": "Eawag",
+      "baseline_rank": 4,
+      "absolute_rank": 4,
+      "delta_rr": "0.0"
+    },
+    {
+      "molecule_id": "U109",
+      "source": "BAFG",
+      "baseline_rank": 1,
+      "absolute_rank": 2,
+      "delta_rr": "-0.5"
+    },
+    {
+      "molecule_id": "U110",
+      "source": "Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "delta_rr": "0.0"
+    }
+  ]
+}

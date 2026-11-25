@@ -1,0 +1,292 @@
+{
+  "status": "COMPLETE",
+  "kernel": "jiyujia/enveda-075-targetmol-ms2-panel-audit/2",
+  "sha256": "e3239720bfe57c501512511451db8ca8270a0c53111156464a03f733772dd085",
+  "v1_error": "Summary unpacked the compound identity tuple and used its InChIKey14 component only.",
+  "result": {
+    "acquisition": "One TargetMol study, ESI HCD Orbitrap ID-X, native single scan",
+    "author_release": 21105617,
+    "eligible_combined": {
+      "acquisition_files": 0,
+      "acquisition_plates": 0,
+      "acyclic_identities": 0,
+      "collision_energy_nce_counts": {},
+      "exported_pepmass_error": {
+        "abs_le_0.1_ppm": 0,
+        "abs_le_10_ppm": 0,
+        "abs_le_1_ppm": 0,
+        "abs_le_3_ppm": 0,
+        "abs_le_5_ppm": 0
+      },
+      "fine_murcko_groups": 0,
+      "generic_murcko_groups": 0,
+      "has_both_polarities": false,
+      "identities": 0,
+      "largest_generic_group_size": 0,
+      "measured_both_polarities_identities": 0,
+      "observed_feature_error": {
+        "abs_le_0.1_ppm": 0,
+        "abs_le_10_ppm": 0,
+        "abs_le_1_ppm": 0,
+        "abs_le_3_ppm": 0,
+        "abs_le_5_ppm": 0
+      },
+      "scans_without_parsed_plate": 0,
+      "single_scans": 0
+    },
+    "holdout_scope": {
+      "CASMI2017": {
+        "fine": 15,
+        "generic": 15,
+        "identities": 18
+      },
+      "E180Fresh121": {
+        "fine": 121,
+        "generic": 111,
+        "identities": 121
+      },
+      "MassBank202603": {
+        "fine": 53,
+        "generic": 50,
+        "identities": 110
+      },
+      "MassBank202611": {
+        "fine": 109,
+        "generic": 94,
+        "identities": 114
+      },
+      "MassBankAdduct": {
+        "fine": 16,
+        "generic": 15,
+        "identities": 49
+      },
+      "MultiMS2": {
+        "fine": 6,
+        "generic": 6,
+        "identities": 8
+      },
+      "NP250": {
+        "fine": 184,
+        "generic": 155,
+        "identities": 267,
+        "structures_resolved_from_pin": 250
+      },
+      "Pablo60": {
+        "fine": 51,
+        "generic": 48,
+        "identities": 79
+      }
+    },
+    "license": "CC BY 4.0",
+    "mass_evidence": "Observed author MS1 feature centroid and exported PEPMASS, independently compared against physical monoisotopic mass; neither replaced with theoretical m/z.",
+    "minimum_combined_generic_murcko_groups": 40,
+    "rdkit": "2026.03.3",
+    "source_arrays": {
+      "negative": {
+        "bytes": 16552003,
+        "md5": "1ec1b270f154da5e94bd66d91e8b1799",
+        "sha256": "bef14f42c51db9f85ffeb520af1deb35d71a79ffc476b4529ba8c5e0e47e9e2b",
+        "url": "https://zenodo.org/api/records/21105617/files/20250828_targetmol_hts_np_neg_ms2.mgf/content"
+      },
+      "positive": {
+        "bytes": 17756464,
+        "md5": "15ef1e68450e1ffb1f96fb4a2f58ad49",
+        "sha256": "8218980e9b215887cf3a8396e39ef83468455bde70be929e58b004c4c9669d1f",
+        "url": "https://zenodo.org/api/records/21105617/files/20250828_targetmol_hts_np_pos_ms2.mgf/content"
+      }
+    },
+    "sufficient_groups": false,
+    "summary": {
+      "negative": {
+        "author_export_type_counts": {
+          "ALL_ENERGIES": 1463,
+          "ALL_MSN_TO_PSEUDO_MS2": 1272,
+          "SAME_ENERGY": 1886,
+          "SINGLE_SCAN": 3710
+        },
+        "eligible": {
+          "acquisition_files": 0,
+          "acquisition_plates": 0,
+          "acyclic_identities": 0,
+          "collision_energy_nce_counts": {},
+          "exported_pepmass_error": {
+            "abs_le_0.1_ppm": 0,
+            "abs_le_10_ppm": 0,
+            "abs_le_1_ppm": 0,
+            "abs_le_3_ppm": 0,
+            "abs_le_5_ppm": 0
+          },
+          "fine_murcko_groups": 0,
+          "generic_murcko_groups": 0,
+          "identities": 0,
+          "largest_generic_group_size": 0,
+          "observed_feature_error": {
+            "abs_le_0.1_ppm": 0,
+            "abs_le_10_ppm": 0,
+            "abs_le_1_ppm": 0,
+            "abs_le_3_ppm": 0,
+            "abs_le_5_ppm": 0
+          },
+          "scans_without_parsed_plate": 0,
+          "single_scans": 0
+        },
+        "identity_exclusions": {
+          "same_composition_scorer_identity_in_train": 694
+        },
+        "single_scan_method_metadata": {
+          "ACQUISITION": {
+            "Commercial": 3710
+          },
+          "FRAGMENTATION_METHOD": {
+            "HCD": 3710
+          },
+          "INSTRUMENT_TYPE": {
+            "Orbitrap": 3710
+          },
+          "ION_SOURCE": {
+            "ESI": 3710
+          },
+          "SOURCE_INSTRUMENT": {
+            "Orbitrap ID-X": 3710
+          }
+        },
+        "spectrum_exclusions": {
+          "adduct_polarity_charge_inconsistent": 1613,
+          "fewer_than_four_fragment_peaks": 333,
+          "not_native_single_ms2": 4621
+        },
+        "valid_before_exposure": {
+          "acquisition_files": 217,
+          "acquisition_plates": 1,
+          "acyclic_identities": 32,
+          "collision_energy_nce_counts": {
+            "15.0": 51,
+            "20.0": 457,
+            "30.0": 288,
+            "45.0": 273,
+            "60.0": 687,
+            "75.0": 8
+          },
+          "exported_pepmass_error": {
+            "abs_le_0.1_ppm": 1764,
+            "abs_le_10_ppm": 1764,
+            "abs_le_1_ppm": 1764,
+            "abs_le_3_ppm": 1764,
+            "abs_le_5_ppm": 1764
+          },
+          "fine_murcko_groups": 351,
+          "generic_murcko_groups": 301,
+          "identities": 694,
+          "largest_generic_group_size": 55,
+          "observed_feature_error": {
+            "abs_le_0.1_ppm": 92,
+            "abs_le_10_ppm": 1764,
+            "abs_le_1_ppm": 1077,
+            "abs_le_3_ppm": 1751,
+            "abs_le_5_ppm": 1760
+          },
+          "scans_without_parsed_plate": 0,
+          "single_scans": 1764
+        }
+      },
+      "positive": {
+        "author_export_type_counts": {
+          "ALL_ENERGIES": 1345,
+          "ALL_MSN_TO_PSEUDO_MS2": 1295,
+          "SAME_ENERGY": 1877,
+          "SINGLE_SCAN": 3886
+        },
+        "eligible": {
+          "acquisition_files": 0,
+          "acquisition_plates": 0,
+          "acyclic_identities": 0,
+          "collision_energy_nce_counts": {},
+          "exported_pepmass_error": {
+            "abs_le_0.1_ppm": 0,
+            "abs_le_10_ppm": 0,
+            "abs_le_1_ppm": 0,
+            "abs_le_3_ppm": 0,
+            "abs_le_5_ppm": 0
+          },
+          "fine_murcko_groups": 0,
+          "generic_murcko_groups": 0,
+          "identities": 0,
+          "largest_generic_group_size": 0,
+          "observed_feature_error": {
+            "abs_le_0.1_ppm": 0,
+            "abs_le_10_ppm": 0,
+            "abs_le_1_ppm": 0,
+            "abs_le_3_ppm": 0,
+            "abs_le_5_ppm": 0
+          },
+          "scans_without_parsed_plate": 0,
+          "single_scans": 0
+        },
+        "identity_exclusions": {
+          "same_composition_scorer_identity_in_train": 904
+        },
+        "single_scan_method_metadata": {
+          "ACQUISITION": {
+            "Commercial": 3886
+          },
+          "FRAGMENTATION_METHOD": {
+            "HCD": 3886
+          },
+          "INSTRUMENT_TYPE": {
+            "Orbitrap": 3886
+          },
+          "ION_SOURCE": {
+            "ESI": 3886
+          },
+          "SOURCE_INSTRUMENT": {
+            "Orbitrap ID-X": 3886
+          }
+        },
+        "spectrum_exclusions": {
+          "adduct_polarity_charge_inconsistent": 1162,
+          "fewer_than_four_fragment_peaks": 245,
+          "not_native_single_ms2": 4517
+        },
+        "valid_before_exposure": {
+          "acquisition_files": 217,
+          "acquisition_plates": 1,
+          "acyclic_identities": 26,
+          "collision_energy_nce_counts": {
+            "15.0": 390,
+            "20.0": 738,
+            "30.0": 243,
+            "45.0": 190,
+            "60.0": 905,
+            "75.0": 13
+          },
+          "exported_pepmass_error": {
+            "abs_le_0.1_ppm": 2479,
+            "abs_le_10_ppm": 2479,
+            "abs_le_1_ppm": 2479,
+            "abs_le_3_ppm": 2479,
+            "abs_le_5_ppm": 2479
+          },
+          "fine_murcko_groups": 537,
+          "generic_murcko_groups": 467,
+          "identities": 904,
+          "largest_generic_group_size": 60,
+          "observed_feature_error": {
+            "abs_le_0.1_ppm": 175,
+            "abs_le_10_ppm": 2479,
+            "abs_le_1_ppm": 1628,
+            "abs_le_3_ppm": 2473,
+            "abs_le_5_ppm": 2479
+          },
+          "scans_without_parsed_plate": 0,
+          "single_scans": 2479
+        }
+      }
+    },
+    "train_index": {
+      "invalid_recomputed_smiles": 0,
+      "rows": 277566,
+      "same_heavy_composition_smiles_recomputed": 34649,
+      "sha256": "7c16c4968a15956e94eba58e3ff94d4a6c2f6899b10a2f2824047601a46bd6c8"
+    }
+  }
+}

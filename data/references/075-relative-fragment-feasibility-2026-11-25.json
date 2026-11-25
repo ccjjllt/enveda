@@ -1,0 +1,1027 @@
+{
+  "kaggle": {
+    "slug": "enveda-075-np-relative-feasibility-compare",
+    "version": 1,
+    "official_status": "COMPLETE",
+    "blind": {
+      "slug": "enveda-075-np-relative-feasibility",
+      "version": 1,
+      "date_beijing": "2026-11-25T12:43:43.825681+08:00",
+      "official_status": "COMPLETE",
+      "blind_receipt": {
+        "baseline_sha256": "05509b32cfb9bcbe8ab563244f91c97e89f878eba3cc40263e3f48fd4a1f372d",
+        "blind_queries_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+        "upstream_parallax": {
+          "control_sha256": "602b1b5e69734ac12ac67f710279e3a0125ae11e1360cc97545088761e4d2d8a",
+          "submission_sha256": "eea17497ce324d175f2a54385d816c406fe80a31d774c5cc799c12f5ad113f78",
+          "rows": 60,
+          "changed_rows": 1,
+          "top1_changed": 0,
+          "tail_changed": 0,
+          "adjacent_swaps": 2,
+          "time_budget_exceeded": false,
+          "elapsed_seconds": 3.04,
+          "outcome": "experimental_unvalidated",
+          "baseline": "V2_0.468_user_reported"
+        },
+        "native_library_max_available": false,
+        "molecule_count": 60,
+        "deposited_spectra": 98,
+        "eligible_spectra": 98,
+        "per_query_cap": 25,
+        "vacant_slots": {
+          "m_7ed1a27fd1a6": 24
+        },
+        "max_leaders": 8,
+        "fragment_masses_per_candidate": 128,
+        "peaks_per_scan": 80,
+        "donor_gaps_da": {
+          "tight": 0.01,
+          "near": 5.0
+        },
+        "matched_scan_counts": {
+          "matched": 42,
+          "tight": 10
+        },
+        "evaluated_events": {
+          "absolute": 97,
+          "relative": 97,
+          "matched_real": 52,
+          "matched_donor": 52,
+          "tight_real": 5,
+          "tight_donor": 5
+        },
+        "changed_queries": {
+          "absolute": 12,
+          "relative": 14,
+          "matched_real": 9,
+          "matched_donor": 1,
+          "tight_real": 2,
+          "tight_donor": 0
+        },
+        "elapsed_seconds": 33.42,
+        "hashes": {
+          "audit.json": "022046b6f61993334f9836b8b2da801ffb32c9ec914aea051dea5894161250dc",
+          "candidate_evidence.csv": "5ff347b56e9085578b2ef5d617a4c295fd13b148a41ab62c2956d5706009d31a",
+          "baseline.csv": "1dcb467d3c73a5aa983d9321e1193c7bd1fec6884ef277b7ee3486485ec153a4",
+          "absolute.csv": "71f5df6faa8337150d6cffdcbed980bd938b685b4b93aae5a41c4d1fe9b79af0",
+          "relative.csv": "7ce8ff242878e405a55d979c9a4cfeafd4f4a7db086b6f23d1bc51e467c2951e",
+          "matched_real.csv": "585fb9d439057859e5f7a99214321594f191cb39eb50cc56a58b1db24e900e2c",
+          "matched_donor.csv": "44457b3cd032a0efc2fa501c1aa543101f87078c6bc63b801e18a46eef961320",
+          "tight_real.csv": "579d938cd876f61f40e0d49b06c9a5dbdb10e0591756730a9885fdc2edca3eb6",
+          "tight_donor.csv": "1dcb467d3c73a5aa983d9321e1193c7bd1fec6884ef277b7ee3486485ec153a4"
+        }
+      }
+    }
+  },
+  "output_sha256": {
+    "metrics.json": "fd6da3f51515adb2417266b7da0c634088bf59ec68b2267c4fecef9fb41d031e",
+    "receipt.json": "857a5034ea233e8056431f7dcd5a6b6554c62510c5952b3290ee620326968abd",
+    "per_query.csv": "975a652cb61260cc3b0745e007accce534f3848fbb5587e4759b6355e3dc25ea"
+  },
+  "metrics": {
+    "absolute_versus_baseline": {
+      "molecules": 60,
+      "control_mrr25": 0.44520791708291707,
+      "mrr25": 0.47298569486069486,
+      "delta_mrr25": 0.02777777777777778,
+      "new_top1": [
+        "m_3f2117a063b6",
+        "m_93777c077c32",
+        "m_bb3228296dcd"
+      ],
+      "lost_top1": [],
+      "new_top5": [],
+      "lost_top5": [],
+      "paired_ci": {
+        "groups": 48,
+        "draws": 4000,
+        "percentile_95": [
+          0.0,
+          0.062146892655367235
+        ]
+      }
+    },
+    "relative_versus_baseline": {
+      "molecules": 60,
+      "control_mrr25": 0.44520791708291707,
+      "mrr25": 0.47298569486069486,
+      "delta_mrr25": 0.02777777777777778,
+      "new_top1": [
+        "m_3f2117a063b6",
+        "m_93777c077c32",
+        "m_bb3228296dcd"
+      ],
+      "lost_top1": [],
+      "new_top5": [],
+      "lost_top5": [],
+      "paired_ci": {
+        "groups": 48,
+        "draws": 4000,
+        "percentile_95": [
+          0.0,
+          0.062146892655367235
+        ]
+      }
+    },
+    "relative_versus_absolute": {
+      "molecules": 60,
+      "control_mrr25": 0.47298569486069486,
+      "mrr25": 0.47298569486069486,
+      "delta_mrr25": 0.0,
+      "new_top1": [],
+      "lost_top1": [],
+      "new_top5": [],
+      "lost_top5": [],
+      "paired_ci": {
+        "groups": 48,
+        "draws": 4000,
+        "percentile_95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "matched_real_versus_donor": {
+      "molecules": 28,
+      "control_mrr25": 0.41064961823890395,
+      "mrr25": 0.4285067610960468,
+      "delta_mrr25": 0.017857142857142856,
+      "new_top1": [
+        "m_3f2117a063b6"
+      ],
+      "lost_top1": [],
+      "new_top5": [],
+      "lost_top5": [],
+      "paired_ci": {
+        "groups": 24,
+        "draws": 4000,
+        "percentile_95": [
+          0.0,
+          0.06
+        ]
+      }
+    },
+    "matched_real_versus_baseline": {
+      "molecules": 28,
+      "control_mrr25": 0.41064961823890395,
+      "mrr25": 0.4285067610960468,
+      "delta_mrr25": 0.017857142857142856,
+      "new_top1": [
+        "m_3f2117a063b6"
+      ],
+      "lost_top1": [],
+      "new_top5": [],
+      "lost_top5": [],
+      "paired_ci": {
+        "groups": 24,
+        "draws": 4000,
+        "percentile_95": [
+          0.0,
+          0.06
+        ]
+      }
+    },
+    "matched_donor_versus_baseline": {
+      "molecules": 28,
+      "control_mrr25": 0.41064961823890395,
+      "mrr25": 0.41064961823890395,
+      "delta_mrr25": 0.0,
+      "new_top1": [],
+      "lost_top1": [],
+      "new_top5": [],
+      "lost_top5": [],
+      "paired_ci": {
+        "groups": 24,
+        "draws": 4000,
+        "percentile_95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "tight_real_versus_donor": {
+      "molecules": 3,
+      "control_mrr25": 0.3892773892773893,
+      "mrr25": 0.3892773892773893,
+      "delta_mrr25": 0.0,
+      "new_top1": [],
+      "lost_top1": [],
+      "new_top5": [],
+      "lost_top5": [],
+      "paired_ci": {
+        "groups": 3,
+        "draws": 4000,
+        "percentile_95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "tight_real_versus_baseline": {
+      "molecules": 3,
+      "control_mrr25": 0.3892773892773893,
+      "mrr25": 0.3892773892773893,
+      "delta_mrr25": 0.0,
+      "new_top1": [],
+      "lost_top1": [],
+      "new_top5": [],
+      "lost_top5": [],
+      "paired_ci": {
+        "groups": 3,
+        "draws": 4000,
+        "percentile_95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "tight_donor_versus_baseline": {
+      "molecules": 3,
+      "control_mrr25": 0.3892773892773893,
+      "mrr25": 0.3892773892773893,
+      "delta_mrr25": 0.0,
+      "new_top1": [],
+      "lost_top1": [],
+      "new_top5": [],
+      "lost_top5": [],
+      "paired_ci": {
+        "groups": 3,
+        "draws": 4000,
+        "percentile_95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "source_strata": {
+      "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+        "molecules": 4,
+        "control_mrr25": 0.7678571428571429,
+        "mrr25": 0.7678571428571429,
+        "delta_mrr25": 0.0,
+        "new_top1": [],
+        "lost_top1": [],
+        "new_top5": [],
+        "lost_top5": [],
+        "paired_ci": {
+          "groups": 3,
+          "draws": 4000,
+          "percentile_95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "MassBank_Eawag": {
+        "molecules": 13,
+        "control_mrr25": 0.7673992673992674,
+        "mrr25": 0.7673992673992674,
+        "delta_mrr25": 0.0,
+        "new_top1": [],
+        "lost_top1": [],
+        "new_top5": [],
+        "lost_top5": [],
+        "paired_ci": {
+          "groups": 9,
+          "draws": 4000,
+          "percentile_95": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "MycoMSBase": {
+        "molecules": 43,
+        "control_mrr25": 0.35654703823308476,
+        "mrr25": 0.35654703823308476,
+        "delta_mrr25": 0.0,
+        "new_top1": [],
+        "lost_top1": [],
+        "new_top5": [],
+        "lost_top5": [],
+        "paired_ci": {
+          "groups": 36,
+          "draws": 4000,
+          "percentile_95": [
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "native_coverage_correlation": {
+      "absolute": {
+        "events": 87,
+        "mean_within_event_spearman": 0.8096945989949111
+      },
+      "relative": {
+        "events": 87,
+        "mean_within_event_spearman": 0.793562185438154
+      }
+    },
+    "blind_receipt_sha256": "ff604e7b35ad3c08fa51f402103356a85aff76a56ff65da7ec0c3d8a921a5a75"
+  },
+  "counts": {
+    "baseline": {
+      "mrr25": 0.44520791708291707,
+      "top1": 19,
+      "top5": 37,
+      "top25": 48
+    },
+    "absolute": {
+      "mrr25": 0.47298569486069486,
+      "top1": 22,
+      "top5": 37,
+      "top25": 48
+    },
+    "relative": {
+      "mrr25": 0.47298569486069486,
+      "top1": 22,
+      "top5": 37,
+      "top25": 48
+    }
+  },
+  "absolute_versus_baseline_by_source": {
+    "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+      "molecules": 4,
+      "baseline_mrr25": 0.6428571428571429,
+      "mrr25": 0.7678571428571429,
+      "delta_mrr25": 0.125
+    },
+    "MassBank_Eawag": {
+      "molecules": 13,
+      "baseline_mrr25": 0.7673992673992674,
+      "mrr25": 0.7673992673992674,
+      "delta_mrr25": 0.0
+    },
+    "MycoMSBase": {
+      "molecules": 43,
+      "baseline_mrr25": 0.32941525528734833,
+      "mrr25": 0.35654703823308476,
+      "delta_mrr25": 0.027131782945736434
+    }
+  },
+  "ranks": [
+    {
+      "molecule_id": "m_0199671e9e96",
+      "source": "MycoMSBase",
+      "baseline_rank": 3,
+      "absolute_rank": 3,
+      "relative_rank": 3,
+      "matched_real_rank": 3,
+      "matched_donor_rank": 3,
+      "tight_real_rank": 3,
+      "tight_donor_rank": 3
+    },
+    {
+      "molecule_id": "m_0caacbf876a7",
+      "source": "MycoMSBase",
+      "baseline_rank": 2,
+      "absolute_rank": 2,
+      "relative_rank": 2,
+      "matched_real_rank": 2,
+      "matched_donor_rank": 2,
+      "tight_real_rank": 2,
+      "tight_donor_rank": 2
+    },
+    {
+      "molecule_id": "m_1171d6646590",
+      "source": "MycoMSBase",
+      "baseline_rank": 3,
+      "absolute_rank": 3,
+      "relative_rank": 3,
+      "matched_real_rank": 3,
+      "matched_donor_rank": 3,
+      "tight_real_rank": 3,
+      "tight_donor_rank": 3
+    },
+    {
+      "molecule_id": "m_17c4ed1464aa",
+      "source": "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION",
+      "baseline_rank": 14,
+      "absolute_rank": 14,
+      "relative_rank": 14,
+      "matched_real_rank": 14,
+      "matched_donor_rank": 14,
+      "tight_real_rank": 14,
+      "tight_donor_rank": 14
+    },
+    {
+      "molecule_id": "m_198eadd610fd",
+      "source": "MassBank_Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_1d0a21cd8f24",
+      "source": "MycoMSBase",
+      "baseline_rank": 6,
+      "absolute_rank": 6,
+      "relative_rank": 6,
+      "matched_real_rank": 6,
+      "matched_donor_rank": 6,
+      "tight_real_rank": 6,
+      "tight_donor_rank": 6
+    },
+    {
+      "molecule_id": "m_263b18c70f43",
+      "source": "MycoMSBase",
+      "baseline_rank": 11,
+      "absolute_rank": 11,
+      "relative_rank": 11,
+      "matched_real_rank": 11,
+      "matched_donor_rank": 11,
+      "tight_real_rank": 11,
+      "tight_donor_rank": 11
+    },
+    {
+      "molecule_id": "m_271d6f38f4df",
+      "source": "MycoMSBase",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "relative_rank": 0,
+      "matched_real_rank": 0,
+      "matched_donor_rank": 0,
+      "tight_real_rank": 0,
+      "tight_donor_rank": 0
+    },
+    {
+      "molecule_id": "m_2776589bbaaf",
+      "source": "MycoMSBase",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "relative_rank": 0,
+      "matched_real_rank": 0,
+      "matched_donor_rank": 0,
+      "tight_real_rank": 0,
+      "tight_donor_rank": 0
+    },
+    {
+      "molecule_id": "m_2c88e89659ae",
+      "source": "MycoMSBase",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_2ce8f34509d5",
+      "source": "MassBank_Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_325c6b4639a2",
+      "source": "MycoMSBase",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_3e3ab464cb12",
+      "source": "MycoMSBase",
+      "baseline_rank": 3,
+      "absolute_rank": 3,
+      "relative_rank": 3,
+      "matched_real_rank": 3,
+      "matched_donor_rank": 3,
+      "tight_real_rank": 3,
+      "tight_donor_rank": 3
+    },
+    {
+      "molecule_id": "m_3e5962f5e5fd",
+      "source": "MycoMSBase",
+      "baseline_rank": 5,
+      "absolute_rank": 5,
+      "relative_rank": 5,
+      "matched_real_rank": 5,
+      "matched_donor_rank": 5,
+      "tight_real_rank": 5,
+      "tight_donor_rank": 5
+    },
+    {
+      "molecule_id": "m_3f2117a063b6",
+      "source": "MycoMSBase",
+      "baseline_rank": 2,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 2,
+      "tight_real_rank": 2,
+      "tight_donor_rank": 2
+    },
+    {
+      "molecule_id": "m_417cb1557f0c",
+      "source": "MycoMSBase",
+      "baseline_rank": 7,
+      "absolute_rank": 7,
+      "relative_rank": 7,
+      "matched_real_rank": 7,
+      "matched_donor_rank": 7,
+      "tight_real_rank": 7,
+      "tight_donor_rank": 7
+    },
+    {
+      "molecule_id": "m_41a996442bfb",
+      "source": "MycoMSBase",
+      "baseline_rank": 4,
+      "absolute_rank": 4,
+      "relative_rank": 4,
+      "matched_real_rank": 4,
+      "matched_donor_rank": 4,
+      "tight_real_rank": 4,
+      "tight_donor_rank": 4
+    },
+    {
+      "molecule_id": "m_46f4697ed06a",
+      "source": "MassBank_Eawag",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "relative_rank": 0,
+      "matched_real_rank": 0,
+      "matched_donor_rank": 0,
+      "tight_real_rank": 0,
+      "tight_donor_rank": 0
+    },
+    {
+      "molecule_id": "m_4bab16fbc5ff",
+      "source": "MycoMSBase",
+      "baseline_rank": 8,
+      "absolute_rank": 8,
+      "relative_rank": 8,
+      "matched_real_rank": 8,
+      "matched_donor_rank": 8,
+      "tight_real_rank": 8,
+      "tight_donor_rank": 8
+    },
+    {
+      "molecule_id": "m_55918f78ea0b",
+      "source": "MycoMSBase",
+      "baseline_rank": 16,
+      "absolute_rank": 16,
+      "relative_rank": 16,
+      "matched_real_rank": 16,
+      "matched_donor_rank": 16,
+      "tight_real_rank": 16,
+      "tight_donor_rank": 16
+    },
+    {
+      "molecule_id": "m_5db188e44509",
+      "source": "MycoMSBase",
+      "baseline_rank": 20,
+      "absolute_rank": 20,
+      "relative_rank": 20,
+      "matched_real_rank": 20,
+      "matched_donor_rank": 20,
+      "tight_real_rank": 20,
+      "tight_donor_rank": 20
+    },
+    {
+      "molecule_id": "m_60249642d700",
+      "source": "MycoMSBase",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_629bc25507b4",
+      "source": "MycoMSBase",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "relative_rank": 0,
+      "matched_real_rank": 0,
+      "matched_donor_rank": 0,
+      "tight_real_rank": 0,
+      "tight_donor_rank": 0
+    },
+    {
+      "molecule_id": "m_701229840ebc",
+      "source": "MycoMSBase",
+      "baseline_rank": 12,
+      "absolute_rank": 12,
+      "relative_rank": 12,
+      "matched_real_rank": 12,
+      "matched_donor_rank": 12,
+      "tight_real_rank": 12,
+      "tight_donor_rank": 12
+    },
+    {
+      "molecule_id": "m_70a62ae7bf3b",
+      "source": "MycoMSBase",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_798b2c8d5a7d",
+      "source": "MassBank_Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_7ba5edc4bd87",
+      "source": "MycoMSBase",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "relative_rank": 0,
+      "matched_real_rank": 0,
+      "matched_donor_rank": 0,
+      "tight_real_rank": 0,
+      "tight_donor_rank": 0
+    },
+    {
+      "molecule_id": "m_7e5f8addaac7",
+      "source": "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_7ed1a27fd1a6",
+      "source": "MassBank_Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_81711a0e1efe",
+      "source": "MycoMSBase",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "relative_rank": 0,
+      "matched_real_rank": 0,
+      "matched_donor_rank": 0,
+      "tight_real_rank": 0,
+      "tight_donor_rank": 0
+    },
+    {
+      "molecule_id": "m_8bed1ae34ab6",
+      "source": "MycoMSBase",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_8c3c351b566f",
+      "source": "MassBank_Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_8e116660413b",
+      "source": "MycoMSBase",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_91b084360271",
+      "source": "MassBank_Eawag",
+      "baseline_rank": 3,
+      "absolute_rank": 3,
+      "relative_rank": 3,
+      "matched_real_rank": 3,
+      "matched_donor_rank": 3,
+      "tight_real_rank": 3,
+      "tight_donor_rank": 3
+    },
+    {
+      "molecule_id": "m_93777c077c32",
+      "source": "MycoMSBase",
+      "baseline_rank": 3,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 3,
+      "matched_donor_rank": 3,
+      "tight_real_rank": 3,
+      "tight_donor_rank": 3
+    },
+    {
+      "molecule_id": "m_984e13c199f5",
+      "source": "MycoMSBase",
+      "baseline_rank": 3,
+      "absolute_rank": 3,
+      "relative_rank": 3,
+      "matched_real_rank": 3,
+      "matched_donor_rank": 3,
+      "tight_real_rank": 3,
+      "tight_donor_rank": 3
+    },
+    {
+      "molecule_id": "m_9a0bfa4c9250",
+      "source": "MycoMSBase",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "relative_rank": 0,
+      "matched_real_rank": 0,
+      "matched_donor_rank": 0,
+      "tight_real_rank": 0,
+      "tight_donor_rank": 0
+    },
+    {
+      "molecule_id": "m_9f225112099d",
+      "source": "MassBank_Eawag",
+      "baseline_rank": 2,
+      "absolute_rank": 2,
+      "relative_rank": 2,
+      "matched_real_rank": 2,
+      "matched_donor_rank": 2,
+      "tight_real_rank": 2,
+      "tight_donor_rank": 2
+    },
+    {
+      "molecule_id": "m_a7eccce6c3ab",
+      "source": "MycoMSBase",
+      "baseline_rank": 3,
+      "absolute_rank": 3,
+      "relative_rank": 3,
+      "matched_real_rank": 3,
+      "matched_donor_rank": 3,
+      "tight_real_rank": 3,
+      "tight_donor_rank": 3
+    },
+    {
+      "molecule_id": "m_a8b55716916c",
+      "source": "MassBank_Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_ae07d08d1663",
+      "source": "MassBank_Eawag",
+      "baseline_rank": 7,
+      "absolute_rank": 7,
+      "relative_rank": 7,
+      "matched_real_rank": 7,
+      "matched_donor_rank": 7,
+      "tight_real_rank": 7,
+      "tight_donor_rank": 7
+    },
+    {
+      "molecule_id": "m_b1b6cb3b37ca",
+      "source": "MycoMSBase",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_b48250cfa30e",
+      "source": "MycoMSBase",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "relative_rank": 0,
+      "matched_real_rank": 0,
+      "matched_donor_rank": 0,
+      "tight_real_rank": 0,
+      "tight_donor_rank": 0
+    },
+    {
+      "molecule_id": "m_b668271d2144",
+      "source": "MycoMSBase",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "relative_rank": 0,
+      "matched_real_rank": 0,
+      "matched_donor_rank": 0,
+      "tight_real_rank": 0,
+      "tight_donor_rank": 0
+    },
+    {
+      "molecule_id": "m_b68e840e9062",
+      "source": "MycoMSBase",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "relative_rank": 0,
+      "matched_real_rank": 0,
+      "matched_donor_rank": 0,
+      "tight_real_rank": 0,
+      "tight_donor_rank": 0
+    },
+    {
+      "molecule_id": "m_bb3228296dcd",
+      "source": "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION",
+      "baseline_rank": 2,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 2,
+      "matched_donor_rank": 2,
+      "tight_real_rank": 2,
+      "tight_donor_rank": 2
+    },
+    {
+      "molecule_id": "m_bf8d2a33f04f",
+      "source": "MycoMSBase",
+      "baseline_rank": 2,
+      "absolute_rank": 2,
+      "relative_rank": 2,
+      "matched_real_rank": 2,
+      "matched_donor_rank": 2,
+      "tight_real_rank": 2,
+      "tight_donor_rank": 2
+    },
+    {
+      "molecule_id": "m_cb1246977acb",
+      "source": "MassBank_Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_cb63eb5b511e",
+      "source": "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_cdbd9e94ad11",
+      "source": "MassBank_Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_cea905799cbf",
+      "source": "MassBank_Eawag",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_e03d62a97bf7",
+      "source": "MycoMSBase",
+      "baseline_rank": 1,
+      "absolute_rank": 1,
+      "relative_rank": 1,
+      "matched_real_rank": 1,
+      "matched_donor_rank": 1,
+      "tight_real_rank": 1,
+      "tight_donor_rank": 1
+    },
+    {
+      "molecule_id": "m_e35bfe3078f3",
+      "source": "MycoMSBase",
+      "baseline_rank": 4,
+      "absolute_rank": 4,
+      "relative_rank": 4,
+      "matched_real_rank": 4,
+      "matched_donor_rank": 4,
+      "tight_real_rank": 4,
+      "tight_donor_rank": 4
+    },
+    {
+      "molecule_id": "m_e5eff070aa8a",
+      "source": "MycoMSBase",
+      "baseline_rank": 13,
+      "absolute_rank": 13,
+      "relative_rank": 13,
+      "matched_real_rank": 13,
+      "matched_donor_rank": 13,
+      "tight_real_rank": 13,
+      "tight_donor_rank": 13
+    },
+    {
+      "molecule_id": "m_ea26de384593",
+      "source": "MycoMSBase",
+      "baseline_rank": 3,
+      "absolute_rank": 3,
+      "relative_rank": 3,
+      "matched_real_rank": 3,
+      "matched_donor_rank": 3,
+      "tight_real_rank": 3,
+      "tight_donor_rank": 3
+    },
+    {
+      "molecule_id": "m_eca11db69ee0",
+      "source": "MycoMSBase",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "relative_rank": 0,
+      "matched_real_rank": 0,
+      "matched_donor_rank": 0,
+      "tight_real_rank": 0,
+      "tight_donor_rank": 0
+    },
+    {
+      "molecule_id": "m_edad43d8a6c8",
+      "source": "MycoMSBase",
+      "baseline_rank": 0,
+      "absolute_rank": 0,
+      "relative_rank": 0,
+      "matched_real_rank": 0,
+      "matched_donor_rank": 0,
+      "tight_real_rank": 0,
+      "tight_donor_rank": 0
+    },
+    {
+      "molecule_id": "m_f7b102f14304",
+      "source": "MycoMSBase",
+      "baseline_rank": 4,
+      "absolute_rank": 4,
+      "relative_rank": 4,
+      "matched_real_rank": 4,
+      "matched_donor_rank": 4,
+      "tight_real_rank": 4,
+      "tight_donor_rank": 4
+    },
+    {
+      "molecule_id": "m_f97129a1f6c5",
+      "source": "MycoMSBase",
+      "baseline_rank": 2,
+      "absolute_rank": 2,
+      "relative_rank": 2,
+      "matched_real_rank": 2,
+      "matched_donor_rank": 2,
+      "tight_real_rank": 2,
+      "tight_donor_rank": 2
+    },
+    {
+      "molecule_id": "m_ffd4bba01fb3",
+      "source": "MycoMSBase",
+      "baseline_rank": 12,
+      "absolute_rank": 12,
+      "relative_rank": 12,
+      "matched_real_rank": 12,
+      "matched_donor_rank": 12,
+      "tight_real_rank": 12,
+      "tight_donor_rank": 12
+    }
+  ]
+}

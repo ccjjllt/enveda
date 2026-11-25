@@ -1,0 +1,90 @@
+{
+  "slug": "enveda-075-msnlib-branch-evidence",
+  "version": 1,
+  "status": "COMPLETE",
+  "report_sha256": "f21a9de6a11264577d6fdbe294964e2a96c1896960d17d55d4e17be0383640cb",
+  "date_beijing": "2026-11-25T11:47:25.270572+08:00",
+  "url": "https://www.kaggle.com/code/jiyujia/enveda-075-msnlib-branch-evidence/versions/1",
+  "author_release": 21105617,
+  "rdkit": "2026.03.3",
+  "assets": {
+    "targetmol_pos": {
+      "provenance": {
+        "url": "https://zenodo.org/api/records/21105617/files/20250828_targetmol_hts_np_pos_msn.mgf/content",
+        "bytes": 108944735,
+        "md5": "954ff7dba644b12954724bc3d7be029d",
+        "sha256": "9d056a796168d2f10fdfbe66e8083066f81e25ac0872365c5dff36b85aa4eb6e"
+      },
+      "counts": {
+        "ms3_selected_peak_and_shared_raw_file": 17319,
+        "linked_records_directly_raw_verified": 0,
+        "ambiguous_cut_site": 297,
+        "no_one_cut_mass_fit": 14911,
+        "unique": 1648,
+        "no_valid_one_cut_proposal": 463
+      },
+      "distinct_feature_products": 4788,
+      "unique_graph_feature_products": 438,
+      "covered_raw_author_identities": 857
+    },
+    "targetmol_neg": {
+      "provenance": {
+        "url": "https://zenodo.org/api/records/21105617/files/20250828_targetmol_hts_np_neg_msn.mgf/content",
+        "bytes": 87793533,
+        "md5": "2891f986185c202756de454f3d1d4cb4",
+        "sha256": "a04cd4067071fdadcf6391c0afff662e1b3bb6c6d97603649465bf2f5dce4395"
+      },
+      "counts": {
+        "ms3_selected_peak_and_shared_raw_file": 12912,
+        "linked_records_directly_raw_verified": 18,
+        "no_one_cut_mass_fit": 9541,
+        "unique": 3005,
+        "no_valid_one_cut_proposal": 81,
+        "ambiguous_cut_site": 285
+      },
+      "distinct_feature_products": 3543,
+      "unique_graph_feature_products": 787,
+      "covered_raw_author_identities": 684
+    }
+  },
+  "descriptor_support": {
+    "[M+H]+/exact": {
+      "unique_keys": 258,
+      "keys_with_raw_direct_proof": 0,
+      "keys_with_multiple_identities": 30,
+      "keys_with_multiple_generic_scaffolds": 18,
+      "keys_with_three_files_and_two_scaffolds": 5,
+      "keys_with_three_identities_files_and_two_scaffolds": 5,
+      "keys_with_three_identities_files_and_two_scaffolds_same_ce_channel": 3
+    },
+    "[M+H]+/local": {
+      "unique_keys": 220,
+      "keys_with_raw_direct_proof": 0,
+      "keys_with_multiple_identities": 44,
+      "keys_with_multiple_generic_scaffolds": 30,
+      "keys_with_three_files_and_two_scaffolds": 12,
+      "keys_with_three_identities_files_and_two_scaffolds": 12,
+      "keys_with_three_identities_files_and_two_scaffolds_same_ce_channel": 9
+    },
+    "[M-H]-/exact": {
+      "unique_keys": 415,
+      "keys_with_raw_direct_proof": 1,
+      "keys_with_multiple_identities": 57,
+      "keys_with_multiple_generic_scaffolds": 38,
+      "keys_with_three_files_and_two_scaffolds": 21,
+      "keys_with_three_identities_files_and_two_scaffolds": 20,
+      "keys_with_three_identities_files_and_two_scaffolds_same_ce_channel": 14
+    },
+    "[M-H]-/local": {
+      "unique_keys": 366,
+      "keys_with_raw_direct_proof": 1,
+      "keys_with_multiple_identities": 73,
+      "keys_with_multiple_generic_scaffolds": 49,
+      "keys_with_three_files_and_two_scaffolds": 29,
+      "keys_with_three_identities_files_and_two_scaffolds": 28,
+      "keys_with_three_identities_files_and_two_scaffolds_same_ce_channel": 22
+    }
+  },
+  "available_direct_reference_proofs": 18,
+  "decision": "Do not extend the unique one-cut library to large-scale same-condition training without more cross-scaffold support."
+}

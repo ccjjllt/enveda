@@ -1,0 +1,1552 @@
+{
+  "kaggle": {
+    "version": 1,
+    "slug": "enveda-075-msalign-morgan-compare",
+    "official_status": "COMPLETE",
+    "date_beijing": "2026-11-25T12:59:33.720697+08:00",
+    "blind": {
+      "slug": "enveda-075-msalign-morgan",
+      "version": 3,
+      "date_beijing": "2026-11-25T12:56:16.039365+08:00",
+      "official_status": "COMPLETE",
+      "blind_score_receipt": {
+        "queries_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+        "baseline_sha256": "1dcb467d3c73a5aa983d9321e1193c7bd1fec6884ef277b7ee3486485ec153a4",
+        "official_manifest_sha256": "d7f9290b1636171b327f38775e78431409e68d6314cbeb73652e13b8e8920914",
+        "checkpoint_sha256": {
+          "bins_fingerprint": "d28d7e2c641bca848a449fa113118f8a45862c1305a47132578dbdecf20812e9"
+        },
+        "channels": [
+          "bins_fingerprint"
+        ],
+        "device": "cpu",
+        "cuda_name": null,
+        "torch_version": "2.11.0+cu128",
+        "rdkit_version": "2026.03.3",
+        "molecules": 60,
+        "spectra": 98,
+        "candidate_slots_per_query": 25,
+        "candidate_rows": 1476,
+        "candidates_scored": 1476,
+        "spectrum_candidate_pairs": 2353,
+        "scored_scans_by_query": {
+          "bins_fingerprint": {
+            "m_0199671e9e96": 1,
+            "m_0caacbf876a7": 1,
+            "m_1171d6646590": 1,
+            "m_17c4ed1464aa": 1,
+            "m_198eadd610fd": 4,
+            "m_1d0a21cd8f24": 1,
+            "m_263b18c70f43": 1,
+            "m_271d6f38f4df": 1,
+            "m_2776589bbaaf": 1,
+            "m_2c88e89659ae": 1,
+            "m_2ce8f34509d5": 4,
+            "m_325c6b4639a2": 1,
+            "m_3e3ab464cb12": 1,
+            "m_3e5962f5e5fd": 1,
+            "m_3f2117a063b6": 1,
+            "m_417cb1557f0c": 1,
+            "m_41a996442bfb": 1,
+            "m_46f4697ed06a": 4,
+            "m_4bab16fbc5ff": 1,
+            "m_55918f78ea0b": 1,
+            "m_5db188e44509": 1,
+            "m_60249642d700": 1,
+            "m_629bc25507b4": 1,
+            "m_701229840ebc": 1,
+            "m_70a62ae7bf3b": 1,
+            "m_798b2c8d5a7d": 4,
+            "m_7ba5edc4bd87": 1,
+            "m_7e5f8addaac7": 2,
+            "m_7ed1a27fd1a6": 3,
+            "m_81711a0e1efe": 1,
+            "m_8bed1ae34ab6": 1,
+            "m_8c3c351b566f": 4,
+            "m_8e116660413b": 1,
+            "m_91b084360271": 1,
+            "m_93777c077c32": 1,
+            "m_984e13c199f5": 1,
+            "m_9a0bfa4c9250": 1,
+            "m_9f225112099d": 3,
+            "m_a7eccce6c3ab": 1,
+            "m_a8b55716916c": 4,
+            "m_ae07d08d1663": 4,
+            "m_b1b6cb3b37ca": 1,
+            "m_b48250cfa30e": 1,
+            "m_b668271d2144": 1,
+            "m_b68e840e9062": 1,
+            "m_bb3228296dcd": 2,
+            "m_bf8d2a33f04f": 2,
+            "m_cb1246977acb": 4,
+            "m_cb63eb5b511e": 2,
+            "m_cdbd9e94ad11": 3,
+            "m_cea905799cbf": 4,
+            "m_e03d62a97bf7": 1,
+            "m_e35bfe3078f3": 1,
+            "m_e5eff070aa8a": 1,
+            "m_ea26de384593": 1,
+            "m_eca11db69ee0": 1,
+            "m_edad43d8a6c8": 1,
+            "m_f7b102f14304": 1,
+            "m_f97129a1f6c5": 1,
+            "m_ffd4bba01fb3": 1
+          }
+        },
+        "skipped_scans_by_channel": {
+          "bins_fingerprint": {
+            "s_6ebd96f48e357a86": {
+              "molecule_id": "m_7ed1a27fd1a6",
+              "reason": "no positive-intensity peak within native bins",
+              "max_mz_inclusive": 1005.0
+            }
+          }
+        },
+        "scored_scan_count_by_channel": {
+          "bins_fingerprint": 97
+        },
+        "scored_molecule_count_by_channel": {
+          "bins_fingerprint": 60
+        },
+        "adducts": [
+          "[M+H]+",
+          "[M-H]-"
+        ],
+        "candidate_pool": "sealed final Pablo baseline",
+        "uploaded_truth": false,
+        "vacant_slots_by_query": {
+          "m_7ed1a27fd1a6": 24
+        },
+        "scores_sha256": "bbb94c3b3407371d68b3e182f698d84615419db0005c288a3d564b3d95c0505c",
+        "spectra_scores_sha256": "0d65fa17e5f9a633aeebc1b6b5280c9c7038f05c9a12f106e319e8ad9691061d",
+        "elapsed_seconds": 6.21
+      }
+    }
+  },
+  "metrics": {
+    "molecules": 60,
+    "rank_fusion_weight": 0.6,
+    "channel": "bins_fingerprint",
+    "scored_scans": 97,
+    "skipped_scans": 1,
+    "baseline_fallback_ids": [],
+    "baseline_sha256": "1dcb467d3c73a5aa983d9321e1193c7bd1fec6884ef277b7ee3486485ec153a4",
+    "score_sha256": "bbb94c3b3407371d68b3e182f698d84615419db0005c288a3d564b3d95c0505c",
+    "private_label_sha256": "ab7a98f7f5e35fd9029ebc905de279d25adde894f2ea49949066a72a1b2cb1fa",
+    "groups": {
+      "all": {
+        "baseline": {
+          "molecules": 60,
+          "baseline_mrr25": 0.44520791708291707,
+          "mrr25": 0.44520791708291707,
+          "delta_mrr": 0.0,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [],
+          "harmed": [],
+          "old_top1": 19,
+          "top1": 19,
+          "old_top5": 37,
+          "top5": 37,
+          "top25": 48
+        },
+        "rank_fusion": {
+          "molecules": 60,
+          "baseline_mrr25": 0.44520791708291707,
+          "mrr25": 0.4077580886213441,
+          "delta_mrr": -0.03744982846157297,
+          "new_top1": [],
+          "lost_top1": [
+            "m_8e116660413b"
+          ],
+          "new_top5": [
+            "m_ae07d08d1663"
+          ],
+          "lost_top5": [
+            "m_3e5962f5e5fd",
+            "m_984e13c199f5",
+            "m_e35bfe3078f3",
+            "m_f7b102f14304"
+          ],
+          "improved": [
+            "m_3e3ab464cb12",
+            "m_55918f78ea0b",
+            "m_ae07d08d1663"
+          ],
+          "harmed": [
+            "m_0199671e9e96",
+            "m_0caacbf876a7",
+            "m_17c4ed1464aa",
+            "m_1d0a21cd8f24",
+            "m_263b18c70f43",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_417cb1557f0c",
+            "m_41a996442bfb",
+            "m_4bab16fbc5ff",
+            "m_5db188e44509",
+            "m_701229840ebc",
+            "m_8e116660413b",
+            "m_91b084360271",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_a7eccce6c3ab",
+            "m_bb3228296dcd",
+            "m_bf8d2a33f04f",
+            "m_e35bfe3078f3",
+            "m_e5eff070aa8a",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5",
+            "m_ffd4bba01fb3"
+          ],
+          "old_top1": 19,
+          "top1": 18,
+          "old_top5": 37,
+          "top5": 34,
+          "top25": 48
+        },
+        "same_formula_top5": {
+          "molecules": 60,
+          "baseline_mrr25": 0.44520791708291707,
+          "mrr25": 0.43215236152736153,
+          "delta_mrr": -0.013055555555555555,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [
+            "m_1171d6646590",
+            "m_3e3ab464cb12"
+          ],
+          "harmed": [
+            "m_0caacbf876a7",
+            "m_3f2117a063b6",
+            "m_41a996442bfb",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_bb3228296dcd",
+            "m_e35bfe3078f3",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5"
+          ],
+          "old_top1": 19,
+          "top1": 19,
+          "old_top5": 37,
+          "top5": 37,
+          "top25": 48
+        },
+        "pure_model_diagnostic": {
+          "molecules": 60,
+          "baseline_mrr25": 0.44520791708291707,
+          "mrr25": 0.1631928130062805,
+          "delta_mrr": -0.2820151040766366,
+          "new_top1": [
+            "m_3e3ab464cb12",
+            "m_ae07d08d1663"
+          ],
+          "lost_top1": [
+            "m_198eadd610fd",
+            "m_2c88e89659ae",
+            "m_2ce8f34509d5",
+            "m_60249642d700",
+            "m_70a62ae7bf3b",
+            "m_798b2c8d5a7d",
+            "m_7e5f8addaac7",
+            "m_8c3c351b566f",
+            "m_8e116660413b",
+            "m_a8b55716916c",
+            "m_b1b6cb3b37ca",
+            "m_cb1246977acb",
+            "m_cb63eb5b511e",
+            "m_cdbd9e94ad11",
+            "m_cea905799cbf",
+            "m_e03d62a97bf7"
+          ],
+          "new_top5": [
+            "m_ae07d08d1663"
+          ],
+          "lost_top5": [
+            "m_0199671e9e96",
+            "m_0caacbf876a7",
+            "m_198eadd610fd",
+            "m_2c88e89659ae",
+            "m_2ce8f34509d5",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_41a996442bfb",
+            "m_70a62ae7bf3b",
+            "m_798b2c8d5a7d",
+            "m_7e5f8addaac7",
+            "m_8e116660413b",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_a7eccce6c3ab",
+            "m_a8b55716916c",
+            "m_b1b6cb3b37ca",
+            "m_bb3228296dcd",
+            "m_bf8d2a33f04f",
+            "m_cb63eb5b511e",
+            "m_cea905799cbf",
+            "m_e35bfe3078f3",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5"
+          ],
+          "improved": [
+            "m_1171d6646590",
+            "m_3e3ab464cb12",
+            "m_55918f78ea0b",
+            "m_5db188e44509",
+            "m_701229840ebc",
+            "m_ae07d08d1663"
+          ],
+          "harmed": [
+            "m_0199671e9e96",
+            "m_0caacbf876a7",
+            "m_17c4ed1464aa",
+            "m_198eadd610fd",
+            "m_1d0a21cd8f24",
+            "m_263b18c70f43",
+            "m_2c88e89659ae",
+            "m_2ce8f34509d5",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_417cb1557f0c",
+            "m_41a996442bfb",
+            "m_4bab16fbc5ff",
+            "m_60249642d700",
+            "m_70a62ae7bf3b",
+            "m_798b2c8d5a7d",
+            "m_7e5f8addaac7",
+            "m_8c3c351b566f",
+            "m_8e116660413b",
+            "m_91b084360271",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_9f225112099d",
+            "m_a7eccce6c3ab",
+            "m_a8b55716916c",
+            "m_b1b6cb3b37ca",
+            "m_bb3228296dcd",
+            "m_bf8d2a33f04f",
+            "m_cb1246977acb",
+            "m_cb63eb5b511e",
+            "m_cdbd9e94ad11",
+            "m_cea905799cbf",
+            "m_e03d62a97bf7",
+            "m_e35bfe3078f3",
+            "m_e5eff070aa8a",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5",
+            "m_ffd4bba01fb3"
+          ],
+          "old_top1": 19,
+          "top1": 5,
+          "old_top5": 37,
+          "top5": 13,
+          "top25": 48
+        }
+      },
+      "same_formula_top5_has_competitor": {
+        "baseline": {
+          "molecules": 50,
+          "baseline_mrr25": 0.42758283383283385,
+          "mrr25": 0.42758283383283385,
+          "delta_mrr": 0.0,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [],
+          "harmed": [],
+          "old_top1": 14,
+          "top1": 14,
+          "old_top5": 31,
+          "top5": 31,
+          "top25": 42
+        },
+        "rank_fusion": {
+          "molecules": 50,
+          "baseline_mrr25": 0.42758283383283385,
+          "mrr25": 0.3843097063456129,
+          "delta_mrr": -0.043273127487220904,
+          "new_top1": [],
+          "lost_top1": [
+            "m_8e116660413b"
+          ],
+          "new_top5": [
+            "m_ae07d08d1663"
+          ],
+          "lost_top5": [
+            "m_3e5962f5e5fd",
+            "m_984e13c199f5",
+            "m_e35bfe3078f3",
+            "m_f7b102f14304"
+          ],
+          "improved": [
+            "m_3e3ab464cb12",
+            "m_55918f78ea0b",
+            "m_ae07d08d1663"
+          ],
+          "harmed": [
+            "m_0199671e9e96",
+            "m_0caacbf876a7",
+            "m_17c4ed1464aa",
+            "m_1d0a21cd8f24",
+            "m_263b18c70f43",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_417cb1557f0c",
+            "m_41a996442bfb",
+            "m_4bab16fbc5ff",
+            "m_5db188e44509",
+            "m_701229840ebc",
+            "m_8e116660413b",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_a7eccce6c3ab",
+            "m_bb3228296dcd",
+            "m_bf8d2a33f04f",
+            "m_e35bfe3078f3",
+            "m_e5eff070aa8a",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5",
+            "m_ffd4bba01fb3"
+          ],
+          "old_top1": 14,
+          "top1": 13,
+          "old_top5": 31,
+          "top5": 28,
+          "top25": 42
+        },
+        "same_formula_top5": {
+          "molecules": 50,
+          "baseline_mrr25": 0.42758283383283385,
+          "mrr25": 0.4119161671661672,
+          "delta_mrr": -0.015666666666666666,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [
+            "m_1171d6646590",
+            "m_3e3ab464cb12"
+          ],
+          "harmed": [
+            "m_0caacbf876a7",
+            "m_3f2117a063b6",
+            "m_41a996442bfb",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_bb3228296dcd",
+            "m_e35bfe3078f3",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5"
+          ],
+          "old_top1": 14,
+          "top1": 14,
+          "old_top5": 31,
+          "top5": 31,
+          "top25": 42
+        },
+        "pure_model_diagnostic": {
+          "molecules": 50,
+          "baseline_mrr25": 0.42758283383283385,
+          "mrr25": 0.16049804227420325,
+          "delta_mrr": -0.2670847915586306,
+          "new_top1": [
+            "m_3e3ab464cb12",
+            "m_ae07d08d1663"
+          ],
+          "lost_top1": [
+            "m_198eadd610fd",
+            "m_2c88e89659ae",
+            "m_60249642d700",
+            "m_70a62ae7bf3b",
+            "m_7e5f8addaac7",
+            "m_8e116660413b",
+            "m_b1b6cb3b37ca",
+            "m_cb1246977acb",
+            "m_cb63eb5b511e",
+            "m_cdbd9e94ad11",
+            "m_cea905799cbf",
+            "m_e03d62a97bf7"
+          ],
+          "new_top5": [
+            "m_ae07d08d1663"
+          ],
+          "lost_top5": [
+            "m_0199671e9e96",
+            "m_0caacbf876a7",
+            "m_198eadd610fd",
+            "m_2c88e89659ae",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_41a996442bfb",
+            "m_70a62ae7bf3b",
+            "m_7e5f8addaac7",
+            "m_8e116660413b",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_a7eccce6c3ab",
+            "m_b1b6cb3b37ca",
+            "m_bb3228296dcd",
+            "m_bf8d2a33f04f",
+            "m_cb63eb5b511e",
+            "m_cea905799cbf",
+            "m_e35bfe3078f3",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5"
+          ],
+          "improved": [
+            "m_1171d6646590",
+            "m_3e3ab464cb12",
+            "m_55918f78ea0b",
+            "m_5db188e44509",
+            "m_701229840ebc",
+            "m_ae07d08d1663"
+          ],
+          "harmed": [
+            "m_0199671e9e96",
+            "m_0caacbf876a7",
+            "m_17c4ed1464aa",
+            "m_198eadd610fd",
+            "m_1d0a21cd8f24",
+            "m_263b18c70f43",
+            "m_2c88e89659ae",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_417cb1557f0c",
+            "m_41a996442bfb",
+            "m_4bab16fbc5ff",
+            "m_60249642d700",
+            "m_70a62ae7bf3b",
+            "m_7e5f8addaac7",
+            "m_8e116660413b",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_9f225112099d",
+            "m_a7eccce6c3ab",
+            "m_b1b6cb3b37ca",
+            "m_bb3228296dcd",
+            "m_bf8d2a33f04f",
+            "m_cb1246977acb",
+            "m_cb63eb5b511e",
+            "m_cdbd9e94ad11",
+            "m_cea905799cbf",
+            "m_e03d62a97bf7",
+            "m_e35bfe3078f3",
+            "m_e5eff070aa8a",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5",
+            "m_ffd4bba01fb3"
+          ],
+          "old_top1": 14,
+          "top1": 4,
+          "old_top5": 31,
+          "top5": 10,
+          "top25": 42
+        }
+      },
+      "msg_training_scaffold_detected": {
+        "baseline": {
+          "molecules": 27,
+          "baseline_mrr25": 0.4602954144620811,
+          "mrr25": 0.4602954144620811,
+          "delta_mrr": 0.0,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [],
+          "harmed": [],
+          "old_top1": 9,
+          "top1": 9,
+          "old_top5": 16,
+          "top5": 16,
+          "top25": 23
+        },
+        "rank_fusion": {
+          "molecules": 27,
+          "baseline_mrr25": 0.4602954144620811,
+          "mrr25": 0.4421338581044912,
+          "delta_mrr": -0.01816155635758992,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [
+            "m_ae07d08d1663"
+          ],
+          "lost_top5": [
+            "m_f7b102f14304"
+          ],
+          "improved": [
+            "m_55918f78ea0b",
+            "m_ae07d08d1663"
+          ],
+          "harmed": [
+            "m_0caacbf876a7",
+            "m_17c4ed1464aa",
+            "m_417cb1557f0c",
+            "m_4bab16fbc5ff",
+            "m_5db188e44509",
+            "m_91b084360271",
+            "m_bb3228296dcd",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_ffd4bba01fb3"
+          ],
+          "old_top1": 9,
+          "top1": 9,
+          "old_top5": 16,
+          "top5": 16,
+          "top25": 23
+        },
+        "same_formula_top5": {
+          "molecules": 27,
+          "baseline_mrr25": 0.4602954144620811,
+          "mrr25": 0.44918430335097004,
+          "delta_mrr": -0.011111111111111112,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [
+            "m_1171d6646590"
+          ],
+          "harmed": [
+            "m_0caacbf876a7",
+            "m_bb3228296dcd",
+            "m_ea26de384593",
+            "m_f7b102f14304"
+          ],
+          "old_top1": 9,
+          "top1": 9,
+          "old_top5": 16,
+          "top5": 16,
+          "top25": 23
+        },
+        "pure_model_diagnostic": {
+          "molecules": 27,
+          "baseline_mrr25": 0.4602954144620811,
+          "mrr25": 0.2210512738290516,
+          "delta_mrr": -0.2392441406330295,
+          "new_top1": [
+            "m_ae07d08d1663"
+          ],
+          "lost_top1": [
+            "m_2c88e89659ae",
+            "m_2ce8f34509d5",
+            "m_60249642d700",
+            "m_70a62ae7bf3b",
+            "m_798b2c8d5a7d",
+            "m_cb63eb5b511e",
+            "m_e03d62a97bf7"
+          ],
+          "new_top5": [
+            "m_ae07d08d1663"
+          ],
+          "lost_top5": [
+            "m_0caacbf876a7",
+            "m_2c88e89659ae",
+            "m_2ce8f34509d5",
+            "m_70a62ae7bf3b",
+            "m_798b2c8d5a7d",
+            "m_bb3228296dcd",
+            "m_cb63eb5b511e",
+            "m_ea26de384593",
+            "m_f7b102f14304"
+          ],
+          "improved": [
+            "m_1171d6646590",
+            "m_55918f78ea0b",
+            "m_5db188e44509",
+            "m_ae07d08d1663"
+          ],
+          "harmed": [
+            "m_0caacbf876a7",
+            "m_17c4ed1464aa",
+            "m_2c88e89659ae",
+            "m_2ce8f34509d5",
+            "m_417cb1557f0c",
+            "m_4bab16fbc5ff",
+            "m_60249642d700",
+            "m_70a62ae7bf3b",
+            "m_798b2c8d5a7d",
+            "m_91b084360271",
+            "m_9f225112099d",
+            "m_bb3228296dcd",
+            "m_cb63eb5b511e",
+            "m_e03d62a97bf7",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_ffd4bba01fb3"
+          ],
+          "old_top1": 9,
+          "top1": 3,
+          "old_top5": 16,
+          "top5": 8,
+          "top25": 23
+        }
+      },
+      "msg_training_scaffold_not_detected": {
+        "baseline": {
+          "molecules": 33,
+          "baseline_mrr25": 0.4328636010454192,
+          "mrr25": 0.4328636010454192,
+          "delta_mrr": 0.0,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [],
+          "harmed": [],
+          "old_top1": 10,
+          "top1": 10,
+          "old_top5": 21,
+          "top5": 21,
+          "top25": 25
+        },
+        "rank_fusion": {
+          "molecules": 33,
+          "baseline_mrr25": 0.4328636010454192,
+          "mrr25": 0.37963245904422377,
+          "delta_mrr": -0.053231142001195476,
+          "new_top1": [],
+          "lost_top1": [
+            "m_8e116660413b"
+          ],
+          "new_top5": [],
+          "lost_top5": [
+            "m_3e5962f5e5fd",
+            "m_984e13c199f5",
+            "m_e35bfe3078f3"
+          ],
+          "improved": [
+            "m_3e3ab464cb12"
+          ],
+          "harmed": [
+            "m_0199671e9e96",
+            "m_1d0a21cd8f24",
+            "m_263b18c70f43",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_41a996442bfb",
+            "m_701229840ebc",
+            "m_8e116660413b",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_a7eccce6c3ab",
+            "m_bf8d2a33f04f",
+            "m_e35bfe3078f3",
+            "m_e5eff070aa8a",
+            "m_f97129a1f6c5"
+          ],
+          "old_top1": 10,
+          "top1": 9,
+          "old_top5": 21,
+          "top5": 18,
+          "top25": 25
+        },
+        "same_formula_top5": {
+          "molecules": 33,
+          "baseline_mrr25": 0.4328636010454192,
+          "mrr25": 0.4182171363989546,
+          "delta_mrr": -0.014646464646464645,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [
+            "m_3e3ab464cb12"
+          ],
+          "harmed": [
+            "m_3f2117a063b6",
+            "m_41a996442bfb",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_e35bfe3078f3",
+            "m_f97129a1f6c5"
+          ],
+          "old_top1": 10,
+          "top1": 10,
+          "old_top5": 21,
+          "top5": 21,
+          "top25": 25
+        },
+        "pure_model_diagnostic": {
+          "molecules": 33,
+          "baseline_mrr25": 0.4328636010454192,
+          "mrr25": 0.11585407233310413,
+          "delta_mrr": -0.3170095287123151,
+          "new_top1": [
+            "m_3e3ab464cb12"
+          ],
+          "lost_top1": [
+            "m_198eadd610fd",
+            "m_7e5f8addaac7",
+            "m_8c3c351b566f",
+            "m_8e116660413b",
+            "m_a8b55716916c",
+            "m_b1b6cb3b37ca",
+            "m_cb1246977acb",
+            "m_cdbd9e94ad11",
+            "m_cea905799cbf"
+          ],
+          "new_top5": [],
+          "lost_top5": [
+            "m_0199671e9e96",
+            "m_198eadd610fd",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_41a996442bfb",
+            "m_7e5f8addaac7",
+            "m_8e116660413b",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_a7eccce6c3ab",
+            "m_a8b55716916c",
+            "m_b1b6cb3b37ca",
+            "m_bf8d2a33f04f",
+            "m_cea905799cbf",
+            "m_e35bfe3078f3",
+            "m_f97129a1f6c5"
+          ],
+          "improved": [
+            "m_3e3ab464cb12",
+            "m_701229840ebc"
+          ],
+          "harmed": [
+            "m_0199671e9e96",
+            "m_198eadd610fd",
+            "m_1d0a21cd8f24",
+            "m_263b18c70f43",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_41a996442bfb",
+            "m_7e5f8addaac7",
+            "m_8c3c351b566f",
+            "m_8e116660413b",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_a7eccce6c3ab",
+            "m_a8b55716916c",
+            "m_b1b6cb3b37ca",
+            "m_bf8d2a33f04f",
+            "m_cb1246977acb",
+            "m_cdbd9e94ad11",
+            "m_cea905799cbf",
+            "m_e35bfe3078f3",
+            "m_e5eff070aa8a",
+            "m_f97129a1f6c5"
+          ],
+          "old_top1": 10,
+          "top1": 2,
+          "old_top5": 21,
+          "top5": 5,
+          "top25": 25
+        }
+      },
+      "source/GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+        "baseline": {
+          "molecules": 4,
+          "baseline_mrr25": 0.6428571428571429,
+          "mrr25": 0.6428571428571429,
+          "delta_mrr": 0.0,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [],
+          "harmed": [],
+          "old_top1": 2,
+          "top1": 2,
+          "old_top5": 3,
+          "top5": 3,
+          "top25": 4
+        },
+        "rank_fusion": {
+          "molecules": 4,
+          "baseline_mrr25": 0.6428571428571429,
+          "mrr25": 0.5756578947368421,
+          "delta_mrr": -0.06719924812030076,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [],
+          "harmed": [
+            "m_17c4ed1464aa",
+            "m_bb3228296dcd"
+          ],
+          "old_top1": 2,
+          "top1": 2,
+          "old_top5": 3,
+          "top5": 3,
+          "top25": 4
+        },
+        "same_formula_top5": {
+          "molecules": 4,
+          "baseline_mrr25": 0.6428571428571429,
+          "mrr25": 0.6011904761904762,
+          "delta_mrr": -0.04166666666666667,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [],
+          "harmed": [
+            "m_bb3228296dcd"
+          ],
+          "old_top1": 2,
+          "top1": 2,
+          "old_top5": 3,
+          "top5": 3,
+          "top25": 4
+        },
+        "pure_model_diagnostic": {
+          "molecules": 4,
+          "baseline_mrr25": 0.6428571428571429,
+          "mrr25": 0.10332792207792207,
+          "delta_mrr": -0.5395292207792208,
+          "new_top1": [],
+          "lost_top1": [
+            "m_7e5f8addaac7",
+            "m_cb63eb5b511e"
+          ],
+          "new_top5": [],
+          "lost_top5": [
+            "m_7e5f8addaac7",
+            "m_bb3228296dcd",
+            "m_cb63eb5b511e"
+          ],
+          "improved": [],
+          "harmed": [
+            "m_17c4ed1464aa",
+            "m_7e5f8addaac7",
+            "m_bb3228296dcd",
+            "m_cb63eb5b511e"
+          ],
+          "old_top1": 2,
+          "top1": 0,
+          "old_top5": 3,
+          "top5": 0,
+          "top25": 4
+        }
+      },
+      "source/MassBank_Eawag": {
+        "baseline": {
+          "molecules": 13,
+          "baseline_mrr25": 0.7673992673992674,
+          "mrr25": 0.7673992673992674,
+          "delta_mrr": 0.0,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [],
+          "harmed": [],
+          "old_top1": 9,
+          "top1": 9,
+          "old_top5": 11,
+          "top5": 11,
+          "top25": 12
+        },
+        "rank_fusion": {
+          "molecules": 13,
+          "baseline_mrr25": 0.7673992673992674,
+          "mrr25": 0.7884615384615384,
+          "delta_mrr": 0.021062271062271064,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [
+            "m_ae07d08d1663"
+          ],
+          "lost_top5": [],
+          "improved": [
+            "m_ae07d08d1663"
+          ],
+          "harmed": [
+            "m_91b084360271"
+          ],
+          "old_top1": 9,
+          "top1": 9,
+          "old_top5": 11,
+          "top5": 12,
+          "top25": 12
+        },
+        "same_formula_top5": {
+          "molecules": 13,
+          "baseline_mrr25": 0.7673992673992674,
+          "mrr25": 0.7673992673992674,
+          "delta_mrr": 0.0,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [],
+          "harmed": [],
+          "old_top1": 9,
+          "top1": 9,
+          "old_top5": 11,
+          "top5": 11,
+          "top25": 12
+        },
+        "pure_model_diagnostic": {
+          "molecules": 13,
+          "baseline_mrr25": 0.7673992673992674,
+          "mrr25": 0.2753663003663004,
+          "delta_mrr": -0.492032967032967,
+          "new_top1": [
+            "m_ae07d08d1663"
+          ],
+          "lost_top1": [
+            "m_198eadd610fd",
+            "m_2ce8f34509d5",
+            "m_798b2c8d5a7d",
+            "m_8c3c351b566f",
+            "m_a8b55716916c",
+            "m_cb1246977acb",
+            "m_cdbd9e94ad11",
+            "m_cea905799cbf"
+          ],
+          "new_top5": [
+            "m_ae07d08d1663"
+          ],
+          "lost_top5": [
+            "m_198eadd610fd",
+            "m_2ce8f34509d5",
+            "m_798b2c8d5a7d",
+            "m_a8b55716916c",
+            "m_cea905799cbf"
+          ],
+          "improved": [
+            "m_ae07d08d1663"
+          ],
+          "harmed": [
+            "m_198eadd610fd",
+            "m_2ce8f34509d5",
+            "m_798b2c8d5a7d",
+            "m_8c3c351b566f",
+            "m_91b084360271",
+            "m_9f225112099d",
+            "m_a8b55716916c",
+            "m_cb1246977acb",
+            "m_cdbd9e94ad11",
+            "m_cea905799cbf"
+          ],
+          "old_top1": 9,
+          "top1": 2,
+          "old_top5": 11,
+          "top5": 7,
+          "top25": 12
+        }
+      },
+      "source/MycoMSBase": {
+        "baseline": {
+          "molecules": 43,
+          "baseline_mrr25": 0.32941525528734833,
+          "mrr25": 0.32941525528734833,
+          "delta_mrr": 0.0,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [],
+          "harmed": [],
+          "old_top1": 8,
+          "top1": 8,
+          "old_top5": 23,
+          "top5": 23,
+          "top25": 32
+        },
+        "rank_fusion": {
+          "molecules": 43,
+          "baseline_mrr25": 0.32941525528734833,
+          "mrr25": 0.2770431101937972,
+          "delta_mrr": -0.05237214509355115,
+          "new_top1": [],
+          "lost_top1": [
+            "m_8e116660413b"
+          ],
+          "new_top5": [],
+          "lost_top5": [
+            "m_3e5962f5e5fd",
+            "m_984e13c199f5",
+            "m_e35bfe3078f3",
+            "m_f7b102f14304"
+          ],
+          "improved": [
+            "m_3e3ab464cb12",
+            "m_55918f78ea0b"
+          ],
+          "harmed": [
+            "m_0199671e9e96",
+            "m_0caacbf876a7",
+            "m_1d0a21cd8f24",
+            "m_263b18c70f43",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_417cb1557f0c",
+            "m_41a996442bfb",
+            "m_4bab16fbc5ff",
+            "m_5db188e44509",
+            "m_701229840ebc",
+            "m_8e116660413b",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_a7eccce6c3ab",
+            "m_bf8d2a33f04f",
+            "m_e35bfe3078f3",
+            "m_e5eff070aa8a",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5",
+            "m_ffd4bba01fb3"
+          ],
+          "old_top1": 8,
+          "top1": 7,
+          "old_top5": 23,
+          "top5": 19,
+          "top25": 32
+        },
+        "same_formula_top5": {
+          "molecules": 43,
+          "baseline_mrr25": 0.32941525528734833,
+          "mrr25": 0.3150741700160305,
+          "delta_mrr": -0.014341085271317828,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [
+            "m_1171d6646590",
+            "m_3e3ab464cb12"
+          ],
+          "harmed": [
+            "m_0caacbf876a7",
+            "m_3f2117a063b6",
+            "m_41a996442bfb",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_e35bfe3078f3",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5"
+          ],
+          "old_top1": 8,
+          "top1": 8,
+          "old_top5": 23,
+          "top5": 23,
+          "top25": 32
+        },
+        "pure_model_diagnostic": {
+          "molecules": 43,
+          "baseline_mrr25": 0.32941525528734833,
+          "mrr25": 0.1348487252861218,
+          "delta_mrr": -0.1945665300012265,
+          "new_top1": [
+            "m_3e3ab464cb12"
+          ],
+          "lost_top1": [
+            "m_2c88e89659ae",
+            "m_60249642d700",
+            "m_70a62ae7bf3b",
+            "m_8e116660413b",
+            "m_b1b6cb3b37ca",
+            "m_e03d62a97bf7"
+          ],
+          "new_top5": [],
+          "lost_top5": [
+            "m_0199671e9e96",
+            "m_0caacbf876a7",
+            "m_2c88e89659ae",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_41a996442bfb",
+            "m_70a62ae7bf3b",
+            "m_8e116660413b",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_a7eccce6c3ab",
+            "m_b1b6cb3b37ca",
+            "m_bf8d2a33f04f",
+            "m_e35bfe3078f3",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5"
+          ],
+          "improved": [
+            "m_1171d6646590",
+            "m_3e3ab464cb12",
+            "m_55918f78ea0b",
+            "m_5db188e44509",
+            "m_701229840ebc"
+          ],
+          "harmed": [
+            "m_0199671e9e96",
+            "m_0caacbf876a7",
+            "m_1d0a21cd8f24",
+            "m_263b18c70f43",
+            "m_2c88e89659ae",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_417cb1557f0c",
+            "m_41a996442bfb",
+            "m_4bab16fbc5ff",
+            "m_60249642d700",
+            "m_70a62ae7bf3b",
+            "m_8e116660413b",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_a7eccce6c3ab",
+            "m_b1b6cb3b37ca",
+            "m_bf8d2a33f04f",
+            "m_e03d62a97bf7",
+            "m_e35bfe3078f3",
+            "m_e5eff070aa8a",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5",
+            "m_ffd4bba01fb3"
+          ],
+          "old_top1": 8,
+          "top1": 3,
+          "old_top5": 23,
+          "top5": 6,
+          "top25": 32
+        }
+      },
+      "ion_stratum/msg_adduct": {
+        "baseline": {
+          "molecules": 44,
+          "baseline_mrr25": 0.3235519215632852,
+          "mrr25": 0.3235519215632852,
+          "delta_mrr": 0.0,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [],
+          "harmed": [],
+          "old_top1": 8,
+          "top1": 8,
+          "old_top5": 23,
+          "top5": 23,
+          "top25": 33
+        },
+        "rank_fusion": {
+          "molecules": 44,
+          "baseline_mrr25": 0.3235519215632852,
+          "mrr25": 0.2719428481200147,
+          "delta_mrr": -0.05160907344327051,
+          "new_top1": [],
+          "lost_top1": [
+            "m_8e116660413b"
+          ],
+          "new_top5": [],
+          "lost_top5": [
+            "m_3e5962f5e5fd",
+            "m_984e13c199f5",
+            "m_e35bfe3078f3",
+            "m_f7b102f14304"
+          ],
+          "improved": [
+            "m_3e3ab464cb12",
+            "m_55918f78ea0b"
+          ],
+          "harmed": [
+            "m_0199671e9e96",
+            "m_0caacbf876a7",
+            "m_17c4ed1464aa",
+            "m_1d0a21cd8f24",
+            "m_263b18c70f43",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_417cb1557f0c",
+            "m_41a996442bfb",
+            "m_4bab16fbc5ff",
+            "m_5db188e44509",
+            "m_701229840ebc",
+            "m_8e116660413b",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_a7eccce6c3ab",
+            "m_bf8d2a33f04f",
+            "m_e35bfe3078f3",
+            "m_e5eff070aa8a",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5",
+            "m_ffd4bba01fb3"
+          ],
+          "old_top1": 8,
+          "top1": 7,
+          "old_top5": 23,
+          "top5": 19,
+          "top25": 33
+        },
+        "same_formula_top5": {
+          "molecules": 44,
+          "baseline_mrr25": 0.3235519215632852,
+          "mrr25": 0.3095367700481337,
+          "delta_mrr": -0.014015151515151513,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [
+            "m_1171d6646590",
+            "m_3e3ab464cb12"
+          ],
+          "harmed": [
+            "m_0caacbf876a7",
+            "m_3f2117a063b6",
+            "m_41a996442bfb",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_e35bfe3078f3",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5"
+          ],
+          "old_top1": 8,
+          "top1": 8,
+          "old_top5": 23,
+          "top5": 23,
+          "top25": 33
+        },
+        "pure_model_diagnostic": {
+          "molecules": 44,
+          "baseline_mrr25": 0.3235519215632852,
+          "mrr25": 0.13281703938085868,
+          "delta_mrr": -0.1907348821824265,
+          "new_top1": [
+            "m_3e3ab464cb12"
+          ],
+          "lost_top1": [
+            "m_2c88e89659ae",
+            "m_60249642d700",
+            "m_70a62ae7bf3b",
+            "m_8e116660413b",
+            "m_b1b6cb3b37ca",
+            "m_e03d62a97bf7"
+          ],
+          "new_top5": [],
+          "lost_top5": [
+            "m_0199671e9e96",
+            "m_0caacbf876a7",
+            "m_2c88e89659ae",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_41a996442bfb",
+            "m_70a62ae7bf3b",
+            "m_8e116660413b",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_a7eccce6c3ab",
+            "m_b1b6cb3b37ca",
+            "m_bf8d2a33f04f",
+            "m_e35bfe3078f3",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5"
+          ],
+          "improved": [
+            "m_1171d6646590",
+            "m_3e3ab464cb12",
+            "m_55918f78ea0b",
+            "m_5db188e44509",
+            "m_701229840ebc"
+          ],
+          "harmed": [
+            "m_0199671e9e96",
+            "m_0caacbf876a7",
+            "m_17c4ed1464aa",
+            "m_1d0a21cd8f24",
+            "m_263b18c70f43",
+            "m_2c88e89659ae",
+            "m_3e5962f5e5fd",
+            "m_3f2117a063b6",
+            "m_417cb1557f0c",
+            "m_41a996442bfb",
+            "m_4bab16fbc5ff",
+            "m_60249642d700",
+            "m_70a62ae7bf3b",
+            "m_8e116660413b",
+            "m_93777c077c32",
+            "m_984e13c199f5",
+            "m_a7eccce6c3ab",
+            "m_b1b6cb3b37ca",
+            "m_bf8d2a33f04f",
+            "m_e03d62a97bf7",
+            "m_e35bfe3078f3",
+            "m_e5eff070aa8a",
+            "m_ea26de384593",
+            "m_f7b102f14304",
+            "m_f97129a1f6c5",
+            "m_ffd4bba01fb3"
+          ],
+          "old_top1": 8,
+          "top1": 3,
+          "old_top5": 23,
+          "top5": 6,
+          "top25": 33
+        }
+      },
+      "ion_stratum/outside_msg_adduct": {
+        "baseline": {
+          "molecules": 16,
+          "baseline_mrr25": 0.7797619047619048,
+          "mrr25": 0.7797619047619048,
+          "delta_mrr": 0.0,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [],
+          "harmed": [],
+          "old_top1": 11,
+          "top1": 11,
+          "old_top5": 14,
+          "top5": 14,
+          "top25": 15
+        },
+        "rank_fusion": {
+          "molecules": 16,
+          "baseline_mrr25": 0.7797619047619048,
+          "mrr25": 0.78125,
+          "delta_mrr": 0.0014880952380952397,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [
+            "m_ae07d08d1663"
+          ],
+          "lost_top5": [],
+          "improved": [
+            "m_ae07d08d1663"
+          ],
+          "harmed": [
+            "m_91b084360271",
+            "m_bb3228296dcd"
+          ],
+          "old_top1": 11,
+          "top1": 11,
+          "old_top5": 14,
+          "top5": 15,
+          "top25": 15
+        },
+        "same_formula_top5": {
+          "molecules": 16,
+          "baseline_mrr25": 0.7797619047619048,
+          "mrr25": 0.7693452380952381,
+          "delta_mrr": -0.010416666666666668,
+          "new_top1": [],
+          "lost_top1": [],
+          "new_top5": [],
+          "lost_top5": [],
+          "improved": [],
+          "harmed": [
+            "m_bb3228296dcd"
+          ],
+          "old_top1": 11,
+          "top1": 11,
+          "old_top5": 14,
+          "top5": 14,
+          "top25": 15
+        },
+        "pure_model_diagnostic": {
+          "molecules": 16,
+          "baseline_mrr25": 0.7797619047619048,
+          "mrr25": 0.2467261904761905,
+          "delta_mrr": -0.5330357142857143,
+          "new_top1": [
+            "m_ae07d08d1663"
+          ],
+          "lost_top1": [
+            "m_198eadd610fd",
+            "m_2ce8f34509d5",
+            "m_798b2c8d5a7d",
+            "m_7e5f8addaac7",
+            "m_8c3c351b566f",
+            "m_a8b55716916c",
+            "m_cb1246977acb",
+            "m_cb63eb5b511e",
+            "m_cdbd9e94ad11",
+            "m_cea905799cbf"
+          ],
+          "new_top5": [
+            "m_ae07d08d1663"
+          ],
+          "lost_top5": [
+            "m_198eadd610fd",
+            "m_2ce8f34509d5",
+            "m_798b2c8d5a7d",
+            "m_7e5f8addaac7",
+            "m_a8b55716916c",
+            "m_bb3228296dcd",
+            "m_cb63eb5b511e",
+            "m_cea905799cbf"
+          ],
+          "improved": [
+            "m_ae07d08d1663"
+          ],
+          "harmed": [
+            "m_198eadd610fd",
+            "m_2ce8f34509d5",
+            "m_798b2c8d5a7d",
+            "m_7e5f8addaac7",
+            "m_8c3c351b566f",
+            "m_91b084360271",
+            "m_9f225112099d",
+            "m_a8b55716916c",
+            "m_bb3228296dcd",
+            "m_cb1246977acb",
+            "m_cb63eb5b511e",
+            "m_cdbd9e94ad11",
+            "m_cea905799cbf"
+          ],
+          "old_top1": 11,
+          "top1": 2,
+          "old_top5": 14,
+          "top5": 7,
+          "top25": 15
+        }
+      }
+    },
+    "within_query_score_shuffle": {
+      "replicates": 32,
+      "mean_delta_mrr": -0.005668402777777777,
+      "min_delta_mrr": -0.01916666666666667,
+      "max_delta_mrr": 0.0077777777777777776
+    },
+    "population_note": "Source/scaffold holdout from Pablo. Refer to the MSAlign exposure audit for exact identities and generic scaffold sharing.",
+    "msalign_training_exposure": {
+      "split": "mces_1",
+      "exact_identity_matches_by_fold": {
+        "train": 0,
+        "val": 0,
+        "test": 0
+      },
+      "generic_scaffold_matches_by_fold": {
+        "train": 27,
+        "val": 10,
+        "test": 14
+      },
+      "scaffold_method": "Match the panel generic Murcko scaffold to generic Murcko scaffolds computed on raw released SMILES. Folds may share the same scaffold."
+    }
+  },
+  "artifacts_sha256": {
+    "msalign_paired_summary.json": "277ef229942b9a056ec20fad028735b60303db72890000ccc48493f7aa3e1a39",
+    "msalign_paired_per_query.csv": "c355a18d54b5ce836ca29d361e4a309029f2f00f3d2583d63fec1005202fdf09",
+    "receipt.json": "fff6a750757fb47f7aea89eee74a27a487c2dc480de59837bf407da9c74d53bc"
+  }
+}

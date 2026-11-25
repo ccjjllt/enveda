@@ -1,0 +1,1231 @@
+{
+  "dataset": "https://zenodo.org/records/16762591",
+  "raw_record": "https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=f4420d487b344b9eabe6fa3f65695fee",
+  "versions": {
+    "v2": {
+      "kernel": "jiyujia/enveda-075-flavonoid-panel-audit/2",
+      "status": "COMPLETE",
+      "coverage_status": "format_not_recognized",
+      "result_sha256": "55046e4fc50e8ff9826f35de78e94554f1ae4f33b84e8e6f629c932376681378",
+      "counts": {
+        "mgf_records": 7787
+      },
+      "archive": {
+        "bytes": 18770115,
+        "md5": "cfd02785d4c7400fdd06f59fb4580112",
+        "sha256": "df568e417c6a2254230b455a39f1eaa1055cc458f478f50602a877eb04179209",
+        "url": "https://zenodo.org/api/records/16762591/files/in-house_MSMS_library.mgf/content"
+      },
+      "field_counts": {},
+      "spectrum_rejections": {
+        "ms2_not_confirmed": 7787
+      },
+      "parse_diagnostics": {
+        "begin_ions": 7787,
+        "unrecognized_in_block_lines": 367102
+      },
+      "reason_no_validation_population": "Spectrum-format and charge semantics must be resolved before evaluating identity/scaffold overlap."
+    },
+    "v3": {
+      "kernel": "jiyujia/enveda-075-flavonoid-panel-audit/3",
+      "status": "COMPLETE",
+      "coverage_status": "no_valid_export_to_evaluate",
+      "result_sha256": "3a3a3fa6660d097d20bfba55f3cb667cca596919da4f673f0aec94a5f7dfb44e",
+      "counts": {
+        "mgf_records": 7787
+      },
+      "archive": {
+        "bytes": 18770115,
+        "md5": "cfd02785d4c7400fdd06f59fb4580112",
+        "sha256": "df568e417c6a2254230b455a39f1eaa1055cc458f478f50602a877eb04179209",
+        "url": "https://zenodo.org/api/records/16762591/files/in-house_MSMS_library.mgf/content"
+      },
+      "field_counts": {
+        "ADDUCT": 7787,
+        "AUTHORS": 7787,
+        "CAS": 6126,
+        "CHARGE": 7787,
+        "COLLISION_ENERGY": 7787,
+        "FORMULA": 7787,
+        "FRAGMENTATION_METHOD": 7787,
+        "INCHI": 7787,
+        "INCHIKEY": 7787,
+        "INSTRUMENT": 7787,
+        "IONMODE": 7787,
+        "MSLEVEL": 7787,
+        "NAME": 7787,
+        "PEPMASS": 7787,
+        "RTINSECONDS": 7787,
+        "SMILES": 7787,
+        "TITLE": 7787
+      },
+      "spectrum_rejections": {
+        "charge_adduct_conflict": 7028,
+        "unsupported_or_missing_adduct": 759
+      },
+      "parse_diagnostics": {
+        "begin_ions": 7787,
+        "non_equals_metadata_fields": 130718,
+        "unrecognized_in_block_lines": 236384
+      },
+      "reason_no_validation_population": "Spectrum-format and charge semantics must be resolved before evaluating identity/scaffold overlap."
+    },
+    "v4": {
+      "kernel": "jiyujia/enveda-075-flavonoid-panel-audit/4",
+      "status": "COMPLETE",
+      "result_sha256": "38c79549f26b35d4cfe6ff53a1772385d50200c94bf132ff85b3657c2cbd3b4b",
+      "counts": {
+        "mgf_records": 7787,
+        "records_with_nonempty_peak_table": 7787,
+        "records_with_unresolved_structure_header": 106
+      },
+      "structure_ledger": {
+        "after_train_and_prior_panels": {
+          "acyclic_identities": 0,
+          "cyclic_fine_murcko_groups": 15,
+          "cyclic_generic_murcko_groups": 13,
+          "exported_records": 875,
+          "fine_families": [
+            {
+              "acyclic": false,
+              "exported_records": 132,
+              "identities": 3
+            },
+            {
+              "acyclic": false,
+              "exported_records": 132,
+              "identities": 3
+            },
+            {
+              "acyclic": false,
+              "exported_records": 85,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 42,
+              "identities": 1
+            }
+          ],
+          "generic_families": [
+            {
+              "acyclic": false,
+              "exported_records": 220,
+              "identities": 5
+            },
+            {
+              "acyclic": false,
+              "exported_records": 132,
+              "identities": 3
+            },
+            {
+              "acyclic": false,
+              "exported_records": 85,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 42,
+              "identities": 1
+            }
+          ],
+          "identities": 20
+        },
+        "author_headers": {
+          "acyclic_identities": 0,
+          "cyclic_fine_murcko_groups": 67,
+          "cyclic_generic_murcko_groups": 56,
+          "exported_records": 7681,
+          "fine_families": [
+            {
+              "acyclic": false,
+              "exported_records": 1154,
+              "identities": 45
+            },
+            {
+              "acyclic": false,
+              "exported_records": 1502,
+              "identities": 37
+            },
+            {
+              "acyclic": false,
+              "exported_records": 584,
+              "identities": 21
+            },
+            {
+              "acyclic": false,
+              "exported_records": 290,
+              "identities": 12
+            },
+            {
+              "acyclic": false,
+              "exported_records": 348,
+              "identities": 9
+            },
+            {
+              "acyclic": false,
+              "exported_records": 229,
+              "identities": 8
+            },
+            {
+              "acyclic": false,
+              "exported_records": 208,
+              "identities": 7
+            },
+            {
+              "acyclic": false,
+              "exported_records": 196,
+              "identities": 6
+            },
+            {
+              "acyclic": false,
+              "exported_records": 173,
+              "identities": 6
+            },
+            {
+              "acyclic": false,
+              "exported_records": 143,
+              "identities": 4
+            },
+            {
+              "acyclic": false,
+              "exported_records": 140,
+              "identities": 4
+            },
+            {
+              "acyclic": false,
+              "exported_records": 99,
+              "identities": 4
+            },
+            {
+              "acyclic": false,
+              "exported_records": 132,
+              "identities": 3
+            },
+            {
+              "acyclic": false,
+              "exported_records": 132,
+              "identities": 3
+            },
+            {
+              "acyclic": false,
+              "exported_records": 88,
+              "identities": 3
+            },
+            {
+              "acyclic": false,
+              "exported_records": 66,
+              "identities": 3
+            },
+            {
+              "acyclic": false,
+              "exported_records": 154,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 88,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 88,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 85,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 85,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 77,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 55,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 66,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 43,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 42,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 42,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 39,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 38,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 33,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 21,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 17,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 14,
+              "identities": 1
+            }
+          ],
+          "generic_families": [
+            {
+              "acyclic": false,
+              "exported_records": 2656,
+              "identities": 82
+            },
+            {
+              "acyclic": false,
+              "exported_records": 584,
+              "identities": 21
+            },
+            {
+              "acyclic": false,
+              "exported_records": 312,
+              "identities": 13
+            },
+            {
+              "acyclic": false,
+              "exported_records": 348,
+              "identities": 9
+            },
+            {
+              "acyclic": false,
+              "exported_records": 242,
+              "identities": 8
+            },
+            {
+              "acyclic": false,
+              "exported_records": 229,
+              "identities": 8
+            },
+            {
+              "acyclic": false,
+              "exported_records": 240,
+              "identities": 7
+            },
+            {
+              "acyclic": false,
+              "exported_records": 208,
+              "identities": 7
+            },
+            {
+              "acyclic": false,
+              "exported_records": 184,
+              "identities": 6
+            },
+            {
+              "acyclic": false,
+              "exported_records": 173,
+              "identities": 6
+            },
+            {
+              "acyclic": false,
+              "exported_records": 154,
+              "identities": 6
+            },
+            {
+              "acyclic": false,
+              "exported_records": 220,
+              "identities": 5
+            },
+            {
+              "acyclic": false,
+              "exported_records": 132,
+              "identities": 3
+            },
+            {
+              "acyclic": false,
+              "exported_records": 105,
+              "identities": 3
+            },
+            {
+              "acyclic": false,
+              "exported_records": 154,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 88,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 86,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 85,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 85,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 77,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 55,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 66,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 43,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 42,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 39,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 38,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 33,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 21,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 14,
+              "identities": 1
+            }
+          ],
+          "identities": 236
+        },
+        "scope": "Neutral connected SMILES and concordant author InChIKey before any spectral eligibility check",
+        "status": "evaluated",
+        "training_unseen": {
+          "acyclic_identities": 0,
+          "cyclic_fine_murcko_groups": 21,
+          "cyclic_generic_murcko_groups": 18,
+          "exported_records": 2167,
+          "fine_families": [
+            {
+              "acyclic": false,
+              "exported_records": 880,
+              "identities": 20
+            },
+            {
+              "acyclic": false,
+              "exported_records": 192,
+              "identities": 6
+            },
+            {
+              "acyclic": false,
+              "exported_records": 132,
+              "identities": 3
+            },
+            {
+              "acyclic": false,
+              "exported_records": 132,
+              "identities": 3
+            },
+            {
+              "acyclic": false,
+              "exported_records": 110,
+              "identities": 3
+            },
+            {
+              "acyclic": false,
+              "exported_records": 85,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 42,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            }
+          ],
+          "generic_families": [
+            {
+              "acyclic": false,
+              "exported_records": 990,
+              "identities": 23
+            },
+            {
+              "acyclic": false,
+              "exported_records": 192,
+              "identities": 6
+            },
+            {
+              "acyclic": false,
+              "exported_records": 220,
+              "identities": 5
+            },
+            {
+              "acyclic": false,
+              "exported_records": 132,
+              "identities": 3
+            },
+            {
+              "acyclic": false,
+              "exported_records": 85,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 2
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 44,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 42,
+              "identities": 1
+            },
+            {
+              "acyclic": false,
+              "exported_records": 22,
+              "identities": 1
+            }
+          ],
+          "identities": 53
+        }
+      },
+      "charge_adduct_fingerprint": [
+        {
+          "adduct": "[M+H]+",
+          "charge": "0-",
+          "outcome": "charge_adduct_conflict",
+          "records": 3592
+        },
+        {
+          "adduct": "[M-H]-",
+          "charge": "0-",
+          "outcome": "charge_adduct_conflict",
+          "records": 3436
+        },
+        {
+          "adduct": "other_or_missing",
+          "charge": "0-",
+          "outcome": "unsupported_or_missing_adduct",
+          "records": 759
+        }
+      ],
+      "parse_diagnostics": {
+        "begin_ions": 7787,
+        "non_equals_metadata_fields": 130718,
+        "parsed_positive_peak_lines": 266767,
+        "unrecognized_colon_metadata_lines": 236384
+      },
+      "strict_native_measured_hcd_identities": 0,
+      "eligibility_note": "The structural identity counts precede the spectral checks. All author-exported charges are 0-. Original scans are needed to establish measured precursor and signed adduct metadata."
+    }
+  },
+  "confirmation_raw": {
+    "kernel": "jiyujia/enveda-075-flavonoid-confirm-raw/1",
+    "status": "COMPLETE",
+    "artifact_sha256": "1f47f40e389df3148f1e615a1ec1cd75e9ae6a2c4759f9ec0edc5c27008031aa",
+    "result": {
+      "coverage_status": "no_ms2_in_confirmation",
+      "dataset": "MSV000098757",
+      "dataset_doi": "https://doi.org/10.25345/C5B56DH7P",
+      "has_ms2": false,
+      "interpretation": "Selected-ion m/z is instrument metadata. The parent MS1 centroid and compound identity were not independently verified. Spectrum IDs, peak arrays and structures were not exported.",
+      "license": "CC0 1.0",
+      "ms2_explicit_charge_state_spectra": {},
+      "ms2_metadata": {},
+      "ms_levels": {
+        "1": 2790
+      },
+      "ms_levels_and_polarity": {
+        "MS1/negative": 1395,
+        "MS1/positive": 1395
+      },
+      "native_hcd_metadata_candidates": 0,
+      "official_file_table": "https://massive.ucsd.edu/ProteoSAFe/dataset_files.jsp?task=f4420d487b344b9eabe6fa3f65695fee",
+      "raw_file": {
+        "bytes": 53811487,
+        "download_url": "https://massiveproxy.gnps2.org/massiveproxy/MSV000098757/raw/confirmation/PT24CH-fraction7-1-ii.mzML",
+        "relative_path": "raw/confirmation/PT24CH-fraction7-1-ii.mzML",
+        "sha256": "1c751ab02e109824c3f4d23eab6a1058220a16ff7f5faef2b4b2b1504f5445de"
+      },
+      "smallest_same_fraction_manuscript_file": {
+        "bytes": 122239367,
+        "dataset": "MSV000098757",
+        "download_url": "https://massiveproxy.gnps2.org/massiveproxy/MSV000098757/raw/manuscript/PT24-CH-fraction7_ID1.mzML.mzML",
+        "relative_path": "raw/manuscript/PT24-CH-fraction7_ID1.mzML.mzML",
+        "selection": "Smallest of the four numbered same-fraction DDA injections. The smaller unnumbered file is likely the initial MS1 inclusion-list injection described in paper section 2.4."
+      },
+      "spectra": 2790
+    }
+  },
+  "same_fraction_dda": {
+    "kernel": "jiyujia/enveda-075-flavonoid-hcd-raw/1",
+    "status": "COMPLETE",
+    "artifact_sha256": "5a3246c18de554376060b7ffa08a09e5197330fff10199785920ff797fd58591",
+    "result": {
+      "acquisition_scope": "numbered_dda_same_fraction_no_batch_or_identity_link",
+      "coverage_status": "metadata_ready",
+      "dataset": "MSV000098757",
+      "dataset_doi": "https://doi.org/10.25345/C5B56DH7P",
+      "has_ms2": true,
+      "interpretation": "Selected-ion m/z is instrument metadata. The parent MS1 centroid and compound identity were not independently verified. Spectrum IDs, peak arrays and structures were not exported.",
+      "license": "CC0 1.0",
+      "ms2_explicit_charge_state_spectra": {
+        "1": 4449
+      },
+      "ms2_metadata": {
+        "ms2_collision_energy": 4449,
+        "ms2_has_charge_state": 4449,
+        "ms2_has_possible_charge_state": 0,
+        "ms2_has_selected_ion_mz": 4449,
+        "ms2_has_selected_ion_mz_and_charge": 4449,
+        "ms2_hcd": 4449,
+        "ms2_isolation_target_mz": 4449,
+        "ms2_strict_native_metadata_ready": 4449,
+        "ms2_strict_native_metadata_ready_negative": 4449,
+        "ms2_with_declared_mz_intensity_arrays_ge4": 4449,
+        "ms2_with_external_precursor_reference": 0,
+        "ms2_with_local_spectrum_ref": 4449,
+        "ms2_with_precursor_entry": 4449,
+        "ms2_with_resolved_ms1_parent": 4449,
+        "ms2_with_retention_time": 4449,
+        "ms2_with_same_polarity_ms1_parent": 4449,
+        "ms2_with_unresolved_local_ref": 0
+      },
+      "ms_levels": {
+        "1": 5795,
+        "2": 4449
+      },
+      "ms_levels_and_polarity": {
+        "MS1/negative": 5795,
+        "MS2/negative": 4449
+      },
+      "native_hcd_metadata_candidates": 4449,
+      "official_file_table": "https://massive.ucsd.edu/ProteoSAFe/dataset_files.jsp?task=f4420d487b344b9eabe6fa3f65695fee",
+      "raw_file": {
+        "bytes": 122239367,
+        "download_url": "https://massiveproxy.gnps2.org/massiveproxy/MSV000098757/raw/manuscript/PT24-CH-fraction7_ID1.mzML.mzML",
+        "relative_path": "raw/manuscript/PT24-CH-fraction7_ID1.mzML.mzML",
+        "sha256": "bff008ead50830bdece0dca40d04bbeb82576ce9cdc1b3897f710b4c702e4a34"
+      },
+      "spectra": 10244
+    }
+  },
+  "native_two_rt_feature_probe": {
+    "kernel": "jiyujia/enveda-075-flavonoid-feature-probe/1",
+    "status": "COMPLETE",
+    "artifact_sha256": "7c32ffeb151ad4e5aca5ea3037581d2b0d7577a23a722b6d0639417e66ed30c3",
+    "verified_parent_scan_counts": {
+      "8590": {
+        "local_parent_reference": 6,
+        "negative_hcd_with_native_metadata": 6,
+        "negative_ms2_in_rt_and_mz_window": 6,
+        "negative_ms2_in_rt_window": 47,
+        "one_unit_charge_state": 6,
+        "recorded_hcd_energy": 6,
+        "selected_mz_in_explicit_isolation": 6,
+        "supported_native_parent_peak": 6
+      },
+      "8830": {
+        "local_parent_reference": 6,
+        "negative_hcd_with_native_metadata": 6,
+        "negative_ms2_in_rt_and_mz_window": 6,
+        "negative_ms2_in_rt_window": 51,
+        "one_unit_charge_state": 6,
+        "recorded_hcd_energy": 6,
+        "selected_mz_in_explicit_isolation": 6,
+        "supported_native_parent_peak": 6
+      }
+    },
+    "rt_windows_minutes": {
+      "8590": 15.159666666666668,
+      "8830": 15.368500000000001
+    },
+    "reference_sample_column": "datafile:Samp1_neg:fraction7_ID1.mzML:area",
+    "independent_structures_admitted": 0,
+    "confirmation": {
+      "explicit_compound_to_raw_basename_mapping": false,
+      "interpretation": "The article and Figure S9 link the isolated compound to feature 8830; the confirmation mzML basename has no explicit author sample-to-structure mapping.",
+      "relative_path": "raw/confirmation/PT24CH-fraction7-1-ii.mzML",
+      "verified_ms1": 2790,
+      "verified_ms2": 0
+    },
+    "raw_file_sha256": "bff008ead50830bdece0dca40d04bbeb82576ce9cdc1b3897f710b4c702e4a34"
+  }
+}

@@ -1,0 +1,663 @@
+{
+  "kaggle": {
+    "slug": "jiyujia/enveda-075-ms-gpt-assets",
+    "version": 1,
+    "device": "CPU",
+    "status": "COMPLETE",
+    "receipt_sha256": "a1ee501093803fa51de284fa70e03a94caa30cee2763f66fd7ab714463291df7"
+  },
+  "receipt": {
+    "status": "assets_available",
+    "python": "3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]",
+    "pinned_revisions": {
+      "ms_gpt": "ec032f87dcaa54c6380176c2f959e11335440ae5",
+      "mist": "48e339be6535546c87ba4f6b81a0f787c2e4ac40"
+    },
+    "source_refs": {
+      "shared": "flyfish666/casmi26-ms-gpt-20261031-public-assets/1",
+      "profile": "flyfish666/casmi26-ms-gpt-msg20261031-profile/1",
+      "metric": "metric/rdkit-2026-3-3-wheel/1"
+    },
+    "manifest_sha256": {
+      "shared": "bbadf84786bd6258f521286e61690ddacfa13bfd1f2725b264d911b09643bcc8",
+      "profile": "d6ebbe02b95e6349c738222194cb95d6c3f0eef9f465bcee06c4b47417e94a9a"
+    },
+    "checked_files": {
+      "shared": {
+        "ATTRIBUTION.md": {
+          "bytes": 1181,
+          "sha256": "337aff788f7241b02a1c3eccb71b3aa1ee57b19afa9fd7df7a1a8fd1f74824d6"
+        },
+        "models/mlm/ms_gpt_mlm.pt": {
+          "bytes": 600532536,
+          "sha256": "eefeaff890af94ccd6ebacbf5071d398b98373b44de60f17db0cbfc95d288ac8"
+        },
+        "models/safe_gpt_base/config.json": {
+          "bytes": 913,
+          "sha256": "68f66aa61d454e0fceb089adfd8d0a72492de00de7b53eacdff88a9dba8f6c86"
+        },
+        "models/safe_gpt_base/generation_config.json": {
+          "bytes": 132,
+          "sha256": "7e3cd9e184b84905589b55fa2653fec02f2fb1c7c00e4780b2cb6674964780c2"
+        },
+        "models/safe_gpt_base/tokenizer.json": {
+          "bytes": 46319,
+          "sha256": "0db5f4dbdc7e8ff759e98483759611a426e187ee7f3f0a91edc8800abe7bf140"
+        },
+        "msgpt-source/LICENSE": {
+          "bytes": 11558,
+          "sha256": "1eb85fc97224598dad1852b5d6483bbcf0aa8608790dcc657a5a2a761ae9c8c6"
+        },
+        "msgpt-source/configs/mlm_pretraining.yaml": {
+          "bytes": 865,
+          "sha256": "70551a5656fe76d4293fb6351192280e569d38f2272d40a2d48b6f8466cf5782"
+        },
+        "msgpt-source/density_calibration/mist_official/canonical_band.json": {
+          "bytes": 1999,
+          "sha256": "5da40f2e417d6223860ccbe58912538a06068894ca3aa01fa4379e1d71805187"
+        },
+        "msgpt-source/src/ms_gpt/data/mist_inputs.py": {
+          "bytes": 3653,
+          "sha256": "f6862207922104f59faf606c4471823d8fab69348e1c259ee696b152d6231af1"
+        },
+        "msgpt-source/src/ms_gpt/data/mist_batch.py": {
+          "bytes": 450,
+          "sha256": "fc6a9ea67f8ed797be5a8974a58b0b6b81707e7f30e23f1e3d25a698a05f14cc"
+        },
+        "msgpt-source/src/ms_gpt/data/posterior_queries.py": {
+          "bytes": 3380,
+          "sha256": "179b7d0c9c3a4d19e7c242374071b136b3cbc39ffaa605bb9afd12d7bc97ace8"
+        },
+        "msgpt-source/src/ms_gpt/models/conditional_mlm.py": {
+          "bytes": 21725,
+          "sha256": "e908c0b4c956383e0a02ee159a246996311040263d79c2850a72f0f5729300d8"
+        },
+        "msgpt-source/src/ms_gpt/models/mist_official_encoder.py": {
+          "bytes": 1659,
+          "sha256": "e2fe98eaecaa663964c7c6ea7a4fa4f28f291ae66ce37e51bbfc508f2ddef533"
+        },
+        "msgpt-source/src/ms_gpt/models/posterior_aligned_adapter.py": {
+          "bytes": 5660,
+          "sha256": "5aa89c6f0e86e3ac20e945020af1bf2bf83f7d7c4ed70040ecba8b45ced0647a"
+        },
+        "msgpt-source/src/ms_gpt/pipeline/postprocessing.py": {
+          "bytes": 5845,
+          "sha256": "2df4a3a5b841fce3915fbfe3a7818aa71a6c6260bd86caff3e69f85f4758c9f3"
+        },
+        "msgpt-source/src/ms_gpt/utils/mol_repair.py": {
+          "bytes": 10625,
+          "sha256": "b0de0c590665f1c48c0fce826c4dd94f02d35d0d5edfd2c56672989ae92f3f1e"
+        },
+        "mist-source/LICENSE.md": {
+          "bytes": 1071,
+          "sha256": "b0b902c0847833aee26472ee9c7fe61b97a9e15532c434c87f27d592beaba54b"
+        },
+        "mist-source/NOTICE.md": {
+          "bytes": 1307,
+          "sha256": "0c257de43bd0f08ecf0bd664e6d5ddafa0aec3369156d61e48e9f6d87bcceee6"
+        },
+        "mist-source/src/mist/models/scaled_mist.py": {
+          "bytes": 2608,
+          "sha256": "ae9634f0cbc97713cde3ffe67ab9317048e6d4c6e54714c9851f4bb3ef0c0bf7"
+        },
+        "wheels/accelerate-1.15.0-py3-none-any.whl": {
+          "bytes": 394295,
+          "sha256": "97eacca0b73e45cb867dbf8c5d5d4dc32219544300e0c8992c7334dc2ef33cec"
+        },
+        "wheels/antlr4_python3_runtime-4.9.3-py3-none-any.whl": {
+          "bytes": 144615,
+          "sha256": "74dbebde851baf27c70439c0c7e5b12a79c3ddc9e33108f7bfeff817d5df0b76"
+        },
+        "wheels/datamol-0.12.5-py3-none-any.whl": {
+          "bytes": 495391,
+          "sha256": "70a3c60ac3379d853611e266051ea38aad02bb44611d56cc7e8a470f904d704d"
+        },
+        "wheels/huggingface_hub-0.36.2-py3-none-any.whl": {
+          "bytes": 566395,
+          "sha256": "48f0c8eac16145dfce371e9d2d7772854a4f591bcb56c9cf548accf531d54270"
+        },
+        "wheels/loguru-0.7.3-py3-none-any.whl": {
+          "bytes": 61595,
+          "sha256": "31a33c10c8e1e10422bfd431aeb5d351c7cf7fa671e3c4df004162264b28220c"
+        },
+        "wheels/omegaconf-2.3.0-py3-none-any.whl": {
+          "bytes": 79500,
+          "sha256": "7b4df175cdb08ba400f45cae3bdcae7ba8365db4d165fc65fd04b050ab63b46b"
+        },
+        "wheels/peft-0.19.1-py3-none-any.whl": {
+          "bytes": 680692,
+          "sha256": "2113f72a81621b5913ef28f9022204c742df111890c5f49d812716a4a301e356"
+        },
+        "wheels/safe_mol-0.1.14-py3-none-any.whl": {
+          "bytes": 60787,
+          "sha256": "a7dd4496809c0709a33636eace58f0e8f3368211edcb0fe61c3020b7a59502f8"
+        },
+        "wheels/selfies-2.2.0-py3-none-any.whl": {
+          "bytes": 36021,
+          "sha256": "8b80796832c0b2f33e63d4fa1617ca541338c57b463a4d06cda3da510506ff73"
+        },
+        "wheels/tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl": {
+          "bytes": 3274982,
+          "sha256": "369cc9fc8cc10cb24143873a0d95438bb8ee257bb80c71989e3ee290e8d72c67"
+        },
+        "wheels/transformers-4.57.6-py3-none-any.whl": {
+          "bytes": 11993498,
+          "sha256": "4c9e9de11333ddfe5114bc872c9f370509198acf0b87a832a0ab9458e2bd0550"
+        }
+      },
+      "profile": {
+        "ATTRIBUTION.md": {
+          "bytes": 851,
+          "sha256": "77b78ddb34ba15fa57b99357ae2b684d244eb63943c4967b1f78c3bc2a3a9c21"
+        },
+        "LICENSE.txt": {
+          "bytes": 11558,
+          "sha256": "1eb85fc97224598dad1852b5d6483bbcf0aa8608790dcc657a5a2a761ae9c8c6"
+        },
+        "mist/mist_official/mist_massspecgym.pt": {
+          "bytes": 289228237,
+          "sha256": "548c1301d9093c732f4a79666e118fb87924de97576fd7c5bd3f17a104e659b6"
+        },
+        "posterior_aligned_adapters/ms_gpt_mlm/mist_official/massspecgym/adapter_model.safetensors": {
+          "bytes": 5613720,
+          "sha256": "c569dc0db373569668c9d55998acad0d8f6772d638917c226d1878bb57583b69"
+        },
+        "posterior_aligned_adapters/ms_gpt_mlm/mist_official/massspecgym/adapter_config.json": {
+          "bytes": 1246,
+          "sha256": "31924c897df26cce6b3dec004aa5145b6b631b535e1a987bf27ba3aa74ee4b45"
+        },
+        "posterior_aligned_adapters/ms_gpt_mlm/mist_official/massspecgym/inference_config.json": {
+          "bytes": 786,
+          "sha256": "78c19afd436a04d0d050356066156e035e187defe9f21a540b42604ff350778c"
+        },
+        "posterior_aligned_adapters/ms_gpt_mlm/mist_official/massspecgym/training_config.json": {
+          "bytes": 1181,
+          "sha256": "0892f3e478f489dae20a74bb42cdba7b87aa10c36ba892d8b14dadffc826681c"
+        }
+      }
+    },
+    "compatible_wheels": {
+      "accelerate": {
+        "version": "1.15.0",
+        "file": "wheels/accelerate-1.15.0-py3-none-any.whl"
+      },
+      "antlr4-python3-runtime": {
+        "version": "4.9.3",
+        "file": "wheels/antlr4_python3_runtime-4.9.3-py3-none-any.whl"
+      },
+      "datamol": {
+        "version": "0.12.5",
+        "file": "wheels/datamol-0.12.5-py3-none-any.whl"
+      },
+      "huggingface-hub": {
+        "version": "0.36.2",
+        "file": "wheels/huggingface_hub-0.36.2-py3-none-any.whl"
+      },
+      "loguru": {
+        "version": "0.7.3",
+        "file": "wheels/loguru-0.7.3-py3-none-any.whl"
+      },
+      "omegaconf": {
+        "version": "2.3.0",
+        "file": "wheels/omegaconf-2.3.0-py3-none-any.whl"
+      },
+      "peft": {
+        "version": "0.19.1",
+        "file": "wheels/peft-0.19.1-py3-none-any.whl"
+      },
+      "safe-mol": {
+        "version": "0.1.14",
+        "file": "wheels/safe_mol-0.1.14-py3-none-any.whl"
+      },
+      "selfies": {
+        "version": "2.2.0",
+        "file": "wheels/selfies-2.2.0-py3-none-any.whl"
+      },
+      "tokenizers": {
+        "version": "0.22.2",
+        "file": "wheels/tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+      },
+      "transformers": {
+        "version": "4.57.6",
+        "file": "wheels/transformers-4.57.6-py3-none-any.whl"
+      },
+      "rdkit": {
+        "version": "2026.3.3",
+        "file": "rdkit-2026.3.3-cp313-cp313-manylinux_2_28_x86_64.whl",
+        "sha256": "9a21f96d92c434c32a4c0d1cc6ebde5f0e57ddbbf24cbfbfd085a3a80e1ceab3"
+      }
+    },
+    "installed_distributions": {
+      "torch": "2.11.0+cu130",
+      "numpy": "2.1.3",
+      "scipy": "1.16.3",
+      "scikit-learn": "1.6.1",
+      "pandas": "2.3.3",
+      "pyyaml": "6.0.3",
+      "packaging": "26.3",
+      "transformers": "5.20.2",
+      "tokenizers": "0.23.3",
+      "safetensors": "0.8.0",
+      "accelerate": "1.15.0",
+      "peft": "0.21.2",
+      "safe-mol": null,
+      "datamol": null,
+      "selfies": null,
+      "omegaconf": "2.4.0",
+      "rdkit": null
+    },
+    "missing_runtime_assets": [],
+    "benchmark": "massspecgym",
+    "input_protocol": "annotated_topn",
+    "max_fragment_peaks": 10,
+    "published_draws": 100
+  },
+  "strict_cpu_load": {
+    "slug": "jiyujia/enveda-075-ms-gpt-load-check",
+    "version": 2,
+    "status": "COMPLETE",
+    "receipt_sha256": "b46ca2191edb5bf1db32a4ee55d5b18eeaa1146367022a3777367ec9cbfbcd59",
+    "v1_error": "Installed optional torchao 0.10.0 was incompatible with PEFT 0.19.1.",
+    "receipt": {
+      "status": "strict_model_load_complete",
+      "device": "cpu",
+      "python": "3.12.13 (main, Mar  4 2026, 09:23:07) [GCC 11.4.0]",
+      "versions": {
+        "torch": "2.10.0+cu128",
+        "transformers": "4.57.6",
+        "tokenizers": "0.22.2",
+        "lightning": "2.4.0",
+        "torchmetrics": "1.6.3",
+        "peft": "0.19.1",
+        "omegaconf": "2.3.0"
+      },
+      "lightning_import": "pytorch_lightning",
+      "optional_torchao_removed_version": "0.10.0",
+      "lora_backend": "dense",
+      "rdkit": "2026.03.3",
+      "spectrum_training_dataset": "msg_all",
+      "mist_checkpoint_step": 430965,
+      "fingerprint_dim": 4096,
+      "mist_embeds_instrument": false,
+      "supported_instrument_codes": [
+        "fticr",
+        "iontrap",
+        "orbitrap",
+        "qtof",
+        "unknown"
+      ],
+      "supported_adduct_codes": {
+        "[M+H]+": 0,
+        "[M+Na]+": 1,
+        "[M+K]+": 2,
+        "[M-H2O+H]+": 3,
+        "[M+H-H2O]+": 3,
+        "[M+H3N+H]+": 4,
+        "[M+NH4]+": 4,
+        "[M]+": 5,
+        "[M-H4O2+H]+": 6,
+        "[M+H-2H2O]+": 6
+      },
+      "timstof_mapping_applied": false,
+      "mlm_parameter_count": 150105600,
+      "tokenizer_size": 1882,
+      "loaded_weights": {
+        "mist": "mist/mist_official/mist_massspecgym.pt",
+        "mlm": "models/mlm/ms_gpt_mlm.pt",
+        "adapter": "posterior_aligned_adapters/ms_gpt_mlm/mist_official/massspecgym"
+      },
+      "source_refs": [
+        "flyfish666/casmi26-ms-gpt-20261031-public-assets/1",
+        "flyfish666/casmi26-ms-gpt-msg20261031-profile/1",
+        "metric/rdkit-2026-3-3-wheel/1",
+        "jiyujia/enveda-075b-fragnnet-cp312-runtime/1"
+      ],
+      "input_helpers": [
+        "prepare_mist_batch",
+        "CandidateRanker"
+      ],
+      "seconds": 84.95600911900002
+    }
+  },
+  "fixed_panel_shortlist": {
+    "blind_kernel": "jiyujia/enveda-075-ms-gpt-blind-c34/1",
+    "private_score_kernel": "jiyujia/enveda-075-ms-gpt-shortlist-compare/1",
+    "status": "COMPLETE",
+    "summary_sha256": "615b89a94336eee798342c57f8dd54c1776d42d6c3d51e3d368fd924c5a4d8dd",
+    "per_query_sha256": "d6a38dece26c3988ebf431fb676dda1504f41c849ad5f3fec5012178f5d1b309",
+    "summary": {
+      "scope": "Standalone generated shortlist before spectral forward scoring and fusion",
+      "query_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+      "blind_receipt_sha256": "2659deb017bffb139697ed9a9199bb0e4f1411318d7212a143502f1f408fcd96",
+      "all_queries": {
+        "molecules": 60,
+        "status": {
+          "complete": 47,
+          "no_supported_spectrum": 13
+        },
+        "available_c34_formulas_when_supported": {
+          "2": 9,
+          "1": 13,
+          "3": 8,
+          "5": 11,
+          "4": 6
+        },
+        "original_source_misses": 10,
+        "equal_slots_per_arm": 981,
+        "by_arm": {
+          "top1": {
+            "draws": 4700,
+            "valid_slots_total": 989,
+            "true_formula_available": 36,
+            "coverage": {
+              "1": {
+                "hits": 0,
+                "matched_slot_hits": 0,
+                "original_source_miss_ids": [],
+                "matched_slot_original_source_miss_ids": []
+              },
+              "5": {
+                "hits": 0,
+                "matched_slot_hits": 0,
+                "original_source_miss_ids": [],
+                "matched_slot_original_source_miss_ids": []
+              },
+              "25": {
+                "hits": 0,
+                "matched_slot_hits": 0,
+                "original_source_miss_ids": [],
+                "matched_slot_original_source_miss_ids": []
+              }
+            }
+          },
+          "top5": {
+            "draws": 4700,
+            "valid_slots_total": 1048,
+            "true_formula_available": 44,
+            "coverage": {
+              "1": {
+                "hits": 0,
+                "matched_slot_hits": 0,
+                "original_source_miss_ids": [],
+                "matched_slot_original_source_miss_ids": []
+              },
+              "5": {
+                "hits": 0,
+                "matched_slot_hits": 0,
+                "original_source_miss_ids": [],
+                "matched_slot_original_source_miss_ids": []
+              },
+              "25": {
+                "hits": 0,
+                "matched_slot_hits": 0,
+                "original_source_miss_ids": [],
+                "matched_slot_original_source_miss_ids": []
+              }
+            }
+          }
+        }
+      },
+      "supported_positive": {
+        "molecules": 47,
+        "status": {
+          "complete": 47
+        },
+        "available_c34_formulas_when_supported": {
+          "2": 9,
+          "1": 13,
+          "3": 8,
+          "5": 11,
+          "4": 6
+        },
+        "original_source_misses": 9,
+        "equal_slots_per_arm": 981,
+        "by_arm": {
+          "top1": {
+            "draws": 4700,
+            "valid_slots_total": 989,
+            "true_formula_available": 36,
+            "coverage": {
+              "1": {
+                "hits": 0,
+                "matched_slot_hits": 0,
+                "original_source_miss_ids": [],
+                "matched_slot_original_source_miss_ids": []
+              },
+              "5": {
+                "hits": 0,
+                "matched_slot_hits": 0,
+                "original_source_miss_ids": [],
+                "matched_slot_original_source_miss_ids": []
+              },
+              "25": {
+                "hits": 0,
+                "matched_slot_hits": 0,
+                "original_source_miss_ids": [],
+                "matched_slot_original_source_miss_ids": []
+              }
+            }
+          },
+          "top5": {
+            "draws": 4700,
+            "valid_slots_total": 1048,
+            "true_formula_available": 44,
+            "coverage": {
+              "1": {
+                "hits": 0,
+                "matched_slot_hits": 0,
+                "original_source_miss_ids": [],
+                "matched_slot_original_source_miss_ids": []
+              },
+              "5": {
+                "hits": 0,
+                "matched_slot_hits": 0,
+                "original_source_miss_ids": [],
+                "matched_slot_original_source_miss_ids": []
+              },
+              "25": {
+                "hits": 0,
+                "matched_slot_hits": 0,
+                "original_source_miss_ids": [],
+                "matched_slot_original_source_miss_ids": []
+              }
+            }
+          }
+        }
+      },
+      "sources": {
+        "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+          "molecules": 4,
+          "status": {
+            "complete": 4
+          },
+          "available_c34_formulas_when_supported": {
+            "1": 1,
+            "5": 3
+          },
+          "original_source_misses": 0,
+          "equal_slots_per_arm": 47,
+          "by_arm": {
+            "top1": {
+              "draws": 400,
+              "valid_slots_total": 55,
+              "true_formula_available": 1,
+              "coverage": {
+                "1": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                },
+                "5": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                },
+                "25": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                }
+              }
+            },
+            "top5": {
+              "draws": 400,
+              "valid_slots_total": 48,
+              "true_formula_available": 3,
+              "coverage": {
+                "1": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                },
+                "5": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                },
+                "25": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                }
+              }
+            }
+          }
+        },
+        "MassBank_Eawag": {
+          "molecules": 13,
+          "status": {
+            "no_supported_spectrum": 13
+          },
+          "available_c34_formulas_when_supported": {},
+          "original_source_misses": 1,
+          "equal_slots_per_arm": 0,
+          "by_arm": {
+            "top1": {
+              "draws": 0,
+              "valid_slots_total": 0,
+              "true_formula_available": 0,
+              "coverage": {
+                "1": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                },
+                "5": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                },
+                "25": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                }
+              }
+            },
+            "top5": {
+              "draws": 0,
+              "valid_slots_total": 0,
+              "true_formula_available": 0,
+              "coverage": {
+                "1": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                },
+                "5": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                },
+                "25": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                }
+              }
+            }
+          }
+        },
+        "MycoMSBase": {
+          "molecules": 43,
+          "status": {
+            "complete": 43
+          },
+          "available_c34_formulas_when_supported": {
+            "2": 9,
+            "3": 8,
+            "1": 12,
+            "5": 8,
+            "4": 6
+          },
+          "original_source_misses": 9,
+          "equal_slots_per_arm": 934,
+          "by_arm": {
+            "top1": {
+              "draws": 4300,
+              "valid_slots_total": 934,
+              "true_formula_available": 35,
+              "coverage": {
+                "1": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                },
+                "5": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                },
+                "25": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                }
+              }
+            },
+            "top5": {
+              "draws": 4300,
+              "valid_slots_total": 1000,
+              "true_formula_available": 41,
+              "coverage": {
+                "1": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                },
+                "5": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                },
+                "25": {
+                  "hits": 0,
+                  "matched_slot_hits": 0,
+                  "original_source_miss_ids": [],
+                  "matched_slot_original_source_miss_ids": []
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

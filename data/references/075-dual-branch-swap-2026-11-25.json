@@ -1,0 +1,210 @@
+{
+  "kernel": "jiyujia/enveda-075-dual-branch-swap/2",
+  "status": "COMPLETE",
+  "summary_sha256": "ae2576f3778e169869490e7b22c1bc992dfb7a9319f129c3e3ff07d095006062",
+  "result": {
+    "scope": "Scaffold-group folds on competition training spectra. Only pair assignment; not the official leaderboard metric.",
+    "selected_pairs": 2000,
+    "observations_loaded": 20303,
+    "pairs_per_fold": 400,
+    "selected_pairs_with_shared_dual_energy": 2000,
+    "comparison": "Equal-weight single-cut coverage vs learned pooled branch features vs energy/polarity-conditioned exclusive branch features.",
+    "views": {
+      "positive": {
+        "models": {
+          "uniform": {
+            "pairs": 2000,
+            "wins": 1565,
+            "ties": 405,
+            "losses": 30,
+            "assignment_accuracy_with_ties": 0.88375,
+            "both_spectra_correct": 1398,
+            "mean_mrr_at_two": 0.926625
+          },
+          "pooled_trained": {
+            "pairs": 2000,
+            "wins": 1566,
+            "ties": 394,
+            "losses": 40,
+            "assignment_accuracy_with_ties": 0.8815,
+            "both_spectra_correct": 1407,
+            "mean_mrr_at_two": 0.9273125
+          },
+          "local_trained": {
+            "pairs": 2000,
+            "wins": 1570,
+            "ties": 394,
+            "losses": 36,
+            "assignment_accuracy_with_ties": 0.8835,
+            "both_spectra_correct": 1420,
+            "mean_mrr_at_two": 0.9288125
+          }
+        },
+        "matched_energy_counts": {
+          "40,60": 1478,
+          "20,40,60": 402,
+          "20,40": 120
+        },
+        "hard_subset": {
+          "uniform": {
+            "pairs": 354,
+            "wins": 27,
+            "ties": 322,
+            "losses": 5,
+            "assignment_accuracy_with_ties": 0.5310734463276836,
+            "both_spectra_correct": 10,
+            "mean_mrr_at_two": 0.7595338983050848
+          },
+          "pooled_trained": {
+            "pairs": 354,
+            "wins": 28,
+            "ties": 320,
+            "losses": 6,
+            "assignment_accuracy_with_ties": 0.5310734463276836,
+            "both_spectra_correct": 10,
+            "mean_mrr_at_two": 0.759180790960452
+          },
+          "local_trained": {
+            "pairs": 354,
+            "wins": 27,
+            "ties": 320,
+            "losses": 7,
+            "assignment_accuracy_with_ties": 0.5282485875706214,
+            "both_spectra_correct": 10,
+            "mean_mrr_at_two": 0.759180790960452
+          }
+        }
+      },
+      "negative": {
+        "models": {
+          "uniform": {
+            "pairs": 2000,
+            "wins": 1518,
+            "ties": 439,
+            "losses": 43,
+            "assignment_accuracy_with_ties": 0.86875,
+            "both_spectra_correct": 1282,
+            "mean_mrr_at_two": 0.9160625
+          },
+          "pooled_trained": {
+            "pairs": 2000,
+            "wins": 1541,
+            "ties": 416,
+            "losses": 43,
+            "assignment_accuracy_with_ties": 0.8745,
+            "both_spectra_correct": 1319,
+            "mean_mrr_at_two": 0.91875
+          },
+          "local_trained": {
+            "pairs": 2000,
+            "wins": 1544,
+            "ties": 416,
+            "losses": 40,
+            "assignment_accuracy_with_ties": 0.876,
+            "both_spectra_correct": 1315,
+            "mean_mrr_at_two": 0.918
+          }
+        },
+        "matched_energy_counts": {
+          "40,60": 1478,
+          "20,40,60": 402,
+          "20,40": 120
+        },
+        "hard_subset": {
+          "uniform": {
+            "pairs": 354,
+            "wins": 20,
+            "ties": 329,
+            "losses": 5,
+            "assignment_accuracy_with_ties": 0.5211864406779662,
+            "both_spectra_correct": 9,
+            "mean_mrr_at_two": 0.759180790960452
+          },
+          "pooled_trained": {
+            "pairs": 354,
+            "wins": 23,
+            "ties": 326,
+            "losses": 5,
+            "assignment_accuracy_with_ties": 0.5254237288135594,
+            "both_spectra_correct": 11,
+            "mean_mrr_at_two": 0.7609463276836158
+          },
+          "local_trained": {
+            "pairs": 354,
+            "wins": 22,
+            "ties": 326,
+            "losses": 6,
+            "assignment_accuracy_with_ties": 0.5225988700564972,
+            "both_spectra_correct": 11,
+            "mean_mrr_at_two": 0.7595338983050848
+          }
+        }
+      },
+      "dual": {
+        "models": {
+          "uniform": {
+            "pairs": 2000,
+            "wins": 1583,
+            "ties": 391,
+            "losses": 26,
+            "assignment_accuracy_with_ties": 0.88925,
+            "both_spectra_correct": 1413,
+            "mean_mrr_at_two": 0.928125
+          },
+          "pooled_trained": {
+            "pairs": 2000,
+            "wins": 1589,
+            "ties": 382,
+            "losses": 29,
+            "assignment_accuracy_with_ties": 0.89,
+            "both_spectra_correct": 1436,
+            "mean_mrr_at_two": 0.930875
+          },
+          "local_trained": {
+            "pairs": 2000,
+            "wins": 1595,
+            "ties": 382,
+            "losses": 23,
+            "assignment_accuracy_with_ties": 0.893,
+            "both_spectra_correct": 1468,
+            "mean_mrr_at_two": 0.934875
+          }
+        },
+        "matched_energy_counts": {
+          "40,60": 1478,
+          "20,40,60": 402,
+          "20,40": 120
+        },
+        "hard_subset": {
+          "uniform": {
+            "pairs": 354,
+            "wins": 31,
+            "ties": 318,
+            "losses": 5,
+            "assignment_accuracy_with_ties": 0.536723163841808,
+            "both_spectra_correct": 13,
+            "mean_mrr_at_two": 0.7623587570621468
+          },
+          "pooled_trained": {
+            "pairs": 354,
+            "wins": 32,
+            "ties": 316,
+            "losses": 6,
+            "assignment_accuracy_with_ties": 0.536723163841808,
+            "both_spectra_correct": 16,
+            "mean_mrr_at_two": 0.7641242937853108
+          },
+          "local_trained": {
+            "pairs": 354,
+            "wins": 31,
+            "ties": 316,
+            "losses": 7,
+            "assignment_accuracy_with_ties": 0.5338983050847458,
+            "both_spectra_correct": 16,
+            "mean_mrr_at_two": 0.7641242937853108
+          }
+        }
+      }
+    }
+  }
+}

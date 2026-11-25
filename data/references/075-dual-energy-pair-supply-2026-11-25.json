@@ -1,0 +1,64 @@
+{
+  "kernel": "jiyujia/enveda-075-dual-energy-pair-supply/2",
+  "status": "COMPLETE",
+  "summary_sha256": "9b2deb821d94e0771ac2531f6528308ce04d4ab5053fd0aba8d6b25550197192",
+  "result": {
+    "scope": "Competition training only. No held-out or answer input. No ranking score.",
+    "metadata_counts": {
+      "rows_read": 2539608,
+      "[M+H]+/40eV": 165739,
+      "[M+H]+/60eV": 165307,
+      "[M-H]-/40eV": 60543,
+      "[M-H]-/60eV": 51874,
+      "[M+H]+/20eV": 99032,
+      "[M-H]-/20eV": 28946,
+      "invalid_input_metadata": 1665
+    },
+    "sampled_pair_counts": {
+      "metadata_formula_groups_with_two_raw_keys_dual_40": 6935,
+      "formula_groups_sampled_to_cap": 123,
+      "checked_dual_2_energy_pairs": 160548,
+      "checked_dual_2_energy_similarity_ge_0_6_pairs": 2037,
+      "checked_dual_2_energy_similarity_ge_0_8_pairs": 171,
+      "checked_dual_3_energy_pairs": 17057,
+      "checked_dual_3_energy_similarity_ge_0_6_pairs": 530,
+      "checked_dual_3_energy_similarity_ge_0_8_pairs": 42,
+      "cross_fold_pairs_excluded_from_output": 191632,
+      "checked_dual_1_energy_pairs": 69113,
+      "checked_dual_1_energy_similarity_ge_0_6_pairs": 564,
+      "checked_dual_1_energy_similarity_ge_0_8_pairs": 39
+    },
+    "sampled_formula_groups": {
+      "dual_3_energy": 2318,
+      "dual_2_energy": 5983,
+      "dual_1_energy": 3228
+    },
+    "pair_export_count": 13450,
+    "pair_export_sha256": "4c4de6596c9a1e7becfd8071112e527028b50b16eb5ef560b2ac0638f1a2ed2f",
+    "export_by_fold_and_shared_energy": {
+      "3/dual_2_energy": 1847,
+      "3/dual_3_energy": 487,
+      "2/dual_2_energy": 1643,
+      "0/dual_3_energy": 269,
+      "0/dual_1_energy": 613,
+      "2/dual_3_energy": 493,
+      "1/dual_2_energy": 1512,
+      "2/dual_1_energy": 799,
+      "0/dual_2_energy": 1359,
+      "4/dual_2_energy": 1446,
+      "1/dual_3_energy": 356,
+      "4/dual_1_energy": 693,
+      "4/dual_3_energy": 327,
+      "3/dual_1_energy": 855,
+      "1/dual_1_energy": 751
+    },
+    "strict_both_polarities_2_or_3_energy_pairs": 9739,
+    "exported_hard_pairs_ge_0_6": 2067,
+    "per_formula_input_cap": 32,
+    "rdkit": "2026.03.3",
+    "sampling_note": "One score-key-distinct pair per formula, scaffold fold and exact common dual-energy count.",
+    "duplicate_scan_policy": "Use the first parquet row per raw identity and condition, then apply the mass audit.",
+    "training_parquet_bytes": 3033286496,
+    "allowed_cross_validation": "Split by fold. Formulas may occur in multiple folds. Group by formula as well if formula transfer is the claim."
+  }
+}
