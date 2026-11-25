@@ -1,0 +1,62 @@
+{
+  "kaggle": {
+    "slug": "enveda-075-np-anchor-preflight",
+    "version": 1,
+    "status": "COMPLETE",
+    "date_beijing": "2026-11-25T12:41:50.343533+08:00"
+  },
+  "receipt_sha256": "427f884c1e980c2ab22bcfd837d2d5b046b58ce5d76482562e7ac889d3d5d9c7",
+  "receipt": {
+    "queries": 60,
+    "spectra": 98,
+    "candidate_cap": 16,
+    "final_core": 8,
+    "parent_cap": 64,
+    "anchor_cap_per_spectrum": 3,
+    "permutations": 8,
+    "candidate_slots": 945,
+    "candidate_map_reachable": 16,
+    "same_adduct_measured_reachable": 11,
+    "molecules_with_selected_anchor": 6,
+    "molecules_with_scored_site": 0,
+    "molecules_with_discriminating_shared_anchor": 0,
+    "scanned": {
+      "metadata_anchor_matches": 647,
+      "measured_rows_in_compatible_window": 168,
+      "spectrum_anchor_pairs": 178
+    },
+    "queries_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+    "mask_sha256": "5ca09ae0c9d4a7453a7bd3153f3178bdf93ec3bcda0ff5762ce7f6f7c78277c0",
+    "structures_sha256": "7c16c4968a15956e94eba58e3ff94d4a6c2f6899b10a2f2824047601a46bd6c8",
+    "baseline_sha256": "05509b32cfb9bcbe8ab563244f91c97e89f878eba3cc40263e3f48fd4a1f372d",
+    "rdkit": "2026.03.3",
+    "elapsed_seconds": 237.43,
+    "evidence_sha256": "a9f4ff89c983250726cc20c407a8e2a002cc788dce4d133a83e968ec46a6debf",
+    "candidates_sha256": "60428e7dd045486f500ed8bb0f22d28c623a6c17528847e698b5130a3b761004"
+  },
+  "selected_pair_summary": {
+    "selected_pairs": 7,
+    "distinct_queries": 6,
+    "by_adduct": {
+      "[M+H]+": 7
+    },
+    "by_reference_source": {
+      "riken": 6,
+      "msdial": 1
+    },
+    "by_candidate_edit": {
+      "O-acetyl": 3,
+      "O-methyl": 4
+    },
+    "ordinary_cosine_range": [
+      0.0,
+      0.3600429587879156
+    ],
+    "modified_cosine_range": [
+      0.182838020794644,
+      0.4499068255832089
+    ],
+    "pairs_with_multiple_candidates": 0,
+    "pairs_with_multiple_edit_sites": 0
+  }
+}

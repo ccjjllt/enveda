@@ -168,5 +168,130 @@
       "accepted_beijing": "2026-11-24T18:32:00.807050+08:00",
       "url": "https://www.kaggle.com/code/jiyujia/enveda-075-np-recall-early/versions/1"
     }
-  ]
+  ],
+  "tail_replay": {
+    "slug": "enveda-075-np-recall-reseal",
+    "device": "Kaggle CPU (original T4×2 for every stage through UNIQ)",
+    "source_artifacts": {
+      "baseline": "jiyujia/enveda-075-np-recall-base/2",
+      "early_score": "jiyujia/enveda-075-np-recall-early/2"
+    },
+    "source_issue": "NPX holdout mask hit an unnormalizable structure and failed closed. Sealing then rejected a sparse row with only one evaluated identity.",
+    "version": 2,
+    "accepted_beijing": "2026-11-25T12:04:02.176486+08:00",
+    "notebook_sha256": "2ce8e6c353a865470309b84102d5be4469ce032fd2f49c0e327cb1b9b3ac9971",
+    "url": "https://www.kaggle.com/code/jiyujia/enveda-075-np-recall-reseal/versions/2",
+    "repair": "Same sampled rows, canonical exclusions and original features are computed by ordered CPU workers. Original model and reranking settings stay fixed. Save common NPX model and feature receipt."
+  },
+  "superseded_tail_replays": [
+    {
+      "slug": "enveda-075-np-recall-reseal",
+      "version": 1,
+      "device": "Kaggle CPU (original T4×2 for every stage through UNIQ)",
+      "notebook_sha256": "fd34c33021a984af6395ea781dcf2272e5e39aecaf0b71f0f9ca20965aa72e4d",
+      "url": "https://www.kaggle.com/code/jiyujia/enveda-075-np-recall-reseal/versions/1",
+      "observed_running_beijing": "2026-11-25T11:05:27+08:00",
+      "source_artifacts": {
+        "baseline": "jiyujia/enveda-075-np-recall-base/2",
+        "early_score": "jiyujia/enveda-075-np-recall-early/2"
+      },
+      "source_issue": "NPX holdout mask hit an unnormalizable structure and failed closed. Sealing then rejected a sparse row with only one evaluated identity.",
+      "status": "ERROR",
+      "failure": "NPX timed out in serial feature construction after 3009.3 seconds. No sealed arm ZIP was emitted."
+    }
+  ],
+  "comparison": {
+    "slug": "enveda-075-np-recall-compare",
+    "version": 1,
+    "device": "Kaggle CPU",
+    "notebook_sha256": "449cf5095bd8cda984c42a6584346333de02c507588e9cb20779940c5324d44d",
+    "url": "https://www.kaggle.com/code/jiyujia/enveda-075-np-recall-compare/versions/1",
+    "status": "COMPLETE",
+    "artifact_sha256": {
+      "metrics.json": "a839d5ce6260d44cd115636ea3488f85d1aab2287476e2ec3256587734f05c35",
+      "per_query.csv": "27ea12de0b59b2321a2e2d2ae27cc4620f6bcae6011c36a92a5bc8424224561d"
+    },
+    "output_path": "/private/tmp/enveda-075-np-recall-results",
+    "summaries": {
+      "baseline": {
+        "molecules": 60,
+        "mrr25": 0.44520791708291707,
+        "delta_mrr": 0.0,
+        "reciprocal_rank_gains": 0,
+        "reciprocal_rank_losses": 0,
+        "top1": 19,
+        "new_top1": 0,
+        "lost_top1": 0,
+        "top5": 37,
+        "new_top5": 0,
+        "lost_top5": 0,
+        "top25": 48,
+        "new_top25": 0,
+        "lost_top25": 0,
+        "recovered_top25_all_original_sources_missed": 0,
+        "recovered_top5_all_original_sources_missed": 0
+      },
+      "early_score": {
+        "molecules": 60,
+        "mrr25": 0.44408615189793677,
+        "delta_mrr": -0.001121765184980287,
+        "reciprocal_rank_gains": 1.6096611721611722,
+        "reciprocal_rank_losses": 1.6769670832599894,
+        "top1": 19,
+        "new_top1": 1,
+        "lost_top1": 1,
+        "top5": 35,
+        "new_top5": 1,
+        "lost_top5": 3,
+        "top25": 47,
+        "new_top25": 1,
+        "lost_top25": 2,
+        "recovered_top25_all_original_sources_missed": 0,
+        "recovered_top5_all_original_sources_missed": 0
+      },
+      "late_dedupe": {
+        "molecules": 60,
+        "mrr25": 0.45141534391534394,
+        "delta_mrr": 0.0062074268324268335,
+        "reciprocal_rank_gains": 0.5202020202020202,
+        "reciprocal_rank_losses": 0.14775641025641023,
+        "top1": 19,
+        "new_top1": 0,
+        "lost_top1": 0,
+        "top5": 37,
+        "new_top5": 0,
+        "lost_top5": 0,
+        "top25": 49,
+        "new_top25": 1,
+        "lost_top25": 0,
+        "recovered_top25_all_original_sources_missed": 1,
+        "recovered_top5_all_original_sources_missed": 0
+      },
+      "joint": {
+        "molecules": 60,
+        "mrr25": 0.4450665440547995,
+        "delta_mrr": -0.00014137302811754183,
+        "reciprocal_rank_gains": 1.668484701572937,
+        "reciprocal_rank_losses": 1.6769670832599894,
+        "top1": 19,
+        "new_top1": 1,
+        "lost_top1": 1,
+        "top5": 35,
+        "new_top5": 1,
+        "lost_top5": 3,
+        "top25": 48,
+        "new_top25": 2,
+        "lost_top25": 2,
+        "recovered_top25_all_original_sources_missed": 1,
+        "recovered_top5_all_original_sources_missed": 0
+      }
+    },
+    "baseline_opportunities": {
+      "same_formula": 28,
+      "correct_leader": 19,
+      "missing_from_reported_sources": 10,
+      "lost_after_retrieval": 2,
+      "different_formula": 1
+    }
+  }
 }

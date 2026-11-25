@@ -1,0 +1,2882 @@
+{
+  "comparison_receipt": {
+    "url": "https://www.kaggle.com/code/jiyujia/enveda-075-np-recall-compare/versions/1",
+    "status": "COMPLETE",
+    "notebook_sha256": "449cf5095bd8cda984c42a6584346333de02c507588e9cb20779940c5324d44d",
+    "artifact_sha256": {
+      "metrics.json": "a839d5ce6260d44cd115636ea3488f85d1aab2287476e2ec3256587734f05c35",
+      "per_query.csv": "27ea12de0b59b2321a2e2d2ae27cc4620f6bcae6011c36a92a5bc8424224561d"
+    }
+  },
+  "panel": {
+    "molecules": 60,
+    "spectra": 98,
+    "molecules_by_source": {
+      "MycoMSBase": 43,
+      "MassBank_Eawag": 13,
+      "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": 4
+    },
+    "blocked_scaffolds": 48
+  },
+  "metrics": {
+    "source": "pablodiegoo/enveda-casmi26-starter-notebook/29",
+    "molecules": 60,
+    "candidate_slots_per_query": 25,
+    "labels_sha256": "ab7a98f7f5e35fd9029ebc905de279d25adde894f2ea49949066a72a1b2cb1fa",
+    "queries_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+    "equal_prediction_budget": true,
+    "equal_prediction_requests": true,
+    "predictor_budget_totals": {
+      "ice_native_candidate_spectra": 3687,
+      "gl_native_candidate_spectra": 3687,
+      "gl_proxy_candidate_spectra": 0,
+      "ice_shadow_candidate_spectra": 1711,
+      "gl_shadow_candidate_spectra": 1711
+    },
+    "finite_prediction_scores": {
+      "baseline": {
+        "ice_native": 3650,
+        "gl_native_and_proxy": 3650,
+        "ice_shadow": 1687,
+        "gl_shadow": 1687
+      },
+      "early_score": {
+        "ice_native": 3650,
+        "gl_native_and_proxy": 3650,
+        "ice_shadow": 1687,
+        "gl_shadow": 1687
+      },
+      "late_dedupe": {
+        "ice_native": 3650,
+        "gl_native_and_proxy": 3650,
+        "ice_shadow": 1687,
+        "gl_shadow": 1687
+      },
+      "joint": {
+        "ice_native": 3650,
+        "gl_native_and_proxy": 3650,
+        "ice_shadow": 1687,
+        "gl_shadow": 1687
+      }
+    },
+    "unequal_finite_prediction_queries": [],
+    "npx_fit_summaries": {
+      "baseline": {
+        "engine": "lightgbm",
+        "train": 48634,
+        "auc_holdout": 0.9999,
+        "np_examples": 234,
+        "np_examples_median_p": 1.0,
+        "np_examples_share_p_gt_0_5": 0.932,
+        "gate_ok": true,
+        "table_keys": 483103
+      },
+      "early_score": {
+        "engine": "lightgbm",
+        "train": 48634,
+        "auc_holdout": 0.9999,
+        "np_examples": 234,
+        "np_examples_median_p": 1.0,
+        "np_examples_share_p_gt_0_5": 0.932,
+        "gate_ok": true,
+        "table_keys": 483103
+      },
+      "late_dedupe": {
+        "engine": "lightgbm",
+        "train": 48634,
+        "auc_holdout": 0.9999,
+        "np_examples": 234,
+        "np_examples_median_p": 1.0,
+        "np_examples_share_p_gt_0_5": 0.932,
+        "gate_ok": true,
+        "table_keys": 483103
+      },
+      "joint": {
+        "engine": "lightgbm",
+        "train": 48634,
+        "auc_holdout": 0.9999,
+        "np_examples": 234,
+        "np_examples_median_p": 1.0,
+        "np_examples_share_p_gt_0_5": 0.932,
+        "gate_ok": true,
+        "table_keys": 483103
+      }
+    },
+    "npx_fit_summary_differences": {
+      "early_score": [],
+      "late_dedupe": [],
+      "joint": []
+    },
+    "final_slot_fill_queries": {
+      "baseline": 0,
+      "early_score": 0,
+      "late_dedupe": 0,
+      "joint": 0
+    },
+    "vacant_slots_by_query": {
+      "baseline": {
+        "m_7ed1a27fd1a6": 24
+      },
+      "early_score": {
+        "m_7ed1a27fd1a6": 24
+      },
+      "late_dedupe": {
+        "m_7ed1a27fd1a6": 24
+      },
+      "joint": {
+        "m_7ed1a27fd1a6": 24
+      }
+    },
+    "baseline_opportunities": {
+      "same_formula": 28,
+      "correct_leader": 19,
+      "missing_from_reported_sources": 10,
+      "lost_after_retrieval": 2,
+      "different_formula": 1
+    },
+    "formula_oracle_delta_mrr": 0.002777777777777778,
+    "stage_status": {
+      "baseline": {
+        "n1c_omni": "applied",
+        "n1c_dl1": "applied",
+        "dual_sync": "applied",
+        "p5tail": "applied",
+        "fr3to25": "applied",
+        "aprior": "applied",
+        "uniq": "applied",
+        "npx": "applied",
+        "e180x": "applied"
+      },
+      "early_score": {
+        "n1c_omni": "applied",
+        "n1c_dl1": "applied",
+        "dual_sync": "applied",
+        "p5tail": "applied",
+        "fr3to25": "applied",
+        "aprior": "applied",
+        "uniq": "applied",
+        "npx": "applied",
+        "e180x": "applied"
+      },
+      "late_dedupe": {
+        "n1c_omni": "applied",
+        "n1c_dl1": "applied",
+        "dual_sync": "applied",
+        "p5tail": "applied",
+        "fr3to25": "applied",
+        "aprior": "applied",
+        "uniq": "applied",
+        "npx": "applied",
+        "e180x": "applied"
+      },
+      "joint": {
+        "n1c_omni": "applied",
+        "n1c_dl1": "applied",
+        "dual_sync": "applied",
+        "p5tail": "applied",
+        "fr3to25": "applied",
+        "aprior": "applied",
+        "uniq": "applied",
+        "npx": "applied",
+        "e180x": "applied"
+      }
+    },
+    "summaries": {
+      "baseline": {
+        "molecules": 60,
+        "mrr25": 0.44520791708291707,
+        "delta_mrr": 0.0,
+        "reciprocal_rank_gains": 0,
+        "reciprocal_rank_losses": 0,
+        "top1": 19,
+        "new_top1": 0,
+        "lost_top1": 0,
+        "top5": 37,
+        "new_top5": 0,
+        "lost_top5": 0,
+        "top25": 48,
+        "new_top25": 0,
+        "lost_top25": 0,
+        "recovered_top25_all_original_sources_missed": 0,
+        "recovered_top5_all_original_sources_missed": 0
+      },
+      "early_score": {
+        "molecules": 60,
+        "mrr25": 0.44408615189793677,
+        "delta_mrr": -0.001121765184980287,
+        "reciprocal_rank_gains": 1.6096611721611722,
+        "reciprocal_rank_losses": 1.6769670832599894,
+        "top1": 19,
+        "new_top1": 1,
+        "lost_top1": 1,
+        "top5": 35,
+        "new_top5": 1,
+        "lost_top5": 3,
+        "top25": 47,
+        "new_top25": 1,
+        "lost_top25": 2,
+        "recovered_top25_all_original_sources_missed": 0,
+        "recovered_top5_all_original_sources_missed": 0
+      },
+      "late_dedupe": {
+        "molecules": 60,
+        "mrr25": 0.45141534391534394,
+        "delta_mrr": 0.0062074268324268335,
+        "reciprocal_rank_gains": 0.5202020202020202,
+        "reciprocal_rank_losses": 0.14775641025641023,
+        "top1": 19,
+        "new_top1": 0,
+        "lost_top1": 0,
+        "top5": 37,
+        "new_top5": 0,
+        "lost_top5": 0,
+        "top25": 49,
+        "new_top25": 1,
+        "lost_top25": 0,
+        "recovered_top25_all_original_sources_missed": 1,
+        "recovered_top5_all_original_sources_missed": 0
+      },
+      "joint": {
+        "molecules": 60,
+        "mrr25": 0.4450665440547995,
+        "delta_mrr": -0.00014137302811754183,
+        "reciprocal_rank_gains": 1.668484701572937,
+        "reciprocal_rank_losses": 1.6769670832599894,
+        "top1": 19,
+        "new_top1": 1,
+        "lost_top1": 1,
+        "top5": 35,
+        "new_top5": 1,
+        "lost_top5": 3,
+        "top25": 48,
+        "new_top25": 2,
+        "lost_top25": 2,
+        "recovered_top25_all_original_sources_missed": 1,
+        "recovered_top5_all_original_sources_missed": 0
+      }
+    },
+    "delta_mrr_scaffold_bootstrap": {
+      "early_score": {
+        "groups": 48,
+        "draws": 4000,
+        "percentile_95": [
+          -0.04511180783502212,
+          0.0345226341466943
+        ]
+      },
+      "late_dedupe": {
+        "groups": 48,
+        "draws": 4000,
+        "percentile_95": [
+          0.0003869932749243091,
+          0.013901729155966444
+        ]
+      },
+      "joint": {
+        "groups": 48,
+        "draws": 4000,
+        "percentile_95": [
+          -0.04353691112311134,
+          0.036116413324332505
+        ]
+      }
+    },
+    "all_arms_full_lists": {
+      "baseline": {
+        "molecules": 59,
+        "mrr25": 0.43580466144025465,
+        "delta_mrr": 0.0,
+        "reciprocal_rank_gains": 0,
+        "reciprocal_rank_losses": 0,
+        "top1": 18,
+        "new_top1": 0,
+        "lost_top1": 0,
+        "top5": 36,
+        "new_top5": 0,
+        "lost_top5": 0,
+        "top25": 47,
+        "new_top25": 0,
+        "lost_top25": 0,
+        "recovered_top25_all_original_sources_missed": 0,
+        "recovered_top5_all_original_sources_missed": 0
+      },
+      "early_score": {
+        "molecules": 59,
+        "mrr25": 0.4346638832860374,
+        "delta_mrr": -0.0011407781542172408,
+        "reciprocal_rank_gains": 1.6096611721611722,
+        "reciprocal_rank_losses": 1.6769670832599894,
+        "top1": 18,
+        "new_top1": 1,
+        "lost_top1": 1,
+        "top5": 34,
+        "new_top5": 1,
+        "lost_top5": 3,
+        "top25": 46,
+        "new_top25": 1,
+        "lost_top25": 2,
+        "recovered_top25_all_original_sources_missed": 0,
+        "recovered_top5_all_original_sources_missed": 0
+      },
+      "late_dedupe": {
+        "molecules": 59,
+        "mrr25": 0.44211729889695994,
+        "delta_mrr": 0.006312637456705254,
+        "reciprocal_rank_gains": 0.5202020202020202,
+        "reciprocal_rank_losses": 0.14775641025641023,
+        "top1": 18,
+        "new_top1": 0,
+        "lost_top1": 0,
+        "top5": 36,
+        "new_top5": 0,
+        "lost_top5": 0,
+        "top25": 48,
+        "new_top25": 1,
+        "lost_top25": 0,
+        "recovered_top25_all_original_sources_missed": 1,
+        "recovered_top5_all_original_sources_missed": 0
+      },
+      "joint": {
+        "molecules": 59,
+        "mrr25": 0.43566089225911814,
+        "delta_mrr": -0.0001437691811364832,
+        "reciprocal_rank_gains": 1.668484701572937,
+        "reciprocal_rank_losses": 1.6769670832599894,
+        "top1": 18,
+        "new_top1": 1,
+        "lost_top1": 1,
+        "top5": 34,
+        "new_top5": 1,
+        "lost_top5": 3,
+        "top25": 47,
+        "new_top25": 2,
+        "lost_top25": 2,
+        "recovered_top25_all_original_sources_missed": 1,
+        "recovered_top5_all_original_sources_missed": 0
+      }
+    },
+    "all_arms_equal_finite_predictions": {},
+    "by_source": {
+      "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+        "baseline": {
+          "molecules": 4,
+          "mrr25": 0.6428571428571429,
+          "delta_mrr": 0.0,
+          "reciprocal_rank_gains": 0,
+          "reciprocal_rank_losses": 0,
+          "top1": 2,
+          "new_top1": 0,
+          "lost_top1": 0,
+          "top5": 3,
+          "new_top5": 0,
+          "lost_top5": 0,
+          "top25": 4,
+          "new_top25": 0,
+          "lost_top25": 0,
+          "recovered_top25_all_original_sources_missed": 0,
+          "recovered_top5_all_original_sources_missed": 0
+        },
+        "early_score": {
+          "molecules": 4,
+          "mrr25": 0.6428571428571429,
+          "delta_mrr": 0.0,
+          "reciprocal_rank_gains": 0,
+          "reciprocal_rank_losses": 0,
+          "top1": 2,
+          "new_top1": 0,
+          "lost_top1": 0,
+          "top5": 3,
+          "new_top5": 0,
+          "lost_top5": 0,
+          "top25": 4,
+          "new_top25": 0,
+          "lost_top25": 0,
+          "recovered_top25_all_original_sources_missed": 0,
+          "recovered_top5_all_original_sources_missed": 0
+        },
+        "late_dedupe": {
+          "molecules": 4,
+          "mrr25": 0.6428571428571429,
+          "delta_mrr": 0.0,
+          "reciprocal_rank_gains": 0,
+          "reciprocal_rank_losses": 0,
+          "top1": 2,
+          "new_top1": 0,
+          "lost_top1": 0,
+          "top5": 3,
+          "new_top5": 0,
+          "lost_top5": 0,
+          "top25": 4,
+          "new_top25": 0,
+          "lost_top25": 0,
+          "recovered_top25_all_original_sources_missed": 0,
+          "recovered_top5_all_original_sources_missed": 0
+        },
+        "joint": {
+          "molecules": 4,
+          "mrr25": 0.6428571428571429,
+          "delta_mrr": 0.0,
+          "reciprocal_rank_gains": 0,
+          "reciprocal_rank_losses": 0,
+          "top1": 2,
+          "new_top1": 0,
+          "lost_top1": 0,
+          "top5": 3,
+          "new_top5": 0,
+          "lost_top5": 0,
+          "top25": 4,
+          "new_top25": 0,
+          "lost_top25": 0,
+          "recovered_top25_all_original_sources_missed": 0,
+          "recovered_top5_all_original_sources_missed": 0
+        }
+      },
+      "MassBank_Eawag": {
+        "baseline": {
+          "molecules": 13,
+          "mrr25": 0.7673992673992674,
+          "delta_mrr": 0.0,
+          "reciprocal_rank_gains": 0,
+          "reciprocal_rank_losses": 0,
+          "top1": 9,
+          "new_top1": 0,
+          "lost_top1": 0,
+          "top5": 11,
+          "new_top5": 0,
+          "lost_top5": 0,
+          "top25": 12,
+          "new_top25": 0,
+          "lost_top25": 0,
+          "recovered_top25_all_original_sources_missed": 0,
+          "recovered_top5_all_original_sources_missed": 0
+        },
+        "early_score": {
+          "molecules": 13,
+          "mrr25": 0.7673992673992674,
+          "delta_mrr": 0.0,
+          "reciprocal_rank_gains": 0,
+          "reciprocal_rank_losses": 0,
+          "top1": 9,
+          "new_top1": 0,
+          "lost_top1": 0,
+          "top5": 11,
+          "new_top5": 0,
+          "lost_top5": 0,
+          "top25": 12,
+          "new_top25": 0,
+          "lost_top25": 0,
+          "recovered_top25_all_original_sources_missed": 0,
+          "recovered_top5_all_original_sources_missed": 0
+        },
+        "late_dedupe": {
+          "molecules": 13,
+          "mrr25": 0.7673992673992674,
+          "delta_mrr": 0.0,
+          "reciprocal_rank_gains": 0,
+          "reciprocal_rank_losses": 0,
+          "top1": 9,
+          "new_top1": 0,
+          "lost_top1": 0,
+          "top5": 11,
+          "new_top5": 0,
+          "lost_top5": 0,
+          "top25": 12,
+          "new_top25": 0,
+          "lost_top25": 0,
+          "recovered_top25_all_original_sources_missed": 0,
+          "recovered_top5_all_original_sources_missed": 0
+        },
+        "joint": {
+          "molecules": 13,
+          "mrr25": 0.7673992673992674,
+          "delta_mrr": 0.0,
+          "reciprocal_rank_gains": 0,
+          "reciprocal_rank_losses": 0,
+          "top1": 9,
+          "new_top1": 0,
+          "lost_top1": 0,
+          "top5": 11,
+          "new_top5": 0,
+          "lost_top5": 0,
+          "top25": 12,
+          "new_top25": 0,
+          "lost_top25": 0,
+          "recovered_top25_all_original_sources_missed": 0,
+          "recovered_top5_all_original_sources_missed": 0
+        }
+      },
+      "MycoMSBase": {
+        "baseline": {
+          "molecules": 43,
+          "mrr25": 0.3294152552873483,
+          "delta_mrr": 0.0,
+          "reciprocal_rank_gains": 0,
+          "reciprocal_rank_losses": 0,
+          "top1": 8,
+          "new_top1": 0,
+          "lost_top1": 0,
+          "top5": 23,
+          "new_top5": 0,
+          "lost_top5": 0,
+          "top25": 32,
+          "new_top25": 0,
+          "lost_top25": 0,
+          "recovered_top25_all_original_sources_missed": 0,
+          "recovered_top5_all_original_sources_missed": 0
+        },
+        "early_score": {
+          "molecules": 43,
+          "mrr25": 0.3278500015408642,
+          "delta_mrr": -0.0015652537464841212,
+          "reciprocal_rank_gains": 1.6096611721611722,
+          "reciprocal_rank_losses": 1.6769670832599894,
+          "top1": 8,
+          "new_top1": 1,
+          "lost_top1": 1,
+          "top5": 21,
+          "new_top5": 1,
+          "lost_top5": 3,
+          "top25": 31,
+          "new_top25": 1,
+          "lost_top25": 2,
+          "recovered_top25_all_original_sources_missed": 0,
+          "recovered_top5_all_original_sources_missed": 0
+        },
+        "late_dedupe": {
+          "molecules": 43,
+          "mrr25": 0.3380767811000369,
+          "delta_mrr": 0.008661525812688604,
+          "reciprocal_rank_gains": 0.5202020202020202,
+          "reciprocal_rank_losses": 0.14775641025641023,
+          "top1": 8,
+          "new_top1": 0,
+          "lost_top1": 0,
+          "top5": 23,
+          "new_top5": 0,
+          "lost_top5": 0,
+          "top25": 33,
+          "new_top25": 1,
+          "lost_top25": 0,
+          "recovered_top25_all_original_sources_missed": 1,
+          "recovered_top5_all_original_sources_missed": 0
+        },
+        "joint": {
+          "molecules": 43,
+          "mrr25": 0.3292179905969517,
+          "delta_mrr": -0.00019726469039657,
+          "reciprocal_rank_gains": 1.668484701572937,
+          "reciprocal_rank_losses": 1.6769670832599894,
+          "top1": 8,
+          "new_top1": 1,
+          "lost_top1": 1,
+          "top5": 21,
+          "new_top5": 1,
+          "lost_top5": 3,
+          "top25": 32,
+          "new_top25": 2,
+          "lost_top25": 2,
+          "recovered_top25_all_original_sources_missed": 1,
+          "recovered_top5_all_original_sources_missed": 0
+        }
+      }
+    }
+  },
+  "changes": {
+    "baseline": {
+      "new_top1": [],
+      "lost_top1": [],
+      "new_top5": [],
+      "lost_top5": [],
+      "new_top25": [],
+      "lost_top25": [],
+      "recovered_all_source_misses": []
+    },
+    "early_score": {
+      "new_top1": [
+        "m_bf8d2a33f04f"
+      ],
+      "lost_top1": [
+        "m_70a62ae7bf3b"
+      ],
+      "new_top5": [
+        "m_417cb1557f0c"
+      ],
+      "lost_top5": [
+        "m_41a996442bfb",
+        "m_70a62ae7bf3b",
+        "m_f97129a1f6c5"
+      ],
+      "new_top25": [
+        "m_81711a0e1efe"
+      ],
+      "lost_top25": [
+        "m_f97129a1f6c5",
+        "m_ffd4bba01fb3"
+      ],
+      "recovered_all_source_misses": []
+    },
+    "late_dedupe": {
+      "new_top1": [],
+      "lost_top1": [],
+      "new_top5": [],
+      "lost_top5": [],
+      "new_top25": [
+        "m_eca11db69ee0"
+      ],
+      "lost_top25": [],
+      "recovered_all_source_misses": [
+        "m_eca11db69ee0"
+      ]
+    },
+    "joint": {
+      "new_top1": [
+        "m_bf8d2a33f04f"
+      ],
+      "lost_top1": [
+        "m_70a62ae7bf3b"
+      ],
+      "new_top5": [
+        "m_417cb1557f0c"
+      ],
+      "lost_top5": [
+        "m_41a996442bfb",
+        "m_70a62ae7bf3b",
+        "m_f97129a1f6c5"
+      ],
+      "new_top25": [
+        "m_81711a0e1efe",
+        "m_b68e840e9062"
+      ],
+      "lost_top25": [
+        "m_f97129a1f6c5",
+        "m_ffd4bba01fb3"
+      ],
+      "recovered_all_source_misses": [
+        "m_b68e840e9062"
+      ]
+    }
+  },
+  "per_query_rank_zero_meaning": "Missing ranks are encoded as null.",
+  "per_query": [
+    {
+      "id": "m_0199671e9e96",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 3,
+          "prefusion_rank": 22,
+          "engine2_rank": null,
+          "main_rank": 17,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 2,
+          "prefusion_rank": 5,
+          "engine2_rank": null,
+          "main_rank": 4,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 2,
+          "prefusion_rank": 22,
+          "engine2_rank": null,
+          "main_rank": 17,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 2,
+          "prefusion_rank": 5,
+          "engine2_rank": null,
+          "main_rank": 4,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_0caacbf876a7",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 3,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 3,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 3,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 3,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_1171d6646590",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 3,
+          "prefusion_rank": 5,
+          "engine2_rank": 22,
+          "main_rank": 4,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 22,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 5,
+          "prefusion_rank": 5,
+          "engine2_rank": 22,
+          "main_rank": 4,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 22,
+          "main_rank": 2,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_17c4ed1464aa",
+      "source": "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 14,
+          "prefusion_rank": 15,
+          "engine2_rank": 28,
+          "main_rank": 12,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 14,
+          "prefusion_rank": 18,
+          "engine2_rank": 28,
+          "main_rank": 14,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 14,
+          "prefusion_rank": 15,
+          "engine2_rank": 28,
+          "main_rank": 12,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 14,
+          "prefusion_rank": 18,
+          "engine2_rank": 28,
+          "main_rank": 14,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_198eadd610fd",
+      "source": "MassBank_Eawag",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": null,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": null,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": null,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": null,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_1d0a21cd8f24",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 6,
+          "prefusion_rank": 3,
+          "engine2_rank": null,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 8,
+          "prefusion_rank": 4,
+          "engine2_rank": null,
+          "main_rank": 3,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 6,
+          "prefusion_rank": 3,
+          "engine2_rank": null,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 8,
+          "prefusion_rank": 4,
+          "engine2_rank": null,
+          "main_rank": 3,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_263b18c70f43",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 11,
+          "prefusion_rank": 7,
+          "engine2_rank": null,
+          "main_rank": 6,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 13,
+          "prefusion_rank": 11,
+          "engine2_rank": null,
+          "main_rank": 9,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 9,
+          "prefusion_rank": 7,
+          "engine2_rank": null,
+          "main_rank": 6,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 13,
+          "prefusion_rank": 11,
+          "engine2_rank": null,
+          "main_rank": 9,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_271d6f38f4df",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": true,
+      "baseline_opportunity": "missing_from_reported_sources",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_2776589bbaaf",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": true,
+      "baseline_opportunity": "missing_from_reported_sources",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_2c88e89659ae",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": null,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": null,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": null,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": null,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_2ce8f34509d5",
+      "source": "MassBank_Eawag",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 4,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 4,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 4,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 4,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_325c6b4639a2",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": null,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": null,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": null,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": null,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_3e3ab464cb12",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 3,
+          "prefusion_rank": 2,
+          "engine2_rank": 2,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 2,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 3,
+          "prefusion_rank": 2,
+          "engine2_rank": 2,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 2,
+          "main_rank": 2,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_3e5962f5e5fd",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 5,
+          "prefusion_rank": 5,
+          "engine2_rank": 4,
+          "main_rank": 4,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 5,
+          "prefusion_rank": 5,
+          "engine2_rank": 4,
+          "main_rank": 4,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 5,
+          "prefusion_rank": 5,
+          "engine2_rank": 4,
+          "main_rank": 4,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 5,
+          "prefusion_rank": 5,
+          "engine2_rank": 4,
+          "main_rank": 4,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_3f2117a063b6",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 9,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 9,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 9,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 9,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_417cb1557f0c",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 7,
+          "prefusion_rank": 6,
+          "engine2_rank": 29,
+          "main_rank": 5,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 4,
+          "prefusion_rank": 2,
+          "engine2_rank": 29,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 7,
+          "prefusion_rank": 6,
+          "engine2_rank": 29,
+          "main_rank": 5,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 4,
+          "prefusion_rank": 2,
+          "engine2_rank": 29,
+          "main_rank": 2,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_41a996442bfb",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 4,
+          "prefusion_rank": 3,
+          "engine2_rank": 6,
+          "main_rank": 3,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 6,
+          "prefusion_rank": 5,
+          "engine2_rank": 6,
+          "main_rank": 4,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 4,
+          "prefusion_rank": 3,
+          "engine2_rank": 6,
+          "main_rank": 3,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 6,
+          "prefusion_rank": 5,
+          "engine2_rank": 6,
+          "main_rank": 4,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_46f4697ed06a",
+      "source": "MassBank_Eawag",
+      "baseline_sources_missed": true,
+      "baseline_opportunity": "missing_from_reported_sources",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_4bab16fbc5ff",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 8,
+          "prefusion_rank": 11,
+          "engine2_rank": 34,
+          "main_rank": 9,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 11,
+          "prefusion_rank": 7,
+          "engine2_rank": 34,
+          "main_rank": 6,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 8,
+          "prefusion_rank": 11,
+          "engine2_rank": 34,
+          "main_rank": 9,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 11,
+          "prefusion_rank": 7,
+          "engine2_rank": 34,
+          "main_rank": 6,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_55918f78ea0b",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 16,
+          "prefusion_rank": 3,
+          "engine2_rank": 8,
+          "main_rank": 3,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 14,
+          "prefusion_rank": 2,
+          "engine2_rank": 8,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 16,
+          "prefusion_rank": 3,
+          "engine2_rank": 8,
+          "main_rank": 3,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 14,
+          "prefusion_rank": 2,
+          "engine2_rank": 8,
+          "main_rank": 2,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_5db188e44509",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 20,
+          "prefusion_rank": 25,
+          "engine2_rank": null,
+          "main_rank": 20,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 23,
+          "prefusion_rank": 7,
+          "engine2_rank": null,
+          "main_rank": 6,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 15,
+          "prefusion_rank": 25,
+          "engine2_rank": null,
+          "main_rank": 20,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 23,
+          "prefusion_rank": 7,
+          "engine2_rank": null,
+          "main_rank": 6,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_60249642d700",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_629bc25507b4",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": true,
+      "baseline_opportunity": "missing_from_reported_sources",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_701229840ebc",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 12,
+          "prefusion_rank": 6,
+          "engine2_rank": 33,
+          "main_rank": 5,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 13,
+          "prefusion_rank": 6,
+          "engine2_rank": 33,
+          "main_rank": 5,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 12,
+          "prefusion_rank": 6,
+          "engine2_rank": 33,
+          "main_rank": 5,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 13,
+          "prefusion_rank": 6,
+          "engine2_rank": 33,
+          "main_rank": 5,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_70a62ae7bf3b",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 6,
+          "prefusion_rank": 3,
+          "engine2_rank": 1,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 6,
+          "prefusion_rank": 3,
+          "engine2_rank": 1,
+          "main_rank": 2,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_798b2c8d5a7d",
+      "source": "MassBank_Eawag",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_7ba5edc4bd87",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": true,
+      "baseline_opportunity": "missing_from_reported_sources",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": null,
+          "prefusion_rank": 22,
+          "engine2_rank": null,
+          "main_rank": 17,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": null,
+          "prefusion_rank": 22,
+          "engine2_rank": null,
+          "main_rank": 17,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_7e5f8addaac7",
+      "source": "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_7ed1a27fd1a6",
+      "source": "MassBank_Eawag",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 1,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_81711a0e1efe",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "lost_after_retrieval",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": 17,
+          "main_rank": 23,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 13,
+          "prefusion_rank": 24,
+          "engine2_rank": 17,
+          "main_rank": 19,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": 17,
+          "main_rank": 23,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 13,
+          "prefusion_rank": 24,
+          "engine2_rank": 17,
+          "main_rank": 19,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_8bed1ae34ab6",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 4,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 4,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 4,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 4,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_8c3c351b566f",
+      "source": "MassBank_Eawag",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 2,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 2,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 2,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 2,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_8e116660413b",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 20,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 20,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 20,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 20,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_91b084360271",
+      "source": "MassBank_Eawag",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "different_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 3,
+          "prefusion_rank": 4,
+          "engine2_rank": 7,
+          "main_rank": 3,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 3,
+          "prefusion_rank": 4,
+          "engine2_rank": 7,
+          "main_rank": 3,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 3,
+          "prefusion_rank": 4,
+          "engine2_rank": 7,
+          "main_rank": 3,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 3,
+          "prefusion_rank": 4,
+          "engine2_rank": 7,
+          "main_rank": 3,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_93777c077c32",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 3,
+          "prefusion_rank": 5,
+          "engine2_rank": 1,
+          "main_rank": 4,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 3,
+          "prefusion_rank": 7,
+          "engine2_rank": 1,
+          "main_rank": 6,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 3,
+          "prefusion_rank": 5,
+          "engine2_rank": 1,
+          "main_rank": 4,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 3,
+          "prefusion_rank": 7,
+          "engine2_rank": 1,
+          "main_rank": 6,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_984e13c199f5",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 3,
+          "prefusion_rank": 10,
+          "engine2_rank": null,
+          "main_rank": 8,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": null,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 3,
+          "prefusion_rank": 10,
+          "engine2_rank": null,
+          "main_rank": 8,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": null,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_9a0bfa4c9250",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "lost_after_retrieval",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": null,
+          "prefusion_rank": 24,
+          "engine2_rank": 27,
+          "main_rank": 19,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": null,
+          "prefusion_rank": 24,
+          "engine2_rank": 27,
+          "main_rank": 19,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": null,
+          "prefusion_rank": 24,
+          "engine2_rank": 27,
+          "main_rank": 19,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": null,
+          "prefusion_rank": 24,
+          "engine2_rank": 27,
+          "main_rank": 19,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_9f225112099d",
+      "source": "MassBank_Eawag",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 7,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 7,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 7,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 7,
+          "main_rank": 2,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_a7eccce6c3ab",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 3,
+          "prefusion_rank": 3,
+          "engine2_rank": 35,
+          "main_rank": 3,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 3,
+          "prefusion_rank": 2,
+          "engine2_rank": 35,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 3,
+          "prefusion_rank": 3,
+          "engine2_rank": 35,
+          "main_rank": 3,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 3,
+          "prefusion_rank": 2,
+          "engine2_rank": 35,
+          "main_rank": 2,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_a8b55716916c",
+      "source": "MassBank_Eawag",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_ae07d08d1663",
+      "source": "MassBank_Eawag",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 7,
+          "prefusion_rank": 6,
+          "engine2_rank": 6,
+          "main_rank": 5,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 7,
+          "prefusion_rank": 6,
+          "engine2_rank": 6,
+          "main_rank": 5,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 7,
+          "prefusion_rank": 6,
+          "engine2_rank": 6,
+          "main_rank": 5,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 7,
+          "prefusion_rank": 6,
+          "engine2_rank": 6,
+          "main_rank": 5,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_b1b6cb3b37ca",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 5,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 5,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 5,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 5,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_b48250cfa30e",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": true,
+      "baseline_opportunity": "missing_from_reported_sources",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_b668271d2144",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": true,
+      "baseline_opportunity": "missing_from_reported_sources",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_b68e840e9062",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": true,
+      "baseline_opportunity": "missing_from_reported_sources",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": 15
+        },
+        "joint": {
+          "rank": 17,
+          "prefusion_rank": 12,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": 3
+        }
+      }
+    },
+    {
+      "id": "m_bb3228296dcd",
+      "source": "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 2,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 2,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 2,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 2,
+          "main_rank": 2,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_bf8d2a33f04f",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 2,
+          "prefusion_rank": 5,
+          "engine2_rank": 12,
+          "main_rank": 4,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 12,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 2,
+          "prefusion_rank": 5,
+          "engine2_rank": 12,
+          "main_rank": 4,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 12,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_cb1246977acb",
+      "source": "MassBank_Eawag",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_cb63eb5b511e",
+      "source": "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 2,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 2,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 2,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 1,
+          "engine2_rank": 2,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_cdbd9e94ad11",
+      "source": "MassBank_Eawag",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 1,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_cea905799cbf",
+      "source": "MassBank_Eawag",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 2,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 2,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 2,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 2,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_e03d62a97bf7",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "correct_leader",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 9,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 9,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 9,
+          "main_rank": 1,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 1,
+          "prefusion_rank": 2,
+          "engine2_rank": 9,
+          "main_rank": 1,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_e35bfe3078f3",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 4,
+          "prefusion_rank": 10,
+          "engine2_rank": 12,
+          "main_rank": 8,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 5,
+          "prefusion_rank": 6,
+          "engine2_rank": 12,
+          "main_rank": 5,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 4,
+          "prefusion_rank": 10,
+          "engine2_rank": 12,
+          "main_rank": 8,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 5,
+          "prefusion_rank": 6,
+          "engine2_rank": 12,
+          "main_rank": 5,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_e5eff070aa8a",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 13,
+          "prefusion_rank": 14,
+          "engine2_rank": null,
+          "main_rank": 11,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 19,
+          "prefusion_rank": 13,
+          "engine2_rank": null,
+          "main_rank": 10,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 16,
+          "prefusion_rank": 14,
+          "engine2_rank": null,
+          "main_rank": 11,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 19,
+          "prefusion_rank": 13,
+          "engine2_rank": null,
+          "main_rank": 10,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_ea26de384593",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 3,
+          "prefusion_rank": 3,
+          "engine2_rank": 2,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 3,
+          "prefusion_rank": 2,
+          "engine2_rank": 2,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 3,
+          "prefusion_rank": 3,
+          "engine2_rank": 2,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 3,
+          "prefusion_rank": 2,
+          "engine2_rank": 2,
+          "main_rank": 2,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_eca11db69ee0",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": true,
+      "baseline_opportunity": "missing_from_reported_sources",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 15,
+          "prefusion_rank": 12,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": 3
+        },
+        "joint": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": 14
+        }
+      }
+    },
+    {
+      "id": "m_edad43d8a6c8",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": true,
+      "baseline_opportunity": "missing_from_reported_sources",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": null,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_f7b102f14304",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 4,
+          "prefusion_rank": 7,
+          "engine2_rank": 26,
+          "main_rank": 6,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 26,
+          "main_rank": 2,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 2,
+          "prefusion_rank": 7,
+          "engine2_rank": 26,
+          "main_rank": 6,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": 2,
+          "prefusion_rank": 2,
+          "engine2_rank": 26,
+          "main_rank": 2,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_f97129a1f6c5",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 2,
+          "prefusion_rank": 13,
+          "engine2_rank": 8,
+          "main_rank": 10,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": null,
+          "prefusion_rank": 24,
+          "engine2_rank": 8,
+          "main_rank": 19,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 2,
+          "prefusion_rank": 13,
+          "engine2_rank": 8,
+          "main_rank": 10,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": null,
+          "prefusion_rank": 24,
+          "engine2_rank": 8,
+          "main_rank": 19,
+          "pubchem_rank": null
+        }
+      }
+    },
+    {
+      "id": "m_ffd4bba01fb3",
+      "source": "MycoMSBase",
+      "baseline_sources_missed": false,
+      "baseline_opportunity": "same_formula",
+      "available_final_slots": 25,
+      "arms": {
+        "baseline": {
+          "rank": 12,
+          "prefusion_rank": 6,
+          "engine2_rank": null,
+          "main_rank": 5,
+          "pubchem_rank": null
+        },
+        "early_score": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": 23,
+          "pubchem_rank": null
+        },
+        "late_dedupe": {
+          "rank": 12,
+          "prefusion_rank": 6,
+          "engine2_rank": null,
+          "main_rank": 5,
+          "pubchem_rank": null
+        },
+        "joint": {
+          "rank": null,
+          "prefusion_rank": null,
+          "engine2_rank": null,
+          "main_rank": 23,
+          "pubchem_rank": null
+        }
+      }
+    }
+  ]
+}

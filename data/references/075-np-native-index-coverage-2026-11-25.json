@@ -1,0 +1,1540 @@
+{
+  "kaggle": {
+    "slug": "enveda-075-np-native-index-coverage",
+    "version": 1,
+    "status": "COMPLETE",
+    "date_beijing": "2026-11-25T13:14:25.972535+08:00",
+    "totals": {
+      "absent_from_scanned_indices": 2,
+      "native_window_not_shortlisted": 8,
+      "lost_after_reported_candidate": 2
+    }
+  },
+  "raw_sha256": "3d75c6791092b1d46718d3ac7247494807476379aefd246f7939353e53e2190f",
+  "audit": {
+    "baseline_raw_submission_sha256": "1dcb467d3c73a5aa983d9321e1193c7bd1fec6884ef277b7ee3486485ec153a4",
+    "query_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+    "labels_sha256": "ab7a98f7f5e35fd9029ebc905de279d25adde894f2ea49949066a72a1b2cb1fa",
+    "c34_archived_targets_version": "jiyujia/enveda-075-np-recall-base/2",
+    "c34_archived_pc_lists_sha256": "d7b28154b1bdf132528300bcf8faa1211984c843d5340ac81191472a452f564b",
+    "rdkit": "2026.03.3",
+    "molecules": 60,
+    "final_misses": 12,
+    "final_hits": 48,
+    "stages": [
+      "main",
+      "engine2",
+      "pubchem",
+      "prefusion",
+      "fused_overflow"
+    ],
+    "classification": {
+      "absent_from_scanned_indices": 2,
+      "native_window_not_shortlisted": 8,
+      "lost_after_reported_candidate": 2
+    },
+    "by_source": {
+      "MycoMSBase": {
+        "absent_from_scanned_indices": 2,
+        "native_window_not_shortlisted": 7,
+        "lost_after_reported_candidate": 2
+      },
+      "MassBank_Eawag": {
+        "native_window_not_shortlisted": 1
+      }
+    },
+    "stores": {
+      "engine1": {
+        "sha256": "82b8c40315611289b9a4004b3af18d6d3402b3cd5baa4ee5723da07b7e2f6bb0",
+        "rows": 710701,
+        "invalid_smiles": 0
+      },
+      "engine2_coco": {
+        "raw_rows": 436389,
+        "pre_fp_snapshot": true,
+        "rows": 436389,
+        "invalid_smiles": 0
+      },
+      "engine2_bio": {
+        "raw_rows": 98433,
+        "pre_fp_snapshot": true,
+        "rows": 98433,
+        "invalid_smiles": 0
+      },
+      "engine2_pubchemlite": {
+        "raw_rows": 385760,
+        "pre_fp_snapshot": true,
+        "rows": 356820,
+        "invalid_smiles": 0
+      },
+      "engine2_train": {
+        "raw_rows": 245591,
+        "finite_parsed_rows": 245591,
+        "rows": 245591,
+        "invalid_chemistry_during_candidate_scan": 0
+      },
+      "tier": {
+        "rows": 105875489,
+        "smiles_bytes": 5520120062,
+        "rows_rdkit_checked": 385133,
+        "invalid_smiles_among_checked": 69
+      },
+      "delta": {
+        "rows": 36303,
+        "smiles_bytes": 2320475,
+        "rows_rdkit_checked": 99,
+        "invalid_smiles_among_checked": 0
+      },
+      "growth": {
+        "rows": 11177,
+        "smiles_bytes": 559168,
+        "rows_rdkit_checked": 64,
+        "invalid_smiles_among_checked": 0
+      }
+    },
+    "by_query": {
+      "m_271d6f38f4df": {
+        "challenge": "m_271d6f38f4df",
+        "source": "MycoMSBase",
+        "normalized_key": "NPOWLLUCRYAFNL",
+        "composition": [
+          [
+            6,
+            52
+          ],
+          [
+            8,
+            15
+          ]
+        ],
+        "formula": "C52H62O15",
+        "formal_charge": 0,
+        "observed_adducts": [
+          "[M+H]+"
+        ],
+        "source_ranks": {
+          "main": 0,
+          "engine2": 0,
+          "pubchem": 0,
+          "prefusion": 0,
+          "fused_overflow": 0
+        },
+        "windows": {
+          "native_E1": 926.40887354783,
+          "native_C34": 926.40887354783,
+          "theoretical": 926.4088712840003
+        },
+        "class": "absent_from_scanned_indices",
+        "engine1": {
+          "indexed_matches": 0,
+          "matches_in_nominal_window": 0,
+          "nominal_window_ppm": 10,
+          "rows_in_10ppm": 1,
+          "formula_rows_in_10ppm": 0,
+          "matches_in_100ppm": 0,
+          "nearest_row": null,
+          "nearest_ppm": null
+        },
+        "pubchem": {
+          "tier": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 328,
+            "formula_rows_in_10ppm": 4,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "delta": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 2,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "growth": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        },
+        "engine2_inventory": {
+          "engine2_coco": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 1,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_bio": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 1,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_pubchemlite": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_train": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        }
+      },
+      "m_2776589bbaaf": {
+        "challenge": "m_2776589bbaaf",
+        "source": "MycoMSBase",
+        "normalized_key": "UGISZOXYFHGCSR",
+        "composition": [
+          [
+            6,
+            17
+          ],
+          [
+            8,
+            5
+          ]
+        ],
+        "formula": "C17H22O5",
+        "formal_charge": 0,
+        "observed_adducts": [
+          "[M+H]+"
+        ],
+        "source_ranks": {
+          "main": 0,
+          "engine2": 0,
+          "pubchem": 0,
+          "prefusion": 0,
+          "fused_overflow": 0
+        },
+        "windows": {
+          "native_E1": 306.14672354783,
+          "native_C34": 306.14672354783,
+          "theoretical": 306.14672380400003
+        },
+        "class": "native_window_not_shortlisted",
+        "engine1": {
+          "indexed_matches": 1,
+          "matches_in_nominal_window": 1,
+          "nominal_window_ppm": 10,
+          "rows_in_10ppm": 349,
+          "formula_rows_in_10ppm": 241,
+          "matches_in_100ppm": 1,
+          "nearest_row": 158540,
+          "nearest_ppm": 0.0008367555923357997
+        },
+        "pubchem": {
+          "tier": {
+            "indexed_matches": 4,
+            "matches_in_nominal_window": 4,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 12404,
+            "formula_rows_in_10ppm": 3049,
+            "matches_in_100ppm": 4,
+            "nearest_row": 37545000,
+            "nearest_ppm": 0.0008236900999077142
+          },
+          "delta": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 6,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "growth": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 1,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        },
+        "engine2_inventory": {
+          "engine2_coco": {
+            "indexed_matches": 1,
+            "matches_in_nominal_window": 1,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 256,
+            "formula_rows_in_10ppm": 237,
+            "matches_in_100ppm": 1,
+            "nearest_row": 87554,
+            "nearest_ppm": 0.0008367555923357997
+          },
+          "engine2_bio": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 10,
+            "formula_rows_in_10ppm": 6,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_pubchemlite": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 11,
+            "formula_rows_in_10ppm": 2,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_train": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 93,
+            "formula_rows_in_10ppm": 4,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        }
+      },
+      "m_46f4697ed06a": {
+        "challenge": "m_46f4697ed06a",
+        "source": "MassBank_Eawag",
+        "normalized_key": "KMUPVKAZDBVWBO",
+        "composition": [
+          [
+            6,
+            24
+          ],
+          [
+            7,
+            6
+          ],
+          [
+            8,
+            6
+          ],
+          [
+            16,
+            1
+          ]
+        ],
+        "formula": "C24H34N6O6S",
+        "formal_charge": 0,
+        "observed_adducts": [
+          "[M-H]-"
+        ],
+        "source_ranks": {
+          "main": 0,
+          "engine2": 0,
+          "pubchem": 0,
+          "prefusion": 0,
+          "fused_overflow": 0
+        },
+        "windows": {
+          "native_E1": 534.22607645217,
+          "native_C34": 534.22607645217,
+          "theoretical": 534.226053808
+        },
+        "class": "native_window_not_shortlisted",
+        "engine1": {
+          "indexed_matches": 0,
+          "matches_in_nominal_window": 0,
+          "nominal_window_ppm": 10,
+          "rows_in_10ppm": 32,
+          "formula_rows_in_10ppm": 1,
+          "matches_in_100ppm": 0,
+          "nearest_row": null,
+          "nearest_ppm": null
+        },
+        "pubchem": {
+          "tier": {
+            "indexed_matches": 2,
+            "matches_in_nominal_window": 2,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 4829,
+            "formula_rows_in_10ppm": 263,
+            "matches_in_100ppm": 2,
+            "nearest_row": 93369274,
+            "nearest_ppm": -0.0420274692763726
+          },
+          "delta": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 4,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "growth": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        },
+        "engine2_inventory": {
+          "engine2_coco": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 33,
+            "formula_rows_in_10ppm": 1,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_bio": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 1,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_pubchemlite": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 5,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_train": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        }
+      },
+      "m_629bc25507b4": {
+        "challenge": "m_629bc25507b4",
+        "source": "MycoMSBase",
+        "normalized_key": "ALRYFFWQBUQIHL",
+        "composition": [
+          [
+            6,
+            31
+          ],
+          [
+            8,
+            7
+          ]
+        ],
+        "formula": "C31H46O7",
+        "formal_charge": 0,
+        "observed_adducts": [
+          "[M+H]+"
+        ],
+        "source_ranks": {
+          "main": 0,
+          "engine2": 0,
+          "pubchem": 0,
+          "prefusion": 0,
+          "fused_overflow": 0
+        },
+        "windows": {
+          "native_E1": 530.32435354783,
+          "native_C34": 530.32435354783,
+          "theoretical": 530.3243538119999
+        },
+        "class": "absent_from_scanned_indices",
+        "engine1": {
+          "indexed_matches": 0,
+          "matches_in_nominal_window": 0,
+          "nominal_window_ppm": 10,
+          "rows_in_10ppm": 37,
+          "formula_rows_in_10ppm": 32,
+          "matches_in_100ppm": 0,
+          "nearest_row": null,
+          "nearest_ppm": null
+        },
+        "pubchem": {
+          "tier": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 1455,
+            "formula_rows_in_10ppm": 373,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "delta": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "growth": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        },
+        "engine2_inventory": {
+          "engine2_coco": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 36,
+            "formula_rows_in_10ppm": 31,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_bio": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_pubchemlite": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 2,
+            "formula_rows_in_10ppm": 1,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_train": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 1,
+            "formula_rows_in_10ppm": 1,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        }
+      },
+      "m_7ba5edc4bd87": {
+        "challenge": "m_7ba5edc4bd87",
+        "source": "MycoMSBase",
+        "normalized_key": "GKVWLPVTYNGYQO",
+        "composition": [
+          [
+            6,
+            26
+          ],
+          [
+            8,
+            7
+          ]
+        ],
+        "formula": "C26H30O7",
+        "formal_charge": 0,
+        "observed_adducts": [
+          "[M+H]+"
+        ],
+        "source_ranks": {
+          "main": 0,
+          "engine2": 0,
+          "pubchem": 0,
+          "prefusion": 0,
+          "fused_overflow": 0
+        },
+        "windows": {
+          "native_E1": 454.19915354783,
+          "native_C34": 454.19915354783,
+          "theoretical": 454.1991532999999
+        },
+        "class": "native_window_not_shortlisted",
+        "engine1": {
+          "indexed_matches": 1,
+          "matches_in_nominal_window": 1,
+          "nominal_window_ppm": 10,
+          "rows_in_10ppm": 70,
+          "formula_rows_in_10ppm": 51,
+          "matches_in_100ppm": 1,
+          "nearest_row": 502798,
+          "nearest_ppm": -0.0005456420207446477
+        },
+        "pubchem": {
+          "tier": {
+            "indexed_matches": 4,
+            "matches_in_nominal_window": 4,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 7889,
+            "formula_rows_in_10ppm": 608,
+            "matches_in_100ppm": 4,
+            "nearest_row": 81736794,
+            "nearest_ppm": -0.000567658436505144
+          },
+          "delta": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "growth": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        },
+        "engine2_inventory": {
+          "engine2_coco": {
+            "indexed_matches": 1,
+            "matches_in_nominal_window": 1,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 64,
+            "formula_rows_in_10ppm": 48,
+            "matches_in_100ppm": 1,
+            "nearest_row": 255099,
+            "nearest_ppm": -0.0005456420207446477
+          },
+          "engine2_bio": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 3,
+            "formula_rows_in_10ppm": 2,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_pubchemlite": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 12,
+            "formula_rows_in_10ppm": 1,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_train": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 2,
+            "formula_rows_in_10ppm": 1,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        }
+      },
+      "m_81711a0e1efe": {
+        "challenge": "m_81711a0e1efe",
+        "source": "MycoMSBase",
+        "normalized_key": "MUWRTUOAFXGGOC",
+        "composition": [
+          [
+            6,
+            29
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            8,
+            5
+          ]
+        ],
+        "formula": "C29H37NO5",
+        "formal_charge": 0,
+        "observed_adducts": [
+          "[M+H]+"
+        ],
+        "source_ranks": {
+          "main": 23,
+          "engine2": 17,
+          "pubchem": 0,
+          "prefusion": 0,
+          "fused_overflow": 2
+        },
+        "windows": {
+          "native_E1": 479.26717354783,
+          "native_C34": 479.26717354783,
+          "theoretical": 479.26717328399997
+        },
+        "class": "lost_after_reported_candidate",
+        "engine1": {
+          "indexed_matches": 1,
+          "matches_in_nominal_window": 1,
+          "nominal_window_ppm": 10,
+          "rows_in_10ppm": 30,
+          "formula_rows_in_10ppm": 23,
+          "matches_in_100ppm": 1,
+          "nearest_row": 528384,
+          "nearest_ppm": -0.0005504863386455674
+        },
+        "pubchem": {
+          "tier": {
+            "indexed_matches": 4,
+            "matches_in_nominal_window": 4,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 3446,
+            "formula_rows_in_10ppm": 873,
+            "matches_in_100ppm": 4,
+            "nearest_row": 86429397,
+            "nearest_ppm": -0.0005588323258509652
+          },
+          "delta": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 6,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "growth": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        },
+        "engine2_inventory": {
+          "engine2_coco": {
+            "indexed_matches": 1,
+            "matches_in_nominal_window": 1,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 25,
+            "formula_rows_in_10ppm": 21,
+            "matches_in_100ppm": 1,
+            "nearest_row": 277803,
+            "nearest_ppm": -0.0005504863386455674
+          },
+          "engine2_bio": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 4,
+            "formula_rows_in_10ppm": 2,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_pubchemlite": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 1,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_train": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        }
+      },
+      "m_9a0bfa4c9250": {
+        "challenge": "m_9a0bfa4c9250",
+        "source": "MycoMSBase",
+        "normalized_key": "KQFLVQIYZGNZGX",
+        "composition": [
+          [
+            6,
+            29
+          ],
+          [
+            7,
+            1
+          ],
+          [
+            8,
+            4
+          ]
+        ],
+        "formula": "C29H37NO4",
+        "formal_charge": 0,
+        "observed_adducts": [
+          "[M+H]+"
+        ],
+        "source_ranks": {
+          "main": 19,
+          "engine2": 27,
+          "pubchem": 0,
+          "prefusion": 24,
+          "fused_overflow": 2
+        },
+        "windows": {
+          "native_E1": 463.27226354783,
+          "native_C34": 463.27226354783,
+          "theoretical": 463.27225866399993
+        },
+        "class": "lost_after_reported_candidate",
+        "engine1": {
+          "indexed_matches": 1,
+          "matches_in_nominal_window": 1,
+          "nominal_window_ppm": 10,
+          "rows_in_10ppm": 28,
+          "formula_rows_in_10ppm": 22,
+          "matches_in_100ppm": 1,
+          "nearest_row": 512937,
+          "nearest_ppm": -0.010542029786855256
+        },
+        "pubchem": {
+          "tier": {
+            "indexed_matches": 4,
+            "matches_in_nominal_window": 4,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 3141,
+            "formula_rows_in_10ppm": 908,
+            "matches_in_100ppm": 4,
+            "nearest_row": 83526703,
+            "nearest_ppm": -0.010550664049807203
+          },
+          "delta": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 1,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "growth": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        },
+        "engine2_inventory": {
+          "engine2_coco": {
+            "indexed_matches": 1,
+            "matches_in_nominal_window": 1,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 23,
+            "formula_rows_in_10ppm": 19,
+            "matches_in_100ppm": 1,
+            "nearest_row": 264139,
+            "nearest_ppm": -0.010542029786855256
+          },
+          "engine2_bio": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 4,
+            "formula_rows_in_10ppm": 1,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_pubchemlite": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 6,
+            "formula_rows_in_10ppm": 2,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_train": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 3,
+            "formula_rows_in_10ppm": 2,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        }
+      },
+      "m_b48250cfa30e": {
+        "challenge": "m_b48250cfa30e",
+        "source": "MycoMSBase",
+        "normalized_key": "SNVBBQVVYOYKTG",
+        "composition": [
+          [
+            6,
+            15
+          ],
+          [
+            8,
+            2
+          ]
+        ],
+        "formula": "C15H22O2",
+        "formal_charge": 0,
+        "observed_adducts": [
+          "[M+H]+"
+        ],
+        "source_ranks": {
+          "main": 0,
+          "engine2": 0,
+          "pubchem": 0,
+          "prefusion": 0,
+          "fused_overflow": 0
+        },
+        "windows": {
+          "native_E1": 234.16198354783,
+          "native_C34": 234.16198354783,
+          "theoretical": 234.161979944
+        },
+        "class": "native_window_not_shortlisted",
+        "engine1": {
+          "indexed_matches": 1,
+          "matches_in_nominal_window": 1,
+          "nominal_window_ppm": 10,
+          "rows_in_10ppm": 530,
+          "formula_rows_in_10ppm": 530,
+          "matches_in_100ppm": 1,
+          "nearest_row": 44737,
+          "nearest_ppm": -0.015390329185472267
+        },
+        "pubchem": {
+          "tier": {
+            "indexed_matches": 6,
+            "matches_in_nominal_window": 6,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 12534,
+            "formula_rows_in_10ppm": 12486,
+            "matches_in_100ppm": 6,
+            "nearest_row": 11009392,
+            "nearest_ppm": -0.015407411318359519
+          },
+          "delta": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "growth": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        },
+        "engine2_inventory": {
+          "engine2_coco": {
+            "indexed_matches": 1,
+            "matches_in_nominal_window": 1,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 522,
+            "formula_rows_in_10ppm": 522,
+            "matches_in_100ppm": 1,
+            "nearest_row": 35939,
+            "nearest_ppm": -0.015390329185472267
+          },
+          "engine2_bio": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 20,
+            "formula_rows_in_10ppm": 20,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_pubchemlite": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 38,
+            "formula_rows_in_10ppm": 38,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_train": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 4,
+            "formula_rows_in_10ppm": 4,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        }
+      },
+      "m_b668271d2144": {
+        "challenge": "m_b668271d2144",
+        "source": "MycoMSBase",
+        "normalized_key": "WJUXIDJEIYLXTQ",
+        "composition": [
+          [
+            6,
+            26
+          ],
+          [
+            8,
+            6
+          ]
+        ],
+        "formula": "C26H28O6",
+        "formal_charge": 0,
+        "observed_adducts": [
+          "[M+H]+"
+        ],
+        "source_ranks": {
+          "main": 0,
+          "engine2": 0,
+          "pubchem": 0,
+          "prefusion": 0,
+          "fused_overflow": 0
+        },
+        "windows": {
+          "native_E1": 436.18859354783,
+          "native_C34": 436.18859354783,
+          "theoretical": 436.18858861599995
+        },
+        "class": "native_window_not_shortlisted",
+        "engine1": {
+          "indexed_matches": 1,
+          "matches_in_nominal_window": 1,
+          "nominal_window_ppm": 10,
+          "rows_in_10ppm": 136,
+          "formula_rows_in_10ppm": 99,
+          "matches_in_100ppm": 1,
+          "nearest_row": 481180,
+          "nearest_ppm": -0.011306646235953578
+        },
+        "pubchem": {
+          "tier": {
+            "indexed_matches": 4,
+            "matches_in_nominal_window": 4,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 9142,
+            "formula_rows_in_10ppm": 992,
+            "matches_in_100ppm": 4,
+            "nearest_row": 77797757,
+            "nearest_ppm": -0.011320401478050525
+          },
+          "delta": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 3,
+            "formula_rows_in_10ppm": 1,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "growth": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        },
+        "engine2_inventory": {
+          "engine2_coco": {
+            "indexed_matches": 1,
+            "matches_in_nominal_window": 1,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 126,
+            "formula_rows_in_10ppm": 94,
+            "matches_in_100ppm": 1,
+            "nearest_row": 236737,
+            "nearest_ppm": -0.011306646235953578
+          },
+          "engine2_bio": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 7,
+            "formula_rows_in_10ppm": 2,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_pubchemlite": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 12,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_train": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 7,
+            "formula_rows_in_10ppm": 3,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        }
+      },
+      "m_b68e840e9062": {
+        "challenge": "m_b68e840e9062",
+        "source": "MycoMSBase",
+        "normalized_key": "DSVSTMJOGQEZJX",
+        "composition": [
+          [
+            6,
+            17
+          ],
+          [
+            8,
+            4
+          ]
+        ],
+        "formula": "C17H26O4",
+        "formal_charge": 0,
+        "observed_adducts": [
+          "[M+H]+"
+        ],
+        "source_ranks": {
+          "main": 0,
+          "engine2": 0,
+          "pubchem": 0,
+          "prefusion": 0,
+          "fused_overflow": 0
+        },
+        "windows": {
+          "native_E1": 294.18311354783,
+          "native_C34": 294.18311354783,
+          "theoretical": 294.183109312
+        },
+        "class": "native_window_not_shortlisted",
+        "engine1": {
+          "indexed_matches": 1,
+          "matches_in_nominal_window": 1,
+          "nominal_window_ppm": 10,
+          "rows_in_10ppm": 162,
+          "formula_rows_in_10ppm": 139,
+          "matches_in_100ppm": 1,
+          "nearest_row": 127731,
+          "nearest_ppm": -0.014398616988810765
+        },
+        "pubchem": {
+          "tier": {
+            "indexed_matches": 3,
+            "matches_in_nominal_window": 3,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 8607,
+            "formula_rows_in_10ppm": 3596,
+            "matches_in_100ppm": 3,
+            "nearest_row": 33115943,
+            "nearest_ppm": -0.014405415403665646
+          },
+          "delta": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 2,
+            "formula_rows_in_10ppm": 1,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "growth": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        },
+        "engine2_inventory": {
+          "engine2_coco": {
+            "indexed_matches": 1,
+            "matches_in_nominal_window": 1,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 138,
+            "formula_rows_in_10ppm": 135,
+            "matches_in_100ppm": 1,
+            "nearest_row": 76944,
+            "nearest_ppm": -0.014398616988810765
+          },
+          "engine2_bio": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 8,
+            "formula_rows_in_10ppm": 7,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_pubchemlite": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 9,
+            "formula_rows_in_10ppm": 5,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_train": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 24,
+            "formula_rows_in_10ppm": 4,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        }
+      },
+      "m_eca11db69ee0": {
+        "challenge": "m_eca11db69ee0",
+        "source": "MycoMSBase",
+        "normalized_key": "RCAULRNMJFUWRP",
+        "composition": [
+          [
+            6,
+            9
+          ],
+          [
+            8,
+            4
+          ]
+        ],
+        "formula": "C9H12O4",
+        "formal_charge": 0,
+        "observed_adducts": [
+          "[M+H]+"
+        ],
+        "source_ranks": {
+          "main": 0,
+          "engine2": 0,
+          "pubchem": 0,
+          "prefusion": 0,
+          "fused_overflow": 0
+        },
+        "windows": {
+          "native_E1": 184.07356354783,
+          "native_C34": 184.07356354783,
+          "theoretical": 184.073558864
+        },
+        "class": "native_window_not_shortlisted",
+        "engine1": {
+          "indexed_matches": 1,
+          "matches_in_nominal_window": 1,
+          "nominal_window_ppm": 10,
+          "rows_in_10ppm": 78,
+          "formula_rows_in_10ppm": 73,
+          "matches_in_100ppm": 1,
+          "nearest_row": 18626,
+          "nearest_ppm": -0.025445424616772596
+        },
+        "pubchem": {
+          "tier": {
+            "indexed_matches": 9,
+            "matches_in_nominal_window": 9,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 5380,
+            "formula_rows_in_10ppm": 3808,
+            "matches_in_100ppm": 9,
+            "nearest_row": 2271529,
+            "nearest_ppm": -0.025467155138335387
+          },
+          "delta": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 4,
+            "formula_rows_in_10ppm": 2,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "growth": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 3,
+            "formula_rows_in_10ppm": 3,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        },
+        "engine2_inventory": {
+          "engine2_coco": {
+            "indexed_matches": 1,
+            "matches_in_nominal_window": 1,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 75,
+            "formula_rows_in_10ppm": 71,
+            "matches_in_100ppm": 1,
+            "nearest_row": 15338,
+            "nearest_ppm": -0.025445424616772596
+          },
+          "engine2_bio": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 14,
+            "formula_rows_in_10ppm": 12,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_pubchemlite": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 77,
+            "formula_rows_in_10ppm": 55,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_train": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 0,
+            "formula_rows_in_10ppm": 0,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        }
+      },
+      "m_edad43d8a6c8": {
+        "challenge": "m_edad43d8a6c8",
+        "source": "MycoMSBase",
+        "normalized_key": "IFQDEWRJYLASJD",
+        "composition": [
+          [
+            6,
+            15
+          ],
+          [
+            8,
+            2
+          ]
+        ],
+        "formula": "C15H20O2",
+        "formal_charge": 0,
+        "observed_adducts": [
+          "[M+H]+"
+        ],
+        "source_ranks": {
+          "main": 0,
+          "engine2": 0,
+          "pubchem": 0,
+          "prefusion": 0,
+          "fused_overflow": 0
+        },
+        "windows": {
+          "native_E1": 232.14633354782998,
+          "native_C34": 232.14633354782998,
+          "theoretical": 232.14632988
+        },
+        "class": "native_window_not_shortlisted",
+        "engine1": {
+          "indexed_matches": 1,
+          "matches_in_nominal_window": 1,
+          "nominal_window_ppm": 10,
+          "rows_in_10ppm": 331,
+          "formula_rows_in_10ppm": 331,
+          "matches_in_100ppm": 1,
+          "nearest_row": 43436,
+          "nearest_ppm": -0.015799646414153778
+        },
+        "pubchem": {
+          "tier": {
+            "indexed_matches": 3,
+            "matches_in_nominal_window": 3,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 10558,
+            "formula_rows_in_10ppm": 10440,
+            "matches_in_100ppm": 3,
+            "nearest_row": 10474430,
+            "nearest_ppm": -0.015816876865563354
+          },
+          "delta": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 4,
+            "formula_rows_in_10ppm": 4,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "growth": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 1,
+            "formula_rows_in_10ppm": 1,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        },
+        "engine2_inventory": {
+          "engine2_coco": {
+            "indexed_matches": 1,
+            "matches_in_nominal_window": 1,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 334,
+            "formula_rows_in_10ppm": 334,
+            "matches_in_100ppm": 1,
+            "nearest_row": 34809,
+            "nearest_ppm": -0.015799646414153778
+          },
+          "engine2_bio": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 10,
+            "formula_rows_in_10ppm": 10,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_pubchemlite": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 34,
+            "formula_rows_in_10ppm": 32,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          },
+          "engine2_train": {
+            "indexed_matches": 0,
+            "matches_in_nominal_window": 0,
+            "nominal_window_ppm": 10,
+            "rows_in_10ppm": 1,
+            "formula_rows_in_10ppm": 1,
+            "matches_in_100ppm": 0,
+            "nearest_row": null,
+            "nearest_ppm": null
+          }
+        }
+      }
+    },
+    "elapsed_seconds": 2236.5
+  },
+  "reconciliation": {
+    "e1_in_window_missing_from_all_reported_lists": [
+      "m_2776589bbaaf",
+      "m_7ba5edc4bd87",
+      "m_b48250cfa30e",
+      "m_b668271d2144",
+      "m_b68e840e9062",
+      "m_eca11db69ee0",
+      "m_edad43d8a6c8"
+    ],
+    "e1_in_window_found_by_virtual_edits": [
+      "m_2776589bbaaf",
+      "m_b48250cfa30e",
+      "m_b68e840e9062",
+      "m_eca11db69ee0"
+    ],
+    "not_in_any_index_found_by_virtual_edits": [
+      "m_271d6f38f4df"
+    ],
+    "pubchem_rows": 105922969
+  }
+}

@@ -1,0 +1,519 @@
+{
+  "competition": "enveda-CASMI26-molecule-id-mass-spectra",
+  "official_leaderboard_url": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard",
+  "leaderboard_snapshot_utc": "2026-11-25T04:11:52Z",
+  "leaderboard_archive_sha256": "0819ce6b70f84ec417a7944e67ed73a396e0f6779844c421c100713cc6a1f3ad",
+  "leaderboard_csv": "enveda-CASMI26-molecule-id-mass-spectra-publicleaderboard-2026-11-25T04:11:52.csv",
+  "leaderboard_csv_sha256": "037a95511695eca9b82a1d34b406ba45540881cf5f158541128576963b55a90e",
+  "teams_in_snapshot": 5946,
+  "leading_scores": [
+    "0.554",
+    "0.546",
+    "0.542"
+  ],
+  "by_notebook_author": {
+    "govindupadhyay1307": {
+      "rank": 478,
+      "team_id": 17239657,
+      "team_name": "hmm",
+      "public_score": "0.506",
+      "submission_count": 35,
+      "notebooks": [
+        "https://www.kaggle.com/code/govindupadhyay1307/casmi26-v2-0-510-dualneural-vt",
+        "https://www.kaggle.com/code/govindupadhyay1307/casmi26-v3-0-511-vt-plus-npf",
+        "https://www.kaggle.com/code/govindupadhyay1307/casmi26-v4-0-512-dualneural-npf-vt"
+      ],
+      "official_team_display_submission_ref": 58819763
+    },
+    "adityaraj0612": {
+      "rank": 103,
+      "team_id": 16929723,
+      "team_name": "ADITYA RAJ",
+      "public_score": "0.509",
+      "submission_count": 188,
+      "notebooks": [
+        "https://www.kaggle.com/code/adityaraj0612/casmi26-exp334-sovereign-0514-fused-titan"
+      ],
+      "official_team_display_submission_ref": 58826898
+    },
+    "alexchilton": {
+      "rank": 390,
+      "team_id": 16898268,
+      "team_name": "alex chilton",
+      "public_score": "0.509",
+      "submission_count": 197,
+      "notebooks": [
+        "https://www.kaggle.com/code/alexchilton/casmi26-0-509-what-moved-the-board-71-arms"
+      ],
+      "official_team_display_submission_ref": 58845896
+    },
+    "ishankarnick": {
+      "rank": 173,
+      "team_id": 16949478,
+      "team_name": "Ishan Karnick",
+      "public_score": "0.509",
+      "submission_count": 102,
+      "notebooks": [
+        "https://www.kaggle.com/code/ishankarnick/casmi26-lb-0-509-47-7m-virtual-natural-products"
+      ],
+      "official_team_display_submission_ref": 58766113
+    },
+    "pablodiegoo": {
+      "rank": 114,
+      "team_id": 17148713,
+      "team_name": "Pablo Diego Pereira",
+      "public_score": "0.509",
+      "submission_count": 17,
+      "notebooks": [
+        "https://www.kaggle.com/code/pablodiegoo/enveda-casmi26-starter-notebook"
+      ],
+      "official_team_display_submission_ref": 58831051
+    },
+    "goodpjw2008": {
+      "rank": 130,
+      "team_id": 16918583,
+      "team_name": "goodpjw2008",
+      "public_score": "0.509",
+      "submission_count": 37,
+      "notebooks": [
+        "https://www.kaggle.com/code/goodpjw2008/enveda-casmi-virtual-np-e180x-1-1-lb-0-509"
+      ],
+      "official_team_display_submission_ref": 58839350
+    },
+    "arsen123": {
+      "rank": 532,
+      "team_id": 17333853,
+      "team_name": "Arsen Zakaryan",
+      "public_score": "0.506",
+      "submission_count": 25,
+      "notebooks": [
+        "https://www.kaggle.com/code/arsen123/casmi26-spectral-retrieval-and-holdout-checks"
+      ],
+      "official_team_display_submission_ref": 58807773
+    },
+    "jiyujia": {
+      "rank": 567,
+      "team_id": 17139280,
+      "team_name": "ccjjllt",
+      "public_score": "0.506",
+      "submission_count": 65,
+      "notebooks": [
+        "https://www.kaggle.com/code/jiyujia/enveda-casmi-0506-pablo"
+      ],
+      "official_team_display_submission_ref": 58820476
+    },
+    "dalezhong": {
+      "rank": 1013,
+      "team_id": 17012686,
+      "team_name": "Dale Zhong",
+      "public_score": "0.500",
+      "submission_count": 34,
+      "official_team_display_submission_ref": 58771957,
+      "notebooks": [
+        "https://www.kaggle.com/code/dalezhong/casmi26-fused-titan-514-extlib2-multiband",
+        "https://www.kaggle.com/code/dalezhong/casmi26-fused-titan-514-keep1off"
+      ]
+    },
+    "darkgobelin": {
+      "rank": 732,
+      "team_id": 16922575,
+      "team_name": "Sven Dumain",
+      "public_score": "0.505",
+      "submission_count": 64,
+      "official_team_display_submission_ref": 58794266,
+      "notebooks": [
+        "https://www.kaggle.com/code/darkgobelin/k192-fork-515"
+      ]
+    }
+  },
+  "own_verified_submission": {
+    "ref": 58820476,
+    "status": "COMPLETE",
+    "public_score": "0.506"
+  },
+  "public_source_audit": {
+    "ishankarnick_v1": {
+      "reported_ref": 58766113,
+      "reads_vtlp": true
+    },
+    "alexchilton_v9": {
+      "reported_ref": 58845896,
+      "reads_vtlp": true,
+      "single_parameter_comparisons": 71,
+      "worse": 39,
+      "gain_gt_0_002": 5,
+      "largest_gain": 0.006,
+      "notebook_linked_public_score": "0.506",
+      "official_team_display_submission_ref": 58845896
+    },
+    "govindupadhyay1307_v2_v3_v4": {
+      "reads_vtlp": true,
+      "verified_scores_at_title_claim": false,
+      "family_prior_training_code_public": true
+    },
+    "adityaraj0612_exp334_v1": {
+      "reads_vtlp": true,
+      "target": "0.514+"
+    },
+    "vtlp_asset": "vt_lp_e1.npy",
+    "vtlp_producer_located": false,
+    "dalezhong_multiband_v1": {
+      "identical_source_to": "adityaraj0612_exp334_v1",
+      "notebook_linked_score_reported": false
+    },
+    "dalezhong_keep1off_v1": {
+      "notebook_linked_public_score": "0.487",
+      "notebook_id": 147143660
+    },
+    "darkgobelin_k192_v1": {
+      "target": "0.515+",
+      "notebook_linked_score_reported": false
+    }
+  },
+  "later_snapshot": {
+    "leaderboard_snapshot_utc": "2026-11-25T05:25:20Z",
+    "leaderboard_archive_sha256": "0f4a23cd39830adde5746ef23e3e36bb21b287df3966e8e14a6832343da9967a",
+    "leaderboard_csv": "enveda-CASMI26-molecule-id-mass-spectra-publicleaderboard-2026-11-25T05:25:20.csv",
+    "leaderboard_csv_sha256": "c0204269e153c061da0554ff42121d927394b3213e753270e4204b06b316547e",
+    "teams_in_snapshot": 5952,
+    "leaders": [
+      {
+        "Rank": "1",
+        "TeamId": "16926646",
+        "TeamName": "Shehab Alshehabi",
+        "Score": "0.554",
+        "TeamMemberUserNames": "shehabalshehabi"
+      },
+      {
+        "Rank": "2",
+        "TeamId": "16971738",
+        "TeamName": "democat",
+        "Score": "0.546",
+        "TeamMemberUserNames": "w1326627677"
+      },
+      {
+        "Rank": "3",
+        "TeamId": "17109816",
+        "TeamName": "Johnny Lee",
+        "Score": "0.545",
+        "TeamMemberUserNames": "wuliaokaola",
+        "official_team_display_submission_ref": 58852357
+      }
+    ],
+    "newly_checked_teams": {
+      "goonew": {
+        "Rank": "11",
+        "TeamId": "16893429",
+        "TeamName": "goonew",
+        "Score": "0.526",
+        "TeamMemberUserNames": "goonew",
+        "matching_verified_public_implementation": false,
+        "official_team_display_submission_ref": 58847769
+      },
+      "huytngo": {
+        "Rank": "20",
+        "TeamId": "16908806",
+        "TeamName": "huytngo",
+        "Score": "0.520",
+        "TeamMemberUserNames": "huytngo",
+        "matching_verified_public_implementation": false,
+        "official_team_display_submission_ref": 58849809
+      },
+      "akimaru": {
+        "Rank": "34",
+        "TeamId": "16925803",
+        "TeamName": "akmr",
+        "Score": "0.515",
+        "TeamMemberUserNames": "akimaru",
+        "matching_verified_public_implementation": false,
+        "official_team_display_submission_ref": 58855448
+      },
+      "barnobarno": {
+        "Rank": "54",
+        "TeamId": "16894941",
+        "TeamName": "TF.",
+        "Score": "0.512",
+        "TeamMemberUserNames": "barnobarno,nahidhossainredom",
+        "matching_verified_public_implementation": false,
+        "official_team_display_submission_ref": 58850620
+      },
+      "xinghe0124": {
+        "Rank": "210",
+        "TeamId": "16950380",
+        "TeamName": "xinghe0124",
+        "Score": "0.509",
+        "TeamMemberUserNames": "xinghe0124",
+        "matching_verified_public_implementation": true,
+        "official_team_display_submission_ref": 58817964
+      }
+    },
+    "xinghe_public_code": {
+      "lead_gap_and_vt_pool_scale": "Inference code identical across these public variants.",
+      "c1_18_change": "C1 formula guard bonus increases from 1.5 to 1.8.",
+      "max_verified_team_score": "0.509",
+      "upstream_intermediate": "vt_lp_e1.npy (weight 0.25, public reconstruction code not located)"
+    },
+    "new_higher_score_with_reproducible_public_source_verified": false
+  },
+  "final_snapshot": {
+    "leaderboard_snapshot_utc": "2026-11-25T05:51:06Z",
+    "official_leaderboard": {
+      "csv": "enveda-CASMI26-molecule-id-mass-spectra-publicleaderboard-2026-11-25T05:51:06.csv",
+      "archive_sha256": "2e06e8abe40eb8695a2b7447c4802be4845d6eae4e7e92b0d50f8174134c0c45",
+      "csv_sha256": "42a0d431bf9cd6b62a2a083ae716c90debf704ae8de99c1e91caca8306f3e00e",
+      "teams": 5955,
+      "leading": [
+        {
+          "Rank": "1",
+          "TeamId": "16926646",
+          "TeamName": "Shehab Alshehabi",
+          "LastSubmissionDate": "2026-11-24 22:15:07",
+          "Score": "0.554",
+          "SubmissionCount": "311",
+          "TeamMemberUserNames": "shehabalshehabi"
+        },
+        {
+          "Rank": "2",
+          "TeamId": "16971738",
+          "TeamName": "democat",
+          "LastSubmissionDate": "2026-11-24 19:09:19",
+          "Score": "0.546",
+          "SubmissionCount": "180",
+          "TeamMemberUserNames": "w1326627677"
+        },
+        {
+          "Rank": "3",
+          "TeamId": "17109816",
+          "TeamName": "Johnny Lee",
+          "LastSubmissionDate": "2026-11-24 22:11:26",
+          "Score": "0.545",
+          "SubmissionCount": "139",
+          "TeamMemberUserNames": "wuliaokaola"
+        }
+      ]
+    },
+    "later_public_editions": {
+      "huangkx666": {
+        "slug": "enveda-p2s-507fork",
+        "version": 1,
+        "upstream": "Ishan VTLP variant",
+        "actual_vtlp_file": "vt_lp_e1.npy",
+        "weight": 0.25,
+        "team_snapshot": {
+          "Rank": "371",
+          "TeamId": "17138956",
+          "TeamName": "Leo #3",
+          "Score": "0.509"
+        },
+        "official_team_display_ref": 58839791,
+        "reference_changes": {
+          "c1": {
+            "original": 1.5,
+            "new": 1.25
+          },
+          "added_natural_product_family_prior": true
+        },
+        "separate_version_score_verified": false
+      },
+      "arsen123": {
+        "slug": "casmi26-spectral-retrieval-and-holdout-checks",
+        "version": 23,
+        "scope": "CPU nearest-library study reports separate prior neural submission 0.506; the published code does not contain it.",
+        "team_snapshot": {
+          "Rank": "549",
+          "TeamId": "17333853",
+          "TeamName": "Arsen Zakaryan",
+          "Score": "0.506"
+        },
+        "official_team_display_ref": 58807773,
+        "public_method_score": 0.14,
+        "public_method_score_ref": 58827585
+      },
+      "swx7ppj": {
+        "slug": "casmi26-lb-0-509-rerun",
+        "version": 1,
+        "scope": "Notebook preserves upstream goodpjw report of 0.509, ref 58838097. Team display score 0.505.",
+        "actual_vtlp_file": "vt_lp_e1.npy",
+        "weight": 0.25,
+        "team_snapshot": {
+          "Rank": "829",
+          "TeamId": "17381765",
+          "TeamName": "SW/X7PPJ",
+          "Score": "0.505"
+        },
+        "official_team_display_ref": 58850835
+      }
+    },
+    "new_higher_score_with_reproducible_public_source_verified": false,
+    "highest_confirmed_public_inference_trace": {
+      "score": "0.509",
+      "account": "huangkx666",
+      "official_submission_ref": 58839791,
+      "notebook": "https://www.kaggle.com/code/huangkx666/enveda-p2s-504fork/versions/1",
+      "notebook_sha256": "e7c2347d37b16802d633dc2aad39e78f65721a825ac3217ab41b382e25be707f",
+      "source_match": "All 24 original Ishan v1 execution cells match, plus an initial input-mount check.",
+      "public_prior": "https://www.kaggle.com/datasets/ishankarnick/casmi26-vtlp",
+      "file": "vt_lp_e1.npy",
+      "file_bytes": 95404912,
+      "weight": 0.25,
+      "producer_executable_publicly_verified": false,
+      "organizer_reproducibility_clarification": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/760376"
+    }
+  },
+  "14_23_refresh": {
+    "timezone": "Asia/Shanghai",
+    "leaderboard_checked": "2026-11-25T14:23:17+08:00",
+    "leading_scores": [
+      "0.554",
+      "0.546",
+      "0.545",
+      "0.542",
+      "0.537"
+    ],
+    "followups": {
+      "jacobcascone": {
+        "notebook": "https://www.kaggle.com/code/jacobcascone/casmi26-auto-casmi26validationthattellsthet/versions/6",
+        "notebook_id": 147100691,
+        "official_team_score": "0.495",
+        "experiment": "Validation-method notebook without new submission or replacement inference."
+      },
+      "liuzewen123": {
+        "notebook": "https://www.kaggle.com/code/liuzewen123/casmi-vt-neural-v8",
+        "notebook_id": 147281552,
+        "official_team_score": "0.501",
+        "official_submission_ref": 58758601,
+        "experiment": "CPU virtual candidate experiment, public VT0 and neural assets, no VTLP. Official score is earlier than the current notebook."
+      },
+      "govindupadhyay1307": {
+        "notebook": "https://www.kaggle.com/code/govindupadhyay1307/casmi26-v5-0-512-vt-margin125-npf",
+        "notebook_id": 147271619,
+        "official_team_score": "0.506",
+        "claimed_title": "0.512",
+        "stated_goal": "0.515+",
+        "experiment": "Public notebook still uses VTLP intermediate with weight 0.25. No separately verified high score."
+      }
+    },
+    "new_reproducible_higher_submission_verified": false
+  },
+  "15_09_refresh": {
+    "official_leaderboard_checked": "2026-11-25T15:09:04+08:00",
+    "official_leaderboard_teams": 5958,
+    "official_leaderboard_zip_sha256": "079b26855f03be26899e40c4171c21a3e547353a2cde27da5e879b7ec3183a12",
+    "leading_scores": [
+      "0.554",
+      "0.546",
+      "0.545",
+      "0.542",
+      "0.537"
+    ],
+    "our_team": {
+      "team_rank": 629,
+      "public_score": "0.506",
+      "ref": 58820476,
+      "status": "COMPLETE"
+    },
+    "recent_public_versions": {
+      "junlaii": {
+        "notebook": "https://www.kaggle.com/code/junlaii/casmi26-v25-pablo-virtualnp-npf-apriorv2/versions/1",
+        "id": 147296696,
+        "team_score": "0.509",
+        "team_ref": 58840306,
+        "vtlp_weight": 0.25,
+        "public_notebook_score_binding_verified": false
+      },
+      "xinghe0124": {
+        "notebook": "https://www.kaggle.com/code/xinghe0124/casmi26-combo/versions/1",
+        "id": 147288124,
+        "team_score": "0.509",
+        "team_ref": 58817964,
+        "vtlp_weight": 0.25,
+        "public_notebook_score_binding_verified": false
+      },
+      "liuzewen123": {
+        "notebook": "https://www.kaggle.com/code/liuzewen123/casmi-vt-neural-v8/versions/1",
+        "id": 147281552,
+        "team_score": "0.501",
+        "team_ref": 58758601,
+        "vtlp_used": false,
+        "public_notebook_score_binding_verified": false
+      },
+      "heliosli": {
+        "notebook": "https://www.kaggle.com/code/heliosli/public-inference-pipeline-v4-final/versions/6",
+        "team_score": "0.513",
+        "team_ref": 58845095,
+        "public_code_reported_prior_score": "0.477",
+        "public_notebook_score_binding_verified": false
+      }
+    },
+    "highest_verified_public_inference_trace": "0.509",
+    "vtlp_producer_executable_publicly_verified": false,
+    "new_higher_score_reproducible_from_source_verified": false
+  },
+  "15_23_refresh": {
+    "official_leaderboard_checked": "2026-11-25T15:23:25+08:00",
+    "official_leaderboard_teams": 5959,
+    "official_leaderboard_zip_sha256": "23122747e4b37fcaa26457bf1585301d4c36e9b249c02461cb73d13de06c9887",
+    "leading_scores": [
+      "0.554",
+      "0.551",
+      "0.546"
+    ],
+    "new_second": {
+      "name": "Legends",
+      "team_id": 16961619,
+      "score": "0.551",
+      "public_submission_ref": 58853656,
+      "competition_authors_queried": [
+        "aypyaypy",
+        "isakatsuyoshi",
+        "jjinho",
+        "pavelsavchenkov",
+        "ttyn4519"
+      ],
+      "public_competition_notebooks_found": 0
+    },
+    "our_score": {
+      "public_score": "0.506",
+      "ref": 58820476,
+      "status": "COMPLETE"
+    },
+    "davinor": {
+      "official_team_score": "0.492",
+      "official_team_ref": 58461817,
+      "latest": [
+        {
+          "notebook": "https://www.kaggle.com/code/davinor/casmi26-bg509-mt/versions/2",
+          "vtlp": "vt_lp_e1.npy",
+          "weight": 0.25
+        },
+        {
+          "notebook": "https://www.kaggle.com/code/davinor/casmi26-bg509-base/versions/2",
+          "id": 147306641,
+          "vtlp": "vt_lp_e1.npy",
+          "weight": 0.25
+        }
+      ]
+    },
+    "reproducible_higher_submission_verified": false
+  },
+  "15_46_refresh": {
+    "leading_scores": [
+      "0.554",
+      "0.551",
+      "0.546"
+    ],
+    "jiyuhao1213": {
+      "notebook": "https://www.kaggle.com/code/jiyuhao1213/casmi26-v133/versions/1",
+      "id": 147305825,
+      "headline_target": "0.512+",
+      "official_team_name": "MINGHUN",
+      "official_team_id": 16914701,
+      "official_public_score": "0.509",
+      "official_submission_ref": 58856078,
+      "public_notebook_score_binding_verified": false,
+      "vtlp_file": "vt_lp_e1.npy",
+      "vtlp_weight": 0.25
+    },
+    "higher_complete_public_reproduction_verified": false
+  }
+}
