@@ -1,0 +1,585 @@
+{
+  "kaggle": {
+    "slug": "enveda-075-np-virtual-window-compare",
+    "version": 1,
+    "status": "COMPLETE",
+    "generator_version": 2,
+    "date_beijing": "2026-11-25T13:04:12.746979+08:00"
+  },
+  "comparison": {
+    "query_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+    "baseline_sha256": "1dcb467d3c73a5aa983d9321e1193c7bd1fec6884ef277b7ee3486485ec153a4",
+    "generation_sha256": "15eb1a910429a08bbefc0eeac1f7bf96c7c5c66414e1ba52c65337f4ef21690f",
+    "coverage": {
+      "molecules": 60,
+      "baseline_top25": 48,
+      "absent_all_original": 10,
+      "raw_virtual_hit": 1,
+      "raw_virtual_hit_in_author_window": 1,
+      "known_main_virtual_hit": 38,
+      "known_main_hit_absent_original_lists": 4,
+      "raw_hits_absent_original_lists": 5,
+      "entirely_new_virtual_hit": 1,
+      "entirely_new_virtual_hit_in_author_window": 1
+    },
+    "max_delta_rr_if_all_new_correct_answer_rank1": 0.016666666666666666,
+    "delta_rr_if_all_new_correct_answer_rank5": 0.0033333333333333335,
+    "newly_reachable_ids": [
+      "m_271d6f38f4df"
+    ],
+    "known_main_reachable_ids": [
+      "m_2776589bbaaf",
+      "m_b48250cfa30e",
+      "m_b68e840e9062",
+      "m_eca11db69ee0"
+    ],
+    "sources": {
+      "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+        "molecules": 4,
+        "baseline_top25": 4,
+        "absent_all_original": 0,
+        "raw_virtual_hit": 0,
+        "raw_virtual_hit_in_author_window": 0,
+        "known_main_virtual_hit": 1,
+        "known_main_hit_absent_original_lists": 0,
+        "raw_hits_absent_original_lists": 0,
+        "entirely_new_virtual_hit": 0,
+        "entirely_new_virtual_hit_in_author_window": 0
+      },
+      "MassBank_Eawag": {
+        "molecules": 13,
+        "baseline_top25": 12,
+        "absent_all_original": 1,
+        "raw_virtual_hit": 0,
+        "raw_virtual_hit_in_author_window": 0,
+        "known_main_virtual_hit": 9,
+        "known_main_hit_absent_original_lists": 0,
+        "raw_hits_absent_original_lists": 0,
+        "entirely_new_virtual_hit": 0,
+        "entirely_new_virtual_hit_in_author_window": 0
+      },
+      "MycoMSBase": {
+        "molecules": 43,
+        "baseline_top25": 32,
+        "absent_all_original": 9,
+        "raw_virtual_hit": 1,
+        "raw_virtual_hit_in_author_window": 1,
+        "known_main_virtual_hit": 28,
+        "known_main_hit_absent_original_lists": 4,
+        "raw_hits_absent_original_lists": 5,
+        "entirely_new_virtual_hit": 1,
+        "entirely_new_virtual_hit_in_author_window": 1
+      }
+    }
+  },
+  "raw_outputs_sha256": {
+    "virtual_window_summary.json": "1c9cf0278a6ceecbd9acec5d67e249838c6c54022e7790207b8ac9d36d629624",
+    "virtual_window_per_query.csv": "067f8cea38e1a2413c861391574af2bcdc56073bd6c737adf779642d2078cca3",
+    "receipt.json": "6e116499e4a5f6a8d82d0d0dbaa28d89e67dadd7a947a9545d1d29b55e2e4035"
+  },
+  "raw_generation": {
+    "queries": 60,
+    "query_sha256": "054121566649d7e029c56ee226ab19a799fd810705af94c094cf788c402b7c9c",
+    "pool_rows": 710701,
+    "pool_sha256": "82b8c40315611289b9a4004b3af18d6d3402b3cd5baa4ee5723da07b7e2f6bb0",
+    "source_files": {
+      "code/casmi/derive.py": "7c1e8c3afb4c17a3ae58fbc6c36fd4cfc552da97b9129c9b46cca3cdc6ee4892",
+      "code/casmi/chem.py": "99474f23d8a67040b0c0f8c70e73592a6f7f656f50103e350ca473451e2169f1",
+      "MANIFEST.json": "e64b960037769971e146a35932e29ed3f042de1716e4dbe281ebd84a7cfc3b6a",
+      "LICENSE-NOTICE.txt": "b9c26d77338c03cb4387ae61bf4f6524eb77ee59c8530bc9f8d33a742a913a3b"
+    },
+    "rdkit": "2026.03.3",
+    "c34_ppm": 10,
+    "author_ppm": [
+      -3.0,
+      4.6
+    ],
+    "mass_error_ppm": "(target_mass - candidate_mass) / candidate_mass * 1e6",
+    "parent_index_slack_da": 1e-05,
+    "transforms": {
+      "hydroxyl_arom": 15.9949146196,
+      "hydroxyl_aliph": 15.9949146196,
+      "hydroxyl_ch": 15.9949146196,
+      "methyl_O": 14.01565006414,
+      "methyl_N": 14.01565006414,
+      "methyl_c": 14.01565006414,
+      "methoxy_arom": 30.01056468374,
+      "acetyl_O": 42.01056468374,
+      "acetyl_N": 42.01056468374,
+      "malonyl_O": 86.00039392294,
+      "hexose_O": 162.0528234187,
+      "pentose_O": 132.04225873496,
+      "deoxyhexose_O": 146.0579087991,
+      "glucuronyl_O": 176.03208797416,
+      "hexose_C": 162.0528234187,
+      "sulfate_O": 79.9568148588,
+      "prenyl_c": 68.06260025656,
+      "prenyl_O": 68.06260025656,
+      "ethyl_O": 28.03130012828,
+      "hydrogenate_CC": 2.01565006414,
+      "hydrogenate_CO": 2.01565006414,
+      "dehydrogenate": -2.01565006414,
+      "oxidize_CHOH": -2.01565006414,
+      "carboxyl_c": 43.9898292392,
+      "carboxyl_CH3": 31.9898292392,
+      "amine_c": 15.01089903687,
+      "chloro_c": 33.961027647929996,
+      "coumaroyl_O": 146.03677943162,
+      "feruloyl_O": 176.04734411536,
+      "caffeoyl_O": 162.03169405122,
+      "galloyl_O": 152.01095860668,
+      "benzoyl_O": 104.02621474788,
+      "demethyl_O": -14.01565006414,
+      "demethyl_N": -14.01565006414,
+      "dehydroxyl_arom": -15.9949146196,
+      "dehydroxyl_aliph": -15.9949146196,
+      "deacetyl_O": -42.01056468374,
+      "dehexose": -162.0528234187,
+      "depentose": -132.04225873496,
+      "dedeoxyhexose": -146.0579087991,
+      "demalonyl": -86.00039392294,
+      "desulfate": -79.9568148588,
+      "deprenyl": -68.06260025656,
+      "decarboxyl": -43.9898292392,
+      "demethoxy": -30.01056468374
+    },
+    "counts": {
+      "parent_rows": 122293,
+      "candidate_parent_transform_pairs": 172144,
+      "scanned_parent_transform_pairs": 172144,
+      "invalid_parent_rows": 0,
+      "raw_products": 297433,
+      "invalid_products": 0,
+      "out_of_window_products": 9698,
+      "valid_product_occurrences": 287735,
+      "identities": 223534,
+      "novel": 220921,
+      "known_main": 2613,
+      "author_window_identities": 156987,
+      "author_window_novel": 154543,
+      "author_window_known_main": 2444
+    },
+    "seconds": 4458.940741354,
+    "outputs": {
+      "proposals.parquet": "1c352c22a95fba032caa6370f8795089dcd61b893d62d62d2e2581842d396d10",
+      "known_main.parquet": "106c523e597dad5297623c8bb211a64295f32f39b6df725c0a12b7786f9d4de0",
+      "stats.parquet": "7c59a9447cbc328b77a17231bd60ad7bd6dea5c3897c8c06dbcb3ace42c8e512"
+    }
+  },
+  "corrected_generation": {
+    "published_data": "dmitriigluzdov/casmi26-attributed-v4g-reproduction-assets",
+    "hashes": {
+      "pool_meta.parquet": "82b8c40315611289b9a4004b3af18d6d3402b3cd5baa4ee5723da07b7e2f6bb0",
+      "derive.py": "7c1e8c3afb4c17a3ae58fbc6c36fd4cfc552da97b9129c9b46cca3cdc6ee4892",
+      "chem.py": "99474f23d8a67040b0c0f8c70e73592a6f7f656f50103e350ca473451e2169f1",
+      "LICENSE-NOTICE.txt": "b9c26d77338c03cb4387ae61bf4f6524eb77ee59c8530bc9f8d33a742a913a3b"
+    },
+    "output_sha256": {
+      "proposals.parquet": "9af5b6a00e31ee874f5c166a8629b3bcf73b615500960a0d386e86363fd17fde",
+      "known_main.parquet": "fc0f8adf82e5ec6f7025dffae7384bb507a4fc3893c7114c02aa3c5ec5f90934",
+      "stats.parquet": "f0f9bbb4b46c7c1113b84853937b9e6b6b82fa01f24c578509c683322635e159"
+    },
+    "query_count": 60,
+    "archived_c34": "jiyujia/enveda-075-np-recall-base/2",
+    "archived_pc_lists_sha256": "d7b28154b1bdf132528300bcf8faa1211984c843d5340ac81191472a452f564b",
+    "target_receipt_sha256": "3cc377c3dd4d5023c3c6d8d13d26ece73af76dd6e19c5ba556284bfe7b0e80f4",
+    "pin": "Pablo v29 common C34 mass centres",
+    "generator_sha256": "b637428e67c539b299c72c931269f6844f77db1a53290fbec974bfbcb57bd705",
+    "generator_code_lineage": [
+      "15eb1a910429a08bbefc0eeac1f7bf96c7c5c66414e1ba52c65337f4ef21690f",
+      "be17e598fbd611e21938331a453815cfb07d2bdbf62098548f3839e5dac04cb3",
+      "cd990b40c9ee5ece1e3861e5f7a179c8c2dfff3f34c3b85d1aad71e461feeff0"
+    ],
+    "upstream_receipts": [
+      "93a5d76b70fbea290134462814b04836ca23b70130b57a4e90200ac3e5f8888f",
+      "4988bd1b6f6c1d30b94bcaee79f2993a57a396ffabddfd9bc6ffc7c7a1ba66ee"
+    ],
+    "transform_delta_corrections": {
+      "carboxyl_CH3": {
+        "declared_delta_da": 31.9898292392,
+        "used_delta_da": 29.974179175059998
+      }
+    },
+    "added_unique_identities": {
+      "proposals": 9624,
+      "known_main": 33
+    },
+    "counting_note": "Combined distinct-parent counts are lower bounds for overlapping inputs."
+  },
+  "receipts_sha256": {
+    "original": "abf853ce2f2ed3c5fe263c7429dd3859eeb42ffbd6b2ae236be6b95802ad1187",
+    "blind": "93a5d76b70fbea290134462814b04836ca23b70130b57a4e90200ac3e5f8888f",
+    "corrected": "6f067e085e7baab43797952b44797f10366ac8a4966d5841b862bcb1cc71bb99"
+  },
+  "count_median_per_query": {
+    "proposals_count": 2732.5,
+    "known_main_count": 18.0
+  },
+  "corrected_comparison": {
+    "kaggle": {
+      "slug": "enveda-075-np-virtual-window-combined-compare",
+      "version": 1,
+      "status": "COMPLETE",
+      "artifact_sha256": {
+        "virtual_window_summary.json": "96c8ee8e3857a5ceca44a072b473a9b639f2c94a4bbd6761f94406791c9f043d",
+        "virtual_window_per_query.csv": "d5e0bc9df6bca078ae4687c2b8928c39775b0e2644c7e22eabe96ecb97605262"
+      }
+    },
+    "summary": {
+      "query_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+      "baseline_sha256": "1dcb467d3c73a5aa983d9321e1193c7bd1fec6884ef277b7ee3486485ec153a4",
+      "generation_sha256": "b637428e67c539b299c72c931269f6844f77db1a53290fbec974bfbcb57bd705",
+      "coverage": {
+        "molecules": 60,
+        "baseline_top25": 48,
+        "absent_all_original": 10,
+        "raw_virtual_hit": 1,
+        "raw_virtual_hit_in_author_window": 1,
+        "known_main_virtual_hit": 38,
+        "known_main_hit_absent_original_lists": 4,
+        "raw_hits_absent_original_lists": 5,
+        "entirely_new_virtual_hit": 1,
+        "entirely_new_virtual_hit_in_author_window": 1
+      },
+      "max_delta_rr_if_all_new_correct_answer_rank1": 0.016666666666666666,
+      "delta_rr_if_all_new_correct_answer_rank5": 0.0033333333333333335,
+      "newly_reachable_ids": [
+        "m_271d6f38f4df"
+      ],
+      "known_main_reachable_ids": [
+        "m_2776589bbaaf",
+        "m_b48250cfa30e",
+        "m_b68e840e9062",
+        "m_eca11db69ee0"
+      ],
+      "sources": {
+        "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+          "molecules": 4,
+          "baseline_top25": 4,
+          "absent_all_original": 0,
+          "raw_virtual_hit": 0,
+          "raw_virtual_hit_in_author_window": 0,
+          "known_main_virtual_hit": 1,
+          "known_main_hit_absent_original_lists": 0,
+          "raw_hits_absent_original_lists": 0,
+          "entirely_new_virtual_hit": 0,
+          "entirely_new_virtual_hit_in_author_window": 0
+        },
+        "MassBank_Eawag": {
+          "molecules": 13,
+          "baseline_top25": 12,
+          "absent_all_original": 1,
+          "raw_virtual_hit": 0,
+          "raw_virtual_hit_in_author_window": 0,
+          "known_main_virtual_hit": 9,
+          "known_main_hit_absent_original_lists": 0,
+          "raw_hits_absent_original_lists": 0,
+          "entirely_new_virtual_hit": 0,
+          "entirely_new_virtual_hit_in_author_window": 0
+        },
+        "MycoMSBase": {
+          "molecules": 43,
+          "baseline_top25": 32,
+          "absent_all_original": 9,
+          "raw_virtual_hit": 1,
+          "raw_virtual_hit_in_author_window": 1,
+          "known_main_virtual_hit": 28,
+          "known_main_hit_absent_original_lists": 4,
+          "raw_hits_absent_original_lists": 5,
+          "entirely_new_virtual_hit": 1,
+          "entirely_new_virtual_hit_in_author_window": 1
+        }
+      }
+    }
+  },
+  "corrected_novel_shortlist": {
+    "receipt": {
+      "jobs": {
+        "enveda-075-np-virtual-window-combined": {
+          "version": 1,
+          "accepted_beijing": "2026-11-25T12:59:23.659589+08:00"
+        },
+        "enveda-075-np-virtual-window-fpnet-a": {
+          "version": 2
+        },
+        "enveda-075-np-virtual-window-fpnet-a-compare": {
+          "version": 1
+        }
+      },
+      "status": "COMPLETE",
+      "files": {
+        "virtual_window_summary.json": "e4b6a62f260e97ae50e6285c5619215a7bc1bd0de12cd177e058c475f0b70328",
+        "virtual_window_per_query.csv": "bb208431335f080f0c489cf865f7026fa1243b7b1d185c6e59207cb6ed771162"
+      }
+    },
+    "result": {
+      "scope": "Candidate-list stage before C41/C43 and final fusion",
+      "cap": 24,
+      "native_control": "Original C34 direct order at the same per-query budget",
+      "original_sources": [
+        "final",
+        "main",
+        "engine2",
+        "pubchem",
+        "prefusion",
+        "fused_overflow"
+      ],
+      "artifacts": {
+        "receipt_sha256": "db853e2cca908978c3cd2794a0b0680d2057df533f24ae4ca887d1791ea7cd7b",
+        "shortlist_sha256": "83e4f03f10c274b74588aa5761c54a7e0b923d1d97aaeb4c9402fe7f0b5b80cd",
+        "scores_sha256": "c75dbd53825c8e6618e40ca9cbfde2857057f6d8d527a8e50bbf7f85d6dedc30"
+      },
+      "paired_equal_slots": true,
+      "total": {
+        "molecules": 60,
+        "molecules_with_paired_slots": 59,
+        "slots_per_arm": 1416,
+        "generated": {
+          "top_hits": {
+            "1": 0,
+            "5": 0,
+            "24": 0
+          },
+          "new_all_source_hits": {
+            "1": 0,
+            "5": 0,
+            "24": 0
+          },
+          "new_all_source_ids": {
+            "1": [],
+            "5": [],
+            "24": []
+          }
+        },
+        "native_c34": {
+          "top_hits": {
+            "1": 0,
+            "5": 0,
+            "24": 0
+          },
+          "new_all_source_hits": {
+            "1": 0,
+            "5": 0,
+            "24": 0
+          },
+          "new_all_source_ids": {
+            "1": [],
+            "5": [],
+            "24": []
+          }
+        }
+      },
+      "sources": {
+        "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+          "molecules": 4,
+          "molecules_with_paired_slots": 4,
+          "slots_per_arm": 96,
+          "generated": {
+            "top_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          },
+          "native_c34": {
+            "top_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          }
+        },
+        "MassBank_Eawag": {
+          "molecules": 13,
+          "molecules_with_paired_slots": 12,
+          "slots_per_arm": 288,
+          "generated": {
+            "top_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          },
+          "native_c34": {
+            "top_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          }
+        },
+        "MycoMSBase": {
+          "molecules": 43,
+          "molecules_with_paired_slots": 43,
+          "slots_per_arm": 1032,
+          "generated": {
+            "top_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          },
+          "native_c34": {
+            "top_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          }
+        }
+      }
+    }
+  },
+  "independent_parent_index_v2": {
+    "scope": "Raw structure strings from the pinned public archive and official competition training data",
+    "index_kernel": "jiyujia/enveda-075-parent-v2-index/1",
+    "index_receipt_sha256": "a49f29f4fcae9a2af5b3f8f7e5cdc69e842ec7d6ba85ffd5f33eb0f453266f93",
+    "index": {
+      "version": 2,
+      "status": "complete",
+      "source": "structure_only_train_and_coconut_raw_index",
+      "lanes": 8,
+      "partition": "First 8 bytes of SHA256(UTF-8 original raw SMILES) modulo lanes; lexicographically sorted within each lane.",
+      "train_sha256": "9423f90ec08b941a9646b535bf0606183e86ff0c5a297978f5a70693d41bcd98",
+      "coconut_source": {
+        "source": "COCONUT 2.0 September 2024",
+        "doi": "10.5281/zenodo.13692394",
+        "release": "https://zenodo.org/records/13692394",
+        "upstream": "https://zenodo.org/api/records/13692394/files/coconut-09-2024.csv.zip/content",
+        "author_md5": "439fca469248b2eb5194ffb75ddf62ed",
+        "sha256": "de1ee6dca3ed7e38596ca4bd3239da30114de34b8e23074a9e5ea31d854b5077",
+        "bytes": 88935618,
+        "csv_member": "coconut-09-2024.csv",
+        "columns": [
+          "standard_inchi",
+          "standard_inchi_key",
+          "canonical_smiles",
+          "identifier"
+        ],
+        "usage": "Pinned raw structure input for an independent candidate-parent inventory"
+      },
+      "coconut_source_receipt_sha256": "53b35d75c2857c0ee9454627b7d74c009a586c1b3917d4c287a50256e81c7f7d",
+      "raw_source_counts": {
+        "train": {
+          "source_rows": 2539608,
+          "duplicate_raw_smiles": 2262042
+        },
+        "coconut": {
+          "source_rows": 695133
+        }
+      },
+      "distinct_raw_smiles": {
+        "train": 277566,
+        "coconut": 695133,
+        "union": 971060,
+        "shared": 1639
+      },
+      "files": {
+        "raw_00.parquet": {
+          "sha256": "1a722a2419abae70d151f03b539cf84084e4d01ec60d3c1673a543279fd9e98b",
+          "rows": 121338
+        },
+        "raw_01.parquet": {
+          "sha256": "9801f4b49d3c4522b0929541ddb64378df9f3d00d56f21d3273b4250236a3ad0",
+          "rows": 121534
+        },
+        "raw_02.parquet": {
+          "sha256": "ce364b4682d1b360bbc13b78ca679560bf9f8af9091d8d278c2b5e86f906f7bd",
+          "rows": 121367
+        },
+        "raw_03.parquet": {
+          "sha256": "c90bce31abe6881ddbe03363891740d6bf4eb4d9e14e10ae164fdc95c0c3ec9e",
+          "rows": 121735
+        },
+        "raw_04.parquet": {
+          "sha256": "562f7068e39b3e0f79f7246b7b541b9a154d06a065e2e144ada04fdf80b7ee3c",
+          "rows": 121137
+        },
+        "raw_05.parquet": {
+          "sha256": "37d6f19ae4277c998e6a889e536c401ad0d624af34757f780049b672c933a870",
+          "rows": 121119
+        },
+        "raw_06.parquet": {
+          "sha256": "9e857a7adbfcfd0919e302d054515a98515f937233d3e0b418549db601847c11",
+          "rows": 121404
+        },
+        "raw_07.parquet": {
+          "sha256": "93b02c8e919b927eb6faad6094822d93549e2ce56bb302396d19454379b2946f",
+          "rows": 121426
+        }
+      },
+      "seconds": 55.650669806999986
+    },
+    "normalize": {
+      "initial_running": [
+        "jiyujia/enveda-075-parent-v2-s00-r01/1",
+        "jiyujia/enveda-075-parent-v2-s01-r01/1",
+        "jiyujia/enveda-075-parent-v2-s02-r01/1"
+      ],
+      "concurrent_cpu_lanes": 3,
+      "lane_count": 8,
+      "block_rows": 512,
+      "soft_limit_seconds": 5400
+    }
+  }
+}

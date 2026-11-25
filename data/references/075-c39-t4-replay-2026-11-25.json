@@ -1,0 +1,55 @@
+{
+  "status": "COMPLETE",
+  "kernel": "jiyujia/enveda-075-c39-snapshot-t4/1",
+  "reference": "jiyujia/enveda-075-np-recall-base/2",
+  "elapsed_seconds": 459.27,
+  "rdkit": "2026.03.3",
+  "device": "Tesla T4",
+  "original_slates_exact": 60,
+  "original_request_mismatches": 0,
+  "candidates_in_exported_slate": 5298,
+  "blind_query_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+  "archive_receipt_sha256": "30ebaeda090adbabd48f0b60ef4a3a857275c12be84f0c37a58f1bd8fd6ed7dc",
+  "files": {
+    "c39_slate_verification.json": "09cb81d78638d061667ca58bd508be6de7e8ca695ba25cb5fbe37a60d121c553",
+    "c39_full_slate.parquet": "48a70a3579ab81e5f6d2b2bad75cfcc35c0d380748cbe6fc03271535c061c785",
+    "c39_native_ledgers.json": "2a7eaf89e5b71ab7c3862478400ffa27dc3391161ffbd252062b07855065c8a6",
+    "c39_request_verification.json": "4d0d371466cff2b47b50ada593aa5575f0ca0524e036895354fea957d598d2d4",
+    "c39_shadow_provenance.json": "188ebf758a98628b23ea0b90adce46312afa73ff2e341cdb92415fe68f7945d5"
+  },
+  "request_archives": {
+    "ice_native": {
+      "file": "ice_work/ice_in.json",
+      "file_sha256": "3fbfd6d7c3bf45693525a27e520c52051f49d111388452ff43a795934585ac89",
+      "rebuilt_sha256": "af8e0ff23395048dad982d5365f1e94a759abb8c9f7df89707170c930a6c0f03",
+      "original_canonical_sha256": "af8e0ff23395048dad982d5365f1e94a759abb8c9f7df89707170c930a6c0f03",
+      "exact": true,
+      "inputs": 59
+    },
+    "gl_native": {
+      "file": "gl_work/gl_in.json",
+      "file_sha256": "44f9dbe123ec0e1242a9899460eca60dce69777037b97e37c1a8de583337395b",
+      "rebuilt_sha256": "cb44e0d831e452ca78f5c47fd96cf3c5d41803124011e67b39602ea9275a4683",
+      "original_canonical_sha256": "cb44e0d831e452ca78f5c47fd96cf3c5d41803124011e67b39602ea9275a4683",
+      "exact": true,
+      "inputs": 47
+    },
+    "ice_shadow": {
+      "file": "pilot_ice/ice_in.json",
+      "file_sha256": "db2fd0f90c423f07744e94bf36dad5f08a954d05ba12c6f318c9635189cd0b0e",
+      "rebuilt_sha256": "0bedfe1773dca7858b80ea82ee4f56a8ce21f3dcd54c04d1a4b1f7e37f824c96",
+      "original_canonical_sha256": "0bedfe1773dca7858b80ea82ee4f56a8ce21f3dcd54c04d1a4b1f7e37f824c96",
+      "exact": true,
+      "inputs": 47
+    },
+    "gl_shadow": {
+      "file": "pilot_gl/gl_in.json",
+      "file_sha256": "db2fd0f90c423f07744e94bf36dad5f08a954d05ba12c6f318c9635189cd0b0e",
+      "rebuilt_sha256": "0bedfe1773dca7858b80ea82ee4f56a8ce21f3dcd54c04d1a4b1f7e37f824c96",
+      "original_canonical_sha256": "0bedfe1773dca7858b80ea82ee4f56a8ce21f3dcd54c04d1a4b1f7e37f824c96",
+      "exact": true,
+      "inputs": 47
+    }
+  },
+  "scope": "Exact archived ordering for 60 candidate slates and exact archived requests. All raw C39 floats were not retained by the historical run; new T4 floats are recalibrated from the replay."
+}

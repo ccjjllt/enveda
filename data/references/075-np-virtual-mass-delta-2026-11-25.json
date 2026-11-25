@@ -1,0 +1,4408 @@
+{
+  "kaggle": {
+    "slug": "jiyujia/enveda-075-np-virtual-delta-audit",
+    "version": 2,
+    "status": "COMPLETE",
+    "device": "CPU",
+    "receipt_sha256": "6cfcf6e798dde55a9ac53310d156d747907404845897b42b1850d64dc7795d2d"
+  },
+  "sample_summary": {
+    "parent_product_pairs_over_rules": 81744,
+    "declared_carboxyl_CH3_mismatches": 1848,
+    "used_delta_mismatches_by_rule": {
+      "hydroxyl_ch": 1,
+      "dehydrogenate": 1,
+      "dehexose": 246,
+      "depentose": 566,
+      "dedeoxyhexose": 490,
+      "demalonyl": 96,
+      "desulfate": 96,
+      "deprenyl": 183
+    }
+  },
+  "receipt": {
+    "rdkit": "2026.03.3",
+    "pool_sha256": "82b8c40315611289b9a4004b3af18d6d3402b3cd5baa4ee5723da07b7e2f6bb0",
+    "seed": 20261125,
+    "sample_per_band": 2000,
+    "max_parents_per_rule_per_band": 64,
+    "reactant_matches_product_cap": 8,
+    "index_slack_da": 1e-05,
+    "parent_totals": {
+      "valid_parents": 24000
+    },
+    "mass_bands": [
+      {
+        "parent_mass_min": 31.042199159999996,
+        "parent_mass_max": 251.126991404,
+        "matches": {
+          "hydroxyl_aliph": 64,
+          "hydroxyl_ch": 64,
+          "methyl_N": 64,
+          "acetyl_N": 64,
+          "hydrogenate_CO": 64,
+          "dehydrogenate": 64,
+          "decarboxyl": 64,
+          "hydroxyl_arom": 64,
+          "methyl_c": 64,
+          "methoxy_arom": 64,
+          "hexose_C": 64,
+          "prenyl_c": 64,
+          "hydrogenate_CC": 64,
+          "carboxyl_c": 64,
+          "amine_c": 64,
+          "chloro_c": 64,
+          "methyl_O": 64,
+          "acetyl_O": 64,
+          "malonyl_O": 64,
+          "hexose_O": 64,
+          "pentose_O": 64,
+          "deoxyhexose_O": 64,
+          "glucuronyl_O": 64,
+          "sulfate_O": 64,
+          "prenyl_O": 64,
+          "ethyl_O": 64,
+          "oxidize_CHOH": 64,
+          "carboxyl_CH3": 64,
+          "coumaroyl_O": 64,
+          "feruloyl_O": 64,
+          "caffeoyl_O": 64,
+          "galloyl_O": 64,
+          "benzoyl_O": 64,
+          "dehydroxyl_aliph": 64,
+          "demethyl_N": 64,
+          "dehydroxyl_arom": 64,
+          "demalonyl": 5,
+          "demethyl_O": 64,
+          "demethoxy": 64,
+          "deacetyl_O": 38,
+          "desulfate": 6,
+          "deprenyl": 7,
+          "dehexose": 5,
+          "depentose": 6,
+          "dedeoxyhexose": 5
+        }
+      },
+      {
+        "parent_mass_min": 251.126991404,
+        "parent_mass_max": 290.11542367600003,
+        "matches": {
+          "hydroxyl_aliph": 64,
+          "hydroxyl_ch": 64,
+          "methyl_O": 64,
+          "acetyl_O": 64,
+          "malonyl_O": 64,
+          "hexose_O": 64,
+          "pentose_O": 64,
+          "deoxyhexose_O": 64,
+          "glucuronyl_O": 64,
+          "sulfate_O": 64,
+          "prenyl_O": 64,
+          "ethyl_O": 64,
+          "hydrogenate_CC": 64,
+          "hydrogenate_CO": 64,
+          "dehydrogenate": 64,
+          "carboxyl_CH3": 64,
+          "coumaroyl_O": 64,
+          "feruloyl_O": 64,
+          "caffeoyl_O": 64,
+          "galloyl_O": 64,
+          "benzoyl_O": 64,
+          "dehydroxyl_aliph": 64,
+          "hydroxyl_arom": 64,
+          "methyl_N": 64,
+          "methyl_c": 64,
+          "methoxy_arom": 64,
+          "acetyl_N": 64,
+          "hexose_C": 64,
+          "prenyl_c": 64,
+          "carboxyl_c": 64,
+          "amine_c": 64,
+          "chloro_c": 64,
+          "demethyl_O": 64,
+          "decarboxyl": 64,
+          "dehydroxyl_arom": 64,
+          "deprenyl": 17,
+          "demethyl_N": 64,
+          "oxidize_CHOH": 64,
+          "deacetyl_O": 27,
+          "demalonyl": 6,
+          "demethoxy": 64,
+          "dehexose": 6,
+          "depentose": 7,
+          "dedeoxyhexose": 7,
+          "desulfate": 3
+        }
+      },
+      {
+        "parent_mass_min": 290.11542367600003,
+        "parent_mass_max": 313.08849772,
+        "matches": {
+          "hydroxyl_arom": 64,
+          "hydroxyl_aliph": 64,
+          "hydroxyl_ch": 64,
+          "methyl_c": 64,
+          "methoxy_arom": 64,
+          "hexose_C": 64,
+          "prenyl_c": 64,
+          "hydrogenate_CO": 64,
+          "dehydrogenate": 64,
+          "carboxyl_c": 64,
+          "amine_c": 64,
+          "chloro_c": 64,
+          "decarboxyl": 64,
+          "methyl_N": 64,
+          "acetyl_N": 64,
+          "carboxyl_CH3": 64,
+          "hydrogenate_CC": 64,
+          "methyl_O": 64,
+          "acetyl_O": 64,
+          "malonyl_O": 64,
+          "hexose_O": 64,
+          "pentose_O": 64,
+          "deoxyhexose_O": 64,
+          "glucuronyl_O": 64,
+          "sulfate_O": 64,
+          "prenyl_O": 64,
+          "ethyl_O": 64,
+          "oxidize_CHOH": 64,
+          "coumaroyl_O": 64,
+          "feruloyl_O": 64,
+          "caffeoyl_O": 64,
+          "galloyl_O": 64,
+          "benzoyl_O": 64,
+          "dehydroxyl_aliph": 64,
+          "depentose": 14,
+          "dedeoxyhexose": 13,
+          "demethyl_O": 64,
+          "demethyl_N": 64,
+          "demethoxy": 64,
+          "dehydroxyl_arom": 64,
+          "desulfate": 1,
+          "deprenyl": 18,
+          "deacetyl_O": 33,
+          "demalonyl": 2,
+          "dehexose": 10
+        }
+      },
+      {
+        "parent_mass_min": 313.08849772,
+        "parent_mass_max": 329.292994108,
+        "matches": {
+          "hydroxyl_arom": 64,
+          "hydroxyl_aliph": 64,
+          "hydroxyl_ch": 64,
+          "methyl_N": 64,
+          "methyl_c": 64,
+          "methoxy_arom": 64,
+          "hexose_C": 64,
+          "prenyl_c": 64,
+          "hydrogenate_CC": 64,
+          "hydrogenate_CO": 64,
+          "dehydrogenate": 64,
+          "carboxyl_c": 64,
+          "carboxyl_CH3": 64,
+          "amine_c": 64,
+          "chloro_c": 64,
+          "decarboxyl": 64,
+          "demethyl_N": 64,
+          "methyl_O": 64,
+          "acetyl_O": 64,
+          "malonyl_O": 64,
+          "hexose_O": 64,
+          "pentose_O": 64,
+          "deoxyhexose_O": 64,
+          "glucuronyl_O": 64,
+          "sulfate_O": 64,
+          "prenyl_O": 64,
+          "ethyl_O": 64,
+          "coumaroyl_O": 64,
+          "feruloyl_O": 64,
+          "caffeoyl_O": 64,
+          "galloyl_O": 64,
+          "benzoyl_O": 64,
+          "dehydroxyl_arom": 64,
+          "demethyl_O": 64,
+          "demethoxy": 64,
+          "acetyl_N": 64,
+          "oxidize_CHOH": 64,
+          "dehydroxyl_aliph": 64,
+          "dehexose": 9,
+          "depentose": 14,
+          "dedeoxyhexose": 12,
+          "deacetyl_O": 24,
+          "deprenyl": 7,
+          "desulfate": 1
+        }
+      },
+      {
+        "parent_mass_min": 329.311621376,
+        "parent_mass_max": 344.1623738679999,
+        "matches": {
+          "hydroxyl_arom": 64,
+          "hydroxyl_aliph": 64,
+          "hydroxyl_ch": 64,
+          "methyl_O": 64,
+          "methyl_N": 64,
+          "methyl_c": 64,
+          "methoxy_arom": 64,
+          "acetyl_O": 64,
+          "acetyl_N": 64,
+          "malonyl_O": 64,
+          "hexose_O": 64,
+          "pentose_O": 64,
+          "deoxyhexose_O": 64,
+          "glucuronyl_O": 64,
+          "hexose_C": 64,
+          "sulfate_O": 64,
+          "prenyl_c": 64,
+          "prenyl_O": 64,
+          "ethyl_O": 64,
+          "dehydrogenate": 64,
+          "carboxyl_c": 64,
+          "carboxyl_CH3": 64,
+          "amine_c": 64,
+          "chloro_c": 64,
+          "coumaroyl_O": 64,
+          "feruloyl_O": 64,
+          "caffeoyl_O": 64,
+          "galloyl_O": 64,
+          "benzoyl_O": 64,
+          "dehydroxyl_aliph": 64,
+          "hydrogenate_CO": 64,
+          "demethyl_N": 64,
+          "demethyl_O": 64,
+          "demethoxy": 64,
+          "dehydroxyl_arom": 64,
+          "decarboxyl": 64,
+          "hydrogenate_CC": 64,
+          "oxidize_CHOH": 64,
+          "dehexose": 12,
+          "depentose": 13,
+          "dedeoxyhexose": 13,
+          "deprenyl": 15,
+          "deacetyl_O": 15
+        }
+      },
+      {
+        "parent_mass_min": 344.1623738679999,
+        "parent_mass_max": 364.18858861599995,
+        "matches": {
+          "hydroxyl_arom": 64,
+          "hydroxyl_aliph": 64,
+          "hydroxyl_ch": 64,
+          "methyl_c": 64,
+          "methoxy_arom": 64,
+          "hexose_C": 64,
+          "prenyl_c": 64,
+          "dehydrogenate": 64,
+          "carboxyl_c": 64,
+          "carboxyl_CH3": 64,
+          "amine_c": 64,
+          "chloro_c": 64,
+          "demethyl_N": 64,
+          "methyl_N": 64,
+          "hydrogenate_CO": 64,
+          "decarboxyl": 64,
+          "methyl_O": 64,
+          "acetyl_O": 64,
+          "malonyl_O": 64,
+          "hexose_O": 64,
+          "pentose_O": 64,
+          "deoxyhexose_O": 64,
+          "glucuronyl_O": 64,
+          "sulfate_O": 64,
+          "prenyl_O": 64,
+          "ethyl_O": 64,
+          "oxidize_CHOH": 64,
+          "coumaroyl_O": 64,
+          "feruloyl_O": 64,
+          "caffeoyl_O": 64,
+          "galloyl_O": 64,
+          "benzoyl_O": 64,
+          "demethyl_O": 64,
+          "dehydroxyl_aliph": 64,
+          "demethoxy": 64,
+          "hydrogenate_CC": 64,
+          "dehydroxyl_arom": 64,
+          "acetyl_N": 64,
+          "desulfate": 4,
+          "deacetyl_O": 47,
+          "dehexose": 19,
+          "depentose": 19,
+          "dedeoxyhexose": 19,
+          "deprenyl": 13
+        }
+      },
+      {
+        "parent_mass_min": 364.18858861599995,
+        "parent_mass_max": 392.907515228,
+        "matches": {
+          "hydroxyl_arom": 64,
+          "hydroxyl_aliph": 64,
+          "hydroxyl_ch": 64,
+          "methyl_c": 64,
+          "methoxy_arom": 64,
+          "hexose_C": 64,
+          "prenyl_c": 64,
+          "hydrogenate_CC": 64,
+          "hydrogenate_CO": 64,
+          "dehydrogenate": 64,
+          "carboxyl_c": 64,
+          "carboxyl_CH3": 64,
+          "amine_c": 64,
+          "chloro_c": 64,
+          "demethyl_O": 64,
+          "methyl_N": 64,
+          "demethoxy": 64,
+          "demethyl_N": 64,
+          "methyl_O": 64,
+          "acetyl_O": 64,
+          "malonyl_O": 64,
+          "hexose_O": 64,
+          "pentose_O": 64,
+          "deoxyhexose_O": 64,
+          "glucuronyl_O": 64,
+          "sulfate_O": 64,
+          "prenyl_O": 64,
+          "ethyl_O": 64,
+          "oxidize_CHOH": 64,
+          "coumaroyl_O": 64,
+          "feruloyl_O": 64,
+          "caffeoyl_O": 64,
+          "galloyl_O": 64,
+          "benzoyl_O": 64,
+          "dehydroxyl_aliph": 64,
+          "dehydroxyl_arom": 64,
+          "acetyl_N": 64,
+          "decarboxyl": 64,
+          "deacetyl_O": 64,
+          "dehexose": 27,
+          "depentose": 32,
+          "dedeoxyhexose": 29,
+          "deprenyl": 26,
+          "demalonyl": 4,
+          "desulfate": 5
+        }
+      },
+      {
+        "parent_mass_min": 392.9224694880001,
+        "parent_mass_max": 430.30830982399993,
+        "matches": {
+          "hydroxyl_arom": 64,
+          "hydroxyl_aliph": 64,
+          "methyl_O": 64,
+          "methyl_c": 64,
+          "methoxy_arom": 64,
+          "acetyl_O": 64,
+          "malonyl_O": 64,
+          "hexose_O": 64,
+          "pentose_O": 64,
+          "deoxyhexose_O": 64,
+          "glucuronyl_O": 64,
+          "hexose_C": 64,
+          "sulfate_O": 64,
+          "prenyl_c": 64,
+          "prenyl_O": 64,
+          "ethyl_O": 64,
+          "carboxyl_c": 64,
+          "carboxyl_CH3": 64,
+          "amine_c": 64,
+          "chloro_c": 64,
+          "coumaroyl_O": 64,
+          "feruloyl_O": 64,
+          "caffeoyl_O": 64,
+          "galloyl_O": 64,
+          "benzoyl_O": 64,
+          "demethyl_O": 64,
+          "dehydroxyl_arom": 64,
+          "demethoxy": 64,
+          "hydrogenate_CO": 64,
+          "hydroxyl_ch": 64,
+          "dehydrogenate": 64,
+          "deacetyl_O": 64,
+          "methyl_N": 64,
+          "hydrogenate_CC": 64,
+          "oxidize_CHOH": 64,
+          "dehydroxyl_aliph": 64,
+          "acetyl_N": 64,
+          "decarboxyl": 64,
+          "deprenyl": 52,
+          "demethyl_N": 64,
+          "dehexose": 44,
+          "depentose": 50,
+          "dedeoxyhexose": 46,
+          "desulfate": 7,
+          "demalonyl": 2
+        }
+      },
+      {
+        "parent_mass_min": 430.30830982399993,
+        "parent_mass_max": 484.42803103200004,
+        "matches": {
+          "hydroxyl_arom": 64,
+          "hydroxyl_aliph": 64,
+          "hydroxyl_ch": 64,
+          "methyl_O": 64,
+          "methyl_c": 64,
+          "methoxy_arom": 64,
+          "acetyl_O": 64,
+          "malonyl_O": 64,
+          "hexose_O": 64,
+          "pentose_O": 64,
+          "deoxyhexose_O": 64,
+          "glucuronyl_O": 64,
+          "hexose_C": 64,
+          "sulfate_O": 64,
+          "prenyl_c": 64,
+          "prenyl_O": 64,
+          "ethyl_O": 64,
+          "hydrogenate_CC": 64,
+          "hydrogenate_CO": 64,
+          "dehydrogenate": 64,
+          "oxidize_CHOH": 64,
+          "carboxyl_c": 64,
+          "carboxyl_CH3": 64,
+          "amine_c": 64,
+          "chloro_c": 64,
+          "coumaroyl_O": 64,
+          "feruloyl_O": 64,
+          "caffeoyl_O": 64,
+          "galloyl_O": 64,
+          "benzoyl_O": 64,
+          "demethyl_O": 64,
+          "dehydroxyl_aliph": 64,
+          "dehexose": 64,
+          "depentose": 64,
+          "dedeoxyhexose": 64,
+          "methyl_N": 64,
+          "decarboxyl": 64,
+          "dehydroxyl_arom": 64,
+          "demethoxy": 64,
+          "demethyl_N": 64,
+          "acetyl_N": 64,
+          "deacetyl_O": 64,
+          "demalonyl": 2,
+          "deprenyl": 52,
+          "desulfate": 5
+        }
+      },
+      {
+        "parent_mass_min": 484.42803103200004,
+        "parent_mass_max": 601.3250820839999,
+        "matches": {
+          "hydroxyl_arom": 64,
+          "hydroxyl_aliph": 64,
+          "hydroxyl_ch": 64,
+          "methyl_O": 64,
+          "methyl_N": 64,
+          "methyl_c": 64,
+          "methoxy_arom": 64,
+          "acetyl_O": 64,
+          "acetyl_N": 64,
+          "malonyl_O": 64,
+          "hexose_O": 64,
+          "pentose_O": 64,
+          "deoxyhexose_O": 64,
+          "glucuronyl_O": 64,
+          "hexose_C": 64,
+          "sulfate_O": 64,
+          "prenyl_c": 64,
+          "prenyl_O": 64,
+          "ethyl_O": 64,
+          "hydrogenate_CO": 64,
+          "dehydrogenate": 64,
+          "oxidize_CHOH": 64,
+          "carboxyl_c": 64,
+          "carboxyl_CH3": 64,
+          "amine_c": 64,
+          "chloro_c": 64,
+          "coumaroyl_O": 64,
+          "feruloyl_O": 64,
+          "caffeoyl_O": 64,
+          "galloyl_O": 64,
+          "benzoyl_O": 64,
+          "demethyl_N": 64,
+          "dehydroxyl_arom": 64,
+          "dehydroxyl_aliph": 64,
+          "deacetyl_O": 64,
+          "hydrogenate_CC": 64,
+          "demethyl_O": 64,
+          "decarboxyl": 64,
+          "demethoxy": 64,
+          "dehexose": 64,
+          "depentose": 64,
+          "dedeoxyhexose": 64,
+          "desulfate": 14,
+          "deprenyl": 38,
+          "demalonyl": 13
+        }
+      },
+      {
+        "parent_mass_min": 601.3250820839999,
+        "parent_mass_max": 834.767640984,
+        "matches": {
+          "hydroxyl_aliph": 64,
+          "hydroxyl_ch": 64,
+          "hydrogenate_CC": 64,
+          "hydrogenate_CO": 64,
+          "dehydrogenate": 64,
+          "carboxyl_CH3": 64,
+          "decarboxyl": 64,
+          "demethyl_N": 64,
+          "hydroxyl_arom": 64,
+          "methyl_N": 64,
+          "methyl_c": 64,
+          "methoxy_arom": 64,
+          "hexose_C": 64,
+          "prenyl_c": 64,
+          "carboxyl_c": 64,
+          "amine_c": 64,
+          "chloro_c": 64,
+          "methyl_O": 64,
+          "acetyl_O": 64,
+          "malonyl_O": 64,
+          "hexose_O": 64,
+          "pentose_O": 64,
+          "deoxyhexose_O": 64,
+          "glucuronyl_O": 64,
+          "sulfate_O": 64,
+          "prenyl_O": 64,
+          "ethyl_O": 64,
+          "oxidize_CHOH": 64,
+          "coumaroyl_O": 64,
+          "feruloyl_O": 64,
+          "caffeoyl_O": 64,
+          "galloyl_O": 64,
+          "benzoyl_O": 64,
+          "dehydroxyl_aliph": 64,
+          "dehydroxyl_arom": 64,
+          "dehexose": 64,
+          "depentose": 64,
+          "dedeoxyhexose": 64,
+          "demethyl_O": 64,
+          "demethoxy": 64,
+          "deacetyl_O": 64,
+          "acetyl_N": 64,
+          "desulfate": 17,
+          "demalonyl": 21,
+          "deprenyl": 33
+        }
+      },
+      {
+        "parent_mass_min": 834.767640984,
+        "parent_mass_max": 3399.5726401320035,
+        "matches": {
+          "hydroxyl_aliph": 64,
+          "hydroxyl_ch": 64,
+          "methyl_O": 64,
+          "acetyl_O": 64,
+          "malonyl_O": 64,
+          "hexose_O": 64,
+          "pentose_O": 64,
+          "deoxyhexose_O": 64,
+          "glucuronyl_O": 64,
+          "sulfate_O": 64,
+          "prenyl_O": 64,
+          "ethyl_O": 64,
+          "hydrogenate_CC": 64,
+          "hydrogenate_CO": 64,
+          "dehydrogenate": 64,
+          "oxidize_CHOH": 64,
+          "carboxyl_CH3": 64,
+          "coumaroyl_O": 64,
+          "feruloyl_O": 64,
+          "caffeoyl_O": 64,
+          "galloyl_O": 64,
+          "benzoyl_O": 64,
+          "dehydroxyl_aliph": 64,
+          "hydroxyl_arom": 64,
+          "methyl_N": 64,
+          "methyl_c": 64,
+          "methoxy_arom": 64,
+          "acetyl_N": 64,
+          "hexose_C": 64,
+          "prenyl_c": 64,
+          "carboxyl_c": 64,
+          "amine_c": 64,
+          "chloro_c": 64,
+          "demethyl_O": 64,
+          "dehydroxyl_arom": 64,
+          "deacetyl_O": 64,
+          "demethoxy": 64,
+          "dehexose": 64,
+          "depentose": 64,
+          "dedeoxyhexose": 64,
+          "decarboxyl": 64,
+          "demethyl_N": 64,
+          "demalonyl": 17,
+          "desulfate": 32,
+          "deprenyl": 19
+        }
+      }
+    ],
+    "corrections": {
+      "carboxyl_CH3": {
+        "declared_delta_da": 31.9898292392,
+        "used_delta_da": 29.974179175059998
+      }
+    },
+    "transform_count": 45,
+    "observed_transform_count": 45,
+    "rules": {
+      "hydroxyl_arom": {
+        "declared_da": 15.9949146196,
+        "used_da": 15.9949146196,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 190,
+          "raw_product_rows": 3912,
+          "unique_parent_product_pairs": 3341,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 15.994915,
+            "pairs": 3341
+          }
+        ]
+      },
+      "hydroxyl_aliph": {
+        "declared_da": 15.9949146196,
+        "used_da": 15.9949146196,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 349,
+          "raw_product_rows": 4683,
+          "unique_parent_product_pairs": 4244,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 15.994915,
+            "pairs": 4244
+          }
+        ]
+      },
+      "hydroxyl_ch": {
+        "declared_da": 15.9949146196,
+        "used_da": 15.9949146196,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 132,
+          "raw_product_rows": 2750,
+          "unique_parent_product_pairs": 2730,
+          "declared_delta_mismatch": 1,
+          "used_delta_mismatch": 1,
+          "reverse_index_residual": 1,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 15.994915,
+            "pairs": 2729
+          },
+          {
+            "da": 17.00274,
+            "pairs": 1
+          }
+        ]
+      },
+      "methyl_O": {
+        "declared_da": 14.01565006414,
+        "used_da": 14.01565006414,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 14.01565,
+            "pairs": 1811
+          }
+        ]
+      },
+      "methyl_N": {
+        "declared_da": 14.01565006414,
+        "used_da": 14.01565006414,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 5,
+          "raw_product_rows": 1191,
+          "unique_parent_product_pairs": 1173,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 14.01565,
+            "pairs": 1173
+          }
+        ]
+      },
+      "methyl_c": {
+        "declared_da": 14.01565006414,
+        "used_da": 14.01565006414,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 190,
+          "raw_product_rows": 3912,
+          "unique_parent_product_pairs": 3341,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 14.01565,
+            "pairs": 3341
+          }
+        ]
+      },
+      "methoxy_arom": {
+        "declared_da": 30.01056468374,
+        "used_da": 30.01056468374,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 190,
+          "raw_product_rows": 3912,
+          "unique_parent_product_pairs": 3341,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 30.010565,
+            "pairs": 3341
+          }
+        ]
+      },
+      "acetyl_O": {
+        "declared_da": 42.01056468374,
+        "used_da": 42.01056468374,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 42.010565,
+            "pairs": 1811
+          }
+        ]
+      },
+      "acetyl_N": {
+        "declared_da": 42.01056468374,
+        "used_da": 42.01056468374,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 0,
+          "raw_product_rows": 1015,
+          "unique_parent_product_pairs": 987,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 42.010565,
+            "pairs": 987
+          }
+        ]
+      },
+      "malonyl_O": {
+        "declared_da": 86.00039392294,
+        "used_da": 86.00039392294,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 86.000394,
+            "pairs": 1811
+          }
+        ]
+      },
+      "hexose_O": {
+        "declared_da": 162.0528234187,
+        "used_da": 162.0528234187,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 162.052823,
+            "pairs": 1811
+          }
+        ]
+      },
+      "pentose_O": {
+        "declared_da": 132.04225873496,
+        "used_da": 132.04225873496,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 132.042259,
+            "pairs": 1811
+          }
+        ]
+      },
+      "deoxyhexose_O": {
+        "declared_da": 146.0579087991,
+        "used_da": 146.0579087991,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 146.057909,
+            "pairs": 1811
+          }
+        ]
+      },
+      "glucuronyl_O": {
+        "declared_da": 176.03208797416,
+        "used_da": 176.03208797416,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 176.032088,
+            "pairs": 1811
+          }
+        ]
+      },
+      "hexose_C": {
+        "declared_da": 162.0528234187,
+        "used_da": 162.0528234187,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 190,
+          "raw_product_rows": 3912,
+          "unique_parent_product_pairs": 3341,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 162.052823,
+            "pairs": 3341
+          }
+        ]
+      },
+      "sulfate_O": {
+        "declared_da": 79.9568148588,
+        "used_da": 79.9568148588,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 79.956815,
+            "pairs": 1811
+          }
+        ]
+      },
+      "prenyl_c": {
+        "declared_da": 68.06260025656,
+        "used_da": 68.06260025656,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 190,
+          "raw_product_rows": 3912,
+          "unique_parent_product_pairs": 3341,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 68.0626,
+            "pairs": 3341
+          }
+        ]
+      },
+      "prenyl_O": {
+        "declared_da": 68.06260025656,
+        "used_da": 68.06260025656,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 68.0626,
+            "pairs": 1811
+          }
+        ]
+      },
+      "ethyl_O": {
+        "declared_da": 28.03130012828,
+        "used_da": 28.03130012828,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 28.0313,
+            "pairs": 1811
+          }
+        ]
+      },
+      "hydrogenate_CC": {
+        "declared_da": 2.01565006414,
+        "used_da": 2.01565006414,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 80,
+          "raw_product_rows": 2764,
+          "unique_parent_product_pairs": 1375,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 2.01565,
+            "pairs": 1375
+          }
+        ]
+      },
+      "hydrogenate_CO": {
+        "declared_da": 2.01565006414,
+        "used_da": 2.01565006414,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 5,
+          "raw_product_rows": 1373,
+          "unique_parent_product_pairs": 1346,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 2.01565,
+            "pairs": 1346
+          }
+        ]
+      },
+      "dehydrogenate": {
+        "declared_da": -2.01565006414,
+        "used_da": -2.01565006414,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 520,
+          "raw_product_rows": 5150,
+          "unique_parent_product_pairs": 2625,
+          "declared_delta_mismatch": 1,
+          "used_delta_mismatch": 1,
+          "reverse_index_residual": 1,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -2.01565,
+            "pairs": 2624
+          },
+          {
+            "da": -1.007825,
+            "pairs": 1
+          }
+        ]
+      },
+      "oxidize_CHOH": {
+        "declared_da": -2.01565006414,
+        "used_da": -2.01565006414,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 20,
+          "raw_product_rows": 1551,
+          "unique_parent_product_pairs": 1517,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -2.01565,
+            "pairs": 1517
+          }
+        ]
+      },
+      "carboxyl_c": {
+        "declared_da": 43.9898292392,
+        "used_da": 43.9898292392,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 190,
+          "raw_product_rows": 3912,
+          "unique_parent_product_pairs": 3341,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 43.989829,
+            "pairs": 3341
+          }
+        ]
+      },
+      "carboxyl_CH3": {
+        "declared_da": 31.9898292392,
+        "used_da": 29.974179175059998,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 27,
+          "raw_product_rows": 2170,
+          "unique_parent_product_pairs": 1848,
+          "declared_delta_mismatch": 1848,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 29.974179,
+            "pairs": 1848
+          }
+        ]
+      },
+      "amine_c": {
+        "declared_da": 15.01089903687,
+        "used_da": 15.01089903687,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 190,
+          "raw_product_rows": 3912,
+          "unique_parent_product_pairs": 3341,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 15.010899,
+            "pairs": 3341
+          }
+        ]
+      },
+      "chloro_c": {
+        "declared_da": 33.961027647929996,
+        "used_da": 33.961027647929996,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 190,
+          "raw_product_rows": 3912,
+          "unique_parent_product_pairs": 3341,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 33.961028,
+            "pairs": 3341
+          }
+        ]
+      },
+      "coumaroyl_O": {
+        "declared_da": 146.03677943162,
+        "used_da": 146.03677943162,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 146.036779,
+            "pairs": 1811
+          }
+        ]
+      },
+      "feruloyl_O": {
+        "declared_da": 176.04734411536,
+        "used_da": 176.04734411536,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 176.047344,
+            "pairs": 1811
+          }
+        ]
+      },
+      "caffeoyl_O": {
+        "declared_da": 162.03169405122,
+        "used_da": 162.03169405122,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 162.031694,
+            "pairs": 1811
+          }
+        ]
+      },
+      "galloyl_O": {
+        "declared_da": 152.01095860668,
+        "used_da": 152.01095860668,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 152.010959,
+            "pairs": 1811
+          }
+        ]
+      },
+      "benzoyl_O": {
+        "declared_da": 104.02621474788,
+        "used_da": 104.02621474788,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 43,
+          "raw_product_rows": 1854,
+          "unique_parent_product_pairs": 1811,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": 104.026215,
+            "pairs": 1811
+          }
+        ]
+      },
+      "demethyl_O": {
+        "declared_da": -14.01565006414,
+        "used_da": -14.01565006414,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 1,
+          "raw_product_rows": 1142,
+          "unique_parent_product_pairs": 1093,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -14.01565,
+            "pairs": 1093
+          }
+        ]
+      },
+      "demethyl_N": {
+        "declared_da": -14.01565006414,
+        "used_da": -14.01565006414,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 0,
+          "raw_product_rows": 1073,
+          "unique_parent_product_pairs": 868,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -14.01565,
+            "pairs": 868
+          }
+        ]
+      },
+      "dehydroxyl_arom": {
+        "declared_da": -15.9949146196,
+        "used_da": -15.9949146196,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 12,
+          "raw_product_rows": 1344,
+          "unique_parent_product_pairs": 1299,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -15.994915,
+            "pairs": 1299
+          }
+        ]
+      },
+      "dehydroxyl_aliph": {
+        "declared_da": -15.9949146196,
+        "used_da": -15.9949146196,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 39,
+          "raw_product_rows": 1719,
+          "unique_parent_product_pairs": 1696,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -15.994915,
+            "pairs": 1696
+          }
+        ]
+      },
+      "deacetyl_O": {
+        "declared_da": -42.01056468374,
+        "used_da": -42.01056468374,
+        "counts": {
+          "reactant_matches": 568,
+          "reached_product_cap": 1,
+          "raw_product_rows": 811,
+          "unique_parent_product_pairs": 801,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 568
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -42.010565,
+            "pairs": 801
+          }
+        ]
+      },
+      "dehexose": {
+        "declared_da": -162.0528234187,
+        "used_da": -162.0528234187,
+        "counts": {
+          "reactant_matches": 388,
+          "reached_product_cap": 0,
+          "raw_product_rows": 486,
+          "unique_parent_product_pairs": 479,
+          "declared_delta_mismatch": 246,
+          "used_delta_mismatch": 246,
+          "reverse_index_residual": 246,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 388
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -162.052823,
+            "pairs": 233
+          },
+          {
+            "da": -176.032088,
+            "pairs": 24
+          },
+          {
+            "da": -294.095082,
+            "pairs": 23
+          },
+          {
+            "da": -324.105647,
+            "pairs": 22
+          },
+          {
+            "da": -308.110732,
+            "pairs": 21
+          },
+          {
+            "da": -204.063388,
+            "pairs": 9
+          },
+          {
+            "da": -160.037173,
+            "pairs": 7
+          },
+          {
+            "da": -176.068473,
+            "pairs": 5
+          },
+          {
+            "da": -330.095082,
+            "pairs": 5
+          },
+          {
+            "da": -308.089603,
+            "pairs": 4
+          },
+          {
+            "da": -454.168641,
+            "pairs": 4
+          },
+          {
+            "da": -470.163556,
+            "pairs": 4
+          },
+          {
+            "da": -218.115424,
+            "pairs": 3
+          },
+          {
+            "da": -486.15847,
+            "pairs": 3
+          },
+          {
+            "da": -242.009638,
+            "pairs": 2
+          },
+          {
+            "da": -338.084911,
+            "pairs": 2
+          },
+          {
+            "da": -282.073953,
+            "pairs": 2
+          },
+          {
+            "da": -342.095082,
+            "pairs": 2
+          },
+          {
+            "da": -190.047738,
+            "pairs": 2
+          },
+          {
+            "da": -338.100168,
+            "pairs": 2
+          },
+          {
+            "da": -312.084517,
+            "pairs": 2
+          },
+          {
+            "da": -178.047738,
+            "pairs": 2
+          },
+          {
+            "da": -290.075015,
+            "pairs": 2
+          },
+          {
+            "da": -512.17412,
+            "pairs": 2
+          },
+          {
+            "da": -338.121297,
+            "pairs": 2
+          },
+          {
+            "da": -222.073953,
+            "pairs": 1
+          },
+          {
+            "da": -188.068473,
+            "pairs": 1
+          },
+          {
+            "da": -266.079038,
+            "pairs": 1
+          },
+          {
+            "da": -252.084517,
+            "pairs": 1
+          },
+          {
+            "da": -276.084517,
+            "pairs": 1
+          },
+          {
+            "da": -324.193674,
+            "pairs": 1
+          },
+          {
+            "da": -278.136553,
+            "pairs": 1
+          },
+          {
+            "da": -324.084517,
+            "pairs": 1
+          },
+          {
+            "da": -320.110732,
+            "pairs": 1
+          },
+          {
+            "da": -409.173667,
+            "pairs": 1
+          },
+          {
+            "da": -284.089603,
+            "pairs": 1
+          },
+          {
+            "da": -326.100168,
+            "pairs": 1
+          },
+          {
+            "da": -414.095082,
+            "pairs": 1
+          },
+          {
+            "da": -328.152203,
+            "pairs": 1
+          },
+          {
+            "da": -350.100168,
+            "pairs": 1
+          },
+          {
+            "da": -230.079038,
+            "pairs": 1
+          },
+          {
+            "da": -474.131468,
+            "pairs": 1
+          },
+          {
+            "da": -316.188589,
+            "pairs": 1
+          },
+          {
+            "da": -333.157623,
+            "pairs": 1
+          },
+          {
+            "da": -266.115424,
+            "pairs": 1
+          },
+          {
+            "da": -314.063782,
+            "pairs": 1
+          },
+          {
+            "da": -248.053217,
+            "pairs": 1
+          },
+          {
+            "da": -307.105587,
+            "pairs": 1
+          },
+          {
+            "da": -246.110338,
+            "pairs": 1
+          },
+          {
+            "da": -244.094688,
+            "pairs": 1
+          },
+          {
+            "da": -306.095082,
+            "pairs": 1
+          },
+          {
+            "da": -288.084517,
+            "pairs": 1
+          },
+          {
+            "da": -573.14824,
+            "pairs": 1
+          },
+          {
+            "da": -399.116546,
+            "pairs": 1
+          },
+          {
+            "da": -618.085699,
+            "pairs": 1
+          },
+          {
+            "da": -534.15847,
+            "pairs": 1
+          },
+          {
+            "da": -604.194462,
+            "pairs": 1
+          },
+          {
+            "da": -454.147512,
+            "pairs": 1
+          },
+          {
+            "da": -543.22168,
+            "pairs": 1
+          },
+          {
+            "da": -377.183838,
+            "pairs": 1
+          },
+          {
+            "da": -260.100836,
+            "pairs": 1
+          },
+          {
+            "da": -576.169035,
+            "pairs": 1
+          },
+          {
+            "da": -428.131862,
+            "pairs": 1
+          },
+          {
+            "da": -458.157682,
+            "pairs": 1
+          },
+          {
+            "da": -780.300658,
+            "pairs": 1
+          },
+          {
+            "da": -292.094688,
+            "pairs": 1
+          },
+          {
+            "da": -452.059091,
+            "pairs": 1
+          },
+          {
+            "da": -366.116212,
+            "pairs": 1
+          },
+          {
+            "da": -380.095476,
+            "pairs": 1
+          },
+          {
+            "da": -500.152991,
+            "pairs": 1
+          },
+          {
+            "da": -246.085186,
+            "pairs": 1
+          },
+          {
+            "da": -630.288756,
+            "pairs": 1
+          },
+          {
+            "da": -554.345483,
+            "pairs": 1
+          },
+          {
+            "da": -1164.505566,
+            "pairs": 1
+          },
+          {
+            "da": -972.316941,
+            "pairs": 1
+          },
+          {
+            "da": -1194.061139,
+            "pairs": 1
+          },
+          {
+            "da": -734.992864,
+            "pairs": 1
+          },
+          {
+            "da": -156.005873,
+            "pairs": 1
+          },
+          {
+            "da": -272.125988,
+            "pairs": 1
+          },
+          {
+            "da": -572.19525,
+            "pairs": 1
+          },
+          {
+            "da": -464.131862,
+            "pairs": 1
+          },
+          {
+            "da": -940.327111,
+            "pairs": 1
+          },
+          {
+            "da": -778.274288,
+            "pairs": 1
+          },
+          {
+            "da": -618.1796,
+            "pairs": 1
+          },
+          {
+            "da": -645.211628,
+            "pairs": 1
+          },
+          {
+            "da": -483.158805,
+            "pairs": 1
+          },
+          {
+            "da": -514.153385,
+            "pairs": 1
+          },
+          {
+            "da": -669.253374,
+            "pairs": 1
+          },
+          {
+            "da": -190.084124,
+            "pairs": 1
+          },
+          {
+            "da": -352.136947,
+            "pairs": 1
+          },
+          {
+            "da": -514.18977,
+            "pairs": 1
+          },
+          {
+            "da": -210.052823,
+            "pairs": 1
+          },
+          {
+            "da": -728.465204,
+            "pairs": 1
+          },
+          {
+            "da": -426.137341,
+            "pairs": 1
+          },
+          {
+            "da": -202.058971,
+            "pairs": 1
+          },
+          {
+            "da": -350.048526,
+            "pairs": 1
+          },
+          {
+            "da": -484.14282,
+            "pairs": 1
+          },
+          {
+            "da": -817.285187,
+            "pairs": 1
+          },
+          {
+            "da": -655.232363,
+            "pairs": 1
+          },
+          {
+            "da": -632.216379,
+            "pairs": 1
+          },
+          {
+            "da": -926.311461,
+            "pairs": 1
+          },
+          {
+            "da": -810.264117,
+            "pairs": 1
+          },
+          {
+            "da": -772.309492,
+            "pairs": 1
+          },
+          {
+            "da": -885.412,
+            "pairs": 1
+          },
+          {
+            "da": -792.253552,
+            "pairs": 1
+          },
+          {
+            "da": -646.195644,
+            "pairs": 1
+          },
+          {
+            "da": -310.089997,
+            "pairs": 1
+          },
+          {
+            "da": -322.089997,
+            "pairs": 1
+          },
+          {
+            "da": -1015.474994,
+            "pairs": 1
+          },
+          {
+            "da": -456.147906,
+            "pairs": 1
+          },
+          {
+            "da": -368.110732,
+            "pairs": 1
+          },
+          {
+            "da": -782.060272,
+            "pairs": 1
+          },
+          {
+            "da": -948.311067,
+            "pairs": 1
+          },
+          {
+            "da": -350.121297,
+            "pairs": 1
+          },
+          {
+            "da": -440.152991,
+            "pairs": 1
+          }
+        ]
+      },
+      "depentose": {
+        "declared_da": -132.04225873496,
+        "used_da": -132.04225873496,
+        "counts": {
+          "reactant_matches": 411,
+          "reached_product_cap": 0,
+          "raw_product_rows": 606,
+          "unique_parent_product_pairs": 596,
+          "declared_delta_mismatch": 566,
+          "used_delta_mismatch": 566,
+          "reverse_index_residual": 566,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 411
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -162.052823,
+            "pairs": 214
+          },
+          {
+            "da": -146.057909,
+            "pairs": 53
+          },
+          {
+            "da": -132.042259,
+            "pairs": 30
+          },
+          {
+            "da": -294.095082,
+            "pairs": 21
+          },
+          {
+            "da": -176.032088,
+            "pairs": 20
+          },
+          {
+            "da": -324.105647,
+            "pairs": 20
+          },
+          {
+            "da": -308.110732,
+            "pairs": 20
+          },
+          {
+            "da": -204.063388,
+            "pairs": 8
+          },
+          {
+            "da": -330.095082,
+            "pairs": 7
+          },
+          {
+            "da": -174.052823,
+            "pairs": 5
+          },
+          {
+            "da": -176.068473,
+            "pairs": 5
+          },
+          {
+            "da": -454.168641,
+            "pairs": 5
+          },
+          {
+            "da": -278.100168,
+            "pairs": 5
+          },
+          {
+            "da": -148.037173,
+            "pairs": 4
+          },
+          {
+            "da": -308.089603,
+            "pairs": 4
+          },
+          {
+            "da": -292.115818,
+            "pairs": 4
+          },
+          {
+            "da": -218.115424,
+            "pairs": 3
+          },
+          {
+            "da": -160.037173,
+            "pairs": 3
+          },
+          {
+            "da": -130.026609,
+            "pairs": 3
+          },
+          {
+            "da": -456.147906,
+            "pairs": 3
+          },
+          {
+            "da": -486.15847,
+            "pairs": 3
+          },
+          {
+            "da": -306.095082,
+            "pairs": 2
+          },
+          {
+            "da": -144.042259,
+            "pairs": 2
+          },
+          {
+            "da": -322.126382,
+            "pairs": 2
+          },
+          {
+            "da": -242.009638,
+            "pairs": 2
+          },
+          {
+            "da": -338.084911,
+            "pairs": 2
+          },
+          {
+            "da": -174.089209,
+            "pairs": 2
+          },
+          {
+            "da": -334.162768,
+            "pairs": 2
+          },
+          {
+            "da": -282.073953,
+            "pairs": 2
+          },
+          {
+            "da": -264.084517,
+            "pairs": 2
+          },
+          {
+            "da": -396.126776,
+            "pairs": 2
+          },
+          {
+            "da": -324.084517,
+            "pairs": 2
+          },
+          {
+            "da": -320.110732,
+            "pairs": 2
+          },
+          {
+            "da": -190.047738,
+            "pairs": 2
+          },
+          {
+            "da": -338.100168,
+            "pairs": 2
+          },
+          {
+            "da": -312.084517,
+            "pairs": 2
+          },
+          {
+            "da": -160.073559,
+            "pairs": 2
+          },
+          {
+            "da": -244.094688,
+            "pairs": 2
+          },
+          {
+            "da": -178.047738,
+            "pairs": 2
+          },
+          {
+            "da": -290.075015,
+            "pairs": 2
+          },
+          {
+            "da": -125.995309,
+            "pairs": 2
+          },
+          {
+            "da": -470.163556,
+            "pairs": 2
+          },
+          {
+            "da": -410.142426,
+            "pairs": 2
+          },
+          {
+            "da": -512.17412,
+            "pairs": 2
+          },
+          {
+            "da": -440.152991,
+            "pairs": 2
+          },
+          {
+            "da": -338.121297,
+            "pairs": 2
+          },
+          {
+            "da": -222.073953,
+            "pairs": 1
+          },
+          {
+            "da": -188.068473,
+            "pairs": 1
+          },
+          {
+            "da": -266.079038,
+            "pairs": 1
+          },
+          {
+            "da": -220.073559,
+            "pairs": 1
+          },
+          {
+            "da": -252.084517,
+            "pairs": 1
+          },
+          {
+            "da": -285.084852,
+            "pairs": 1
+          },
+          {
+            "da": -276.084517,
+            "pairs": 1
+          },
+          {
+            "da": -161.068808,
+            "pairs": 1
+          },
+          {
+            "da": -240.099774,
+            "pairs": 1
+          },
+          {
+            "da": -324.193674,
+            "pairs": 1
+          },
+          {
+            "da": -278.136553,
+            "pairs": 1
+          },
+          {
+            "da": -360.132136,
+            "pairs": 1
+          },
+          {
+            "da": -409.173667,
+            "pairs": 1
+          },
+          {
+            "da": -342.095082,
+            "pairs": 1
+          },
+          {
+            "da": -284.089603,
+            "pairs": 1
+          },
+          {
+            "da": -326.100168,
+            "pairs": 1
+          },
+          {
+            "da": -414.095082,
+            "pairs": 1
+          },
+          {
+            "da": -424.158076,
+            "pairs": 1
+          },
+          {
+            "da": -328.152203,
+            "pairs": 1
+          },
+          {
+            "da": -350.100168,
+            "pairs": 1
+          },
+          {
+            "da": -230.079038,
+            "pairs": 1
+          },
+          {
+            "da": -474.131468,
+            "pairs": 1
+          },
+          {
+            "da": -316.188589,
+            "pairs": 1
+          },
+          {
+            "da": -333.157623,
+            "pairs": 1
+          },
+          {
+            "da": -266.115424,
+            "pairs": 1
+          },
+          {
+            "da": -314.063782,
+            "pairs": 1
+          },
+          {
+            "da": -248.053217,
+            "pairs": 1
+          },
+          {
+            "da": -307.105587,
+            "pairs": 1
+          },
+          {
+            "da": -246.110338,
+            "pairs": 1
+          },
+          {
+            "da": -288.084517,
+            "pairs": 1
+          },
+          {
+            "da": -573.14824,
+            "pairs": 1
+          },
+          {
+            "da": -399.116546,
+            "pairs": 1
+          },
+          {
+            "da": -618.085699,
+            "pairs": 1
+          },
+          {
+            "da": -534.15847,
+            "pairs": 1
+          },
+          {
+            "da": -602.381869,
+            "pairs": 1
+          },
+          {
+            "da": -596.304406,
+            "pairs": 1
+          },
+          {
+            "da": -574.183897,
+            "pairs": 1
+          },
+          {
+            "da": -454.147512,
+            "pairs": 1
+          },
+          {
+            "da": -543.22168,
+            "pairs": 1
+          },
+          {
+            "da": -800.201123,
+            "pairs": 1
+          },
+          {
+            "da": -377.183838,
+            "pairs": 1
+          },
+          {
+            "da": -472.14282,
+            "pairs": 1
+          },
+          {
+            "da": -784.35175,
+            "pairs": 1
+          },
+          {
+            "da": -260.100836,
+            "pairs": 1
+          },
+          {
+            "da": -560.17412,
+            "pairs": 1
+          },
+          {
+            "da": -438.173726,
+            "pairs": 1
+          },
+          {
+            "da": -576.169035,
+            "pairs": 1
+          },
+          {
+            "da": -448.152203,
+            "pairs": 1
+          },
+          {
+            "da": -428.131862,
+            "pairs": 1
+          },
+          {
+            "da": -458.157682,
+            "pairs": 1
+          },
+          {
+            "da": -780.300658,
+            "pairs": 1
+          },
+          {
+            "da": -416.074347,
+            "pairs": 1
+          },
+          {
+            "da": -292.094688,
+            "pairs": 1
+          },
+          {
+            "da": -186.089209,
+            "pairs": 1
+          },
+          {
+            "da": -247.116821,
+            "pairs": 1
+          },
+          {
+            "da": -452.059091,
+            "pairs": 1
+          },
+          {
+            "da": -1164.505566,
+            "pairs": 1
+          },
+          {
+            "da": -602.205814,
+            "pairs": 1
+          },
+          {
+            "da": -972.316941,
+            "pairs": 1
+          },
+          {
+            "da": -1194.061139,
+            "pairs": 1
+          },
+          {
+            "da": -734.992864,
+            "pairs": 1
+          },
+          {
+            "da": -572.19525,
+            "pairs": 1
+          },
+          {
+            "da": -464.131862,
+            "pairs": 1
+          },
+          {
+            "da": -940.327111,
+            "pairs": 1
+          },
+          {
+            "da": -778.274288,
+            "pairs": 1
+          },
+          {
+            "da": -618.1796,
+            "pairs": 1
+          },
+          {
+            "da": -848.258638,
+            "pairs": 1
+          },
+          {
+            "da": -645.211628,
+            "pairs": 1
+          },
+          {
+            "da": -483.158805,
+            "pairs": 1
+          },
+          {
+            "da": -514.153385,
+            "pairs": 1
+          },
+          {
+            "da": -669.253374,
+            "pairs": 1
+          },
+          {
+            "da": -190.084124,
+            "pairs": 1
+          },
+          {
+            "da": -352.136947,
+            "pairs": 1
+          },
+          {
+            "da": -514.18977,
+            "pairs": 1
+          },
+          {
+            "da": -728.465204,
+            "pairs": 1
+          },
+          {
+            "da": -426.137341,
+            "pairs": 1
+          },
+          {
+            "da": -666.167715,
+            "pairs": 1
+          },
+          {
+            "da": -438.131468,
+            "pairs": 1
+          },
+          {
+            "da": -618.200729,
+            "pairs": 1
+          },
+          {
+            "da": -128.010959,
+            "pairs": 1
+          },
+          {
+            "da": -350.048526,
+            "pairs": 1
+          },
+          {
+            "da": -484.14282,
+            "pairs": 1
+          },
+          {
+            "da": -817.285187,
+            "pairs": 1
+          },
+          {
+            "da": -655.232363,
+            "pairs": 1
+          },
+          {
+            "da": -632.216379,
+            "pairs": 1
+          },
+          {
+            "da": -764.258638,
+            "pairs": 1
+          },
+          {
+            "da": -926.311461,
+            "pairs": 1
+          },
+          {
+            "da": -542.184685,
+            "pairs": 1
+          },
+          {
+            "da": -810.264117,
+            "pairs": 1
+          },
+          {
+            "da": -742.298927,
+            "pairs": 1
+          },
+          {
+            "da": -885.412,
+            "pairs": 1
+          },
+          {
+            "da": -792.253552,
+            "pairs": 1
+          },
+          {
+            "da": -646.195644,
+            "pairs": 1
+          },
+          {
+            "da": -310.089997,
+            "pairs": 1
+          },
+          {
+            "da": -1272.613898,
+            "pairs": 1
+          },
+          {
+            "da": -910.316547,
+            "pairs": 1
+          },
+          {
+            "da": -322.089997,
+            "pairs": 1
+          },
+          {
+            "da": -1015.474994,
+            "pairs": 1
+          },
+          {
+            "da": -368.110732,
+            "pairs": 1
+          },
+          {
+            "da": -782.060272,
+            "pairs": 1
+          },
+          {
+            "da": -484.179206,
+            "pairs": 1
+          },
+          {
+            "da": -616.221464,
+            "pairs": 1
+          },
+          {
+            "da": -588.190164,
+            "pairs": 1
+          },
+          {
+            "da": -290.100168,
+            "pairs": 1
+          },
+          {
+            "da": -948.311067,
+            "pairs": 1
+          },
+          {
+            "da": -350.121297,
+            "pairs": 1
+          }
+        ]
+      },
+      "dedeoxyhexose": {
+        "declared_da": -146.0579087991,
+        "used_da": -146.0579087991,
+        "counts": {
+          "reactant_matches": 400,
+          "reached_product_cap": 0,
+          "raw_product_rows": 554,
+          "unique_parent_product_pairs": 543,
+          "declared_delta_mismatch": 490,
+          "used_delta_mismatch": 490,
+          "reverse_index_residual": 490,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 400
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -162.052823,
+            "pairs": 222
+          },
+          {
+            "da": -146.057909,
+            "pairs": 53
+          },
+          {
+            "da": -176.032088,
+            "pairs": 22
+          },
+          {
+            "da": -324.105647,
+            "pairs": 21
+          },
+          {
+            "da": -308.110732,
+            "pairs": 20
+          },
+          {
+            "da": -294.095082,
+            "pairs": 19
+          },
+          {
+            "da": -204.063388,
+            "pairs": 9
+          },
+          {
+            "da": -330.095082,
+            "pairs": 6
+          },
+          {
+            "da": -176.068473,
+            "pairs": 5
+          },
+          {
+            "da": -292.115818,
+            "pairs": 5
+          },
+          {
+            "da": -454.168641,
+            "pairs": 5
+          },
+          {
+            "da": -160.037173,
+            "pairs": 4
+          },
+          {
+            "da": -144.042259,
+            "pairs": 4
+          },
+          {
+            "da": -470.163556,
+            "pairs": 4
+          },
+          {
+            "da": -218.115424,
+            "pairs": 3
+          },
+          {
+            "da": -308.089603,
+            "pairs": 3
+          },
+          {
+            "da": -278.100168,
+            "pairs": 3
+          },
+          {
+            "da": -486.15847,
+            "pairs": 3
+          },
+          {
+            "da": -322.126382,
+            "pairs": 2
+          },
+          {
+            "da": -242.009638,
+            "pairs": 2
+          },
+          {
+            "da": -338.084911,
+            "pairs": 2
+          },
+          {
+            "da": -282.073953,
+            "pairs": 2
+          },
+          {
+            "da": -320.110732,
+            "pairs": 2
+          },
+          {
+            "da": -190.047738,
+            "pairs": 2
+          },
+          {
+            "da": -338.100168,
+            "pairs": 2
+          },
+          {
+            "da": -312.084517,
+            "pairs": 2
+          },
+          {
+            "da": -160.073559,
+            "pairs": 2
+          },
+          {
+            "da": -244.094688,
+            "pairs": 2
+          },
+          {
+            "da": -178.047738,
+            "pairs": 2
+          },
+          {
+            "da": -290.075015,
+            "pairs": 2
+          },
+          {
+            "da": -512.17412,
+            "pairs": 2
+          },
+          {
+            "da": -338.121297,
+            "pairs": 2
+          },
+          {
+            "da": -222.073953,
+            "pairs": 1
+          },
+          {
+            "da": -188.068473,
+            "pairs": 1
+          },
+          {
+            "da": -266.079038,
+            "pairs": 1
+          },
+          {
+            "da": -234.089209,
+            "pairs": 1
+          },
+          {
+            "da": -252.084517,
+            "pairs": 1
+          },
+          {
+            "da": -276.084517,
+            "pairs": 1
+          },
+          {
+            "da": -161.068808,
+            "pairs": 1
+          },
+          {
+            "da": -240.099774,
+            "pairs": 1
+          },
+          {
+            "da": -324.193674,
+            "pairs": 1
+          },
+          {
+            "da": -278.136553,
+            "pairs": 1
+          },
+          {
+            "da": -324.084517,
+            "pairs": 1
+          },
+          {
+            "da": -360.132136,
+            "pairs": 1
+          },
+          {
+            "da": -409.173667,
+            "pairs": 1
+          },
+          {
+            "da": -342.095082,
+            "pairs": 1
+          },
+          {
+            "da": -284.089603,
+            "pairs": 1
+          },
+          {
+            "da": -326.100168,
+            "pairs": 1
+          },
+          {
+            "da": -414.095082,
+            "pairs": 1
+          },
+          {
+            "da": -424.158076,
+            "pairs": 1
+          },
+          {
+            "da": -328.152203,
+            "pairs": 1
+          },
+          {
+            "da": -350.100168,
+            "pairs": 1
+          },
+          {
+            "da": -230.079038,
+            "pairs": 1
+          },
+          {
+            "da": -474.131468,
+            "pairs": 1
+          },
+          {
+            "da": -316.188589,
+            "pairs": 1
+          },
+          {
+            "da": -333.157623,
+            "pairs": 1
+          },
+          {
+            "da": -266.115424,
+            "pairs": 1
+          },
+          {
+            "da": -314.063782,
+            "pairs": 1
+          },
+          {
+            "da": -248.053217,
+            "pairs": 1
+          },
+          {
+            "da": -307.105587,
+            "pairs": 1
+          },
+          {
+            "da": -246.110338,
+            "pairs": 1
+          },
+          {
+            "da": -306.095082,
+            "pairs": 1
+          },
+          {
+            "da": -288.084517,
+            "pairs": 1
+          },
+          {
+            "da": -573.14824,
+            "pairs": 1
+          },
+          {
+            "da": -399.116546,
+            "pairs": 1
+          },
+          {
+            "da": -618.085699,
+            "pairs": 1
+          },
+          {
+            "da": -534.15847,
+            "pairs": 1
+          },
+          {
+            "da": -596.304406,
+            "pairs": 1
+          },
+          {
+            "da": -588.199547,
+            "pairs": 1
+          },
+          {
+            "da": -454.147512,
+            "pairs": 1
+          },
+          {
+            "da": -543.22168,
+            "pairs": 1
+          },
+          {
+            "da": -377.183838,
+            "pairs": 1
+          },
+          {
+            "da": -260.100836,
+            "pairs": 1
+          },
+          {
+            "da": -560.17412,
+            "pairs": 1
+          },
+          {
+            "da": -438.173726,
+            "pairs": 1
+          },
+          {
+            "da": -576.169035,
+            "pairs": 1
+          },
+          {
+            "da": -334.162768,
+            "pairs": 1
+          },
+          {
+            "da": -174.089209,
+            "pairs": 1
+          },
+          {
+            "da": -448.152203,
+            "pairs": 1
+          },
+          {
+            "da": -428.131862,
+            "pairs": 1
+          },
+          {
+            "da": -458.157682,
+            "pairs": 1
+          },
+          {
+            "da": -780.300658,
+            "pairs": 1
+          },
+          {
+            "da": -292.094688,
+            "pairs": 1
+          },
+          {
+            "da": -186.089209,
+            "pairs": 1
+          },
+          {
+            "da": -247.116821,
+            "pairs": 1
+          },
+          {
+            "da": -452.059091,
+            "pairs": 1
+          },
+          {
+            "da": -366.116212,
+            "pairs": 1
+          },
+          {
+            "da": -380.095476,
+            "pairs": 1
+          },
+          {
+            "da": -1164.505566,
+            "pairs": 1
+          },
+          {
+            "da": -972.316941,
+            "pairs": 1
+          },
+          {
+            "da": -1194.061139,
+            "pairs": 1
+          },
+          {
+            "da": -734.992864,
+            "pairs": 1
+          },
+          {
+            "da": -135.979658,
+            "pairs": 1
+          },
+          {
+            "da": -156.005873,
+            "pairs": 1
+          },
+          {
+            "da": -256.131074,
+            "pairs": 1
+          },
+          {
+            "da": -410.142426,
+            "pairs": 1
+          },
+          {
+            "da": -572.19525,
+            "pairs": 1
+          },
+          {
+            "da": -464.131862,
+            "pairs": 1
+          },
+          {
+            "da": -940.327111,
+            "pairs": 1
+          },
+          {
+            "da": -778.274288,
+            "pairs": 1
+          },
+          {
+            "da": -618.1796,
+            "pairs": 1
+          },
+          {
+            "da": -848.258638,
+            "pairs": 1
+          },
+          {
+            "da": -645.211628,
+            "pairs": 1
+          },
+          {
+            "da": -483.158805,
+            "pairs": 1
+          },
+          {
+            "da": -514.153385,
+            "pairs": 1
+          },
+          {
+            "da": -669.253374,
+            "pairs": 1
+          },
+          {
+            "da": -190.084124,
+            "pairs": 1
+          },
+          {
+            "da": -352.136947,
+            "pairs": 1
+          },
+          {
+            "da": -514.18977,
+            "pairs": 1
+          },
+          {
+            "da": -194.057909,
+            "pairs": 1
+          },
+          {
+            "da": -728.465204,
+            "pairs": 1
+          },
+          {
+            "da": -426.137341,
+            "pairs": 1
+          },
+          {
+            "da": -438.131468,
+            "pairs": 1
+          },
+          {
+            "da": -186.064057,
+            "pairs": 1
+          },
+          {
+            "da": -350.048526,
+            "pairs": 1
+          },
+          {
+            "da": -484.14282,
+            "pairs": 1
+          },
+          {
+            "da": -817.285187,
+            "pairs": 1
+          },
+          {
+            "da": -655.232363,
+            "pairs": 1
+          },
+          {
+            "da": -632.216379,
+            "pairs": 1
+          },
+          {
+            "da": -926.311461,
+            "pairs": 1
+          },
+          {
+            "da": -810.264117,
+            "pairs": 1
+          },
+          {
+            "da": -756.314577,
+            "pairs": 1
+          },
+          {
+            "da": -885.412,
+            "pairs": 1
+          },
+          {
+            "da": -792.253552,
+            "pairs": 1
+          },
+          {
+            "da": -646.195644,
+            "pairs": 1
+          },
+          {
+            "da": -310.089997,
+            "pairs": 1
+          },
+          {
+            "da": -440.152991,
+            "pairs": 1
+          },
+          {
+            "da": -322.089997,
+            "pairs": 1
+          },
+          {
+            "da": -1015.474994,
+            "pairs": 1
+          },
+          {
+            "da": -456.147906,
+            "pairs": 1
+          },
+          {
+            "da": -368.110732,
+            "pairs": 1
+          },
+          {
+            "da": -782.060272,
+            "pairs": 1
+          },
+          {
+            "da": -484.179206,
+            "pairs": 1
+          },
+          {
+            "da": -290.100168,
+            "pairs": 1
+          },
+          {
+            "da": -948.311067,
+            "pairs": 1
+          },
+          {
+            "da": -350.121297,
+            "pairs": 1
+          }
+        ]
+      },
+      "demalonyl": {
+        "declared_da": -86.00039392294,
+        "used_da": -86.00039392294,
+        "counts": {
+          "reactant_matches": 72,
+          "reached_product_cap": 0,
+          "raw_product_rows": 144,
+          "unique_parent_product_pairs": 128,
+          "declared_delta_mismatch": 96,
+          "used_delta_mismatch": 96,
+          "reverse_index_residual": 96,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 72
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -86.000394,
+            "pairs": 32
+          },
+          {
+            "da": -100.016044,
+            "pairs": 6
+          },
+          {
+            "da": -83.984744,
+            "pairs": 5
+          },
+          {
+            "da": -157.037508,
+            "pairs": 5
+          },
+          {
+            "da": -514.111126,
+            "pairs": 3
+          },
+          {
+            "da": -358.250795,
+            "pairs": 2
+          },
+          {
+            "da": -84.993117,
+            "pairs": 2
+          },
+          {
+            "da": -115.026943,
+            "pairs": 2
+          },
+          {
+            "da": -204.078644,
+            "pairs": 1
+          },
+          {
+            "da": -194.094294,
+            "pairs": 1
+          },
+          {
+            "da": -178.026609,
+            "pairs": 1
+          },
+          {
+            "da": -182.069142,
+            "pairs": 1
+          },
+          {
+            "da": -221.98322,
+            "pairs": 1
+          },
+          {
+            "da": -238.047738,
+            "pairs": 1
+          },
+          {
+            "da": -246.089209,
+            "pairs": 1
+          },
+          {
+            "da": -230.007136,
+            "pairs": 1
+          },
+          {
+            "da": -257.089937,
+            "pairs": 1
+          },
+          {
+            "da": -227.991486,
+            "pairs": 1
+          },
+          {
+            "da": -252.063388,
+            "pairs": 1
+          },
+          {
+            "da": -233.00727,
+            "pairs": 1
+          },
+          {
+            "da": -356.089603,
+            "pairs": 1
+          },
+          {
+            "da": -346.178024,
+            "pairs": 1
+          },
+          {
+            "da": -366.121572,
+            "pairs": 1
+          },
+          {
+            "da": -362.015371,
+            "pairs": 1
+          },
+          {
+            "da": -110.000394,
+            "pairs": 1
+          },
+          {
+            "da": -388.178693,
+            "pairs": 1
+          },
+          {
+            "da": -420.142032,
+            "pairs": 1
+          },
+          {
+            "da": -98.000394,
+            "pairs": 1
+          },
+          {
+            "da": -573.14824,
+            "pairs": 1
+          },
+          {
+            "da": -129.042593,
+            "pairs": 1
+          },
+          {
+            "da": -517.097667,
+            "pairs": 1
+          },
+          {
+            "da": -544.376389,
+            "pairs": 1
+          },
+          {
+            "da": -546.100955,
+            "pairs": 1
+          },
+          {
+            "da": -556.158076,
+            "pairs": 1
+          },
+          {
+            "da": -451.163102,
+            "pairs": 1
+          },
+          {
+            "da": -554.360739,
+            "pairs": 1
+          },
+          {
+            "da": -500.095476,
+            "pairs": 1
+          },
+          {
+            "da": -516.126776,
+            "pairs": 1
+          },
+          {
+            "da": -568.376389,
+            "pairs": 1
+          },
+          {
+            "da": -814.294904,
+            "pairs": 1
+          },
+          {
+            "da": -779.269024,
+            "pairs": 1
+          },
+          {
+            "da": -173.068808,
+            "pairs": 1
+          },
+          {
+            "da": -648.132649,
+            "pairs": 1
+          },
+          {
+            "da": -746.387742,
+            "pairs": 1
+          },
+          {
+            "da": -612.366219,
+            "pairs": 1
+          },
+          {
+            "da": -619.140595,
+            "pairs": 1
+          },
+          {
+            "da": -735.252705,
+            "pairs": 1
+          },
+          {
+            "da": -795.273834,
+            "pairs": 1
+          },
+          {
+            "da": -795.263938,
+            "pairs": 1
+          },
+          {
+            "da": -658.21626,
+            "pairs": 1
+          },
+          {
+            "da": -637.17954,
+            "pairs": 1
+          },
+          {
+            "da": -705.205755,
+            "pairs": 1
+          },
+          {
+            "da": -737.222074,
+            "pairs": 1
+          },
+          {
+            "da": -757.284674,
+            "pairs": 1
+          },
+          {
+            "da": -803.269024,
+            "pairs": 1
+          },
+          {
+            "da": -601.154388,
+            "pairs": 1
+          },
+          {
+            "da": -672.253039,
+            "pairs": 1
+          },
+          {
+            "da": -618.133318,
+            "pairs": 1
+          },
+          {
+            "da": -707.196253,
+            "pairs": 1
+          },
+          {
+            "da": -719.232638,
+            "pairs": 1
+          },
+          {
+            "da": -791.269024,
+            "pairs": 1
+          },
+          {
+            "da": -864.321788,
+            "pairs": 1
+          },
+          {
+            "da": -905.300718,
+            "pairs": 1
+          },
+          {
+            "da": -1064.369132,
+            "pairs": 1
+          },
+          {
+            "da": -1049.452133,
+            "pairs": 1
+          },
+          {
+            "da": -1121.459344,
+            "pairs": 1
+          },
+          {
+            "da": -1251.522338,
+            "pairs": 1
+          },
+          {
+            "da": -854.279923,
+            "pairs": 1
+          },
+          {
+            "da": -916.280317,
+            "pairs": 1
+          },
+          {
+            "da": -884.311617,
+            "pairs": 1
+          },
+          {
+            "da": -894.295967,
+            "pairs": 1
+          },
+          {
+            "da": -915.378968,
+            "pairs": 1
+          },
+          {
+            "da": -851.290153,
+            "pairs": 1
+          },
+          {
+            "da": -819.263938,
+            "pairs": 1
+          },
+          {
+            "da": -197.105193,
+            "pairs": 1
+          },
+          {
+            "da": -806.326204,
+            "pairs": 1
+          },
+          {
+            "da": -872.290487,
+            "pairs": 1
+          },
+          {
+            "da": -1217.480473,
+            "pairs": 1
+          },
+          {
+            "da": -1107.493998,
+            "pairs": 1
+          }
+        ]
+      },
+      "desulfate": {
+        "declared_da": -79.9568148588,
+        "used_da": -79.9568148588,
+        "counts": {
+          "reactant_matches": 95,
+          "reached_product_cap": 11,
+          "raw_product_rows": 424,
+          "unique_parent_product_pairs": 201,
+          "declared_delta_mismatch": 96,
+          "used_delta_mismatch": 96,
+          "reverse_index_residual": 96,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 95
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -79.956815,
+            "pairs": 105
+          },
+          {
+            "da": -178.971085,
+            "pairs": 1
+          },
+          {
+            "da": -231.020143,
+            "pairs": 1
+          },
+          {
+            "da": -122.999014,
+            "pairs": 1
+          },
+          {
+            "da": -151.977944,
+            "pairs": 1
+          },
+          {
+            "da": -206.097665,
+            "pairs": 1
+          },
+          {
+            "da": -170.003765,
+            "pairs": 1
+          },
+          {
+            "da": -246.019809,
+            "pairs": 1
+          },
+          {
+            "da": -256.040544,
+            "pairs": 1
+          },
+          {
+            "da": -244.113316,
+            "pairs": 1
+          },
+          {
+            "da": -283.036187,
+            "pairs": 1
+          },
+          {
+            "da": -296.071845,
+            "pairs": 1
+          },
+          {
+            "da": -332.10823,
+            "pairs": 1
+          },
+          {
+            "da": -332.056588,
+            "pairs": 1
+          },
+          {
+            "da": -334.014724,
+            "pairs": 1
+          },
+          {
+            "da": -338.971873,
+            "pairs": 1
+          },
+          {
+            "da": -357.055209,
+            "pairs": 1
+          },
+          {
+            "da": -359.119129,
+            "pairs": 1
+          },
+          {
+            "da": -374.046024,
+            "pairs": 1
+          },
+          {
+            "da": -350.15518,
+            "pairs": 1
+          },
+          {
+            "da": -356.083078,
+            "pairs": 1
+          },
+          {
+            "da": -405.041941,
+            "pairs": 1
+          },
+          {
+            "da": -376.025288,
+            "pairs": 1
+          },
+          {
+            "da": -399.988903,
+            "pairs": 1
+          },
+          {
+            "da": -391.026982,
+            "pairs": 1
+          },
+          {
+            "da": -410.212695,
+            "pairs": 1
+          },
+          {
+            "da": -407.06763,
+            "pairs": 1
+          },
+          {
+            "da": -78.949538,
+            "pairs": 1
+          },
+          {
+            "da": -377.023908,
+            "pairs": 1
+          },
+          {
+            "da": -459.068275,
+            "pairs": 1
+          },
+          {
+            "da": -447.24433,
+            "pairs": 1
+          },
+          {
+            "da": -457.924982,
+            "pairs": 1
+          },
+          {
+            "da": -422.030768,
+            "pairs": 1
+          },
+          {
+            "da": -463.097073,
+            "pairs": 1
+          },
+          {
+            "da": -480.181789,
+            "pairs": 1
+          },
+          {
+            "da": -476.296031,
+            "pairs": 1
+          },
+          {
+            "da": -485.104542,
+            "pairs": 1
+          },
+          {
+            "da": -577.237924,
+            "pairs": 1
+          },
+          {
+            "da": -518.306596,
+            "pairs": 1
+          },
+          {
+            "da": -510.30151,
+            "pairs": 1
+          },
+          {
+            "da": -565.061357,
+            "pairs": 1
+          },
+          {
+            "da": -530.306596,
+            "pairs": 1
+          },
+          {
+            "da": -549.072967,
+            "pairs": 1
+          },
+          {
+            "da": -542.291339,
+            "pairs": 1
+          },
+          {
+            "da": -476.259645,
+            "pairs": 1
+          },
+          {
+            "da": -572.301904,
+            "pairs": 1
+          },
+          {
+            "da": -476.10827,
+            "pairs": 1
+          },
+          {
+            "da": -546.30151,
+            "pairs": 1
+          },
+          {
+            "da": -607.114832,
+            "pairs": 1
+          },
+          {
+            "da": -786.386028,
+            "pairs": 1
+          },
+          {
+            "da": -704.380548,
+            "pairs": 1
+          },
+          {
+            "da": -690.32264,
+            "pairs": 1
+          },
+          {
+            "da": -652.042334,
+            "pairs": 1
+          },
+          {
+            "da": -666.343769,
+            "pairs": 1
+          },
+          {
+            "da": -649.113511,
+            "pairs": 1
+          },
+          {
+            "da": -716.483832,
+            "pairs": 1
+          },
+          {
+            "da": -712.125062,
+            "pairs": 1
+          },
+          {
+            "da": -629.46891,
+            "pairs": 1
+          },
+          {
+            "da": -734.391113,
+            "pairs": 1
+          },
+          {
+            "da": -592.252846,
+            "pairs": 1
+          },
+          {
+            "da": -604.306989,
+            "pairs": 1
+          },
+          {
+            "da": -809.438398,
+            "pairs": 1
+          },
+          {
+            "da": -628.255348,
+            "pairs": 1
+          },
+          {
+            "da": -650.184033,
+            "pairs": 1
+          },
+          {
+            "da": -778.526484,
+            "pairs": 1
+          },
+          {
+            "da": -1194.061139,
+            "pairs": 1
+          },
+          {
+            "da": -1160.507325,
+            "pairs": 1
+          },
+          {
+            "da": -871.620719,
+            "pairs": 1
+          },
+          {
+            "da": -991.39436,
+            "pairs": 1
+          },
+          {
+            "da": -1180.460768,
+            "pairs": 1
+          },
+          {
+            "da": -1148.507325,
+            "pairs": 1
+          },
+          {
+            "da": -908.553093,
+            "pairs": 1
+          },
+          {
+            "da": -1345.01751,
+            "pairs": 1
+          },
+          {
+            "da": -1308.420954,
+            "pairs": 1
+          },
+          {
+            "da": -999.825962,
+            "pairs": 1
+          },
+          {
+            "da": -1356.602013,
+            "pairs": 1
+          },
+          {
+            "da": -974.59417,
+            "pairs": 1
+          },
+          {
+            "da": -1011.789577,
+            "pairs": 1
+          },
+          {
+            "da": -1266.570319,
+            "pairs": 1
+          },
+          {
+            "da": -1264.554669,
+            "pairs": 1
+          },
+          {
+            "da": -828.230607,
+            "pairs": 1
+          },
+          {
+            "da": -1156.690315,
+            "pairs": 1
+          },
+          {
+            "da": -967.399721,
+            "pairs": 1
+          },
+          {
+            "da": -974.454501,
+            "pairs": 1
+          },
+          {
+            "da": -1328.410784,
+            "pairs": 1
+          },
+          {
+            "da": -1226.575404,
+            "pairs": 1
+          },
+          {
+            "da": -984.427835,
+            "pairs": 1
+          },
+          {
+            "da": -1306.528848,
+            "pairs": 1
+          },
+          {
+            "da": -1224.559754,
+            "pairs": 1
+          },
+          {
+            "da": -1076.284989,
+            "pairs": 1
+          },
+          {
+            "da": -1182.45866,
+            "pairs": 1
+          },
+          {
+            "da": -1212.523369,
+            "pairs": 1
+          },
+          {
+            "da": -921.426604,
+            "pairs": 1
+          },
+          {
+            "da": -1418.511877,
+            "pairs": 1
+          },
+          {
+            "da": -988.405928,
+            "pairs": 1
+          },
+          {
+            "da": -988.433766,
+            "pairs": 1
+          },
+          {
+            "da": -817.996963,
+            "pairs": 1
+          }
+        ]
+      },
+      "deprenyl": {
+        "declared_da": -68.06260025656,
+        "used_da": -68.06260025656,
+        "counts": {
+          "reactant_matches": 297,
+          "reached_product_cap": 1,
+          "raw_product_rows": 720,
+          "unique_parent_product_pairs": 337,
+          "declared_delta_mismatch": 183,
+          "used_delta_mismatch": 183,
+          "reverse_index_residual": 183,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 297
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -68.0626,
+            "pairs": 154
+          },
+          {
+            "da": -136.125201,
+            "pairs": 19
+          },
+          {
+            "da": -66.04695,
+            "pairs": 7
+          },
+          {
+            "da": -84.057515,
+            "pairs": 6
+          },
+          {
+            "da": -110.000394,
+            "pairs": 4
+          },
+          {
+            "da": -80.026215,
+            "pairs": 4
+          },
+          {
+            "da": -152.120115,
+            "pairs": 4
+          },
+          {
+            "da": -204.187801,
+            "pairs": 3
+          },
+          {
+            "da": -469.188923,
+            "pairs": 3
+          },
+          {
+            "da": -716.236995,
+            "pairs": 3
+          },
+          {
+            "da": -256.037173,
+            "pairs": 2
+          },
+          {
+            "da": -64.0313,
+            "pairs": 2
+          },
+          {
+            "da": -220.182715,
+            "pairs": 2
+          },
+          {
+            "da": -234.16198,
+            "pairs": 2
+          },
+          {
+            "da": -272.250401,
+            "pairs": 2
+          },
+          {
+            "da": -94.005479,
+            "pairs": 2
+          },
+          {
+            "da": -290.13068,
+            "pairs": 2
+          },
+          {
+            "da": -239.152144,
+            "pairs": 2
+          },
+          {
+            "da": -320.235145,
+            "pairs": 2
+          },
+          {
+            "da": -304.24023,
+            "pairs": 2
+          },
+          {
+            "da": -406.178024,
+            "pairs": 2
+          },
+          {
+            "da": -243.125929,
+            "pairs": 2
+          },
+          {
+            "da": -639.294451,
+            "pairs": 2
+          },
+          {
+            "da": -164.120115,
+            "pairs": 1
+          },
+          {
+            "da": -124.016044,
+            "pairs": 1
+          },
+          {
+            "da": -136.052429,
+            "pairs": 1
+          },
+          {
+            "da": -188.08373,
+            "pairs": 1
+          },
+          {
+            "da": -162.06808,
+            "pairs": 1
+          },
+          {
+            "da": -148.125201,
+            "pairs": 1
+          },
+          {
+            "da": -196.037173,
+            "pairs": 1
+          },
+          {
+            "da": -180.005873,
+            "pairs": 1
+          },
+          {
+            "da": -96.021129,
+            "pairs": 1
+          },
+          {
+            "da": -162.031694,
+            "pairs": 1
+          },
+          {
+            "da": -138.104465,
+            "pairs": 1
+          },
+          {
+            "da": -160.088815,
+            "pairs": 1
+          },
+          {
+            "da": -162.104465,
+            "pairs": 1
+          },
+          {
+            "da": -136.016044,
+            "pairs": 1
+          },
+          {
+            "da": -82.041865,
+            "pairs": 1
+          },
+          {
+            "da": -166.026609,
+            "pairs": 1
+          },
+          {
+            "da": -175.099714,
+            "pairs": 1
+          },
+          {
+            "da": -146.073165,
+            "pairs": 1
+          },
+          {
+            "da": -246.198365,
+            "pairs": 1
+          },
+          {
+            "da": -188.047344,
+            "pairs": 1
+          },
+          {
+            "da": -245.105193,
+            "pairs": 1
+          },
+          {
+            "da": -174.06808,
+            "pairs": 1
+          },
+          {
+            "da": -247.120843,
+            "pairs": 1
+          },
+          {
+            "da": -178.062994,
+            "pairs": 1
+          },
+          {
+            "da": -216.151415,
+            "pairs": 1
+          },
+          {
+            "da": -96.057515,
+            "pairs": 1
+          },
+          {
+            "da": -246.052823,
+            "pairs": 1
+          },
+          {
+            "da": -266.151809,
+            "pairs": 1
+          },
+          {
+            "da": -242.13068,
+            "pairs": 1
+          },
+          {
+            "da": -246.089209,
+            "pairs": 1
+          },
+          {
+            "da": -254.057909,
+            "pairs": 1
+          },
+          {
+            "da": -275.115758,
+            "pairs": 1
+          },
+          {
+            "da": -202.172151,
+            "pairs": 1
+          },
+          {
+            "da": -91.989829,
+            "pairs": 1
+          },
+          {
+            "da": -264.136159,
+            "pairs": 1
+          },
+          {
+            "da": -254.042653,
+            "pairs": 1
+          },
+          {
+            "da": -211.103085,
+            "pairs": 1
+          },
+          {
+            "da": -193.146664,
+            "pairs": 1
+          },
+          {
+            "da": -236.152478,
+            "pairs": 1
+          },
+          {
+            "da": -325.058637,
+            "pairs": 1
+          },
+          {
+            "da": -296.032088,
+            "pairs": 1
+          },
+          {
+            "da": -294.052823,
+            "pairs": 1
+          },
+          {
+            "da": -232.182715,
+            "pairs": 1
+          },
+          {
+            "da": -166.135765,
+            "pairs": 1
+          },
+          {
+            "da": -216.126263,
+            "pairs": 1
+          },
+          {
+            "da": -332.162374,
+            "pairs": 1
+          },
+          {
+            "da": -320.198759,
+            "pairs": 1
+          },
+          {
+            "da": -369.084852,
+            "pairs": 1
+          },
+          {
+            "da": -240.126263,
+            "pairs": 1
+          },
+          {
+            "da": -324.063388,
+            "pairs": 1
+          },
+          {
+            "da": -206.021523,
+            "pairs": 1
+          },
+          {
+            "da": -316.203845,
+            "pairs": 1
+          },
+          {
+            "da": -284.17763,
+            "pairs": 1
+          },
+          {
+            "da": -286.19328,
+            "pairs": 1
+          },
+          {
+            "da": -224.032088,
+            "pairs": 1
+          },
+          {
+            "da": -350.853053,
+            "pairs": 1
+          },
+          {
+            "da": -168.151415,
+            "pairs": 1
+          },
+          {
+            "da": -286.229666,
+            "pairs": 1
+          },
+          {
+            "da": -258.136828,
+            "pairs": 1
+          },
+          {
+            "da": -265.086956,
+            "pairs": 1
+          },
+          {
+            "da": -231.162314,
+            "pairs": 1
+          },
+          {
+            "da": -420.048132,
+            "pairs": 1
+          },
+          {
+            "da": -164.047344,
+            "pairs": 1
+          },
+          {
+            "da": -502.381081,
+            "pairs": 1
+          },
+          {
+            "da": -279.025876,
+            "pairs": 1
+          },
+          {
+            "da": -424.188589,
+            "pairs": 1
+          },
+          {
+            "da": -366.037567,
+            "pairs": 1
+          },
+          {
+            "da": -438.280381,
+            "pairs": 1
+          },
+          {
+            "da": -117.021464,
+            "pairs": 1
+          },
+          {
+            "da": -342.183109,
+            "pairs": 1
+          },
+          {
+            "da": -516.272318,
+            "pairs": 1
+          },
+          {
+            "da": -440.183503,
+            "pairs": 1
+          },
+          {
+            "da": -352.868703,
+            "pairs": 1
+          },
+          {
+            "da": -570.334525,
+            "pairs": 1
+          },
+          {
+            "da": -262.047738,
+            "pairs": 1
+          },
+          {
+            "da": -372.084517,
+            "pairs": 1
+          },
+          {
+            "da": -470.24571,
+            "pairs": 1
+          },
+          {
+            "da": -438.058697,
+            "pairs": 1
+          },
+          {
+            "da": -436.043047,
+            "pairs": 1
+          },
+          {
+            "da": -569.277738,
+            "pairs": 1
+          },
+          {
+            "da": -330.037567,
+            "pairs": 1
+          },
+          {
+            "da": -360.172545,
+            "pairs": 1
+          },
+          {
+            "da": -571.304621,
+            "pairs": 1
+          },
+          {
+            "da": -544.500802,
+            "pairs": 1
+          },
+          {
+            "da": -415.141973,
+            "pairs": 1
+          },
+          {
+            "da": -585.320271,
+            "pairs": 1
+          },
+          {
+            "da": -374.115424,
+            "pairs": 1
+          },
+          {
+            "da": -592.267233,
+            "pairs": 1
+          },
+          {
+            "da": -552.272318,
+            "pairs": 1
+          },
+          {
+            "da": -534.261754,
+            "pairs": 1
+          },
+          {
+            "da": -338.115424,
+            "pairs": 1
+          },
+          {
+            "da": -885.175243,
+            "pairs": 1
+          },
+          {
+            "da": -649.154388,
+            "pairs": 1
+          },
+          {
+            "da": -985.227672,
+            "pairs": 1
+          },
+          {
+            "da": -803.253768,
+            "pairs": 1
+          },
+          {
+            "da": -108.021129,
+            "pairs": 1
+          },
+          {
+            "da": -1272.577868,
+            "pairs": 1
+          },
+          {
+            "da": -1055.507815,
+            "pairs": 1
+          },
+          {
+            "da": -495.204573,
+            "pairs": 1
+          },
+          {
+            "da": -1028.252765,
+            "pairs": 1
+          },
+          {
+            "da": -394.126382,
+            "pairs": 1
+          },
+          {
+            "da": -228.042259,
+            "pairs": 1
+          },
+          {
+            "da": -835.419,
+            "pairs": 1
+          },
+          {
+            "da": -1218.530918,
+            "pairs": 1
+          }
+        ]
+      },
+      "decarboxyl": {
+        "declared_da": -43.9898292392,
+        "used_da": -43.9898292392,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 0,
+          "raw_product_rows": 852,
+          "unique_parent_product_pairs": 848,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -43.989829,
+            "pairs": 848
+          }
+        ]
+      },
+      "demethoxy": {
+        "declared_da": -30.01056468374,
+        "used_da": -30.01056468374,
+        "counts": {
+          "reactant_matches": 768,
+          "reached_product_cap": 0,
+          "raw_product_rows": 1181,
+          "unique_parent_product_pairs": 1117,
+          "declared_delta_mismatch": 0,
+          "used_delta_mismatch": 0,
+          "reverse_index_residual": 0,
+          "multifragment_products": 0,
+          "parents_with_valid_products": 768
+        },
+        "observed_mass_deltas": [
+          {
+            "da": -30.010565,
+            "pairs": 1117
+          }
+        ]
+      }
+    }
+  }
+}

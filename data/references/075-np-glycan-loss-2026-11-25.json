@@ -1,0 +1,79 @@
+{
+  "kaggle": {
+    "slug": "enveda-075-np-virtual-window-glycan-loss-compare",
+    "version": 1,
+    "status": "COMPLETE",
+    "artifact_sha256": {
+      "virtual_window_summary.json": "0c3c3317c15962be25fbc5fb344f0a72722d9107e16687ab122589bbca1a476f",
+      "virtual_window_per_query.csv": "18a3910416efe743bf9b2d0452887e650c542a52cd78ccc27223343cb9411464"
+    }
+  },
+  "summary": {
+    "query_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+    "baseline_sha256": "1dcb467d3c73a5aa983d9321e1193c7bd1fec6884ef277b7ee3486485ec153a4",
+    "generation_sha256": "ca7afdba9eff4e52138bf7d4e061e18d9fdff8199e3f1d36231c04fb01a62616",
+    "coverage": {
+      "molecules": 60,
+      "baseline_top25": 48,
+      "absent_all_original": 10,
+      "raw_virtual_hit": 0,
+      "raw_virtual_hit_in_author_window": 0,
+      "known_main_virtual_hit": 0,
+      "known_main_hit_absent_original_lists": 0,
+      "raw_hits_absent_original_lists": 0,
+      "entirely_new_virtual_hit": 0,
+      "entirely_new_virtual_hit_in_author_window": 0
+    },
+    "max_delta_rr_if_all_new_correct_answer_rank1": 0.0,
+    "delta_rr_if_all_new_correct_answer_rank5": 0.0,
+    "newly_reachable_ids": [],
+    "known_main_reachable_ids": [],
+    "sources": {
+      "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+        "molecules": 4,
+        "baseline_top25": 4,
+        "absent_all_original": 0,
+        "raw_virtual_hit": 0,
+        "raw_virtual_hit_in_author_window": 0,
+        "known_main_virtual_hit": 0,
+        "known_main_hit_absent_original_lists": 0,
+        "raw_hits_absent_original_lists": 0,
+        "entirely_new_virtual_hit": 0,
+        "entirely_new_virtual_hit_in_author_window": 0
+      },
+      "MassBank_Eawag": {
+        "molecules": 13,
+        "baseline_top25": 12,
+        "absent_all_original": 1,
+        "raw_virtual_hit": 0,
+        "raw_virtual_hit_in_author_window": 0,
+        "known_main_virtual_hit": 0,
+        "known_main_hit_absent_original_lists": 0,
+        "raw_hits_absent_original_lists": 0,
+        "entirely_new_virtual_hit": 0,
+        "entirely_new_virtual_hit_in_author_window": 0
+      },
+      "MycoMSBase": {
+        "molecules": 43,
+        "baseline_top25": 32,
+        "absent_all_original": 9,
+        "raw_virtual_hit": 0,
+        "raw_virtual_hit_in_author_window": 0,
+        "known_main_virtual_hit": 0,
+        "known_main_hit_absent_original_lists": 0,
+        "raw_hits_absent_original_lists": 0,
+        "entirely_new_virtual_hit": 0,
+        "entirely_new_virtual_hit_in_author_window": 0
+      }
+    }
+  },
+  "candidate_counts": {
+    "query_identity_entries_novel": 14,
+    "query_identity_entries_known_main": 12,
+    "queries_with_novel_proposals": 10,
+    "queries_with_known_main_proposals": 6,
+    "median_novel_per_query": 0.0,
+    "median_known_main_per_query": 0.0,
+    "entries_for_original_source_misses": 10
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "completed_cpu_job": "jiyujia/enveda-075-c39-snapshot-cpu/2",
+  "status": "COMPLETE",
+  "control": "jiyujia/enveda-075-np-recall-base/2",
+  "device": "cpu",
+  "exact_original_lists": 39,
+  "total_lists": 60,
+  "slate_rows": 5298,
+  "first_rank_difference_by_query": {
+    "m_0199671e9e96": 8,
+    "m_1171d6646590": 18,
+    "m_17c4ed1464aa": 34,
+    "m_1d0a21cd8f24": 19,
+    "m_2776589bbaaf": 17,
+    "m_325c6b4639a2": 49,
+    "m_417cb1557f0c": 57,
+    "m_5db188e44509": 6,
+    "m_60249642d700": 30,
+    "m_629bc25507b4": 4,
+    "m_70a62ae7bf3b": 38,
+    "m_7ba5edc4bd87": 14,
+    "m_7e5f8addaac7": 14,
+    "m_984e13c199f5": 35,
+    "m_b48250cfa30e": 16,
+    "m_b668271d2144": 4,
+    "m_e5eff070aa8a": 50,
+    "m_ea26de384593": 30,
+    "m_eca11db69ee0": 11,
+    "m_edad43d8a6c8": 48,
+    "m_f7b102f14304": 22
+  },
+  "unequal_request_queries_by_channel": {
+    "ice_native": 21,
+    "gl_native": 21,
+    "gl_proxy": 0,
+    "ice_shadow": 14,
+    "gl_shadow": 14
+  },
+  "exact_full_request_files": {
+    "ice_native": false,
+    "gl_native": false,
+    "ice_shadow": false,
+    "gl_shadow": false
+  },
+  "all_request_discrepancies_including_global": 75,
+  "source_sha256": {
+    "c39_snapshot_receipt.json": "3683867f51894b1485c2ab7cbd6f0f0134b8fe1c2690e0af9393e5c6f4301240",
+    "c39_slate_verification.json": "244c21e876e9115cde3c5ca09866bff06ebacc5007da3e7ec0ffe887783b87f3",
+    "c39_request_verification.json": "a9b9b6ead6d39bc441e65068d8cdbf234e1ce12fed2578c59bb281c2fe1025a8"
+  },
+  "cache_reuse_supported": false,
+  "historical_shadow_counts_for_six_shortlist_hits": [
+    {
+      "id": "m_2776589bbaaf",
+      "unseen_shortlist_rank": 22,
+      "historical_shadow_candidate_spectra": {
+        "ice_shadow_candidate_spectra": 48,
+        "gl_shadow_candidate_spectra": 48
+      }
+    },
+    {
+      "id": "m_7ba5edc4bd87",
+      "unseen_shortlist_rank": 6,
+      "historical_shadow_candidate_spectra": {
+        "ice_shadow_candidate_spectra": 42,
+        "gl_shadow_candidate_spectra": 42
+      }
+    },
+    {
+      "id": "m_b668271d2144",
+      "unseen_shortlist_rank": 2,
+      "historical_shadow_candidate_spectra": {
+        "ice_shadow_candidate_spectra": 48,
+        "gl_shadow_candidate_spectra": 48
+      }
+    },
+    {
+      "id": "m_b68e840e9062",
+      "unseen_shortlist_rank": 3,
+      "historical_shadow_candidate_spectra": {
+        "ice_shadow_candidate_spectra": 48,
+        "gl_shadow_candidate_spectra": 48
+      }
+    },
+    {
+      "id": "m_eca11db69ee0",
+      "unseen_shortlist_rank": 7,
+      "historical_shadow_candidate_spectra": {
+        "ice_shadow_candidate_spectra": 47,
+        "gl_shadow_candidate_spectra": 47
+      }
+    },
+    {
+      "id": "m_edad43d8a6c8",
+      "unseen_shortlist_rank": 3,
+      "historical_shadow_candidate_spectra": {
+        "ice_shadow_candidate_spectra": 48,
+        "gl_shadow_candidate_spectra": 48
+      }
+    }
+  ],
+  "refresh_job": "jiyujia/enveda-075-c39-snapshot-t4/1",
+  "refresh_scope": "Rerun the original C39 ranking on T4 and independently prove the archived C41 prediction request equivalence."
+}

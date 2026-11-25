@@ -1,0 +1,375 @@
+{
+  "receipt": {
+    "slug": "enveda-075-np-virtual-window-full-main-shortlist",
+    "version": 1,
+    "generation_version": 1,
+    "score_version": 1,
+    "status": "COMPLETE",
+    "artifact_sha256": {
+      "virtual_window_summary.json": "76456e7ffc9e3f59ffb937ad1bdbafa542c72c1d2b97f841000b667d6418a04d",
+      "virtual_window_per_query.csv": "e7844536fb7c1cbd0c3c91544374477f48127aed7521786fa622ebe97f1496d2"
+    }
+  },
+  "summary": {
+    "query_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+    "baseline_sha256": "1dcb467d3c73a5aa983d9321e1193c7bd1fec6884ef277b7ee3486485ec153a4",
+    "generation_sha256": "d302bc432a6bf9f23fd5f4fcb23dc2e54282d69d423c0cc61b91076084a681e8",
+    "coverage": {
+      "molecules": 60,
+      "baseline_top25": 48,
+      "absent_all_original": 10,
+      "raw_virtual_hit": 0,
+      "raw_virtual_hit_in_author_window": 0,
+      "known_main_virtual_hit": 57,
+      "known_main_hit_absent_original_lists": 7,
+      "raw_hits_absent_original_lists": 7,
+      "entirely_new_virtual_hit": 0,
+      "entirely_new_virtual_hit_in_author_window": 0
+    },
+    "max_delta_rr_if_all_new_correct_answer_rank1": 0.0,
+    "delta_rr_if_all_new_correct_answer_rank5": 0.0,
+    "newly_reachable_ids": [],
+    "known_main_reachable_ids": [
+      "m_2776589bbaaf",
+      "m_7ba5edc4bd87",
+      "m_b48250cfa30e",
+      "m_b668271d2144",
+      "m_b68e840e9062",
+      "m_eca11db69ee0",
+      "m_edad43d8a6c8"
+    ],
+    "sources": {
+      "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+        "molecules": 4,
+        "baseline_top25": 4,
+        "absent_all_original": 0,
+        "raw_virtual_hit": 0,
+        "raw_virtual_hit_in_author_window": 0,
+        "known_main_virtual_hit": 4,
+        "known_main_hit_absent_original_lists": 0,
+        "raw_hits_absent_original_lists": 0,
+        "entirely_new_virtual_hit": 0,
+        "entirely_new_virtual_hit_in_author_window": 0
+      },
+      "MassBank_Eawag": {
+        "molecules": 13,
+        "baseline_top25": 12,
+        "absent_all_original": 1,
+        "raw_virtual_hit": 0,
+        "raw_virtual_hit_in_author_window": 0,
+        "known_main_virtual_hit": 12,
+        "known_main_hit_absent_original_lists": 0,
+        "raw_hits_absent_original_lists": 0,
+        "entirely_new_virtual_hit": 0,
+        "entirely_new_virtual_hit_in_author_window": 0
+      },
+      "MycoMSBase": {
+        "molecules": 43,
+        "baseline_top25": 32,
+        "absent_all_original": 9,
+        "raw_virtual_hit": 0,
+        "raw_virtual_hit_in_author_window": 0,
+        "known_main_virtual_hit": 41,
+        "known_main_hit_absent_original_lists": 7,
+        "raw_hits_absent_original_lists": 7,
+        "entirely_new_virtual_hit": 0,
+        "entirely_new_virtual_hit_in_author_window": 0
+      }
+    },
+    "fpnet_a_shortlist": {
+      "scope": "Candidate-list stage before C41/C43 and final fusion",
+      "cap": 24,
+      "native_control": "Original C34 direct order at the same per-query budget",
+      "original_sources": [
+        "final",
+        "main",
+        "engine2",
+        "pubchem",
+        "prefusion",
+        "fused_overflow"
+      ],
+      "artifacts": {
+        "receipt_sha256": "f05054088941a0317cb7cc995b49f2707ec28f5180cbde1d5affa1831cd749cd",
+        "shortlist_sha256": "3bbd119dac0f4302487fb9dc30e926ff8857a1e8482c86e3c6d1f0800f731a26",
+        "scores_sha256": "53df8277fad638f7a978dbf9dfca6137f084f9b630553115a0d801a53738de91"
+      },
+      "paired_equal_slots": true,
+      "total": {
+        "molecules": 60,
+        "molecules_with_paired_slots": 59,
+        "slots_per_arm": 1153,
+        "generated": {
+          "top_hits": {
+            "1": 14,
+            "5": 33,
+            "24": 52
+          },
+          "new_all_source_hits": {
+            "1": 0,
+            "5": 1,
+            "24": 5
+          },
+          "new_all_source_ids": {
+            "1": [],
+            "5": [
+              "m_b68e840e9062"
+            ],
+            "24": [
+              "m_7ba5edc4bd87",
+              "m_b668271d2144",
+              "m_b68e840e9062",
+              "m_eca11db69ee0",
+              "m_edad43d8a6c8"
+            ]
+          }
+        },
+        "native_c34": {
+          "top_hits": {
+            "1": 0,
+            "5": 0,
+            "24": 0
+          },
+          "new_all_source_hits": {
+            "1": 0,
+            "5": 0,
+            "24": 0
+          },
+          "new_all_source_ids": {
+            "1": [],
+            "5": [],
+            "24": []
+          }
+        }
+      },
+      "sources": {
+        "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+          "molecules": 4,
+          "molecules_with_paired_slots": 4,
+          "slots_per_arm": 44,
+          "generated": {
+            "top_hits": {
+              "1": 0,
+              "5": 3,
+              "24": 4
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          },
+          "native_c34": {
+            "top_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          }
+        },
+        "MassBank_Eawag": {
+          "molecules": 13,
+          "molecules_with_paired_slots": 12,
+          "slots_per_arm": 153,
+          "generated": {
+            "top_hits": {
+              "1": 5,
+              "5": 11,
+              "24": 11
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          },
+          "native_c34": {
+            "top_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          }
+        },
+        "MycoMSBase": {
+          "molecules": 43,
+          "molecules_with_paired_slots": 43,
+          "slots_per_arm": 956,
+          "generated": {
+            "top_hits": {
+              "1": 9,
+              "5": 19,
+              "24": 37
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 1,
+              "24": 5
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [
+                "m_b68e840e9062"
+              ],
+              "24": [
+                "m_7ba5edc4bd87",
+                "m_b668271d2144",
+                "m_b68e840e9062",
+                "m_eca11db69ee0",
+                "m_edad43d8a6c8"
+              ]
+            }
+          },
+          "native_c34": {
+            "top_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          }
+        }
+      },
+      "candidate_source": "known_main",
+      "candidate_artifact": "known_main.parquet",
+      "candidate_artifact_sha256": "7dbffa4be52d70dd19e34c57312a0e576e40f37cb5b2de6498a8f12780148140"
+    }
+  },
+  "main_window_definition": "Pinned 710701-entry Engine 1 pool around original C34 neutral centers at \u00b110 ppm.",
+  "main_vs_native_c34_scope": "C34 excludes candidate structures already in main, so C34 is the equal-budget comparison for an additional shortlist channel.",
+  "baseline_all_source_misses": [
+    {
+      "id": "m_271d6f38f4df",
+      "source": "MycoMSBase",
+      "slots": 1,
+      "main_window_count": 1,
+      "truth_in_main_window": false,
+      "fpnet_a_rank": null,
+      "recovered_in_prior_four_arm_final_top25": false
+    },
+    {
+      "id": "m_2776589bbaaf",
+      "source": "MycoMSBase",
+      "slots": 24,
+      "main_window_count": 349,
+      "truth_in_main_window": true,
+      "fpnet_a_rank": null,
+      "recovered_in_prior_four_arm_final_top25": false
+    },
+    {
+      "id": "m_46f4697ed06a",
+      "source": "MassBank_Eawag",
+      "slots": 24,
+      "main_window_count": 32,
+      "truth_in_main_window": false,
+      "fpnet_a_rank": null,
+      "recovered_in_prior_four_arm_final_top25": false
+    },
+    {
+      "id": "m_629bc25507b4",
+      "source": "MycoMSBase",
+      "slots": 24,
+      "main_window_count": 37,
+      "truth_in_main_window": false,
+      "fpnet_a_rank": null,
+      "recovered_in_prior_four_arm_final_top25": false
+    },
+    {
+      "id": "m_7ba5edc4bd87",
+      "source": "MycoMSBase",
+      "slots": 24,
+      "main_window_count": 70,
+      "truth_in_main_window": true,
+      "fpnet_a_rank": 21,
+      "recovered_in_prior_four_arm_final_top25": false
+    },
+    {
+      "id": "m_b48250cfa30e",
+      "source": "MycoMSBase",
+      "slots": 24,
+      "main_window_count": 530,
+      "truth_in_main_window": true,
+      "fpnet_a_rank": null,
+      "recovered_in_prior_four_arm_final_top25": false
+    },
+    {
+      "id": "m_b668271d2144",
+      "source": "MycoMSBase",
+      "slots": 24,
+      "main_window_count": 136,
+      "truth_in_main_window": true,
+      "fpnet_a_rank": 6,
+      "recovered_in_prior_four_arm_final_top25": false
+    },
+    {
+      "id": "m_b68e840e9062",
+      "source": "MycoMSBase",
+      "slots": 24,
+      "main_window_count": 162,
+      "truth_in_main_window": true,
+      "fpnet_a_rank": 3,
+      "recovered_in_prior_four_arm_final_top25": true
+    },
+    {
+      "id": "m_eca11db69ee0",
+      "source": "MycoMSBase",
+      "slots": 24,
+      "main_window_count": 78,
+      "truth_in_main_window": true,
+      "fpnet_a_rank": 19,
+      "recovered_in_prior_four_arm_final_top25": true
+    },
+    {
+      "id": "m_edad43d8a6c8",
+      "source": "MycoMSBase",
+      "slots": 24,
+      "main_window_count": 331,
+      "truth_in_main_window": true,
+      "fpnet_a_rank": 15,
+      "recovered_in_prior_four_arm_final_top25": false
+    }
+  ],
+  "new_all_source_misses_not_recovered_by_any_completed_four_arm_final": [
+    "m_7ba5edc4bd87",
+    "m_b668271d2144",
+    "m_edad43d8a6c8"
+  ]
+}

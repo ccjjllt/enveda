@@ -1,0 +1,294 @@
+{
+  "kaggle": {
+    "slug": "enveda-075-np-virtual-window-main-shortlist",
+    "version": 1,
+    "score_version": 1,
+    "status": "COMPLETE",
+    "artifact_sha256": {
+      "virtual_window_summary.json": "bc7aa4a55af770e679c4b15a0c9965b030c673612a92c8f26ef71e12d7fa701a",
+      "virtual_window_per_query.csv": "728b2a0f7f5791dbf83f6730387805c82b501f15553c8cc5b20b7b3999f4e1cf"
+    }
+  },
+  "summary": {
+    "query_sha256": "2a8bf747f50e6920fcd4f24e04302b721281f8794c947cc58fe545264b12d0d4",
+    "baseline_sha256": "1dcb467d3c73a5aa983d9321e1193c7bd1fec6884ef277b7ee3486485ec153a4",
+    "generation_sha256": "b637428e67c539b299c72c931269f6844f77db1a53290fbec974bfbcb57bd705",
+    "coverage": {
+      "molecules": 60,
+      "baseline_top25": 48,
+      "absent_all_original": 10,
+      "raw_virtual_hit": 1,
+      "raw_virtual_hit_in_author_window": 1,
+      "known_main_virtual_hit": 38,
+      "known_main_hit_absent_original_lists": 4,
+      "raw_hits_absent_original_lists": 5,
+      "entirely_new_virtual_hit": 1,
+      "entirely_new_virtual_hit_in_author_window": 1
+    },
+    "max_delta_rr_if_all_new_correct_answer_rank1": 0.016666666666666666,
+    "delta_rr_if_all_new_correct_answer_rank5": 0.0033333333333333335,
+    "newly_reachable_ids": [
+      "m_271d6f38f4df"
+    ],
+    "known_main_reachable_ids": [
+      "m_2776589bbaaf",
+      "m_b48250cfa30e",
+      "m_b68e840e9062",
+      "m_eca11db69ee0"
+    ],
+    "sources": {
+      "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+        "molecules": 4,
+        "baseline_top25": 4,
+        "absent_all_original": 0,
+        "raw_virtual_hit": 0,
+        "raw_virtual_hit_in_author_window": 0,
+        "known_main_virtual_hit": 1,
+        "known_main_hit_absent_original_lists": 0,
+        "raw_hits_absent_original_lists": 0,
+        "entirely_new_virtual_hit": 0,
+        "entirely_new_virtual_hit_in_author_window": 0
+      },
+      "MassBank_Eawag": {
+        "molecules": 13,
+        "baseline_top25": 12,
+        "absent_all_original": 1,
+        "raw_virtual_hit": 0,
+        "raw_virtual_hit_in_author_window": 0,
+        "known_main_virtual_hit": 9,
+        "known_main_hit_absent_original_lists": 0,
+        "raw_hits_absent_original_lists": 0,
+        "entirely_new_virtual_hit": 0,
+        "entirely_new_virtual_hit_in_author_window": 0
+      },
+      "MycoMSBase": {
+        "molecules": 43,
+        "baseline_top25": 32,
+        "absent_all_original": 9,
+        "raw_virtual_hit": 1,
+        "raw_virtual_hit_in_author_window": 1,
+        "known_main_virtual_hit": 28,
+        "known_main_hit_absent_original_lists": 4,
+        "raw_hits_absent_original_lists": 5,
+        "entirely_new_virtual_hit": 1,
+        "entirely_new_virtual_hit_in_author_window": 1
+      }
+    },
+    "fpnet_a_shortlist": {
+      "scope": "Candidate-list stage before C41/C43 and final fusion",
+      "cap": 24,
+      "native_control": "Original C34 direct order at the same per-query budget",
+      "original_sources": [
+        "final",
+        "main",
+        "engine2",
+        "pubchem",
+        "prefusion",
+        "fused_overflow"
+      ],
+      "artifacts": {
+        "receipt_sha256": "c91597ab9d21813a342faa039b6186efecbe115fc2c635ba8d93fa02b99ec3bd",
+        "shortlist_sha256": "d26284da86183c4489e8d62ae56428a8d9acfa5ef22fb6c88d0fc350db30cadc",
+        "scores_sha256": "84771e2dabf34074e62c2863a154454b35379a047755991112c9944311f303e9"
+      },
+      "paired_equal_slots": true,
+      "total": {
+        "molecules": 60,
+        "molecules_with_paired_slots": 57,
+        "slots_per_arm": 910,
+        "generated": {
+          "top_hits": {
+            "1": 15,
+            "5": 25,
+            "24": 34
+          },
+          "new_all_source_hits": {
+            "1": 0,
+            "5": 1,
+            "24": 2
+          },
+          "new_all_source_ids": {
+            "1": [],
+            "5": [
+              "m_b68e840e9062"
+            ],
+            "24": [
+              "m_b68e840e9062",
+              "m_eca11db69ee0"
+            ]
+          }
+        },
+        "native_c34": {
+          "top_hits": {
+            "1": 0,
+            "5": 0,
+            "24": 0
+          },
+          "new_all_source_hits": {
+            "1": 0,
+            "5": 0,
+            "24": 0
+          },
+          "new_all_source_ids": {
+            "1": [],
+            "5": [],
+            "24": []
+          }
+        }
+      },
+      "sources": {
+        "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+          "molecules": 4,
+          "molecules_with_paired_slots": 3,
+          "slots_per_arm": 26,
+          "generated": {
+            "top_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 1
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          },
+          "native_c34": {
+            "top_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          }
+        },
+        "MassBank_Eawag": {
+          "molecules": 13,
+          "molecules_with_paired_slots": 12,
+          "slots_per_arm": 71,
+          "generated": {
+            "top_hits": {
+              "1": 6,
+              "5": 8,
+              "24": 8
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          },
+          "native_c34": {
+            "top_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          }
+        },
+        "MycoMSBase": {
+          "molecules": 43,
+          "molecules_with_paired_slots": 42,
+          "slots_per_arm": 813,
+          "generated": {
+            "top_hits": {
+              "1": 9,
+              "5": 17,
+              "24": 25
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 1,
+              "24": 2
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [
+                "m_b68e840e9062"
+              ],
+              "24": [
+                "m_b68e840e9062",
+                "m_eca11db69ee0"
+              ]
+            }
+          },
+          "native_c34": {
+            "top_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_hits": {
+              "1": 0,
+              "5": 0,
+              "24": 0
+            },
+            "new_all_source_ids": {
+              "1": [],
+              "5": [],
+              "24": []
+            }
+          }
+        }
+      },
+      "candidate_source": "known_main",
+      "candidate_artifact": "known_main.parquet",
+      "candidate_artifact_sha256": "fc0f8adf82e5ec6f7025dffae7384bb507a4fc3893c7114c02aa3c5ec5f90934"
+    }
+  },
+  "known_main_original_misses": {
+    "m_2776589bbaaf": {
+      "known_main_count": 199,
+      "fpnet_a_budget": 24,
+      "fpnet_a_generated_rank": 0,
+      "fpnet_a_native_c34_rank": 0
+    },
+    "m_b48250cfa30e": {
+      "known_main_count": 381,
+      "fpnet_a_budget": 24,
+      "fpnet_a_generated_rank": 0,
+      "fpnet_a_native_c34_rank": 0
+    },
+    "m_b68e840e9062": {
+      "known_main_count": 81,
+      "fpnet_a_budget": 24,
+      "fpnet_a_generated_rank": 2,
+      "fpnet_a_native_c34_rank": 0
+    },
+    "m_eca11db69ee0": {
+      "known_main_count": 41,
+      "fpnet_a_budget": 24,
+      "fpnet_a_generated_rank": 15,
+      "fpnet_a_native_c34_rank": 0
+    }
+  }
+}

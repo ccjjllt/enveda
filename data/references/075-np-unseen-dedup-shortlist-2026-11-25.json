@@ -1,0 +1,486 @@
+{
+  "rule-main": {
+    "receipt": {
+      "slug": "enveda-075-rule-main-unseen-compare",
+      "version": 1,
+      "blind_slug": "enveda-075-rule-main-unseen",
+      "blind_version": 1,
+      "status": "COMPLETE",
+      "blind_receipt_sha256": "b52bd6a3de9fa550c40476ff5388689b116ecf4e605c10c623e361a3d9d9b317",
+      "notebook_sha256": "f4514cb588a6ec5b771bd7a6be501f688315fc9334f49ffe1c1cc27bf16b3ae3",
+      "artifact_sha256": {
+        "unseen_relist_summary.json": "62f4aa1122921d1780d8a7b1d01a02bf754268fe017b4d59254139c241ad7071",
+        "unseen_relist_per_query.csv": "7878f59fd8eb5eccf6a7c633134aaa7ba2275ad54dc63bf912599f5e3d65eeb8"
+      }
+    },
+    "summary": {
+      "scope": "FPNet A shortlist before any fusion",
+      "generation_scope": "virtual-rules",
+      "blind_receipt_sha256": "b52bd6a3de9fa550c40476ff5388689b116ecf4e605c10c623e361a3d9d9b317",
+      "cap": 24,
+      "total": {
+        "molecules": 60,
+        "queries_with_slots": 33,
+        "slots_per_arm": 547,
+        "occupied_plain_slots": 370,
+        "top_k": {
+          "1": {
+            "plain": 9,
+            "unseen": 0,
+            "plain_absent_all_original": 0,
+            "unseen_absent_all_original": 0,
+            "added_absent_all_original": [],
+            "lost_absent_all_original": []
+          },
+          "5": {
+            "plain": 16,
+            "unseen": 2,
+            "plain_absent_all_original": 1,
+            "unseen_absent_all_original": 2,
+            "added_absent_all_original": [
+              "m_eca11db69ee0"
+            ],
+            "lost_absent_all_original": []
+          },
+          "24": {
+            "plain": 22,
+            "unseen": 3,
+            "plain_absent_all_original": 2,
+            "unseen_absent_all_original": 3,
+            "added_absent_all_original": [
+              "m_2776589bbaaf"
+            ],
+            "lost_absent_all_original": []
+          }
+        }
+      },
+      "sources": {
+        "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+          "molecules": 4,
+          "queries_with_slots": 2,
+          "slots_per_arm": 25,
+          "occupied_plain_slots": 16,
+          "top_k": {
+            "1": {
+              "plain": 0,
+              "unseen": 0,
+              "plain_absent_all_original": 0,
+              "unseen_absent_all_original": 0,
+              "added_absent_all_original": [],
+              "lost_absent_all_original": []
+            },
+            "5": {
+              "plain": 0,
+              "unseen": 0,
+              "plain_absent_all_original": 0,
+              "unseen_absent_all_original": 0,
+              "added_absent_all_original": [],
+              "lost_absent_all_original": []
+            },
+            "24": {
+              "plain": 1,
+              "unseen": 0,
+              "plain_absent_all_original": 0,
+              "unseen_absent_all_original": 0,
+              "added_absent_all_original": [],
+              "lost_absent_all_original": []
+            }
+          }
+        },
+        "MassBank_Eawag": {
+          "molecules": 13,
+          "queries_with_slots": 1,
+          "slots_per_arm": 9,
+          "occupied_plain_slots": 9,
+          "top_k": {
+            "1": {
+              "plain": 1,
+              "unseen": 0,
+              "plain_absent_all_original": 0,
+              "unseen_absent_all_original": 0,
+              "added_absent_all_original": [],
+              "lost_absent_all_original": []
+            },
+            "5": {
+              "plain": 1,
+              "unseen": 0,
+              "plain_absent_all_original": 0,
+              "unseen_absent_all_original": 0,
+              "added_absent_all_original": [],
+              "lost_absent_all_original": []
+            },
+            "24": {
+              "plain": 1,
+              "unseen": 0,
+              "plain_absent_all_original": 0,
+              "unseen_absent_all_original": 0,
+              "added_absent_all_original": [],
+              "lost_absent_all_original": []
+            }
+          }
+        },
+        "MycoMSBase": {
+          "molecules": 43,
+          "queries_with_slots": 30,
+          "slots_per_arm": 513,
+          "occupied_plain_slots": 345,
+          "top_k": {
+            "1": {
+              "plain": 8,
+              "unseen": 0,
+              "plain_absent_all_original": 0,
+              "unseen_absent_all_original": 0,
+              "added_absent_all_original": [],
+              "lost_absent_all_original": []
+            },
+            "5": {
+              "plain": 15,
+              "unseen": 2,
+              "plain_absent_all_original": 1,
+              "unseen_absent_all_original": 2,
+              "added_absent_all_original": [
+                "m_eca11db69ee0"
+              ],
+              "lost_absent_all_original": []
+            },
+            "24": {
+              "plain": 20,
+              "unseen": 3,
+              "plain_absent_all_original": 2,
+              "unseen_absent_all_original": 3,
+              "added_absent_all_original": [
+                "m_2776589bbaaf"
+              ],
+              "lost_absent_all_original": []
+            }
+          }
+        }
+      }
+    },
+    "baseline_all_source_misses": [
+      {
+        "id": "m_271d6f38f4df",
+        "source": "MycoMSBase",
+        "budget": 0,
+        "plain_seen_slots": 0,
+        "plain_rank": null,
+        "unseen_rank": null
+      },
+      {
+        "id": "m_2776589bbaaf",
+        "source": "MycoMSBase",
+        "budget": 24,
+        "plain_seen_slots": 9,
+        "plain_rank": null,
+        "unseen_rank": 20
+      },
+      {
+        "id": "m_46f4697ed06a",
+        "source": "MassBank_Eawag",
+        "budget": 0,
+        "plain_seen_slots": 0,
+        "plain_rank": null,
+        "unseen_rank": null
+      },
+      {
+        "id": "m_629bc25507b4",
+        "source": "MycoMSBase",
+        "budget": 0,
+        "plain_seen_slots": 0,
+        "plain_rank": null,
+        "unseen_rank": null
+      },
+      {
+        "id": "m_7ba5edc4bd87",
+        "source": "MycoMSBase",
+        "budget": 15,
+        "plain_seen_slots": 9,
+        "plain_rank": null,
+        "unseen_rank": null
+      },
+      {
+        "id": "m_b48250cfa30e",
+        "source": "MycoMSBase",
+        "budget": 24,
+        "plain_seen_slots": 10,
+        "plain_rank": null,
+        "unseen_rank": null
+      },
+      {
+        "id": "m_b668271d2144",
+        "source": "MycoMSBase",
+        "budget": 24,
+        "plain_seen_slots": 11,
+        "plain_rank": null,
+        "unseen_rank": null
+      },
+      {
+        "id": "m_b68e840e9062",
+        "source": "MycoMSBase",
+        "budget": 24,
+        "plain_seen_slots": 6,
+        "plain_rank": 2,
+        "unseen_rank": 2
+      },
+      {
+        "id": "m_eca11db69ee0",
+        "source": "MycoMSBase",
+        "budget": 19,
+        "plain_seen_slots": 14,
+        "plain_rank": 15,
+        "unseen_rank": 5
+      },
+      {
+        "id": "m_edad43d8a6c8",
+        "source": "MycoMSBase",
+        "budget": 24,
+        "plain_seen_slots": 19,
+        "plain_rank": null,
+        "unseen_rank": null
+      }
+    ]
+  },
+  "full-main": {
+    "receipt": {
+      "slug": "enveda-075-full-main-unseen-compare",
+      "version": 1,
+      "blind_slug": "enveda-075-full-main-unseen",
+      "blind_version": 1,
+      "status": "COMPLETE",
+      "blind_receipt_sha256": "62a857d612fb7d04bafd8eb3ee32403f1d7bbcc95da93a42bd0f22823ffbe1de",
+      "notebook_sha256": "f79e2dd067bffe1b4e39383386d1bfa780d01eda40ab24d39732d5bf4a819419",
+      "artifact_sha256": {
+        "unseen_relist_summary.json": "b617e22c8b7af893351030b9ee4c2a19373502062ce44e57ddd29ddc612f6a37",
+        "unseen_relist_per_query.csv": "80e37357861d470e90533040bd48b227affc83f24e0226bede151824aeae3c0c"
+      }
+    },
+    "summary": {
+      "scope": "FPNet A shortlist before any fusion",
+      "generation_scope": "full-main-window",
+      "blind_receipt_sha256": "62a857d612fb7d04bafd8eb3ee32403f1d7bbcc95da93a42bd0f22823ffbe1de",
+      "cap": 24,
+      "total": {
+        "molecules": 60,
+        "queries_with_slots": 34,
+        "slots_per_arm": 670,
+        "occupied_plain_slots": 514,
+        "top_k": {
+          "1": {
+            "plain": 6,
+            "unseen": 0,
+            "plain_absent_all_original": 0,
+            "unseen_absent_all_original": 0,
+            "added_absent_all_original": [],
+            "lost_absent_all_original": []
+          },
+          "5": {
+            "plain": 15,
+            "unseen": 3,
+            "plain_absent_all_original": 1,
+            "unseen_absent_all_original": 3,
+            "added_absent_all_original": [
+              "m_b668271d2144",
+              "m_edad43d8a6c8"
+            ],
+            "lost_absent_all_original": []
+          },
+          "24": {
+            "plain": 29,
+            "unseen": 6,
+            "plain_absent_all_original": 5,
+            "unseen_absent_all_original": 6,
+            "added_absent_all_original": [
+              "m_2776589bbaaf"
+            ],
+            "lost_absent_all_original": []
+          }
+        }
+      },
+      "sources": {
+        "GNPS_TUEBINGEN-NATURAL-PRODUCT-COLLECTION": {
+          "molecules": 4,
+          "queries_with_slots": 1,
+          "slots_per_arm": 24,
+          "occupied_plain_slots": 19,
+          "top_k": {
+            "1": {
+              "plain": 0,
+              "unseen": 0,
+              "plain_absent_all_original": 0,
+              "unseen_absent_all_original": 0,
+              "added_absent_all_original": [],
+              "lost_absent_all_original": []
+            },
+            "5": {
+              "plain": 0,
+              "unseen": 0,
+              "plain_absent_all_original": 0,
+              "unseen_absent_all_original": 0,
+              "added_absent_all_original": [],
+              "lost_absent_all_original": []
+            },
+            "24": {
+              "plain": 1,
+              "unseen": 0,
+              "plain_absent_all_original": 0,
+              "unseen_absent_all_original": 0,
+              "added_absent_all_original": [],
+              "lost_absent_all_original": []
+            }
+          }
+        },
+        "MassBank_Eawag": {
+          "molecules": 13,
+          "queries_with_slots": 1,
+          "slots_per_arm": 15,
+          "occupied_plain_slots": 15,
+          "top_k": {
+            "1": {
+              "plain": 0,
+              "unseen": 0,
+              "plain_absent_all_original": 0,
+              "unseen_absent_all_original": 0,
+              "added_absent_all_original": [],
+              "lost_absent_all_original": []
+            },
+            "5": {
+              "plain": 1,
+              "unseen": 0,
+              "plain_absent_all_original": 0,
+              "unseen_absent_all_original": 0,
+              "added_absent_all_original": [],
+              "lost_absent_all_original": []
+            },
+            "24": {
+              "plain": 1,
+              "unseen": 0,
+              "plain_absent_all_original": 0,
+              "unseen_absent_all_original": 0,
+              "added_absent_all_original": [],
+              "lost_absent_all_original": []
+            }
+          }
+        },
+        "MycoMSBase": {
+          "molecules": 43,
+          "queries_with_slots": 32,
+          "slots_per_arm": 631,
+          "occupied_plain_slots": 480,
+          "top_k": {
+            "1": {
+              "plain": 6,
+              "unseen": 0,
+              "plain_absent_all_original": 0,
+              "unseen_absent_all_original": 0,
+              "added_absent_all_original": [],
+              "lost_absent_all_original": []
+            },
+            "5": {
+              "plain": 14,
+              "unseen": 3,
+              "plain_absent_all_original": 1,
+              "unseen_absent_all_original": 3,
+              "added_absent_all_original": [
+                "m_b668271d2144",
+                "m_edad43d8a6c8"
+              ],
+              "lost_absent_all_original": []
+            },
+            "24": {
+              "plain": 27,
+              "unseen": 6,
+              "plain_absent_all_original": 5,
+              "unseen_absent_all_original": 6,
+              "added_absent_all_original": [
+                "m_2776589bbaaf"
+              ],
+              "lost_absent_all_original": []
+            }
+          }
+        }
+      }
+    },
+    "baseline_all_source_misses": [
+      {
+        "id": "m_271d6f38f4df",
+        "source": "MycoMSBase",
+        "budget": 0,
+        "plain_seen_slots": 0,
+        "plain_rank": null,
+        "unseen_rank": null
+      },
+      {
+        "id": "m_2776589bbaaf",
+        "source": "MycoMSBase",
+        "budget": 24,
+        "plain_seen_slots": 8,
+        "plain_rank": null,
+        "unseen_rank": 22
+      },
+      {
+        "id": "m_46f4697ed06a",
+        "source": "MassBank_Eawag",
+        "budget": 0,
+        "plain_seen_slots": 0,
+        "plain_rank": null,
+        "unseen_rank": null
+      },
+      {
+        "id": "m_629bc25507b4",
+        "source": "MycoMSBase",
+        "budget": 0,
+        "plain_seen_slots": 0,
+        "plain_rank": null,
+        "unseen_rank": null
+      },
+      {
+        "id": "m_7ba5edc4bd87",
+        "source": "MycoMSBase",
+        "budget": 24,
+        "plain_seen_slots": 17,
+        "plain_rank": 21,
+        "unseen_rank": 6
+      },
+      {
+        "id": "m_b48250cfa30e",
+        "source": "MycoMSBase",
+        "budget": 24,
+        "plain_seen_slots": 14,
+        "plain_rank": null,
+        "unseen_rank": null
+      },
+      {
+        "id": "m_b668271d2144",
+        "source": "MycoMSBase",
+        "budget": 24,
+        "plain_seen_slots": 13,
+        "plain_rank": 6,
+        "unseen_rank": 2
+      },
+      {
+        "id": "m_b68e840e9062",
+        "source": "MycoMSBase",
+        "budget": 24,
+        "plain_seen_slots": 6,
+        "plain_rank": 3,
+        "unseen_rank": 3
+      },
+      {
+        "id": "m_eca11db69ee0",
+        "source": "MycoMSBase",
+        "budget": 24,
+        "plain_seen_slots": 17,
+        "plain_rank": 19,
+        "unseen_rank": 7
+      },
+      {
+        "id": "m_edad43d8a6c8",
+        "source": "MycoMSBase",
+        "budget": 24,
+        "plain_seen_slots": 21,
+        "plain_rank": 15,
+        "unseen_rank": 3
+      }
+    ]
+  }
+}
