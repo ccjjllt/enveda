@@ -27,6 +27,79 @@ def pack(contents):
     return base64.b64encode(zlib.compress(contents, 9)).decode(), sha256(contents).hexdigest()
 
 
+PARALLEL_FEATURES = '''
+import four_reference_mask as _four_mask
+
+
+def _npx_record_feature(record, featurize):
+    lab, smiles = record
+    if lab == 1:
+        try:
+            if _four_mask.excluded_smiles(smiles):
+                return lab, None
+        except (ValueError, RuntimeError):
+            return lab, None
+    return lab, featurize(smiles)
+
+
+def _npx_feature_worker_init():
+    global _npx_worker_features
+    _npx_worker_features = npx_featurizer()
+
+
+def _npx_feature_worker(record):
+    return _npx_record_feature(record, _npx_worker_features)
+'''
+
+
+def prepare_parallel_npx(source):
+    begin = source.index('    X, y = [], []\n')
+    end = source.index('    perm = rng.permutation(len(y))', begin)
+    before = source[begin:end]
+    if 'X, y = np.stack(X), np.asarray(y)' not in before or '_four_mask.excluded_smiles' not in before:
+        raise ValueError('The pinned masked NPX feature loop changed')
+    after = '''    from multiprocessing import get_context
+    from os import sched_getaffinity
+    records = [(1, s) for s in pos] + [(0, s) for s in neg]
+    workers = min(4, len(sched_getaffinity(0)))
+    X, y = [], []
+    print('NPX featurisation', len(records), 'rows;', workers, 'workers', flush=True)
+    with get_context('spawn').Pool(workers, initializer=_npx_feature_worker_init) as pool:
+        sample = records[:12] + records[len(pos):len(pos)+12]
+        for record, actual in zip(sample, pool.imap(_npx_feature_worker, sample), strict=True):
+            serial = _npx_record_feature(record, feats)
+            if serial[0] != actual[0] or (serial[1] is None) != (actual[1] is None):
+                raise ValueError('Parallel NPX changed the sampled holdout decisions')
+            if serial[1] is not None and serial[1].tobytes() != actual[1].tobytes():
+                raise ValueError('Parallel NPX changed a sampled feature vector')
+        for i, (lab, f) in enumerate(pool.imap(_npx_feature_worker, records, chunksize=48), 1):
+            if f is not None:
+                X.append(f)
+                y.append(lab)
+            if i % 4000 == 0:
+                print('NPX features', i, '/', len(records), 'retained', len(X), flush=True)
+                if deadline is not None and time.monotonic() > deadline:
+                    raise TimeoutError('NPX featurisation over budget')
+    X, y = np.stack(X), np.asarray(y)
+    feature_receipt = dict(rows=int(len(X)), columns=int(X.shape[1]), workers=workers,
+                           features_sha256=hashlib.sha256(memoryview(X).cast('B')).hexdigest(),
+                           labels_sha256=hashlib.sha256(memoryview(y).cast('B')).hexdigest())
+'''
+    updated = masked.rewrite(source, before, after)
+    updated = masked.rewrite(updated, "    info['table_keys'] = len(table)",
+                             "    info['table_keys'] = len(table)\n    info['feature_receipt'] = feature_receipt")
+    featurizer = source[source.index('def npx_featurizer():'):source.index('def npx_keyer():')]
+    worker_source = PARALLEL_FEATURES + '\n' + featurizer
+    compile(worker_source, 'npx_parallel_workers.py', 'exec')
+    bootstrap_workers = f"""
+worker_path = Path('/tmp/npx_parallel_workers.py')
+worker_path.write_text({worker_source!r})
+sys.path.insert(0, str(worker_path.parent))
+from npx_parallel_workers import _npx_record_feature, _npx_feature_worker, _npx_feature_worker_init
+"""
+    return bootstrap_workers + '\n' + updated
+
+
 def build(source, metadata, panel, artifacts, out):
     raw = source.read_bytes()
     if sha256(raw).hexdigest() != SOURCE_SHA:
@@ -34,6 +107,8 @@ def build(source, metadata, panel, artifacts, out):
     book = json.loads(raw)
     bootstrap = masked.route_engine(book, bundle_index=10, driver_index=11, allow_empty_extension=True)
     adapt_tails(book)
+    config = masked.rewrite(masked.cell(book, 1), 'NPX_BUDGET_S = 4200.0', 'NPX_BUDGET_S = 7200.0')
+    parallel_npx = prepare_parallel_npx(masked.cell(book, 35))
     prepare = masked.prepare_source(panel / 'blind', panel / 'private/holdout.json', bootstrap)
     blobs = {}
     for arm, directory in RUNS.items():
@@ -49,6 +124,7 @@ def build(source, metadata, panel, artifacts, out):
     replay = f'''
 import shutil
 import tempfile
+import pickle
 from zipfile import ZipFile, ZIP_DEFLATED
 
 blobs = {blobs!r}
@@ -71,6 +147,10 @@ def npx_train(*args, **kwargs):
     global npx_model
     if npx_model is None:
         npx_model = real_npx_train(*args, **kwargs)
+        model, _, table, fit = npx_model
+        with (work / 'shared_npx_model.pickle').open('wb') as output:
+            pickle.dump(dict(model=model, table=table, fit=fit, reference_counts=_four_train_stats), output, protocol=5)
+        (work / 'shared_npx_fit.json').write_text(json.dumps(fit, indent=2))
     return npx_model
 
 with tempfile.TemporaryDirectory() as scratch:
@@ -101,9 +181,9 @@ INPUT = Path('/kaggle/input')
 """
     tails = "_NPX_NOTEBOOK_RUN = _EX_NOTEBOOK_RUN = False\n"
     book['cells'] = [
-        assemble.code_cell('configure', masked.cell(book, 1)),
+        assemble.code_cell('configure', config),
         assemble.code_cell('prepare-masked-input', setup + prepare),
-        assemble.code_cell('original-tail-functions', tails + masked.cell(book, 35) + '\n' + masked.cell(book, 37)),
+        assemble.code_cell('original-tail-functions', tails + parallel_npx + '\n' + masked.cell(book, 37)),
         assemble.code_cell('reseal-saved-runs', replay),
     ]
     for cell in book['cells']:

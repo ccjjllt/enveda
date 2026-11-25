@@ -1,12 +1,13 @@
 """Seal complete Pablo replay arms before opening labels, then compare paired MRR."""
 
 import argparse
-from collections import Counter
+from collections import Counter, defaultdict
 import csv
 from functools import lru_cache
 from hashlib import file_digest
 import json
 from pathlib import Path
+import random
 import shutil
 
 import pandas as pd
@@ -273,9 +274,12 @@ def baseline_opportunity(candidates, truth_smiles, rank, sources_missed):
 def summarize(rows, arm):
     ranks = [(r['baseline_rank'], r[f'{arm}_rank'], r['baseline_sources_missed']) for r in rows]
     count = len(ranks)
+    changes = [reciprocal(new) - reciprocal(old) for old, new, _ in ranks]
     return dict(molecules=count,
                 mrr25=sum(reciprocal(new) for _, new, _ in ranks) / count,
-                delta_mrr=sum(reciprocal(new) - reciprocal(old) for old, new, _ in ranks) / count,
+                delta_mrr=sum(changes) / count,
+                reciprocal_rank_gains=sum(change for change in changes if change > 0),
+                reciprocal_rank_losses=-sum(change for change in changes if change < 0),
                 top1=sum(new == 1 for _, new, _ in ranks),
                 new_top1=sum(new == 1 and old != 1 for old, new, _ in ranks),
                 lost_top1=sum(old == 1 and new != 1 for old, new, _ in ranks),
@@ -291,10 +295,28 @@ def summarize(rows, arm):
                                                                for old, new, no_source in ranks))
 
 
+def paired_scaffold_interval(rows, arm, draws=4000):
+    by_scaffold = defaultdict(list)
+    for row in rows:
+        by_scaffold[row['scaffold']].append(row[f'{arm}_delta_rr'])
+    groups = [(len(values), sum(values)) for values in by_scaffold.values()]
+    sampler = random.Random(241125)
+    estimates = []
+    for _ in range(draws):
+        sample = sampler.choices(groups, k=len(groups))
+        estimates.append(sum(change for _, change in sample) / sum(size for size, _ in sample))
+    estimates.sort()
+    return dict(groups=len(groups), draws=draws,
+                percentile_95=[estimates[int(draws * .025)], estimates[int(draws * .975) - 1]])
+
+
 def score(args):
     work = {arm: args.runs / arm for arm in ARMS}
     receipts = {arm: read_json(path / 'pilot_arm_receipt.json') for arm, path in work.items()}
     baseline = receipts['baseline']
+    finite_counts, npx_fits = {}, {}
+    fit_fields = ('engine', 'train', 'auc_holdout', 'np_examples', 'np_examples_median_p',
+                  'np_examples_share_p_gt_0_5', 'gate_ok', 'table_keys')
     for arm, receipt in receipts.items():
         if receipt['arm'] != arm or receipt['candidate_slots'] != CAP:
             raise ValueError(f'{arm}: arm or candidate limit differs')
@@ -308,6 +330,18 @@ def score(args):
         for name, expected in receipt['hashes'].items():
             if digest(work[arm] / name) != expected:
                 raise ValueError(f'{arm}: {name} changed after rankings were sealed')
+        budget = read_json(work[arm] / 'pilot_forward_budget.json')['cases']
+        finite_counts[arm] = {mid: entry['finite_counts'] for mid, entry in budget.items()}
+        arm_totals = sum((Counter(counts) for counts in finite_counts[arm].values()), Counter())
+        if dict(arm_totals) != receipt['finite_scores_by_model']:
+            raise ValueError(f'{arm}: effective forward model counts differ from the sealed summary')
+        audit = read_json(work[arm] / 'npx_audit.json')
+        npx_fits[arm] = {field: audit[field] for field in fit_fields}
+    unequal_finite = sorted(mid for mid, counts in finite_counts['baseline'].items()
+                            if any(finite_counts[arm][mid] != counts for arm in ARMS[1:]))
+    npx_fit_differences = {arm: [field for field in fit_fields
+                                 if npx_fits[arm][field] != npx_fits['baseline'][field]]
+                           for arm in ARMS[1:]}
     lists = {arm: answers(path / 'submission.csv') for arm, path in work.items()}
     catalogs = {arm: read_json(path / 'four_source_lists.json') for arm, path in work.items()}
     labels = pd.read_parquet(args.labels, columns=['molecule_id', 'truth_key', 'truth_smiles', 'source', 'scaffold'])
@@ -336,19 +370,27 @@ def score(args):
                                          item['baseline_sources_missed']))
         rows.append(item)
     full_lists = [row for row in rows if all(row[f'{arm}_vacant_slots'] == 0 for arm in ARMS)]
+    incomplete_pairs = set(unequal_finite)
+    equal_finite_rows = [row for row in rows if row['molecule_id'] not in incomplete_pairs]
+    equal_finite_summaries = ({arm: summarize(equal_finite_rows, arm) for arm in ARMS}
+                              if unequal_finite and equal_finite_rows else {})
     data = dict(source=SOURCE, molecules=len(rows), candidate_slots_per_query=CAP,
                 labels_sha256=digest(args.labels), queries_sha256=baseline['queries_sha256'],
                 equal_prediction_budget=True, equal_prediction_requests=True,
                 predictor_budget_totals={key: sum(case[key] for case in baseline['predictor_budget'].values())
                                          for key in next(iter(baseline['predictor_budget'].values()))},
                 finite_prediction_scores={arm: value['finite_scores_by_model'] for arm, value in receipts.items()},
+                unequal_finite_prediction_queries=unequal_finite, npx_fit_summaries=npx_fits,
+                npx_fit_summary_differences=npx_fit_differences,
                 final_slot_fill_queries={arm: value['final_slot_fill_queries'] for arm, value in receipts.items()},
                 vacant_slots_by_query={arm: value['vacant_slots_by_query'] for arm, value in receipts.items()},
                 baseline_opportunities=dict(Counter(row['baseline_opportunity'] for row in rows)),
                 formula_oracle_delta_mrr=sum(row['formula_oracle_delta_rr'] for row in rows) / len(rows),
                 stage_status={arm: value['stage_status'] for arm, value in receipts.items()},
                 summaries={arm: summarize(rows, arm) for arm in ARMS},
+                delta_mrr_scaffold_bootstrap={arm: paired_scaffold_interval(rows, arm) for arm in ARMS[1:]},
                 all_arms_full_lists={arm: summarize(full_lists, arm) for arm in ARMS} if full_lists else {},
+                all_arms_equal_finite_predictions=equal_finite_summaries,
                 by_source={source: {arm: summarize([r for r in rows if r['source'] == source], arm) for arm in ARMS}
                            for source in sorted({r['source'] for r in rows})})
     args.out.mkdir(parents=True, exist_ok=True)
