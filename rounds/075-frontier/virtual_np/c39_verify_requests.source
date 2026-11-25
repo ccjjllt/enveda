@@ -1,0 +1,175 @@
+"""Reconstruct the baseline C41 request and identify every reserved E1/PC shadow slot."""
+def verify_c39_requests():
+    import hashlib
+    import importlib.util
+    import json
+    import math
+    import sys
+    from functools import lru_cache
+    from itertools import zip_longest
+    from pathlib import Path
+
+    from rdkit import Chem
+    from rdkit.Chem.rdMolDescriptors import CalcMolFormula
+
+    def digest(value):
+        data = json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False)
+        return hashlib.sha256(data.encode()).hexdigest()
+
+    def read(name):
+        return json.loads(archived(name).read_bytes())
+
+    @lru_cache(maxsize=None)
+    def formula(smiles):
+        try:
+            return CalcMolFormula(Chem.MolFromSmiles(smiles))
+        except (ValueError, RuntimeError, TypeError):
+            return smiles
+
+    def first_ranks(representatives):
+        result = {}
+        for i, smiles in enumerate(representatives, 1):
+            result.setdefault(smiles, i)
+        return result
+
+    fuse_path = Path(find('casmi26-iceberg/**/ice_runner.py')).with_name('fuse.py')
+    spec = importlib.util.spec_from_file_location('c39_original_ice_fuse', fuse_path)
+    fuse = importlib.util.module_from_spec(spec)
+    sys.path.insert(0, str(fuse_path.parent))
+    try:
+        spec.loader.exec_module(fuse)
+    finally:
+        sys.path.pop(0)
+
+    baseline = read('pilot_forward_budget.json')
+    expected_parameters = {'depth': 100, 'extra_e1': 24, 'extra_pc': 24}
+    if (baseline['arm'] != 'baseline' or baseline['parameters'] != expected_parameters
+            or set(BASE) != set(baseline['cases']) or TOPN != 60 or LIB_TAU != 0.9):
+        raise ValueError('Unexpected C39 population or upstream C41 settings for baseline/2')
+    if not set(te['adduct'].dropna()) <= {'[M+H]+', '[M-H]-'}:
+        raise ValueError('The 60-case no-proxy panel unexpectedly contains another adduct')
+
+    native, extra, provenance = {}, {}, {}
+    for mid in sorted(BASE, key=lambda m: BASE[m][2]):
+        main, keys, lib_max, _, forms = BASE[mid]
+        pc = PC.get(mid) or {}
+        engine = ENG.get(str(mid)) or {}
+        # Pablo v29 sets BASE_ICE=False. Main participates through the E1/E2 union.
+        requested = []
+        if engine.get('smiles'):
+            main_keys = set(keys[:TOPN])
+            add = [s for s,k in zip(engine['smiles'][:40],engine['keys'][:40]) if k not in main_keys]
+            mixed = list(main[:TOPN]) + add
+            requested.extend(fuse.ice_candidates(mixed, list(forms[:TOPN])+[formula(s) for s in add], len(mixed)))
+        if pc.get('pc') and lib_max < LIB_TAU:
+            requested.extend(fuse.ice_candidates(pc['pc'], [formula(s) for s in pc['pc']], 25))
+        requested = list(dict.fromkeys(requested))
+        if requested:
+            native[mid] = requested
+        slots = []
+        provenance[mid] = slots
+        if lib_max >= LIB_TAU:
+            continue
+        deep = PILOT_E1_DEEP.get(mid, [])
+        complete = list(main) + [row[0] for row in deep]
+        complete_forms = list(forms) + [row[3] for row in deep]
+        prior = set(requested)
+        e1 = [s for s in fuse.ice_candidates(complete, complete_forms, len(complete)) if s not in prior][:24]
+        main_ranks = first_ranks(complete)
+        for s in e1:
+            slots.append(dict(slot=len(slots)+1, channel='e1', smiles=s, e1_rank=main_ranks[s]))
+        prior.update(e1)
+        pc_any, pc_outside = pc.get('pilot_any', []), pc.get('pilot_outside', [])
+        pc_order = list(dict.fromkeys(rec['smiles'] for pair in zip_longest(pc_any, pc_outside)
+                                     for rec in pair if rec is not None))
+        pc_ranks = first_ranks(pc_order)
+        any_ranks = first_ranks(r['smiles'] for r in pc_any)
+        outside_ranks = first_ranks(r['smiles'] for r in pc_outside)
+        tail = [s for s in fuse.ice_candidates(pc_order, [formula(s) for s in pc_order], len(pc_order))
+                if s not in prior][:24]
+        for s in tail:
+            slots.append(dict(slot=len(slots)+1, channel='pc', smiles=s, interleaved_pc_rank=pc_ranks[s],
+                              pc_any_rank=any_ranks.get(s), pc_outside_rank=outside_ranks.get(s)))
+        if slots:
+            extra[mid] = [slot['smiles'] for slot in slots]
+
+    def protonated(items):
+        groups = [dict(item, spectra=[s for s in item['spectra'] if s['adduct']=='[M+H]+']) for item in items]
+        return [item for item in groups if item['spectra']]
+
+    native_ice = fuse.build_ice_input(te, native)
+    shadow_ice = [item for item in fuse.build_ice_input(te, extra) if item['spectra']]
+    requests = dict(ice_native=native_ice, gl_native=protonated(native_ice),
+                    ice_shadow=shadow_ice, gl_shadow=protonated(shadow_ice))
+    files = dict(ice_native='ice_work/ice_in.json', gl_native='gl_work/gl_in.json',
+                 ice_shadow='pilot_ice/ice_in.json', gl_shadow='pilot_gl/gl_in.json')
+    per_case = {mid:{} for mid in BASE}
+    file_checks, failures = {}, []
+    for channel, items in requests.items():
+        raw = archived(files[channel]).read_bytes()
+        old_items = json.loads(raw)
+        actual, archived_sha = digest(items), digest(old_items)
+        file_checks[channel] = dict(file=files[channel], file_sha256=hashlib.sha256(raw).hexdigest(),
+                                    rebuilt_sha256=actual, original_canonical_sha256=archived_sha,
+                                    exact=actual==archived_sha, inputs=len(items))
+        if actual != archived_sha:
+            failures.append(f'{channel} full ordered input')
+        by_id = {str(item['mid']):item for item in items}
+        if len(by_id) != len(items) or not set(by_id) <= set(BASE):
+            failures.append(f'{channel} query population')
+        for mid in BASE:
+            item = by_id.get(mid, {})
+            count = len(item.get('cands', [])) * len(item.get('spectra', []))
+            expected = baseline['cases'][mid]
+            item_sha = digest(item)
+            expected_sha = expected['request_sha256'][channel]
+            expected_count = expected['predictor_budget'][channel+'_candidate_spectra']
+            matched = item_sha == expected_sha and count == expected_count
+            per_case[mid][channel] = dict(request_sha256=item_sha, original_request_sha256=expected_sha,
+                                          candidate_spectra=count, original_candidate_spectra=expected_count,
+                                          exact=matched)
+            if not matched:
+                failures.append(f'{channel} {mid}')
+            if channel.endswith('_shadow') and item:
+                slots = provenance[mid]
+                if item['cands'] != [s['smiles'] for s in slots]:
+                    failures.append(f'{channel} {mid} shadow attribution')
+
+    unused_proxy_sha = digest({})
+    for mid, case in baseline['cases'].items():
+        matched = (case['request_sha256']['gl_proxy'] == unused_proxy_sha
+                   and case['predictor_budget']['gl_proxy_candidate_spectra'] == 0)
+        per_case[mid]['gl_proxy'] = dict(request_sha256=unused_proxy_sha,
+                                         original_request_sha256=case['request_sha256']['gl_proxy'],
+                                         candidate_spectra=0,
+                                         original_candidate_spectra=case['predictor_budget']['gl_proxy_candidate_spectra'],
+                                         exact=matched)
+        if not matched:
+            failures.append(f'gl_proxy {mid}')
+
+    joint_shadow_sha = digest(dict(ice=requests['ice_shadow'], gl=requests['gl_shadow']))
+    scored = read('pilot_shadow_scores.json')
+    if baseline['shadow_input_sha256'] != scored['request_sha256']:
+        raise ValueError('The original shadow score cache does not match the original request receipt')
+    if joint_shadow_sha != baseline['shadow_input_sha256']:
+        failures.append('shadow cache request SHA')
+    for stage in ('ice', 'gl'):
+        for mid in BASE:
+            finite = sum(v is not None and math.isfinite(float(v))
+                         for v in (scored[stage].get(mid) or {}).values())
+            if finite != baseline['cases'][mid]['finite_counts'][stage+'_shadow']:
+                raise ValueError(f'Original shadow receipt and score cache differ for {stage} {mid}')
+    attribution = ROOT / 'c39_shadow_provenance.json'
+    attribution.write_text(json.dumps(provenance, separators=(',', ':'), ensure_ascii=False)+'\n')
+    report = dict(original='jiyujia/enveda-075-np-recall-base/2', request_files=file_checks, cases=per_case,
+                  checked_molecules=len(per_case), joint_shadow_sha256=joint_shadow_sha,
+                  original_joint_shadow_sha256=baseline['shadow_input_sha256'],
+                  provenance_sha256=hashlib.sha256(attribution.read_bytes()).hexdigest(),
+                  fuse_source_sha256=hashlib.sha256(fuse_path.read_bytes()).hexdigest(),
+                  exact=not failures, differences=failures)
+    (ROOT / 'c39_request_verification.json').write_text(json.dumps(report, indent=2)+'\n')
+    print('C39/C41 archived request comparison', len(per_case), 'queries', len(failures), 'differences', flush=True)
+    return not failures
+
+
+C39_REQUESTS_EXACT = verify_c39_requests()

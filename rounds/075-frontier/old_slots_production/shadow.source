@@ -1,0 +1,329 @@
+"""Optional production C41 reranking of the original E1/deep slate. No validation-case data is consumed."""
+def old_slots_capture():
+    global _OLD_SLOTS_CAPTURE
+    try:
+        c39_errors = dict(globals().get('OLD_SLOTS_E1_ERRORS',{}))
+        c34_errors = {str(k):str(v['old_slots_error']) for k,v in PC.items() if v.get('old_slots_error')}
+        if c39_errors or c34_errors:
+            _OLD_SLOTS_CAPTURE = ({},dict(c39=c39_errors,c34=c34_errors))
+            return
+        stock = {}
+        for mid,(sm,keys,library,scores,forms) in BASE.items():
+            deep = PILOT_E1_DEEP.get(mid,[])
+            if len({len(sm),len(keys),len(scores),len(forms)})!=1 or len(sm)+len(deep)>100:
+                raise ValueError('Unexpected E1 candidate ledger')
+            stock[mid] = ([*sm, *(r[0] for r in deep)], [*keys, *(r[1] for r in deep)], float(library),
+                          [*scores, *(r[2] for r in deep)], [*forms, *(r[3] for r in deep)])
+        _OLD_SLOTS_CAPTURE = (stock,None)
+    except Exception as exc:
+        _OLD_SLOTS_CAPTURE = ({},repr(exc))
+
+
+def _old_slots_requests(stock,deadline):
+    from collections import Counter
+    from functools import lru_cache
+    from itertools import zip_longest
+    from rdkit import Chem
+    from rdkit.Chem.rdMolDescriptors import CalcMolFormula
+    import time
+    @lru_cache(maxsize=24000)
+    def formula(s):
+        mol = Chem.MolFromSmiles(s)
+        return CalcMolFormula(mol) if mol is not None else s
+    extra, allowed, stats = {},{},{}
+    for mid in mids:
+        if time.monotonic()>=deadline:
+            raise TimeoutError('Deadline while constructing original shadow requests')
+        sm,keys,library,values,forms = stock[mid]
+        row = stats[mid] = dict(old_e1_candidates=len(sm),library_max=library,e1_shadow=0,pc_shadow=0)
+        if library>=LIB_TAU:
+            continue
+        seen = set(cands.get(mid,[]))
+        e1 = [s for s in ice_fuse.ice_candidates(sm,forms,len(sm)) if s not in seen][:24]
+        seen.update(e1)
+        p = PC.get(mid) or {}
+        if p.get('pc') and not {'pilot_any','pilot_outside'}<=p.keys():
+            raise ValueError('C34 original candidate ledgers were not recorded for '+str(mid))
+        paired = zip_longest(p.get('pilot_any',[]),p.get('pilot_outside',[]))
+        proposed = list(dict.fromkeys(r['smiles'] for pair in paired for r in pair if r is not None))
+        pc = [s for s in ice_fuse.ice_candidates(proposed,[formula(s) for s in proposed],len(proposed))
+              if s not in seen][:24]
+        row.update(e1_shadow=len(e1),pc_shadow=len(pc))
+        if e1 or pc:
+            extra[mid] = e1+pc
+        # rerank_multi puts an isomer group back into its own original positions.
+        # A group without an original top-25 slot cannot contribute any entry to the returned main list.
+        counts = Counter(forms)
+        head = set(forms[:25])
+        eligible = {f for f in head if counts[f]>=2}
+        # The original _getter checks the literal input SMILES first, then the exact native key.
+        allowed[mid] = {lookup for s,k,f in zip(sm,keys,forms) if f in eligible for lookup in (s,k)}
+    full_ice = [r for r in ice_fuse.build_ice_input(te,extra) if r['spectra']]
+    def protonated(rows):
+        filtered = [dict(r,spectra=[s for s in r['spectra'] if s.get('adduct')=='[M+H]+']) for r in rows]
+        return [r for r in filtered if r['spectra']]
+    full = dict(ice=full_ice,gl=protonated(full_ice))
+    # Original N1 flags are computed on the native requests. Proxy data never enters the new GL branch.
+    real_h = {r['mid'] for r in [*gl_items,*full['gl']] if any(
+        s.get('adduct')=='[M+H]+' and s.get('mode')=='positive' for s in r['spectra'])}
+    pruned = {}
+    for model,items_all in full.items():
+        chosen = []
+        for r in items_all:
+            mid = r['mid']
+            keep = [s for s in r['cands'] if mid in real_h and s in allowed.get(mid,())]
+            if keep:
+                chosen.append(dict(r,cands=keep))
+        pruned[model] = chosen
+    for mid,row in stats.items():
+        row['real_h_eligible'] = mid in real_h
+        row['native_n1_only'] = mid in globals().get('N1_MIDS',set()) and mid not in real_h
+    return full,pruned,real_h,stats
+
+
+def _old_slots_counts(items, deadline, exact_gl_jobs=False):
+    import time
+    result, all_jobs = {},set()
+    g = globals().get('_n1_G') if exact_gl_jobs else None
+    for r in items:
+        if time.monotonic()>=deadline:
+            raise TimeoutError('Deadline while measuring predictor job intents')
+        n = len(r['cands'])
+        info = dict(candidates=n,spectra=len(r['spectra']),candidate_spectra=n*len(r['spectra']))
+        if g is not None and callable(getattr(g,'molecule_plan',None)) and callable(getattr(g,'molecule_jobs',None)):
+            jobs = g.molecule_jobs(g.molecule_plan(r),r['cands'])
+            info['native_gl_job_keys'] = len(jobs)
+            all_jobs.update(jobs)
+        result[r['mid']] = info
+    return result, len(all_jobs) if g is not None and all('native_gl_job_keys' in row for row in result.values()) else None
+
+
+def _old_slots_run_one(model, requests, audit_root, maximum, expected_meta):
+    """Isolate the original helper/runner's process group so its normal grace cannot exceed our deadline."""
+    import json, os, signal, subprocess, sys, time
+    from pathlib import Path
+    start = time.monotonic()
+    work = audit_root/model
+    work.mkdir()
+    input_path = work/'requested.json'
+    input_path.write_text(json.dumps(requests,allow_nan=False))
+    helper = ice_fuse if model=='ice' else gl_fuse
+    pkg = ICE_PKG if model=='ice' else GL_PKG
+    native_budget = int(maximum-(time.monotonic()-start)-12)
+    if native_budget<8:
+        raise TimeoutError('Insufficient remaining time for '+model)
+    worker = """
+import importlib.util,json,sys
+from pathlib import Path
+model,helper,pkg,ice_pkg,work,request_path,budget=sys.argv[1:]
+sys.path.insert(0,str(Path(helper).parent))
+spec=importlib.util.spec_from_file_location('old_slots_native_helper',helper)
+module=importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+items=json.loads(Path(request_path).read_bytes())
+opts=dict(workdir=work,device='cuda',budget_s=int(budget),site='/kaggle/working/ice_site',extra_args=['--any-rdkit'])
+if model=='ice':
+    result=module.run_ice(pkg,items,**opts)
+else:
+    result=module.run_gl(pkg,items,wheels=str(Path(ice_pkg)/'wheels'),**opts)
+actual=Path(work)/(model+'_out.json')
+if not actual.exists() or json.loads(actual.read_bytes())!=result:
+    raise RuntimeError('Native helper return and output file disagree')
+"""
+    with (work/'worker.log').open('w') as log:
+        process = subprocess.Popen([sys.executable,'-c',worker,model,helper.__file__,str(pkg),str(ICE_PKG),
+                                    str(work),str(input_path),str(native_budget)],stdout=log,stderr=subprocess.STDOUT,
+                                   start_new_session=True)
+        try:
+            status=process.wait(timeout=max(0.1,maximum-(time.monotonic()-start)-3))
+        except subprocess.TimeoutExpired:
+            try:
+                os.killpg(process.pid,signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            process.wait(timeout=3)
+            raise TimeoutError(model+' exceeded the optional wall-clock allocation')
+    if status:
+        raise RuntimeError(model+' worker exited '+str(status))
+    def load(suffix):
+        return json.loads((work/(model+suffix)).read_bytes())
+    meta,raw = load('_out.json.meta.json'),load('_out.json')
+    if load('_in.json')!=requests or meta.get('status')!='ok' or not str(meta.get('device','')).startswith('cuda'):
+        raise RuntimeError(model+' did not completely run the intended input on CUDA')
+    if meta.get('rdkit')!='2025.03.6' or meta.get('torch')!=expected_meta.get('torch'):
+        raise RuntimeError(model+' runtime differs from the original native predictor')
+    by_mid = {r['mid']:r for r in requests}
+    if (set(raw)!=set(by_mid) or any(set(raw[m])!=set(r['cands']) for m,r in by_mid.items())
+            or meta['n_mols']!=len(requests) or meta['n_cands']!=sum(len(r['cands']) for r in requests)
+            or meta['n_mols_scored']!=meta['n_mols_covered']):
+        raise RuntimeError(model+' output does not account for the requested candidates')
+    finite = sum(v is not None and np.isfinite(v) for results in raw.values() for v in results.values())
+    if meta['n_scored']!=finite or any(v is not None and not np.isfinite(v) for row in raw.values() for v in row.values()):
+        raise RuntimeError(model+' returned inconsistent finite score counts')
+    return raw,dict(native_meta=meta,worker_wall_seconds=round(time.monotonic()-start,3),budget_s=native_budget)
+
+
+def old_slots_apply():
+    import hashlib, json, math, os, tempfile, time
+    from pathlib import Path
+    before = dict(BASE)
+    root = Path('/kaggle/working')
+    began = time.monotonic()
+    model_names = ('ice','gl')
+    report = dict(status='kept_native',models={},cases={},changed_ids=[],new_forward_calls=0,
+                  completed_forward_calls=0,forward_worker_attempts=0,
+                  policy=dict(max_extra_seconds=1200,hard_session_seconds=32400,
+                              reserve_before_9h_seconds=10800,reserve_before_7_5h_seconds=5400,
+                              timeout_policy='restore all original main rows; do not retry',
+                              explicit_null_policy='keep the original main row for this molecule'))
+    def record(main):
+        def ranked_hash(lists):
+            encoded=json.dumps(lists,separators=(',',':'),ensure_ascii=False).encode()
+            return hashlib.sha256(encoded).hexdigest()
+        old_answers={mid:list(value[0]) for mid,value in before.items()}
+        new_answers={mid:list(main.get(mid,before[mid])[0]) for mid in before}
+        report['main_lists']=dict(original_sha256=ranked_hash(sorted(old_answers.items())),
+                                  routed_sha256=ranked_hash(sorted(new_answers.items())),
+                                  queries=len(before),candidate_slots=sum(map(len,new_answers.values())),
+                                  top1_changed=sum(new_answers[m][:1]!=v[:1] for m,v in old_answers.items()),
+                                  top5_changed=sum(new_answers[m][:5]!=v[:5] for m,v in old_answers.items()))
+        for mid,old in old_answers.items():
+            case=report['cases'].setdefault(mid,{})
+            case.update(main_candidates=len(old),original_main_sha256=ranked_hash(old),
+                        routed_main_sha256=ranked_hash(new_answers[mid]))
+        report['elapsed_s']=round(time.monotonic()-began,3)
+        temp = root/'old_slots_shadow_audit.tmp'
+        temp.write_text(json.dumps(report,indent=2,allow_nan=False,default=str)+'\n')
+        temp.replace(root/'old_slots_shadow_audit.json')
+    try:
+        stock,error = _OLD_SLOTS_CAPTURE
+        active_errors={str(mid):str(p['old_slots_error']) for mid,p in PC.items() if p.get('old_slots_error')}
+        if error or globals().get('OLD_SLOTS_E1_ERRORS') or active_errors or set(stock)!=set(before):
+            report['capture_error']=error
+            report['c39_ledger_errors']=dict(globals().get('OLD_SLOTS_E1_ERRORS',{}))
+            report['c34_ledger_errors']=active_errors
+            raise ValueError('Original pre-C41 E1 snapshot is incomplete: '+str(error))
+        session_age = time.time()-float(os.environ['OSL_SESSION_STARTED'])
+        if not math.isfinite(session_age) or not 0<=session_age<32400:
+            raise ValueError('Invalid production notebook start time')
+        cutoff = min(32400-10800,27000-5400)
+        deadline = began+min(1200,cutoff-session_age)
+        report.update(session_elapsed_before_shadow_s=round(session_age,3),
+                      native_inner_elapsed_s=round(time.time()-T0,3),
+                      available_shadow_s=round(max(0,deadline-began),3))
+        if deadline-began<20:
+            raise TimeoutError('The original downstream stages need the remaining session time')
+        full,plan,real_h,per_case = _old_slots_requests(stock,deadline)
+        report['cases'] = per_case
+        native_inputs = dict(ice=items,gl=gl_items)
+        forecasts,native_meta = {},{}
+        for model in model_names:
+            original, _ = _old_slots_counts(native_inputs[model],deadline)
+            raw, _ = _old_slots_counts(full[model],deadline)
+            selected, jobs = _old_slots_counts(plan[model],deadline,exact_gl_jobs=model=='gl')
+            for mid,case in per_case.items():
+                case[model]=dict(native=original.get(mid,{}),raw_shadow=raw.get(mid,{}),pruned_shadow=selected.get(mid,{}))
+            pairs = sum(r['candidate_spectra'] for r in selected.values())
+            native_pairs = sum(r['candidate_spectra'] for r in original.values())
+            raw_pairs = sum(r['candidate_spectra'] for r in raw.values())
+            mr = report['models'][model] = dict(raw_candidate_spectra=raw_pairs,pruned_candidate_spectra=pairs,
+                                               original_candidate_spectra=native_pairs,native_gl_distinct_job_keys=jobs,
+                                               verification='not_dispatched',dispatch_candidate_spectra=0,
+                                               original_runner_input_candidate_spectra=0)
+            meta_file = root/(model+'_work')/(model+'_out.json.meta.json')
+            meta = json.loads(meta_file.read_bytes()) if meta_file.is_file() else {}
+            native_meta[model]=meta
+            if native_pairs and (meta.get('status')!='ok' or not str(meta.get('device','')).startswith('cuda')):
+                raise RuntimeError('Original native '+model+' did not finish on CUDA')
+            if not plan[model]:
+                forecasts[model]=0.
+                continue
+            # Forecast only; an external process-group timeout independently enforces the actual wall allocation.
+            # Without an exact GL job enumeration, estimate CE fan-out with at least 3 jobs per spectrum pair.
+            estimate = jobs if jobs is not None else math.ceil(pairs*max(3.,meta.get('n_pred',0)/max(native_pairs,1)))
+            sec_per_job = max(0.0375 if model=='ice' else 0.0132, meta.get('t_pred',0.)/max(meta.get('n_pred',0),1))
+            forecasts[model]=1.8*(max(20.,meta.get('t_load',0.))+estimate*sec_per_job)+15.
+            mr.update(forecast_job_units=estimate,forecast_seconds=round(forecasts[model],3))
+        report['native_n1_queries'] = len(globals().get('N1_MIDS',()))
+        report['native_n1_driver_status'] = globals().get('N1_DRV',{}).get('status')
+        if sum(forecasts.values())+8 > deadline-time.monotonic():
+            raise TimeoutError('Complete pruned request forecast exceeds the reserved session window')
+        shadow = {m:{} for m in model_names}
+        work = Path(tempfile.mkdtemp(prefix='old_slots_forward_',dir=root))
+        report['forward_directory']=work.name
+        todo = [m for m in model_names if plan[m]]
+        for i,model in enumerate(todo):
+            remaining = deadline-time.monotonic()-8
+            later = sum(forecasts[m] for m in todo[i:])
+            allocation = remaining*forecasts[model]/later
+            if allocation<20:
+                raise TimeoutError('Insufficient time to issue the complete '+model+' request')
+            report['models'][model]['dispatch_candidate_spectra']=report['models'][model]['pruned_candidate_spectra']
+            report['forward_worker_attempts']+=1
+            worker_start=time.monotonic()
+            try:
+                raw, result = _old_slots_run_one(model,plan[model],work,allocation,native_meta[model])
+            except Exception as exc:
+                mr=report['models'][model]
+                mr.update(verification='incomplete_or_unverified',reason=repr(exc),
+                          worker_wall_seconds=round(time.monotonic()-worker_start,3),
+                          original_runner_input_candidate_spectra=None)
+                input_file=work/model/(model+'_in.json')
+                try:
+                    mr['original_helper_wrote_expected_request']=(input_file.is_file()
+                                    and json.loads(input_file.read_bytes())==plan[model])
+                    if mr['original_helper_wrote_expected_request']:
+                        mr['original_runner_input_candidate_spectra']=mr['dispatch_candidate_spectra']
+                        report['new_forward_calls']+=1
+                except (OSError,ValueError):
+                    mr['original_helper_wrote_expected_request']=None
+                raise
+            report['new_forward_calls']+=1
+            report['completed_forward_calls']+=1
+            shadow[model]=raw
+            report['models'][model].update(result,verification='completed_and_reconciled',
+                    original_helper_wrote_expected_request=True,
+                    original_runner_input_candidate_spectra=report['models'][model]['dispatch_candidate_spectra'])
+        staged = {}
+        for mid,(sm,keys,library,scalar,form) in stock.items():
+            if time.monotonic()>=deadline:
+                raise TimeoutError('Deadline while calculating optional routes')
+            case=per_case[mid]
+            if mid not in real_h or library>=LIB_TAU or not sm:
+                case['route']='original_out_of_domain'
+                continue
+            nulls = {model:sum(v is None for v in shadow[model].get(mid,{}).values()) for model in model_names}
+            case['additional_null_scores']=nulls
+            if any(nulls.values()):
+                case['route']='original_incomplete_candidate_evidence'
+                continue
+            old_maps = (ICE_SCORES.get(mid) or {},GL_SCORES.get(mid) or {})
+            joined = [{**native,**shadow[model].get(mid,{})} for native,model in zip(old_maps,model_names)]
+            # At least one real observation from each predictor in this query; both required for this transfer.
+            if not all(any(v is not None and math.isfinite(v) for v in branch.values()) for branch in joined):
+                case['route']='original_missing_physical_channel'
+                continue
+            order = gl_fuse.rerank_multi(sm,keys,scalar,form,joined,[ICE_LAM,GL_LAM],top_n=len(sm))
+            if sorted(order)!=list(range(len(sm))):
+                raise ValueError('Invalid C41 reranking permutation for '+str(mid))
+            size = len(before[mid][0])
+            revised = ([sm[j] for j in order[:size]],[keys[j] for j in order[:size]],library)
+            if len(revised[0])!=size or len(set(revised[1]))!=size or before[mid][2]!=library:
+                raise ValueError('Native C41 main budget, keys or reference strength changed for '+str(mid))
+            staged[mid]=revised
+            case['route']='reranked'
+        if time.monotonic()>deadline:
+            raise TimeoutError('Optional wall deadline elapsed before atomic commit')
+        report['changed_ids']=[mid for mid,v in staged.items() if list(v[0])!=list(before[mid][0])]
+        report.update(status='applied',routed_queries=len(staged))
+        record(staged)
+        BASE.update(staged)
+    except Exception as exc:
+        BASE.update(before)
+        report.update(status='kept_native',changed_ids=[],reason=repr(exc))
+        try:
+            record({})
+        except (OSError,TypeError,ValueError) as audit_error:
+            print('[old slots] audit write failed:',str(audit_error),flush=True)
+    print('[old slots]',report['status'],'changes',len(report['changed_ids']),'forward calls',report['new_forward_calls'],flush=True)
+    return report
