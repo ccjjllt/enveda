@@ -2,7 +2,7 @@
 
 ## 2026-11-24 冲 0.560 的实验选择
 
-11 月 24 日查到公榜前三为 0.554、0.542、0.540。已核对输入和版本的公开起点是 goodpjw2008 的 NPX + E180X 1.1 v7，作者提交 58749432 得 0.505。本队 58804528 已提交，查阅时仍在评分，此前实得 0.498。Pablo 队伍有 0.506，缺少这笔分数对应的确切公开版本；Helios 的公开推理版本有六个输入未显示来源。从 0.505 到 0.560，每百题须净多拿 5.5 个倒数名次分，相当于 11 题从第二升首，或约 7 题从第五升首。只把原漏题补到第五，则每百题需补回约 28 题。隐藏集三类题的比例未知。[公榜](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard) · [可核实的公开原版](https://www.kaggle.com/code/goodpjw2008/enveda-casmi-stack-npx-e180x-1-1-lb-0-505/versions/7) · [Pablo v29](https://www.kaggle.com/code/pablodiegoo/enveda-casmi26-starter-notebook/versions/29) · [Helios v6](https://www.kaggle.com/code/heliosli/public-inference-pipeline-v4-final/versions/6)
+11 月 24 日公榜前三为 0.554、0.546、0.542。本队已复现 goodpjw2008 的 NPX + E180X 1.1 v7，提交 `58804528` 实得 **0.505**。Pablo v29 的同源码复现实得 **0.506**，Ishan v1 实得 **0.509**，后者的虚拟天然产物先验分数尚缺公开生成代码。下文的逐题实验仍按各自使用的原底座结算。隐藏集三类题的比例未知。[公榜](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard) · [0.505 提交回执](../../../data/references/075-public-0505-submission-2026-11-24.json) · [Pablo v29](https://www.kaggle.com/code/pablodiegoo/enveda-casmi26-starter-notebook/versions/29) · [Ishan v1](https://www.kaggle.com/code/ishankarnick/casmi26-lb-0-509-47-7m-virtual-natural-products/versions/1)
 
 ### 哪些错误有机会改变前几名
 
@@ -107,3 +107,11 @@ jiyujia 的 Kaggle 作业已完成，使用一张 Tesla T4，2,000 个结构全�
 Arsokan 公共提交 `58692718` 得 **0.500**。Kaggle 公开 v2 与 goodpjw v3 的 22 个代码单元中 21 个相同，FR 移到 P5 后重排新增候选，并加入 8.2 小时时限。它给出了尾部阶段顺序的强对照。公开比赛代码中也已有同质量负例训练。仅复用这类改动或更换 FR 权重，尚无支持 +0.02 的证据。[Arsokan v2](https://www.kaggle.com/code/omerfarukmerey/casmi26-0-500-aprior-stack-fr-after-p5-tail/versions/2) · [同质量负例的公开实现](https://github.com/corentinlaudicina/enveda-casmi-2026)
 
 结构生成留给来源并集仍缺真值的题。MassBank 的 110 题有 45 道并集漏检，仅 7 道在已核对的几个结构库和实际质量窗内均未找到。已有单次键编辑枚举出 121 万余个结构，等量追加的名单只比旧池多找回一道，同时丢失四道，新增结构原整线已排第一。FRIGID 作者更正了测试分子式影响训练采样的问题，MassSpecGym Top-10 从 22.00% 修正为 12.23%。生成方案应按所有查询算、扣除与原来源重复的精确结构，并报告同一 T4 预算下的最终名次，避免用理想真式及大量解码掩盖覆盖损失。[比赛生成实验](../progress.md) · [FRIGID 更正版与代码](https://github.com/coleygroup/FRIGID)
+
+## 冲 0.560 的主线
+
+T4 回放逐位复现五道漏题的原 E1 前 60。034 和 178 在全窗模型排序中分别排 **71、79**，均有碎片特征。035 的原 E1 加文献先验后为第 **49**。用相同 60 个候选和原版已算出的预测谱分数在截断前重排，真结构升至 ICEBERG 单独第 **19**、ICEBERG 与 GLACIER 联合第 **17**。035 的结果仅覆盖进入主库前 25。[T4 回放](https://www.kaggle.com/code/jiyujia/enveda-075-five-e1-rank-audit/versions/1) · [逐题回执](../../../data/references/075-np-five-miss-index-audit-2026-11-24.json)
+
+先在 50–100 个新身份上做四组整线对照，分别为原版、预测谱评分提前、汇总后跨库去重、两者联合。每组使用相同的谱、离子质量窗、前向预测总量和最终 25 个候选。在评分预算内让现有边缘候选与 E1/C34 更深的候选竞争，记录原各来源都漏掉的身份最后排到哪里。核对原版库匹配高置信题的得失，并将正负离子独立结算。011 类型单测带电结构索引与 `[M]+` 并行窗。
+
+主要训练目标是已召回真结构的升首。从 **0.506 到 0.560** 每百题约需净增加 11 个第二升首，或 27 个漏题升到第五。模型让真实峰和中性丢失与各候选的预测碎片局部交互，结合加合物、碰撞能量和同一结构的多张实测谱。训练候选来自原整线输出，混合真实高排错误结构和普通等质量项，按候选换位产生的倒数名次变化加权。用原序、仅结构先验、同质量错配谱和真实谱做对照。近期研究显示模拟预训练可加强局部匹配，但候选训练也可能提高只看结构的分数。先用 `jiyujia` 的 T4 实测吞吐与跨来源净收益，在同仪器天然产物和独立来源上按近骨架整组留出确认后，再决定是否扩大实谱及模拟谱训练。[候选排序目标](https://arxiv.org/html/2602.16507v2) · [局部谱峰匹配与错配检验](https://arxiv.org/html/2610.37979v1)

@@ -1,5 +1,18 @@
 # 075 进展
 
+## 2026-11-25 Pablo 出分与召回对照续跑
+
+- `jiyujia` 提交 **58820476** 已 `COMPLETE`，公榜实分 **0.506**，较此前 0.505 增加 **0.001**。[正式提交回执](../../data/references/075-public-0506-submission-2026-11-24.json)
+- 原版 v1、提前评分 v1 都跑到 E1 参比扩展，构建了 **2,060,307** 张已屏蔽参比的基础谱缓存。随后旧版把整组留出后为空的扩展视为错误，两臂没有产生预算回执或完整候选。昨晚分批程序在 Kaggle `IntrospectToken` 连接中断后退出，修正版未提交。修正版保留基础缓存，在 CLI 写作业前的认证连接错误时安全重试。[对照运行回执](../../data/references/075-np-recall-pilot-2026-11-24.json)
+- **09:12** 复核原版 v2 和提前评分 v2 均 `RUNNING`。同账号最多两个批量 GPU 作业，汇总去重和联合臂由分批程序等槽位。四臂完整候选、同预算核验和逐题统计仍待输出。[原版 v2](https://www.kaggle.com/code/jiyujia/enveda-075-np-recall-base/versions/2) · [提前评分 v2](https://www.kaggle.com/code/jiyujia/enveda-075-np-recall-early/versions/2)
+- 公榜前三仍为 **0.554 / 0.546 / 0.542**。Pablo 作者团队的新版 **0.509** 对应正式提交 `58831051`。goodpjw v8 的正文报告 `58838097` 得 **0.509**，其团队公榜另显示 `58839350` 得 **0.509**。两版仍以 0.25 加权 `vt_lp_e1.npy`，未找到该中间产物的公开生成代码。已查正文中的 **0.514+ / 0.515+** 都列为目标分。[公榜](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard) · [Pablo v30](https://www.kaggle.com/code/pablodiegoo/enveda-casmi26-starter-notebook/versions/30) · [goodpjw v8](https://www.kaggle.com/code/goodpjw2008/enveda-casmi-virtual-np-e180x-1-1-lb-0-509/versions/8)
+
+## 2026-11-24 Pablo 四组召回对照
+
+- 冻结 **60 个天然产物、98 张实测 MS/MS、48 个通用骨架**。MycoMSBase、MassBank Eawag、GNPS Tübingen 分别有 **43、13、4** 个身份。用比赛版 RDKit 重算 2,156 个同重原子组成的训练结构，规范身份碰撞为零。按来源和通用骨架屏蔽参比谱与运行时拟合，原公开预训练权重固定。MycoMSBase 的 43 题使用原发布的参考前体质量，结果按来源单列。[运行回执](../../data/references/075-np-recall-pilot-2026-11-24.json)
+- Pablo v29 的原版、截断前评分、汇总后去重及联合臂共用盲谱、原生预测请求和每题最多 48 个额外预测候选。四臂配置执行原融合与尾部阶段，统一保留 25 个不同的比赛规范身份。标签留在本地，四臂封存后逐题统计首位和前五得失、原各来源均漏的新命中与 MRR 净差。[打包入口](four_arm/recall/build_recall.py) · [封榜评分器](four_arm/retrieval_pilot_score.py)
+- Kaggle 只允许两个并行的批量 GPU 作业，首批两个 v1 列入作废记录。全量复查外部参比扩展只含本轮屏蔽的 GNPS、MassBank、MoNA，修正版将合法的空扩展回退到已屏蔽参比的主库缓存。**19:27** 旧版仍占用两个排队槽位，修正版的分批推送程序已启动，按槽位释放依次入队并记录各臂的有效版本。[分批提交入口](four_arm/recall/launch.py) · [运行回执](../../data/references/075-np-recall-pilot-2026-11-24.json)
+
 ## 2026-11-24 公开 0.505 底座的四臂对照
 
 - `jiyujia` 私有断网 T4 作业 v1 已启动。原版先完成来源与骨架留出条件下的全流程，再锁定每题最终名单，比较原序、只判分子式、只做式内结构配对、两者联合。四组读取同一组盲谱并保持每题原有候选与名额。新模型只使用未被留出的实测训练谱；评分在排名落盘后读取逐题答案。[Kaggle v1](https://www.kaggle.com/code/jiyujia/enveda-075-np-four-arm-0505/versions/1) · [启动回执及结果路径](../../data/references/075-np-four-arm-2026-11-24.json)
@@ -7,6 +20,8 @@
 - v1 的 17 题上游检索保留了 425 个候选。天然产物先验 NPX 的特征计算在 840 秒时限内未完成，四臂训练尚未开始。用 v1 的 NPX 前快照在本机重放 E180X，逐字节复现了 v1 的输出。私有断网 T4 v2 已启动，复用该快照，NPX 特征计算时限延至 3,780 秒，使用原先锁定的面板、训练排除名单和四臂评分程序。[Kaggle v2](https://www.kaggle.com/code/jiyujia/enveda-075-np-four-arm-0505/versions/2) · [失败与续跑回执](../../data/references/075-np-four-arm-2026-11-24.json)
 - v2 已完成。NPX 用时 2,469 秒，425 个候选全部评分并通过原门槛，E180X 随后正常执行。新模型在 Tesla T4 用 7,980 个结构的 30,850 张实测谱完成 600 步。回读验证了同题 25 个规范身份、固定盲谱，以及训练与验证在结构身份、通用骨架和来源上无交集。四臂 MRR@25 均为 **0.454927**，首位 **6**、前五 **10**、前 25 **12**。分子式、式内结构、联合分别改动了 **4、13、15** 份名单，17 道题的正确结构名次逐题持平。两采集系列的净变化均为零。[逐题回执](../../data/references/075-np-four-arm-2026-11-24.json)
 - 正确结构入围但未居首的六题，其分子式均与原首位相同。式内模型只在 018 和 024 给真结构更高的分，按冻结权重均不足以换首。五道漏题 011、033、034、035、178 在归档的主库、初融合、Engine 2、PubChem 四份名单中均缺席，其中后四题的 25 个候选均具正确分子式。当前配置停止扩训。分子式判别要另取确实存在跨式错首的独立样本。[诊断与模型分差](../../data/references/075-np-four-arm-2026-11-24.json)
+- 按比赛规范化扫了两套主库和三份 PubChem 索引的 **105,922,969** 行，并逐条重现五题的 C34 前 25。011 的本征阳离子改用 `[M]+` 后从偏离 **3,602.8 ppm** 回到窗内（实测离子质量偏差 **−5.59 ppm**）。两套主库及三份 PubChem 索引均无该身份，线上 PubChem 有 CID `101607211`。033 只在 PubChem，粗筛排 **287**，全指纹排序、排除主库及去重后排 **85**。034、035、178 在两套主库和 PubChem 均有窗内结构，也都通过了 C34 粗筛，随后按主库去重跳过。E1 给整个质量窗内的候选打分，035 排 **49**，在前 25 截断处落选，034 和 178 均未进 E1 归档前 60。035 的预测谱在同式候选内分别排第 10（ICEBERG）和第 17（GLACIER）。优先在新留出面板对比截断前重排，以及跨库候选汇总后去重，再固定 25 槽位跑完整融合。另用带电结构索引和 `[M]+` 并行窗评估本征离子。[逐题审计回执](../../data/references/075-np-five-miss-index-audit-2026-11-24.json)
+- 补充的同设备回放逐位复现五题原 E1 前 60。034 和 178 全窗模型排 **71、79**，均获碎片特征。035 复用同一 60 个候选和原预测谱，提前重排时从第 **49** 升到 ICEBERG 单独第 **19**、ICEBERG 与 GLACIER 联合第 **17**。本次只回放了进入主库前 25 的阶段。[T4 回放](https://www.kaggle.com/code/jiyujia/enveda-075-five-e1-rank-audit/versions/1) · [下一轮研究设计](research/training-and-retrieval.md#冲-0560-的主线)
 
 ## 2026-11-24 天然产物训练与正负离子实测
 
@@ -18,7 +33,9 @@
 ## 2026-11-24 公开方案提交
 
 - Kaggle 公榜首位为 **0.554**。核实 goodpjw2008 的 NPX + E180X 1.1 有 **0.505** 实分，提交 `58749432`，作者注明该提交使用与公开版相同的推理单元。Pablo 队伍实得 **0.506**，尚缺精确公开版本对应关系。[公榜](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard) · [选用原版 v7](https://www.kaggle.com/code/goodpjw2008/enveda-casmi-stack-npx-e180x-1-1-lb-0-505/versions/7)
-- `jiyujia` 私有断网 T4×2 v1 已完成 12 个可见样例的真实推理预检。核对 `submission.csv` 的 400 个 ID 与候选格式后，于北京时间 **09:28** 正式提交一次，编号 **58804528**。当前 `PENDING`，本次公榜分数待 Kaggle 隐藏集重跑。可见提交预检使用 `smoke`，隐藏推理使用作者原代码。[提交 Notebook](https://www.kaggle.com/code/jiyujia/enveda-casmi-0505-npx-e180x?scriptVersionId=373271594) · [提交回执](../../data/references/075-public-0505-submission-2026-11-24.json)
+- `jiyujia` 私有断网 T4×2 v1 已完成 12 个可见样例的真实推理预检。核对 `submission.csv` 的 400 个 ID 与候选格式后，于北京时间 **09:28** 正式提交一次，编号 **58804528**。**15:21** 查询为 `COMPLETE`，本队公榜实分 **0.505**，较此前 0.498 提高 **0.007**。可见提交预检使用 `smoke`，隐藏推理使用作者原代码。[提交 Notebook](https://www.kaggle.com/code/jiyujia/enveda-casmi-0505-npx-e180x?scriptVersionId=373271594) · [提交回执](../../data/references/075-public-0505-submission-2026-11-24.json)
+- 刷新公榜前三为 **0.554 / 0.546 / 0.542**。Ishan 公开 v1 对应 Kaggle 实得 **0.509**（`58766113`），其中实际加权的 `vt_lp_e1.npy` 只有分数文件及训练说明，未找到重建代码。主办方要求提供重建中间产物所需的代码与数据。Özer 的 **0.512+** 写在目标分一栏。改选有独立原版复现的 Pablo **0.506**，公开 Notebook 页面为 v29，代码内部标记 v30。Alex 用这套原版代码实得 **0.506**（`58800444`）；此次保持代码原样，移除原开关已关闭且不会读取的 ExtLib2 附件，私有断网 T4×2 v1 已推送预检。[Ishan 原版](https://www.kaggle.com/code/ishankarnick/casmi26-lb-0-509-47-7m-virtual-natural-products/versions/1) · [主办方说明](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/760376) · [Alex 回放记录](https://www.kaggle.com/code/alexchilton/casmi26-0-506-what-moved-the-board-70-arms/versions/8) · [Pablo 预检](https://www.kaggle.com/code/jiyujia/enveda-casmi-0506-pablo/versions/1)
+- Pablo 预检完成。T4×2 跑了 12 道可见样例，复核了 400 行输出和 **688** 个候选的双模型分数。北京时间 **16:40** Kaggle 接收正式提交 **58820476**。**19:27** 仍为 `PENDING`，团队已有公榜实分为 **0.505**。[Pablo 提交回执](../../data/references/075-public-0506-submission-2026-11-24.json)
 
 ## 2026-11-23 负离子结构覆盖和窗口难负例
 
