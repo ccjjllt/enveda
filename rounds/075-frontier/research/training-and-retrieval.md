@@ -1,5 +1,31 @@
 # 自主训练与整线提分研究
 
+## 2026-11-25 方向取舍
+
+本队 **0.506** 与当前公榜首位 **0.554** 相差 **0.048**，与目标 **0.560** 相差 **0.054**。按每 100 题计，三个漏检升首、四个第二名升首、两个漏检进第五，且其余不变，合计 +0.054。公开 **0.509** 仍依赖拿不到生成代码的 VTLP 中间分；再叠现有排序小权重的路线在旧实验中也未显示足够净增。[公榜](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard) · [0.506 回执](../../../data/references/075-public-0506-submission-2026-11-24.json) · [VTLP v2](https://www.kaggle.com/datasets/ishankarnick/casmi26-vtlp)
+
+Pablo 底座的 60 题整线四臂完成。汇总后去重 **+0.006207 MRR@25**，首位和前五均持平。截断前评分和两者联合均少两个前五。本面板原 19 题排首、28 题由同式错误结构排首，另 10 题原各来源均漏。整主库 ±10 ppm 扫窗覆盖这 10 题中的 **7** 题。原始 A 分短名单的 1,153 个等量名额保住 **5** 题。两臂各 **670** 个名额时，截断前排除已覆盖身份，使原漏题进入补充短名单前五由 **1 增至 3**、前 24 由 **5 增至 6**。补召回命中均来自 Myco。后续用 80 个旧预留槽一对一替换，每套模型等量补算，60 道题的 C43 真结构名次全部持平，结束该替换配置。[四臂整线](../../../data/references/075-np-recall-results-2026-11-25.json) · [整主库短名单](../../../data/references/075-np-full-main-fixed-shortlist-2026-11-25.json) · [等预算替换](../../../data/references/075-c39-depth-routing-2026-11-25.json)
+
+近期整线优先检验已有预测分的用法。C43 从历史 **0.371702** 到仅用原生物理分的 **0.409125**，加入额外预留分后为 **0.409818**，新增首位和前五命中全部来自原生分这一步。带原预留的完整融合降为 **0.439099**，比历史原版 **0.445208** 低 **0.006109**，前五净少 2，14 道 C43 升位题中有 6 道未在最终名单升位。暂停旧预留的提交。仅原生分数的整线沿用冻结盲谱、逐题实际候选槽和共享 NPX。赛用候选保留 C39 已经计算的 61–100 位标量，沿用两套原预测器输入。移除深名单会改变 21 道题的 C43。[消融、真实整线及逐题结果](../../../data/references/075-c39-depth-routing-2026-11-25.json)
+
+碰撞能量的小试转向有实谱配对的同式硬例。固定五个通用骨架折各 48 对高相似异构体，两套公开模型对同一正质子、同仪器与实测能量条件预测。每对按两张真实谱与两个结构的完整交叉打分，检查实际能量、固定 40 eV 和反转能量。响应分使用随能量变化的实测与预测峰，拟合同时保留余弦、谱熵和独有峰，且每个骨架折的权重只在其他折估计。配对正确率和 MRR@2 先量谱本身能提供的区分力，整线收益仍以独立外部谱的前五和首位净变化核实。[纵向碎片响应论文](https://pmc.ncbi.nlm.nih.gov/articles/PMC12330898/) · [两模型共享评分](../panel/fit_forward_swap.py)
+
+Ishan v3 对照中的 **0.505→0.509** 来自整条虚拟层，包含扩展候选、指纹、结构先验、两个神经重排器及插入逻辑。在本轮 7 道窗内主库漏题中，45 条编辑只覆盖 **4** 道。整主库排重已经保留其中三道，分别排 **3、7、22**；尚未保住的 `m_b48250cfa30e` 可由编辑路径补。整主库排重后新进短名单前五的两题没有已知编辑路径。若测试结构先验，按母体家族整组分折，正例须在排除同结构后由另一母体生成，使用同中性分子式的生成对照，对无路径候选保留原分。当前优先将已有整窗收益送入完整融合。[Ishan v3](https://www.kaggle.com/code/ishankarnick/casmi26-lb-0-509-47-7m-virtual-natural-products/versions/3) · [一步编辑对照](../../../data/references/075-main-virtual-fixed-shortlist-2026-11-25.json) · [整窗排重对照](../../../data/references/075-np-unseen-dedup-shortlist-2026-11-25.json)
+
+双极性局部匹配的单切特征在 354 对高相似同式异构体上有 316 个并列，学习到的权重没有降低相对等权碎片的难例胜负差。下一项供给检验用同一训练清单按五个骨架折各取最多 160 对、相似度至少 0.60，将物理候选假设拆为单切、加两个桥键之间的连通片、加同环两键断开得到的连通片、两类并集。四臂共享两种极性、能量、配对结构、氢偏移及峰容差，记录原并列转正确和转错误的数量。CFM-ID 4.0 把开环表示为两步、ICEBERG 用学习生成剪枝碎片图；此处先测增加可解释碎片能否为高相似结构提供独立信号。[双极性单切实测](../../../data/references/075-dual-branch-swap-2026-11-25.json) · [CFM-ID 4.0](https://doi.org/10.1021/acs.analchem.1c01465) · [ICEBERG](https://doi.org/10.1021/acs.analchem.3c04654)
+
+按 E1/C34 实际使用的加合物换算和中性质量中位数，60 题天然产物、17 题 CASMI、110 题 MassBank 和另一批 48 道外部谱共 **233/235** 题在 ±10 ppm 内。同题各谱反推质量跨度均未超过 10 ppm。唯一可用替代离子进窗的 011 在当前主库和 PubChem 索引均无对应身份。A043 的测量偏差也无法用同极性常见加合物校正。这些面板受来源筛选影响，独立入口扩窗暂缓，现有式内排序和候选截断优先。[011 索引回执](../../../data/references/075-np-five-miss-index-audit-2026-11-24.json) · [SIRIUS 加合物说明](https://v6.docs.sirius-ms.io/adducts/)
+
+下一步将局部模型的比较拆出两项证据。第一项是已有候选中错首时，新增模型能否超过原质量、碎片可行性和实谱置信度。第二项是在难近邻候选保持不变时，真实谱能否胜过同加合物、近质量的错配谱。MassSpecGym v1.5 的一项新审计中，候选相对的质量可行性给首位带来 **2.52 个百分点**，学习出的峰与碎片相似性未超过常数覆盖基线。另一项工作中，候选感知训练的 **+0.103 MRR** 伴随无谱对照 **+0.070**。两项都说明须用等预算真实候选、逐分子加权做对照。优先投入可复现模型和本赛实测前体、加合物与候选；先测真实谱在坏首位上的独立净收益，再扩大化学型覆盖和训练量。[MassSpecGym v1.5 重排审计](https://arxiv.org/abs/2611.28096) · [模拟预训练与候选偏差的消融](https://arxiv.org/html/2610.37979v1)
+
+SpecBridge 作者因预处理与评估问题撤稿。AutonLab 的 MaxSim 公开源码可读，但本次未找到其最终模型或 588 万结构模拟训练存档，公开的随机初始化示例仍需读取 MS-JEPA 检查点配置。作为可直接验证的两项对照，先在完整底座候选上测官方 MSAlign+ 的分箱谱通道，再用相同的原版断裂片段预算比较绝对覆盖、候选相对覆盖和近质量错配谱。首位保护和候选名额在评估前固定。两项均在 Kaggle CPU 运行，使用相同的 60 题盲谱。[撤稿说明](https://arxiv.org/abs/2601.17204v3) · [AutonLab 源码](https://github.com/autonlab/msms-retrieval/tree/936dab65ae87c74730f444f6f83eb499b720db01) · [MSAlign+ 源码](https://github.com/KrzakalaPaul/MSAlign-NeurIPS2026) · [MSAlign+ 官方模型](https://zenodo.org/records/23372807)
+
+MS-GPT 的公开 MassSpecGym 资产已在 `jiyujia` 的断网 CPU 镜像完成校验。共享与专用包共核对 **37 个文件**，包括生成器、官方 MSG MIST、配对 LoRA、训练折分箱阈值和所需 wheel，环境清单没有缺项。本次只核对资产和配置，未加载模型或计算候选。其修订论文用每题同样 **100** 次采样时，预测式 Top-10 结构命中为 **7.01%**（一式）和 **8.58%**（五式）。在本赛首测用原 C34 可观测排序取前一式或前五个不同分子式，按实测加合物逐式重新标注碎片。两臂同为每题 100 次生成，候选去重后以相同前向名额与原候选竞争，整线保留 25 槽。按是否找回原各来源都漏的真结构、正离子可用比例和融合后前五得失报告。[预检回执](../../../data/references/075-ms-gpt-assets-2026-11-25.json) · [MS-GPT 修订论文 B.1](https://arxiv.org/html/2607.23607v2#A2.SS1)
+
+新查到两条生成分支。FRIGID 发布了新版解码器，作者自定义谱 wrapper 能传入预测分子式，但安装辅助脚本仍引用旧版权重，启动时需重新固定解码器和 MIST。MS²Forge 的 11 月 23 日论文使用分子式条件，源码为 MIT，所列权重的匿名下载及训练来源尚未核实。现阶段先使用已核对的 MS-GPT 资产测新增覆盖。[FRIGID 权重](https://zenodo.org/records/23543494) · [FRIGID 作者工具](https://github.com/coleygroup/msms-structure-elucidation.skills) · [MS²Forge 论文](https://doi.org/10.1021/jacsau.6c01423) · [MS²Forge 源码](https://github.com/huaqiyao/MS2forge)
+
+进一步核对负离子路径。FRIGID 发布版七个加合物均为正离子。MS²Forge 固定版本支持 `[M-H]-`，缺碰撞能量按作者定义编码为第 0 桶，接受预测前体式及按该式重新标注的碎片，但配套权重目录匿名访问需要登录。当前 13 个仅负离子题均无实测碰撞能量，其中 12 个有 C34 候选式。备选 DeniMS 有正式权重并支持 `[M-H]-`，其推理要求 NCE，只有 3/13 的原前五预测式中存在满足作者元素约束和小于 30 个重原子的式子。暂不购置更大 GPU 跑这两个方向。[FRIGID v3](https://arxiv.org/html/2604.16648v3) · [MS²Forge 碰撞能量源码](https://github.com/huaqiyao/MS2forge/blob/e244a511cb23bb453fbcb033679e8b41026b93cd/utils/collision_energy.py#L30) · [DeniMS 官方模型](https://zenodo.org/records/20972446)
+
 ## 2026-11-24 冲 0.560 的实验选择
 
 11 月 24 日公榜前三为 0.554、0.546、0.542。本队已复现 goodpjw2008 的 NPX + E180X 1.1 v7，提交 `58804528` 实得 **0.505**。Pablo v29 的同源码复现实得 **0.506**，Ishan v1 实得 **0.509**，后者的虚拟天然产物先验分数尚缺公开生成代码。下文的逐题实验仍按各自使用的原底座结算。隐藏集三类题的比例未知。[公榜](https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/leaderboard) · [0.505 提交回执](../../../data/references/075-public-0505-submission-2026-11-24.json) · [Pablo v29](https://www.kaggle.com/code/pablodiegoo/enveda-casmi26-starter-notebook/versions/29) · [Ishan v1](https://www.kaggle.com/code/ishankarnick/casmi26-lb-0-509-47-7m-virtual-natural-products/versions/1)
