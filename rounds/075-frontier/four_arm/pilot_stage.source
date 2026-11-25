@@ -1,0 +1,247 @@
+"""Shared scoring requests and the two prespecified candidate interventions."""
+from collections import Counter
+from functools import lru_cache
+from hashlib import sha256 as pilot_sha256
+from itertools import zip_longest
+import json
+import math
+import os
+from pathlib import Path
+from rdkit import Chem as PilotChem
+from rdkit.Chem.MolStandardize import rdMolStandardize as pilot_std
+from rdkit.Chem.rdMolDescriptors import CalcMolFormula as pilot_calc_formula
+
+
+PILOT_ARM = PILOT_PARAMETERS['arm']
+PILOT_EARLY = PILOT_ARM in ('early_score', 'joint')
+PILOT_LATE = PILOT_ARM in ('late_dedupe', 'joint')
+PILOT_ENUMERATOR = pilot_std.TautomerEnumerator()
+
+
+@lru_cache(maxsize=None)
+def pilot_metric_identity(smiles):
+    mol = PilotChem.MolFromSmiles(smiles)
+    if mol is None:
+        return None
+    PilotChem.RemoveStereochemistry(mol)
+    canonical = PILOT_ENUMERATOR.Canonicalize(mol)
+    key = PilotChem.MolToInchiKey(canonical)
+    if not key:
+        return None
+    counts = Counter(a.GetAtomicNum() for a in canonical.GetAtoms() if a.GetAtomicNum() > 1)
+    return key[:14], tuple(sorted(counts.items()))
+
+
+@lru_cache(maxsize=None)
+def pilot_formula(smiles):
+    mol = PilotChem.MolFromSmiles(smiles)
+    return pilot_calc_formula(mol) if mol is not None else smiles
+
+
+def pilot_main(mid):
+    smis, keys, lib_max, scores, formulas = BASE[mid]
+    deep = PILOT_E1_DEEP.get(mid, [])
+    if not deep:
+        return list(smis), list(keys), list(scores), list(formulas)
+    ds, dk, dr, df = zip(*deep)
+    return [*smis, *ds], [*keys, *dk], [*scores, *dr], [*formulas, *df]
+
+
+def pilot_pc_ledgers(mid):
+    p = PC.get(mid) or {}
+    return p.get('pilot_any', []), p.get('pilot_outside', [])
+
+
+def pilot_late_ledger(any_ranked, outside_ranked, main_keys, main_smis):
+    blocked = {pilot_metric_identity(s) for s in main_smis}
+    native_blocked = set(main_keys)
+    joined = {rec['key']: rec for rec in (any_ranked + outside_ranked)}
+    eligible = []
+    for rec in sorted(joined.values(), key=lambda rec: -rec['S']):
+        ident = pilot_metric_identity(rec['smiles'])
+        if ident is None or ident in blocked or rec['key'] in native_blocked:
+            continue
+        blocked.add(ident)
+        eligible.append(rec)
+        if len(eligible) >= PILOT_PARAMETERS['depth']:
+            break
+    return eligible
+
+
+def pilot_json(value):
+    return json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False)
+
+
+def pilot_digest(value):
+    return pilot_sha256(pilot_json(value).encode()).hexdigest()
+
+
+def pilot_requests():
+    # Request exact SMILES so both native fusion and official normalization retain the correct representatives.
+    extra = {}
+    for mid in mids:
+        if BASE[mid][2] >= LIB_TAU:
+            continue
+        seen = set(cands.get(mid, []))
+        e_smis, _, _, e_formulas = pilot_main(mid)
+        e1 = ice_fuse.ice_candidates(e_smis, e_formulas, len(e_smis))
+        e1 = [s for s in e1 if s not in seen][:PILOT_PARAMETERS['extra_e1']]
+        seen.update(e1)
+        p_any, p_out = pilot_pc_ledgers(mid)
+        # Give the old and deferred channels the same opportunity to contribute to the one request.
+        ps = list(dict.fromkeys(rec['smiles'] for pair in zip_longest(p_any, p_out) for rec in pair
+                                if rec is not None))
+        pc = ice_fuse.ice_candidates(ps, [pilot_formula(s) for s in ps], len(ps))
+        pc = [s for s in pc if s not in seen][:PILOT_PARAMETERS['extra_pc']]
+        if e1 or pc:
+            extra[mid] = e1 + pc
+    ice_items = [it for it in ice_fuse.build_ice_input(te, extra) if it['spectra']]
+    gl_items = [dict(it, spectra=[s for s in it['spectra'] if s['adduct'] == '[M+H]+']) for it in ice_items]
+    return ice_items, [it for it in gl_items if it['spectra']]
+
+
+def pilot_shadow_score(ice_items, gl_items):
+    inputs = {'ice': ice_items, 'gl': gl_items}
+    request_sha = pilot_digest(inputs)
+    cache_path = os.environ.get('PILOT_SHADOW_SCORE_CACHE')
+    if cache_path:
+        cache = json.loads(Path(cache_path).read_text())
+        if cache['request_sha256'] != request_sha:
+            raise RuntimeError('Shared forward cache does not match the frozen shadow request')
+        return cache['ice'], cache['gl'], cache['meta'], request_sha
+    ice_out, gl_out, meta = {}, {}, {}
+    if ice_items:
+        ice_out = ice_fuse.run_ice(ICE_PKG, ice_items, workdir='/kaggle/working/pilot_ice',
+                                   device='cuda', budget_s=ICE_BUDGET, site='/kaggle/working/ice_site',
+                                   extra_args=['--any-rdkit'])
+    if gl_items:
+        gl_out = gl_fuse.run_gl(GL_PKG, gl_items, workdir='/kaggle/working/pilot_gl',
+                                 device='cuda', budget_s=GL_BUDGET, site='/kaggle/working/ice_site',
+                                 wheels=os.path.join(ICE_PKG, 'wheels'), extra_args=['--any-rdkit'])
+    for name, req, output in (('ice', ice_items, ice_out), ('gl', gl_items, gl_out)):
+        if not req:
+            continue
+        detail = json.loads(Path(f'/kaggle/working/pilot_{name}/{name}_out.json.meta.json').read_text())
+        if detail.get('status') != 'ok' or not str(detail.get('device', '')).startswith('cuda'):
+            raise RuntimeError(f'Incomplete common {name} request: {detail}')
+        if set(output) != {str(it['mid']) for it in req}:
+            raise RuntimeError(f'Incomplete molecule rows for common {name} request')
+        meta[name] = detail
+    cache = dict(request_sha256=request_sha, ice=ice_out, gl=gl_out, meta=meta)
+    Path('/kaggle/working/pilot_shadow_scores.json').write_text(pilot_json(cache) + '\n')
+    return ice_out, gl_out, meta, request_sha
+
+
+if not isinstance(PC, dict) or not PC:
+    raise RuntimeError('Native C34 did not produce its blind candidate ledger')
+if 'items' not in globals() or 'gl_items' not in globals() or 'gl_fuse' not in globals():
+    raise RuntimeError('The original ICEBERG/GLACIER request did not reach the forward stage')
+PILOT_NATIVE_ICE = {str(it['mid']): it for it in items}
+PILOT_NATIVE_GL = {str(it['mid']): it for it in gl_items}
+PILOT_NATIVE_PROXY = {str(it['mid']): it for it in globals().get('_n1_items', [])}
+pilot_shadow_ice_items, pilot_shadow_gl_items = pilot_requests()
+PILOT_SHADOW_ICE, PILOT_SHADOW_GL, PILOT_SHADOW_META, PILOT_SHARED_SHA = pilot_shadow_score(
+    pilot_shadow_ice_items, pilot_shadow_gl_items)
+PILOT_ICE_REQUEST = {str(it['mid']): it for it in pilot_shadow_ice_items}
+PILOT_GL_REQUEST = {str(it['mid']): it for it in pilot_shadow_gl_items}
+
+
+def pilot_score_maps(mid):
+    mk = str(mid)
+    return ({**(ICE_SCORES.get(mk) or {}), **(PILOT_SHADOW_ICE.get(mk) or {})},
+            {**(GL_SCORES.get(mk) or {}), **(PILOT_SHADOW_GL.get(mk) or {})})
+
+
+def pilot_rank_main(mid, original_smis, original_keys):
+    smis, keys, scores, formulas = pilot_main(mid)
+    ice, gl = pilot_score_maps(mid)
+    if not any(v is not None for v in [*ice.values(), *gl.values()]):
+        return original_smis, original_keys
+    order = gl_fuse.rerank_multi(smis, keys, scores, formulas, [ice, gl], [ICE_LAM, GL_LAM], top_n=len(smis))
+    # Extend competition only for groups that actually receive useful forward evidence.
+    return [smis[i] for i in order], [keys[i] for i in order]
+
+
+def pilot_set_pubchem(mid, main_keys, main_smis, lib_max):
+    # The native no-PubChem/strong-library behaviour retains its incumbent evidence.
+    p = PC.get(mid)
+    if not p or lib_max >= LIB_TAU:
+        return
+    any_ranked, outside_ranked = pilot_pc_ledgers(mid)
+    ledger = pilot_late_ledger(any_ranked, outside_ranked, main_keys, main_smis) if PILOT_LATE else outside_ranked
+    if not ledger:
+        if PILOT_LATE and any_ranked:
+            p.update(pc=[], pc_fz=[], pc_keys=[], pc_form=[], promotion_evidence={})
+        return
+    pc_smis = [rec['smiles'] for rec in ledger]
+    pc_forms = [pilot_formula(s) for s in pc_smis]
+    if PILOT_EARLY:
+        ice, gl = pilot_score_maps(mid)
+        order = gl_fuse.rerank_multi(pc_smis, [r['key'] for r in ledger], [r['S'] for r in ledger], pc_forms,
+                                     [ice, gl], [ICE_LAM, GL_LAM], top_n=len(ledger))
+    else:
+        order = list(range(len(ledger)))
+    chosen = [ledger[i] for i in order[:25]]
+    current = p.get('pc', [])
+    new_smis = [r['smiles'] for r in chosen]
+    if current == new_smis:
+        return
+    # Stock C41 preserves the channel's first adjusted score when later physical ranks change.
+    # Preserve the original gate statistics; C43 still reads the chosen leader's own keyed evidence.
+    legacy_fz = p.get('pc_fz', [])
+    new_fz = [r['S'] for r in chosen]
+    if legacy_fz:
+        new_fz[0] = legacy_fz[0]
+    p.update(pc=new_smis, pc_fz=new_fz, pc_keys=[r['key'] for r in chosen],
+             pc_form=[pc_forms[i] for i in order[:25]],
+             promotion_evidence={r['key']: {name: r[name] for name in ('smiles', 'raw_fz', 'S', 'pop')} for r in chosen})
+    if p.get('fz_top') is None and not legacy_fz:
+        p['fz_top'] = max(r['raw_fz'] for r in ledger)
+
+
+def pilot_count(item):
+    return len(item.get('cands', [])) * len(item.get('spectra', []))
+
+
+def pilot_finite(scores, mid):
+    return sum(v is not None and math.isfinite(float(v)) for v in (scores.get(mid) or {}).values())
+
+
+PILOT_ORIGINAL_LISTS = {str(mid): {'main': list(BASE[mid][0][:25]), 'pc': list(PC.get(mid, {}).get('pc', []))}
+                        for mid in BASE}
+
+
+def pilot_export_budget():
+    cases = {}
+    for mid, (main_smis, _, _) in BASE.items():
+        mk = str(mid)
+        inputs = {'ice_native': PILOT_NATIVE_ICE.get(mk, {}), 'gl_native': PILOT_NATIVE_GL.get(mk, {}),
+                  'gl_proxy': PILOT_NATIVE_PROXY.get(mk, {}), 'ice_shadow': PILOT_ICE_REQUEST.get(mk, {}),
+                  'gl_shadow': PILOT_GL_REQUEST.get(mk, {})}
+        current_pc = list(PC.get(mid, {}).get('pc', []))
+        cases[mk] = dict(
+            predictor_budget={name + '_candidate_spectra': pilot_count(item) for name, item in inputs.items()},
+            request_sha256={name: pilot_digest(item) for name, item in inputs.items()},
+            finite_counts={'ice_native': pilot_finite(ICE_SCORES, mk), 'gl_native_and_proxy': pilot_finite(GL_SCORES, mk),
+                           'ice_shadow': pilot_finite(PILOT_SHADOW_ICE, mk), 'gl_shadow': pilot_finite(PILOT_SHADOW_GL, mk)},
+            main25_changed=list(main_smis) != PILOT_ORIGINAL_LISTS[mk]['main'],
+            pc25_changed=current_pc != PILOT_ORIGINAL_LISTS[mk]['pc'], main25=len(main_smis), pc25=len(current_pc),
+        )
+    meta = {}
+    for stage, requests in (('ice', PILOT_NATIVE_ICE), ('gl', PILOT_NATIVE_GL)):
+        path = Path(f'/kaggle/working/{stage}_work/{stage}_out.json.meta.json')
+        if path.exists():
+            meta[stage] = json.loads(path.read_text())
+        if any(pilot_count(item) for item in requests.values()):
+            detail = meta.get(stage, {})
+            if detail.get('status') != 'ok' or not str(detail.get('device', '')).startswith('cuda'):
+                raise RuntimeError(f'Incomplete native {stage} forward request: {detail}')
+    if PILOT_NATIVE_PROXY and N1_DRV.get('status') != 'ok':
+        raise RuntimeError(f'Incomplete native GLACIER proxy request: {N1_DRV}')
+    meta['gl_proxy'] = N1_DRV
+    doc = dict(arm=PILOT_ARM, parameters={k: v for k, v in PILOT_PARAMETERS.items() if k != 'arm'},
+               budget_unit='ordered candidate × eligible input spectrum rows sent to native or shadow forward runners',
+               device=torch.cuda.get_device_name(0), native_meta=meta, shadow_meta=PILOT_SHADOW_META,
+               shadow_input_sha256=PILOT_SHARED_SHA, cases=cases)
+    Path('/kaggle/working/pilot_forward_budget.json').write_text(json.dumps(doc, indent=2) + '\n')
+    print('PABLO_FORWARD_BUDGET', PILOT_ARM, len(cases), PILOT_SHARED_SHA, flush=True)
