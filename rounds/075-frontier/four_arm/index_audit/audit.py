@@ -71,10 +71,10 @@ def in_window(mass, center, ppm):
     return center*(1-ppm*1e-6) <= mass <= center*(1+ppm*1e-6)
 
 
-def match_info(text, mol, row, mass, known, store_key=None):
+def match_info(text, mol, row, mass, known, store_key=None, normalized_identity=None):
     prop = Chem.GetFormalCharge(mol)
     raw = Chem.MolToInchiKey(mol)[:14]
-    score_key, composition = identity(canonical(Chem.Mol(mol)))
+    score_key, composition = normalized_identity or identity(canonical(Chem.Mol(mol)))
     expected = known['normalized_key'], known['composition']
     if (score_key, composition)!=expected:
         return None
@@ -117,12 +117,17 @@ def audit_rows(iterrows, queries):
         if not known:
             continue
         formula = rdMolDescriptors.CalcMolFormula(mol)
+        try:
+            normalized_identity = identity(canonical(Chem.Mol(mol)))
+        except (RuntimeError, ValueError):
+            invalid += 1
+            continue
         for query in known:
             stats = result[query['challenge']]
             stats['profile_rows'] += 1
             same_formula = formula == query['formula']
             stats['same_formula_all_mass'] += same_formula
-            found = match_info(text,mol,row_id,mass,query,stored_key)
+            found = match_info(text,mol,row_id,mass,query,stored_key,normalized_identity)
             if found:
                 stats['hits'].append(found)
             for label,target in query['windows'].items():
@@ -135,7 +140,7 @@ def audit_rows(iterrows, queries):
 
 
 def scan_idx_partition(task):
-    mass_path, off_path, blob_path, start, stop, lib, queries = task
+    mass_path, off_path, blob_path, start, stop, lib, queries, general_profiles = task
     mass, off, blob = [np.load(p,mmap_mode='r') for p in (mass_path,off_path,blob_path)]
     if mass.ndim != 1 or blob.dtype.itemsize != 1 or len(off)!=len(mass)+1 or off[0]!=0 or off[-1]!=len(blob):
         raise ValueError(f'Misaligned mass/SMILES rows {mass_path}')
@@ -145,7 +150,7 @@ def scan_idx_partition(task):
     selector.restype = ctypes.c_size_t
     by_profile = by_composition(queries)
     patterns = np.array([[dict(composition).get(i,0) for i in (6,7,8)] for composition in by_profile],dtype=np.intc)
-    if not all(set(dict(c))<={6,7,8} for c in by_profile):
+    if not general_profiles and not all(set(dict(c))<={6,7,8} for c in by_profile):
         raise ValueError('This lexical profile filter only discards known non-C/N/O atoms.')
     selected = 0
     chunk = 262144
@@ -189,10 +194,10 @@ def populate_counts(result,masses,queries,already_sorted):
                 result[name]['within'][label][str(w)]['rows'] = high-low
 
 
-def scan_pubchem(queries, work):
+def scan_pubchem(queries, work, *, selector_source=None, general_profiles=False):
     lib = work/'fastscan.so'
     cxx = work/'fastscan.cpp'
-    cxx.write_text(FASTSCAN_SOURCE)
+    cxx.write_text(FASTSCAN_SOURCE if selector_source is None else selector_source)
     subprocess.run(['c++','-std=c++17','-O3','-shared','-fPIC','-o',str(lib),str(cxx)],check=True)
     report = {}
     with ProcessPoolExecutor(max_workers=4, mp_context=get_context('fork')) as pool:
@@ -203,7 +208,7 @@ def scan_pubchem(queries, work):
             if not np.isfinite(masses).all() or not np.all(masses[1:]>=masses[:-1]):
                 raise ValueError(f'Mass array {store} is not finite and sorted')
             cuts = np.linspace(0,n,5 if store=='tier' else 2,dtype=np.int64).tolist()
-            job = [(masses.filename,offsets.filename,blob.filename,start,stop,lib,queries)
+            job = [(masses.filename,offsets.filename,blob.filename,start,stop,lib,queries,general_profiles)
                    for start,stop in zip(cuts[:-1],cuts[1:],strict=True)]
             result = empty_stats(queries)
             selected = invalid = 0

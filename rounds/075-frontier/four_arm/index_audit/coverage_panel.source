@@ -1,0 +1,171 @@
+"""Measure where eligible structures disappear, after the 60-query baseline is sealed."""
+import base64
+import csv
+import io
+import zlib
+from zipfile import ZipFile
+
+
+BASELINE = 'enveda-075-np-recall-reseal'
+BASE_SOURCE = 'pablodiegoo/enveda-casmi26-starter-notebook/29'
+ORIGINAL_LISTS = ('main', 'engine2', 'pubchem', 'prefusion', 'fused_overflow')
+
+
+def unpack(name):
+    compressed, expected = PANEL_INPUTS[name]
+    raw = zlib.decompress(base64.b64decode(compressed))
+    if sha256(raw).hexdigest() != expected:
+        raise ValueError(f'Embedded audit input changed: {name}')
+    return raw
+
+
+def sealed_baseline():
+    path = find(BASELINE, 'baseline.zip')
+    with ZipFile(path) as source:
+        receipt = json.loads(source.read('pilot_arm_receipt.json'))
+        if (receipt['arm'] != 'baseline' or receipt['source'] != BASE_SOURCE or
+                receipt['molecules'] != 60 or receipt['candidate_slots'] != 25 or
+                receipt['queries_sha256'] != PANEL_INPUTS['queries'][1]):
+            raise ValueError('The mounted baseline is not the sealed 60-query comparison')
+        files = {}
+        for name in ('submission.csv', 'four_source_lists.json'):
+            data = source.read(name)
+            if sha256(data).hexdigest() != receipt['hashes'][name]:
+                raise ValueError(f'Mounted baseline artifact changed: {name}')
+            files[name] = data
+    rows = list(csv.DictReader(io.StringIO(files['submission.csv'].decode())))
+    lists = {r['molecule_id']: r['smiles'].split(';') if r['smiles'] else [] for r in rows}
+    stages = json.loads(files['four_source_lists.json'])
+    if len(lists) != len(rows) or set(lists) != set(stages) or len(lists) != 60:
+        raise ValueError('Baseline candidate lists do not cover all 60 query IDs exactly once')
+    return receipt, lists, stages
+
+
+def list_rank(values, key):
+    for i, smiles in enumerate(values, 1):
+        mol = Chem.MolFromSmiles(smiles)
+        if mol is None:
+            continue
+        try:
+            if identity(canonical(mol)) == key:
+                return i
+        except (RuntimeError, ValueError):
+            continue
+    return 0
+
+
+def coverage_queries(lists, stages):
+    table = pq.read_table(io.BytesIO(unpack('queries')), columns=['molecule_id', 'spectrum_id',
+                                                               'precursor_mz', 'adduct']).to_pandas()
+    effective = pq.read_table(io.BytesIO(unpack('effective_queries')),
+                              columns=['molecule_id', 'spectrum_id', 'precursor_mz', 'adduct', 'nm']).to_pandas()
+    labels = pq.read_table(io.BytesIO(unpack('labels')), columns=['molecule_id', 'source',
+                                                               'truth_smiles', 'truth_key']).to_pandas()
+    targets_pc = json.loads(unpack('pc_targets'))
+    if (len(labels) != len(lists) or not labels.molecule_id.is_unique or
+            set(labels.molecule_id) != set(lists) or set(table.molecule_id) != set(lists) or
+            not table.spectrum_id.is_unique or set(targets_pc) != set(lists)):
+        raise ValueError('Query panel, sealed rankings, labels and native C34 centres differ')
+    compare = lambda df: df.set_index('spectrum_id').sort_index()
+    if (not effective.spectrum_id.is_unique or not compare(effective[table.columns]).equals(compare(table))
+            or not np.isfinite(effective.nm).all() or not effective.nm.gt(0).all()):
+        raise ValueError('Archived Engine 1 neutral masses do not match the sealed acquisitions')
+    charges = table.groupby('molecule_id', sort=False).adduct.agg(lambda x: sorted(set(x))).to_dict()
+    e1_centres = effective.groupby('molecule_id').nm.median().to_dict()
+
+    cases, baseline_hits = {}, 0
+    for row in labels.sort_values('molecule_id').itertuples(index=False):
+        mid = row.molecule_id
+        mol = Chem.MolFromSmiles(row.truth_smiles)
+        if mol is None:
+            raise ValueError(f'Missing truth structure for {mid}')
+        canonical_mol = canonical(Chem.Mol(mol))
+        key, composition = identity(canonical_mol)
+        if key != row.truth_key:
+            raise ValueError(f'Official truth identity changed for {mid}')
+        if list_rank(lists[mid], (key, composition)):
+            baseline_hits += 1
+            continue
+
+        pc = targets_pc[mid]
+        if pc['error'] or not isinstance(pc['target'], (int, float)) or not 0 < pc['target'] < 10000:
+            raise ValueError(f'Missing native C34 mass centre for {mid}')
+        charge = Chem.GetFormalCharge(mol)
+        exact = rdMolDescriptors.CalcExactMolWt(mol)
+        windows = {'native_E1': e1_centres[mid], 'native_C34': pc['target'], 'theoretical': exact}
+        if charge:
+            windows['theoretical_atomic_mass'] = exact + charge * ELECTRON_MASS
+        stage_ranks = {name: list_rank(stages[mid][name], (key, composition)) for name in ORIGINAL_LISTS}
+        cases[mid] = dict(challenge=mid, source=row.source, normalized_key=key, composition=composition,
+                          formula=rdMolDescriptors.CalcMolFormula(canonical_mol), formal_charge=int(charge),
+                          observed_adducts=charges[mid], source_ranks=stage_ranks, windows=windows)
+    return cases, baseline_hits
+
+
+def report_store(store, case, nominal):
+    data = store['by_query'][case['challenge']]
+    hits = sorted(data['hits'], key=lambda x: (abs(x['windows'][nominal]['ppm_offset']), x['row_id']))
+    return dict(indexed_matches=len(hits), matches_in_nominal_window=data['within'][nominal]['10']['identity'],
+                nominal_window_ppm=10, rows_in_10ppm=data['within'][nominal]['10']['rows'],
+                formula_rows_in_10ppm=data['within'][nominal]['10']['same_formula'],
+                matches_in_100ppm=data['within'][nominal]['100']['identity'],
+                nearest_row=hits[0]['row_id'] if hits else None,
+                nearest_ppm=hits[0]['windows'][nominal]['ppm_offset'] if hits else None)
+
+
+def cover_panel():
+    global Chem, TAUTOMER, rdMolDescriptors, rdFingerprintGenerator, MACCSkeys
+    started = time.monotonic()
+    chemistry()
+    from rdkit import Chem, rdBase
+    from rdkit.Chem import rdMolDescriptors, rdFingerprintGenerator, MACCSkeys
+    from rdkit.Chem.MolStandardize import rdMolStandardize
+    TAUTOMER = rdMolStandardize.TautomerEnumerator()
+
+    receipt, lists, stages = sealed_baseline()
+    cases, num_hits = coverage_queries(lists, stages)
+    pools, pubchem = {}, {}
+    if cases:
+        print('Sealed final misses for whole-index audit:', len(cases), flush=True)
+        pools = published_structures(cases)
+        with TemporaryDirectory(prefix='coverage-panel-') as temporary:
+            pubchem = scan_pubchem(cases, Path(temporary), selector_source=GENERAL_PROFILE_SOURCE,
+                                   general_profiles=True)
+    classification, by_source = Counter(), {}
+    output = {}
+    for mid, case in cases.items():
+        main = report_store(pools['engine1'], case, 'native_E1')
+        pub = {name: report_store(store, case, 'native_C34') for name, store in pubchem.items()}
+        e2 = {name: report_store(store, case, 'native_E1') for name, store in pools.items()
+              if name.startswith('engine2_')}
+        # Engine 2 precursor gate can diverge from E1. Keep its index presence
+        # separate so an E2-only match never certifies an in-window retrieval loss.
+        if any(case['source_ranks'].values()):
+            group = 'lost_after_reported_candidate'
+        elif main['matches_in_nominal_window'] or any(x['matches_in_nominal_window'] for x in pub.values()):
+            group = 'native_window_not_shortlisted'
+        elif any(x['indexed_matches'] for x in [main, *pub.values()]):
+            group = 'indexed_but_outside_nominal_E1_C34'
+        elif any(x['indexed_matches'] for x in e2.values()):
+            group = 'engine2_only_check_native_gate'
+        else:
+            group = 'absent_from_scanned_indices'
+        classification[group] += 1
+        by_source.setdefault(case['source'], Counter())[group] += 1
+        output[mid] = {**case, 'class': group, 'engine1': main, 'pubchem': pub, 'engine2_inventory': e2}
+
+    result = dict(baseline_raw_submission_sha256=receipt['hashes']['submission.csv'],
+                  query_sha256=receipt['queries_sha256'], labels_sha256=PANEL_INPUTS['labels'][1],
+                  c34_archived_targets_version='jiyujia/enveda-075-np-recall-base/2',
+                  c34_archived_pc_lists_sha256=ORIGINAL_PC_LISTS_SHA, rdkit=rdBase.rdkitVersion,
+                  molecules=len(lists), final_misses=len(cases), final_hits=num_hits,
+                  stages=ORIGINAL_LISTS, classification=dict(classification), by_source=by_source,
+                  stores={name: {k: v for k, v in stats.items() if k != 'by_query'}
+                          for name, stats in {**pools, **pubchem}.items()}, by_query=output,
+                  elapsed_seconds=round(time.monotonic()-started, 1))
+    (OUT / 'native_window_coverage.json').write_text(json.dumps(result, indent=2, allow_nan=False) + '\n')
+    print('FULL_PANEL_COVERAGE', dict(classification), flush=True)
+
+
+if __name__ == '__main__':
+    cover_panel()
