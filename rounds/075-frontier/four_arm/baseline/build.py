@@ -57,8 +57,9 @@ COMP = _four_root
 """
 
 
-def route_engine(book):
-    bundle = cell(book, 12)
+def route_engine(book, *, bundle_index=12, driver_index=13, patch_inner=None,
+                 allow_empty_extension=False):
+    bundle = cell(book, bundle_index)
     raw = base64.b64decode(ast.literal_eval(assignment(bundle, 'FROZEN_B64').value))
     if digest(raw) != ast.literal_eval(assignment(bundle, 'FROZEN_SHA256').value):
         raise ValueError('The embedded v7 pipeline digest differs')
@@ -98,6 +99,9 @@ def route_engine(book):
 """ + h)
     edit(36, "len(extra_meta) == pins['added_rows'] and len(used_keys) == pins['added_keys']",
          "len(extra_meta) + removed == pins['added_rows'] and len(group_keys_before_mask) == pins['added_keys']")
+    if allow_empty_extension:
+        edit(36, "        check(len(extra_meta) > 0, 'no eligible external references')", """        if not extra_meta:
+            return dict(path=None, added=0, keys=0, base_rows=n, validation_removed=removed, error=None)""")
     h = "_EXTERNAL_REFERENCE_STATE = _build_external_reference_cache('work', TABLE, _EXTERNAL_REFERENCE_PINS)"
     edit(36, h, h + "\nassert _EXTERNAL_REFERENCE_STATE['error'] is None, _EXTERNAL_REFERENCE_STATE\n")
     h = "return dict(path=str(target), added=len(extra_meta), keys=len(used_keys), base_rows=n, error=None)"
@@ -114,11 +118,13 @@ _four_sources = {str(mid):dict(main=list(BASE[mid][0]),
                               pubchem=list(PC.get(mid,{}).get('pc', []))) for mid in BASE}
 Path('/kaggle/working/four_source_lists.json').write_text(json.dumps(_four_sources))
 """)
+    if patch_inner is not None:
+        patch_inner(inner)
     payload = json.dumps(inner, ensure_ascii=False, separators=(',', ':')).encode()
     bundle = set_assignment(bundle, 'FROZEN_B64', base64.b64encode(zlib.compress(payload, 9)).decode())
-    set_cell(book, 12, set_assignment(bundle, 'FROZEN_SHA256', digest(payload)))
-    driver = cell(book, 13)
-    set_cell(book, 13, rewrite(driver, 'FROZEN.write_bytes(base64.b64decode(FROZEN_B64))',
+    set_cell(book, bundle_index, set_assignment(bundle, 'FROZEN_SHA256', digest(payload)))
+    driver = cell(book, driver_index)
+    set_cell(book, driver_index, rewrite(driver, 'FROZEN.write_bytes(base64.b64decode(FROZEN_B64))',
                                'import zlib\n    FROZEN.write_bytes(zlib.decompress(base64.b64decode(FROZEN_B64)))'))
     return cell(inner, 2)
 

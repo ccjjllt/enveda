@@ -49,7 +49,7 @@ def accession_files(archive):
     return entries
 
 
-def ms2_record(archive, member, allowed_adducts=PROTONATED):
+def ms2_record(archive, member, allowed_adducts=PROTONATED, *, allow_ion_type=False):
     lines = archive.read(member).decode('utf-8-sig', errors='replace').splitlines()
     fields = {}
     mzs, intensities = [], []
@@ -85,7 +85,7 @@ def ms2_record(archive, member, allowed_adducts=PROTONATED):
         return 'license_unavailable_or_restricted', None
     polarity = fields.get('AC$MASS_SPECTROMETRY: ION_MODE', '').lower()
     precursor_type = fields.get('MS$FOCUSED_ION: PRECURSOR_TYPE', '')
-    if not precursor_type and '[M+NH4]+' in allowed_adducts:
+    if not precursor_type and (allow_ion_type or '[M+NH4]+' in allowed_adducts):
         precursor_type = fields.get('MS$FOCUSED_ION: ION_TYPE', '')
     raw_adduct = ''.join(precursor_type.split())
     adduct = '[M+NH4]+' if raw_adduct in AMMONIUM_ALIASES else raw_adduct
