@@ -6,13 +6,13 @@ import base64
 from hashlib import sha256
 import json
 from pathlib import Path
-from runpy import run_path
 import zlib
 
 
 HERE = Path(__file__).resolve().parent
-PUBLIC = run_path(str(HERE.parent/'native_only_production'/'build.py'))
 SLUG = 'enveda-075-final-native-top5-production-smoke'
+PUBLIC_SHA = 'a183882abe0b131581109455e1b704ec6d93f27fb99e7b5c2f07d40063e9c5af'
+PUBLIC_METADATA = 'ca306d7710f2b361eb182602368bc42b50afd299bd6061e9deed2ecdfe57a43c'
 CAPTURE = '''
 
 # Retain provenance for the optional post-fusion use of these exact stock scores.
@@ -47,8 +47,23 @@ from rdkit.Chem.rdMolDescriptors import CalcMolFormula
 '''
 
 
+def text(book, index):
+    return ''.join(book['cells'][index]['source'])
+
+
+def write(book, index, source):
+    compile(source, f'final-native-top5-{index}', 'exec')
+    book['cells'][index]['source'] = source.splitlines(keepends=True)
+
+
+def replace_once(source, anchor, replacement):
+    if source.count(anchor) != 1:
+        raise ValueError(f'Unknown public source at {anchor[:80]}')
+    return source.replace(anchor, replacement)
+
+
 def patch_inner(book):
-    original = PUBLIC['text'](book,10)
+    original = text(book,10)
     assignments = {node.targets[0].id:node for node in ast.parse(original).body
                    if isinstance(node,ast.Assign) and len(node.targets)==1
                    and getattr(node.targets[0],'id',None) in ('FROZEN_B64','FROZEN_SHA256')}
@@ -59,16 +74,16 @@ def patch_inner(book):
     body = json.loads(raw)
     if body['cells'][41]['id']!='3653cea7':
         raise ValueError('Expected the authored C41 prediction cell')
-    PUBLIC['write'](body,41,PUBLIC['text'](body,41)+CAPTURE)
+    write(body,41,text(body,41)+CAPTURE)
     revised = json.dumps(body,ensure_ascii=False,separators=(',',':')).encode()
     values = {'FROZEN_SHA256':sha256(revised).hexdigest(),
               'FROZEN_B64':base64.b64encode(zlib.compress(revised,9)).decode()}
     lines = original.splitlines(keepends=True)
     for name,node in sorted(assignments.items(),key=lambda item:item[1].lineno,reverse=True):
         lines[node.lineno-1:node.end_lineno] = [f'{name} = {values[name]!r}\n']
-    PUBLIC['write'](book,10,''.join(lines))
-    loader = PUBLIC['text'](book,11)
-    PUBLIC['write'](book,11,PUBLIC['replace_once'](loader,'    FROZEN.write_bytes(base64.b64decode(FROZEN_B64))',
+    write(book,10,''.join(lines))
+    loader = text(book,11)
+    write(book,11,replace_once(loader,'    FROZEN.write_bytes(base64.b64decode(FROZEN_B64))',
                                                     '    import zlib\n    FROZEN.write_bytes(zlib.decompress(base64.b64decode(FROZEN_B64)))'))
     return old_sha,values['FROZEN_SHA256']
 
@@ -87,10 +102,10 @@ def rule_source():
 
 def build(source, metadata, out):
     raw, meta_raw = source.read_bytes(), metadata.read_bytes()
-    if sha256(raw).hexdigest()!=PUBLIC['PUBLIC_SHA'] or sha256(meta_raw).hexdigest()!=PUBLIC['PUBLIC_METADATA']:
+    if sha256(raw).hexdigest()!=PUBLIC_SHA or sha256(meta_raw).hexdigest()!=PUBLIC_METADATA:
         raise ValueError('Expected the exact public Pablo v29 base and metadata')
     book, meta = json.loads(raw), json.loads(meta_raw)
-    setup = PUBLIC['text'](book,1)
+    setup = text(book,1)
     if "COMMIT_MODE = 'smoke'" not in setup or 'ENABLE_EXTLIB2 = False' not in setup:
         raise ValueError('Unexpected public commit configuration')
     if set(meta['kernelDataSources']) != {'alexchilton/casmi26-scorer-train-v80'}:

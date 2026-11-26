@@ -59,13 +59,13 @@ def build(output,panel,archive,include_main):
                             truth_key=target.truth_key))
     if {row['challenge'] for row in records}!=IDS:
         raise ValueError('Frozen panel is missing a target compound.')
-    prereqs = FRONTIER/'cross_polarity'
-    helpers = sections(prereqs/'train.py',{'find','chemistry'})
+    prereqs = HERE / 'index_inputs.source'
+    helpers = sections(prereqs, {'find', 'chemistry'})
     helpers = helpers.replace(
         "wheel, = ROOT.rglob(f'rdkit-2026.3.3-{tag}-*.whl')",
         "wheel, = (p for p in ROOT.rglob(f'rdkit-2026.3.3-{tag}-*.whl')\n"
         "                  if 'casmi26-attributed-v4g-reproduction-assets' not in p.parts)")
-    helpers += '\n\n' + sections(prereqs/'full_window/retrieve.py',{'POPULARITY','index_files'})
+    helpers += '\n\n' + sections(prereqs, {'POPULARITY', 'index_files'})
     definitions = f'FROZEN_INPUT = {records!r}\nFROZEN_HASHES = {hashes!r}\nINCLUDE_MAIN = {include_main!r}\n'
     definitions += f'FASTSCAN_SOURCE = {(HERE/"fastscan.cpp").read_text()!r}'
     source = '\n\n'.join([helpers,definitions,(HERE/'audit.py').read_text()])

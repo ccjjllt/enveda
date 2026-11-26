@@ -1,12 +1,17 @@
 """Run both sealed MassBank rank-5 reserves with fresh native CPU predictions."""
 
 import argparse
+import ast
 from hashlib import sha256
 import json
 from pathlib import Path
 
 from build import HERE, METRIC_BOOTSTRAP, WHEEL, pack
-from build_c41_study import function
+
+
+def function(code, name):
+    node, = (n for n in ast.parse(code).body if isinstance(n, ast.FunctionDef) and n.name == name)
+    return ast.get_source_segment(code, node)
 
 
 SLUG = 'enveda-075-mb110-fr-rank5-run'
@@ -73,8 +78,22 @@ def file_hash(path):
         return file_digest(stream, 'sha256').hexdigest()
 
 
+def original_helper(package, model):
+    import importlib.util
+    import sys
+
+    fuse = 'fuse.py' if model == 'ice' else 'gl_fuse.py'
+    spec = importlib.util.spec_from_file_location(f'c41_archived_{model}_fuse', package / fuse)
+    module = importlib.util.module_from_spec(spec)
+    sys.path.insert(0, str(package))
+    try:
+        spec.loader.exec_module(module)
+    finally:
+        sys.path.pop(0)
+    return module
+
+
 def predict(model, package, ice_dir, items, out, site):
-    from c41_delta_predict import original_helper
     from c39_request_cache import checked_scores
 
     helper = original_helper(package, model)
@@ -171,7 +190,8 @@ def build(seal, runtime, out, planner_version):
              + function((HERE / 'build_final_native_outsider_np60.py').read_text(), 'replace_at_rank'))
     this_source = Path(__file__).read_text()
     local = this_source[this_source.index('SLUG = '):this_source.index('\ndef build(')]
-    modules = {name: pack((HERE / name).read_bytes()) for name in ('c39_request_cache.py', 'c41_delta_predict.py')}
+    cache = HERE / 'c39_request_cache.py'
+    modules = {cache.name: pack(cache.read_bytes())}
     modules.update(native_run=pack(('from hashlib import sha256\nimport json\nfrom pathlib import Path\n' + local).encode()),
                    native_site=pack(site.encode()), native_rule=pack(rules.encode()))
     program = f'''

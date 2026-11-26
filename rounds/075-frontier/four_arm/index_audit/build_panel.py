@@ -34,15 +34,14 @@ def build(panel, archive, output, baseline_kernel):
     if inputs['effective_queries'][1] != EFFECTIVE_SHA:
         raise ValueError('The archived v2 Engine 1 spectra have changed')
 
-    prerequisite = FRONTIER / 'cross_polarity'
-    train = prerequisite / 'train.py'
-    helpers = sections(train, {'find'})
-    _, import_line, body = sections(train, {'chemistry'}).partition('    from rdkit import Chem, RDLogger, rdBase')
+    prerequisites = HERE / 'index_inputs.source'
+    helpers = sections(prerequisites, {'find'})
+    _, import_line, body = sections(prerequisites, {'chemistry'}).partition('    from rdkit import Chem, RDLogger, rdBase')
     if not import_line:
         raise ValueError('The shared chemistry runtime moved its RDKit import')
     helpers += ('\n\ndef chemistry():\n    import subprocess\n    import sys\n\n    inputs = ROOT\n'
                 + indent(METRIC_BOOTSTRAP.strip(), '    ') + '\n' + import_line + body)
-    helpers += '\n\n' + sections(prerequisite / 'full_window/retrieve.py', {'POPULARITY', 'index_files'})
+    helpers += '\n\n' + sections(prerequisites, {'POPULARITY', 'index_files'})
     raw, _, _ = (HERE / 'audit.py').read_text().rpartition("\nif __name__=='__main__':")
     if not raw:
         raise ValueError('The shared index audit runtime moved its entry point')

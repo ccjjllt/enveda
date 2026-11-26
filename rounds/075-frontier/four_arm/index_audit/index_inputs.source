@@ -1,0 +1,60 @@
+def find(slug, name):
+    matches = [path for path in ROOT.rglob(name) if slug.casefold() in
+               {part.casefold() for part in path.parts}]
+    if len(matches) != 1:
+        raise ValueError(f'Expected one {name} under {slug}, got {len(matches)}')
+    return matches[0]
+
+def chemistry():
+    import importlib.metadata
+    import subprocess
+    import sys
+
+    try:
+        version = importlib.metadata.version('rdkit')
+    except importlib.metadata.PackageNotFoundError:
+        version = ''
+    if version.replace('.03.', '.3.') != '2026.3.3':
+        tag = f'cp{sys.version_info.major}{sys.version_info.minor}'
+        wheel, = ROOT.rglob(f'rdkit-2026.3.3-{tag}-*.whl')
+        subprocess.run([sys.executable, '-m', 'pip', 'install', '--quiet', '--no-index', '--no-deps', str(wheel)], check=True)
+    from rdkit import Chem, RDLogger, rdBase
+    from rdkit.Chem import rdFingerprintGenerator, rdMolDescriptors
+    from rdkit.Chem.MolStandardize import rdMolStandardize
+    from rdkit.Chem.Scaffolds import MurckoScaffold
+
+    if rdBase.rdkitVersion != '2026.03.3':
+        raise RuntimeError(f'Expected competition RDKit, got {rdBase.rdkitVersion}')
+    RDLogger.DisableLog('rdApp.*')
+    tautomer = rdMolStandardize.TautomerEnumerator()
+    fingerprints = rdFingerprintGenerator.GetMorganGenerator(radius=2, fpSize=2048)
+
+    def describe(smiles, scaffold=False):
+        mol = Chem.MolFromSmiles(smiles)
+        if mol is None:
+            return None
+        Chem.RemoveStereochemistry(mol)
+        canonical = tautomer.Canonicalize(mol)
+        key = Chem.MolToInchiKey(canonical)[:14]
+        group = ''
+        if scaffold:
+            framework = MurckoScaffold.GetScaffoldForMol(canonical)
+            if framework.GetNumAtoms():
+                group = Chem.MolToSmiles(MurckoScaffold.MakeScaffoldGeneric(framework))
+        return key, group, rdMolDescriptors.CalcExactMolWt(canonical), fingerprints.GetFingerprintAsNumPy(canonical)
+
+    return describe
+
+POPULARITY = 'casmi26-pubchem-popularity-prior'
+
+def index_files():
+    base = find(POPULARITY, 'pc_mass.npy')
+    delta = find(POPULARITY, 'delta_pc_mass.npy').parent
+    stores = []
+    for directory, prefix in ((base.parent, 'pc'), (delta, 'delta_pc'), (delta, 'growth_pc')):
+        mass, offsets, encoded = (np.load(directory / f'{prefix}_{kind}.npy', mmap_mode='r')
+                                  for kind in ('mass', 'off', 'smiles'))
+        if offsets.shape != (len(mass) + 1,) or offsets[0] != 0 or offsets[-1] != len(encoded):
+            raise ValueError(f'Misaligned PubChem store {prefix}')
+        stores.append((mass, offsets, encoded))
+    return stores
