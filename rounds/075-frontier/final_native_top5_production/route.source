@@ -1,0 +1,90 @@
+def load_native_lane(root, model, hashes):
+    work = root/f'{model}_work'
+    paths = [work/(model+suffix) for suffix in ('_in.json','_out.json','_out.json.meta.json')]
+    values = []
+    for path in paths:
+        raw = path.read_bytes()
+        if sha256(raw).hexdigest() != hashes[str(path.relative_to(root))]:
+            raise ValueError(f'The stock {model} evidence changed after C41')
+        values.append(json.loads(raw))
+    rows, scores, meta = values
+    # A stock budget stop retains scores from completed work and leaves the rest null.
+    status = meta.get('status')
+    if status not in ('ok','budget') or not str(meta.get('device','')).startswith('cuda'):
+        raise ValueError(f'Unusable stock {model} CUDA prediction status: {status}')
+    request = {str(row['mid']):row for row in rows}
+    if len(request) != len(rows) or set(scores)-set(request):
+        raise ValueError(f'Invalid stock {model} request population')
+    for mid, values in scores.items():
+        if not isinstance(values,dict) or set(values)-set(request[mid]['cands']):
+            raise ValueError(f'Unexpected stock {model} score keys in {mid}')
+    return request, scores, status
+
+
+def apply_final_native_top5(root):
+    path = root/'submission.csv'
+    original = path.read_bytes()
+    reader = csv.DictReader(StringIO(original.decode()))
+    rows = list(reader)
+    audit = dict(status='kept_stock', input_sha256=sha256(original).hexdigest(),
+                 rows=len(rows), new_predictor_requests=0, candidates_changed=0, threshold=0.9)
+    try:
+        if rdBase.rdkitVersion != '2026.03.3' or reader.fieldnames != ['molecule_id','smiles']:
+            raise ValueError('Unexpected metric environment or final output columns')
+        if len({r['molecule_id'] for r in rows}) != len(rows):
+            raise ValueError('The stock submission has duplicated queries')
+        c41 = json.loads((root/'final_top5_c41_provenance.json').read_bytes())
+        library = c41['library']
+        request, scores, statuses = {}, {}, {}
+        for model in ('ice','gl'):
+            request[model], scores[model], statuses[model] = load_native_lane(root,model,c41['file_sha256'])
+        audit['native_lane_status'] = statuses
+        updated = []
+        counts = Counter()
+        for row in rows:
+            mid = row['molecule_id']
+            original_rank = row['smiles'].split(';') if row['smiles'] else []
+            groups = defaultdict(list)
+            model_scores = {}
+            if len(original_rank)>25:
+                raise ValueError('The stock submission exceeded its candidate budget')
+            strength = library.get(mid)
+            if strength is not None and math.isfinite(strength) and strength < .9:
+                counts['weak_library'] += 1
+                budget = {}
+                for model in ('ice','gl'):
+                    source = request[model].get(mid,{})
+                    budget[model+'_native_candidate_spectra'] = len(source.get('cands',[]))*len(source.get('spectra',[]))
+                evidence, paired = native_evidence(mid,original_rank[:5],request,scores,budget)
+                if paired:
+                    counts['same_native_spectra'] += 1
+                    for index, smiles in enumerate(original_rank[:5]):
+                        group = formula(smiles)
+                        if group:
+                            groups[group].append(index)
+                            a,b = (evidence[model]['values'].get(smiles) for model in ('ice','gl'))
+                            if a is not None and b is not None:
+                                model_scores[smiles] = (a,b)
+            after, moves = permutation(original_rank,groups,model_scores,allow_first=True)
+            counts['comparable_pairs'] += moves['comparable_pairs']
+            counts['reranked_rows'] += bool(moves['changes'])
+            counts['rank1_changed'] += after[:1] != original_rank[:1]
+            updated.append(dict(row,smiles=';'.join(after)))
+        if counts['reranked_rows']:
+            tmp = root/'final_native_top5_submission.tmp'
+            with tmp.open('w',newline='') as handle:
+                writer = csv.DictWriter(handle,fieldnames=reader.fieldnames)
+                writer.writeheader()
+                writer.writerows(updated)
+            tmp.replace(path)
+        audit.update(status='applied_final_native_top5', counts=dict(counts),
+                     provenance_sha256=sha256((root/'final_top5_c41_provenance.json').read_bytes()).hexdigest())
+    except (OSError, ValueError, TypeError, KeyError) as exc:
+        audit.update(reason=f'{type(exc).__name__}: {exc}')
+    audit['output_sha256'] = sha256(path.read_bytes()).hexdigest()
+    (root/'final_native_top5_production_receipt.json').write_text(json.dumps(audit,indent=2,allow_nan=False)+'\n')
+    print('Stock-forward final top-five:',audit,flush=True)
+
+
+if globals().get('PIPELINE_DONE'):
+    apply_final_native_top5(Path('/kaggle/working'))
