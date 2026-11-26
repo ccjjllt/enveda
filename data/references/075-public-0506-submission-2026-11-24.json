@@ -45,5 +45,16 @@
   "attempts_submitted": 1,
   "status_last_checked_beijing": "2026-11-25T09:09:22+08:00",
   "kernel_status": "COMPLETE",
-  "gpu_hours_available_last_checked": 12.743
+  "gpu_hours_available_last_checked": 12.743,
+  "repeat_submissions": [
+    {
+      "submission": 58920333,
+      "submitted_utc": "2026-11-26T01:43:52.720Z",
+      "notebook": "jiyujia/enveda-casmi-0506-pablo/1",
+      "same_version_as_submission": 58820476,
+      "status_at_acceptance": "PENDING",
+      "public_score": null,
+      "remaining_daily_slots_at_acceptance": 4
+    }
+  ]
 }
