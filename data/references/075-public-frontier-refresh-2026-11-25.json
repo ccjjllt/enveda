@@ -515,5 +515,367 @@
       "vtlp_weight": 0.25
     },
     "higher_complete_public_reproduction_verified": false
+  },
+  "16_49_refresh": {
+    "snapshot_beijing": "2026-11-25 16:47–16:49",
+    "leaders": [
+      {
+        "team": "Shehab",
+        "public_score": "0.554"
+      },
+      {
+        "team": "Legends",
+        "public_score": "0.551"
+      },
+      {
+        "team": "democat",
+        "public_score": "0.546"
+      }
+    ],
+    "own_submission": {
+      "status": "COMPLETE",
+      "public_score": "0.506",
+      "public_rank": 655,
+      "ref": 58820476
+    },
+    "sachchidanandadaki_v30": {
+      "notebook": "https://www.kaggle.com/code/sachchidanandadaki/casmi26/versions/30",
+      "claimed_input_branches": [
+        "Ishan 0.509",
+        "Heliosli 0.508"
+      ],
+      "ensemble_rule": "Keeps A first, places B first at rank 2 when they disagree",
+      "vtlp_file": "vt_lp_e1.npy",
+      "vtlp_weight": 0.25,
+      "heliosli_datasets_in_actual_version_metadata": false,
+      "team_score": "0.509",
+      "team_submission_utc": "2026-11-24T16:54:00Z",
+      "version_run_utc": "2026-11-25T07:27:00Z",
+      "version_score_binding_verified": false
+    },
+    "liuzewen123_v12": {
+      "notebook": "https://www.kaggle.com/code/liuzewen123/casmi-np-spec-v12/versions/1",
+      "uses_vtlp": false,
+      "observed_method": "Train reference cosine and COCONUT nearest mass",
+      "blank_dataset_source_identifiers": 3,
+      "higher_score_with_verified_version_binding": false
+    },
+    "other_recent_vtlp_dependents": [
+      "Xinghe NPF v1",
+      "Xinghe Combo v1",
+      "Davinor both v2",
+      "SW/X7 0.509 rerun v1"
+    ],
+    "higher_complete_public_reproduction_verified": false
+  },
+  "17_03_refresh": {
+    "snapshot_beijing": "2026-11-25 17:03",
+    "leading_scores": [
+      "0.554",
+      "0.551",
+      "0.546"
+    ],
+    "pablo_v30": {
+      "notebook": "https://www.kaggle.com/code/pablodiegoo/enveda-casmi26-starter-notebook/versions/30",
+      "kaggle_version": 30,
+      "logical_revision_in_markdown": "v31",
+      "addition": "Stage 8e virtual natural products",
+      "data_dependencies": [
+        "ishankarnick/casmi26-vt0",
+        "ishankarnick/casmi26-vtlp"
+      ],
+      "vtlp_file": "vt_lp_e1.npy",
+      "vtlp_weight": 0.25,
+      "public_version_score_binding_verified": false
+    },
+    "ishan": {
+      "notebook": "https://www.kaggle.com/code/ishankarnick/casmi26-lb-0-509-47-7m-virtual-natural-products/versions/1",
+      "public_score": "0.509",
+      "ref": 58766113,
+      "author_explicitly_links_score_to_version": true,
+      "vtlp_dataset": "https://www.kaggle.com/datasets/ishankarnick/casmi26-vtlp",
+      "vtlp_version": 2,
+      "vtlp_files": [
+        "vt_lp_e1.npy",
+        "vt_lp_g1.npy",
+        "vt_lp_j1.npy"
+      ],
+      "e1_public_description": "Averages a gradient-boosted model and three MLP seeds. Positives are in-pool derivatives reachable from other parents. Inputs use parent, transform and simple structural descriptors.",
+      "executable_producer_found": false
+    },
+    "minghun_v135": {
+      "notebook": "https://www.kaggle.com/code/jiyuhao1213/casmi26-v135/versions/1",
+      "markdown_target": "0.512+",
+      "vtlp_file": "vt_lp_e1.npy",
+      "vtlp_weight": 0.25
+    },
+    "higher_complete_public_reproduction_verified": false
+  },
+  "17_48_refresh": {
+    "snapshot_beijing": "2026-11-25 17:46–17:48",
+    "leading_scores": [
+      "0.554",
+      "0.551",
+      "0.546"
+    ],
+    "own_verified_submission": {
+      "ref": 58820476,
+      "public_score": "0.506",
+      "status": "COMPLETE"
+    },
+    "xinghe_npf38": {
+      "notebook": "https://www.kaggle.com/code/xinghe0124/casmi26-npf38/versions/1",
+      "vtlp_file": "vt_lp_e1.npy",
+      "vtlp_weight": 0.25
+    },
+    "sinchir0_v13": {
+      "notebook": "https://www.kaggle.com/code/sinchir0/casmi26-baseline-v13-glacier/versions/1",
+      "uses_vtlp": false,
+      "preserves_first_pool_candidates": 5,
+      "blank_dataset_source_identifiers": 4,
+      "higher_official_score_binding_verified": false
+    },
+    "official_intermediate_provenance": "https://www.kaggle.com/competitions/enveda-CASMI26-molecule-id-mass-spectra/discussion/760376",
+    "vtlp_license": "CC BY-NC-SA 4.0",
+    "executable_vtlp_producer_found": false,
+    "higher_complete_public_reproduction_verified": false
+  },
+  "19_16_refresh": {
+    "snapshot_beijing": "2026-11-25T19:16:51+08:00",
+    "leading_scores": [
+      "0.562",
+      "0.554",
+      "0.551"
+    ],
+    "leader": {
+      "name": "pjmathematician",
+      "team_id": 16896989,
+      "submission_ref": 58864401,
+      "submitted_beijing": "2026-11-25T11:26:50+08:00",
+      "public_score": "0.562",
+      "public_code_profile": "https://www.kaggle.com/pjmathematician/code",
+      "public_competition_notebook_in_recent_profile_results": false
+    },
+    "own_submission": {
+      "ref": 58820476,
+      "public_score": "0.506",
+      "status": "COMPLETE"
+    },
+    "public_notebooks_checked": [
+      {
+        "version": "adityaraj0612/casmi26-exp335-sovereign-0512-apex-master/2",
+        "mounts_vtlp": true,
+        "verified_submission_binding": false
+      },
+      {
+        "version": "jiyuhao1213/casmi26-v136/1",
+        "mounts_vtlp": true,
+        "target_only": "0.512+",
+        "verified_submission_binding": false
+      },
+      {
+        "version": "sinchir0/casmi26-baseline-v13-glacier/2",
+        "blank_dataset_source_identifiers": 4,
+        "verified_submission_binding": false
+      },
+      {
+        "version": "jacobcascone/casmi26-auto-casmi26baselinev13glacier/1",
+        "listed_dataset_source_identifiers": 2,
+        "verified_submission_binding": false
+      },
+      {
+        "version": "jacobcascone/casmi26-validationthattellsthet/7",
+        "validation_only": true
+      }
+    ],
+    "higher_complete_public_reproduction_verified": false
+  },
+  "19_35_refresh": {
+    "snapshot_beijing": "2026-11-25T19:35:11+08:00",
+    "official_teams": 5966,
+    "official_archive_sha256": "a91b6b1dbc2bd1dbcb43d4e124b61e2792b69f09b906084cba02d070a787cc5a",
+    "official_csv_sha256": "4cfd61ee617b7232f340281161f3b6b90d926f298b049dd498228bb7bda694ea",
+    "leading_scores": [
+      "0.562",
+      "0.554",
+      "0.551"
+    ],
+    "own": {
+      "ref": 58820476,
+      "public": "0.506",
+      "rank": 700,
+      "status": "COMPLETE"
+    },
+    "public_review": [
+      {
+        "ref": "rogersjohnson/casmi26-l4-vt/1",
+        "team_public": "0.492",
+        "reads_vtlp": true
+      },
+      {
+        "ref": "swx7ppj/casmi26-lb-0-512-rerun/1",
+        "team_public": "0.505",
+        "reads_vtlp": true,
+        "reported_formula_hedge_validation_delta": 0
+      },
+      {
+        "ref": "jiyuhao1213/casmi26-v137/1",
+        "team_public": "0.509",
+        "reads_vtlp": true,
+        "claimed_target": "0.512+"
+      }
+    ],
+    "verified_higher_complete_public_reproduction": false
+  },
+  "fiddle_v240_timstof": {
+    "public_release": "https://github.com/JosieHong/FIDDLE/releases/tag/v2.4.0",
+    "source_training": "https://github.com/JosieHong/FIDDLE/blob/v2.4.0/running_scripts/train_release_v2.4.sh",
+    "stage": "jiyujia/enveda-075-fiddle-v240-timstof-stage/2",
+    "stage_status": "COMPLETE",
+    "stage_receipt_sha256": "95aa42bbfa7537579ea46365848c6601390f5ea37b5f9b5ee4e68efa72aad32a",
+    "receipt": {
+      "status": "sealed",
+      "upstream_commit": "805e2b363a73e8c70ebba7d7dca05cf46eb5c67f",
+      "release_tag": "v2.4.0",
+      "published_utc": "2026-11-22T06:02:12Z",
+      "code_license": "Apache-2.0 (author repository LICENSE)",
+      "device": "cpu",
+      "instrument": "timstof",
+      "config_sha256": "6a21a3b025bea31c32a32917aa5b14491e56e15b86b36d78390ddb876e23b8e4",
+      "checkpoints": {
+        "fiddle_tcn_timstof.pt": {
+          "bytes": 84159408,
+          "sha256": "473ff5425b4d3ff387218dde7c251f8e40a796f02c2af58f1e62fe00c761c7c4"
+        },
+        "fiddle_rescore_timstof.pt": {
+          "bytes": 866235,
+          "sha256": "90703354182d4fc7a60f577cbbc4fe0c548cc2dfa8282788702649d6ac6344d0"
+        }
+      },
+      "files": {
+        "fiddle_timstof.zip": {
+          "source": "https://github.com/JosieHong/FIDDLE/releases/download/v2.4.0/fiddle_timstof.zip",
+          "bytes": 80596255,
+          "sha256": "f338b6531c34637917e7dd573cc83c2c6a60b15ae5f79493f57f79ee1d2d8e3a"
+        },
+        "msfiddle-2.4.0-py3-none-any.whl": {
+          "source": "https://files.pythonhosted.org/packages/af/4d/3f40dd307121294d1af43676562f2f71506fff9ee4186e531e47af6a4603/msfiddle-2.4.0-py3-none-any.whl",
+          "bytes": 100109,
+          "sha256": "829d2576db9b10c285058466e4c7de708e5668040dce1f313c14c7bd86a88d9b"
+        },
+        "molmass-2026.11.1-py3-none-any.whl": {
+          "source": "https://files.pythonhosted.org/packages/e2/66/5bd0fd74d2eb2e98ea12650eb21302e65d1b4d4706452f27a1e7321330b1/molmass-2026.11.1-py3-none-any.whl",
+          "bytes": 79195,
+          "sha256": "f16ba27aea36bb7b9ace10b8d77847946e8b4c9a6a0622c80de9a95bb517ac77"
+        },
+        "pyteomics-5.0.2-py3-none-any.whl": {
+          "source": "https://files.pythonhosted.org/packages/b4/3d/75b1235336ca11e09869efe009cef62082610317841b20748c658a4791b2/pyteomics-5.0.2-py3-none-any.whl",
+          "bytes": 264035,
+          "sha256": "ecd4c846762e8ba71d562e58ff8a0f47c7d249d0f28a98648ee455c7121a5aba"
+        },
+        "FIDDLE-LICENSE.txt": {
+          "source": "https://raw.githubusercontent.com/josiehong/FIDDLE/805e2b363a73e8c70ebba7d7dca05cf46eb5c67f/LICENSE",
+          "bytes": 11340,
+          "sha256": "6ac436add23560dca3d67b1721c9a467249e47228c21e8f5a0726b114cc9ddde"
+        }
+      },
+      "runtime_versions": {
+        "numpy": "2.0.2",
+        "pandas": "2.3.3",
+        "pyyaml": "6.0.3",
+        "scikit-learn": "1.6.1",
+        "scipy": "1.16.3",
+        "pyarrow": "24.0.0",
+        "rdkit": "2026.3.3",
+        "torch": "2.10.0+cu128",
+        "tqdm": "4.67.3",
+        "msfiddle": "2.4.0",
+        "molmass": "2026.11.1",
+        "pyteomics": "5.0.2"
+      },
+      "call_contract": {
+        "inputs": [
+          "id",
+          "mz_array",
+          "intensity_array",
+          "precursor_mz",
+          "adduct",
+          "collision_energy"
+        ],
+        "score": "candidates[].metadata.raw_rescore",
+        "observed_ce": "Explicit measured numeric eV or unit-tagged string, observed stepped eV lists passed as comma-separated values (author encodes mean)",
+        "reject": "Skip unsupported adducts/peaks or unspecified collision energy"
+      },
+      "demo_only": {
+        "source": "Upstream redistributable smoke example",
+        "source_sha256": "ca2aa4bc4235f25577517da29a969f44d09eba65050f452c929a73b6082f74b0",
+        "validation_status_counts": {
+          "ok": 21
+        },
+        "predictions": [
+          {
+            "id": "EMBL_MCF_2_0_HRMS_Library000529",
+            "precursor_mz": 111.02016,
+            "adduct_input": "[M-H]-",
+            "adduct_encoded": "[M-H]-",
+            "ce_input": "50 nce",
+            "ce_encoded": "50 nce",
+            "candidate_count": 1,
+            "first_formula": "C4H4N2O2",
+            "first_raw_rescore": 0.9591746926307678
+          },
+          {
+            "id": "EMBL_MCF_2_0_HRMS_Library000493",
+            "precursor_mz": 129.0921,
+            "adduct_input": "[M-H]-",
+            "adduct_encoded": "[M-H]-",
+            "ce_input": "50 nce",
+            "ce_encoded": "50 nce",
+            "candidate_count": 1,
+            "first_formula": "C7H14O2",
+            "first_raw_rescore": 0.016565416008234024
+          },
+          {
+            "id": "EMBL_MCF_2_0_HRMS_Library000492",
+            "precursor_mz": 148.026,
+            "adduct_input": "[M-H]-",
+            "adduct_encoded": "[M-H]-",
+            "ce_input": "50 nce",
+            "ce_encoded": "50 nce",
+            "candidate_count": 2,
+            "first_formula": "C5H11NS2",
+            "first_raw_rescore": 2.8054813810740598e-05
+          }
+        ],
+        "scientific_measurement": false
+      },
+      "elapsed_seconds": 11.42
+    },
+    "staging_v1_failure": "ModuleNotFoundError: No module named rdkit",
+    "eligible_blind_spectra_audit": {
+      "e180": [
+        121,
+        299
+      ],
+      "np60": [
+        0,
+        0
+      ],
+      "mb110": [
+        0,
+        0
+      ]
+    },
+    "pilot_v1_mount_warning": "Kaggle CLI dropped private jiyujia/enveda-075-np-recall-base/2; no validated blind predictions from this version yet.",
+    "pilot_v1_status": "ERROR",
+    "pilot_v2": {
+      "kernel": "jiyujia/enveda-075-fiddle-v240-blind-formula/2",
+      "status": "RUNNING",
+      "scope": "Only E180 121 queries/299 raw timsTOF scans with explicit 20/40/60 eV. No labels mounted.",
+      "source_sha256": "52f1543ad0451deba8f9c82d98d98a2b98926e8c1f466570fc9b64b8e8e4eeb0",
+      "formula_budget_per_scan": 5,
+      "independent_score_formula_budget_per_query": 5,
+      "scorer_slug": "jiyujia/enveda-075-fiddle-v240-e180-score"
+    }
   }
 }
